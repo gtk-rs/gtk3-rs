@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1263,7 +1263,7 @@
     /// # Implements
     ///
     /// [`trait@glib::ObjectExt`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkPrintSettings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkPrintSettings&quot;</span>)]
     </span><span class="kw">pub struct </span>PrintSettings(Object&lt;ffi::GtkPrintSettings&gt;);
 
     <span class="kw">match fn </span>{
@@ -1277,7 +1277,7 @@
     /// # Returns
     ///
     /// a new [`PrintSettings`][crate::PrintSettings] object
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; PrintSettings {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_settings_new()) }
@@ -1293,7 +1293,7 @@
     /// # Returns
     ///
     /// the restored [`PrintSettings`][crate::PrintSettings]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_file&quot;</span>)]
     </span><span class="kw">pub fn </span>from_file(file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;PrintSettings, glib::Error&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1319,7 +1319,7 @@
     /// # Returns
     ///
     /// a new [`PrintSettings`][crate::PrintSettings] object
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_gvariant&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_gvariant&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_gvariant&quot;</span>)]
     </span><span class="kw">pub fn </span>from_gvariant(variant: <span class="kw-2">&amp;</span>glib::Variant) -&gt; PrintSettings {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1343,7 +1343,7 @@
     /// # Returns
     ///
     /// the restored [`PrintSettings`][crate::PrintSettings]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_key_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_key_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_key_file&quot;</span>)]
     </span><span class="kw">pub fn </span>from_key_file(
         key_file: <span class="kw-2">&amp;</span>glib::KeyFile,
@@ -1365,7 +1365,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_copy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_copy&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>copy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_settings_copy(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1374,7 +1374,7 @@
     <span class="doccomment">/// Calls `func` for each key-value pair of `self`.
     /// ## `func`
     /// the function to call
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_foreach&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_foreach&quot;</span>)]
     </span><span class="kw">pub fn </span>foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
         <span class="kw">let </span>func_data: P = func;
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str)&gt;(
@@ -1405,7 +1405,7 @@
     /// # Returns
     ///
     /// the string value for `key`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get&quot;</span>)]
     </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_print_settings_get(
@@ -1426,7 +1426,7 @@
     /// # Returns
     ///
     /// [`true`], if `key` maps to a true value.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_bool&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_bool&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bool&quot;</span>)]
     </span><span class="kw">pub fn </span>bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -1442,7 +1442,7 @@
     /// # Returns
     ///
     /// whether to collate the printed pages
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_collate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_collate&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_collate&quot;</span>)]
     </span><span class="kw">pub fn </span>is_collate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_collate(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1453,7 +1453,7 @@
     /// # Returns
     ///
     /// the default source
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_default_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_default_source&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_source&quot;</span>)]
     </span><span class="kw">pub fn </span>default_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
@@ -1468,7 +1468,7 @@
     /// # Returns
     ///
     /// the dithering that is used
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_dither&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_dither&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_dither&quot;</span>)]
     </span><span class="kw">pub fn </span>dither(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_get_dither(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1481,7 +1481,7 @@
     /// # Returns
     ///
     /// the double value of `key`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_double&quot;</span>)]
     </span><span class="kw">pub fn </span>double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_double(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>) }
@@ -1500,7 +1500,7 @@
     /// # Returns
     ///
     /// the floating point number associated with `key`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double_with_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double_with_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_double_with_default&quot;</span>)]
     </span><span class="kw">pub fn </span>double_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, def: f64) -&gt; f64 {
         <span class="kw">unsafe </span>{
@@ -1517,7 +1517,7 @@
     /// # Returns
     ///
     /// whether to print the output in duplex.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_duplex&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_duplex&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_duplex&quot;</span>)]
     </span><span class="kw">pub fn </span>duplex(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintDuplex {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_duplex(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1528,7 +1528,7 @@
     /// # Returns
     ///
     /// the finishings
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_finishings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_finishings&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_finishings&quot;</span>)]
     </span><span class="kw">pub fn </span>finishings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
@@ -1545,7 +1545,7 @@
     /// # Returns
     ///
     /// the integer value of `key`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_int&quot;</span>)]
     </span><span class="kw">pub fn </span>int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_int(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>) }
@@ -1561,7 +1561,7 @@
     /// # Returns
     ///
     /// the integer value of `key`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int_with_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int_with_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_int_with_default&quot;</span>)]
     </span><span class="kw">pub fn </span>int_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, def: i32) -&gt; i32 {
         <span class="kw">unsafe </span>{
@@ -1583,7 +1583,7 @@
     /// # Returns
     ///
     /// the length value of `key`, converted to `unit`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_length&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_length&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_length&quot;</span>)]
     </span><span class="kw">pub fn </span>length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, unit: Unit) -&gt; f64 {
         <span class="kw">unsafe </span>{
@@ -1602,7 +1602,7 @@
     /// # Returns
     ///
     /// the media type
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_media_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_media_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_media_type&quot;</span>)]
     </span><span class="kw">pub fn </span>media_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
@@ -1617,7 +1617,7 @@
     /// # Returns
     ///
     /// the number of copies to print
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_n_copies&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_n_copies&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_copies&quot;</span>)]
     </span><span class="kw">pub fn </span>n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_n_copies(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1628,7 +1628,7 @@
     /// # Returns
     ///
     /// the number of pages per sheet
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_number_up&quot;</span>)]
     </span><span class="kw">pub fn </span>number_up(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_number_up(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1639,7 +1639,7 @@
     /// # Returns
     ///
     /// layout of page in number-up mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up_layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_number_up_layout&quot;</span>)]
     </span><span class="kw">pub fn </span>number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NumberUpLayout {
         <span class="kw">unsafe </span>{
@@ -1655,7 +1655,7 @@
     /// # Returns
     ///
     /// the orientation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_orientation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_orientation&quot;</span>)]
     </span><span class="kw">pub fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PageOrientation {
         <span class="kw">unsafe </span>{
@@ -1670,7 +1670,7 @@
     /// # Returns
     ///
     /// the output bin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_output_bin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_output_bin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_output_bin&quot;</span>)]
     </span><span class="kw">pub fn </span>output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
@@ -1687,7 +1687,7 @@
     /// an array
     ///  of `GtkPageRanges`. Use `g_free()` to free the array when
     ///  it is no longer needed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_ranges&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_ranges&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_ranges&quot;</span>)]
     </span><span class="kw">pub fn </span>page_ranges(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;PageRange&gt; {
         <span class="kw">unsafe </span>{
@@ -1697,7 +1697,7 @@
                     <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
                     num_ranges.as_mut_ptr(),
                 ),
-                num_ranges.assume_init() <span class="kw">as </span>usize,
+                num_ranges.assume_init() <span class="kw">as _</span>,
             );
             ret
         }
@@ -1708,7 +1708,7 @@
     /// # Returns
     ///
     /// the set of pages to print
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_set&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_set&quot;</span>)]
     </span><span class="kw">pub fn </span>page_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PageSet {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_page_set(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1722,7 +1722,7 @@
     /// # Returns
     ///
     /// the paper height, in units of `unit`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_height&quot;</span>)]
     </span><span class="kw">pub fn </span>paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_height(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, unit.into_glib()) }
@@ -1734,7 +1734,7 @@
     /// # Returns
     ///
     /// the paper size
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_size&quot;</span>)]
     </span><span class="kw">pub fn </span>paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PaperSize {
         <span class="kw">unsafe </span>{
@@ -1752,7 +1752,7 @@
     /// # Returns
     ///
     /// the paper width, in units of `unit`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_width&quot;</span>)]
     </span><span class="kw">pub fn </span>paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, unit.into_glib()) }
@@ -1763,7 +1763,7 @@
     /// # Returns
     ///
     /// which pages to print
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_print_pages&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_print_pages&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_print_pages&quot;</span>)]
     </span><span class="kw">pub fn </span>print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintPages {
         <span class="kw">unsafe </span>{
@@ -1779,7 +1779,7 @@
     /// # Returns
     ///
     /// the printer name
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_printer&quot;</span>)]
     </span><span class="kw">pub fn </span>printer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_get_printer(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1790,7 +1790,7 @@
     /// # Returns
     ///
     /// the resolution in lpi (lines per inch)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer_lpi&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer_lpi&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_printer_lpi&quot;</span>)]
     </span><span class="kw">pub fn </span>printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_printer_lpi(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1801,7 +1801,7 @@
     /// # Returns
     ///
     /// the print quality
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_quality&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_quality&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_quality&quot;</span>)]
     </span><span class="kw">pub fn </span>quality(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintQuality {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_quality(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1812,7 +1812,7 @@
     /// # Returns
     ///
     /// the resolution in dpi
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution&quot;</span>)]
     </span><span class="kw">pub fn </span>resolution(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1823,7 +1823,7 @@
     /// # Returns
     ///
     /// the horizontal resolution in dpi
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_x&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_x&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution_x&quot;</span>)]
     </span><span class="kw">pub fn </span>resolution_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_x(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1834,7 +1834,7 @@
     /// # Returns
     ///
     /// the vertical resolution in dpi
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_y&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution_y&quot;</span>)]
     </span><span class="kw">pub fn </span>resolution_y(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_y(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1845,7 +1845,7 @@
     /// # Returns
     ///
     /// whether to reverse the order of the printed pages
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_reverse&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_reverse&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_reverse&quot;</span>)]
     </span><span class="kw">pub fn </span>is_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_reverse(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1856,7 +1856,7 @@
     /// # Returns
     ///
     /// the scale in percent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_scale&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_scale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale&quot;</span>)]
     </span><span class="kw">pub fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_scale(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1867,7 +1867,7 @@
     /// # Returns
     ///
     /// whether to use color
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_use_color&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_use_color&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_color&quot;</span>)]
     </span><span class="kw">pub fn </span>uses_color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_use_color(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1880,7 +1880,7 @@
     /// # Returns
     ///
     /// [`true`], if `key` has a value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_has_key&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_has_key&quot;</span>)]
     </span><span class="kw">pub fn </span>has_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_print_settings_has_key(
@@ -1899,7 +1899,7 @@
     /// # Returns
     ///
     /// [`true`] on success
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_file&quot;</span>)]
     </span><span class="kw">pub fn </span>load_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
@@ -1929,7 +1929,7 @@
     /// # Returns
     ///
     /// [`true`] on success
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_key_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_key_file&quot;</span>)]
     </span><span class="kw">pub fn </span>load_key_file(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         key_file: <span class="kw-2">&amp;</span>glib::KeyFile,
@@ -1957,7 +1957,7 @@
     /// a key
     /// ## `value`
     /// a string value, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set&quot;</span>)]
     </span><span class="kw">pub fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set(
@@ -1973,7 +1973,7 @@
     /// a key
     /// ## `value`
     /// a boolean
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_bool&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_bool&quot;</span>)]
     </span><span class="kw">pub fn </span>set_bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_bool(
@@ -1987,7 +1987,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_COLLATE`][crate::PRINT_SETTINGS_COLLATE].
     /// ## `collate`
     /// whether to collate the output
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_collate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_collate&quot;</span>)]
     </span><span class="kw">pub fn </span>set_collate(<span class="kw-2">&amp;</span><span class="self">self</span>, collate: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_collate(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, collate.into_glib());
@@ -1997,7 +1997,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DEFAULT_SOURCE`][crate::PRINT_SETTINGS_DEFAULT_SOURCE].
     /// ## `default_source`
     /// the default source
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_default_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_default_source&quot;</span>)]
     </span><span class="kw">pub fn </span>set_default_source(<span class="kw-2">&amp;</span><span class="self">self</span>, default_source: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_default_source(
@@ -2010,7 +2010,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DITHER`][crate::PRINT_SETTINGS_DITHER].
     /// ## `dither`
     /// the dithering that is used
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_dither&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_dither&quot;</span>)]
     </span><span class="kw">pub fn </span>set_dither(<span class="kw-2">&amp;</span><span class="self">self</span>, dither: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_dither(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, dither.to_glib_none().<span class="number">0</span>);
@@ -2022,7 +2022,7 @@
     /// a key
     /// ## `value`
     /// a double value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_double&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_double&quot;</span>)]
     </span><span class="kw">pub fn </span>set_double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_double(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>, value);
@@ -2032,7 +2032,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_DUPLEX`][crate::PRINT_SETTINGS_DUPLEX].
     /// ## `duplex`
     /// a [`PrintDuplex`][crate::PrintDuplex] value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_duplex&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_duplex&quot;</span>)]
     </span><span class="kw">pub fn </span>set_duplex(<span class="kw-2">&amp;</span><span class="self">self</span>, duplex: PrintDuplex) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_duplex(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, duplex.into_glib());
@@ -2042,7 +2042,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_FINISHINGS`][crate::PRINT_SETTINGS_FINISHINGS].
     /// ## `finishings`
     /// the finishings
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_finishings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_finishings&quot;</span>)]
     </span><span class="kw">pub fn </span>set_finishings(<span class="kw-2">&amp;</span><span class="self">self</span>, finishings: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_finishings(
@@ -2057,7 +2057,7 @@
     /// a key
     /// ## `value`
     /// an integer
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_int&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_int&quot;</span>)]
     </span><span class="kw">pub fn </span>set_int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_int(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>, value);
@@ -2071,7 +2071,7 @@
     /// a length
     /// ## `unit`
     /// the unit of `length`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_length&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_length&quot;</span>)]
     </span><span class="kw">pub fn </span>set_length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: f64, unit: Unit) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_length(
@@ -2088,7 +2088,7 @@
     /// The set of media types is defined in PWG 5101.1-2002 PWG.
     /// ## `media_type`
     /// the media type
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_media_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_media_type&quot;</span>)]
     </span><span class="kw">pub fn </span>set_media_type(<span class="kw-2">&amp;</span><span class="self">self</span>, media_type: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_media_type(
@@ -2101,7 +2101,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_N_COPIES`][crate::PRINT_SETTINGS_N_COPIES].
     /// ## `num_copies`
     /// the number of copies
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_n_copies&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_n_copies&quot;</span>)]
     </span><span class="kw">pub fn </span>set_n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>, num_copies: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_n_copies(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, num_copies);
@@ -2111,7 +2111,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_NUMBER_UP`][crate::PRINT_SETTINGS_NUMBER_UP].
     /// ## `number_up`
     /// the number of pages per sheet
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up&quot;</span>)]
     </span><span class="kw">pub fn </span>set_number_up(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_number_up(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, number_up);
@@ -2121,7 +2121,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_NUMBER_UP_LAYOUT`][crate::PRINT_SETTINGS_NUMBER_UP_LAYOUT].
     /// ## `number_up_layout`
     /// a [`NumberUpLayout`][crate::NumberUpLayout] value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up_layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up_layout&quot;</span>)]
     </span><span class="kw">pub fn </span>set_number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up_layout: NumberUpLayout) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_number_up_layout(
@@ -2134,7 +2134,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_ORIENTATION`][crate::PRINT_SETTINGS_ORIENTATION].
     /// ## `orientation`
     /// a page orientation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_orientation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_orientation&quot;</span>)]
     </span><span class="kw">pub fn </span>set_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: PageOrientation) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_orientation(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, orientation.into_glib());
@@ -2144,7 +2144,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_OUTPUT_BIN`][crate::PRINT_SETTINGS_OUTPUT_BIN].
     /// ## `output_bin`
     /// the output bin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_output_bin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_output_bin&quot;</span>)]
     </span><span class="kw">pub fn </span>set_output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>, output_bin: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_output_bin(
@@ -2157,7 +2157,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PAGE_SET`][crate::PRINT_SETTINGS_PAGE_SET].
     /// ## `page_set`
     /// a [`PageSet`][crate::PageSet] value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_page_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_page_set&quot;</span>)]
     </span><span class="kw">pub fn </span>set_page_set(<span class="kw-2">&amp;</span><span class="self">self</span>, page_set: PageSet) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_page_set(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, page_set.into_glib());
@@ -2169,7 +2169,7 @@
     /// the paper height
     /// ## `unit`
     /// the units of `height`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_height&quot;</span>)]
     </span><span class="kw">pub fn </span>set_paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: f64, unit: Unit) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_paper_height(
@@ -2185,7 +2185,7 @@
     /// [`PRINT_SETTINGS_PAPER_HEIGHT`][crate::PRINT_SETTINGS_PAPER_HEIGHT].
     /// ## `paper_size`
     /// a paper size
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_size&quot;</span>)]
     </span><span class="kw">pub fn </span>set_paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>, paper_size: <span class="kw-2">&amp;</span>PaperSize) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_paper_size(
@@ -2200,7 +2200,7 @@
     /// the paper width
     /// ## `unit`
     /// the units of `width`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_width&quot;</span>)]
     </span><span class="kw">pub fn </span>set_paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: f64, unit: Unit) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_paper_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, width, unit.into_glib());
@@ -2210,7 +2210,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PRINT_PAGES`][crate::PRINT_SETTINGS_PRINT_PAGES].
     /// ## `pages`
     /// a [`PrintPages`][crate::PrintPages] value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_print_pages&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_print_pages&quot;</span>)]
     </span><span class="kw">pub fn </span>set_print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, pages: PrintPages) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_print_pages(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, pages.into_glib());
@@ -2221,7 +2221,7 @@
     /// to `printer`.
     /// ## `printer`
     /// the printer name
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer&quot;</span>)]
     </span><span class="kw">pub fn </span>set_printer(<span class="kw-2">&amp;</span><span class="self">self</span>, printer: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_printer(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, printer.to_glib_none().<span class="number">0</span>);
@@ -2231,7 +2231,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_PRINTER_LPI`][crate::PRINT_SETTINGS_PRINTER_LPI].
     /// ## `lpi`
     /// the resolution in lpi (lines per inch)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer_lpi&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer_lpi&quot;</span>)]
     </span><span class="kw">pub fn </span>set_printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>, lpi: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_printer_lpi(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, lpi);
@@ -2241,7 +2241,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_QUALITY`][crate::PRINT_SETTINGS_QUALITY].
     /// ## `quality`
     /// a [`PrintQuality`][crate::PrintQuality] value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_quality&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_quality&quot;</span>)]
     </span><span class="kw">pub fn </span>set_quality(<span class="kw-2">&amp;</span><span class="self">self</span>, quality: PrintQuality) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_quality(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, quality.into_glib());
@@ -2253,7 +2253,7 @@
     /// [`PRINT_SETTINGS_RESOLUTION_Y`][crate::PRINT_SETTINGS_RESOLUTION_Y].
     /// ## `resolution`
     /// the resolution in dpi
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution&quot;</span>)]
     </span><span class="kw">pub fn </span>set_resolution(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_resolution(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, resolution);
@@ -2267,7 +2267,7 @@
     /// the horizontal resolution in dpi
     /// ## `resolution_y`
     /// the vertical resolution in dpi
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution_xy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution_xy&quot;</span>)]
     </span><span class="kw">pub fn </span>set_resolution_xy(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution_x: i32, resolution_y: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_resolution_xy(
@@ -2281,7 +2281,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_REVERSE`][crate::PRINT_SETTINGS_REVERSE].
     /// ## `reverse`
     /// whether to reverse the output
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_reverse&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_reverse&quot;</span>)]
     </span><span class="kw">pub fn </span>set_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>, reverse: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_reverse(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, reverse.into_glib());
@@ -2291,7 +2291,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_SCALE`][crate::PRINT_SETTINGS_SCALE].
     /// ## `scale`
     /// the scale in percent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_scale&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_scale&quot;</span>)]
     </span><span class="kw">pub fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_scale(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, scale);
@@ -2301,7 +2301,7 @@
     <span class="doccomment">/// Sets the value of [`PRINT_SETTINGS_USE_COLOR`][crate::PRINT_SETTINGS_USE_COLOR].
     /// ## `use_color`
     /// whether to use color
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_use_color&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_use_color&quot;</span>)]
     </span><span class="kw">pub fn </span>set_use_color(<span class="kw-2">&amp;</span><span class="self">self</span>, use_color: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_use_color(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, use_color.into_glib());
@@ -2317,7 +2317,7 @@
     /// # Returns
     ///
     /// [`true`] on success
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_file&quot;</span>)]
     </span><span class="kw">pub fn </span>to_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
@@ -2340,7 +2340,7 @@
     /// # Returns
     ///
     /// a new, floating, [`glib::Variant`][struct@crate::glib::Variant]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_gvariant&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_gvariant&quot;</span>)]
     </span><span class="kw">pub fn </span>to_gvariant(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Variant&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_to_gvariant(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -2351,7 +2351,7 @@
     /// ## `group_name`
     /// the group to add the settings to in `key_file`, or
     ///  [`None`] to use the default “Print Settings”
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_key_file&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_key_file&quot;</span>)]
     </span><span class="kw">pub fn </span>to_key_file(<span class="kw-2">&amp;</span><span class="self">self</span>, key_file: <span class="kw-2">&amp;</span>glib::KeyFile, group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_to_key_file(
@@ -2366,7 +2366,7 @@
     /// This has the same effect as setting the value to [`None`].
     /// ## `key`
     /// a key
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_settings_unset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_unset&quot;</span>)]
     </span><span class="kw">pub fn </span>unset(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_unset(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>);
@@ -2386,4 +2386,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

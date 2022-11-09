@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_item.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tool_item.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_item.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tool_item.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1326,7 +1326,7 @@
     /// # Implements
     ///
     /// [`ToolItemExt`][trait@crate::prelude::ToolItemExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkToolItem&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkToolItem&quot;</span>)]
     </span><span class="kw">pub struct </span>ToolItem(Object&lt;ffi::GtkToolItem, ffi::GtkToolItemClass&gt;) @extends Bin, Container, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -1342,7 +1342,7 @@
     /// # Returns
     ///
     /// the new [`ToolItem`][crate::ToolItem]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; ToolItem {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_tool_item_new()) }
@@ -1363,12 +1363,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`ToolItem`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>ToolItemBuilder {
     is_important: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     visible_horizontal: <span class="prelude-ty">Option</span>&lt;bool&gt;,
@@ -1419,7 +1419,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`ToolItem`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ToolItem {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_important) = <span class="self">self</span>.is_important {
@@ -1816,7 +1816,7 @@
     ///
     /// a [`pango::EllipsizeMode`][crate::pango::EllipsizeMode] indicating how text in `self`
     /// should be ellipsized.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_ellipsize_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_ellipsize_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_ellipsize_mode&quot;</span>)]
     </span><span class="kw">fn </span>ellipsize_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::EllipsizeMode;
 
@@ -1826,7 +1826,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is allocated extra space.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_expand&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_expand&quot;</span>)]
     </span><span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -1837,7 +1837,7 @@
     ///
     /// [`true`] if the item is the same size as other homogeneous
     /// items.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_homogeneous&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_homogeneous&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_homogeneous&quot;</span>)]
     </span><span class="kw">fn </span>is_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -1849,7 +1849,7 @@
     ///
     /// a [`IconSize`][crate::IconSize] indicating the icon size
     /// used for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_icon_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_icon_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_size&quot;</span>)]
     </span><span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize;
 
@@ -1859,7 +1859,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is considered important.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_is_important&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_is_important&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_is_important&quot;</span>)]
     </span><span class="kw">fn </span>is_important(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -1871,7 +1871,7 @@
     ///
     /// a [`Orientation`][crate::Orientation] indicating the orientation
     /// used for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_orientation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_orientation&quot;</span>)]
     </span><span class="kw">fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation;
 
@@ -1890,7 +1890,7 @@
     /// The [`MenuItem`][crate::MenuItem] passed to
     ///  [`set_proxy_menu_item()`][Self::set_proxy_menu_item()], if the `menu_item_ids`
     ///  match.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_proxy_menu_item&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_proxy_menu_item&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_proxy_menu_item&quot;</span>)]
     </span><span class="kw">fn </span>proxy_menu_item(<span class="kw-2">&amp;</span><span class="self">self</span>, menu_item_id: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -1903,7 +1903,7 @@
     ///
     /// a [`ReliefStyle`][crate::ReliefStyle] indicating the relief style used
     /// for `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_relief_style&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_relief_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_relief_style&quot;</span>)]
     </span><span class="kw">fn </span>relief_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle;
 
@@ -1915,7 +1915,7 @@
     ///
     /// a `gfloat` indicating the horizontal text alignment
     /// used for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_alignment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_alignment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_alignment&quot;</span>)]
     </span><span class="kw">fn </span>text_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
 
@@ -1927,7 +1927,7 @@
     ///
     /// a [`Orientation`][crate::Orientation] indicating the text orientation
     /// used for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_orientation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_orientation&quot;</span>)]
     </span><span class="kw">fn </span>text_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation;
 
@@ -1938,7 +1938,7 @@
     /// # Returns
     ///
     /// a [`SizeGroup`][crate::SizeGroup]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_size_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_text_size_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_size_group&quot;</span>)]
     </span><span class="kw">fn </span>text_size_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SizeGroup&gt;;
 
@@ -1959,7 +1959,7 @@
     ///
     /// A [`ToolbarStyle`][crate::ToolbarStyle] indicating the toolbar style used
     /// for `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_toolbar_style&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_toolbar_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_toolbar_style&quot;</span>)]
     </span><span class="kw">fn </span>toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle;
 
@@ -1969,7 +1969,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` uses a drag window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_use_drag_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_use_drag_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_drag_window&quot;</span>)]
     </span><span class="kw">fn </span>uses_drag_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -1980,7 +1980,7 @@
     ///
     /// [`true`] if `self` is visible on toolbars that are
     /// docked horizontally.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_visible_horizontal&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_visible_horizontal&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_horizontal&quot;</span>)]
     </span><span class="kw">fn </span>is_visible_horizontal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -1990,7 +1990,7 @@
     /// # Returns
     ///
     /// Whether `self` is visible when the toolbar is docked vertically
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_visible_vertical&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_get_visible_vertical&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_vertical&quot;</span>)]
     </span><span class="kw">fn </span>is_visible_vertical(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2001,7 +2001,7 @@
     ///
     /// The function must be called when the tool item changes what it
     /// will do in response to the `signal::ToolItem::create-menu-proxy` signal.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_rebuild_menu&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_rebuild_menu&quot;</span>)]
     </span><span class="kw">fn </span>rebuild_menu(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns the [`MenuItem`][crate::MenuItem] that was last set by
@@ -2012,7 +2012,7 @@
     ///
     /// The [`MenuItem`][crate::MenuItem] that is going to appear in the
     /// overflow menu for `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_retrieve_proxy_menu_item&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_retrieve_proxy_menu_item&quot;</span>)]
     </span><span class="kw">fn </span>retrieve_proxy_menu_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
     <span class="doccomment">/// Sets whether `self` is allocated extra space when there
@@ -2021,7 +2021,7 @@
     /// and smaller when the toolbar gets smaller.
     /// ## `expand`
     /// Whether `self` is allocated extra space
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_expand&quot;</span>)]
     </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
 
     <span class="doccomment">/// Sets whether `self` is to be allocated the same size as other
@@ -2029,7 +2029,7 @@
     /// the same width as the widest of the items.
     /// ## `homogeneous`
     /// whether `self` is the same size as other homogeneous items
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_homogeneous&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_homogeneous&quot;</span>)]
     </span><span class="kw">fn </span>set_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, homogeneous: bool);
 
     <span class="doccomment">/// Sets whether `self` should be considered important. The [`ToolButton`][crate::ToolButton]
@@ -2039,7 +2039,7 @@
     /// effect known as “priority text”
     /// ## `is_important`
     /// whether the tool item should be considered important
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_is_important&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_is_important&quot;</span>)]
     </span><span class="kw">fn </span>set_is_important(<span class="kw-2">&amp;</span><span class="self">self</span>, is_important: bool);
 
     <span class="doccomment">/// Sets the [`MenuItem`][crate::MenuItem] used in the toolbar overflow menu. The
@@ -2051,21 +2051,21 @@
     /// a string used to identify `menu_item`
     /// ## `menu_item`
     /// a [`MenuItem`][crate::MenuItem] to use in the overflow menu, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_proxy_menu_item&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_proxy_menu_item&quot;</span>)]
     </span><span class="kw">fn </span>set_proxy_menu_item(<span class="kw-2">&amp;</span><span class="self">self</span>, menu_item_id: <span class="kw-2">&amp;</span>str, menu_item: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
 
     <span class="doccomment">/// Sets the markup text to be displayed as tooltip on the item.
     /// See [`WidgetExt::set_tooltip_markup()`][crate::prelude::WidgetExt::set_tooltip_markup()].
     /// ## `markup`
     /// markup text to be used as tooltip for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_tooltip_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_tooltip_markup&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, markup: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets the text to be displayed as tooltip on the item.
     /// See [`WidgetExt::set_tooltip_text()`][crate::prelude::WidgetExt::set_tooltip_text()].
     /// ## `text`
     /// text to be used as tooltip for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_tooltip_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_tooltip_text&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets whether `self` has a drag window. When [`true`] the
@@ -2074,13 +2074,13 @@
     /// even those that would otherwise be sent to a child of `self`.
     /// ## `use_drag_window`
     /// Whether `self` has a drag window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_use_drag_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_use_drag_window&quot;</span>)]
     </span><span class="kw">fn </span>set_use_drag_window(<span class="kw-2">&amp;</span><span class="self">self</span>, use_drag_window: bool);
 
     <span class="doccomment">/// Sets whether `self` is visible when the toolbar is docked horizontally.
     /// ## `visible_horizontal`
     /// Whether `self` is visible when in horizontal mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_visible_horizontal&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_visible_horizontal&quot;</span>)]
     </span><span class="kw">fn </span>set_visible_horizontal(<span class="kw-2">&amp;</span><span class="self">self</span>, visible_horizontal: bool);
 
     <span class="doccomment">/// Sets whether `self` is visible when the toolbar is docked
@@ -2090,13 +2090,13 @@
     /// ## `visible_vertical`
     /// whether `self` is visible when the toolbar
     /// is in vertical mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_visible_vertical&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_set_visible_vertical&quot;</span>)]
     </span><span class="kw">fn </span>set_visible_vertical(<span class="kw-2">&amp;</span><span class="self">self</span>, visible_vertical: bool);
 
     <span class="doccomment">/// Emits the signal `signal::ToolItem::toolbar_reconfigured` on `self`.
     /// [`Toolbar`][crate::Toolbar] and other [`ToolShell`][crate::ToolShell] implementations use this function
     /// to notify children, when some aspect of their configuration changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tool_item_toolbar_reconfigured&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_item_toolbar_reconfigured&quot;</span>)]
     </span><span class="kw">fn </span>toolbar_reconfigured(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This signal is emitted when the toolbar needs information from `tool_item`
@@ -2122,7 +2122,7 @@
     /// # Returns
     ///
     /// [`true`] if the signal was handled, [`false`] if not
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;create-menu-proxy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;create-menu-proxy&quot;</span>)]
     </span><span class="kw">fn </span>connect_create_menu_proxy&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2137,16 +2137,16 @@
     /// - [`ToolShellExt::relief_style()`][crate::prelude::ToolShellExt::relief_style()]
     /// to find out what the toolbar should look like and change
     /// themselves accordingly.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;toolbar-reconfigured&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toolbar-reconfigured&quot;</span>)]
     </span><span class="kw">fn </span>connect_toolbar_reconfigured&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;is-important&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;is-important&quot;</span>)]
     </span><span class="kw">fn </span>connect_is_important_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;visible-horizontal&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;visible-horizontal&quot;</span>)]
     </span><span class="kw">fn </span>connect_visible_horizontal_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;visible-vertical&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;visible-vertical&quot;</span>)]
     </span><span class="kw">fn </span>connect_visible_vertical_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -2500,4 +2500,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/clipboard.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>clipboard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/clipboard.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>clipboard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -767,6 +767,7 @@
 <span id="694">694</span>
 <span id="695">695</span>
 <span id="696">696</span>
+<span id="697">697</span>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -842,7 +843,7 @@
     /// # Implements
     ///
     /// [`trait@glib::ObjectExt`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkClipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkClipboard&quot;</span>)]
     </span><span class="kw">pub struct </span>Clipboard(Object&lt;ffi::GtkClipboard&gt;);
 
     <span class="kw">match fn </span>{
@@ -856,7 +857,7 @@
     /// or `gtk_clipboard_set_with_data()`,
     /// and when the `clear_func` you supplied is called. Otherwise, the
     /// clipboard may be owned by someone else.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_clear&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_clear&quot;</span>)]
     </span><span class="kw">pub fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_clear(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -868,7 +869,7 @@
     /// # Returns
     ///
     /// the [`gdk::Display`][crate::gdk::Display] associated with `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Display&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_clipboard_get_display(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -883,7 +884,7 @@
     ///
     /// the owner of the clipboard, if any;
     ///  otherwise [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_owner&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_owner&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_owner&quot;</span>)]
     </span><span class="kw">pub fn </span>owner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Object&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_clipboard_get_owner(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -894,7 +895,7 @@
     /// # Returns
     ///
     /// the selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection&quot;</span>)]
     </span><span class="kw">pub fn </span>selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Atom&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_clipboard_get_selection(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -910,7 +911,7 @@
     /// A function to call when the results are received
     ///  (or the retrieval fails). If the retrieval fails the length field of
     ///  `selection_data` will be negative.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_contents&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_contents&quot;</span>)]
     </span><span class="kw">pub fn </span>request_contents&lt;P: FnOnce(<span class="kw-2">&amp;</span>Clipboard, <span class="kw-2">&amp;</span>SelectionData) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         target: <span class="kw-2">&amp;</span>gdk::Atom,
@@ -951,7 +952,7 @@
     /// ## `callback`
     /// a function to call when the image is received,
     ///  or the retrieval fails. (It will always be called one way or the other.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_image&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_image&quot;</span>)]
     </span><span class="kw">pub fn </span>request_image&lt;P: FnOnce(<span class="kw-2">&amp;</span>Clipboard, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         callback: P,
@@ -993,7 +994,7 @@
     /// ## `callback`
     /// a function to call when the text is received,
     ///  or the retrieval fails. (It will always be called one way or the other.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_rich_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_rich_text&quot;</span>)]
     </span><span class="kw">pub fn </span>request_rich_text&lt;P: FnOnce(<span class="kw-2">&amp;</span>Clipboard, <span class="kw-2">&amp;</span>gdk::Atom, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, usize) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;,
@@ -1043,7 +1044,7 @@
     /// ## `callback`
     /// a function to call when the text is received,
     ///  or the retrieval fails. (It will always be called one way or the other.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_text&quot;</span>)]
     </span><span class="kw">pub fn </span>request_text&lt;P: FnOnce(<span class="kw-2">&amp;</span>Clipboard, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, callback: P) {
         <span class="kw">let </span>callback_data: Box_&lt;P&gt; = Box_::new(callback);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>callback_func&lt;P: FnOnce(<span class="kw-2">&amp;</span>Clipboard, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) + <span class="lifetime">&#39;static</span>&gt;(
@@ -1073,7 +1074,7 @@
     /// requested format.
     /// ## `pixbuf`
     /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_set_image&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_set_image&quot;</span>)]
     </span><span class="kw">pub fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf) {
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_set_image(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, pixbuf.to_glib_none().<span class="number">0</span>);
@@ -1089,9 +1090,9 @@
     /// ## `len`
     /// length of `text`, in bytes, or -1, in which case
     ///  the length will be determined with `strlen()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_set_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_set_text&quot;</span>)]
     </span><span class="kw">pub fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">let </span>len = text.len() <span class="kw">as </span>i32;
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_set_text(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, text.to_glib_none().<span class="number">0</span>, len);
         }
@@ -1099,7 +1100,7 @@
 
     <span class="doccomment">/// Stores the current clipboard data somewhere so that it will stay
     /// around after the application has quit.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_store&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_store&quot;</span>)]
     </span><span class="kw">pub fn </span>store(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_store(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -1119,7 +1120,7 @@
     ///  if retrieving the given target failed. If non-[`None`],
     ///  this value must be freed with `gtk_selection_data_free()`
     ///  when you are finished with it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_contents&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_contents&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_contents(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;SelectionData&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_clipboard_wait_for_contents(
@@ -1142,7 +1143,7 @@
     ///  happen for various reasons, in particular if the clipboard
     ///  was empty or if the contents of the clipboard could not be
     ///  converted into an image.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_image&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_image&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_image(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1165,7 +1166,7 @@
     ///
     /// ## `format`
     /// return location for the format of the returned data
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_rich_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_rich_text&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_rich_text(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;) -&gt; (Vec&lt;u8&gt;, gdk::Atom) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>format = gdk::Atom::uninitialized();
@@ -1177,7 +1178,7 @@
                     format.to_glib_none_mut().<span class="number">0</span>,
                     length.as_mut_ptr(),
                 ),
-                length.assume_init() <span class="kw">as </span>usize,
+                length.assume_init() <span class="kw">as _</span>,
             );
             (ret, format)
         }
@@ -1198,7 +1199,7 @@
     /// location
     ///  to store an array of targets. The result stored here must
     ///  be freed with `g_free()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_targets&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_targets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;gdk::Atom&gt;&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>targets = ptr::null_mut();
@@ -1211,7 +1212,7 @@
             <span class="kw">if </span>ret {
                 <span class="prelude-val">Some</span>(FromGlibContainer::from_glib_container_num(
                     targets,
-                    n_targets.assume_init() <span class="kw">as </span>usize,
+                    n_targets.assume_init() <span class="kw">as _</span>,
                 ))
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
@@ -1232,7 +1233,7 @@
     ///  for various reasons, in particular if the
     ///  clipboard was empty or if the contents of the
     ///  clipboard could not be converted into text form.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_text&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_text(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1249,7 +1250,7 @@
     ///  selection data failed. (This could happen for various reasons,
     ///  in particular if the clipboard was empty or if the contents of
     ///  the clipboard could not be converted into URI form.)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_uris&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_uris&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_for_uris(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_full(ffi::gtk_clipboard_wait_for_uris(
@@ -1271,7 +1272,7 @@
     /// # Returns
     ///
     /// [`true`] is there is an image available, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_image_available&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_image_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_image_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_clipboard_wait_is_image_available(
@@ -1295,7 +1296,7 @@
     /// # Returns
     ///
     /// [`true`] is there is rich text available, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_rich_text_available&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_rich_text_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_rich_text_available(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_clipboard_wait_is_rich_text_available(
@@ -1317,7 +1318,7 @@
     /// # Returns
     ///
     /// [`true`] if the target is available, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_target_available&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_target_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_target_available(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_clipboard_wait_is_target_available(
@@ -1340,7 +1341,7 @@
     /// # Returns
     ///
     /// [`true`] is there is text available, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_text_available&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_text_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_text_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_clipboard_wait_is_text_available(
@@ -1362,7 +1363,7 @@
     /// # Returns
     ///
     /// [`true`] is there is an URI list available, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_uris_available&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_uris_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_uris_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_clipboard_wait_is_uris_available(
@@ -1382,7 +1383,7 @@
     ///  already exists, a new one will be created. Once a clipboard
     ///  object has been created, it is persistent and, since it is
     ///  owned by GTK+, must not be freed or unreffed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get&quot;</span>)]
     </span><span class="kw">pub fn </span>get(selection: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; Clipboard {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_clipboard_get(selection.to_glib_none().<span class="number">0</span>)) }
@@ -1396,8 +1397,9 @@
     /// # Returns
     ///
     /// the default clipboard object.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default&quot;</span>)]
+    #[allow(clippy::should_implement_trait)]
     </span><span class="kw">pub fn </span>default(display: <span class="kw-2">&amp;</span>gdk::Display) -&gt; <span class="prelude-ty">Option</span>&lt;Clipboard&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().<span class="number">0</span>)) }
@@ -1440,7 +1442,7 @@
     ///  clipboard already exists, a new one will be created. Once a clipboard
     ///  object has been created, it is persistent and, since it is owned by
     ///  GTK+, must not be freed or unrefd.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_for_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_for_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_for_display&quot;</span>)]
     </span><span class="kw">pub fn </span>for_display(display: <span class="kw-2">&amp;</span>gdk::Display, selection: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; Clipboard {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -1464,4 +1466,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

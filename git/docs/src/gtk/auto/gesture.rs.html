@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>gesture.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>gesture.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1043,7 +1043,7 @@
     /// # Implements
     ///
     /// [`GestureExt`][trait@crate::prelude::GestureExt], [`EventControllerExt`][trait@crate::prelude::EventControllerExt], [`trait@glib::ObjectExt`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkGesture&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkGesture&quot;</span>)]
     </span><span class="kw">pub struct </span>Gesture(Object&lt;ffi::GtkGesture, ffi::GtkGestureClass&gt;) @extends EventController;
 
     <span class="kw">match fn </span>{
@@ -1078,7 +1078,7 @@
     ///
     /// ## `rect`
     /// bounding box containing all active touches.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounding_box&quot;</span>)]
     </span><span class="kw">fn </span>bounding_box(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt;;
 
@@ -1096,7 +1096,7 @@
     ///
     /// ## `y`
     /// Y coordinate for the bounding box center
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box_center&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box_center&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounding_box_center&quot;</span>)]
     </span><span class="kw">fn </span>bounding_box_center(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt;;
 
@@ -1106,7 +1106,7 @@
     /// # Returns
     ///
     /// a [`gdk::Device`][crate::gdk::Device], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_device&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_device&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device&quot;</span>)]
     </span><span class="kw">fn </span>device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Device&gt;;
 
@@ -1116,7 +1116,7 @@
     ///
     /// The list
     ///  of `GtkGestures`, free with `g_list_free()`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_group&quot;</span>)]
     </span><span class="kw">fn </span>group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Gesture&gt;;
 
@@ -1131,7 +1131,7 @@
     /// # Returns
     ///
     /// The last event from `sequence`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_event&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_last_event&quot;</span>)]
     </span><span class="kw">fn </span>last_event(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Event&gt;;
 
@@ -1140,7 +1140,7 @@
     /// # Returns
     ///
     /// The last updated sequence
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_updated_sequence&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_updated_sequence&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_last_updated_sequence&quot;</span>)]
     </span><span class="kw">fn </span>last_updated_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::EventSequence&gt;;
 
@@ -1160,7 +1160,7 @@
     ///
     /// ## `y`
     /// return location for Y axis of the sequence coordinates
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_point&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_point&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_point&quot;</span>)]
     </span><span class="kw">fn </span>point(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt;;
 
@@ -1171,7 +1171,7 @@
     /// # Returns
     ///
     /// The sequence state in `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequence_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequence_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_sequence_state&quot;</span>)]
     </span><span class="kw">fn </span>sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span>gdk::EventSequence) -&gt; EventSequenceState;
 
@@ -1184,7 +1184,7 @@
     ///  of `GdkEventSequences`, the list elements are owned by GTK+
     ///  and must not be freed or modified, the list itself must be deleted
     ///  through `g_list_free()`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequences&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequences&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_sequences&quot;</span>)]
     </span><span class="kw">fn </span>sequences(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::EventSequence&gt;;
 
@@ -1195,7 +1195,7 @@
     /// # Returns
     ///
     /// the user defined window, or [`None`] if none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_get_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
     </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
 
@@ -1212,7 +1212,7 @@
     /// state for that sequence to [`EventSequenceState::Denied`][crate::EventSequenceState::Denied].
     /// ## `gesture`
     /// a [`Gesture`][crate::Gesture]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;group&quot;</span>)]
     </span><span class="kw">fn </span>group_with(<span class="kw-2">&amp;</span><span class="self">self</span>, gesture: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Gesture&gt;);
 
@@ -1224,7 +1224,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is handling `sequence`, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_handles_sequence&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_handles_sequence&quot;</span>)]
     </span><span class="kw">fn </span>handles_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; bool;
 
     <span class="doccomment">/// Returns [`true`] if the gesture is currently active.
@@ -1234,7 +1234,7 @@
     /// # Returns
     ///
     /// [`true`] if gesture is active
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_is_active&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_active&quot;</span>)]
     </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Returns [`true`] if both gestures pertain to the same group.
@@ -1244,7 +1244,7 @@
     /// # Returns
     ///
     /// whether the gestures are grouped
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_is_grouped_with&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_grouped_with&quot;</span>)]
     </span><span class="kw">fn </span>is_grouped_with(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Gesture&gt;) -&gt; bool;
 
     <span class="doccomment">/// Returns [`true`] if the gesture is currently recognized.
@@ -1255,7 +1255,7 @@
     /// # Returns
     ///
     /// [`true`] if gesture is recognized
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_is_recognized&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_recognized&quot;</span>)]
     </span><span class="kw">fn </span>is_recognized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Sets the state of `sequence` in `self`. Sequences start
@@ -1310,7 +1310,7 @@
     ///
     /// [`true`] if `sequence` is handled by `self`,
     ///  and the state is changed successfully
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_set_sequence_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_sequence_state&quot;</span>)]
     </span><span class="kw">fn </span>set_sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span>gdk::EventSequence, state: EventSequenceState) -&gt; bool;
 
     <span class="doccomment">/// Sets the state of all sequences that `self` is currently
@@ -1323,7 +1323,7 @@
     ///
     /// [`true`] if the state of at least one sequence
     ///  was changed successfully
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_set_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_state&quot;</span>)]
     </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, state: EventSequenceState) -&gt; bool;
 
     <span class="doccomment">/// Sets a specific window to receive events about, so `self`
@@ -1331,15 +1331,15 @@
     /// a child of it. `window` must pertain to [`EventControllerExt::widget()`][crate::prelude::EventControllerExt::widget()].
     /// ## `window`
     /// a [`gdk::Window`][crate::gdk::Window], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_set_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_window&quot;</span>)]
     </span><span class="kw">fn </span>set_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;);
 
     <span class="doccomment">/// Separates `self` into an isolated group.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_gesture_ungroup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_ungroup&quot;</span>)]
     </span><span class="kw">fn </span>ungroup(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// The number of touch points that trigger recognition on this gesture,
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;n-points&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;n-points&quot;</span>)]
     </span><span class="kw">fn </span>n_points(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
     <span class="doccomment">/// This signal is emitted when the gesture is recognized. This means the
@@ -1351,7 +1351,7 @@
     /// to the current set of active touches, so don&#39;t rely on this being true.
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that made the gesture to be recognized
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;begin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;begin&quot;</span>)]
     </span><span class="kw">fn </span>connect_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1365,7 +1365,7 @@
     /// `gesture` must forget everything about `sequence` as a reaction to this signal.
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that was cancelled
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cancel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cancel&quot;</span>)]
     </span><span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1382,7 +1382,7 @@
     /// by checking through [`handles_sequence()`][Self::handles_sequence()].
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that made gesture recognition to finish
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;end&quot;</span>)]
     </span><span class="kw">fn </span>connect_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1395,7 +1395,7 @@
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that was cancelled
     /// ## `state`
     /// the new sequence state
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;sequence-state-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;sequence-state-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_sequence_state_changed&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;, EventSequenceState) + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -1407,13 +1407,13 @@
     /// recognized. `sequence` is guaranteed to pertain to the set of active touches.
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that was updated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;update&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;update&quot;</span>)]
     </span><span class="kw">fn </span>connect_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;window&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;window&quot;</span>)]
     </span><span class="kw">fn </span>connect_window_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -1790,4 +1790,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

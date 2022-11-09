@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2949,6 +2949,7 @@
 <span id="2876">2876</span>
 <span id="2877">2877</span>
 <span id="2878">2878</span>
+<span id="2879">2879</span>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -3010,7 +3011,7 @@
     /// # Implements
     ///
     /// [`SettingsExt`][trait@crate::prelude::SettingsExt], [`trait@glib::ObjectExt`], [`StyleProviderExt`][trait@crate::prelude::StyleProviderExt]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkSettings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkSettings&quot;</span>)]
     </span><span class="kw">pub struct </span>Settings(Object&lt;ffi::GtkSettings, ffi::GtkSettingsClass&gt;) @implements StyleProvider;
 
     <span class="kw">match fn </span>{
@@ -3028,8 +3029,9 @@
     ///
     /// a [`Settings`][crate::Settings] object. If there is
     /// no default screen, then returns [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_settings_get_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_settings_get_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default&quot;</span>)]
+    #[allow(clippy::should_implement_trait)]
     </span><span class="kw">pub fn </span>default() -&gt; <span class="prelude-ty">Option</span>&lt;Settings&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_settings_get_default()) }
@@ -3042,7 +3044,7 @@
     /// # Returns
     ///
     /// a [`Settings`][crate::Settings] object.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_settings_get_for_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_settings_get_for_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_for_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>for_screen(screen: <span class="kw-2">&amp;</span>gdk::Screen) -&gt; <span class="prelude-ty">Option</span>&lt;Settings&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -3062,25 +3064,25 @@
     /// this setting.
     /// ## `name`
     /// the name of the setting to reset
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_settings_reset_property&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_settings_reset_property&quot;</span>)]
     </span><span class="kw">fn </span>reset_property(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_alternative_button_order(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_alternative_button_order(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_alternative_button_order: bool);
 
     <span class="doccomment">/// Controls the direction of the sort indicators in sorted list and tree
     /// views. By default an arrow pointing down means the column is sorted
     /// in ascending order. When set to [`true`], this order will be inverted.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_alternative_sort_arrows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Controls the direction of the sort indicators in sorted list and tree
     /// views. By default an arrow pointing down means the column is sorted
     /// in ascending order. When set to [`true`], this order will be inverted.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_alternative_sort_arrows(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_alternative_sort_arrows: bool);
 
     <span class="doccomment">/// Whether the application prefers to use a dark theme. If a GTK+ theme
@@ -3094,7 +3096,7 @@
     ///
     /// Dark themes should not be used for documents, where large spaces are white/light
     /// and the dark chrome creates too much contrast (web browser, text editor...).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_application_prefer_dark_theme(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the application prefers to use a dark theme. If a GTK+ theme
@@ -3108,15 +3110,15 @@
     ///
     /// Dark themes should not be used for documents, where large spaces are white/light
     /// and the dark chrome creates too much contrast (web browser, text editor...).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_application_prefer_dark_theme(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_application_prefer_dark_theme: bool);
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-cursor-aspect-ratio&quot;</span>)]
     </span><span class="kw">fn </span>gtk_cursor_aspect_ratio(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-cursor-aspect-ratio&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_aspect_ratio(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_aspect_ratio: f32);
@@ -3125,20 +3127,20 @@
     ///
     /// Also see the `property::Settings::gtk-cursor-blink-timeout` setting,
     /// which allows more flexible control over cursor blinking.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the cursor should blink.
     ///
     /// Also see the `property::Settings::gtk-cursor-blink-timeout` setting,
     /// which allows more flexible control over cursor blinking.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_blink: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
     </span><span class="kw">fn </span>gtk_cursor_blink_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_blink_time(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_blink_time: i32);
 
     <span class="doccomment">/// Time after which the cursor stops blinking, in seconds.
@@ -3146,7 +3148,7 @@
     ///
     /// Setting this to zero has the same effect as setting
     /// `property::Settings::gtk-cursor-blink` to [`false`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
     </span><span class="kw">fn </span>gtk_cursor_blink_timeout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Time after which the cursor stops blinking, in seconds.
@@ -3154,19 +3156,19 @@
     ///
     /// Setting this to zero has the same effect as setting
     /// `property::Settings::gtk-cursor-blink` to [`false`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_blink_timeout(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_blink_timeout: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_cursor_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
     </span><span class="kw">fn </span>gtk_cursor_theme_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_cursor_theme_size(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_theme_size: i32);
 
     <span class="doccomment">/// This setting determines which buttons should be put in the
@@ -3189,7 +3191,7 @@
     ///
     /// Also note that the setting can be overridden with the
     /// `property::HeaderBar::decoration-layout` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
     </span><span class="kw">fn </span>gtk_decoration_layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// This setting determines which buttons should be put in the
@@ -3212,7 +3214,7 @@
     ///
     /// Also note that the setting can be overridden with the
     /// `property::HeaderBar::decoration-layout` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_decoration_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_decoration_layout: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Whether builtin GTK+ dialogs such as the file chooser, the
@@ -3221,7 +3223,7 @@
     ///
     /// This setting does not affect custom dialogs using GtkDialog
     /// directly, or message dialogs.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_dialogs_use_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether builtin GTK+ dialogs such as the file chooser, the
@@ -3230,41 +3232,41 @@
     ///
     /// This setting does not affect custom dialogs using GtkDialog
     /// directly, or message dialogs.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_dialogs_use_header(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_dialogs_use_header: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
     </span><span class="kw">fn </span>gtk_dnd_drag_threshold(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_dnd_drag_threshold(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_dnd_drag_threshold: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
     </span><span class="kw">fn </span>gtk_double_click_distance(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_double_click_distance(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_double_click_distance: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
     </span><span class="kw">fn </span>gtk_double_click_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_double_click_time(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_double_click_time: i32);
 
     <span class="doccomment">/// Whether menu items should have visible accelerators which can be
     /// activated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_enable_accels(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether menu items should have visible accelerators which can be
     /// activated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_enable_accels(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_accels: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_enable_animations(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_enable_animations(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_animations: bool);
 
     <span class="doccomment">/// Whether to play any event sounds at all.
@@ -3274,7 +3276,7 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_enable_event_sounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether to play any event sounds at all.
@@ -3284,7 +3286,7 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_enable_event_sounds(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_event_sounds: bool);
 
     <span class="doccomment">/// Whether to play event sounds as feedback to user input.
@@ -3294,7 +3296,7 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_enable_input_feedback_sounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether to play event sounds as feedback to user input.
@@ -3304,35 +3306,35 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_enable_input_feedback_sounds(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_input_feedback_sounds: bool);
 
     <span class="doccomment">/// Whether a middle click on a mouse should paste the
     /// &#39;PRIMARY&#39; clipboard content at the cursor location.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_enable_primary_paste(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether a middle click on a mouse should paste the
     /// &#39;PRIMARY&#39; clipboard content at the cursor location.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_enable_primary_paste(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_primary_paste: bool);
 
     <span class="doccomment">/// How long to show the last input character in hidden
     /// entries. This value is in milliseconds. 0 disables showing the
     /// last char. 600 is a good value for enabling it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
     </span><span class="kw">fn </span>gtk_entry_password_hint_timeout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
     <span class="doccomment">/// How long to show the last input character in hidden
     /// entries. This value is in milliseconds. 0 disables showing the
     /// last char. 600 is a good value for enabling it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_entry_password_hint_timeout(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_entry_password_hint_timeout: u32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_entry_select_on_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_entry_select_on_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_entry_select_on_focus: bool);
 
     <span class="doccomment">/// When [`true`], keyboard navigation and other input-related errors
@@ -3340,7 +3342,7 @@
     /// [`Window::beep()`][crate::gdk::Window::beep()], the windowing system may offer ways to
     /// configure the error bell in many ways, such as flashing the
     /// window or similar visual effects.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_error_bell(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// When [`true`], keyboard navigation and other input-related errors
@@ -3348,27 +3350,27 @@
     /// [`Window::beep()`][crate::gdk::Window::beep()], the windowing system may offer ways to
     /// configure the error bell in many ways, such as flashing the
     /// window or similar visual effects.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_error_bell(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_error_bell: bool);
 
     <span class="doccomment">/// The default font to use. GTK+ uses the family name and size from this string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_font_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The default font to use. GTK+ uses the family name and size from this string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_font_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_font_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
     </span><span class="kw">fn </span>gtk_fontconfig_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_fontconfig_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_fontconfig_timestamp: u32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_icon_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_icon_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_icon_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Which IM (input method) module should be used by default. This is the
@@ -3378,7 +3380,7 @@
     /// will try in turn until it finds one available on the system.
     ///
     /// See [`IMContext`][crate::IMContext].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
     </span><span class="kw">fn </span>gtk_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Which IM (input method) module should be used by default. This is the
@@ -3388,51 +3390,51 @@
     /// will try in turn until it finds one available on the system.
     ///
     /// See [`IMContext`][crate::IMContext].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_key_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_key_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_key_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Whether GTK+ should make sure that text can be navigated with
     /// a caret, even if it is not editable. This is useful when using
     /// a screen reader.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_keynav_use_caret(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether GTK+ should make sure that text can be navigated with
     /// a caret, even if it is not editable. This is useful when using
     /// a screen reader.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_keynav_use_caret(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_keynav_use_caret: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_label_select_on_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_label_select_on_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_label_select_on_focus: bool);
 
     <span class="doccomment">/// The time for a button or touch press to be considered a &quot;long press&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
     </span><span class="kw">fn </span>gtk_long_press_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
     <span class="doccomment">/// The time for a button or touch press to be considered a &quot;long press&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_long_press_time(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_long_press_time: u32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
     </span><span class="kw">fn </span>gtk_modules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_modules(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_modules: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Whether scrolled windows may use overlayed scrolling indicators.
     /// If this is set to [`false`], scrolled windows will have permanent
     /// scrollbars.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-overlay-scrolling&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
@@ -3440,7 +3442,7 @@
     <span class="doccomment">/// Whether scrolled windows may use overlayed scrolling indicators.
     /// If this is set to [`false`], scrolled windows will have permanent
     /// scrollbars.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-overlay-scrolling&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_overlay_scrolling: bool);
@@ -3453,7 +3455,7 @@
     /// Whichever action you choose for the primary button, the other action will
     /// be available by holding Shift and primary-clicking, or (since GTK+ 3.22.25)
     /// clicking the middle mouse button.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_primary_button_warps_slider(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// If the value of this setting is [`true`], clicking the primary button in a
@@ -3464,19 +3466,19 @@
     /// Whichever action you choose for the primary button, the other action will
     /// be available by holding Shift and primary-clicking, or (since GTK+ 3.22.25)
     /// clicking the middle mouse button.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_primary_button_warps_slider(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_primary_button_warps_slider: bool);
 
     <span class="doccomment">/// A comma-separated list of print backends to use in the print
     /// dialog. Available print backends depend on the GTK+ installation,
     /// and may include &quot;file&quot;, &quot;cups&quot;, &quot;lpr&quot; or &quot;papi&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
     </span><span class="kw">fn </span>gtk_print_backends(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// A comma-separated list of print backends to use in the print
     /// dialog. Available print backends depend on the GTK+ installation,
     /// and may include &quot;file&quot;, &quot;cups&quot;, &quot;lpr&quot; or &quot;papi&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_print_backends(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_print_backends: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// A command to run for displaying the print preview. The command
@@ -3488,7 +3490,7 @@
     ///
     /// The preview application is responsible for removing the pdf file
     /// and the print settings file when it is done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
     </span><span class="kw">fn </span>gtk_print_preview_command(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// A command to run for displaying the print preview. The command
@@ -3500,49 +3502,49 @@
     ///
     /// The preview application is responsible for removing the pdf file
     /// and the print settings file when it is done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_print_preview_command(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_print_preview_command: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Whether GTK+ should keep track of items inside the recently used
     /// resources list. If set to [`false`], the list will always be empty.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_recent_files_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether GTK+ should keep track of items inside the recently used
     /// resources list. If set to [`false`], the list will always be empty.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_recent_files_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_recent_files_enabled: bool);
 
     <span class="doccomment">/// The maximum age, in days, of the items inside the recently used
     /// resources list. Items older than this setting will be excised
     /// from the list. If set to 0, the list will always be empty; if
     /// set to -1, no item will be removed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
     </span><span class="kw">fn </span>gtk_recent_files_max_age(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// The maximum age, in days, of the items inside the recently used
     /// resources list. Items older than this setting will be excised
     /// from the list. If set to 0, the list will always be empty; if
     /// set to -1, no item will be removed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_recent_files_max_age(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_recent_files_max_age: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_shell_shows_app_menu(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_shell_shows_app_menu(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_shell_shows_app_menu: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_shell_shows_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_shell_shows_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_shell_shows_desktop: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_shell_shows_menubar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_shell_shows_menubar(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_shell_shows_menubar: bool);
 
     <span class="doccomment">/// The XDG sound theme to use for event sounds.
@@ -3552,7 +3554,7 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_sound_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The XDG sound theme to use for event sounds.
@@ -3562,19 +3564,19 @@
     ///
     /// GTK+ itself does not support event sounds, you have to use a loadable
     /// module like the one that comes with libcanberra.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_sound_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_sound_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
     </span><span class="kw">fn </span>is_gtk_split_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_split_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_split_cursor: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>gtk_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// This setting determines the action to take when a double-click
@@ -3582,7 +3584,7 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
     </span><span class="kw">fn </span>gtk_titlebar_double_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// This setting determines the action to take when a double-click
@@ -3590,7 +3592,7 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_titlebar_double_click(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_titlebar_double_click: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// This setting determines the action to take when a middle-click
@@ -3598,7 +3600,7 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
     </span><span class="kw">fn </span>gtk_titlebar_middle_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// This setting determines the action to take when a middle-click
@@ -3606,7 +3608,7 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_titlebar_middle_click(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_titlebar_middle_click: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// This setting determines the action to take when a right-click
@@ -3614,7 +3616,7 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
     </span><span class="kw">fn </span>gtk_titlebar_right_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// This setting determines the action to take when a right-click
@@ -3622,58 +3624,58 @@
     ///
     /// Recognized actions are minimize, toggle-maximize, menu, lower
     /// or none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_titlebar_right_click(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_titlebar_right_click: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
     </span><span class="kw">fn </span>gtk_xft_antialias(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_xft_antialias(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_antialias: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
     </span><span class="kw">fn </span>gtk_xft_dpi(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_xft_dpi(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_dpi: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
     </span><span class="kw">fn </span>gtk_xft_hinting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_xft_hinting(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_hinting: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
     </span><span class="kw">fn </span>gtk_xft_hintstyle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_xft_hintstyle(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_hintstyle: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
     </span><span class="kw">fn </span>gtk_xft_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
     </span><span class="kw">fn </span>set_gtk_xft_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-button-order&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_alternative_button_order_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_alternative_sort_arrows_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_application_prefer_dark_theme_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-cursor-aspect-ratio&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_aspect_ratio_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
@@ -3681,217 +3683,217 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_blink_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-time&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_blink_time_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_blink_timeout_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_theme_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-cursor-theme-size&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_cursor_theme_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-decoration-layout&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_decoration_layout_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-dialogs-use-header&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_dialogs_use_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_dnd_drag_threshold_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-distance&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_double_click_distance_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-double-click-time&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_double_click_time_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-accels&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_enable_accels_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-animations&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_enable_animations_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-event-sounds&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_enable_event_sounds_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_enable_input_feedback_sounds_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-enable-primary-paste&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_enable_primary_paste_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_entry_password_hint_timeout_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_entry_select_on_focus_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-error-bell&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_error_bell_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-font-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_font_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_fontconfig_timestamp_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-icon-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_icon_theme_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-im-module&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-key-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_key_theme_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-keynav-use-caret&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_keynav_use_caret_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-label-select-on-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_label_select_on_focus_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-long-press-time&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_long_press_time_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-modules&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_modules_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk-overlay-scrolling&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_overlay_scrolling_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_primary_button_warps_slider_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-backends&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_print_backends_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-print-preview-command&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_print_preview_command_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-enabled&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_recent_files_enabled_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-recent-files-max-age&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_recent_files_max_age_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_shell_shows_app_menu_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_shell_shows_desktop_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_shell_shows_menubar_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-sound-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_sound_theme_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-split-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_split_cursor_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-theme-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_theme_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-double-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_titlebar_double_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_titlebar_middle_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-titlebar-right-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_titlebar_right_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-antialias&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_xft_antialias_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-dpi&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_xft_dpi_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hinting&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_xft_hinting_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-hintstyle&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_xft_hintstyle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk-xft-rgba&quot;</span>)]
     </span><span class="kw">fn </span>connect_gtk_xft_rgba_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3938,13 +3940,13 @@
         )
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">fn </span>gtk_cursor_aspect_ratio(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-cursor-aspect-ratio&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">fn </span>set_gtk_cursor_aspect_ratio(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_aspect_ratio: f32) {
         glib::ObjectExt::set_property(
@@ -4238,13 +4240,13 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-modules&quot;</span>, <span class="kw-2">&amp;</span>gtk_modules)
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     </span><span class="kw">fn </span>is_gtk_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-overlay-scrolling&quot;</span>)
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     </span><span class="kw">fn </span>set_gtk_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_overlay_scrolling: bool) {
         glib::ObjectExt::set_property(
@@ -4530,7 +4532,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">fn </span>connect_gtk_cursor_aspect_ratio_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5286,7 +5288,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_9&quot;</span>)))]
     </span><span class="kw">fn </span>connect_gtk_overlay_scrolling_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5828,4 +5830,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

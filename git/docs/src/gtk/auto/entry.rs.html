@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/entry.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>entry.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/entry.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>entry.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -5017,7 +5017,7 @@
     /// # Implements
     ///
     /// [`EntryExt`][trait@crate::prelude::EntryExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`CellEditableExt`][trait@crate::prelude::CellEditableExt], [`EditableExt`][trait@crate::prelude::EditableExt], [`EntryExtManual`][trait@crate::prelude::EntryExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual], [`EditableSignals`][trait@crate::prelude::EditableSignals]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkEntry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkEntry&quot;</span>)]
     </span><span class="kw">pub struct </span>Entry(Object&lt;ffi::GtkEntry, ffi::GtkEntryClass&gt;) @extends Widget, @implements Buildable, CellEditable, Editable;
 
     <span class="kw">match fn </span>{
@@ -5033,7 +5033,7 @@
     /// # Returns
     ///
     /// a new [`Entry`][crate::Entry].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; Entry {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_entry_new()).unsafe_cast() }
@@ -5046,7 +5046,7 @@
     /// # Returns
     ///
     /// a new [`Entry`][crate::Entry]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_new_with_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_new_with_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_buffer&quot;</span>)]
     </span><span class="kw">pub fn </span>with_buffer(buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;EntryBuffer&gt;) -&gt; Entry {
         <span class="macro">skip_assert_initialized!</span>();
@@ -5073,12 +5073,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`Entry`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>EntryBuilder {
     activates_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     attributes: <span class="prelude-ty">Option</span>&lt;pango::AttrList&gt;,
@@ -5165,7 +5165,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`Entry`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Entry {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>activates_default) = <span class="self">self</span>.activates_default {
@@ -5952,7 +5952,7 @@
     /// # Returns
     ///
     /// [`true`] if the entry will activate the default widget
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_activates_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_activates_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_activates_default&quot;</span>)]
     </span><span class="kw">fn </span>activates_default(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5961,7 +5961,7 @@
     /// # Returns
     ///
     /// the alignment
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_alignment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_alignment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_alignment&quot;</span>)]
     </span><span class="kw">fn </span>alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
 
@@ -5972,7 +5972,7 @@
     ///
     /// the attribute list, or [`None`]
     ///  if none was set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_attributes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_attributes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_attributes&quot;</span>)]
     </span><span class="kw">fn </span>attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::AttrList&gt;;
 
@@ -5982,7 +5982,7 @@
     /// # Returns
     ///
     /// A [`EntryBuffer`][crate::EntryBuffer] object.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_buffer&quot;</span>)]
     </span><span class="kw">fn </span>buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; EntryBuffer;
 
@@ -5992,7 +5992,7 @@
     ///
     /// The auxiliary completion object currently
     ///  in use by `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_completion&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_completion&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_completion&quot;</span>)]
     </span><span class="kw">fn </span>completion(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;EntryCompletion&gt;;
 
@@ -6006,7 +6006,7 @@
     ///
     /// index of the icon which is the source of the current
     ///  DND operation, or -1.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_current_icon_drag_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_current_icon_drag_source&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_icon_drag_source&quot;</span>)]
     </span><span class="kw">fn </span>current_icon_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -6017,7 +6017,7 @@
     ///
     /// the horizontal cursor adjustment, or [`None`]
     ///  if none has been set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_cursor_hadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_cursor_hadjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor_hadjustment&quot;</span>)]
     </span><span class="kw">fn </span>cursor_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Adjustment&gt;;
 
@@ -6026,7 +6026,7 @@
     /// # Returns
     ///
     /// whether the entry has a beveled frame
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_has_frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_has_frame&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_frame&quot;</span>)]
     </span><span class="kw">fn </span>has_frame(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -6037,7 +6037,7 @@
     /// # Returns
     ///
     /// [`true`] if the icon is activatable.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_activatable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_activatable&quot;</span>)]
     </span><span class="kw">fn </span>icon_is_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; bool;
 
@@ -6058,7 +6058,7 @@
     ///
     /// ## `icon_area`
     /// Return location for the icon’s area
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_area&quot;</span>)]
     </span><span class="kw">fn </span>icon_area(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; gdk::Rectangle;
 
@@ -6075,7 +6075,7 @@
     /// # Returns
     ///
     /// the index of the icon at the given position, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_at_pos&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_at_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_at_pos&quot;</span>)]
     </span><span class="kw">fn </span>icon_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; i32;
 
@@ -6089,7 +6089,7 @@
     ///
     /// A [`gio::Icon`][crate::gio::Icon], or [`None`] if no icon is set
     ///  or if the icon is not a [`gio::Icon`][crate::gio::Icon]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_gicon&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_gicon&quot;</span>)]
     </span><span class="kw">fn </span>icon_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; <span class="prelude-ty">Option</span>&lt;gio::Icon&gt;;
 
@@ -6103,7 +6103,7 @@
     ///
     /// An icon name, or [`None`] if no icon is set or if the icon
     ///  wasn’t set from an icon name
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_name&quot;</span>)]
     </span><span class="kw">fn </span>icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -6119,7 +6119,7 @@
     ///
     /// A [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf], or [`None`] if no icon is
     ///  set for this position.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_pixbuf&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt;;
 
@@ -6130,7 +6130,7 @@
     /// # Returns
     ///
     /// [`true`] if the icon is sensitive.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_sensitive&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_sensitive&quot;</span>)]
     </span><span class="kw">fn </span>icon_is_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; bool;
 
@@ -6143,7 +6143,7 @@
     /// # Returns
     ///
     /// image representation being used
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_storage_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_storage_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_storage_type&quot;</span>)]
     </span><span class="kw">fn </span>icon_storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; ImageType;
 
@@ -6156,7 +6156,7 @@
     ///
     /// the tooltip text, or [`None`]. Free the returned
     ///  string with `g_free()` when done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_tooltip_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_tooltip_markup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_tooltip_markup&quot;</span>)]
     </span><span class="kw">fn </span>icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -6169,17 +6169,17 @@
     ///
     /// the tooltip text, or [`None`]. Free the returned
     ///  string with `g_free()` when done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_tooltip_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_icon_tooltip_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_tooltip_text&quot;</span>)]
     </span><span class="kw">fn </span>icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Gets the value of the `property::Entry::input-hints` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_input_hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_input_hints&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_hints&quot;</span>)]
     </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints;
 
     <span class="doccomment">/// Gets the value of the `property::Entry::input-purpose` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_input_purpose&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_input_purpose&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_purpose&quot;</span>)]
     </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose;
 
@@ -6197,7 +6197,7 @@
     /// # Returns
     ///
     /// the [`pango::Layout`][crate::pango::Layout] for this entry
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout&quot;</span>)]
     </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Layout&gt;;
 
@@ -6229,7 +6229,7 @@
     ///
     /// ## `y`
     /// location to store Y offset of layout, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_layout_offsets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_layout_offsets&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout_offsets&quot;</span>)]
     </span><span class="kw">fn </span>layout_offsets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
 
@@ -6243,7 +6243,7 @@
     ///
     /// the maximum allowed number of characters
     ///  in [`Entry`][crate::Entry], or 0 if there is no maximum.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_max_length&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_max_length&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_length&quot;</span>)]
     </span><span class="kw">fn </span>max_length(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -6253,7 +6253,7 @@
     /// # Returns
     ///
     /// the maximum width of the entry, in characters
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_max_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_max_width_chars&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -6262,7 +6262,7 @@
     /// # Returns
     ///
     /// whether the text is overwritten when typing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_overwrite_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_overwrite_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_overwrite_mode&quot;</span>)]
     </span><span class="kw">fn </span>is_overwrite_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -6272,7 +6272,7 @@
     ///
     /// a pointer to the placeholder text as a string. This string points to internally allocated
     /// storage in the widget and must not be freed, modified or stored.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_placeholder_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_placeholder_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_placeholder_text&quot;</span>)]
     </span><span class="kw">fn </span>placeholder_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -6282,7 +6282,7 @@
     /// # Returns
     ///
     /// a fraction from 0.0 to 1.0
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_progress_fraction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_progress_fraction&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_progress_fraction&quot;</span>)]
     </span><span class="kw">fn </span>progress_fraction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
@@ -6291,7 +6291,7 @@
     /// # Returns
     ///
     /// a fraction from 0.0 to 1.0
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_progress_pulse_step&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_progress_pulse_step&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_progress_pulse_step&quot;</span>)]
     </span><span class="kw">fn </span>progress_pulse_step(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
@@ -6301,7 +6301,7 @@
     /// # Returns
     ///
     /// the tabstops, or [`None`] if none was set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_tabs&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_tabs&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tabs&quot;</span>)]
     </span><span class="kw">fn </span>tabs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt;;
 
@@ -6317,7 +6317,7 @@
     ///  string. This string points to internally allocated
     ///  storage in the widget and must not be freed, modified or
     ///  stored.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text&quot;</span>)]
     </span><span class="kw">fn </span>text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::GString;
 
@@ -6333,7 +6333,7 @@
     ///
     /// ## `text_area`
     /// Return location for the text area.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_text_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_text_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_area&quot;</span>)]
     </span><span class="kw">fn </span>text_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle;
 
@@ -6347,7 +6347,7 @@
     ///
     /// the current number of characters
     ///  in [`Entry`][crate::Entry], or 0 if there are none.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_text_length&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_text_length&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_length&quot;</span>)]
     </span><span class="kw">fn </span>text_length(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u16;
 
@@ -6357,7 +6357,7 @@
     /// # Returns
     ///
     /// [`true`] if the text is currently visible
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_visibility&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_visibility&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visibility&quot;</span>)]
     </span><span class="kw">fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -6366,7 +6366,7 @@
     /// # Returns
     ///
     /// number of chars to request space for, or negative if unset
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_get_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_get_width_chars&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -6377,7 +6377,7 @@
     /// You only want to call this on some special entries
     /// which the user usually doesn&#39;t want to replace all text in,
     /// such as search-as-you-type entries.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_grab_focus_without_selecting&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_grab_focus_without_selecting&quot;</span>)]
     </span><span class="kw">fn </span>grab_focus_without_selecting(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Allow the [`Entry`][crate::Entry] input method to internally handle key press
@@ -6396,7 +6396,7 @@
     /// # Returns
     ///
     /// [`true`] if the input method handled the key event.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_im_context_filter_keypress&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_im_context_filter_keypress&quot;</span>)]
     </span><span class="kw">fn </span>im_context_filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool;
 
     <span class="doccomment">/// Converts from a position in the entry’s [`pango::Layout`][crate::pango::Layout] (returned by
@@ -6408,7 +6408,7 @@
     /// # Returns
     ///
     /// byte index into the entry contents
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_layout_index_to_text_index&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_layout_index_to_text_index&quot;</span>)]
     </span><span class="kw">fn </span>layout_index_to_text_index(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_index: i32) -&gt; i32;
 
     <span class="doccomment">/// Indicates that some progress is made, but you don’t know how much.
@@ -6417,14 +6417,14 @@
     /// [`progress_pulse()`][Self::progress_pulse()] causes the block to move by a little bit
     /// (the amount of movement per pulse is determined by
     /// [`set_progress_pulse_step()`][Self::set_progress_pulse_step()]).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_progress_pulse&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_progress_pulse&quot;</span>)]
     </span><span class="kw">fn </span>progress_pulse(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Reset the input method context of the entry if needed.
     ///
     /// This can be necessary in the case where modifying the buffer
     /// would confuse on-going input method behavior.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_reset_im_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_reset_im_context&quot;</span>)]
     </span><span class="kw">fn </span>reset_im_context(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// If `setting` is [`true`], pressing Enter in the `self` will activate the default
@@ -6437,7 +6437,7 @@
     /// the default handler for the `signal::Entry::activate` signal.)
     /// ## `setting`
     /// [`true`] to activate window’s default widget on Enter keypress
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_activates_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_activates_default&quot;</span>)]
     </span><span class="kw">fn </span>set_activates_default(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets the alignment for the contents of the entry. This controls
@@ -6446,21 +6446,21 @@
     /// ## `xalign`
     /// The horizontal alignment, from 0 (left) to 1 (right).
     ///  Reversed for RTL layouts
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_alignment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_alignment&quot;</span>)]
     </span><span class="kw">fn </span>set_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32);
 
     <span class="doccomment">/// Sets a [`pango::AttrList`][crate::pango::AttrList]; the attributes in the list are applied to the
     /// entry text.
     /// ## `attrs`
     /// a [`pango::AttrList`][crate::pango::AttrList]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_attributes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_attributes&quot;</span>)]
     </span><span class="kw">fn </span>set_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, attrs: <span class="kw-2">&amp;</span>pango::AttrList);
 
     <span class="doccomment">/// Set the [`EntryBuffer`][crate::EntryBuffer] object which holds the text for
     /// this widget.
     /// ## `buffer`
     /// a [`EntryBuffer`][crate::EntryBuffer]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_buffer&quot;</span>)]
     </span><span class="kw">fn </span>set_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;EntryBuffer&gt;);
 
     <span class="doccomment">/// Sets `completion` to be the auxiliary completion object to use with `self`.
@@ -6469,7 +6469,7 @@
     /// `completion` is set to [`None`].
     /// ## `completion`
     /// The [`EntryCompletion`][crate::EntryCompletion] or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_completion&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_completion&quot;</span>)]
     </span><span class="kw">fn </span>set_completion(<span class="kw-2">&amp;</span><span class="self">self</span>, completion: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;EntryCompletion&gt;&gt;);
 
     <span class="doccomment">/// Hooks up an adjustment to the cursor position in an entry, so that when
@@ -6482,13 +6482,13 @@
     /// ## `adjustment`
     /// an adjustment which should be adjusted when the cursor
     ///  is moved, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_cursor_hadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_cursor_hadjustment&quot;</span>)]
     </span><span class="kw">fn </span>set_cursor_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;);
 
     <span class="doccomment">/// Sets whether the entry has a beveled frame around it.
     /// ## `setting`
     /// new value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_has_frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_has_frame&quot;</span>)]
     </span><span class="kw">fn </span>set_has_frame(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets whether the icon is activatable.
@@ -6496,7 +6496,7 @@
     /// Icon position
     /// ## `activatable`
     /// [`true`] if the icon should be activatable
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_activatable&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, activatable: bool);
 
     <span class="doccomment">/// Sets up the icon at the given position so that GTK+ will start a drag
@@ -6518,7 +6518,7 @@
     /// the targets (data formats) in which the data can be provided
     /// ## `actions`
     /// a bitmask of the allowed drag actions
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_drag_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_drag_source&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_drag_source(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         icon_pos: EntryIconPosition,
@@ -6536,7 +6536,7 @@
     /// The position at which to set the icon
     /// ## `icon`
     /// The icon to set, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_gicon&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_from_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;&gt;);
 
     <span class="doccomment">/// Sets the icon shown in the entry at the specified position
@@ -6550,7 +6550,7 @@
     /// The position at which to set the icon
     /// ## `icon_name`
     /// An icon name, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_icon_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_icon_name&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_from_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Sets the icon shown in the specified position using a pixbuf.
@@ -6560,7 +6560,7 @@
     /// Icon position
     /// ## `pixbuf`
     /// A [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_from_pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_from_pixbuf(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         icon_pos: EntryIconPosition,
@@ -6573,7 +6573,7 @@
     /// ## `sensitive`
     /// Specifies whether the icon should appear
     ///  sensitive or insensitive
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_sensitive&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, sensitive: bool);
 
     <span class="doccomment">/// Sets `tooltip` as the contents of the tooltip for the icon at
@@ -6588,7 +6588,7 @@
     /// the icon position
     /// ## `tooltip`
     /// the contents of the tooltip for the icon, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_tooltip_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_tooltip_markup&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, tooltip: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Sets `tooltip` as the contents of the tooltip for the icon
@@ -6608,14 +6608,14 @@
     /// the icon position
     /// ## `tooltip`
     /// the contents of the tooltip for the icon, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_tooltip_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_icon_tooltip_text&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_pos: EntryIconPosition, tooltip: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Sets the `property::Entry::input-hints` property, which
     /// allows input methods to fine-tune their behaviour.
     /// ## `hints`
     /// the hints
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_input_hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_input_hints&quot;</span>)]
     </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, hints: InputHints);
 
     <span class="doccomment">/// Sets the `property::Entry::input-purpose` property which
@@ -6623,7 +6623,7 @@
     /// methods to adjust their behaviour.
     /// ## `purpose`
     /// the purpose
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_input_purpose&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_input_purpose&quot;</span>)]
     </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: InputPurpose);
 
     <span class="doccomment">/// Sets the character to use in place of the actual text when
@@ -6635,7 +6635,7 @@
     /// at all; there will be no text on the screen as they type.
     /// ## `ch`
     /// a Unicode character
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_invisible_char&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_invisible_char&quot;</span>)]
     </span><span class="kw">fn </span>set_invisible_char(<span class="kw-2">&amp;</span><span class="self">self</span>, ch: <span class="prelude-ty">Option</span>&lt;char&gt;);
 
     <span class="doccomment">/// Sets the maximum allowed length of the contents of the widget. If
@@ -6649,19 +6649,19 @@
     /// the maximum length of the entry, or 0 for no maximum.
     ///  (other than the maximum length of entries.) The value passed in will
     ///  be clamped to the range 0-65536.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_max_length&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_max_length&quot;</span>)]
     </span><span class="kw">fn </span>set_max_length(<span class="kw-2">&amp;</span><span class="self">self</span>, max: i32);
 
     <span class="doccomment">/// Sets the desired maximum width in characters of `self`.
     /// ## `n_chars`
     /// the new desired maximum width, in characters
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_max_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_max_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>set_max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, n_chars: i32);
 
     <span class="doccomment">/// Sets whether the text is overwritten when typing in the [`Entry`][crate::Entry].
     /// ## `overwrite`
     /// new value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_overwrite_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_overwrite_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_overwrite_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, overwrite: bool);
 
     <span class="doccomment">/// Sets text to be displayed in `self` when it is empty and unfocused.
@@ -6675,7 +6675,7 @@
     /// first key event arrives.
     /// ## `text`
     /// a string to be displayed when `self` is empty and unfocused, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_placeholder_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_placeholder_text&quot;</span>)]
     </span><span class="kw">fn </span>set_placeholder_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Causes the entry’s progress indicator to “fill in” the given
@@ -6683,21 +6683,21 @@
     /// inclusive.
     /// ## `fraction`
     /// fraction of the task that’s been completed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_progress_fraction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_progress_fraction&quot;</span>)]
     </span><span class="kw">fn </span>set_progress_fraction(<span class="kw-2">&amp;</span><span class="self">self</span>, fraction: f64);
 
     <span class="doccomment">/// Sets the fraction of total entry width to move the progress
     /// bouncing block for each call to [`progress_pulse()`][Self::progress_pulse()].
     /// ## `fraction`
     /// fraction between 0.0 and 1.0
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_progress_pulse_step&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_progress_pulse_step&quot;</span>)]
     </span><span class="kw">fn </span>set_progress_pulse_step(<span class="kw-2">&amp;</span><span class="self">self</span>, fraction: f64);
 
     <span class="doccomment">/// Sets a [`pango::TabArray`][crate::pango::TabArray]; the tabstops in the array are applied to the entry
     /// text.
     /// ## `tabs`
     /// a [`pango::TabArray`][crate::pango::TabArray]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_tabs&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_tabs&quot;</span>)]
     </span><span class="kw">fn </span>set_tabs(<span class="kw-2">&amp;</span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray);
 
     <span class="doccomment">/// Sets the text in the widget to the given
@@ -6706,7 +6706,7 @@
     /// See [`EntryBufferExtManual::set_text()`][crate::prelude::EntryBufferExtManual::set_text()].
     /// ## `text`
     /// the new text
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_text&quot;</span>)]
     </span><span class="kw">fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets whether the contents of the entry are visible or not.
@@ -6725,7 +6725,7 @@
     /// ## `visible`
     /// [`true`] if the contents of the entry are displayed
     ///  as plaintext
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_visibility&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_visibility&quot;</span>)]
     </span><span class="kw">fn </span>set_visibility(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool);
 
     <span class="doccomment">/// Changes the size request of the entry to be about the right size
@@ -6735,7 +6735,7 @@
     /// size reverts to the default entry size.
     /// ## `n_chars`
     /// width in chars
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_set_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_set_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>set_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, n_chars: i32);
 
     <span class="doccomment">/// Converts from a position in the entry contents (returned
@@ -6748,13 +6748,13 @@
     /// # Returns
     ///
     /// byte index into the entry layout text
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_text_index_to_layout_index&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_text_index_to_layout_index&quot;</span>)]
     </span><span class="kw">fn </span>text_index_to_layout_index(<span class="kw-2">&amp;</span><span class="self">self</span>, text_index: i32) -&gt; i32;
 
     <span class="doccomment">/// Unsets the invisible char previously set with
     /// [`set_invisible_char()`][Self::set_invisible_char()]. So that the
     /// default invisible char is used again.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_entry_unset_invisible_char&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_entry_unset_invisible_char&quot;</span>)]
     </span><span class="kw">fn </span>unset_invisible_char(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Whether password entries will show a warning when Caps Lock is on.
@@ -6762,7 +6762,7 @@
     /// Note that the warning is shown using a secondary icon, and thus
     /// does not work if you are using the secondary icon position for some
     /// other purpose.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
     </span><span class="kw">fn </span>is_caps_lock_warning(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether password entries will show a warning when Caps Lock is on.
@@ -6770,16 +6770,16 @@
     /// Note that the warning is shown using a secondary icon, and thus
     /// does not work if you are using the secondary icon position for some
     /// other purpose.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
     </span><span class="kw">fn </span>set_caps_lock_warning(<span class="kw-2">&amp;</span><span class="self">self</span>, caps_lock_warning: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
     </span><span class="kw">fn </span>cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
     </span><span class="kw">fn </span>enables_emoji_completion(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
     </span><span class="kw">fn </span>set_enable_emoji_completion(<span class="kw-2">&amp;</span><span class="self">self</span>, enable_emoji_completion: bool);
 
     <span class="doccomment">/// Which IM (input method) module should be used for this entry.
@@ -6788,7 +6788,7 @@
     /// Setting this to a non-[`None`] value overrides the
     /// system-wide IM module setting. See the GtkSettings
     /// `property::Settings::gtk-im-module` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Which IM (input method) module should be used for this entry.
@@ -6797,25 +6797,25 @@
     /// Setting this to a non-[`None`] value overrides the
     /// system-wide IM module setting. See the GtkSettings
     /// `property::Settings::gtk-im-module` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>set_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Whether the invisible char has been set for the [`Entry`][crate::Entry].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
     </span><span class="kw">fn </span>is_invisible_char_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the invisible char has been set for the [`Entry`][crate::Entry].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
     </span><span class="kw">fn </span>set_invisible_char_set(<span class="kw-2">&amp;</span><span class="self">self</span>, invisible_char_set: bool);
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::Entry::populate-popup`
     /// signal is also emitted for touch popups.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::Entry::populate-popup`
     /// signal is also emitted for touch popups.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool);
 
     <span class="doccomment">/// Whether the primary icon is activatable.
@@ -6825,7 +6825,7 @@
     ///
     /// Sensitive, but non-activatable icons can be used for purely
     /// informational purposes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>is_primary_icon_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the primary icon is activatable.
@@ -6835,31 +6835,31 @@
     ///
     /// Sensitive, but non-activatable icons can be used for purely
     /// informational purposes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_activatable: bool);
 
     <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::Icon&gt;;
 
     <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
 
     <span class="doccomment">/// The icon name to use for the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The icon name to use for the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// A pixbuf to use as the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt;;
 
     <span class="doccomment">/// A pixbuf to use as the primary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;);
 
     <span class="doccomment">/// Whether the primary icon is sensitive.
@@ -6870,7 +6870,7 @@
     ///
     /// An icon should be set insensitive if the action that would trigger
     /// when clicked is currently not available.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>is_primary_icon_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the primary icon is sensitive.
@@ -6881,40 +6881,40 @@
     ///
     /// An icon should be set insensitive if the action that would trigger
     /// when clicked is currently not available.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_sensitive: bool);
 
     <span class="doccomment">/// The representation which is used for the primary icon of the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-storage-type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-storage-type&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageType;
 
     <span class="doccomment">/// The contents of the tooltip on the primary icon, which is marked up
     /// with the [Pango text markup language][PangoMarkupFormat].
     ///
     /// Also see [`set_icon_tooltip_markup()`][Self::set_icon_tooltip_markup()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The contents of the tooltip on the primary icon, which is marked up
     /// with the [Pango text markup language][PangoMarkupFormat].
     ///
     /// Also see [`set_icon_tooltip_markup()`][Self::set_icon_tooltip_markup()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_tooltip_markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// The contents of the tooltip on the primary icon.
     ///
     /// Also see [`set_icon_tooltip_text()`][Self::set_icon_tooltip_text()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>primary_icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The contents of the tooltip on the primary icon.
     ///
     /// Also see [`set_icon_tooltip_text()`][Self::set_icon_tooltip_text()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>set_primary_icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, primary_icon_tooltip_text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scroll-offset&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scroll-offset&quot;</span>)]
     </span><span class="kw">fn </span>scroll_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Whether the secondary icon is activatable.
@@ -6924,7 +6924,7 @@
     ///
     /// Sensitive, but non-activatable icons can be used for purely
     /// informational purposes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>is_secondary_icon_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the secondary icon is activatable.
@@ -6934,31 +6934,31 @@
     ///
     /// Sensitive, but non-activatable icons can be used for purely
     /// informational purposes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_activatable(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_activatable: bool);
 
     <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::Icon&gt;;
 
     <span class="doccomment">/// The [`gio::Icon`][crate::gio::Icon] to use for the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
 
     <span class="doccomment">/// The icon name to use for the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The icon name to use for the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// An pixbuf to use as the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt;;
 
     <span class="doccomment">/// An pixbuf to use as the secondary icon for the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;);
 
     <span class="doccomment">/// Whether the secondary icon is sensitive.
@@ -6969,7 +6969,7 @@
     ///
     /// An icon should be set insensitive if the action that would trigger
     /// when clicked is currently not available.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>is_secondary_icon_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether the secondary icon is sensitive.
@@ -6980,54 +6980,54 @@
     ///
     /// An icon should be set insensitive if the action that would trigger
     /// when clicked is currently not available.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_sensitive: bool);
 
     <span class="doccomment">/// The representation which is used for the secondary icon of the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-storage-type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-storage-type&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageType;
 
     <span class="doccomment">/// The contents of the tooltip on the secondary icon, which is marked up
     /// with the [Pango text markup language][PangoMarkupFormat].
     ///
     /// Also see [`set_icon_tooltip_markup()`][Self::set_icon_tooltip_markup()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The contents of the tooltip on the secondary icon, which is marked up
     /// with the [Pango text markup language][PangoMarkupFormat].
     ///
     /// Also see [`set_icon_tooltip_markup()`][Self::set_icon_tooltip_markup()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_tooltip_markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// The contents of the tooltip on the secondary icon.
     ///
     /// Also see [`set_icon_tooltip_text()`][Self::set_icon_tooltip_text()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>secondary_icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The contents of the tooltip on the secondary icon.
     ///
     /// Also see [`set_icon_tooltip_text()`][Self::set_icon_tooltip_text()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>set_secondary_icon_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, secondary_icon_tooltip_text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
     </span><span class="kw">fn </span>selection_bound(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
     </span><span class="kw">fn </span>shows_emoji_icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
     </span><span class="kw">fn </span>set_show_emoji_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, show_emoji_icon: bool);
 
     <span class="doccomment">/// When [`true`], pasted multi-line text is truncated to the first line.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
     </span><span class="kw">fn </span>must_truncate_multiline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// When [`true`], pasted multi-line text is truncated to the first line.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
     </span><span class="kw">fn </span>set_truncate_multiline(<span class="kw-2">&amp;</span><span class="self">self</span>, truncate_multiline: bool);
 
     <span class="doccomment">/// The horizontal alignment, from 0 (left) to 1 (right).
@@ -7047,7 +7047,7 @@
     /// activation of entries.
     ///
     /// The default bindings for this signal are all forms of the Enter key.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;activate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_activate(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7058,7 +7058,7 @@
     ///
     /// The default bindings for this signal are
     /// Backspace and Shift-Backspace.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
     </span><span class="kw">fn </span>connect_backspace&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_backspace(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7069,7 +7069,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-c and Ctrl-Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7080,7 +7080,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-x and Shift-Delete.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_cut_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7100,7 +7100,7 @@
     /// the granularity of the deletion, as a [`DeleteType`][crate::DeleteType]
     /// ## `count`
     /// the number of `type_` units to delete
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_delete_from_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DeleteType, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -7114,7 +7114,7 @@
     /// The position of the clicked icon
     /// ## `event`
     /// the button press event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;icon-press&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-press&quot;</span>)]
     </span><span class="kw">fn </span>connect_icon_press&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, EntryIconPosition, <span class="kw-2">&amp;</span>gdk::Event) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -7126,7 +7126,7 @@
     /// The position of the clicked icon
     /// ## `event`
     /// the button release event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;icon-release&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-release&quot;</span>)]
     </span><span class="kw">fn </span>connect_icon_release&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, EntryIconPosition, <span class="kw-2">&amp;</span>gdk::Event) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -7140,7 +7140,7 @@
     /// This signal has no default bindings.
     /// ## `string`
     /// the string to insert
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_insert_at_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, string: <span class="kw-2">&amp;</span>str);
@@ -7150,7 +7150,7 @@
     /// which gets emitted to present the Emoji chooser for the `entry`.
     ///
     /// The default bindings for this signal are Ctrl-. and Ctrl-;
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
     </span><span class="kw">fn </span>connect_insert_emoji&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_insert_emoji(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7178,7 +7178,7 @@
     /// the number of `step` units to move
     /// ## `extend_selection`
     /// [`true`] if the move should extend the selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -7193,7 +7193,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-v and Shift-Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_paste_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_paste_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -7212,7 +7212,7 @@
     /// type of `widget`.
     /// ## `widget`
     /// the container that is being populated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
     </span><span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// If an input method is used, the typed text will not immediately
@@ -7220,7 +7220,7 @@
     /// connect to this signal.
     /// ## `preedit`
     /// the current preedit string
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_preedit_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, preedit: <span class="kw-2">&amp;</span>str);
@@ -7230,184 +7230,184 @@
     /// which gets emitted to toggle the overwrite mode of the entry.
     ///
     /// The default bindings for this signal is Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
     </span><span class="kw">fn </span>connect_toggle_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_toggle_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;activates-default&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;activates-default&quot;</span>)]
     </span><span class="kw">fn </span>connect_activates_default_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
     </span><span class="kw">fn </span>connect_attributes_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
     </span><span class="kw">fn </span>connect_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;caps-lock-warning&quot;</span>)]
     </span><span class="kw">fn </span>connect_caps_lock_warning_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;completion&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;completion&quot;</span>)]
     </span><span class="kw">fn </span>connect_completion_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
     </span><span class="kw">fn </span>connect_cursor_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
     </span><span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-emoji-completion&quot;</span>)]
     </span><span class="kw">fn </span>connect_enable_emoji_completion_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_frame_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>connect_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;invisible-char&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;invisible-char&quot;</span>)]
     </span><span class="kw">fn </span>connect_invisible_char_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;invisible-char-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_invisible_char_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-length&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-length&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_length_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;overwrite-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;overwrite-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_overwrite_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_placeholder_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_activatable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_gicon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_pixbuf_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_sensitive_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-storage-type&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-storage-type&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_storage_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_tooltip_markup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;primary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_primary_icon_tooltip_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;progress-fraction&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;progress-fraction&quot;</span>)]
     </span><span class="kw">fn </span>connect_progress_fraction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;progress-pulse-step&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;progress-pulse-step&quot;</span>)]
     </span><span class="kw">fn </span>connect_progress_pulse_step_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scroll-offset&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scroll-offset&quot;</span>)]
     </span><span class="kw">fn </span>connect_scroll_offset_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-activatable&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_activatable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-gicon&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_gicon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_pixbuf_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-sensitive&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_sensitive_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-storage-type&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-storage-type&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_storage_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_tooltip_markup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;secondary-icon-tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_secondary_icon_tooltip_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_bound_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-emoji-icon&quot;</span>)]
     </span><span class="kw">fn </span>connect_show_emoji_icon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
     </span><span class="kw">fn </span>connect_tabs_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;text-length&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;text-length&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_length_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;truncate-multiline&quot;</span>)]
     </span><span class="kw">fn </span>connect_truncate_multiline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;visibility&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;visibility&quot;</span>)]
     </span><span class="kw">fn </span>connect_visibility_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;xalign&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;xalign&quot;</span>)]
     </span><span class="kw">fn </span>connect_xalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -9736,4 +9736,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

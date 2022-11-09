@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/places_sidebar.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>places_sidebar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/places_sidebar.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>places_sidebar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1884,7 +1884,7 @@
     /// # Implements
     ///
     /// [`ScrolledWindowExt`][trait@crate::prelude::ScrolledWindowExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkPlacesSidebar&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkPlacesSidebar&quot;</span>)]
     </span><span class="kw">pub struct </span>PlacesSidebar(Object&lt;ffi::GtkPlacesSidebar, ffi::GtkPlacesSidebarClass&gt;) @extends ScrolledWindow, Bin, Container, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -1902,7 +1902,7 @@
     /// # Returns
     ///
     /// a newly created [`PlacesSidebar`][crate::PlacesSidebar]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; PlacesSidebar {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_places_sidebar_new()).unsafe_cast() }
@@ -1928,7 +1928,7 @@
     /// to the sidebar’s list in the same order as the function is called.
     /// ## `location`
     /// location to add as an application-specific shortcut
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_add_shortcut&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_add_shortcut&quot;</span>)]
     </span><span class="kw">pub fn </span>add_shortcut(<span class="kw-2">&amp;</span><span class="self">self</span>, location: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_add_shortcut(
@@ -1943,7 +1943,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will only show local files.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_local_only&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_local_only&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_local_only&quot;</span>)]
     </span><span class="kw">pub fn </span>is_local_only(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -1967,7 +1967,7 @@
     ///
     /// a [`gio::File`][crate::gio::File] with the selected location, or
     /// [`None`] if nothing is visually selected.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_location&quot;</span>)]
     </span><span class="kw">pub fn </span>location(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::File&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_places_sidebar_get_location(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1984,7 +1984,7 @@
     /// The bookmark specified by the index `n`, or
     /// [`None`] if no such index exist. Note that the indices start at 0, even though
     /// the file chooser starts them with the keyboard shortcut &quot;Alt-1&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_nth_bookmark&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_nth_bookmark&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_nth_bookmark&quot;</span>)]
     </span><span class="kw">pub fn </span>nth_bookmark(<span class="kw-2">&amp;</span><span class="self">self</span>, n: i32) -&gt; <span class="prelude-ty">Option</span>&lt;gio::File&gt; {
         <span class="kw">unsafe </span>{
@@ -2000,7 +2000,7 @@
     /// # Returns
     ///
     /// the [`PlacesOpenFlags`][crate::PlacesOpenFlags] of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_open_flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_open_flags&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_open_flags&quot;</span>)]
     </span><span class="kw">pub fn </span>open_flags(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PlacesOpenFlags {
         <span class="kw">unsafe </span>{
@@ -2015,7 +2015,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display a builtin shortcut to the desktop folder.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_desktop&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_desktop&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2030,7 +2030,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display an “Enter Location” item.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_enter_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_enter_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_enter_location&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_enter_location(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2045,7 +2045,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display an “Other Locations” item.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_other_locations&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_other_locations&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_other_locations&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_other_locations(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2060,7 +2060,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display a builtin shortcut for recent files
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_recent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_recent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_recent&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_recent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2075,7 +2075,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display a Starred item.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_starred_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_starred_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_starred_location&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_starred_location(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2090,7 +2090,7 @@
     /// # Returns
     ///
     /// [`true`] if the sidebar will display a “Trash” item.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_trash&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_get_show_trash&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_trash&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_trash(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -2115,7 +2115,7 @@
     /// ```C
     /// g_slist_free_full (list, (GDestroyNotify) g_object_unref);
     /// ```
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_list_shortcuts&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_list_shortcuts&quot;</span>)]
     </span><span class="kw">pub fn </span>list_shortcuts(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gio::File&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_full(ffi::gtk_places_sidebar_list_shortcuts(
@@ -2129,7 +2129,7 @@
     /// shortcut in the sidebar, then nothing is done.
     /// ## `location`
     /// location to remove
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_remove_shortcut&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_remove_shortcut&quot;</span>)]
     </span><span class="kw">pub fn </span>remove_shortcut(<span class="kw-2">&amp;</span><span class="self">self</span>, location: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_remove_shortcut(
@@ -2153,7 +2153,7 @@
     /// ## `context`
     /// drag context used to ask the source about the action that wants to
     ///  perform, so hints are more accurate.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_drop_targets_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_drop_targets_visible&quot;</span>)]
     </span><span class="kw">pub fn </span>set_drop_targets_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool, context: <span class="kw-2">&amp;</span>gdk::DragContext) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_drop_targets_visible(
@@ -2167,7 +2167,7 @@
     <span class="doccomment">/// Sets whether the `self` should only show local files.
     /// ## `local_only`
     /// whether to show only local files
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_local_only&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_local_only&quot;</span>)]
     </span><span class="kw">pub fn </span>set_local_only(<span class="kw-2">&amp;</span><span class="self">self</span>, local_only: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_local_only(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, local_only.into_glib());
@@ -2181,7 +2181,7 @@
     /// places in the list.
     /// ## `location`
     /// location to select, or [`None`] for no current path
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_location&quot;</span>)]
     </span><span class="kw">pub fn </span>set_location(<span class="kw-2">&amp;</span><span class="self">self</span>, location: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_location(
@@ -2208,7 +2208,7 @@
     /// to callbacks for the “open-location” signal.
     /// ## `flags`
     /// Bitmask of modes in which the calling application can open locations
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_open_flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_open_flags&quot;</span>)]
     </span><span class="kw">pub fn </span>set_open_flags(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: PlacesOpenFlags) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_open_flags(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, flags.into_glib());
@@ -2221,7 +2221,7 @@
     /// used to override it on a per-application basis.
     /// ## `show_desktop`
     /// whether to show an item for the Desktop folder
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_desktop&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>, show_desktop: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_desktop(
@@ -2239,7 +2239,7 @@
     /// `signal::PlacesSidebar::show-enter-location` signal.
     /// ## `show_enter_location`
     /// whether to show an item to enter a location
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_enter_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_enter_location&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_enter_location(<span class="kw-2">&amp;</span><span class="self">self</span>, show_enter_location: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_enter_location(
@@ -2259,7 +2259,7 @@
     /// `signal::PlacesSidebar::show-other-locations` signal.
     /// ## `show_other_locations`
     /// whether to show an item for the Other Locations view
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_other_locations&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_other_locations&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_other_locations(<span class="kw-2">&amp;</span><span class="self">self</span>, show_other_locations: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_other_locations(
@@ -2275,7 +2275,7 @@
     /// per-application basis.
     /// ## `show_recent`
     /// whether to show an item for recent files
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_recent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_recent&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_recent(<span class="kw-2">&amp;</span><span class="self">self</span>, show_recent: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_recent(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, show_recent.into_glib());
@@ -2286,7 +2286,7 @@
     /// `signal::PlacesSidebar::show-starred-location` signal.
     /// ## `show_starred_location`
     /// whether to show an item for Starred files
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_starred_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_starred_location&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_starred_location(<span class="kw-2">&amp;</span><span class="self">self</span>, show_starred_location: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_starred_location(
@@ -2299,7 +2299,7 @@
     <span class="doccomment">/// Sets whether the `self` should show an item for the Trash location.
     /// ## `show_trash`
     /// whether to show an item for the Trash location
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_trash&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_places_sidebar_set_show_trash&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_trash(<span class="kw-2">&amp;</span><span class="self">self</span>, show_trash: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_places_sidebar_set_show_trash(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, show_trash.into_glib());
@@ -2308,24 +2308,24 @@
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::PlacesSidebar::populate-popup` signal
     /// is also emitted for popovers.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">pub fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;populate-all&quot;</span>)
     }
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::PlacesSidebar::populate-popup` signal
     /// is also emitted for popovers.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">pub fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;populate-all&quot;</span>, <span class="kw-2">&amp;</span>populate_all)
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
     </span><span class="kw">pub fn </span>shows_connect_to_server(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;show-connect-to-server&quot;</span>)
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
     </span><span class="kw">pub fn </span>set_show_connect_to_server(<span class="kw-2">&amp;</span><span class="self">self</span>, show_connect_to_server: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;show-connect-to-server&quot;</span>, <span class="kw-2">&amp;</span>show_connect_to_server)
     }
@@ -2339,7 +2339,7 @@
     ///
     /// the final drag action that the sidebar should pass to the drag side
     /// of the drag-and-drop operation.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-action-ask&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-action-ask&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_drag_action_ask&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2373,7 +2373,7 @@
     /// progress of the operation and, for example, show a notification.
     /// ## `mount_operation`
     /// the [`gio::MountOperation`][crate::gio::MountOperation] that is going to start.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;mount&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;mount&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_mount&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gio::MountOperation) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2409,7 +2409,7 @@
     /// [`gio::File`][crate::gio::File] to which the caller should switch.
     /// ## `open_flags`
     /// a single value from [`PlacesOpenFlags`][crate::PlacesOpenFlags] specifying how the `location` should be opened.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;open-location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;open-location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_open_location&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gio::File, PlacesOpenFlags) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2451,7 +2451,7 @@
     /// application to present an way to directly enter a location.
     /// For example, the application may bring up a dialog box asking for
     /// a URL like &quot;http://http.example.com&quot;.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show-enter-location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-enter-location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_enter_location&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>show_enter_location_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2481,7 +2481,7 @@
     /// primary message with a summary of the error to show.
     /// ## `secondary`
     /// secondary message with details of the error to show.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show-error-message&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-error-message&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_error_message&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2521,7 +2521,7 @@
     /// volumes and discovered network addresses.
     /// ## `open_flags`
     /// a single value from [`PlacesOpenFlags`][crate::PlacesOpenFlags] specifying how it should be opened.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show-other-locations-with-flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-other-locations-with-flags&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_other_locations_with_flags&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PlacesOpenFlags) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2556,7 +2556,7 @@
     /// ## `open_flags`
     /// a single value from [`PlacesOpenFlags`][crate::PlacesOpenFlags] specifying how the
     ///  starred file should be opened.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show-starred-location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-starred-location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_starred_location&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PlacesOpenFlags) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2590,7 +2590,7 @@
     /// progress of the operation and, for example, show a notification.
     /// ## `mount_operation`
     /// the [`gio::MountOperation`][crate::gio::MountOperation] that is going to start.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;unmount&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unmount&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_unmount&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gio::MountOperation) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2618,7 +2618,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;local-only&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;local-only&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_local_only_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_local_only_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2641,7 +2641,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;location&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_location_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_location_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2664,7 +2664,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;open-flags&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;open-flags&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_open_flags_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_open_flags_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2687,7 +2687,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_populate_all_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2710,7 +2710,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-connect-to-server&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_connect_to_server_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2738,7 +2738,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-desktop&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_desktop_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_desktop_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2761,7 +2761,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-enter-location&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-enter-location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_enter_location_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2789,7 +2789,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-other-locations&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-other-locations&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_other_locations_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2817,7 +2817,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-recent&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-recent&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_recent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_recent_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2840,7 +2840,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-starred-location&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-starred-location&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_starred_location_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2868,7 +2868,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-trash&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-trash&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_show_trash_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_trash_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>PlacesSidebar) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPlacesSidebar,
@@ -2898,12 +2898,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`PlacesSidebar`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>PlacesSidebarBuilder {
     local_only: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     location: <span class="prelude-ty">Option</span>&lt;gio::File&gt;,
@@ -2976,7 +2976,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`PlacesSidebar`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; PlacesSidebar {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>local_only) = <span class="self">self</span>.local_only {
@@ -3566,4 +3566,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

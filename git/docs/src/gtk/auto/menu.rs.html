@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/menu.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>menu.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/menu.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>menu.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1942,7 +1942,7 @@
     /// # Implements
     ///
     /// [`GtkMenuExt`][trait@crate::prelude::GtkMenuExt], [`MenuShellExt`][trait@crate::prelude::MenuShellExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`GtkMenuExtManual`][trait@crate::prelude::GtkMenuExtManual], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkMenu&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkMenu&quot;</span>)]
     </span><span class="kw">pub struct </span>Menu(Object&lt;ffi::GtkMenu, ffi::GtkMenuClass&gt;) @extends MenuShell, Container, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -1958,7 +1958,7 @@
     /// # Returns
     ///
     /// a new [`Menu`][crate::Menu]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; Menu {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_menu_new()).unsafe_cast() }
@@ -1980,7 +1980,7 @@
     /// # Returns
     ///
     /// a new [`Menu`][crate::Menu]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_new_from_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_new_from_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_model&quot;</span>)]
     </span><span class="kw">pub fn </span>from_model(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::MenuModel&gt;) -&gt; Menu {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2009,7 +2009,7 @@
     ///
     /// the list
     ///  of menus attached to his widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_for_attach_widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_for_attach_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_for_attach_widget&quot;</span>)]
     </span><span class="kw">pub fn </span>for_attach_widget(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; Vec&lt;Widget&gt; {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2027,12 +2027,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`Menu`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>MenuBuilder {
     accel_group: <span class="prelude-ty">Option</span>&lt;AccelGroup&gt;,
     accel_path: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -2091,7 +2091,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`Menu`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Menu {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accel_group) = <span class="self">self</span>.accel_group {
@@ -2609,7 +2609,7 @@
     /// The row number to attach the top of the item to
     /// ## `bottom_attach`
     /// The row number to attach the bottom of the item to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_attach&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_attach&quot;</span>)]
     </span><span class="kw">fn </span>attach(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
@@ -2622,7 +2622,7 @@
     <span class="doccomment">/// Detaches the menu from the widget to which it had been attached.
     /// This function will call the callback function, `detacher`, provided
     /// when the `gtk_menu_attach_to_widget()` function was called.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_detach&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_detach&quot;</span>)]
     </span><span class="kw">fn </span>detach(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Gets the [`AccelGroup`][crate::AccelGroup] which holds global accelerators for the
@@ -2631,7 +2631,7 @@
     /// # Returns
     ///
     /// the [`AccelGroup`][crate::AccelGroup] associated with the menu
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_accel_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_accel_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accel_group&quot;</span>)]
     </span><span class="kw">fn </span>accel_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;AccelGroup&gt;;
 
@@ -2640,7 +2640,7 @@
     /// # Returns
     ///
     /// the accelerator path set on the menu.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_accel_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_accel_path&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accel_path&quot;</span>)]
     </span><span class="kw">fn </span>accel_path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -2652,7 +2652,7 @@
     /// the [`MenuItem`][crate::MenuItem] that was last selected
     ///  in the menu. If a selection has not yet been made, the
     ///  first menu item is selected.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_active&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_active&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_active&quot;</span>)]
     </span><span class="kw">fn </span>active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -2661,7 +2661,7 @@
     /// # Returns
     ///
     /// the [`Widget`][crate::Widget] that the menu is attached to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_attach_widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_attach_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_attach_widget&quot;</span>)]
     </span><span class="kw">fn </span>attach_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -2671,7 +2671,7 @@
     ///
     /// the number of the monitor on which the menu should
     ///  be popped up or -1, if no monitor has been set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_monitor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monitor&quot;</span>)]
     </span><span class="kw">fn </span>monitor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2681,18 +2681,18 @@
     /// # Returns
     ///
     /// Whether the menu reserves toggle space
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_get_reserve_toggle_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_get_reserve_toggle_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_reserve_toggle_size&quot;</span>)]
     </span><span class="kw">fn </span>must_reserve_toggle_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Places `self` on the given monitor.
     /// ## `monitor`
     /// the monitor to place the menu on
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_place_on_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_place_on_monitor&quot;</span>)]
     </span><span class="kw">fn </span>place_on_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>, monitor: <span class="kw-2">&amp;</span>gdk::Monitor);
 
     <span class="doccomment">/// Removes the menu from the screen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_popdown&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_popdown&quot;</span>)]
     </span><span class="kw">fn </span>popdown(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Displays `self` and makes it available for selection.
@@ -2710,7 +2710,7 @@
     /// ## `trigger_event`
     /// the `GdkEvent` that initiated this request or
     ///  [`None`] if it&#39;s the current event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_pointer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_pointer&quot;</span>)]
     </span><span class="kw">fn </span>popup_at_pointer(<span class="kw-2">&amp;</span><span class="self">self</span>, trigger_event: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Event&gt;);
 
     <span class="doccomment">/// Displays `self` and makes it available for selection.
@@ -2742,7 +2742,7 @@
     /// ## `trigger_event`
     /// the `GdkEvent` that initiated this request or
     ///  [`None`] if it&#39;s the current event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_rect&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_rect&quot;</span>)]
     </span><span class="kw">fn </span>popup_at_rect(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         rect_window: <span class="kw-2">&amp;</span>gdk::Window,
@@ -2781,7 +2781,7 @@
     /// ## `trigger_event`
     /// the `GdkEvent` that initiated this request or
     ///  [`None`] if it&#39;s the current event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_popup_at_widget&quot;</span>)]
     </span><span class="kw">fn </span>popup_at_widget(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
@@ -2797,11 +2797,11 @@
     /// ## `position`
     /// the new position to place `child`.
     ///  Positions are numbered from 0 to n - 1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_reorder_child&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_reorder_child&quot;</span>)]
     </span><span class="kw">fn </span>reorder_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32);
 
     <span class="doccomment">/// Repositions the menu according to its position function.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_reposition&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_reposition&quot;</span>)]
     </span><span class="kw">fn </span>reposition(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Set the [`AccelGroup`][crate::AccelGroup] which holds global accelerators for the
@@ -2812,7 +2812,7 @@
     /// ## `accel_group`
     /// the [`AccelGroup`][crate::AccelGroup] to be associated
     ///  with the menu.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_accel_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_accel_group&quot;</span>)]
     </span><span class="kw">fn </span>set_accel_group(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;AccelGroup&gt;&gt;);
 
     <span class="doccomment">/// Sets an accelerator path for this menu from which accelerator paths
@@ -2838,7 +2838,7 @@
     /// it first with `g_intern_static_string()`.
     /// ## `accel_path`
     /// a valid accelerator path, or [`None`] to unset the path
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_accel_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_accel_path&quot;</span>)]
     </span><span class="kw">fn </span>set_accel_path(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Selects the specified menu item within the menu. This is used by
@@ -2846,7 +2846,7 @@
     /// ## `index`
     /// the index of the menu item to select. Index values are
     ///  from 0 to n-1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_active&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_active&quot;</span>)]
     </span><span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, index: u32);
 
     <span class="doccomment">/// Informs GTK+ on which monitor a menu should be popped up.
@@ -2861,21 +2861,21 @@
     /// ## `monitor_num`
     /// the number of the monitor on which the menu should
     ///  be popped up
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_monitor&quot;</span>)]
     </span><span class="kw">fn </span>set_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>, monitor_num: i32);
 
     <span class="doccomment">/// Sets whether the menu should reserve space for drawing toggles
     /// or icons, regardless of their actual presence.
     /// ## `reserve_toggle_size`
     /// whether to reserve size for toggles
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_reserve_toggle_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_reserve_toggle_size&quot;</span>)]
     </span><span class="kw">fn </span>set_reserve_toggle_size(<span class="kw-2">&amp;</span><span class="self">self</span>, reserve_toggle_size: bool);
 
     <span class="doccomment">/// Sets the [`gdk::Screen`][crate::gdk::Screen] on which the menu will be displayed.
     /// ## `screen`
     /// a [`gdk::Screen`][crate::gdk::Screen], or [`None`] if the screen should be
     ///  determined by the widget the menu is attached to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_menu_set_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_menu_set_screen&quot;</span>)]
     </span><span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Screen&gt;);
 
     <span class="doccomment">/// Positioning hints for aligning the menu relative to a rectangle.
@@ -2892,7 +2892,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::rect-anchor-dx`,
     /// `property::Menu::rect-anchor-dy`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
     </span><span class="kw">fn </span>anchor_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::AnchorHints;
 
     <span class="doccomment">/// Positioning hints for aligning the menu relative to a rectangle.
@@ -2909,13 +2909,13 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::rect-anchor-dx`,
     /// `property::Menu::rect-anchor-dy`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
     </span><span class="kw">fn </span>set_anchor_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, anchor_hints: gdk::AnchorHints);
 
     <span class="doccomment">/// The widget the menu is attached to. Setting this property attaches
     /// the menu without a `GtkMenuDetachFunc`. If you need to use a detacher,
     /// use `gtk_menu_attach_to_widget()` directly.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;attach-widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;attach-widget&quot;</span>)]
     </span><span class="kw">fn </span>set_attach_widget&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, attach_widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
 
     <span class="doccomment">/// The [`gdk::WindowTypeHint`][crate::gdk::WindowTypeHint] to use for the menu&#39;s [`gdk::Window`][crate::gdk::Window].
@@ -2923,7 +2923,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dx`, `property::Menu::rect-anchor-dy`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
     </span><span class="kw">fn </span>menu_type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::WindowTypeHint;
 
     <span class="doccomment">/// The [`gdk::WindowTypeHint`][crate::gdk::WindowTypeHint] to use for the menu&#39;s [`gdk::Window`][crate::gdk::Window].
@@ -2931,7 +2931,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dx`, `property::Menu::rect-anchor-dy`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
     </span><span class="kw">fn </span>set_menu_type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, menu_type_hint: gdk::WindowTypeHint);
 
     <span class="doccomment">/// Horizontal offset to apply to the menu, i.e. the rectangle or widget
@@ -2940,7 +2940,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dy`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
     </span><span class="kw">fn </span>rect_anchor_dx(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Horizontal offset to apply to the menu, i.e. the rectangle or widget
@@ -2949,7 +2949,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dy`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
     </span><span class="kw">fn </span>set_rect_anchor_dx(<span class="kw-2">&amp;</span><span class="self">self</span>, rect_anchor_dx: i32);
 
     <span class="doccomment">/// Vertical offset to apply to the menu, i.e. the rectangle or widget anchor.
@@ -2957,7 +2957,7 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dx`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
     </span><span class="kw">fn </span>rect_anchor_dy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Vertical offset to apply to the menu, i.e. the rectangle or widget anchor.
@@ -2965,36 +2965,36 @@
     /// See gtk_menu_popup_at_rect (), gtk_menu_popup_at_widget (),
     /// gtk_menu_popup_at_pointer (), `property::Menu::anchor-hints`,
     /// `property::Menu::rect-anchor-dx`, `property::Menu::menu-type-hint`, and `signal::Menu::popped-up`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
     </span><span class="kw">fn </span>set_rect_anchor_dy(<span class="kw-2">&amp;</span><span class="self">self</span>, rect_anchor_dy: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.bottom-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.bottom-attach&quot;</span>)]
     </span><span class="kw">fn </span>item_bottom_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.bottom-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.bottom-attach&quot;</span>)]
     </span><span class="kw">fn </span>set_item_bottom_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, bottom_attach: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.left-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.left-attach&quot;</span>)]
     </span><span class="kw">fn </span>item_left_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.left-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.left-attach&quot;</span>)]
     </span><span class="kw">fn </span>set_item_left_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, left_attach: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.right-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.right-attach&quot;</span>)]
     </span><span class="kw">fn </span>item_right_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.right-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.right-attach&quot;</span>)]
     </span><span class="kw">fn </span>set_item_right_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, right_attach: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.top-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.top-attach&quot;</span>)]
     </span><span class="kw">fn </span>item_top_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;item.top-attach&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;item.top-attach&quot;</span>)]
     </span><span class="kw">fn </span>set_item_top_attach&lt;T: IsA&lt;MenuItem&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, top_attach: i32);
 
     <span class="doccomment">/// ## `scroll_type`
     /// a [`ScrollType`][crate::ScrollType]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-scroll&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-scroll&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_scroll&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollType) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_move_scroll(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll_type: ScrollType);
@@ -3002,34 +3002,34 @@
     <span class="comment">//#[doc(alias = &quot;popped-up&quot;)]
     //fn connect_popped_up&lt;Unsupported or ignored types&gt;(&amp;self, f: F) -&gt; SignalHandlerId;
 
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;accel-group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-group&quot;</span>)]
     </span><span class="kw">fn </span>connect_accel_group_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;accel-path&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;accel-path&quot;</span>)]
     </span><span class="kw">fn </span>connect_accel_path_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
     </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;anchor-hints&quot;</span>)]
     </span><span class="kw">fn </span>connect_anchor_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;attach-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;attach-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_attach_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;menu-type-hint&quot;</span>)]
     </span><span class="kw">fn </span>connect_menu_type_hint_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;monitor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;monitor&quot;</span>)]
     </span><span class="kw">fn </span>connect_monitor_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dx&quot;</span>)]
     </span><span class="kw">fn </span>connect_rect_anchor_dx_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rect-anchor-dy&quot;</span>)]
     </span><span class="kw">fn </span>connect_rect_anchor_dy_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;reserve-toggle-size&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;reserve-toggle-size&quot;</span>)]
     </span><span class="kw">fn </span>connect_reserve_toggle_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3590,4 +3590,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

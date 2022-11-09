@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_renderer_text.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_renderer_text.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2793,7 +2793,7 @@
     /// # Implements
     ///
     /// [`CellRendererTextExt`][trait@crate::prelude::CellRendererTextExt], [`CellRendererExt`][trait@crate::prelude::CellRendererExt], [`trait@glib::ObjectExt`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkCellRendererText&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkCellRendererText&quot;</span>)]
     </span><span class="kw">pub struct </span>CellRendererText(Object&lt;ffi::GtkCellRendererText, ffi::GtkCellRendererTextClass&gt;) @extends CellRenderer;
 
     <span class="kw">match fn </span>{
@@ -2815,7 +2815,7 @@
     /// # Returns
     ///
     /// the new cell renderer
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_text_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_text_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; CellRendererText {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ CellRenderer::from_glib_none(ffi::gtk_cell_renderer_text_new()).unsafe_cast() }
@@ -2836,12 +2836,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`CellRendererText`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>CellRendererTextBuilder {
     align_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     alignment: <span class="prelude-ty">Option</span>&lt;pango::Alignment&gt;,
@@ -2914,7 +2914,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`CellRendererText`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; CellRendererText {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>align_set) = <span class="self">self</span>.align_set {
@@ -3449,13 +3449,13 @@
     /// the height is determined by the properties again.
     /// ## `number_of_rows`
     /// Number of rows of text each cell renderer is allocated, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_text_set_fixed_height_from_font&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_text_set_fixed_height_from_font&quot;</span>)]
     </span><span class="kw">fn </span>set_fixed_height_from_font(<span class="kw-2">&amp;</span><span class="self">self</span>, number_of_rows: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
     </span><span class="kw">fn </span>is_align_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
     </span><span class="kw">fn </span>set_align_set(<span class="kw-2">&amp;</span><span class="self">self</span>, align_set: bool);
 
     <span class="doccomment">/// Specifies how to align the lines of text with respect to each other.
@@ -3479,27 +3479,27 @@
     <span class="kw">fn </span>set_background(<span class="kw-2">&amp;</span><span class="self">self</span>, background: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Background color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
     </span><span class="kw">fn </span>background_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;;
 
     <span class="doccomment">/// Background color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
     </span><span class="kw">fn </span>set_background_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, background_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::RGBA&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
     </span><span class="kw">fn </span>is_background_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
     </span><span class="kw">fn </span>set_background_set(<span class="kw-2">&amp;</span><span class="self">self</span>, background_set: bool);
 
     <span class="kw">fn </span>is_editable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="kw">fn </span>set_editable(<span class="kw-2">&amp;</span><span class="self">self</span>, editable: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
     </span><span class="kw">fn </span>is_editable_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
     </span><span class="kw">fn </span>set_editable_set(<span class="kw-2">&amp;</span><span class="self">self</span>, editable_set: bool);
 
     <span class="doccomment">/// Specifies the preferred place to ellipsize the string, if the cell renderer
@@ -3514,56 +3514,56 @@
     /// for another way of making the text fit into a given width.
     </span><span class="kw">fn </span>set_ellipsize(<span class="kw-2">&amp;</span><span class="self">self</span>, ellipsize: pango::EllipsizeMode);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
     </span><span class="kw">fn </span>is_ellipsize_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
     </span><span class="kw">fn </span>set_ellipsize_set(<span class="kw-2">&amp;</span><span class="self">self</span>, ellipsize_set: bool);
 
     <span class="kw">fn </span>family(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="kw">fn </span>set_family(<span class="kw-2">&amp;</span><span class="self">self</span>, family: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
     </span><span class="kw">fn </span>is_family_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
     </span><span class="kw">fn </span>set_family_set(<span class="kw-2">&amp;</span><span class="self">self</span>, family_set: bool);
 
     <span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="kw">fn </span>set_font(<span class="kw-2">&amp;</span><span class="self">self</span>, font: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
     </span><span class="kw">fn </span>font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontDescription&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
     </span><span class="kw">fn </span>set_font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>, font_desc: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>pango::FontDescription&gt;);
 
     <span class="kw">fn </span>set_foreground(<span class="kw-2">&amp;</span><span class="self">self</span>, foreground: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Foreground color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
     </span><span class="kw">fn </span>foreground_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;;
 
     <span class="doccomment">/// Foreground color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
     </span><span class="kw">fn </span>set_foreground_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, foreground_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::RGBA&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
     </span><span class="kw">fn </span>is_foreground_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
     </span><span class="kw">fn </span>set_foreground_set(<span class="kw-2">&amp;</span><span class="self">self</span>, foreground_set: bool);
 
     <span class="kw">fn </span>language(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="kw">fn </span>set_language(<span class="kw-2">&amp;</span><span class="self">self</span>, language: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
     </span><span class="kw">fn </span>is_language_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
     </span><span class="kw">fn </span>set_language_set(<span class="kw-2">&amp;</span><span class="self">self</span>, language_set: bool);
 
     <span class="kw">fn </span>set_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
@@ -3576,7 +3576,7 @@
     /// cell should not receive any greater allocation unless it is
     /// set to expand in its [`CellLayout`][crate::CellLayout] and all of the cell&#39;s siblings
     /// have received their natural width.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
     </span><span class="kw">fn </span>max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// The desired maximum width of the cell, in characters. If this property
@@ -3587,93 +3587,93 @@
     /// cell should not receive any greater allocation unless it is
     /// set to expand in its [`CellLayout`][crate::CellLayout] and all of the cell&#39;s siblings
     /// have received their natural width.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
     </span><span class="kw">fn </span>set_max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, max_width_chars: i32);
 
     <span class="doccomment">/// The text that will be displayed in the [`CellRenderer`][crate::CellRenderer] if
     /// `property::CellRendererText::editable` is [`true`] and the cell is empty.
     ///
     /// Since 3.6
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
     </span><span class="kw">fn </span>placeholder_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// The text that will be displayed in the [`CellRenderer`][crate::CellRenderer] if
     /// `property::CellRendererText::editable` is [`true`] and the cell is empty.
     ///
     /// Since 3.6
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
     </span><span class="kw">fn </span>set_placeholder_text(<span class="kw-2">&amp;</span><span class="self">self</span>, placeholder_text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="kw">fn </span>rise(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="kw">fn </span>set_rise(<span class="kw-2">&amp;</span><span class="self">self</span>, rise: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
     </span><span class="kw">fn </span>is_rise_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
     </span><span class="kw">fn </span>set_rise_set(<span class="kw-2">&amp;</span><span class="self">self</span>, rise_set: bool);
 
     <span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
     <span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: f64);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
     </span><span class="kw">fn </span>is_scale_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
     </span><span class="kw">fn </span>set_scale_set(<span class="kw-2">&amp;</span><span class="self">self</span>, scale_set: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
     </span><span class="kw">fn </span>is_single_paragraph_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
     </span><span class="kw">fn </span>set_single_paragraph_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, single_paragraph_mode: bool);
 
     <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="kw">fn </span>set_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
     </span><span class="kw">fn </span>size_points(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
     </span><span class="kw">fn </span>set_size_points(<span class="kw-2">&amp;</span><span class="self">self</span>, size_points: f64);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
     </span><span class="kw">fn </span>is_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
     </span><span class="kw">fn </span>set_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>, size_set: bool);
 
     <span class="kw">fn </span>stretch(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Stretch;
 
     <span class="kw">fn </span>set_stretch(<span class="kw-2">&amp;</span><span class="self">self</span>, stretch: pango::Stretch);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
     </span><span class="kw">fn </span>is_stretch_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
     </span><span class="kw">fn </span>set_stretch_set(<span class="kw-2">&amp;</span><span class="self">self</span>, stretch_set: bool);
 
     <span class="kw">fn </span>is_strikethrough(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="kw">fn </span>set_strikethrough(<span class="kw-2">&amp;</span><span class="self">self</span>, strikethrough: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
     </span><span class="kw">fn </span>is_strikethrough_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
     </span><span class="kw">fn </span>set_strikethrough_set(<span class="kw-2">&amp;</span><span class="self">self</span>, strikethrough_set: bool);
 
     <span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Style;
 
     <span class="kw">fn </span>set_style(<span class="kw-2">&amp;</span><span class="self">self</span>, style: pango::Style);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
     </span><span class="kw">fn </span>is_style_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
     </span><span class="kw">fn </span>set_style_set(<span class="kw-2">&amp;</span><span class="self">self</span>, style_set: bool);
 
     <span class="kw">fn </span>text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
@@ -3684,66 +3684,66 @@
 
     <span class="kw">fn </span>set_underline(<span class="kw-2">&amp;</span><span class="self">self</span>, underline: pango::Underline);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
     </span><span class="kw">fn </span>is_underline_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
     </span><span class="kw">fn </span>set_underline_set(<span class="kw-2">&amp;</span><span class="self">self</span>, underline_set: bool);
 
     <span class="kw">fn </span>variant(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Variant;
 
     <span class="kw">fn </span>set_variant(<span class="kw-2">&amp;</span><span class="self">self</span>, variant: pango::Variant);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
     </span><span class="kw">fn </span>is_variant_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
     </span><span class="kw">fn </span>set_variant_set(<span class="kw-2">&amp;</span><span class="self">self</span>, variant_set: bool);
 
     <span class="kw">fn </span>weight(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="kw">fn </span>set_weight(<span class="kw-2">&amp;</span><span class="self">self</span>, weight: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
     </span><span class="kw">fn </span>is_weight_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
     </span><span class="kw">fn </span>set_weight_set(<span class="kw-2">&amp;</span><span class="self">self</span>, weight_set: bool);
 
     <span class="doccomment">/// The desired width of the cell, in characters. If this property is set to
     /// -1, the width will be calculated automatically, otherwise the cell will
     /// request either 3 characters or the property value, whichever is greater.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
     </span><span class="kw">fn </span>width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// The desired width of the cell, in characters. If this property is set to
     /// -1, the width will be calculated automatically, otherwise the cell will
     /// request either 3 characters or the property value, whichever is greater.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
     </span><span class="kw">fn </span>set_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, width_chars: i32);
 
     <span class="doccomment">/// Specifies how to break the string into multiple lines, if the cell
     /// renderer does not have enough room to display the entire string.
     /// This property has no effect unless the wrap-width property is set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::WrapMode;
 
     <span class="doccomment">/// Specifies how to break the string into multiple lines, if the cell
     /// renderer does not have enough room to display the entire string.
     /// This property has no effect unless the wrap-width property is set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: pango::WrapMode);
 
     <span class="doccomment">/// Specifies the minimum width at which the text is wrapped. The wrap-mode property can
     /// be used to influence at what character positions the line breaks can be placed.
     /// Setting wrap-width to -1 turns wrapping off.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
     </span><span class="kw">fn </span>wrap_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Specifies the minimum width at which the text is wrapped. The wrap-mode property can
     /// be used to influence at what character positions the line breaks can be placed.
     /// Setting wrap-width to -1 turns wrapping off.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
     </span><span class="kw">fn </span>set_wrap_width(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_width: i32);
 
     <span class="doccomment">/// This signal is emitted after `renderer` has been edited.
@@ -3754,146 +3754,146 @@
     /// the path identifying the edited cell
     /// ## `new_text`
     /// the new text
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;edited&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;edited&quot;</span>)]
     </span><span class="kw">fn </span>connect_edited&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TreePath, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;align-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_align_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;alignment&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;alignment&quot;</span>)]
     </span><span class="kw">fn </span>connect_alignment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
     </span><span class="kw">fn </span>connect_attributes_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;background&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;background&quot;</span>)]
     </span><span class="kw">fn </span>connect_background_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;background-rgba&quot;</span>)]
     </span><span class="kw">fn </span>connect_background_rgba_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;background-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_background_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
     </span><span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_editable_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;ellipsize&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;ellipsize&quot;</span>)]
     </span><span class="kw">fn </span>connect_ellipsize_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;ellipsize-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_ellipsize_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;family&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;family&quot;</span>)]
     </span><span class="kw">fn </span>connect_family_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;family-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_family_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;font&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;font&quot;</span>)]
     </span><span class="kw">fn </span>connect_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
     </span><span class="kw">fn </span>connect_font_desc_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;foreground&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;foreground&quot;</span>)]
     </span><span class="kw">fn </span>connect_foreground_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;foreground-rgba&quot;</span>)]
     </span><span class="kw">fn </span>connect_foreground_rgba_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;foreground-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_foreground_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;language&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;language&quot;</span>)]
     </span><span class="kw">fn </span>connect_language_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;language-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_language_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;markup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;markup&quot;</span>)]
     </span><span class="kw">fn </span>connect_markup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;placeholder-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_placeholder_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rise&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rise&quot;</span>)]
     </span><span class="kw">fn </span>connect_rise_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rise-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_rise_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scale&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scale&quot;</span>)]
     </span><span class="kw">fn </span>connect_scale_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scale-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_scale_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;single-paragraph-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_single_paragraph_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size&quot;</span>)]
     </span><span class="kw">fn </span>connect_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-points&quot;</span>)]
     </span><span class="kw">fn </span>connect_size_points_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;size-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_size_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;stretch&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;stretch&quot;</span>)]
     </span><span class="kw">fn </span>connect_stretch_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;stretch-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_stretch_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;strikethrough&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;strikethrough&quot;</span>)]
     </span><span class="kw">fn </span>connect_strikethrough_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_strikethrough_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;style&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;style&quot;</span>)]
     </span><span class="kw">fn </span>connect_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;style-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_style_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;underline&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;underline&quot;</span>)]
     </span><span class="kw">fn </span>connect_underline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;underline-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_underline_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;variant&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;variant&quot;</span>)]
     </span><span class="kw">fn </span>connect_variant_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;variant-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_variant_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;weight&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;weight&quot;</span>)]
     </span><span class="kw">fn </span>connect_weight_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;weight-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_weight_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -5458,4 +5458,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

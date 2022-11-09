@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1113,7 +1113,7 @@
 <span class="kw">use </span>std::ptr;
 
 <span class="doccomment">/// Emits a short beep on the default display.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_beep&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_beep&quot;</span>)]
 </span><span class="kw">pub fn </span>beep() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1136,7 +1136,7 @@
 /// # Returns
 ///
 /// X error code or 0 on success
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_error_trap_pop&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_error_trap_pop&quot;</span>)]
 </span><span class="kw">pub fn </span>error_trap_pop() -&gt; i32 {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ ffi::gdk_error_trap_pop() }
@@ -1146,7 +1146,7 @@
 /// without bothering to wait and see whether an error occurred. If an
 /// error arrives later asynchronously that was triggered while the
 /// trap was pushed, that error will be ignored.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_error_trap_pop_ignored&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_error_trap_pop_ignored&quot;</span>)]
 </span><span class="kw">pub fn </span>error_trap_pop_ignored() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1185,7 +1185,7 @@
 ///    // ... Handle the error here ...
 ///  }
 /// ```
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_error_trap_push&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_error_trap_push&quot;</span>)]
 </span><span class="kw">pub fn </span>error_trap_push() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1208,7 +1208,7 @@
 ///
 /// ## `angle`
 /// return location for the relative angle between both events
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_events_get_angle&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_events_get_angle&quot;</span>)]
 </span><span class="kw">pub fn </span>events_get_angle(event1: <span class="kw-2">&amp;mut </span>Event, event2: <span class="kw-2">&amp;mut </span>Event) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1242,7 +1242,7 @@
 ///
 /// ## `y`
 /// return location for the Y coordinate of the center
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_events_get_center&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_events_get_center&quot;</span>)]
 </span><span class="kw">pub fn </span>events_get_center(event1: <span class="kw-2">&amp;mut </span>Event, event2: <span class="kw-2">&amp;mut </span>Event) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1275,7 +1275,7 @@
 ///
 /// ## `distance`
 /// return location for the distance
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_events_get_distance&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_events_get_distance&quot;</span>)]
 </span><span class="kw">pub fn </span>events_get_distance(event1: <span class="kw-2">&amp;mut </span>Event, event2: <span class="kw-2">&amp;mut </span>Event) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1298,7 +1298,7 @@
 /// # Returns
 ///
 /// [`true`] if any events are pending.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_events_pending&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_events_pending&quot;</span>)]
 </span><span class="kw">pub fn </span>events_pending() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gdk_events_pending()) }
@@ -1307,7 +1307,7 @@
 <span class="doccomment">/// Flushes the output buffers of all display connections and waits
 /// until all requests have been processed.
 /// This is rarely needed by applications.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_flush&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_flush&quot;</span>)]
 </span><span class="kw">pub fn </span>flush() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1323,7 +1323,7 @@
 /// the display name, if specified explicitly,
 ///  otherwise [`None`] this string is owned by GTK+ and must not be
 ///  modified or freed.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_get_display_arg_name&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_get_display_arg_name&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_display_arg_name&quot;</span>)]
 </span><span class="kw">pub fn </span>display_arg_name() -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -1338,7 +1338,7 @@
 /// # Returns
 ///
 /// the program class.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_get_program_class&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_get_program_class&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_program_class&quot;</span>)]
 </span><span class="kw">pub fn </span>program_class() -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -1350,7 +1350,7 @@
 /// # Returns
 ///
 /// [`true`] if event debugging output is enabled.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_get_show_events&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_get_show_events&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_show_events&quot;</span>)]
 </span><span class="kw">pub fn </span>shows_events() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -1365,7 +1365,7 @@
 /// GTK+ will call this function automatically after opening the first
 /// `GtkWindow` unless `gtk_window_set_auto_startup_notification()` is called
 /// to disable that feature.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_notify_startup_complete&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_notify_startup_complete&quot;</span>)]
 </span><span class="kw">pub fn </span>notify_startup_complete() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1383,7 +1383,7 @@
 /// ## `startup_id`
 /// a startup-notification identifier, for which
 ///  notification process should be completed
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_notify_startup_complete_with_id&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_notify_startup_complete_with_id&quot;</span>)]
 </span><span class="kw">pub fn </span>notify_startup_complete_with_id(startup_id: <span class="kw-2">&amp;</span>str) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1408,7 +1408,7 @@
 /// # Returns
 ///
 /// a new [`pango::Context`][crate::pango::Context] for the default display
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_pango_context_get&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_context_get&quot;</span>)]
 </span><span class="kw">pub fn </span>pango_context_get() -&gt; <span class="prelude-ty">Option</span>&lt;pango::Context&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_pango_context_get()) }
@@ -1433,7 +1433,7 @@
 /// # Returns
 ///
 /// a new [`pango::Context`][crate::pango::Context] for `display`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_pango_context_get_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_context_get_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>pango_context_get_for_display(display: <span class="kw-2">&amp;</span>Display) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Context&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1462,7 +1462,7 @@
 /// # Returns
 ///
 /// a new [`pango::Context`][crate::pango::Context] for `screen`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_pango_context_get_for_screen&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_context_get_for_screen&quot;</span>)]
 </span><span class="kw">pub fn </span>pango_context_get_for_screen(screen: <span class="kw-2">&amp;</span>Screen) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Context&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1499,7 +1499,7 @@
 ///
 /// A newly-created pixbuf with a
 ///  reference count of 1, or [`None`] on error
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_pixbuf_get_from_surface&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pixbuf_get_from_surface&quot;</span>)]
 </span><span class="kw">pub fn </span>pixbuf_get_from_surface(
     surface: <span class="kw-2">&amp;</span>cairo::Surface,
     src_x: i32,
@@ -1524,7 +1524,7 @@
 /// a [`Window`][crate::Window]
 /// ## `property`
 /// the property to delete
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_property_delete&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_property_delete&quot;</span>)]
 </span><span class="kw">pub fn </span>property_delete(window: <span class="kw-2">&amp;</span>Window, property: <span class="kw-2">&amp;</span>Atom) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1584,7 +1584,7 @@
 /// location
 ///  to store a pointer to the data. The retrieved data should be
 ///  freed with `g_free()` when you are finished using it.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_property_get&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_property_get&quot;</span>)]
 </span><span class="kw">pub fn </span>property_get(
     window: <span class="kw-2">&amp;</span>Window,
     property: <span class="kw-2">&amp;</span>Atom,
@@ -1615,7 +1615,7 @@
             <span class="prelude-val">Some</span>((
                 actual_property_type,
                 actual_format.assume_init(),
-                FromGlibContainer::from_glib_full_num(data, actual_length.assume_init() <span class="kw">as </span>usize),
+                FromGlibContainer::from_glib_full_num(data, actual_length.assume_init() <span class="kw">as _</span>),
             ))
         } <span class="kw">else </span>{
             <span class="prelude-val">None
@@ -1637,7 +1637,7 @@
 ///  selection. The selection owner may refuse the
 ///  request if it did not own the selection at
 ///  the time indicated by the timestamp.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_convert&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_convert&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_convert(requestor: <span class="kw-2">&amp;</span>Window, selection: <span class="kw-2">&amp;</span>Atom, target: <span class="kw-2">&amp;</span>Atom, time_: u32) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1662,7 +1662,7 @@
 ///  that the return value may be owned by a different process if a
 ///  foreign window was previously created for that window, but a new
 ///  foreign window will never be created by this call.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_owner_get&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_owner_get&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_get(selection: <span class="kw-2">&amp;</span>Atom) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_selection_owner_get(selection.to_glib_none().<span class="number">0</span>)) }
@@ -1684,7 +1684,7 @@
 ///  for this window, and it is a window known to the current
 ///  process, the [`Window`][crate::Window] that owns the selection, otherwise
 ///  [`None`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_owner_get_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_owner_get_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_get_for_display(display: <span class="kw-2">&amp;</span>Display, selection: <span class="kw-2">&amp;</span>Atom) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1715,7 +1715,7 @@
 ///
 /// [`true`] if the selection owner was successfully
 ///  changed to `owner`, otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_owner_set&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_owner_set&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_set(
     owner: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;,
     selection: <span class="kw-2">&amp;</span>Atom,
@@ -1753,7 +1753,7 @@
 ///
 /// [`true`] if the selection owner was successfully changed to owner,
 ///  otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_owner_set_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_owner_set_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_set_for_display(
     display: <span class="kw-2">&amp;</span>Display,
     owner: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;,
@@ -1786,7 +1786,7 @@
 ///  was rejected.
 /// ## `time_`
 /// timestamp.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_send_notify&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_send_notify&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_send_notify(
     requestor: <span class="kw-2">&amp;</span>Window,
     selection: <span class="kw-2">&amp;</span>Atom,
@@ -1820,7 +1820,7 @@
 ///  or `GDK_NONE` to indicate that the request was rejected
 /// ## `time_`
 /// timestamp
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_selection_send_notify_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_selection_send_notify_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_send_notify_for_display(
     display: <span class="kw-2">&amp;</span>Display,
     requestor: <span class="kw-2">&amp;</span>Window,
@@ -1875,7 +1875,7 @@
 /// in order to take effect.
 /// ## `backends`
 /// a comma-separated list of backends
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_set_allowed_backends&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_set_allowed_backends&quot;</span>)]
 </span><span class="kw">pub fn </span>set_allowed_backends(backends: <span class="kw-2">&amp;</span>str) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1890,7 +1890,7 @@
 /// global user-configured setting.
 /// ## `msec`
 /// double click time in milliseconds (thousandths of a second)
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_set_double_click_time&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_set_double_click_time&quot;</span>)]
 </span><span class="kw">pub fn </span>set_double_click_time(msec: u32) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1906,7 +1906,7 @@
 /// line option.
 /// ## `program_class`
 /// a string.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_set_program_class&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_set_program_class&quot;</span>)]
 </span><span class="kw">pub fn </span>set_program_class(program_class: <span class="kw-2">&amp;</span>str) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1920,7 +1920,7 @@
 /// to use this option.
 /// ## `show_events`
 /// [`true`] to output event debugging information.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_set_show_events&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_set_show_events&quot;</span>)]
 </span><span class="kw">pub fn </span>set_show_events(show_events: bool) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -1928,7 +1928,7 @@
     }
 }
 
-<span class="attribute">#[doc(alias = <span class="string">&quot;gdk_synthesize_window_state&quot;</span>)]
+<span class="attr">#[doc(alias = <span class="string">&quot;gdk_synthesize_window_state&quot;</span>)]
 </span><span class="kw">pub fn </span>synthesize_window_state(window: <span class="kw-2">&amp;</span>Window, unset_flags: WindowState, set_flags: WindowState) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1947,7 +1947,7 @@
 /// pipelines, to benchmark windowing system rendering operations.
 /// ## `window`
 /// a mapped [`Window`][crate::Window]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_test_render_sync&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_test_render_sync&quot;</span>)]
 </span><span class="kw">pub fn </span>test_render_sync(window: <span class="kw-2">&amp;</span>Window) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -1984,7 +1984,7 @@
 ///
 /// whether all actions necessary for a button event simulation
 ///  were carried out successfully
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_test_simulate_button&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_test_simulate_button&quot;</span>)]
 </span><span class="kw">pub fn </span>test_simulate_button(
     window: <span class="kw-2">&amp;</span>Window,
     x: i32,
@@ -2039,7 +2039,7 @@
 ///
 /// whether all actions necessary for a key event simulation
 ///  were carried out successfully
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_test_simulate_key&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_test_simulate_key&quot;</span>)]
 </span><span class="kw">pub fn </span>test_simulate_key(
     window: <span class="kw-2">&amp;</span>Window,
     x: i32,
@@ -2080,7 +2080,7 @@
 /// location to store the list
 ///  of strings or [`None`]. The list should be freed with
 ///  `g_strfreev()`.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_text_property_to_utf8_list_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_text_property_to_utf8_list_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>text_property_to_utf8_list_for_display(
     display: <span class="kw-2">&amp;</span>Display,
     encoding: <span class="kw-2">&amp;</span>Atom,
@@ -2088,7 +2088,7 @@
     text: <span class="kw-2">&amp;</span>[u8],
 ) -&gt; (i32, Vec&lt;glib::GString&gt;) {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">let </span>length = text.len() <span class="kw">as </span>i32;
+    <span class="kw">let </span>length = text.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>list = ptr::null_mut();
         <span class="kw">let </span>ret = ffi::gdk_text_property_to_utf8_list_for_display(
@@ -2116,10 +2116,10 @@
 ///  conversion failed. (It should not fail for any properly
 ///  formed UTF-8 string unless system limits like memory or
 ///  file descriptors are exceeded.)
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_utf8_to_string_target&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_utf8_to_string_target&quot;</span>)]
 </span><span class="kw">pub fn </span>utf8_to_string_target(str: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_utf8_to_string_target(str.to_glib_none().<span class="number">0</span>)) }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

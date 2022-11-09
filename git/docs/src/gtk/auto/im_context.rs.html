@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/im_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>im_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/im_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>im_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -870,7 +870,7 @@
     /// # Implements
     ///
     /// [`IMContextExt`][trait@crate::prelude::IMContextExt], [`trait@glib::ObjectExt`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkIMContext&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkIMContext&quot;</span>)]
     </span><span class="kw">pub struct </span>IMContext(Object&lt;ffi::GtkIMContext, ffi::GtkIMContextClass&gt;);
 
     <span class="kw">match fn </span>{
@@ -913,7 +913,7 @@
     /// # Returns
     ///
     /// [`true`] if the signal was handled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_delete_surrounding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_delete_surrounding&quot;</span>)]
     </span><span class="kw">fn </span>delete_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, n_chars: i32) -&gt; bool;
 
     <span class="doccomment">/// Allow an input method to internally handle key press and release
@@ -925,21 +925,21 @@
     /// # Returns
     ///
     /// [`true`] if the input method handled the key event.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_filter_keypress&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_filter_keypress&quot;</span>)]
     </span><span class="kw">fn </span>filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool;
 
     <span class="doccomment">/// Notify the input method that the widget to which this
     /// input context corresponds has gained focus. The input method
     /// may, for example, change the displayed feedback to reflect
     /// this change.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_in&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_in&quot;</span>)]
     </span><span class="kw">fn </span>focus_in(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Notify the input method that the widget to which this
     /// input context corresponds has lost focus. The input method
     /// may, for example, change the displayed feedback or reset the contexts
     /// state to reflect this change.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_out&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_out&quot;</span>)]
     </span><span class="kw">fn </span>focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Retrieve the current preedit string for the input context,
@@ -962,7 +962,7 @@
     /// ## `cursor_pos`
     /// location to store position of cursor (in characters)
     ///  within the preedit string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_get_preedit_string&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_get_preedit_string&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preedit_string&quot;</span>)]
     </span><span class="kw">fn </span>preedit_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (glib::GString, pango::AttrList, i32);
 
@@ -993,14 +993,14 @@
     /// ## `cursor_index`
     /// location to store byte index of the insertion
     ///  cursor within `text`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_get_surrounding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_get_surrounding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_surrounding&quot;</span>)]
     </span><span class="kw">fn </span>surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(glib::GString, i32)&gt;;
 
     <span class="doccomment">/// Notify the input method that a change such as a change in cursor
     /// position has been made. This will typically cause the input
     /// method to clear the preedit state.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_reset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_reset&quot;</span>)]
     </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Set the client window for the input context; this is the
@@ -1010,7 +1010,7 @@
     /// ## `window`
     /// the client window. This may be [`None`] to indicate
     ///  that the previous client window no longer exists.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_set_client_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_client_window&quot;</span>)]
     </span><span class="kw">fn </span>set_client_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;);
 
     <span class="doccomment">/// Notify the input method that a change in cursor
@@ -1018,7 +1018,7 @@
     /// window.
     /// ## `area`
     /// new location
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_set_cursor_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_cursor_location&quot;</span>)]
     </span><span class="kw">fn </span>set_cursor_location(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>gdk::Rectangle);
 
     <span class="doccomment">/// Sets surrounding context around the insertion point and preedit
@@ -1033,7 +1033,7 @@
     /// the length of `text`, or -1 if `text` is nul-terminated
     /// ## `cursor_index`
     /// the byte index of the insertion cursor within `text`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_set_surrounding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_surrounding&quot;</span>)]
     </span><span class="kw">fn </span>set_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, cursor_index: i32);
 
     <span class="doccomment">/// Sets whether the IM context should use the preedit string
@@ -1042,19 +1042,19 @@
     /// feedback, such as displaying it in a child of the root window.
     /// ## `use_preedit`
     /// whether the IM context should use the preedit string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_im_context_set_use_preedit&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_use_preedit&quot;</span>)]
     </span><span class="kw">fn </span>set_use_preedit(<span class="kw-2">&amp;</span><span class="self">self</span>, use_preedit: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
     </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
     </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, input_hints: InputHints);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
     </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
     </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, input_purpose: InputPurpose);
 
     <span class="doccomment">/// The ::commit signal is emitted when a complete input sequence
@@ -1062,7 +1062,7 @@
     /// immediately after a key press or the final result of preediting.
     /// ## `str`
     /// the completed character(s) entered by the user
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;commit&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;commit&quot;</span>)]
     </span><span class="kw">fn </span>connect_commit&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::delete-surrounding signal is emitted when the input method
@@ -1077,7 +1077,7 @@
     /// # Returns
     ///
     /// [`true`] if the signal was handled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;delete-surrounding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-surrounding&quot;</span>)]
     </span><span class="kw">fn </span>connect_delete_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1087,17 +1087,17 @@
     /// currently being entered has changed. It is also emitted at the end of
     /// a preedit sequence, in which case
     /// [`preedit_string()`][Self::preedit_string()] returns the empty string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::preedit-end signal is emitted when a preediting sequence
     /// has been completed or canceled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;preedit-end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-end&quot;</span>)]
     </span><span class="kw">fn </span>connect_preedit_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::preedit-start signal is emitted when a new preediting sequence
     /// starts.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;preedit-start&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-start&quot;</span>)]
     </span><span class="kw">fn </span>connect_preedit_start&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::retrieve-surrounding signal is emitted when the input method
@@ -1108,14 +1108,14 @@
     /// # Returns
     ///
     /// [`true`] if the signal was handled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;retrieve-surrounding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;retrieve-surrounding&quot;</span>)]
     </span><span class="kw">fn </span>connect_retrieve_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -1212,7 +1212,7 @@
     }
 
     <span class="kw">fn </span>set_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, cursor_index: i32) {
-        <span class="kw">let </span>len = text.len() <span class="kw">as </span>i32;
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_set_surrounding(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1454,4 +1454,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

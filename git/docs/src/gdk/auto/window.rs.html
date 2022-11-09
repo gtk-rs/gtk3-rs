@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2931,7 +2931,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::AnchorHints;
 <span class="kw">use </span><span class="kw">crate</span>::Cursor;
@@ -2945,7 +2945,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::FullscreenMode;
 <span class="kw">use </span><span class="kw">crate</span>::GLContext;
 <span class="kw">use </span><span class="kw">crate</span>::Geometry;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::Gravity;
 <span class="kw">use </span><span class="kw">crate</span>::InputSource;
@@ -2978,7 +2978,7 @@
     /// # Implements
     ///
     /// [`WindowExtManual`][trait@crate::prelude::WindowExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkWindow&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkWindow&quot;</span>)]
     </span><span class="kw">pub struct </span>Window(Object&lt;ffi::GdkWindow, ffi::GdkWindowClass&gt;);
 
     <span class="kw">match fn </span>{
@@ -2995,7 +2995,7 @@
     </span><span class="doccomment">/// Emits a short beep associated to `self` in the appropriate
     /// display, if supported. Otherwise, emits a short beep on
     /// the display just as [`Display::beep()`][crate::Display::beep()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_beep&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_beep&quot;</span>)]
     </span><span class="kw">pub fn </span>beep(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_beep(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3037,7 +3037,7 @@
     /// a [`DrawingContext`][crate::DrawingContext] context that should be
     ///  used to draw the contents of the window; the returned context is owned
     ///  by GDK.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_begin_draw_frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_draw_frame&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_draw_frame(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span>cairo::Region) -&gt; <span class="prelude-ty">Option</span>&lt;DrawingContext&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_window_begin_draw_frame(
@@ -3060,7 +3060,7 @@
     /// root window Y coordinate of mouse click that began the drag
     /// ## `timestamp`
     /// timestamp of mouse click that began the drag
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_begin_move_drag&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_move_drag&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_move_drag(<span class="kw-2">&amp;</span><span class="self">self</span>, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_begin_move_drag(
@@ -3088,7 +3088,7 @@
     /// root window Y coordinate of mouse click that began the drag
     /// ## `timestamp`
     /// timestamp of mouse click that began the drag
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_begin_move_drag_for_device&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_move_drag_for_device&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_move_drag_for_device(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         device: <span class="kw-2">&amp;</span>Device,
@@ -3124,7 +3124,7 @@
     /// root window Y coordinate of mouse click that began the drag
     /// ## `timestamp`
     /// timestamp of mouse click that began the drag (use `gdk_event_get_time()`)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_begin_resize_drag&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_resize_drag&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_resize_drag(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         edge: WindowEdge,
@@ -3163,7 +3163,7 @@
     /// root window Y coordinate of mouse click that began the drag
     /// ## `timestamp`
     /// timestamp of mouse click that began the drag (use `gdk_event_get_time()`)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_begin_resize_drag_for_device&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_resize_drag_for_device&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_resize_drag_for_device(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         edge: WindowEdge,
@@ -3215,7 +3215,7 @@
     ///
     /// ## `y`
     /// return location for Y coordinate in child’s coordinate system
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_coords_from_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_coords_from_parent&quot;</span>)]
     </span><span class="kw">pub fn </span>coords_from_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent_x: f64, parent_y: f64) -&gt; (f64, f64) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
@@ -3262,7 +3262,7 @@
     /// ## `parent_y`
     /// return location for Y coordinate
     /// in parent’s coordinate system, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_coords_to_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_coords_to_parent&quot;</span>)]
     </span><span class="kw">pub fn </span>coords_to_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, x: f64, y: f64) -&gt; (f64, f64) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>parent_x = mem::MaybeUninit::uninit();
@@ -3291,7 +3291,7 @@
     ///
     /// the newly created [`GLContext`][crate::GLContext], or
     /// [`None`] on error
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_create_gl_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_create_gl_context&quot;</span>)]
     </span><span class="kw">pub fn </span>create_gl_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;GLContext, glib::Error&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
@@ -3309,21 +3309,21 @@
     /// use `gtk_window_deiconify()` instead of the [`Window`][crate::Window] variant. Or better yet,
     /// you probably want to use `gtk_window_present_with_time()`, which raises the window, focuses it,
     /// unminimizes it, and puts it on the current desktop.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_deiconify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_deiconify&quot;</span>)]
     </span><span class="kw">pub fn </span>deiconify(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_deiconify(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_destroy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_destroy&quot;</span>)]
     </span><span class="kw">pub fn </span>destroy(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_destroy(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_destroy_notify&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_destroy_notify&quot;</span>)]
     </span><span class="kw">pub fn </span>destroy_notify(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_destroy_notify(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3339,7 +3339,7 @@
     /// `gdk_window_begin_frame()` first.
     /// ## `context`
     /// the [`DrawingContext`][crate::DrawingContext] created by [`begin_draw_frame()`][Self::begin_draw_frame()]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_end_draw_frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_end_draw_frame&quot;</span>)]
     </span><span class="kw">pub fn </span>end_draw_frame(<span class="kw-2">&amp;</span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>DrawingContext) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_end_draw_frame(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, context.to_glib_none().<span class="number">0</span>);
@@ -3354,7 +3354,7 @@
     ///
     /// It is an error to call this function without a matching
     /// `gdk_window_begin_paint_region()` first.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_end_paint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_end_paint&quot;</span>)]
     </span><span class="kw">pub fn </span>end_paint(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_end_paint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3371,7 +3371,7 @@
     /// # Returns
     ///
     /// [`true`] if the window has a native window, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_ensure_native&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_ensure_native&quot;</span>)]
     </span><span class="kw">pub fn </span>ensure_native(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_ensure_native(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -3380,7 +3380,7 @@
     /// should be used on a `GtkWindow`, rather than calling this function.
     /// ## `timestamp`
     /// timestamp of the event triggering the window focus
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_focus&quot;</span>)]
     </span><span class="kw">pub fn </span>focus(<span class="kw-2">&amp;</span><span class="self">self</span>, timestamp: u32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_focus(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, timestamp);
@@ -3392,7 +3392,7 @@
     /// [`thaw_updates()`][Self::thaw_updates()] is called. If [`freeze_updates()`][Self::freeze_updates()]
     /// has been called more than once, [`thaw_updates()`][Self::thaw_updates()] must be called
     /// an equal number of times to begin processing exposes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_freeze_updates&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_freeze_updates&quot;</span>)]
     </span><span class="kw">pub fn </span>freeze_updates(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_freeze_updates(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3412,7 +3412,7 @@
     /// fullscreenification actually happening. But it will happen with
     /// most standard window managers, and GDK makes a best effort to get
     /// it to happen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_fullscreen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_fullscreen&quot;</span>)]
     </span><span class="kw">pub fn </span>fullscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_fullscreen(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3425,7 +3425,7 @@
     /// If the window was already fullscreen, then this function does nothing.
     /// ## `monitor`
     /// Which monitor to display fullscreen on.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_fullscreen_on_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_fullscreen_on_monitor&quot;</span>)]
     </span><span class="kw">pub fn </span>fullscreen_on_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>, monitor: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_fullscreen_on_monitor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, monitor);
@@ -3435,7 +3435,7 @@
     <span class="doccomment">/// This function informs GDK that the geometry of an embedded
     /// offscreen window has changed. This is necessary for GDK to keep
     /// track of which offscreen window the pointer is in.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_geometry_changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_geometry_changed&quot;</span>)]
     </span><span class="kw">pub fn </span>geometry_changed(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_geometry_changed(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -3448,7 +3448,7 @@
     /// # Returns
     ///
     /// whether or not the window should receive input focus.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_accept_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_accept_focus&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accept_focus&quot;</span>)]
     </span><span class="kw">pub fn </span>accepts_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_accept_focus(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3466,7 +3466,7 @@
     ///
     ///
     ///  list of child windows inside `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_children&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_children&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_children&quot;</span>)]
     </span><span class="kw">pub fn </span>children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Window&gt; {
         <span class="kw">unsafe </span>{
@@ -3492,7 +3492,7 @@
     ///
     /// a [`cairo::Region`][crate::cairo::Region]. This must be freed with `cairo_region_destroy()`
     ///  when you are done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_clip_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_clip_region&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_clip_region&quot;</span>)]
     </span><span class="kw">pub fn </span>clip_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Region&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_window_get_clip_region(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3509,7 +3509,7 @@
     ///  returned object is owned by the [`Window`][crate::Window] and should not be
     ///  unreferenced directly. Use [`set_cursor()`][Self::set_cursor()] to unset the
     ///  cursor of the window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Cursor&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_window_get_cursor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3524,7 +3524,7 @@
     ///
     /// ## `decorations`
     /// The window decorations will be written here
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_decorations&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_decorations&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_decorations&quot;</span>)]
     </span><span class="kw">pub fn </span>decorations(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WMDecoration&gt; {
         <span class="kw">unsafe </span>{
@@ -3554,7 +3554,7 @@
     ///  returned object is owned by the [`Window`][crate::Window] and should not be
     ///  unreferenced directly. Use [`set_cursor()`][Self::set_cursor()] to unset the
     ///  cursor of the window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_device_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; <span class="prelude-ty">Option</span>&lt;Cursor&gt; {
         <span class="kw">unsafe </span>{
@@ -3572,7 +3572,7 @@
     /// # Returns
     ///
     /// device event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_device_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_events&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_events&quot;</span>)]
     </span><span class="kw">pub fn </span>device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; EventMask {
         <span class="kw">unsafe </span>{
@@ -3605,7 +3605,7 @@
     ///
     /// ## `mask`
     /// return location for the modifier mask, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_device_position&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_position&quot;</span>)]
     </span><span class="kw">pub fn </span>device_position(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, i32, i32, ModifierType) {
         <span class="kw">unsafe </span>{
@@ -3648,7 +3648,7 @@
     ///
     /// ## `mask`
     /// return location for the modifier mask, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_device_position_double&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_position_double&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_position_double&quot;</span>)]
     </span><span class="kw">pub fn </span>device_position_double(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -3679,7 +3679,7 @@
     /// # Returns
     ///
     /// the [`Display`][crate::Display] associated with `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Display {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_window_get_display(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3695,7 +3695,7 @@
     /// location of the window
     ///  where the drop should happen. This may be `self` or a proxy window,
     ///  or [`None`] if `self` does not support Drag and Drop.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_drag_protocol&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_drag_protocol&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drag_protocol&quot;</span>)]
     </span><span class="kw">pub fn </span>drag_protocol(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (DragProtocol, Window) {
         <span class="kw">unsafe </span>{
@@ -3717,7 +3717,7 @@
     /// # Returns
     ///
     /// effective parent of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_effective_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_effective_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_effective_parent&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>effective_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
@@ -3734,7 +3734,7 @@
     /// # Returns
     ///
     /// the effective toplevel window containing `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_effective_toplevel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_effective_toplevel&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_effective_toplevel&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>effective_toplevel(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Window {
@@ -3750,7 +3750,7 @@
     /// # Returns
     ///
     /// [`true`] if motion events will be compressed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_event_compression&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_event_compression&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_event_compression&quot;</span>)]
     </span><span class="kw">pub fn </span>does_event_compression(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_event_compression(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3762,7 +3762,7 @@
     /// # Returns
     ///
     /// event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_events&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_events&quot;</span>)]
     </span><span class="kw">pub fn </span>events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; EventMask {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_events(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3775,7 +3775,7 @@
     ///
     /// whether or not the window wants to receive input focus when
     /// it is mapped.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_focus_on_map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_focus_on_map&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_focus_on_map&quot;</span>)]
     </span><span class="kw">pub fn </span>gets_focus_on_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_focus_on_map(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3788,7 +3788,7 @@
     /// # Returns
     ///
     /// the frame clock
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_frame_clock&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_frame_clock&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_frame_clock&quot;</span>)]
     </span><span class="kw">pub fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;FrameClock&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_window_get_frame_clock(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3804,7 +3804,7 @@
     ///
     /// ## `rect`
     /// rectangle to fill with bounding box of the window frame
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_frame_extents&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_frame_extents&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_frame_extents&quot;</span>)]
     </span><span class="kw">pub fn </span>frame_extents(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Rectangle {
         <span class="kw">unsafe </span>{
@@ -3819,7 +3819,7 @@
     /// # Returns
     ///
     /// The [`FullscreenMode`][crate::FullscreenMode] applied to the window when fullscreen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_fullscreen_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_fullscreen_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_fullscreen_mode&quot;</span>)]
     </span><span class="kw">pub fn </span>fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FullscreenMode {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_fullscreen_mode(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3860,7 +3860,7 @@
     ///
     /// ## `height`
     /// return location for height of window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_geometry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_geometry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_geometry&quot;</span>)]
     </span><span class="kw">pub fn </span>geometry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32, i32, i32) {
         <span class="kw">unsafe </span>{
@@ -3889,7 +3889,7 @@
     /// # Returns
     ///
     /// the group leader window for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_group&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
@@ -3905,7 +3905,7 @@
     /// # Returns
     ///
     /// The height of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_height&quot;</span>)]
     </span><span class="kw">pub fn </span>height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_window_get_height(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -3917,7 +3917,7 @@
     /// # Returns
     ///
     /// whether or not the window has the modal hint set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_modal_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_modal_hint&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modal_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>is_modal_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_modal_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3937,7 +3937,7 @@
     ///
     /// ## `y`
     /// return location for Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_origin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_origin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_origin&quot;</span>)]
     </span><span class="kw">pub fn </span>origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32, i32) {
         <span class="kw">unsafe </span>{
@@ -3964,7 +3964,7 @@
     /// # Returns
     ///
     /// parent of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
@@ -3975,7 +3975,7 @@
     /// below.
     ///
     /// See [`set_pass_through()`][Self::set_pass_through()] for details
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_pass_through&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_pass_through&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pass_through&quot;</span>)]
     </span><span class="kw">pub fn </span>is_pass_through(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_pass_through(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -3997,7 +3997,7 @@
     ///
     /// ## `y`
     /// Y coordinate of window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_position&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_position&quot;</span>)]
     </span><span class="kw">pub fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
@@ -4025,7 +4025,7 @@
     ///
     /// ## `root_y`
     /// return location for Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_root_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_root_coords&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_root_coords&quot;</span>)]
     </span><span class="kw">pub fn </span>root_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
@@ -4053,7 +4053,7 @@
     ///
     /// ## `y`
     /// return location for Y position of window frame
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_root_origin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_root_origin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_root_origin&quot;</span>)]
     </span><span class="kw">pub fn </span>root_origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
@@ -4080,7 +4080,7 @@
     /// # Returns
     ///
     /// the scale factor
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_scale_factor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_scale_factor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale_factor&quot;</span>)]
     </span><span class="kw">pub fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_window_get_scale_factor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -4091,7 +4091,7 @@
     /// # Returns
     ///
     /// the [`Screen`][crate::Screen] associated with `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Screen {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_window_get_screen(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4105,7 +4105,7 @@
     /// # Returns
     ///
     /// source event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_source_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_source_events&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_source_events&quot;</span>)]
     </span><span class="kw">pub fn </span>source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: InputSource) -&gt; EventMask {
         <span class="kw">unsafe </span>{
@@ -4122,7 +4122,7 @@
     /// # Returns
     ///
     /// window state bitfield
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_state&quot;</span>)]
     </span><span class="kw">pub fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WindowState {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_state(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4134,7 +4134,7 @@
     /// # Returns
     ///
     /// [`true`] if the window handles multidevice features.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_support_multidevice&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_support_multidevice&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_support_multidevice&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_multidevice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -4158,7 +4158,7 @@
     /// # Returns
     ///
     /// the toplevel window containing `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_toplevel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_toplevel&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_toplevel&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>toplevel(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Window {
@@ -4170,7 +4170,7 @@
     /// # Returns
     ///
     /// The type hint set for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_type_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_type_hint&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_type_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WindowTypeHint {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_type_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4186,7 +4186,7 @@
     /// # Returns
     ///
     /// the update area for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_update_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_update_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_update_area&quot;</span>)]
     </span><span class="kw">pub fn </span>update_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Region&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_window_get_update_area(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4201,7 +4201,7 @@
     ///
     /// a [`cairo::Region`][crate::cairo::Region]. This must be freed with `cairo_region_destroy()`
     ///  when you are done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_visible_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_visible_region&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_region&quot;</span>)]
     </span><span class="kw">pub fn </span>visible_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Region&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_window_get_visible_region(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4212,7 +4212,7 @@
     /// # Returns
     ///
     /// a [`Visual`][crate::Visual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_visual&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_visual&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visual&quot;</span>)]
     </span><span class="kw">pub fn </span>visual(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Visual {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_window_get_visual(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4227,7 +4227,7 @@
     /// # Returns
     ///
     /// The width of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_width&quot;</span>)]
     </span><span class="kw">pub fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_window_get_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -4238,7 +4238,7 @@
     /// # Returns
     ///
     /// type of window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_get_window_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_window_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_type&quot;</span>)]
     </span><span class="kw">pub fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WindowType {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_get_window_type(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -4250,7 +4250,7 @@
     /// # Returns
     ///
     /// [`true`] if the `self` has a native window, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_has_native&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_has_native&quot;</span>)]
     </span><span class="kw">pub fn </span>has_native(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_has_native(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4259,7 +4259,7 @@
     /// known to the window manager; for all windows, unmaps them, so
     /// they won’t be displayed. Normally done automatically as
     /// part of `gtk_widget_hide()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_hide&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_hide&quot;</span>)]
     </span><span class="kw">pub fn </span>hide(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_hide(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4271,7 +4271,7 @@
     /// `gtk_window_iconify()` is preferred, if you have a `GtkWindow` widget.
     ///
     /// This function only makes sense when `self` is a toplevel window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_iconify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_iconify&quot;</span>)]
     </span><span class="kw">pub fn </span>iconify(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_iconify(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4300,7 +4300,7 @@
     /// X position of `shape_region` in `self` coordinates
     /// ## `offset_y`
     /// Y position of `shape_region` in `self` coordinates
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_input_shape_combine_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_input_shape_combine_region&quot;</span>)]
     </span><span class="kw">pub fn </span>input_shape_combine_region(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         shape_region: <span class="kw-2">&amp;</span>cairo::Region,
@@ -4338,7 +4338,7 @@
     /// ## `child_func`
     /// function to use to decide if to
     ///  recurse to a child, [`None`] means never recurse.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_maybe_recurse&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_maybe_recurse&quot;</span>)]
     </span><span class="kw">pub fn </span>invalidate_maybe_recurse(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         region: <span class="kw-2">&amp;</span>cairo::Region,
@@ -4383,7 +4383,7 @@
     ///  window
     /// ## `invalidate_children`
     /// whether to also invalidate child windows
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_rect&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_rect&quot;</span>)]
     </span><span class="kw">pub fn </span>invalidate_rect(<span class="kw-2">&amp;</span><span class="self">self</span>, rect: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Rectangle&gt;, invalidate_children: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_invalidate_rect(
@@ -4415,7 +4415,7 @@
     /// a [`cairo::Region`][crate::cairo::Region]
     /// ## `invalidate_children`
     /// [`true`] to also invalidate child windows
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_invalidate_region&quot;</span>)]
     </span><span class="kw">pub fn </span>invalidate_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span>cairo::Region, invalidate_children: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_invalidate_region(
@@ -4431,7 +4431,7 @@
     /// # Returns
     ///
     /// [`true`] if the window is destroyed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_is_destroyed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_is_destroyed&quot;</span>)]
     </span><span class="kw">pub fn </span>is_destroyed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_is_destroyed(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4441,7 +4441,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is input only
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_is_input_only&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_is_input_only&quot;</span>)]
     </span><span class="kw">pub fn </span>is_input_only(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_is_input_only(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4451,7 +4451,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is shaped
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_is_shaped&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_is_shaped&quot;</span>)]
     </span><span class="kw">pub fn </span>is_shaped(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_is_shaped(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4464,7 +4464,7 @@
     /// # Returns
     ///
     /// [`true`] if the window is viewable
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_is_viewable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_is_viewable&quot;</span>)]
     </span><span class="kw">pub fn </span>is_viewable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_is_viewable(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4475,7 +4475,7 @@
     /// # Returns
     ///
     /// [`true`] if the window is mapped
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_is_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_is_visible&quot;</span>)]
     </span><span class="kw">pub fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_is_visible(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -4490,7 +4490,7 @@
     ///
     /// Note that [`show()`][Self::show()] raises the window again, so don’t call this
     /// function before [`show()`][Self::show()]. (Try [`show_unraised()`][Self::show_unraised()].)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_lower&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_lower&quot;</span>)]
     </span><span class="kw">pub fn </span>lower(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_lower(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4507,7 +4507,7 @@
     /// to care about this.
     /// ## `cr`
     /// a [`cairo::Context`][crate::cairo::Context]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_mark_paint_from_clip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_mark_paint_from_clip&quot;</span>)]
     </span><span class="kw">pub fn </span>mark_paint_from_clip(<span class="kw-2">&amp;</span><span class="self">self</span>, cr: <span class="kw-2">&amp;</span>cairo::Context) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_mark_paint_from_clip(
@@ -4528,7 +4528,7 @@
     /// and GDK makes a best effort to get it to happen.
     ///
     /// On Windows, reliably maximizes the window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_maximize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_maximize&quot;</span>)]
     </span><span class="kw">pub fn </span>maximize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_maximize(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4543,7 +4543,7 @@
     /// This function is distinct from [`set_child_input_shapes()`][Self::set_child_input_shapes()]
     /// because it includes `self`’s input shape mask in the set of
     /// shapes to be merged.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_merge_child_input_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_merge_child_input_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>merge_child_input_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_merge_child_input_shapes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4558,14 +4558,14 @@
     /// This function is distinct from [`set_child_shapes()`][Self::set_child_shapes()]
     /// because it includes `self`’s shape mask in the set of shapes to
     /// be merged.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_merge_child_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_merge_child_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>merge_child_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_merge_child_shapes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_move&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_move&quot;</span>)]
     #[doc(alias = <span class="string">&quot;move&quot;</span>)]
     </span><span class="kw">pub fn </span>move_(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) {
         <span class="kw">unsafe </span>{
@@ -4584,7 +4584,7 @@
     /// Amount to move in the X direction
     /// ## `dy`
     /// Amount to move in the Y direction
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_move_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_move_region&quot;</span>)]
     </span><span class="kw">pub fn </span>move_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span>cairo::Region, dx: i32, dy: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_move_region(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, region.to_glib_none().<span class="number">0</span>, dx, dy);
@@ -4603,7 +4603,7 @@
     /// new width
     /// ## `height`
     /// new height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_move_resize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_move_resize&quot;</span>)]
     </span><span class="kw">pub fn </span>move_resize(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32, width: i32, height: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_move_resize(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, x, y, width, height);
@@ -4638,7 +4638,7 @@
     ///  point
     /// ## `rect_anchor_dy`
     /// vertical offset to shift `self`, i.e. `rect`&#39;s anchor point
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gdk_window_move_to_rect&quot;</span>)]
     </span><span class="kw">pub fn </span>move_to_rect(
@@ -4670,7 +4670,7 @@
     ///
     ///
     ///  a reference to the list of child windows in `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_peek_children&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_peek_children&quot;</span>)]
     </span><span class="kw">pub fn </span>peek_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Window&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_none(ffi::gdk_window_peek_children(
@@ -4686,7 +4686,7 @@
     /// If `self` is a toplevel, the window manager may choose to deny the
     /// request to move the window in the Z-order, [`raise()`][Self::raise()] only
     /// requests the restack, does not guarantee it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_raise&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_raise&quot;</span>)]
     </span><span class="kw">pub fn </span>raise(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_raise(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4694,7 +4694,7 @@
     }
 
     <span class="doccomment">/// Registers a window as a potential drop destination.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_register_dnd&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_register_dnd&quot;</span>)]
     </span><span class="kw">pub fn </span>register_dnd(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_register_dnd(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4714,7 +4714,7 @@
     /// X location inside the new parent
     /// ## `y`
     /// Y location inside the new parent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_reparent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_reparent&quot;</span>)]
     </span><span class="kw">pub fn </span>reparent(<span class="kw-2">&amp;</span><span class="self">self</span>, new_parent: <span class="kw-2">&amp;</span>Window, x: i32, y: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_reparent(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, new_parent.to_glib_none().<span class="number">0</span>, x, y);
@@ -4733,7 +4733,7 @@
     /// new width of the window
     /// ## `height`
     /// new height of the window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_resize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_resize&quot;</span>)]
     </span><span class="kw">pub fn </span>resize(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32, height: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_resize(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, width, height);
@@ -4754,7 +4754,7 @@
     /// a [`Window`][crate::Window] that is a sibling of `self`, or [`None`]
     /// ## `above`
     /// a boolean
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_restack&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_restack&quot;</span>)]
     </span><span class="kw">pub fn </span>restack(<span class="kw-2">&amp;</span><span class="self">self</span>, sibling: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;, above: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_restack(
@@ -4780,7 +4780,7 @@
     /// Amount to scroll in the X direction
     /// ## `dy`
     /// Amount to scroll in the Y direction
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_scroll&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_scroll&quot;</span>)]
     </span><span class="kw">pub fn </span>scroll(<span class="kw-2">&amp;</span><span class="self">self</span>, dx: i32, dy: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_scroll(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, dx, dy);
@@ -4794,7 +4794,7 @@
     /// hint. ICCCM-compliant window manager usually respect it.
     /// ## `accept_focus`
     /// [`true`] if the window should receive input focus
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_accept_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_accept_focus&quot;</span>)]
     </span><span class="kw">pub fn </span>set_accept_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, accept_focus: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_accept_focus(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, accept_focus.into_glib());
@@ -4805,7 +4805,7 @@
     /// for all children of `self`, ignoring the input shape mask of `self`
     /// itself. Contrast with [`merge_child_input_shapes()`][Self::merge_child_input_shapes()] which includes
     /// the input shape mask of `self` in the masks to be merged.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_child_input_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_child_input_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>set_child_input_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_child_input_shapes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4816,7 +4816,7 @@
     /// for all children of `self`, ignoring the shape mask of `self`
     /// itself. Contrast with [`merge_child_shapes()`][Self::merge_child_shapes()] which includes
     /// the shape mask of `self` in the masks to be merged.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_child_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_child_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>set_child_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_child_shapes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -4834,7 +4834,7 @@
     /// should use this default.
     /// ## `cursor`
     /// a cursor
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>set_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, cursor: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Cursor&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_cursor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, cursor.to_glib_none().<span class="number">0</span>);
@@ -4857,7 +4857,7 @@
     /// but very few honor all possible combinations of bits.
     /// ## `decorations`
     /// decoration hint mask
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_decorations&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_decorations&quot;</span>)]
     </span><span class="kw">pub fn </span>set_decorations(<span class="kw-2">&amp;</span><span class="self">self</span>, decorations: WMDecoration) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_decorations(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, decorations.into_glib());
@@ -4874,7 +4874,7 @@
     /// a master, pointer [`Device`][crate::Device]
     /// ## `cursor`
     /// a [`Cursor`][crate::Cursor]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_device_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_device_cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>set_device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device, cursor: <span class="kw-2">&amp;</span>Cursor) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_device_cursor(
@@ -4896,7 +4896,7 @@
     /// [`Device`][crate::Device] to enable events for.
     /// ## `event_mask`
     /// event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_device_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_device_events&quot;</span>)]
     </span><span class="kw">pub fn </span>set_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device, event_mask: EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_device_events(
@@ -4917,7 +4917,7 @@
     /// By default, event compression is enabled.
     /// ## `event_compression`
     /// [`true`] if motion events should be compressed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_event_compression&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_event_compression&quot;</span>)]
     </span><span class="kw">pub fn </span>set_event_compression(<span class="kw-2">&amp;</span><span class="self">self</span>, event_compression: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_event_compression(
@@ -4936,7 +4936,7 @@
     /// See the [input handling overview][event-masks] for details.
     /// ## `event_mask`
     /// event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_events&quot;</span>)]
     </span><span class="kw">pub fn </span>set_events(<span class="kw-2">&amp;</span><span class="self">self</span>, event_mask: EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_events(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, event_mask.into_glib());
@@ -4953,7 +4953,7 @@
     /// manager extension specification should respect it.
     /// ## `focus_on_map`
     /// [`true`] if the window should receive input focus when mapped
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_focus_on_map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_focus_on_map&quot;</span>)]
     </span><span class="kw">pub fn </span>set_focus_on_map(<span class="kw-2">&amp;</span><span class="self">self</span>, focus_on_map: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_focus_on_map(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, focus_on_map.into_glib());
@@ -4979,7 +4979,7 @@
     /// is specified.
     /// ## `mode`
     /// fullscreen mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_fullscreen_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_fullscreen_mode&quot;</span>)]
     </span><span class="kw">pub fn </span>set_fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: FullscreenMode) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_fullscreen_mode(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, mode.into_glib());
@@ -5001,7 +5001,7 @@
     /// enable.
     /// ## `functions`
     /// bitmask of operations to allow on `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_functions&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_functions&quot;</span>)]
     </span><span class="kw">pub fn </span>set_functions(<span class="kw-2">&amp;</span><span class="self">self</span>, functions: WMFunction) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_functions(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, functions.into_glib());
@@ -5033,7 +5033,7 @@
     /// geometry hints
     /// ## `geom_mask`
     /// bitmask indicating fields of `geometry` to pay attention to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_geometry_hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_geometry_hints&quot;</span>)]
     </span><span class="kw">pub fn </span>set_geometry_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, geometry: <span class="kw-2">&amp;</span>Geometry, geom_mask: WindowHints) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_geometry_hints(
@@ -5056,7 +5056,7 @@
     /// if your application pretends to be multiple applications.
     /// ## `leader`
     /// group leader window, or [`None`] to restore the default group leader window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_group&quot;</span>)]
     </span><span class="kw">pub fn </span>set_group(<span class="kw-2">&amp;</span><span class="self">self</span>, leader: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_group(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, leader.to_glib_none().<span class="number">0</span>);
@@ -5075,7 +5075,7 @@
     /// ## `pixbufs`
     ///
     ///  A list of pixbufs, of different sizes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_icon_list&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_icon_list&quot;</span>)]
     </span><span class="kw">pub fn </span>set_icon_list(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbufs: <span class="kw-2">&amp;</span>[gdk_pixbuf::Pixbuf]) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_icon_list(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, pixbufs.to_glib_none().<span class="number">0</span>);
@@ -5096,7 +5096,7 @@
     /// Note that some platforms don&#39;t support window icons.
     /// ## `name`
     /// name of window while iconified (minimized)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_icon_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_icon_name&quot;</span>)]
     </span><span class="kw">pub fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_icon_name(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, name.to_glib_none().<span class="number">0</span>);
@@ -5119,7 +5119,7 @@
     /// and GDK makes a best effort to get it to happen.
     /// ## `setting`
     /// whether to keep `self` above other windows
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_keep_above&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_keep_above&quot;</span>)]
     </span><span class="kw">pub fn </span>set_keep_above(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_keep_above(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, setting.into_glib());
@@ -5137,7 +5137,7 @@
     /// and GDK makes a best effort to get it to happen.
     /// ## `setting`
     /// whether to keep `self` below other windows
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_keep_below&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_keep_below&quot;</span>)]
     </span><span class="kw">pub fn </span>set_keep_below(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_keep_below(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, setting.into_glib());
@@ -5153,7 +5153,7 @@
     /// previously called [`set_transient_for()`][Self::set_transient_for()]
     /// ## `modal`
     /// [`true`] if the window is modal, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_modal_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_modal_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>set_modal_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, modal: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_modal_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, modal.into_glib());
@@ -5181,7 +5181,7 @@
     /// Support for non-toplevel windows was added in 3.8.
     /// ## `opacity`
     /// opacity
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_opacity&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_opacity&quot;</span>)]
     </span><span class="kw">pub fn </span>set_opacity(<span class="kw-2">&amp;</span><span class="self">self</span>, opacity: f64) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_opacity(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, opacity);
@@ -5203,7 +5203,7 @@
     /// property in your `GtkWidget::style-updated` handler.
     /// ## `region`
     /// a region, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_opaque_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_opaque_region&quot;</span>)]
     </span><span class="kw">pub fn </span>set_opaque_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Region&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_opaque_region(
@@ -5223,7 +5223,7 @@
     /// window in its implementation, for example.
     /// ## `override_redirect`
     /// [`true`] if window should be override redirect
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_override_redirect&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_override_redirect&quot;</span>)]
     </span><span class="kw">pub fn </span>set_override_redirect(<span class="kw-2">&amp;</span><span class="self">self</span>, override_redirect: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_override_redirect(
@@ -5253,7 +5253,7 @@
     /// enter/leave events on its way to the destination window.
     /// ## `pass_through`
     /// a boolean
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_pass_through&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_pass_through&quot;</span>)]
     </span><span class="kw">pub fn </span>set_pass_through(<span class="kw-2">&amp;</span><span class="self">self</span>, pass_through: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_pass_through(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, pass_through.into_glib());
@@ -5274,7 +5274,7 @@
     /// non-interchangeable kind of window.
     /// ## `role`
     /// a string indicating its role
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_role&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_role&quot;</span>)]
     </span><span class="kw">pub fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_role(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, role.to_glib_none().<span class="number">0</span>);
@@ -5298,7 +5298,7 @@
     /// The top extent
     /// ## `bottom`
     /// The bottom extent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_shadow_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_shadow_width&quot;</span>)]
     </span><span class="kw">pub fn </span>set_shadow_width(<span class="kw-2">&amp;</span><span class="self">self</span>, left: i32, right: i32, top: i32, bottom: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_shadow_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, left, right, top, bottom);
@@ -5315,7 +5315,7 @@
     /// its semantic type.
     /// ## `skips_pager`
     /// [`true`] to skip the pager
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_skip_pager_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_skip_pager_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>set_skip_pager_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, skips_pager: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_skip_pager_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, skips_pager.into_glib());
@@ -5330,7 +5330,7 @@
     /// standard policy for its semantic type.
     /// ## `skips_taskbar`
     /// [`true`] to skip the taskbar
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_skip_taskbar_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_skip_taskbar_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>set_skip_taskbar_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, skips_taskbar: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_skip_taskbar_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, skips_taskbar.into_glib());
@@ -5345,7 +5345,7 @@
     /// a [`InputSource`][crate::InputSource] to define the source class.
     /// ## `event_mask`
     /// event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_source_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_source_events&quot;</span>)]
     </span><span class="kw">pub fn </span>set_source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: InputSource, event_mask: EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_source_events(
@@ -5360,7 +5360,7 @@
     /// instead of this low-level function.
     /// ## `startup_id`
     /// a string with startup-notification identifier
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_startup_id&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_startup_id&quot;</span>)]
     </span><span class="kw">pub fn </span>set_startup_id(<span class="kw-2">&amp;</span><span class="self">self</span>, startup_id: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_startup_id(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, startup_id.to_glib_none().<span class="number">0</span>);
@@ -5373,7 +5373,7 @@
     /// per device enter/leave events, device grabs and grab ownerships.
     /// ## `support_multidevice`
     /// [`true`] to enable multidevice support in `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_support_multidevice&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_support_multidevice&quot;</span>)]
     </span><span class="kw">pub fn </span>set_support_multidevice(<span class="kw-2">&amp;</span><span class="self">self</span>, support_multidevice: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_support_multidevice(
@@ -5390,7 +5390,7 @@
     /// user-readable strings in GDK/GTK+). `title` may not be [`None`].
     /// ## `title`
     /// title of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_title&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_title&quot;</span>)]
     </span><span class="kw">pub fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_title(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, title.to_glib_none().<span class="number">0</span>);
@@ -5406,7 +5406,7 @@
     /// `GtkDialog`.
     /// ## `parent`
     /// another toplevel [`Window`][crate::Window]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_transient_for&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_transient_for&quot;</span>)]
     </span><span class="kw">pub fn </span>set_transient_for(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span>Window) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_transient_for(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, parent.to_glib_none().<span class="number">0</span>);
@@ -5421,7 +5421,7 @@
     /// The hint must be set before the window is mapped.
     /// ## `hint`
     /// A hint of the function this window will have
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_type_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_type_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>set_type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, hint: WindowTypeHint) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_type_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, hint.into_glib());
@@ -5432,7 +5432,7 @@
     /// urgent attention.
     /// ## `urgent`
     /// [`true`] if the window is urgent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_set_urgency_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_urgency_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>set_urgency_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, urgent: bool) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_urgency_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, urgent.into_glib());
@@ -5459,7 +5459,7 @@
     /// X position of `shape_region` in `self` coordinates
     /// ## `offset_y`
     /// Y position of `shape_region` in `self` coordinates
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_shape_combine_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_shape_combine_region&quot;</span>)]
     </span><span class="kw">pub fn </span>shape_combine_region(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         shape_region: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Region&gt;,
@@ -5485,7 +5485,7 @@
     ///
     /// When implementing a `GtkWidget`, you should call this function on the widget&#39;s
     /// [`Window`][crate::Window] as part of the “map” method.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_show&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_show&quot;</span>)]
     </span><span class="kw">pub fn </span>show(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_show(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5499,7 +5499,7 @@
     /// On the X11 platform, in Xlib terms, this function calls
     /// XMapWindow() (it also updates some internal GDK state, which means
     /// that you can’t really use XMapWindow() directly on a GDK window).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_show_unraised&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_show_unraised&quot;</span>)]
     </span><span class="kw">pub fn </span>show_unraised(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_show_unraised(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5517,7 +5517,7 @@
     /// # Returns
     ///
     /// [`true`] if the window menu was shown and [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_show_window_menu&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_show_window_menu&quot;</span>)]
     </span><span class="kw">pub fn </span>show_window_menu(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>Event) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_window_show_window_menu(
@@ -5536,7 +5536,7 @@
     /// GDK will do the best it can to convince the window manager to stick
     /// the window. For window managers that don’t support this operation,
     /// there’s nothing you can do to force it to happen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_stick&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_stick&quot;</span>)]
     </span><span class="kw">pub fn </span>stick(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_stick(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5544,7 +5544,7 @@
     }
 
     <span class="doccomment">/// Thaws a window frozen with [`freeze_updates()`][Self::freeze_updates()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_thaw_updates&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_thaw_updates&quot;</span>)]
     </span><span class="kw">pub fn </span>thaw_updates(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_thaw_updates(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5561,7 +5561,7 @@
     /// unfullscreenification actually happening. But it will happen with
     /// most standard window managers, and GDK makes a best effort to get
     /// it to happen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_unfullscreen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_unfullscreen&quot;</span>)]
     </span><span class="kw">pub fn </span>unfullscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_unfullscreen(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5579,7 +5579,7 @@
     /// managers, and GDK makes a best effort to get it to happen.
     ///
     /// On Windows, reliably unmaximizes the window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_unmaximize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_unmaximize&quot;</span>)]
     </span><span class="kw">pub fn </span>unmaximize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_unmaximize(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5588,7 +5588,7 @@
 
     <span class="doccomment">/// Reverse operation for [`stick()`][Self::stick()]; see [`stick()`][Self::stick()],
     /// and `gtk_window_unstick()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_unstick&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_unstick&quot;</span>)]
     </span><span class="kw">pub fn </span>unstick(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_unstick(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5598,7 +5598,7 @@
     <span class="doccomment">/// Withdraws a window (unmaps it and asks the window manager to forget about it).
     /// This function is not really useful as [`hide()`][Self::hide()] automatically
     /// withdraws toplevel windows before hiding them.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_withdraw&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_withdraw&quot;</span>)]
     </span><span class="kw">pub fn </span>withdraw(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_withdraw(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -5624,7 +5624,7 @@
     ///
     /// ## `new_height`
     /// location to store resulting height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_window_constrain_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_constrain_size&quot;</span>)]
     </span><span class="kw">pub fn </span>constrain_size(
         geometry: <span class="kw-2">&amp;mut </span>Geometry,
         flags: WindowHints,
@@ -5665,7 +5665,7 @@
     /// # Returns
     ///
     /// the newly created [`cairo::Surface`][crate::cairo::Surface] for the offscreen window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;create-surface&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;create-surface&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_create_surface&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) -&gt; cairo::Surface + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -5717,7 +5717,7 @@
     ///
     /// the [`Window`][crate::Window] of the
     ///  embedded child at `x`, `y`, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;pick-embedded-child&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;pick-embedded-child&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_pick_embedded_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -5754,7 +5754,7 @@
     //    Out embedder_y: *.Double
     //}
 
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_cursor_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_cursor_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Window) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkWindow,
@@ -5784,4 +5784,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

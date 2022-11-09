@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/text.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1000,7 +1000,7 @@
 // DO NOT EDIT
 
 </span><span class="kw">use </span><span class="kw">crate</span>::CoordType;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::ScrollType;
 <span class="kw">use </span><span class="kw">crate</span>::TextBoundary;
@@ -1044,7 +1044,7 @@
     /// # Implements
     ///
     /// [`TextExt`][trait@crate::prelude::TextExt]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;AtkText&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;AtkText&quot;</span>)]
     </span><span class="kw">pub struct </span>Text(Interface&lt;ffi::AtkText, ffi::AtkTextIface&gt;);
 
     <span class="kw">match fn </span>{
@@ -1071,7 +1071,7 @@
     /// # Returns
     ///
     /// [`true`] if successful, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_add_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_add_selection&quot;</span>)]
     </span><span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: i32, end_offset: i32) -&gt; bool;
 
     <span class="doccomment">/// Get the ranges of text in the specified bounding box.
@@ -1088,7 +1088,7 @@
     ///
     /// Array of AtkTextRange. The last
     ///  element of the array returned by this function will be NULL.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_bounded_ranges&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_bounded_ranges&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounded_ranges&quot;</span>)]
     </span><span class="kw">fn </span>bounded_ranges(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1105,7 +1105,7 @@
     /// the character offset of the position of the caret or -1 if
     ///  the caret is not located inside the element or in the case of
     ///  any other failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_caret_offset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_caret_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_caret_offset&quot;</span>)]
     </span><span class="kw">fn </span>caret_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -1116,7 +1116,7 @@
     /// # Returns
     ///
     /// the character at `offset` or 0 in the case of failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_character_at_offset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_character_at_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_character_at_offset&quot;</span>)]
     </span><span class="kw">fn </span>character_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32) -&gt; char;
 
@@ -1125,7 +1125,7 @@
     /// # Returns
     ///
     /// the number of characters or -1 in case of failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_character_count&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_character_count&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_character_count&quot;</span>)]
     </span><span class="kw">fn </span>character_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -1153,7 +1153,7 @@
     ///
     /// ## `height`
     /// Pointer for the height of the bounding box
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_character_extents&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_character_extents&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_character_extents&quot;</span>)]
     </span><span class="kw">fn </span>character_extents(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, coords: CoordType) -&gt; (i32, i32, i32, i32);
 
@@ -1166,7 +1166,7 @@
     /// # Returns
     ///
     /// The number of selected regions, or -1 in the case of failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_n_selections&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_n_selections&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_selections&quot;</span>)]
     </span><span class="kw">fn </span>n_selections(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -1185,7 +1185,7 @@
     ///
     /// the offset to the character which is located at the specified
     ///  `x` and `y` coordinates of -1 in case of failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_offset_at_point&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_offset_at_point&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_offset_at_point&quot;</span>)]
     </span><span class="kw">fn </span>offset_at_point(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32, coords: CoordType) -&gt; i32;
 
@@ -1207,7 +1207,7 @@
     ///
     /// ## `rect`
     /// A pointer to a AtkTextRectangle which is filled in by this function.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_range_extents&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_range_extents&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_range_extents&quot;</span>)]
     </span><span class="kw">fn </span>range_extents(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1239,7 +1239,7 @@
     /// ## `end_offset`
     /// passes back the ending character offset (offset immediately past)
     /// of the selected region
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection&quot;</span>)]
     </span><span class="kw">fn </span>selection(<span class="kw-2">&amp;</span><span class="self">self</span>, selection_num: i32) -&gt; (glib::GString, i32, i32);
 
@@ -1292,7 +1292,7 @@
     /// ## `end_offset`
     /// the offset of the first character after the returned string,
     ///  or -1 in the case of error (e.g. invalid offset, not implemented)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_string_at_offset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_string_at_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_string_at_offset&quot;</span>)]
     </span><span class="kw">fn </span>string_at_offset(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1311,7 +1311,7 @@
     /// a newly allocated string containing the text from `start_offset` up
     ///  to, but not including `end_offset`. Use `g_free()` to free the returned
     ///  string.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text&quot;</span>)]
     </span><span class="kw">fn </span>text(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: i32, end_offset: i32) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -1361,7 +1361,7 @@
     /// ## `end_offset`
     /// the offset of the first character after the
     ///  returned substring
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_get_text_at_offset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_get_text_at_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_at_offset&quot;</span>)]
     </span><span class="kw">fn </span>text_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, boundary_type: TextBoundary)
         -&gt; (glib::GString, i32, i32);
@@ -1377,7 +1377,7 @@
     /// # Returns
     ///
     /// [`true`] if successful, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_remove_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_remove_selection&quot;</span>)]
     </span><span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, selection_num: i32) -&gt; bool;
 
     <span class="doccomment">/// Makes a substring of `self` visible on the screen by scrolling all necessary parents.
@@ -1391,7 +1391,7 @@
     /// # Returns
     ///
     /// whether scrolling was successful.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;atk_text_scroll_substring_to&quot;</span>)]
     </span><span class="kw">fn </span>scroll_substring_to(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: i32, end_offset: i32, type_: ScrollType) -&gt; bool;
@@ -1413,7 +1413,7 @@
     /// # Returns
     ///
     /// whether scrolling was successful.
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;atk_text_scroll_substring_to_point&quot;</span>)]
     </span><span class="kw">fn </span>scroll_substring_to_point(
@@ -1448,7 +1448,7 @@
     /// # Returns
     ///
     /// [`true`] if successful, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_set_caret_offset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_set_caret_offset&quot;</span>)]
     </span><span class="kw">fn </span>set_caret_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32) -&gt; bool;
 
     <span class="doccomment">/// Changes the start and end offset of the specified selection.
@@ -1467,13 +1467,13 @@
     /// # Returns
     ///
     /// [`true`] if successful, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;atk_text_set_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_text_set_selection&quot;</span>)]
     </span><span class="kw">fn </span>set_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, selection_num: i32, start_offset: i32, end_offset: i32) -&gt; bool;
 
     <span class="doccomment">/// The &quot;text-attributes-changed&quot; signal is emitted when the text
     /// attributes of the text of an object which implements AtkText
     /// changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;text-attributes-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;text-attributes-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_attributes_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The &quot;text-caret-moved&quot; signal is emitted when the caret
@@ -1481,7 +1481,7 @@
     /// changes.
     /// ## `arg1`
     /// The new position of the text caret.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;text-caret-moved&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;text-caret-moved&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_caret_moved&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The &quot;text-insert&quot; signal is emitted when a new text is
@@ -1494,7 +1494,7 @@
     /// The length (in characters) of text inserted.
     /// ## `arg3`
     /// The new text inserted
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;text-insert&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;text-insert&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_insert&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
@@ -1511,7 +1511,7 @@
     /// The length (in characters) of text removed.
     /// ## `arg3`
     /// The old text removed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;text-remove&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;text-remove&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_remove&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
@@ -1520,7 +1520,7 @@
 
     <span class="doccomment">/// The &quot;text-selection-changed&quot; signal is emitted when the
     /// selected text of an object which implements AtkText changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;text-selection-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;text-selection-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_text_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -1708,7 +1708,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">fn </span>scroll_substring_to(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: i32, end_offset: i32, type_: ScrollType) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -1721,7 +1721,7 @@
         }
     }
 
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">fn </span>scroll_substring_to_point(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -1834,7 +1834,7 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;text-insert::{}\0&quot;</span>, name));
+            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;text-insert::{name}\0&quot;</span>));
             <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;text-insert\0&quot;</span>[..], |n| n.as_bytes());
@@ -1874,7 +1874,7 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;text-remove::{}\0&quot;</span>, name));
+            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;text-remove::{name}\0&quot;</span>));
             <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;text-remove\0&quot;</span>[..], |n| n.as_bytes());
@@ -1920,4 +1920,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="atk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

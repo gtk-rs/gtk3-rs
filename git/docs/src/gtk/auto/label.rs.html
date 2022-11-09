@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/label.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>label.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/label.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>label.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2885,7 +2885,7 @@
     /// # Implements
     ///
     /// [`LabelExt`][trait@crate::prelude::LabelExt], [`MiscExt`][trait@crate::prelude::MiscExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkLabel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkLabel&quot;</span>)]
     </span><span class="kw">pub struct </span>Label(Object&lt;ffi::GtkLabel, ffi::GtkLabelClass&gt;) @extends Misc, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -2904,7 +2904,7 @@
     /// # Returns
     ///
     /// the new [`Label`][crate::Label]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new(str: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; Label {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_label_new(str.to_glib_none().<span class="number">0</span>)).unsafe_cast() }
@@ -2931,7 +2931,7 @@
     /// # Returns
     ///
     /// the new [`Label`][crate::Label]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_new_with_mnemonic&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_new_with_mnemonic&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_mnemonic&quot;</span>)]
     </span><span class="kw">pub fn </span>with_mnemonic(str: <span class="kw-2">&amp;</span>str) -&gt; Label {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2956,12 +2956,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`Label`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>LabelBuilder {
     angle: <span class="prelude-ty">Option</span>&lt;f64&gt;,
     attributes: <span class="prelude-ty">Option</span>&lt;pango::AttrList&gt;,
@@ -3025,7 +3025,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`Label`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; Label {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>angle) = <span class="self">self</span>.angle {
@@ -3585,7 +3585,7 @@
     /// # Returns
     ///
     /// the angle of rotation for the label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_angle&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_angle&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_angle&quot;</span>)]
     </span><span class="kw">fn </span>angle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
@@ -3600,7 +3600,7 @@
     ///
     /// the attribute list, or [`None`]
     ///  if none was set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_attributes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_attributes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_attributes&quot;</span>)]
     </span><span class="kw">fn </span>attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::AttrList&gt;;
 
@@ -3616,7 +3616,7 @@
     ///
     /// the currently active URI. The string is owned by GTK+ and must
     ///  not be freed or modified.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_current_uri&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_current_uri&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_uri&quot;</span>)]
     </span><span class="kw">fn </span>current_uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -3625,7 +3625,7 @@
     /// # Returns
     ///
     /// [`pango::EllipsizeMode`][crate::pango::EllipsizeMode]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_ellipsize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_ellipsize&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_ellipsize&quot;</span>)]
     </span><span class="kw">fn </span>ellipsize(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::EllipsizeMode;
 
@@ -3634,7 +3634,7 @@
     /// # Returns
     ///
     /// [`Justification`][crate::Justification]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_justify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_justify&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_justify&quot;</span>)]
     </span><span class="kw">fn </span>justify(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Justification;
 
@@ -3646,7 +3646,7 @@
     ///
     /// the text of the label widget. This string is
     ///  owned by the widget and must not be modified or freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_label&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_label&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_label&quot;</span>)]
     </span><span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::GString;
 
@@ -3660,7 +3660,7 @@
     /// # Returns
     ///
     /// the [`pango::Layout`][crate::pango::Layout] for this label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout&quot;</span>)]
     </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Layout&gt;;
 
@@ -3682,7 +3682,7 @@
     ///
     /// ## `y`
     /// location to store Y offset of layout, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_layout_offsets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_layout_offsets&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout_offsets&quot;</span>)]
     </span><span class="kw">fn </span>layout_offsets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
 
@@ -3692,7 +3692,7 @@
     /// # Returns
     ///
     /// [`true`] if the lines of the label are automatically wrapped.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_line_wrap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_line_wrap&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_wrap&quot;</span>)]
     </span><span class="kw">fn </span>is_line_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3701,7 +3701,7 @@
     /// # Returns
     ///
     /// [`true`] if the lines of the label are automatically wrapped.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_line_wrap_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_line_wrap_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_wrap_mode&quot;</span>)]
     </span><span class="kw">fn </span>line_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::WrapMode;
 
@@ -3711,7 +3711,7 @@
     /// # Returns
     ///
     /// The number of lines
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_lines&quot;</span>)]
     </span><span class="kw">fn </span>lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -3721,7 +3721,7 @@
     /// # Returns
     ///
     /// the maximum width of the label in characters.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_max_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_max_width_chars&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -3732,7 +3732,7 @@
     /// # Returns
     ///
     /// GDK keyval usable for accelerators, or `GDK_KEY_VoidSymbol`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_mnemonic_keyval&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_mnemonic_keyval&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mnemonic_keyval&quot;</span>)]
     </span><span class="kw">fn </span>mnemonic_keyval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
@@ -3743,7 +3743,7 @@
     ///
     /// the target of the label’s mnemonic,
     ///  or [`None`] if none has been set and the default algorithm will be used.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_mnemonic_widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_mnemonic_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mnemonic_widget&quot;</span>)]
     </span><span class="kw">fn </span>mnemonic_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -3752,7 +3752,7 @@
     /// # Returns
     ///
     /// [`true`] if the user can copy text from the label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_selectable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_selectable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selectable&quot;</span>)]
     </span><span class="kw">fn </span>is_selectable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3768,7 +3768,7 @@
     ///
     /// ## `end`
     /// return location for end of selection, as a character offset
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_selection_bounds&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_selection_bounds&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_bounds&quot;</span>)]
     </span><span class="kw">fn </span>selection_bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt;;
 
@@ -3777,7 +3777,7 @@
     /// # Returns
     ///
     /// [`true`] when the label is in single line mode.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_single_line_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_single_line_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_single_line_mode&quot;</span>)]
     </span><span class="kw">fn </span>is_single_line_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3789,7 +3789,7 @@
     ///
     /// the text in the label widget. This is the internal
     ///  string used by the label, and must not be modified.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text&quot;</span>)]
     </span><span class="kw">fn </span>text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::GString;
 
@@ -3799,7 +3799,7 @@
     /// # Returns
     ///
     /// [`true`] if clicked links are remembered
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_track_visited_links&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_track_visited_links&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_track_visited_links&quot;</span>)]
     </span><span class="kw">fn </span>tracks_visited_links(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3810,7 +3810,7 @@
     /// # Returns
     ///
     /// [`true`] if the label’s text will be parsed for markup.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_use_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_use_markup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_markup&quot;</span>)]
     </span><span class="kw">fn </span>uses_markup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3821,7 +3821,7 @@
     ///
     /// [`true`] whether an embedded underline in the label indicates
     ///  the mnemonic accelerator keys.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_use_underline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_use_underline&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_underline&quot;</span>)]
     </span><span class="kw">fn </span>uses_underline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -3831,7 +3831,7 @@
     /// # Returns
     ///
     /// the width of the label in characters.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_width_chars&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -3840,7 +3840,7 @@
     /// # Returns
     ///
     /// the xalign property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_xalign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_xalign&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_xalign&quot;</span>)]
     </span><span class="kw">fn </span>xalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
 
@@ -3849,7 +3849,7 @@
     /// # Returns
     ///
     /// the yalign property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_get_yalign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_get_yalign&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_yalign&quot;</span>)]
     </span><span class="kw">fn </span>yalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
 
@@ -3861,7 +3861,7 @@
     /// start offset (in characters not bytes)
     /// ## `end_offset`
     /// end offset (in characters not bytes)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_select_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_select_region&quot;</span>)]
     </span><span class="kw">fn </span>select_region(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: i32, end_offset: i32);
 
     <span class="doccomment">/// Sets the angle of rotation for the label. An angle of 90 reads from
@@ -3871,7 +3871,7 @@
     /// ## `angle`
     /// the angle that the baseline of the label makes with
     ///  the horizontal, in degrees, measured counterclockwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_angle&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_angle&quot;</span>)]
     </span><span class="kw">fn </span>set_angle(<span class="kw-2">&amp;</span><span class="self">self</span>, angle: f64);
 
     <span class="doccomment">/// Sets a [`pango::AttrList`][crate::pango::AttrList]; the attributes in the list are applied to the
@@ -3885,14 +3885,14 @@
     /// to the label after the markup string is parsed.
     /// ## `attrs`
     /// a [`pango::AttrList`][crate::pango::AttrList], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_attributes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_attributes&quot;</span>)]
     </span><span class="kw">fn </span>set_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, attrs: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>pango::AttrList&gt;);
 
     <span class="doccomment">/// Sets the mode used to ellipsize (add an ellipsis: &quot;...&quot;) to the text
     /// if there is not enough space to render the entire string.
     /// ## `mode`
     /// a [`pango::EllipsizeMode`][crate::pango::EllipsizeMode]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_ellipsize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_ellipsize&quot;</span>)]
     </span><span class="kw">fn </span>set_ellipsize(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: pango::EllipsizeMode);
 
     <span class="doccomment">/// Sets the alignment of the lines in the text of the label relative to
@@ -3903,7 +3903,7 @@
     /// single line.
     /// ## `jtype`
     /// a [`Justification`][crate::Justification]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_justify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_justify&quot;</span>)]
     </span><span class="kw">fn </span>set_justify(<span class="kw-2">&amp;</span><span class="self">self</span>, jtype: Justification);
 
     <span class="doccomment">/// Sets the text of the label. The label is interpreted as
@@ -3912,7 +3912,7 @@
     /// `property::Label::use-markup` properties.
     /// ## `str`
     /// the new text to set for the label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_label&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_label&quot;</span>)]
     </span><span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Toggles line wrapping within the [`Label`][crate::Label] widget. [`true`] makes it break
@@ -3926,7 +3926,7 @@
     /// set the label’s width using [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()].
     /// ## `wrap`
     /// the setting
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_line_wrap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_line_wrap&quot;</span>)]
     </span><span class="kw">fn </span>set_line_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap: bool);
 
     <span class="doccomment">/// If line wrapping is on (see [`set_line_wrap()`][Self::set_line_wrap()]) this controls how
@@ -3934,7 +3934,7 @@
     /// wrap on word boundaries.
     /// ## `wrap_mode`
     /// the line wrapping mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_line_wrap_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_line_wrap_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_line_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: pango::WrapMode);
 
     <span class="doccomment">/// Sets the number of lines to which an ellipsized, wrapping label
@@ -3943,7 +3943,7 @@
     /// number of lines.
     /// ## `lines`
     /// the desired number of lines, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_lines&quot;</span>)]
     </span><span class="kw">fn </span>set_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, lines: i32);
 
     <span class="doccomment">/// Parses `str` which is marked up with the
@@ -3978,7 +3978,7 @@
     /// See also: [`set_text()`][Self::set_text()]
     /// ## `str`
     /// a markup string (see [Pango markup format][PangoMarkupFormat])
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_markup&quot;</span>)]
     </span><span class="kw">fn </span>set_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Parses `str` which is marked up with the
@@ -3992,13 +3992,13 @@
     /// ## `str`
     /// a markup string (see
     ///  [Pango markup format][PangoMarkupFormat])
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_markup_with_mnemonic&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_markup_with_mnemonic&quot;</span>)]
     </span><span class="kw">fn </span>set_markup_with_mnemonic(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets the desired maximum width in characters of `self` to `n_chars`.
     /// ## `n_chars`
     /// the new desired maximum width, in characters.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_max_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_max_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>set_max_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, n_chars: i32);
 
     <span class="doccomment">/// If the label has been set so that it has an mnemonic key (using
@@ -4017,7 +4017,7 @@
     /// and toggle focus between the colliding widgets otherwise.
     /// ## `widget`
     /// the target [`Widget`][crate::Widget], or [`None`] to unset
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_mnemonic_widget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_mnemonic_widget&quot;</span>)]
     </span><span class="kw">fn </span>set_mnemonic_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
 
     <span class="doccomment">/// The pattern of underlines you want under the existing text within the
@@ -4026,20 +4026,20 @@
     /// “Foo” and “Baz” but not “Bar”.
     /// ## `pattern`
     /// The pattern as described above.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_pattern&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_pattern&quot;</span>)]
     </span><span class="kw">fn </span>set_pattern(<span class="kw-2">&amp;</span><span class="self">self</span>, pattern: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Selectable labels allow the user to select text from the label, for
     /// copy-and-paste.
     /// ## `setting`
     /// [`true`] to allow selecting text in the label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_selectable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_selectable&quot;</span>)]
     </span><span class="kw">fn </span>set_selectable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets whether the label is in single line mode.
     /// ## `single_line_mode`
     /// [`true`] if the label should be in single line mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_single_line_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_single_line_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_single_line_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, single_line_mode: bool);
 
     <span class="doccomment">/// Sets the text within the [`Label`][crate::Label] widget. It overwrites any text that
@@ -4054,7 +4054,7 @@
     /// See also: [`set_markup()`][Self::set_markup()]
     /// ## `str`
     /// The text you want to set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_text&quot;</span>)]
     </span><span class="kw">fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets the label’s text from the string `str`.
@@ -4064,14 +4064,14 @@
     /// automatically, or explicitly using [`set_mnemonic_widget()`][Self::set_mnemonic_widget()].
     /// ## `str`
     /// a string
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_text_with_mnemonic&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_text_with_mnemonic&quot;</span>)]
     </span><span class="kw">fn </span>set_text_with_mnemonic(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets whether the label should keep track of clicked
     /// links (and use a different color for them).
     /// ## `track_links`
     /// [`true`] to track visited links
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_track_visited_links&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_track_visited_links&quot;</span>)]
     </span><span class="kw">fn </span>set_track_visited_links(<span class="kw-2">&amp;</span><span class="self">self</span>, track_links: bool);
 
     <span class="doccomment">/// Sets whether the text of the label contains markup in
@@ -4079,38 +4079,38 @@
     /// See [`set_markup()`][Self::set_markup()].
     /// ## `setting`
     /// [`true`] if the label’s text should be parsed for markup.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_use_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_use_markup&quot;</span>)]
     </span><span class="kw">fn </span>set_use_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// If true, an underline in the text indicates the next character should be
     /// used for the mnemonic accelerator key.
     /// ## `setting`
     /// [`true`] if underlines in the text indicate mnemonics
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_use_underline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_use_underline&quot;</span>)]
     </span><span class="kw">fn </span>set_use_underline(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets the desired width in characters of `self` to `n_chars`.
     /// ## `n_chars`
     /// the new desired width, in characters.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_width_chars&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_width_chars&quot;</span>)]
     </span><span class="kw">fn </span>set_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, n_chars: i32);
 
     <span class="doccomment">/// Sets the `property::Label::xalign` property for `self`.
     /// ## `xalign`
     /// the new xalign value, between 0 and 1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_xalign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_xalign&quot;</span>)]
     </span><span class="kw">fn </span>set_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32);
 
     <span class="doccomment">/// Sets the `property::Label::yalign` property for `self`.
     /// ## `yalign`
     /// the new yalign value, between 0 and 1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_label_set_yalign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_label_set_yalign&quot;</span>)]
     </span><span class="kw">fn </span>set_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>, yalign: f32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
     </span><span class="kw">fn </span>cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
     </span><span class="kw">fn </span>selection_bound(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="kw">fn </span>wraps(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
@@ -4120,13 +4120,13 @@
     <span class="doccomment">/// If line wrapping is on (see the `property::Label::wrap` property) this controls
     /// how the line wrapping is done. The default is [`pango::WrapMode::Word`][crate::pango::WrapMode::Word], which
     /// means wrap on word boundaries.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::WrapMode;
 
     <span class="doccomment">/// If line wrapping is on (see the `property::Label::wrap` property) this controls
     /// how the line wrapping is done. The default is [`pango::WrapMode::Word`][crate::pango::WrapMode::Word], which
     /// means wrap on word boundaries.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: pango::WrapMode);
 
     <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
@@ -4136,7 +4136,7 @@
     /// if they need to control activation of URIs programmatically.
     ///
     /// The default bindings for this signal are all forms of the Enter key.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;activate-current-link&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-current-link&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_current_link&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_activate_current_link(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -4150,7 +4150,7 @@
     /// # Returns
     ///
     /// [`true`] if the link has been activated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;activate-link&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-link&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_link&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -4161,7 +4161,7 @@
     /// which gets emitted to copy the selection to the clipboard.
     ///
     /// The default binding for this signal is Ctrl-c.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -4189,7 +4189,7 @@
     /// the number of `step` units to move
     /// ## `extend_selection`
     /// [`true`] if the move should extend the selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -4205,67 +4205,67 @@
     /// to this signal and append your menuitems to the `menu`.
     /// ## `menu`
     /// the menu that is being populated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
     </span><span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Menu) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;angle&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;angle&quot;</span>)]
     </span><span class="kw">fn </span>connect_angle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;attributes&quot;</span>)]
     </span><span class="kw">fn </span>connect_attributes_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
     </span><span class="kw">fn </span>connect_cursor_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;ellipsize&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;ellipsize&quot;</span>)]
     </span><span class="kw">fn </span>connect_ellipsize_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;justify&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;justify&quot;</span>)]
     </span><span class="kw">fn </span>connect_justify_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
     </span><span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;lines&quot;</span>)]
     </span><span class="kw">fn </span>connect_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;mnemonic-keyval&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;mnemonic-keyval&quot;</span>)]
     </span><span class="kw">fn </span>connect_mnemonic_keyval_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;mnemonic-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;mnemonic-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_mnemonic_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;pattern&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;pattern&quot;</span>)]
     </span><span class="kw">fn </span>connect_pattern_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selectable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selectable&quot;</span>)]
     </span><span class="kw">fn </span>connect_selectable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-bound&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_bound_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;single-line-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;single-line-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_single_line_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;track-visited-links&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;track-visited-links&quot;</span>)]
     </span><span class="kw">fn </span>connect_track_visited_links_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;use-markup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-markup&quot;</span>)]
     </span><span class="kw">fn </span>connect_use_markup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;use-underline&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-underline&quot;</span>)]
     </span><span class="kw">fn </span>connect_use_underline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-chars&quot;</span>)]
     </span><span class="kw">fn </span>connect_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -5230,4 +5230,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

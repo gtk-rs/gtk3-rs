@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2431,7 +2431,7 @@
 ///
 /// [`true`] if an accelerator was activated and handled
 ///  this keypress
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accel_groups_activate&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accel_groups_activate&quot;</span>)]
 </span><span class="kw">pub fn </span>accel_groups_activate(
     object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;,
     accel_key: u32,
@@ -2455,7 +2455,7 @@
 ///
 /// a list of
 ///  all accel groups which are attached to `object`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accel_groups_from_object&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accel_groups_from_object&quot;</span>)]
 </span><span class="kw">pub fn </span>accel_groups_from_object(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;) -&gt; Vec&lt;AccelGroup&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -2473,7 +2473,7 @@
 /// # Returns
 ///
 /// the default accelerator modifier mask
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_default_mod_mask&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_default_mod_mask&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_get_default_mod_mask() -&gt; gdk::ModifierType {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_accelerator_get_default_mod_mask()) }
@@ -2489,7 +2489,7 @@
 /// # Returns
 ///
 /// a newly-allocated string representing the accelerator.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_get_label(
     accelerator_key: u32,
     accelerator_mods: gdk::ModifierType,
@@ -2522,7 +2522,7 @@
 /// # Returns
 ///
 /// a newly-allocated string representing the accelerator.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label_with_keycode&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label_with_keycode&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_get_label_with_keycode(
     display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Display&gt;,
     accelerator_key: u32,
@@ -2554,7 +2554,7 @@
 /// # Returns
 ///
 /// a newly-allocated accelerator name
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_name&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_name&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_name(
     accelerator_key: u32,
     accelerator_mods: gdk::ModifierType,
@@ -2585,7 +2585,7 @@
 /// # Returns
 ///
 /// a newly allocated accelerator name.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_name_with_keycode&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_name_with_keycode&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_name_with_keycode(
     display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Display&gt;,
     accelerator_key: u32,
@@ -2628,7 +2628,7 @@
 /// ## `accelerator_mods`
 /// return location for accelerator
 ///  modifier mask, [`None`]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_parse&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_parse&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_parse(accelerator: <span class="kw-2">&amp;</span>str) -&gt; (u32, gdk::ModifierType) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -2660,7 +2660,7 @@
 /// before using any accelerator groups.
 /// ## `default_mod_mask`
 /// accelerator modifier mask
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_set_default_mod_mask&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_set_default_mod_mask&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -2681,7 +2681,7 @@
 /// # Returns
 ///
 /// [`true`] if the accelerator is valid
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_accelerator_valid&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_valid&quot;</span>)]
 </span><span class="kw">pub fn </span>accelerator_valid(keyval: u32, modifiers: gdk::ModifierType) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_accelerator_valid(keyval, modifiers.into_glib())) }
@@ -2699,7 +2699,7 @@
 /// # Returns
 ///
 /// [`true`] if a binding was found and activated
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_bindings_activate&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_bindings_activate&quot;</span>)]
 </span><span class="kw">pub fn </span>bindings_activate(
     object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;,
     keyval: u32,
@@ -2725,7 +2725,7 @@
 /// # Returns
 ///
 /// [`true`] if a matching key binding was found
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_bindings_activate_event&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_bindings_activate_event&quot;</span>)]
 </span><span class="kw">pub fn </span>bindings_activate_event(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;, event: <span class="kw-2">&amp;mut </span>gdk::EventKey) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -2754,7 +2754,7 @@
 /// # Returns
 ///
 /// [`true`] if `window` should be drawn
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_cairo_should_draw_window&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cairo_should_draw_window&quot;</span>)]
 </span><span class="kw">pub fn </span>cairo_should_draw_window(cr: <span class="kw-2">&amp;</span>cairo::Context, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -2780,7 +2780,7 @@
 /// the widget the context is currently centered for
 /// ## `window`
 /// the window to transform the context to
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_cairo_transform_to_window&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cairo_transform_to_window&quot;</span>)]
 </span><span class="kw">pub fn </span>cairo_transform_to_window(
     cr: <span class="kw-2">&amp;</span>cairo::Context,
     widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
@@ -2831,7 +2831,7 @@
 ///  given version, or a string describing the version mismatch.
 ///  The returned string is owned by GTK+ and should not be modified
 ///  or freed.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_check_version&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_version&quot;</span>)]
 </span><span class="kw">pub fn </span>check_version(
     required_major: u32,
     required_minor: u32,
@@ -2857,7 +2857,7 @@
 /// a [`gdk::Device`][crate::gdk::Device] to grab on.
 /// ## `block_others`
 /// [`true`] to prevent other devices to interact with `widget`.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_device_grab_add&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_device_grab_add&quot;</span>)]
 </span><span class="kw">pub fn </span>device_grab_add(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, device: <span class="kw-2">&amp;</span>gdk::Device, block_others: bool) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -2877,7 +2877,7 @@
 /// a [`Widget`][crate::Widget]
 /// ## `device`
 /// a [`gdk::Device`][crate::gdk::Device]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_device_grab_remove&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_device_grab_remove&quot;</span>)]
 </span><span class="kw">pub fn </span>device_grab_remove(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, device: <span class="kw-2">&amp;</span>gdk::Device) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -2893,7 +2893,7 @@
 /// you wanted to set different values for different locale categories.
 ///
 /// Most programs should not need to call this function.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_disable_setlocale&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_disable_setlocale&quot;</span>)]
 </span><span class="kw">pub fn </span>disable_setlocale() {
     <span class="macro">assert_not_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -2929,13 +2929,13 @@
 /// # Returns
 ///
 /// [`true`] if any events are pending, [`false`] otherwise
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_events_pending&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_events_pending&quot;</span>)]
 </span><span class="kw">pub fn </span>events_pending() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_events_pending()) }
 }
 
-<span class="attribute">#[doc(alias = <span class="string">&quot;gtk_false&quot;</span>)]
+<span class="attr">#[doc(alias = <span class="string">&quot;gtk_false&quot;</span>)]
 #[doc(alias = <span class="string">&quot;false&quot;</span>)]
 </span><span class="kw">pub fn </span>false_() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -2950,7 +2950,7 @@
 /// # Returns
 ///
 /// the binary age of the GTK+ library
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_binary_age&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_binary_age&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_binary_age&quot;</span>)]
 </span><span class="kw">pub fn </span>binary_age() -&gt; u32 {
     <span class="macro">skip_assert_initialized!</span>();
@@ -2968,7 +2968,7 @@
 /// a copy of the current event, or
 ///  [`None`] if there is no current event. The returned event must be
 ///  freed with `gdk_event_free()`.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_current_event&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event&quot;</span>)]
 </span><span class="kw">pub fn </span>current_event() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Event&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -2981,7 +2981,7 @@
 /// # Returns
 ///
 /// a [`gdk::Device`][crate::gdk::Device], or [`None`]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_current_event_device&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_device&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_device&quot;</span>)]
 </span><span class="kw">pub fn </span>current_event_device() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Device&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -2999,7 +2999,7 @@
 ///
 /// ## `state`
 /// a location to store the state of the current event
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_current_event_state&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_state&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_state&quot;</span>)]
 </span><span class="kw">pub fn </span>current_event_state() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::ModifierType&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3021,7 +3021,7 @@
 ///
 /// the timestamp from the current event,
 ///  or `GDK_CURRENT_TIME`.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_current_event_time&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_time&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_time&quot;</span>)]
 </span><span class="kw">pub fn </span>current_event_time() -&gt; u32 {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3036,7 +3036,7 @@
 /// # Returns
 ///
 /// the GTK+ debug flags.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_debug_flags&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_debug_flags&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_debug_flags&quot;</span>)]
 </span><span class="kw">pub fn </span>debug_flags() -&gt; u32 {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3056,7 +3056,7 @@
 ///
 /// the default language as a [`pango::Language`][crate::pango::Language],
 ///  must not be freed
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_default_language&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_default_language&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_default_language&quot;</span>)]
 </span><span class="kw">pub fn </span>default_language() -&gt; <span class="prelude-ty">Option</span>&lt;pango::Language&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3073,7 +3073,7 @@
 ///
 /// the widget that originally
 ///  received `event`, or [`None`]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_event_widget&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_event_widget&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_event_widget&quot;</span>)]
 </span><span class="kw">pub fn </span>event_widget(event: <span class="kw-2">&amp;mut </span>gdk::Event) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3088,7 +3088,7 @@
 /// # Returns
 ///
 /// the interface age of the GTK+ library
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_interface_age&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_interface_age&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_interface_age&quot;</span>)]
 </span><span class="kw">pub fn </span>interface_age() -&gt; u32 {
     <span class="macro">skip_assert_initialized!</span>();
@@ -3124,7 +3124,7 @@
 /// # Returns
 ///
 /// the [`TextDirection`][crate::TextDirection] of the current locale
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_locale_direction&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_locale_direction&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_locale_direction&quot;</span>)]
 </span><span class="kw">pub fn </span>locale_direction() -&gt; TextDirection {
     <span class="macro">assert_initialized_main_thread!</span>();
@@ -3142,7 +3142,7 @@
 /// # Returns
 ///
 /// the major version number of the GTK+ library
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_major_version&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_major_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_major_version&quot;</span>)]
 </span><span class="kw">pub fn </span>major_version() -&gt; u32 {
     <span class="macro">skip_assert_initialized!</span>();
@@ -3160,7 +3160,7 @@
 /// # Returns
 ///
 /// the micro version number of the GTK+ library
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_micro_version&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_micro_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_micro_version&quot;</span>)]
 </span><span class="kw">pub fn </span>micro_version() -&gt; u32 {
     <span class="macro">skip_assert_initialized!</span>();
@@ -3178,7 +3178,7 @@
 /// # Returns
 ///
 /// the minor version number of the GTK+ library
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_get_minor_version&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_minor_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_minor_version&quot;</span>)]
 </span><span class="kw">pub fn </span>minor_version() -&gt; u32 {
     <span class="macro">skip_assert_initialized!</span>();
@@ -3197,7 +3197,7 @@
 ///
 /// The widget which currently
 ///  has the grab or [`None`] if no grab is active
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_grab_get_current&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_grab_get_current&quot;</span>)]
 </span><span class="kw">pub fn </span>grab_get_current() -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_grab_get_current()) }
@@ -3207,7 +3207,7 @@
 ///
 /// You can nest calls to [`main()`][crate::main()]. In that case `gtk_main_quit()`
 /// will make the innermost invocation of the main loop return.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_main&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main&quot;</span>)]
 </span><span class="kw">pub fn </span>main() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -3253,7 +3253,7 @@
 /// 5. After finishing the delivery the event is popped from the event stack.
 /// ## `event`
 /// An event to process (normally passed by GDK)
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_main_do_event&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_do_event&quot;</span>)]
 </span><span class="kw">pub fn </span>main_do_event(event: <span class="kw-2">&amp;mut </span>gdk::Event) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -3272,7 +3272,7 @@
 ///
 /// [`true`] if `gtk_main_quit()` has been called for the
 ///  innermost mainloop
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_main_iteration&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_iteration&quot;</span>)]
 </span><span class="kw">pub fn </span>main_iteration() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_main_iteration()) }
@@ -3288,7 +3288,7 @@
 ///
 /// [`true`] if `gtk_main_quit()` has been called for the
 ///  innermost mainloop
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_main_iteration_do&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_iteration_do&quot;</span>)]
 </span><span class="kw">pub fn </span>main_iteration_do(blocking: bool) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_main_iteration_do(blocking.into_glib())) }
@@ -3300,7 +3300,7 @@
 ///
 /// the nesting level of the current invocation
 ///  of the main loop
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_main_level&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_level&quot;</span>)]
 </span><span class="kw">pub fn </span>main_level() -&gt; u32 {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_main_level() }
@@ -3324,7 +3324,7 @@
 /// # Returns
 ///
 /// a new [`PageSetup`][crate::PageSetup]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog&quot;</span>)]
 </span><span class="kw">pub fn </span>print_run_page_setup_dialog(
     parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
     page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;,
@@ -3354,7 +3354,7 @@
 /// ## `done_cb`
 /// a function to call when the user saves
 ///  the modified page setup
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog_async&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog_async&quot;</span>)]
 </span><span class="kw">pub fn </span>print_run_page_setup_dialog_async&lt;P: FnOnce(<span class="kw-2">&amp;</span>PageSetup) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;(
     parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
     page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;,
@@ -3406,7 +3406,7 @@
 /// a [`Widget`][crate::Widget]
 /// ## `event`
 /// an event
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_propagate_event&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_propagate_event&quot;</span>)]
 </span><span class="kw">pub fn </span>propagate_event(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, event: <span class="kw-2">&amp;mut </span>gdk::Event) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -3429,7 +3429,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_activity&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_activity&quot;</span>)]
 </span><span class="kw">pub fn </span>render_activity(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3468,7 +3468,7 @@
 /// Y origin of the render area
 /// ## `size`
 /// square side for render area
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_arrow&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_arrow&quot;</span>)]
 </span><span class="kw">pub fn </span>render_arrow(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3508,7 +3508,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_background&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_background&quot;</span>)]
 </span><span class="kw">pub fn </span>render_background(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3549,7 +3549,7 @@
 ///
 /// ## `out_clip`
 /// return location for the clip
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_background_get_clip&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_background_get_clip&quot;</span>)]
 </span><span class="kw">pub fn </span>render_background_get_clip(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     x: f64,
@@ -3593,7 +3593,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_check&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_check&quot;</span>)]
 </span><span class="kw">pub fn </span>render_check(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3634,7 +3634,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_expander&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_expander&quot;</span>)]
 </span><span class="kw">pub fn </span>render_expander(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3677,7 +3677,7 @@
 /// rectangle height
 /// ## `gap_side`
 /// side where the gap is
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_extension&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_extension&quot;</span>)]
 </span><span class="kw">pub fn </span>render_extension(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3718,7 +3718,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_focus&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_focus&quot;</span>)]
 </span><span class="kw">pub fn </span>render_focus(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3758,7 +3758,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_frame&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_frame&quot;</span>)]
 </span><span class="kw">pub fn </span>render_frame(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3811,7 +3811,7 @@
 /// initial coordinate (X or Y depending on `gap_side`) for the gap
 /// ## `xy1_gap`
 /// end coordinate (X or Y depending on `gap_side`) for the gap
-</span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;v3_24&quot;</span>, deprecated = <span class="string">&quot;Since 3.24&quot;</span>)]
+</span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_24&quot;</span>, deprecated = <span class="string">&quot;Since 3.24&quot;</span>)]
 #[doc(alias = <span class="string">&quot;gtk_render_frame_gap&quot;</span>)]
 </span><span class="kw">pub fn </span>render_frame_gap(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
@@ -3859,7 +3859,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_handle&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_handle&quot;</span>)]
 </span><span class="kw">pub fn </span>render_handle(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3899,7 +3899,7 @@
 /// X position for the `pixbuf`
 /// ## `y`
 /// Y position for the `pixbuf`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_icon&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_icon&quot;</span>)]
 </span><span class="kw">pub fn </span>render_icon(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3930,7 +3930,7 @@
 /// X position for the `icon`
 /// ## `y`
 /// Y position for the `incon`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_icon_surface&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_icon_surface&quot;</span>)]
 </span><span class="kw">pub fn </span>render_icon_surface(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -3965,7 +3965,7 @@
 /// the index in the [`pango::Layout`][crate::pango::Layout]
 /// ## `direction`
 /// the [`pango::Direction`][crate::pango::Direction] of the text
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_insertion_cursor&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_insertion_cursor&quot;</span>)]
 </span><span class="kw">pub fn </span>render_insertion_cursor(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -4000,7 +4000,7 @@
 /// Y origin
 /// ## `layout`
 /// the [`pango::Layout`][crate::pango::Layout] to render
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_layout&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_layout&quot;</span>)]
 </span><span class="kw">pub fn </span>render_layout(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -4033,7 +4033,7 @@
 /// X coordinate for the end of the line
 /// ## `y1`
 /// Y coordinate for the end of the line
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_line&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_line&quot;</span>)]
 </span><span class="kw">pub fn </span>render_line(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -4074,7 +4074,7 @@
 /// rectangle width
 /// ## `height`
 /// rectangle height
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_option&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_option&quot;</span>)]
 </span><span class="kw">pub fn </span>render_option(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -4117,7 +4117,7 @@
 /// rectangle height
 /// ## `orientation`
 /// orientation of the slider
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_render_slider&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_slider&quot;</span>)]
 </span><span class="kw">pub fn </span>render_slider(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
     cr: <span class="kw-2">&amp;</span>cairo::Context,
@@ -4163,7 +4163,7 @@
 ///
 /// ## `v`
 /// Return value for the value component
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_rgb_to_hsv&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_rgb_to_hsv&quot;</span>)]
 </span><span class="kw">pub fn </span>rgb_to_hsv(r: f64, g: f64, b: f64) -&gt; (f64, f64, f64) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -4185,7 +4185,7 @@
 /// target to add.
 /// ## `info`
 /// A unsigned integer which will be passed back to the application.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_add_target&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_add_target&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_add_target(
     widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
     selection: <span class="kw-2">&amp;</span>gdk::Atom,
@@ -4209,7 +4209,7 @@
 /// a [`Widget`][crate::Widget]
 /// ## `selection`
 /// an atom representing a selection
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_clear_targets&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_clear_targets&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_clear_targets(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, selection: <span class="kw-2">&amp;</span>gdk::Atom) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -4237,7 +4237,7 @@
 /// [`true`] if requested succeeded. [`false`] if we could not process
 ///  request. (e.g., there was already a request in process for
 ///  this widget).
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_convert&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_convert&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_convert(
     widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
     selection: <span class="kw-2">&amp;</span>gdk::Atom,
@@ -4267,7 +4267,7 @@
 /// # Returns
 ///
 /// [`true`] if the operation succeeded
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_set(
     widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;,
     selection: <span class="kw-2">&amp;</span>gdk::Atom,
@@ -4297,7 +4297,7 @@
 /// # Returns
 ///
 /// TRUE if the operation succeeded
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set_for_display&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set_for_display&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_owner_set_for_display(
     display: <span class="kw-2">&amp;</span>gdk::Display,
     widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;,
@@ -4321,7 +4321,7 @@
 /// called by applications.
 /// ## `widget`
 /// a [`Widget`][crate::Widget]
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_selection_remove_all&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_remove_all&quot;</span>)]
 </span><span class="kw">pub fn </span>selection_remove_all(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -4330,7 +4330,7 @@
 }
 
 <span class="doccomment">/// Sets the GTK+ debug flags.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_set_debug_flags&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_set_debug_flags&quot;</span>)]
 </span><span class="kw">pub fn </span>set_debug_flags(flags: u32) {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -4368,7 +4368,7 @@
 /// # Returns
 ///
 /// [`true`] on success, [`false`] on error
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_show_uri_on_window&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_show_uri_on_window&quot;</span>)]
 </span><span class="kw">pub fn </span>show_uri_on_window(
     parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
     uri: <span class="kw-2">&amp;</span>str,
@@ -4404,10 +4404,10 @@
 ///
 /// [`true`] if `targets` include a suitable target for images,
 ///  otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_targets_include_image&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_image&quot;</span>)]
 </span><span class="kw">pub fn </span>targets_include_image(targets: <span class="kw-2">&amp;</span>[gdk::Atom], writable: bool) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as </span>i32;
+    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib(ffi::gtk_targets_include_image(
             targets.to_glib_none().<span class="number">0</span>,
@@ -4428,10 +4428,10 @@
 ///
 /// [`true`] if `targets` include a suitable target for rich text,
 ///  otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_targets_include_rich_text&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_rich_text&quot;</span>)]
 </span><span class="kw">pub fn </span>targets_include_rich_text(targets: <span class="kw-2">&amp;</span>[gdk::Atom], buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;) -&gt; bool {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as </span>i32;
+    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib(ffi::gtk_targets_include_rich_text(
             targets.to_glib_none().<span class="number">0</span>,
@@ -4450,10 +4450,10 @@
 ///
 /// [`true`] if `targets` include a suitable target for text,
 ///  otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_targets_include_text&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_text&quot;</span>)]
 </span><span class="kw">pub fn </span>targets_include_text(targets: <span class="kw-2">&amp;</span>[gdk::Atom]) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as </span>i32;
+    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib(ffi::gtk_targets_include_text(
             targets.to_glib_none().<span class="number">0</span>,
@@ -4471,10 +4471,10 @@
 ///
 /// [`true`] if `targets` include a suitable target for uri lists,
 ///  otherwise [`false`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_targets_include_uri&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_uri&quot;</span>)]
 </span><span class="kw">pub fn </span>targets_include_uri(targets: <span class="kw-2">&amp;</span>[gdk::Atom]) -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as </span>i32;
+    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib(ffi::gtk_targets_include_uri(
             targets.to_glib_none().<span class="number">0</span>,
@@ -4498,7 +4498,7 @@
 /// # Returns
 ///
 /// a GtkLabel widget if any is found.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_find_label&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_label&quot;</span>)]
 </span><span class="kw">pub fn </span>test_find_label(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, label_pattern: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -4524,7 +4524,7 @@
 /// # Returns
 ///
 /// a widget of type `widget_type` if any is found.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_find_sibling&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_sibling&quot;</span>)]
 </span><span class="kw">pub fn </span>test_find_sibling(
     base_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
     widget_type: glib::types::Type,
@@ -4555,7 +4555,7 @@
 /// # Returns
 ///
 /// a valid widget if any is found or [`None`].
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_find_widget&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_widget&quot;</span>)]
 </span><span class="kw">pub fn </span>test_find_widget(
     widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
     label_pattern: <span class="kw-2">&amp;</span>str,
@@ -4579,7 +4579,7 @@
 </span><span class="doccomment">/// Force registration of all core Gtk+ and Gdk object types.
 /// This allowes to refer to any of those object types via
 /// `g_type_from_name()` after calling this function.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_register_all_types&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_register_all_types&quot;</span>)]
 </span><span class="kw">pub fn </span>test_register_all_types() {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{
@@ -4605,7 +4605,7 @@
 /// # Returns
 ///
 /// whether all actions neccessary for the key event simulation were carried out successfully.
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_widget_send_key&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_widget_send_key&quot;</span>)]
 </span><span class="kw">pub fn </span>test_widget_send_key(
     widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
     keyval: u32,
@@ -4630,7 +4630,7 @@
 /// server.
 /// ## `widget`
 /// the widget to wait for
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_test_widget_wait_for_draw&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_widget_wait_for_draw&quot;</span>)]
 </span><span class="kw">pub fn </span>test_widget_wait_for_draw(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
@@ -4660,7 +4660,7 @@
 ///
 /// ## `path`
 /// row in `tree_model`
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_get_row_drag_data&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_get_row_drag_data&quot;</span>)]
 </span><span class="kw">pub fn </span>tree_get_row_drag_data(
     selection_data: <span class="kw-2">&amp;</span>SelectionData,
 ) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="prelude-ty">Option</span>&lt;TreeModel&gt;, <span class="prelude-ty">Option</span>&lt;TreePath&gt;)&gt; {
@@ -4693,7 +4693,7 @@
 /// # Returns
 ///
 /// [`true`] if the [`SelectionData`][crate::SelectionData] had the proper target type to allow us to set a tree row
-</span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_set_row_drag_data&quot;</span>)]
+</span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_set_row_drag_data&quot;</span>)]
 </span><span class="kw">pub fn </span>tree_set_row_drag_data(
     selection_data: <span class="kw-2">&amp;</span>SelectionData,
     tree_model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;,
@@ -4709,11 +4709,11 @@
     }
 }
 
-<span class="attribute">#[doc(alias = <span class="string">&quot;gtk_true&quot;</span>)]
+<span class="attr">#[doc(alias = <span class="string">&quot;gtk_true&quot;</span>)]
 #[doc(alias = <span class="string">&quot;true&quot;</span>)]
 </span><span class="kw">pub fn </span>true_() -&gt; bool {
     <span class="macro">assert_initialized_main_thread!</span>();
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_true()) }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

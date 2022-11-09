@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1666,7 +1666,7 @@
     /// # Implements
     ///
     /// [`FileChooserExt`][trait@crate::prelude::FileChooserExt], [`FileChooserExtManual`][trait@crate::prelude::FileChooserExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkFileChooser&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkFileChooser&quot;</span>)]
     </span><span class="kw">pub struct </span>FileChooser(Interface&lt;ffi::GtkFileChooser&gt;);
 
     <span class="kw">match fn </span>{
@@ -1692,7 +1692,7 @@
     /// ref and sink it if you want to keep a reference.
     /// ## `filter`
     /// a [`FileFilter`][crate::FileFilter]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_filter&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_filter&quot;</span>)]
     </span><span class="kw">fn </span>add_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: <span class="kw-2">&amp;</span>FileFilter);
 
     <span class="doccomment">/// Adds a folder to be displayed with the shortcut folders in a file chooser.
@@ -1706,270 +1706,270 @@
     ///
     /// [`true`] if the folder could be added successfully, [`false`]
     /// otherwise. In the latter case, the `error` will be set as appropriate.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_shortcut_folder&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_shortcut_folder&quot;</span>)]
     </span><span class="kw">fn </span>add_shortcut_folder(<span class="kw-2">&amp;</span><span class="self">self</span>, folder: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_shortcut_folder_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_shortcut_folder_uri&quot;</span>)]
     </span><span class="kw">fn </span>add_shortcut_folder_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_action&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_action&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_action&quot;</span>)]
     </span><span class="kw">fn </span>action(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FileChooserAction;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_choice&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_choice&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_choice&quot;</span>)]
     </span><span class="kw">fn </span>choice(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_create_folders&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_create_folders&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_create_folders&quot;</span>)]
     </span><span class="kw">fn </span>creates_folders(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_folder&quot;</span>)]
     </span><span class="kw">fn </span>current_folder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;std::path::PathBuf&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_folder_file&quot;</span>)]
     </span><span class="kw">fn </span>current_folder_file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::File&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_folder_uri&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_folder_uri&quot;</span>)]
     </span><span class="kw">fn </span>current_folder_uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_current_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_name&quot;</span>)]
     </span><span class="kw">fn </span>current_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_do_overwrite_confirmation&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_do_overwrite_confirmation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_do_overwrite_confirmation&quot;</span>)]
     </span><span class="kw">fn </span>does_overwrite_confirmation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_extra_widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_extra_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_extra_widget&quot;</span>)]
     </span><span class="kw">fn </span>extra_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_file&quot;</span>)]
     </span><span class="kw">fn </span>file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::File&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filename&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_filename&quot;</span>)]
     </span><span class="kw">fn </span>filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;std::path::PathBuf&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filenames&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filenames&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_filenames&quot;</span>)]
     </span><span class="kw">fn </span>filenames(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;std::path::PathBuf&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_files&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_files&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_files&quot;</span>)]
     </span><span class="kw">fn </span>files(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gio::File&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filter&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_filter&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_filter&quot;</span>)]
     </span><span class="kw">fn </span>filter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;FileFilter&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_local_only&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_local_only&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_local_only&quot;</span>)]
     </span><span class="kw">fn </span>is_local_only(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_file&quot;</span>)]
     </span><span class="kw">fn </span>preview_file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::File&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_filename&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_filename&quot;</span>)]
     </span><span class="kw">fn </span>preview_filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;std::path::PathBuf&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_uri&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_uri&quot;</span>)]
     </span><span class="kw">fn </span>preview_uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_widget&quot;</span>)]
     </span><span class="kw">fn </span>preview_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_widget_active&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_preview_widget_active&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_widget_active&quot;</span>)]
     </span><span class="kw">fn </span>is_preview_widget_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_select_multiple&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_select_multiple&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_select_multiple&quot;</span>)]
     </span><span class="kw">fn </span>selects_multiple(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_show_hidden&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_show_hidden&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_hidden&quot;</span>)]
     </span><span class="kw">fn </span>shows_hidden(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_uri&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_uri&quot;</span>)]
     </span><span class="kw">fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_uris&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_uris&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_uris&quot;</span>)]
     </span><span class="kw">fn </span>uris(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_use_preview_label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_get_use_preview_label&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_preview_label&quot;</span>)]
     </span><span class="kw">fn </span>uses_preview_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_filters&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_filters&quot;</span>)]
     </span><span class="kw">fn </span>list_filters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;FileFilter&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_shortcut_folder_uris&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_shortcut_folder_uris&quot;</span>)]
     </span><span class="kw">fn </span>list_shortcut_folder_uris(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_shortcut_folders&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_list_shortcut_folders&quot;</span>)]
     </span><span class="kw">fn </span>list_shortcut_folders(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;std::path::PathBuf&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_choice&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_choice&quot;</span>)]
     </span><span class="kw">fn </span>remove_choice(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_filter&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_filter&quot;</span>)]
     </span><span class="kw">fn </span>remove_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: <span class="kw-2">&amp;</span>FileFilter);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_shortcut_folder&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_shortcut_folder&quot;</span>)]
     </span><span class="kw">fn </span>remove_shortcut_folder(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         folder: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_shortcut_folder_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_remove_shortcut_folder_uri&quot;</span>)]
     </span><span class="kw">fn </span>remove_shortcut_folder_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_all&quot;</span>)]
     </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_file&quot;</span>)]
     </span><span class="kw">fn </span>select_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_filename&quot;</span>)]
     </span><span class="kw">fn </span>select_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_select_uri&quot;</span>)]
     </span><span class="kw">fn </span>select_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_action&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_action&quot;</span>)]
     </span><span class="kw">fn </span>set_action(<span class="kw-2">&amp;</span><span class="self">self</span>, action: FileChooserAction);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_choice&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_choice&quot;</span>)]
     </span><span class="kw">fn </span>set_choice(<span class="kw-2">&amp;</span><span class="self">self</span>, id: <span class="kw-2">&amp;</span>str, option: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_create_folders&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_create_folders&quot;</span>)]
     </span><span class="kw">fn </span>set_create_folders(<span class="kw-2">&amp;</span><span class="self">self</span>, create_folders: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder&quot;</span>)]
     </span><span class="kw">fn </span>set_current_folder(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder_file&quot;</span>)]
     </span><span class="kw">fn </span>set_current_folder_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_folder_uri&quot;</span>)]
     </span><span class="kw">fn </span>set_current_folder_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_current_name&quot;</span>)]
     </span><span class="kw">fn </span>set_current_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_do_overwrite_confirmation&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_do_overwrite_confirmation&quot;</span>)]
     </span><span class="kw">fn </span>set_do_overwrite_confirmation(<span class="kw-2">&amp;</span><span class="self">self</span>, do_overwrite_confirmation: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_extra_widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_extra_widget&quot;</span>)]
     </span><span class="kw">fn </span>set_extra_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, extra_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_file&quot;</span>)]
     </span><span class="kw">fn </span>set_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_filename&quot;</span>)]
     </span><span class="kw">fn </span>set_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_filter&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_filter&quot;</span>)]
     </span><span class="kw">fn </span>set_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: <span class="kw-2">&amp;</span>FileFilter);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_local_only&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_local_only&quot;</span>)]
     </span><span class="kw">fn </span>set_local_only(<span class="kw-2">&amp;</span><span class="self">self</span>, local_only: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_preview_widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_preview_widget&quot;</span>)]
     </span><span class="kw">fn </span>set_preview_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, preview_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_preview_widget_active&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_preview_widget_active&quot;</span>)]
     </span><span class="kw">fn </span>set_preview_widget_active(<span class="kw-2">&amp;</span><span class="self">self</span>, active: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_select_multiple&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_select_multiple&quot;</span>)]
     </span><span class="kw">fn </span>set_select_multiple(<span class="kw-2">&amp;</span><span class="self">self</span>, select_multiple: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_show_hidden&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_show_hidden&quot;</span>)]
     </span><span class="kw">fn </span>set_show_hidden(<span class="kw-2">&amp;</span><span class="self">self</span>, show_hidden: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_uri&quot;</span>)]
     </span><span class="kw">fn </span>set_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_use_preview_label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_set_use_preview_label&quot;</span>)]
     </span><span class="kw">fn </span>set_use_preview_label(<span class="kw-2">&amp;</span><span class="self">self</span>, use_label: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_all&quot;</span>)]
     </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_file&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_file&quot;</span>)]
     </span><span class="kw">fn </span>unselect_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_filename&quot;</span>)]
     </span><span class="kw">fn </span>unselect_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_uri&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_unselect_uri&quot;</span>)]
     </span><span class="kw">fn </span>unselect_uri(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;confirm-overwrite&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;confirm-overwrite&quot;</span>)]
     </span><span class="kw">fn </span>connect_confirm_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; FileChooserConfirmation + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;current-folder-changed&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;current-folder-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_current_folder_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;file-activated&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;file-activated&quot;</span>)]
     </span><span class="kw">fn </span>connect_file_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;update-preview&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;update-preview&quot;</span>)]
     </span><span class="kw">fn </span>connect_update_preview&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;action&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;action&quot;</span>)]
     </span><span class="kw">fn </span>connect_action_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;create-folders&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;create-folders&quot;</span>)]
     </span><span class="kw">fn </span>connect_create_folders_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;do-overwrite-confirmation&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;do-overwrite-confirmation&quot;</span>)]
     </span><span class="kw">fn </span>connect_do_overwrite_confirmation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;extra-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;extra-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_extra_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;filter&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;filter&quot;</span>)]
     </span><span class="kw">fn </span>connect_filter_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;local-only&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;local-only&quot;</span>)]
     </span><span class="kw">fn </span>connect_local_only_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;preview-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;preview-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_preview_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;preview-widget-active&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;preview-widget-active&quot;</span>)]
     </span><span class="kw">fn </span>connect_preview_widget_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;select-multiple&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;select-multiple&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_multiple_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-hidden&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-hidden&quot;</span>)]
     </span><span class="kw">fn </span>connect_show_hidden_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;use-preview-label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-preview-label&quot;</span>)]
     </span><span class="kw">fn </span>connect_use_preview_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -2952,4 +2952,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1297,35 +1297,35 @@
     ///
     /// In general, when multiple flags are set, flipping should take precedence over
     /// sliding, which should take precedence over resizing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkAnchorHints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkAnchorHints&quot;</span>)]
     </span><span class="kw">pub struct </span>AnchorHints: u32 {
         <span class="doccomment">/// allow flipping anchors horizontally
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP_X&quot;</span>)]
-        </span><span class="kw">const </span>FLIP_X = ffi::GDK_ANCHOR_FLIP_X <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP_X&quot;</span>)]
+        </span><span class="kw">const </span>FLIP_X = ffi::GDK_ANCHOR_FLIP_X <span class="kw">as _</span>;
         <span class="doccomment">/// allow flipping anchors vertically
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP_Y&quot;</span>)]
-        </span><span class="kw">const </span>FLIP_Y = ffi::GDK_ANCHOR_FLIP_Y <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP_Y&quot;</span>)]
+        </span><span class="kw">const </span>FLIP_Y = ffi::GDK_ANCHOR_FLIP_Y <span class="kw">as _</span>;
         <span class="doccomment">/// allow sliding window horizontally
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE_X&quot;</span>)]
-        </span><span class="kw">const </span>SLIDE_X = ffi::GDK_ANCHOR_SLIDE_X <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE_X&quot;</span>)]
+        </span><span class="kw">const </span>SLIDE_X = ffi::GDK_ANCHOR_SLIDE_X <span class="kw">as _</span>;
         <span class="doccomment">/// allow sliding window vertically
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE_Y&quot;</span>)]
-        </span><span class="kw">const </span>SLIDE_Y = ffi::GDK_ANCHOR_SLIDE_Y <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE_Y&quot;</span>)]
+        </span><span class="kw">const </span>SLIDE_Y = ffi::GDK_ANCHOR_SLIDE_Y <span class="kw">as _</span>;
         <span class="doccomment">/// allow resizing window horizontally
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE_X&quot;</span>)]
-        </span><span class="kw">const </span>RESIZE_X = ffi::GDK_ANCHOR_RESIZE_X <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE_X&quot;</span>)]
+        </span><span class="kw">const </span>RESIZE_X = ffi::GDK_ANCHOR_RESIZE_X <span class="kw">as _</span>;
         <span class="doccomment">/// allow resizing window vertically
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE_Y&quot;</span>)]
-        </span><span class="kw">const </span>RESIZE_Y = ffi::GDK_ANCHOR_RESIZE_Y <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE_Y&quot;</span>)]
+        </span><span class="kw">const </span>RESIZE_Y = ffi::GDK_ANCHOR_RESIZE_Y <span class="kw">as _</span>;
         <span class="doccomment">/// allow flipping anchors on both axes
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP&quot;</span>)]
-        </span><span class="kw">const </span>FLIP = ffi::GDK_ANCHOR_FLIP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP&quot;</span>)]
+        </span><span class="kw">const </span>FLIP = ffi::GDK_ANCHOR_FLIP <span class="kw">as _</span>;
         <span class="doccomment">/// allow sliding window on both axes
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE&quot;</span>)]
-        </span><span class="kw">const </span>SLIDE = ffi::GDK_ANCHOR_SLIDE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_SLIDE&quot;</span>)]
+        </span><span class="kw">const </span>SLIDE = ffi::GDK_ANCHOR_SLIDE <span class="kw">as _</span>;
         <span class="doccomment">/// allow resizing window on both axes
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE&quot;</span>)]
-        </span><span class="kw">const </span>RESIZE = ffi::GDK_ANCHOR_RESIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_RESIZE&quot;</span>)]
+        </span><span class="kw">const </span>RESIZE = ffi::GDK_ANCHOR_RESIZE <span class="kw">as _</span>;
     }
 }
 
@@ -1335,7 +1335,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>AnchorHints {
     <span class="kw">type </span>GlibType = ffi::GdkAnchorHints;
 
@@ -1344,7 +1344,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAnchorHints&gt; <span class="kw">for </span>AnchorHints {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkAnchorHints) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1387,35 +1387,35 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags describing the current capabilities of a device/tool.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkAxisFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkAxisFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>AxisFlags: u32 {
         <span class="doccomment">/// X axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_X&quot;</span>)]
-        </span><span class="kw">const </span>X = ffi::GDK_AXIS_FLAG_X <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_X&quot;</span>)]
+        </span><span class="kw">const </span>X = ffi::GDK_AXIS_FLAG_X <span class="kw">as _</span>;
         <span class="doccomment">/// Y axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_Y&quot;</span>)]
-        </span><span class="kw">const </span>Y = ffi::GDK_AXIS_FLAG_Y <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_Y&quot;</span>)]
+        </span><span class="kw">const </span>Y = ffi::GDK_AXIS_FLAG_Y <span class="kw">as _</span>;
         <span class="doccomment">/// Pressure axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_PRESSURE&quot;</span>)]
-        </span><span class="kw">const </span>PRESSURE = ffi::GDK_AXIS_FLAG_PRESSURE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_PRESSURE&quot;</span>)]
+        </span><span class="kw">const </span>PRESSURE = ffi::GDK_AXIS_FLAG_PRESSURE <span class="kw">as _</span>;
         <span class="doccomment">/// X tilt axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_XTILT&quot;</span>)]
-        </span><span class="kw">const </span>XTILT = ffi::GDK_AXIS_FLAG_XTILT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_XTILT&quot;</span>)]
+        </span><span class="kw">const </span>XTILT = ffi::GDK_AXIS_FLAG_XTILT <span class="kw">as _</span>;
         <span class="doccomment">/// Y tilt axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_YTILT&quot;</span>)]
-        </span><span class="kw">const </span>YTILT = ffi::GDK_AXIS_FLAG_YTILT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_YTILT&quot;</span>)]
+        </span><span class="kw">const </span>YTILT = ffi::GDK_AXIS_FLAG_YTILT <span class="kw">as _</span>;
         <span class="doccomment">/// Wheel axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_WHEEL&quot;</span>)]
-        </span><span class="kw">const </span>WHEEL = ffi::GDK_AXIS_FLAG_WHEEL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_WHEEL&quot;</span>)]
+        </span><span class="kw">const </span>WHEEL = ffi::GDK_AXIS_FLAG_WHEEL <span class="kw">as _</span>;
         <span class="doccomment">/// Distance axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_DISTANCE&quot;</span>)]
-        </span><span class="kw">const </span>DISTANCE = ffi::GDK_AXIS_FLAG_DISTANCE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_DISTANCE&quot;</span>)]
+        </span><span class="kw">const </span>DISTANCE = ffi::GDK_AXIS_FLAG_DISTANCE <span class="kw">as _</span>;
         <span class="doccomment">/// Z-axis rotation is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_ROTATION&quot;</span>)]
-        </span><span class="kw">const </span>ROTATION = ffi::GDK_AXIS_FLAG_ROTATION <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_ROTATION&quot;</span>)]
+        </span><span class="kw">const </span>ROTATION = ffi::GDK_AXIS_FLAG_ROTATION <span class="kw">as _</span>;
         <span class="doccomment">/// Slider axis is present
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_SLIDER&quot;</span>)]
-        </span><span class="kw">const </span>SLIDER = ffi::GDK_AXIS_FLAG_SLIDER <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_SLIDER&quot;</span>)]
+        </span><span class="kw">const </span>SLIDER = ffi::GDK_AXIS_FLAG_SLIDER <span class="kw">as _</span>;
     }
 }
 
@@ -1425,7 +1425,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>AxisFlags {
     <span class="kw">type </span>GlibType = ffi::GdkAxisFlags;
 
@@ -1434,7 +1434,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAxisFlags&gt; <span class="kw">for </span>AxisFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkAxisFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1478,29 +1478,29 @@
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Used in [`DragContext`][crate::DragContext] to indicate what the destination
     /// should do with the dropped data.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkDragAction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkDragAction&quot;</span>)]
     </span><span class="kw">pub struct </span>DragAction: u32 {
         <span class="doccomment">/// Means nothing, and should not be used.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_DEFAULT&quot;</span>)]
-        </span><span class="kw">const </span>DEFAULT = ffi::GDK_ACTION_DEFAULT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_DEFAULT&quot;</span>)]
+        </span><span class="kw">const </span>DEFAULT = ffi::GDK_ACTION_DEFAULT <span class="kw">as _</span>;
         <span class="doccomment">/// Copy the data.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_COPY&quot;</span>)]
-        </span><span class="kw">const </span>COPY = ffi::GDK_ACTION_COPY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_COPY&quot;</span>)]
+        </span><span class="kw">const </span>COPY = ffi::GDK_ACTION_COPY <span class="kw">as _</span>;
         <span class="doccomment">/// Move the data, i.e. first copy it, then delete
         ///  it from the source using the DELETE target of the X selection protocol.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_MOVE&quot;</span>)]
-        </span><span class="kw">const </span>MOVE = ffi::GDK_ACTION_MOVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_MOVE&quot;</span>)]
+        </span><span class="kw">const </span>MOVE = ffi::GDK_ACTION_MOVE <span class="kw">as _</span>;
         <span class="doccomment">/// Add a link to the data. Note that this is only
         ///  useful if source and destination agree on what it means.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_LINK&quot;</span>)]
-        </span><span class="kw">const </span>LINK = ffi::GDK_ACTION_LINK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_LINK&quot;</span>)]
+        </span><span class="kw">const </span>LINK = ffi::GDK_ACTION_LINK <span class="kw">as _</span>;
         <span class="doccomment">/// Special action which tells the source that the
         ///  destination will do something that the source doesn’t understand.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_PRIVATE&quot;</span>)]
-        </span><span class="kw">const </span>PRIVATE = ffi::GDK_ACTION_PRIVATE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_PRIVATE&quot;</span>)]
+        </span><span class="kw">const </span>PRIVATE = ffi::GDK_ACTION_PRIVATE <span class="kw">as _</span>;
         <span class="doccomment">/// Ask the user what to do with the data.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ACTION_ASK&quot;</span>)]
-        </span><span class="kw">const </span>ASK = ffi::GDK_ACTION_ASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_ASK&quot;</span>)]
+        </span><span class="kw">const </span>ASK = ffi::GDK_ACTION_ASK <span class="kw">as _</span>;
     }
 }
 
@@ -1510,7 +1510,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>DragAction {
     <span class="kw">type </span>GlibType = ffi::GdkDragAction;
 
@@ -1519,7 +1519,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDragAction&gt; <span class="kw">for </span>DragAction {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDragAction) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1587,87 +1587,87 @@
     /// type [`EventType::TouchBegin`][crate::EventType::TouchBegin] and [`EventType::TouchEnd`][crate::EventType::TouchEnd] (or [`EventType::TouchCancel`][crate::EventType::TouchCancel]).
     /// `gdk_event_get_event_sequence()` returns the event sequence for these
     /// events, so different sequences may be distinguished.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkEventMask&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkEventMask&quot;</span>)]
     </span><span class="kw">pub struct </span>EventMask: u32 {
         <span class="doccomment">/// receive expose events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_EXPOSURE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>EXPOSURE_MASK = ffi::GDK_EXPOSURE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_EXPOSURE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>EXPOSURE_MASK = ffi::GDK_EXPOSURE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive all pointer motion events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_POINTER_MOTION_MASK&quot;</span>)]
-        </span><span class="kw">const </span>POINTER_MOTION_MASK = ffi::GDK_POINTER_MOTION_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_POINTER_MOTION_MASK&quot;</span>)]
+        </span><span class="kw">const </span>POINTER_MOTION_MASK = ffi::GDK_POINTER_MOTION_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// deprecated. see the explanation above
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_POINTER_MOTION_HINT_MASK&quot;</span>)]
-        </span><span class="kw">const </span>POINTER_MOTION_HINT_MASK = ffi::GDK_POINTER_MOTION_HINT_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_POINTER_MOTION_HINT_MASK&quot;</span>)]
+        </span><span class="kw">const </span>POINTER_MOTION_HINT_MASK = ffi::GDK_POINTER_MOTION_HINT_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive pointer motion events while any button is pressed
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON_MOTION_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON_MOTION_MASK = ffi::GDK_BUTTON_MOTION_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON_MOTION_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON_MOTION_MASK = ffi::GDK_BUTTON_MOTION_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive pointer motion events while 1 button is pressed
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON1_MOTION_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON1_MOTION_MASK = ffi::GDK_BUTTON1_MOTION_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON1_MOTION_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON1_MOTION_MASK = ffi::GDK_BUTTON1_MOTION_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive pointer motion events while 2 button is pressed
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON2_MOTION_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON2_MOTION_MASK = ffi::GDK_BUTTON2_MOTION_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON2_MOTION_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON2_MOTION_MASK = ffi::GDK_BUTTON2_MOTION_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive pointer motion events while 3 button is pressed
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON3_MOTION_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON3_MOTION_MASK = ffi::GDK_BUTTON3_MOTION_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON3_MOTION_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON3_MOTION_MASK = ffi::GDK_BUTTON3_MOTION_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive button press events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON_PRESS_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON_PRESS_MASK = ffi::GDK_BUTTON_PRESS_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON_PRESS_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON_PRESS_MASK = ffi::GDK_BUTTON_PRESS_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive button release events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON_RELEASE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON_RELEASE_MASK = ffi::GDK_BUTTON_RELEASE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON_RELEASE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON_RELEASE_MASK = ffi::GDK_BUTTON_RELEASE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive key press events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_KEY_PRESS_MASK&quot;</span>)]
-        </span><span class="kw">const </span>KEY_PRESS_MASK = ffi::GDK_KEY_PRESS_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_KEY_PRESS_MASK&quot;</span>)]
+        </span><span class="kw">const </span>KEY_PRESS_MASK = ffi::GDK_KEY_PRESS_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive key release events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_KEY_RELEASE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>KEY_RELEASE_MASK = ffi::GDK_KEY_RELEASE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_KEY_RELEASE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>KEY_RELEASE_MASK = ffi::GDK_KEY_RELEASE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive window enter events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ENTER_NOTIFY_MASK&quot;</span>)]
-        </span><span class="kw">const </span>ENTER_NOTIFY_MASK = ffi::GDK_ENTER_NOTIFY_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ENTER_NOTIFY_MASK&quot;</span>)]
+        </span><span class="kw">const </span>ENTER_NOTIFY_MASK = ffi::GDK_ENTER_NOTIFY_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive window leave events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_LEAVE_NOTIFY_MASK&quot;</span>)]
-        </span><span class="kw">const </span>LEAVE_NOTIFY_MASK = ffi::GDK_LEAVE_NOTIFY_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_LEAVE_NOTIFY_MASK&quot;</span>)]
+        </span><span class="kw">const </span>LEAVE_NOTIFY_MASK = ffi::GDK_LEAVE_NOTIFY_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive focus change events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FOCUS_CHANGE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>FOCUS_CHANGE_MASK = ffi::GDK_FOCUS_CHANGE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FOCUS_CHANGE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>FOCUS_CHANGE_MASK = ffi::GDK_FOCUS_CHANGE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive events about window configuration change
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_STRUCTURE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>STRUCTURE_MASK = ffi::GDK_STRUCTURE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_STRUCTURE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>STRUCTURE_MASK = ffi::GDK_STRUCTURE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive property change events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_PROPERTY_CHANGE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>PROPERTY_CHANGE_MASK = ffi::GDK_PROPERTY_CHANGE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_PROPERTY_CHANGE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>PROPERTY_CHANGE_MASK = ffi::GDK_PROPERTY_CHANGE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive visibility change events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_VISIBILITY_NOTIFY_MASK&quot;</span>)]
-        </span><span class="kw">const </span>VISIBILITY_NOTIFY_MASK = ffi::GDK_VISIBILITY_NOTIFY_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_VISIBILITY_NOTIFY_MASK&quot;</span>)]
+        </span><span class="kw">const </span>VISIBILITY_NOTIFY_MASK = ffi::GDK_VISIBILITY_NOTIFY_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive proximity in events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_PROXIMITY_IN_MASK&quot;</span>)]
-        </span><span class="kw">const </span>PROXIMITY_IN_MASK = ffi::GDK_PROXIMITY_IN_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_PROXIMITY_IN_MASK&quot;</span>)]
+        </span><span class="kw">const </span>PROXIMITY_IN_MASK = ffi::GDK_PROXIMITY_IN_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive proximity out events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_PROXIMITY_OUT_MASK&quot;</span>)]
-        </span><span class="kw">const </span>PROXIMITY_OUT_MASK = ffi::GDK_PROXIMITY_OUT_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_PROXIMITY_OUT_MASK&quot;</span>)]
+        </span><span class="kw">const </span>PROXIMITY_OUT_MASK = ffi::GDK_PROXIMITY_OUT_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive events about window configuration changes of
         ///  child windows
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SUBSTRUCTURE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>SUBSTRUCTURE_MASK = ffi::GDK_SUBSTRUCTURE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SUBSTRUCTURE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>SUBSTRUCTURE_MASK = ffi::GDK_SUBSTRUCTURE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive scroll events
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SCROLL_MASK&quot;</span>)]
-        </span><span class="kw">const </span>SCROLL_MASK = ffi::GDK_SCROLL_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SCROLL_MASK&quot;</span>)]
+        </span><span class="kw">const </span>SCROLL_MASK = ffi::GDK_SCROLL_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive touch events. Since 3.4
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_TOUCH_MASK&quot;</span>)]
-        </span><span class="kw">const </span>TOUCH_MASK = ffi::GDK_TOUCH_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_TOUCH_MASK&quot;</span>)]
+        </span><span class="kw">const </span>TOUCH_MASK = ffi::GDK_TOUCH_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive smooth scrolling events. Since 3.4
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SMOOTH_SCROLL_MASK&quot;</span>)]
-        </span><span class="kw">const </span>SMOOTH_SCROLL_MASK = ffi::GDK_SMOOTH_SCROLL_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SMOOTH_SCROLL_MASK&quot;</span>)]
+        </span><span class="kw">const </span>SMOOTH_SCROLL_MASK = ffi::GDK_SMOOTH_SCROLL_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive touchpad gesture events. Since 3.18
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_TOUCHPAD_GESTURE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>TOUCHPAD_GESTURE_MASK = ffi::GDK_TOUCHPAD_GESTURE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_TOUCHPAD_GESTURE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>TOUCHPAD_GESTURE_MASK = ffi::GDK_TOUCHPAD_GESTURE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// receive tablet pad events. Since 3.22
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_TABLET_PAD_MASK&quot;</span>)]
-        </span><span class="kw">const </span>TABLET_PAD_MASK = ffi::GDK_TABLET_PAD_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_TABLET_PAD_MASK&quot;</span>)]
+        </span><span class="kw">const </span>TABLET_PAD_MASK = ffi::GDK_TABLET_PAD_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the combination of all the above event masks.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_ALL_EVENTS_MASK&quot;</span>)]
-        </span><span class="kw">const </span>ALL_EVENTS_MASK = ffi::GDK_ALL_EVENTS_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ALL_EVENTS_MASK&quot;</span>)]
+        </span><span class="kw">const </span>ALL_EVENTS_MASK = ffi::GDK_ALL_EVENTS_MASK <span class="kw">as _</span>;
     }
 }
 
@@ -1677,7 +1677,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>EventMask {
     <span class="kw">type </span>GlibType = ffi::GdkEventMask;
 
@@ -1686,7 +1686,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkEventMask&gt; <span class="kw">for </span>EventMask {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkEventMask) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1731,32 +1731,32 @@
     <span class="doccomment">/// [`FrameClockPhase`][crate::FrameClockPhase] is used to represent the different paint clock
     /// phases that can be requested. The elements of the enumeration
     /// correspond to the signals of [`FrameClock`][crate::FrameClock].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkFrameClockPhase&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkFrameClockPhase&quot;</span>)]
     </span><span class="kw">pub struct </span>FrameClockPhase: u32 {
         <span class="doccomment">/// no phase
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GDK_FRAME_CLOCK_PHASE_NONE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GDK_FRAME_CLOCK_PHASE_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::flush-events. Should not be handled by applications.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS&quot;</span>)]
-        </span><span class="kw">const </span>FLUSH_EVENTS = ffi::GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS&quot;</span>)]
+        </span><span class="kw">const </span>FLUSH_EVENTS = ffi::GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::before-paint. Should not be handled by applications.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT&quot;</span>)]
-        </span><span class="kw">const </span>BEFORE_PAINT = ffi::GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT&quot;</span>)]
+        </span><span class="kw">const </span>BEFORE_PAINT = ffi::GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::update.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_UPDATE&quot;</span>)]
-        </span><span class="kw">const </span>UPDATE = ffi::GDK_FRAME_CLOCK_PHASE_UPDATE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_UPDATE&quot;</span>)]
+        </span><span class="kw">const </span>UPDATE = ffi::GDK_FRAME_CLOCK_PHASE_UPDATE <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::layout.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_LAYOUT&quot;</span>)]
-        </span><span class="kw">const </span>LAYOUT = ffi::GDK_FRAME_CLOCK_PHASE_LAYOUT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_LAYOUT&quot;</span>)]
+        </span><span class="kw">const </span>LAYOUT = ffi::GDK_FRAME_CLOCK_PHASE_LAYOUT <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::paint.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_PAINT&quot;</span>)]
-        </span><span class="kw">const </span>PAINT = ffi::GDK_FRAME_CLOCK_PHASE_PAINT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_PAINT&quot;</span>)]
+        </span><span class="kw">const </span>PAINT = ffi::GDK_FRAME_CLOCK_PHASE_PAINT <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::resume-events. Should not be handled by applications.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS&quot;</span>)]
-        </span><span class="kw">const </span>RESUME_EVENTS = ffi::GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS&quot;</span>)]
+        </span><span class="kw">const </span>RESUME_EVENTS = ffi::GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS <span class="kw">as _</span>;
         <span class="doccomment">/// corresponds to GdkFrameClock::after-paint. Should not be handled by applications.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_AFTER_PAINT&quot;</span>)]
-        </span><span class="kw">const </span>AFTER_PAINT = ffi::GDK_FRAME_CLOCK_PHASE_AFTER_PAINT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_AFTER_PAINT&quot;</span>)]
+        </span><span class="kw">const </span>AFTER_PAINT = ffi::GDK_FRAME_CLOCK_PHASE_AFTER_PAINT <span class="kw">as _</span>;
     }
 }
 
@@ -1766,7 +1766,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>FrameClockPhase {
     <span class="kw">type </span>GlibType = ffi::GdkFrameClockPhase;
 
@@ -1775,7 +1775,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkFrameClockPhase&gt; <span class="kw">for </span>FrameClockPhase {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkFrameClockPhase) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1835,112 +1835,112 @@
     /// Also note that the GDK X backend interprets button press events for button
     /// 4-7 as scroll events, so [`BUTTON4_MASK`][Self::BUTTON4_MASK] and [`BUTTON5_MASK`][Self::BUTTON5_MASK] will never
     /// be set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkModifierType&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkModifierType&quot;</span>)]
     </span><span class="kw">pub struct </span>ModifierType: u32 {
         <span class="doccomment">/// the Shift key.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SHIFT_MASK&quot;</span>)]
-        </span><span class="kw">const </span>SHIFT_MASK = ffi::GDK_SHIFT_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SHIFT_MASK&quot;</span>)]
+        </span><span class="kw">const </span>SHIFT_MASK = ffi::GDK_SHIFT_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// a Lock key (depending on the modifier mapping of the
         ///  X server this may either be CapsLock or ShiftLock).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_LOCK_MASK&quot;</span>)]
-        </span><span class="kw">const </span>LOCK_MASK = ffi::GDK_LOCK_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_LOCK_MASK&quot;</span>)]
+        </span><span class="kw">const </span>LOCK_MASK = ffi::GDK_LOCK_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the Control key.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_CONTROL_MASK&quot;</span>)]
-        </span><span class="kw">const </span>CONTROL_MASK = ffi::GDK_CONTROL_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_CONTROL_MASK&quot;</span>)]
+        </span><span class="kw">const </span>CONTROL_MASK = ffi::GDK_CONTROL_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the fourth modifier key (it depends on the modifier
         ///  mapping of the X server which key is interpreted as this modifier, but
         ///  normally it is the Alt key).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MOD1_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MOD1_MASK = ffi::GDK_MOD1_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MOD1_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MOD1_MASK = ffi::GDK_MOD1_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the fifth modifier key (it depends on the modifier
         ///  mapping of the X server which key is interpreted as this modifier).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MOD2_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MOD2_MASK = ffi::GDK_MOD2_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MOD2_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MOD2_MASK = ffi::GDK_MOD2_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the sixth modifier key (it depends on the modifier
         ///  mapping of the X server which key is interpreted as this modifier).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MOD3_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MOD3_MASK = ffi::GDK_MOD3_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MOD3_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MOD3_MASK = ffi::GDK_MOD3_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the seventh modifier key (it depends on the modifier
         ///  mapping of the X server which key is interpreted as this modifier).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MOD4_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MOD4_MASK = ffi::GDK_MOD4_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MOD4_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MOD4_MASK = ffi::GDK_MOD4_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the eighth modifier key (it depends on the modifier
         ///  mapping of the X server which key is interpreted as this modifier).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MOD5_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MOD5_MASK = ffi::GDK_MOD5_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MOD5_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MOD5_MASK = ffi::GDK_MOD5_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the first mouse button.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON1_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON1_MASK = ffi::GDK_BUTTON1_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON1_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON1_MASK = ffi::GDK_BUTTON1_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the second mouse button.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON2_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON2_MASK = ffi::GDK_BUTTON2_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON2_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON2_MASK = ffi::GDK_BUTTON2_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the third mouse button.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON3_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON3_MASK = ffi::GDK_BUTTON3_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON3_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON3_MASK = ffi::GDK_BUTTON3_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the fourth mouse button.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON4_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON4_MASK = ffi::GDK_BUTTON4_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON4_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON4_MASK = ffi::GDK_BUTTON4_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the fifth mouse button.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_BUTTON5_MASK&quot;</span>)]
-        </span><span class="kw">const </span>BUTTON5_MASK = ffi::GDK_BUTTON5_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_BUTTON5_MASK&quot;</span>)]
+        </span><span class="kw">const </span>BUTTON5_MASK = ffi::GDK_BUTTON5_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_13_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_13_MASK = ffi::GDK_MODIFIER_RESERVED_13_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_13_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_13_MASK = ffi::GDK_MODIFIER_RESERVED_13_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_14_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_14_MASK = ffi::GDK_MODIFIER_RESERVED_14_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_14_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_14_MASK = ffi::GDK_MODIFIER_RESERVED_14_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_15_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_15_MASK = ffi::GDK_MODIFIER_RESERVED_15_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_15_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_15_MASK = ffi::GDK_MODIFIER_RESERVED_15_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_16_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_16_MASK = ffi::GDK_MODIFIER_RESERVED_16_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_16_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_16_MASK = ffi::GDK_MODIFIER_RESERVED_16_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_17_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_17_MASK = ffi::GDK_MODIFIER_RESERVED_17_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_17_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_17_MASK = ffi::GDK_MODIFIER_RESERVED_17_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_18_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_18_MASK = ffi::GDK_MODIFIER_RESERVED_18_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_18_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_18_MASK = ffi::GDK_MODIFIER_RESERVED_18_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_19_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_19_MASK = ffi::GDK_MODIFIER_RESERVED_19_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_19_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_19_MASK = ffi::GDK_MODIFIER_RESERVED_19_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_20_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_20_MASK = ffi::GDK_MODIFIER_RESERVED_20_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_20_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_20_MASK = ffi::GDK_MODIFIER_RESERVED_20_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_21_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_21_MASK = ffi::GDK_MODIFIER_RESERVED_21_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_21_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_21_MASK = ffi::GDK_MODIFIER_RESERVED_21_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_22_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_22_MASK = ffi::GDK_MODIFIER_RESERVED_22_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_22_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_22_MASK = ffi::GDK_MODIFIER_RESERVED_22_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_23_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_23_MASK = ffi::GDK_MODIFIER_RESERVED_23_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_23_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_23_MASK = ffi::GDK_MODIFIER_RESERVED_23_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_24_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_24_MASK = ffi::GDK_MODIFIER_RESERVED_24_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_24_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_24_MASK = ffi::GDK_MODIFIER_RESERVED_24_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_25_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_25_MASK = ffi::GDK_MODIFIER_RESERVED_25_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_25_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_25_MASK = ffi::GDK_MODIFIER_RESERVED_25_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the Super modifier. Since 2.10
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SUPER_MASK&quot;</span>)]
-        </span><span class="kw">const </span>SUPER_MASK = ffi::GDK_SUPER_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SUPER_MASK&quot;</span>)]
+        </span><span class="kw">const </span>SUPER_MASK = ffi::GDK_SUPER_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the Hyper modifier. Since 2.10
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HYPER_MASK&quot;</span>)]
-        </span><span class="kw">const </span>HYPER_MASK = ffi::GDK_HYPER_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HYPER_MASK&quot;</span>)]
+        </span><span class="kw">const </span>HYPER_MASK = ffi::GDK_HYPER_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// the Meta modifier. Since 2.10
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_META_MASK&quot;</span>)]
-        </span><span class="kw">const </span>META_MASK = ffi::GDK_META_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_META_MASK&quot;</span>)]
+        </span><span class="kw">const </span>META_MASK = ffi::GDK_META_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// A reserved bit flag; do not use in your own code
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_29_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_RESERVED_29_MASK = ffi::GDK_MODIFIER_RESERVED_29_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_RESERVED_29_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_RESERVED_29_MASK = ffi::GDK_MODIFIER_RESERVED_29_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// not used in GDK itself. GTK+ uses it to differentiate
         ///  between (keyval, modifiers) pairs from key press and release events.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_RELEASE_MASK&quot;</span>)]
-        </span><span class="kw">const </span>RELEASE_MASK = ffi::GDK_RELEASE_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_RELEASE_MASK&quot;</span>)]
+        </span><span class="kw">const </span>RELEASE_MASK = ffi::GDK_RELEASE_MASK <span class="kw">as _</span>;
         <span class="doccomment">/// a mask covering all modifier types.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MODIFIER_MASK = ffi::GDK_MODIFIER_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_MODIFIER_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MODIFIER_MASK = ffi::GDK_MODIFIER_MASK <span class="kw">as _</span>;
     }
 }
 
@@ -1950,7 +1950,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>ModifierType {
     <span class="kw">type </span>GlibType = ffi::GdkModifierType;
 
@@ -1959,7 +1959,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkModifierType&gt; <span class="kw">for </span>ModifierType {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkModifierType) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2002,29 +2002,29 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags describing the seat capabilities.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkSeatCapabilities&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkSeatCapabilities&quot;</span>)]
     </span><span class="kw">pub struct </span>SeatCapabilities: u32 {
         <span class="doccomment">/// No input capabilities
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GDK_SEAT_CAPABILITY_NONE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GDK_SEAT_CAPABILITY_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// The seat has a pointer (e.g. mouse)
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_POINTER&quot;</span>)]
-        </span><span class="kw">const </span>POINTER = ffi::GDK_SEAT_CAPABILITY_POINTER <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_POINTER&quot;</span>)]
+        </span><span class="kw">const </span>POINTER = ffi::GDK_SEAT_CAPABILITY_POINTER <span class="kw">as _</span>;
         <span class="doccomment">/// The seat has touchscreen(s) attached
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_TOUCH&quot;</span>)]
-        </span><span class="kw">const </span>TOUCH = ffi::GDK_SEAT_CAPABILITY_TOUCH <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_TOUCH&quot;</span>)]
+        </span><span class="kw">const </span>TOUCH = ffi::GDK_SEAT_CAPABILITY_TOUCH <span class="kw">as _</span>;
         <span class="doccomment">/// The seat has drawing tablet(s) attached
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_TABLET_STYLUS&quot;</span>)]
-        </span><span class="kw">const </span>TABLET_STYLUS = ffi::GDK_SEAT_CAPABILITY_TABLET_STYLUS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_TABLET_STYLUS&quot;</span>)]
+        </span><span class="kw">const </span>TABLET_STYLUS = ffi::GDK_SEAT_CAPABILITY_TABLET_STYLUS <span class="kw">as _</span>;
         <span class="doccomment">/// The seat has keyboard(s) attached
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_KEYBOARD&quot;</span>)]
-        </span><span class="kw">const </span>KEYBOARD = ffi::GDK_SEAT_CAPABILITY_KEYBOARD <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_KEYBOARD&quot;</span>)]
+        </span><span class="kw">const </span>KEYBOARD = ffi::GDK_SEAT_CAPABILITY_KEYBOARD <span class="kw">as _</span>;
         <span class="doccomment">/// The union of all pointing capabilities
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_ALL_POINTING&quot;</span>)]
-        </span><span class="kw">const </span>ALL_POINTING = ffi::GDK_SEAT_CAPABILITY_ALL_POINTING <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_ALL_POINTING&quot;</span>)]
+        </span><span class="kw">const </span>ALL_POINTING = ffi::GDK_SEAT_CAPABILITY_ALL_POINTING <span class="kw">as _</span>;
         <span class="doccomment">/// The union of all capabilities
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_ALL&quot;</span>)]
-        </span><span class="kw">const </span>ALL = ffi::GDK_SEAT_CAPABILITY_ALL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_ALL&quot;</span>)]
+        </span><span class="kw">const </span>ALL = ffi::GDK_SEAT_CAPABILITY_ALL <span class="kw">as _</span>;
     }
 }
 
@@ -2034,7 +2034,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>SeatCapabilities {
     <span class="kw">type </span>GlibType = ffi::GdkSeatCapabilities;
 
@@ -2043,7 +2043,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkSeatCapabilities&gt; <span class="kw">for </span>SeatCapabilities {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkSeatCapabilities) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2088,29 +2088,29 @@
     <span class="doccomment">/// These are hints originally defined by the Motif toolkit.
     /// The window manager can use them when determining how to decorate
     /// the window. The hint must be set before mapping the window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkWMDecoration&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkWMDecoration&quot;</span>)]
     </span><span class="kw">pub struct </span>WMDecoration: u32 {
         <span class="doccomment">/// all decorations should be applied.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_ALL&quot;</span>)]
-        </span><span class="kw">const </span>ALL = ffi::GDK_DECOR_ALL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_ALL&quot;</span>)]
+        </span><span class="kw">const </span>ALL = ffi::GDK_DECOR_ALL <span class="kw">as _</span>;
         <span class="doccomment">/// a frame should be drawn around the window.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_BORDER&quot;</span>)]
-        </span><span class="kw">const </span>BORDER = ffi::GDK_DECOR_BORDER <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_BORDER&quot;</span>)]
+        </span><span class="kw">const </span>BORDER = ffi::GDK_DECOR_BORDER <span class="kw">as _</span>;
         <span class="doccomment">/// the frame should have resize handles.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_RESIZEH&quot;</span>)]
-        </span><span class="kw">const </span>RESIZEH = ffi::GDK_DECOR_RESIZEH <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_RESIZEH&quot;</span>)]
+        </span><span class="kw">const </span>RESIZEH = ffi::GDK_DECOR_RESIZEH <span class="kw">as _</span>;
         <span class="doccomment">/// a titlebar should be placed above the window.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_TITLE&quot;</span>)]
-        </span><span class="kw">const </span>TITLE = ffi::GDK_DECOR_TITLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_TITLE&quot;</span>)]
+        </span><span class="kw">const </span>TITLE = ffi::GDK_DECOR_TITLE <span class="kw">as _</span>;
         <span class="doccomment">/// a button for opening a menu should be included.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_MENU&quot;</span>)]
-        </span><span class="kw">const </span>MENU = ffi::GDK_DECOR_MENU <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_MENU&quot;</span>)]
+        </span><span class="kw">const </span>MENU = ffi::GDK_DECOR_MENU <span class="kw">as _</span>;
         <span class="doccomment">/// a minimize button should be included.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_MINIMIZE&quot;</span>)]
-        </span><span class="kw">const </span>MINIMIZE = ffi::GDK_DECOR_MINIMIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_MINIMIZE&quot;</span>)]
+        </span><span class="kw">const </span>MINIMIZE = ffi::GDK_DECOR_MINIMIZE <span class="kw">as _</span>;
         <span class="doccomment">/// a maximize button should be included.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_DECOR_MAXIMIZE&quot;</span>)]
-        </span><span class="kw">const </span>MAXIMIZE = ffi::GDK_DECOR_MAXIMIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_MAXIMIZE&quot;</span>)]
+        </span><span class="kw">const </span>MAXIMIZE = ffi::GDK_DECOR_MAXIMIZE <span class="kw">as _</span>;
     }
 }
 
@@ -2120,7 +2120,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WMDecoration {
     <span class="kw">type </span>GlibType = ffi::GdkWMDecoration;
 
@@ -2129,7 +2129,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMDecoration&gt; <span class="kw">for </span>WMDecoration {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWMDecoration) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2174,26 +2174,26 @@
     <span class="doccomment">/// These are hints originally defined by the Motif toolkit. The window manager
     /// can use them when determining the functions to offer for the window. The
     /// hint must be set before mapping the window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkWMFunction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkWMFunction&quot;</span>)]
     </span><span class="kw">pub struct </span>WMFunction: u32 {
         <span class="doccomment">/// all functions should be offered.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_ALL&quot;</span>)]
-        </span><span class="kw">const </span>ALL = ffi::GDK_FUNC_ALL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_ALL&quot;</span>)]
+        </span><span class="kw">const </span>ALL = ffi::GDK_FUNC_ALL <span class="kw">as _</span>;
         <span class="doccomment">/// the window should be resizable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_RESIZE&quot;</span>)]
-        </span><span class="kw">const </span>RESIZE = ffi::GDK_FUNC_RESIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_RESIZE&quot;</span>)]
+        </span><span class="kw">const </span>RESIZE = ffi::GDK_FUNC_RESIZE <span class="kw">as _</span>;
         <span class="doccomment">/// the window should be movable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_MOVE&quot;</span>)]
-        </span><span class="kw">const </span>MOVE = ffi::GDK_FUNC_MOVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_MOVE&quot;</span>)]
+        </span><span class="kw">const </span>MOVE = ffi::GDK_FUNC_MOVE <span class="kw">as _</span>;
         <span class="doccomment">/// the window should be minimizable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_MINIMIZE&quot;</span>)]
-        </span><span class="kw">const </span>MINIMIZE = ffi::GDK_FUNC_MINIMIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_MINIMIZE&quot;</span>)]
+        </span><span class="kw">const </span>MINIMIZE = ffi::GDK_FUNC_MINIMIZE <span class="kw">as _</span>;
         <span class="doccomment">/// the window should be maximizable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_MAXIMIZE&quot;</span>)]
-        </span><span class="kw">const </span>MAXIMIZE = ffi::GDK_FUNC_MAXIMIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_MAXIMIZE&quot;</span>)]
+        </span><span class="kw">const </span>MAXIMIZE = ffi::GDK_FUNC_MAXIMIZE <span class="kw">as _</span>;
         <span class="doccomment">/// the window should be closable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_FUNC_CLOSE&quot;</span>)]
-        </span><span class="kw">const </span>CLOSE = ffi::GDK_FUNC_CLOSE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_CLOSE&quot;</span>)]
+        </span><span class="kw">const </span>CLOSE = ffi::GDK_FUNC_CLOSE <span class="kw">as _</span>;
     }
 }
 
@@ -2203,7 +2203,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WMFunction {
     <span class="kw">type </span>GlibType = ffi::GdkWMFunction;
 
@@ -2212,7 +2212,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMFunction&gt; <span class="kw">for </span>WMFunction {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWMFunction) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2262,37 +2262,37 @@
     /// [`USER_POS`][Self::USER_POS] and [`USER_SIZE`][Self::USER_SIZE] should be set if the user
     /// specified a size/position using a --geometry command-line argument;
     /// `gtk_window_parse_geometry()` automatically sets these flags.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkWindowHints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkWindowHints&quot;</span>)]
     </span><span class="kw">pub struct </span>WindowHints: u32 {
         <span class="doccomment">/// indicates that the program has positioned the window
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_POS&quot;</span>)]
-        </span><span class="kw">const </span>POS = ffi::GDK_HINT_POS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_POS&quot;</span>)]
+        </span><span class="kw">const </span>POS = ffi::GDK_HINT_POS <span class="kw">as _</span>;
         <span class="doccomment">/// min size fields are set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_MIN_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>MIN_SIZE = ffi::GDK_HINT_MIN_SIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_MIN_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>MIN_SIZE = ffi::GDK_HINT_MIN_SIZE <span class="kw">as _</span>;
         <span class="doccomment">/// max size fields are set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_MAX_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>MAX_SIZE = ffi::GDK_HINT_MAX_SIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_MAX_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>MAX_SIZE = ffi::GDK_HINT_MAX_SIZE <span class="kw">as _</span>;
         <span class="doccomment">/// base size fields are set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_BASE_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>BASE_SIZE = ffi::GDK_HINT_BASE_SIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_BASE_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>BASE_SIZE = ffi::GDK_HINT_BASE_SIZE <span class="kw">as _</span>;
         <span class="doccomment">/// aspect ratio fields are set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_ASPECT&quot;</span>)]
-        </span><span class="kw">const </span>ASPECT = ffi::GDK_HINT_ASPECT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_ASPECT&quot;</span>)]
+        </span><span class="kw">const </span>ASPECT = ffi::GDK_HINT_ASPECT <span class="kw">as _</span>;
         <span class="doccomment">/// resize increment fields are set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_RESIZE_INC&quot;</span>)]
-        </span><span class="kw">const </span>RESIZE_INC = ffi::GDK_HINT_RESIZE_INC <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_RESIZE_INC&quot;</span>)]
+        </span><span class="kw">const </span>RESIZE_INC = ffi::GDK_HINT_RESIZE_INC <span class="kw">as _</span>;
         <span class="doccomment">/// window gravity field is set
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_WIN_GRAVITY&quot;</span>)]
-        </span><span class="kw">const </span>WIN_GRAVITY = ffi::GDK_HINT_WIN_GRAVITY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_WIN_GRAVITY&quot;</span>)]
+        </span><span class="kw">const </span>WIN_GRAVITY = ffi::GDK_HINT_WIN_GRAVITY <span class="kw">as _</span>;
         <span class="doccomment">/// indicates that the window’s position was explicitly set
         ///  by the user
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_USER_POS&quot;</span>)]
-        </span><span class="kw">const </span>USER_POS = ffi::GDK_HINT_USER_POS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_USER_POS&quot;</span>)]
+        </span><span class="kw">const </span>USER_POS = ffi::GDK_HINT_USER_POS <span class="kw">as _</span>;
         <span class="doccomment">/// indicates that the window’s size was explicitly set by
         ///  the user
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_HINT_USER_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>USER_SIZE = ffi::GDK_HINT_USER_SIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_USER_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>USER_SIZE = ffi::GDK_HINT_USER_SIZE <span class="kw">as _</span>;
     }
 }
 
@@ -2302,7 +2302,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WindowHints {
     <span class="kw">type </span>GlibType = ffi::GdkWindowHints;
 
@@ -2311,7 +2311,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowHints&gt; <span class="kw">for </span>WindowHints {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowHints) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2354,61 +2354,61 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Specifies the state of a toplevel window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkWindowState&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkWindowState&quot;</span>)]
     </span><span class="kw">pub struct </span>WindowState: u32 {
         <span class="doccomment">/// the window is not shown.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_WITHDRAWN&quot;</span>)]
-        </span><span class="kw">const </span>WITHDRAWN = ffi::GDK_WINDOW_STATE_WITHDRAWN <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_WITHDRAWN&quot;</span>)]
+        </span><span class="kw">const </span>WITHDRAWN = ffi::GDK_WINDOW_STATE_WITHDRAWN <span class="kw">as _</span>;
         <span class="doccomment">/// the window is minimized.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_ICONIFIED&quot;</span>)]
-        </span><span class="kw">const </span>ICONIFIED = ffi::GDK_WINDOW_STATE_ICONIFIED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_ICONIFIED&quot;</span>)]
+        </span><span class="kw">const </span>ICONIFIED = ffi::GDK_WINDOW_STATE_ICONIFIED <span class="kw">as _</span>;
         <span class="doccomment">/// the window is maximized.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_MAXIMIZED&quot;</span>)]
-        </span><span class="kw">const </span>MAXIMIZED = ffi::GDK_WINDOW_STATE_MAXIMIZED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_MAXIMIZED&quot;</span>)]
+        </span><span class="kw">const </span>MAXIMIZED = ffi::GDK_WINDOW_STATE_MAXIMIZED <span class="kw">as _</span>;
         <span class="doccomment">/// the window is sticky.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_STICKY&quot;</span>)]
-        </span><span class="kw">const </span>STICKY = ffi::GDK_WINDOW_STATE_STICKY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_STICKY&quot;</span>)]
+        </span><span class="kw">const </span>STICKY = ffi::GDK_WINDOW_STATE_STICKY <span class="kw">as _</span>;
         <span class="doccomment">/// the window is maximized without
         ///  decorations.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_FULLSCREEN&quot;</span>)]
-        </span><span class="kw">const </span>FULLSCREEN = ffi::GDK_WINDOW_STATE_FULLSCREEN <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_FULLSCREEN&quot;</span>)]
+        </span><span class="kw">const </span>FULLSCREEN = ffi::GDK_WINDOW_STATE_FULLSCREEN <span class="kw">as _</span>;
         <span class="doccomment">/// the window is kept above other windows.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_ABOVE&quot;</span>)]
-        </span><span class="kw">const </span>ABOVE = ffi::GDK_WINDOW_STATE_ABOVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_ABOVE&quot;</span>)]
+        </span><span class="kw">const </span>ABOVE = ffi::GDK_WINDOW_STATE_ABOVE <span class="kw">as _</span>;
         <span class="doccomment">/// the window is kept below other windows.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BELOW&quot;</span>)]
-        </span><span class="kw">const </span>BELOW = ffi::GDK_WINDOW_STATE_BELOW <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BELOW&quot;</span>)]
+        </span><span class="kw">const </span>BELOW = ffi::GDK_WINDOW_STATE_BELOW <span class="kw">as _</span>;
         <span class="doccomment">/// the window is presented as focused (with active decorations).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_FOCUSED&quot;</span>)]
-        </span><span class="kw">const </span>FOCUSED = ffi::GDK_WINDOW_STATE_FOCUSED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_FOCUSED&quot;</span>)]
+        </span><span class="kw">const </span>FOCUSED = ffi::GDK_WINDOW_STATE_FOCUSED <span class="kw">as _</span>;
         <span class="doccomment">/// the window is in a tiled state, Since 3.10. Since 3.22.23, this
         ///  is deprecated in favor of per-edge information.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TILED&quot;</span>)]
-        </span><span class="kw">const </span>TILED = ffi::GDK_WINDOW_STATE_TILED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TILED&quot;</span>)]
+        </span><span class="kw">const </span>TILED = ffi::GDK_WINDOW_STATE_TILED <span class="kw">as _</span>;
         <span class="doccomment">/// whether the top edge is tiled, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TOP_TILED&quot;</span>)]
-        </span><span class="kw">const </span>TOP_TILED = ffi::GDK_WINDOW_STATE_TOP_TILED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TOP_TILED&quot;</span>)]
+        </span><span class="kw">const </span>TOP_TILED = ffi::GDK_WINDOW_STATE_TOP_TILED <span class="kw">as _</span>;
         <span class="doccomment">/// whether the top edge is resizable, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TOP_RESIZABLE&quot;</span>)]
-        </span><span class="kw">const </span>TOP_RESIZABLE = ffi::GDK_WINDOW_STATE_TOP_RESIZABLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_TOP_RESIZABLE&quot;</span>)]
+        </span><span class="kw">const </span>TOP_RESIZABLE = ffi::GDK_WINDOW_STATE_TOP_RESIZABLE <span class="kw">as _</span>;
         <span class="doccomment">/// whether the right edge is tiled, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_RIGHT_TILED&quot;</span>)]
-        </span><span class="kw">const </span>RIGHT_TILED = ffi::GDK_WINDOW_STATE_RIGHT_TILED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_RIGHT_TILED&quot;</span>)]
+        </span><span class="kw">const </span>RIGHT_TILED = ffi::GDK_WINDOW_STATE_RIGHT_TILED <span class="kw">as _</span>;
         <span class="doccomment">/// whether the right edge is resizable, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_RIGHT_RESIZABLE&quot;</span>)]
-        </span><span class="kw">const </span>RIGHT_RESIZABLE = ffi::GDK_WINDOW_STATE_RIGHT_RESIZABLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_RIGHT_RESIZABLE&quot;</span>)]
+        </span><span class="kw">const </span>RIGHT_RESIZABLE = ffi::GDK_WINDOW_STATE_RIGHT_RESIZABLE <span class="kw">as _</span>;
         <span class="doccomment">/// whether the bottom edge is tiled, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BOTTOM_TILED&quot;</span>)]
-        </span><span class="kw">const </span>BOTTOM_TILED = ffi::GDK_WINDOW_STATE_BOTTOM_TILED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BOTTOM_TILED&quot;</span>)]
+        </span><span class="kw">const </span>BOTTOM_TILED = ffi::GDK_WINDOW_STATE_BOTTOM_TILED <span class="kw">as _</span>;
         <span class="doccomment">/// whether the bottom edge is resizable, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BOTTOM_RESIZABLE&quot;</span>)]
-        </span><span class="kw">const </span>BOTTOM_RESIZABLE = ffi::GDK_WINDOW_STATE_BOTTOM_RESIZABLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_BOTTOM_RESIZABLE&quot;</span>)]
+        </span><span class="kw">const </span>BOTTOM_RESIZABLE = ffi::GDK_WINDOW_STATE_BOTTOM_RESIZABLE <span class="kw">as _</span>;
         <span class="doccomment">/// whether the left edge is tiled, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_LEFT_TILED&quot;</span>)]
-        </span><span class="kw">const </span>LEFT_TILED = ffi::GDK_WINDOW_STATE_LEFT_TILED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_LEFT_TILED&quot;</span>)]
+        </span><span class="kw">const </span>LEFT_TILED = ffi::GDK_WINDOW_STATE_LEFT_TILED <span class="kw">as _</span>;
         <span class="doccomment">/// whether the left edge is resizable, Since 3.22.23
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_LEFT_RESIZABLE&quot;</span>)]
-        </span><span class="kw">const </span>LEFT_RESIZABLE = ffi::GDK_WINDOW_STATE_LEFT_RESIZABLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_LEFT_RESIZABLE&quot;</span>)]
+        </span><span class="kw">const </span>LEFT_RESIZABLE = ffi::GDK_WINDOW_STATE_LEFT_RESIZABLE <span class="kw">as _</span>;
     }
 }
 
@@ -2418,7 +2418,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WindowState {
     <span class="kw">type </span>GlibType = ffi::GdkWindowState;
 
@@ -2427,7 +2427,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowState&gt; <span class="kw">for </span>WindowState {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowState) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2468,4 +2468,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

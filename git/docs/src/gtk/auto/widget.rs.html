@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -9516,7 +9516,7 @@
     /// # Implements
     ///
     /// [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkWidget&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkWidget&quot;</span>)]
     </span><span class="kw">pub struct </span>Widget(Object&lt;ffi::GtkWidget, ffi::GtkWidgetClass&gt;) @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -9538,7 +9538,7 @@
     /// # Returns
     ///
     /// the current default direction.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_default_direction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_default_direction&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_direction&quot;</span>)]
     </span><span class="kw">pub fn </span>default_direction() -&gt; TextDirection {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -9550,7 +9550,7 @@
     /// ## `dir`
     /// the new default direction. This cannot be
     ///  [`TextDirection::None`][crate::TextDirection::None].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_default_direction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_default_direction&quot;</span>)]
     </span><span class="kw">pub fn </span>set_default_direction(dir: TextDirection) {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{
@@ -9560,7 +9560,7 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Widget {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         f.write_str(<span class="kw-2">&amp;</span>WidgetExt::widget_name(<span class="self">self</span>))
     }
@@ -9580,7 +9580,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget was activatable
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_activate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_activate&quot;</span>)]
     </span><span class="kw">fn </span>activate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Installs an accelerator for this `self` in `accel_group` that causes
@@ -9601,7 +9601,7 @@
     /// modifier key combination of the accelerator
     /// ## `accel_flags`
     /// flag accelerators, e.g. [`AccelFlags::VISIBLE`][crate::AccelFlags::VISIBLE]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_add_accelerator&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_accelerator&quot;</span>)]
     </span><span class="kw">fn </span>add_accelerator(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accel_signal: <span class="kw-2">&amp;</span>str,
@@ -9617,7 +9617,7 @@
     /// a [`gdk::Device`][crate::gdk::Device]
     /// ## `events`
     /// an event mask, see [`gdk::EventMask`][crate::gdk::EventMask]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_add_device_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_device_events&quot;</span>)]
     </span><span class="kw">fn </span>add_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device, events: gdk::EventMask);
 
     <span class="doccomment">/// Adds a widget to the list of mnemonic labels for
@@ -9628,7 +9628,7 @@
     /// to the `signal::Widget::destroy` signal or a weak notifier.
     /// ## `label`
     /// a [`Widget`][crate::Widget] that acts as a mnemonic label for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_add_mnemonic_label&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_mnemonic_label&quot;</span>)]
     </span><span class="kw">fn </span>add_mnemonic_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
     <span class="doccomment">/// Determines whether an accelerator that activates the signal
@@ -9644,7 +9644,7 @@
     /// # Returns
     ///
     /// [`true`] if the accelerator can be activated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_can_activate_accel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_can_activate_accel&quot;</span>)]
     </span><span class="kw">fn </span>can_activate_accel(<span class="kw-2">&amp;</span><span class="self">self</span>, signal_id: u32) -&gt; bool;
 
     <span class="doccomment">/// This function is used by custom widget implementations; if you&#39;re
@@ -9672,7 +9672,7 @@
     /// # Returns
     ///
     /// [`true`] if focus ended up inside `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_child_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_child_focus&quot;</span>)]
     </span><span class="kw">fn </span>child_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: DirectionType) -&gt; bool;
 
     <span class="doccomment">/// Emits a `signal::Widget::child-notify` signal for the
@@ -9685,7 +9685,7 @@
     /// ## `child_property`
     /// the name of a child property installed on the
     ///  class of `self`’s parent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_child_notify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_child_notify&quot;</span>)]
     </span><span class="kw">fn </span>child_notify(<span class="kw-2">&amp;</span><span class="self">self</span>, child_property: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Computes whether a container should give this widget extra space
@@ -9705,7 +9705,7 @@
     /// # Returns
     ///
     /// whether widget tree rooted here should be expanded
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_compute_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_compute_expand&quot;</span>)]
     </span><span class="kw">fn </span>compute_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: Orientation) -&gt; bool;
 
     <span class="doccomment">/// Creates a new [`pango::Context`][crate::pango::Context] with the appropriate font map,
@@ -9715,7 +9715,7 @@
     /// # Returns
     ///
     /// the new [`pango::Context`][crate::pango::Context]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_create_pango_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_create_pango_context&quot;</span>)]
     </span><span class="kw">fn </span>create_pango_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Context;
 
     <span class="doccomment">/// Creates a new [`pango::Layout`][crate::pango::Layout] with the appropriate font map,
@@ -9732,7 +9732,7 @@
     /// # Returns
     ///
     /// the new [`pango::Layout`][crate::pango::Layout]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_create_pango_layout&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_create_pango_layout&quot;</span>)]
     </span><span class="kw">fn </span>create_pango_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; pango::Layout;
 
     <span class="comment">//#[doc(alias = &quot;gtk_widget_destroyed&quot;)]
@@ -9750,7 +9750,7 @@
     ///
     /// [`true`] if there is an ongoing grab on `device`
     ///  by another [`Widget`][crate::Widget] than `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_device_is_shadowed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_device_is_shadowed&quot;</span>)]
     </span><span class="kw">fn </span>device_is_shadowed(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device) -&gt; bool;
 
     <span class="doccomment">/// Initiates a drag on the source side. The function only needs to be used
@@ -9800,7 +9800,7 @@
     /// # Returns
     ///
     /// the context for this drag
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_begin_with_coordinates&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_begin_with_coordinates&quot;</span>)]
     </span><span class="kw">fn </span>drag_begin_with_coordinates(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         targets: <span class="kw-2">&amp;</span>TargetList,
@@ -9826,7 +9826,7 @@
     /// # Returns
     ///
     /// [`true`] if the drag threshold has been passed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_check_threshold&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_check_threshold&quot;</span>)]
     </span><span class="kw">fn </span>drag_check_threshold(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         start_x: i32,
@@ -9840,7 +9840,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_image_targets()`][crate::TargetList::add_image_targets()] and
     /// [`drag_dest_set_target_list()`][Self::drag_dest_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_image_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_image_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_add_image_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Add the text targets supported by [`SelectionData`][crate::SelectionData] to
@@ -9848,7 +9848,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_text_targets()`][crate::TargetList::add_text_targets()] and
     /// [`drag_dest_set_target_list()`][Self::drag_dest_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_text_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_text_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_add_text_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Add the URI targets supported by [`SelectionData`][crate::SelectionData] to
@@ -9856,7 +9856,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_uri_targets()`][crate::TargetList::add_uri_targets()] and
     /// [`drag_dest_set_target_list()`][Self::drag_dest_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_uri_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_add_uri_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_add_uri_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Looks for a match between the supported targets of `context` and the
@@ -9876,7 +9876,7 @@
     ///
     /// first target that the source offers
     ///  and the dest can accept, or `GDK_NONE`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_find_target&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_find_target&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_find_target(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         context: <span class="kw-2">&amp;</span>gdk::DragContext,
@@ -9889,7 +9889,7 @@
     /// # Returns
     ///
     /// the [`TargetList`][crate::TargetList], or [`None`] if none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_get_target_list&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_get_target_list&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_get_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt;;
 
     <span class="doccomment">/// Returns whether the widget has been configured to always
@@ -9899,7 +9899,7 @@
     ///
     /// [`true`] if the widget always emits
     ///  `signal::Widget::drag-motion` events
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_get_track_motion&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_get_track_motion&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_get_track_motion(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Sets the target types that this widget can accept from drag-and-drop.
@@ -9907,7 +9907,7 @@
     /// [`WidgetExtManual::drag_dest_set()`][crate::prelude::WidgetExtManual::drag_dest_set()].
     /// ## `target_list`
     /// list of droppable targets, or [`None`] for none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_set_target_list&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_set_target_list&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_set_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>, target_list: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TargetList&gt;);
 
     <span class="doccomment">/// Tells the widget to emit `signal::Widget::drag-motion` and
@@ -9918,13 +9918,13 @@
     /// actions regardless of the targets that the source offers.
     /// ## `track_motion`
     /// whether to accept all targets
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_set_track_motion&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_set_track_motion&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_set_track_motion(<span class="kw-2">&amp;</span><span class="self">self</span>, track_motion: bool);
 
     <span class="doccomment">/// Clears information about a drop destination set with
     /// [`WidgetExtManual::drag_dest_set()`][crate::prelude::WidgetExtManual::drag_dest_set()]. The widget will no longer receive
     /// notification of drags.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_dest_unset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_unset&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_unset(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Gets the data associated with a drag. When the data
@@ -9943,13 +9943,13 @@
     /// a timestamp for retrieving the data. This will
     ///  generally be the time received in a `signal::Widget::drag-motion`
     ///  or `signal::Widget::drag-drop` signal
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_get_data&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_get_data&quot;</span>)]
     </span><span class="kw">fn </span>drag_get_data(<span class="kw-2">&amp;</span><span class="self">self</span>, context: <span class="kw-2">&amp;</span>gdk::DragContext, target: <span class="kw-2">&amp;</span>gdk::Atom, time_: u32);
 
     <span class="doccomment">/// Highlights a widget as a currently hovered drop target.
     /// To end the highlight, call [`drag_unhighlight()`][Self::drag_unhighlight()].
     /// GTK+ calls this automatically if [`DestDefaults::HIGHLIGHT`][crate::DestDefaults::HIGHLIGHT] is set.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_highlight&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_highlight&quot;</span>)]
     </span><span class="kw">fn </span>drag_highlight(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Add the writable image targets supported by [`SelectionData`][crate::SelectionData] to
@@ -9957,7 +9957,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_image_targets()`][crate::TargetList::add_image_targets()] and
     /// [`drag_source_set_target_list()`][Self::drag_source_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_image_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_image_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_add_image_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Add the text targets supported by [`SelectionData`][crate::SelectionData] to
@@ -9965,7 +9965,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_text_targets()`][crate::TargetList::add_text_targets()] and
     /// [`drag_source_set_target_list()`][Self::drag_source_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_text_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_text_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_add_text_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Add the URI targets supported by [`SelectionData`][crate::SelectionData] to
@@ -9973,7 +9973,7 @@
     /// are added with `info` = 0. If you need another value,
     /// use [`TargetList::add_uri_targets()`][crate::TargetList::add_uri_targets()] and
     /// [`drag_source_set_target_list()`][Self::drag_source_set_target_list()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_uri_targets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_add_uri_targets&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_add_uri_targets(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Gets the list of targets this widget can provide for
@@ -9982,21 +9982,21 @@
     /// # Returns
     ///
     /// the [`TargetList`][crate::TargetList], or [`None`] if none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_get_target_list&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_get_target_list&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_get_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt;;
 
     <span class="doccomment">/// Sets the icon that will be used for drags from a particular source
     /// to `icon`. See the docs for [`IconTheme`][crate::IconTheme] for more details.
     /// ## `icon`
     /// A [`gio::Icon`][crate::gio::Icon]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_gicon&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_set_icon_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;);
 
     <span class="doccomment">/// Sets the icon that will be used for drags from a particular source
     /// to a themed icon. See the docs for [`IconTheme`][crate::IconTheme] for more details.
     /// ## `icon_name`
     /// name of icon to use
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_name&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Sets the icon that will be used for drags from a particular widget
@@ -10004,7 +10004,7 @@
     /// release it when it is no longer needed.
     /// ## `pixbuf`
     /// the [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] for the drag icon
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_pixbuf&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_icon_pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_set_icon_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf);
 
     <span class="doccomment">/// Changes the target types that this widget offers for drag-and-drop.
@@ -10012,16 +10012,16 @@
     /// [`WidgetExtManual::drag_source_set()`][crate::prelude::WidgetExtManual::drag_source_set()].
     /// ## `target_list`
     /// list of draggable targets, or [`None`] for none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_target_list&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_set_target_list&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_set_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>, target_list: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TargetList&gt;);
 
     <span class="doccomment">/// Undoes the effects of [`WidgetExtManual::drag_source_set()`][crate::prelude::WidgetExtManual::drag_source_set()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_source_unset&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_source_unset&quot;</span>)]
     </span><span class="kw">fn </span>drag_source_unset(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Removes a highlight set by [`drag_highlight()`][Self::drag_highlight()] from
     /// a widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_drag_unhighlight&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_unhighlight&quot;</span>)]
     </span><span class="kw">fn </span>drag_unhighlight(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Draws `self` to `cr`. The top left corner of the widget will be
@@ -10043,7 +10043,7 @@
     /// and when rendered using [`draw()`][Self::draw()].
     /// ## `cr`
     /// a cairo context to draw to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_draw&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_draw&quot;</span>)]
     </span><span class="kw">fn </span>draw(<span class="kw-2">&amp;</span><span class="self">self</span>, cr: <span class="kw-2">&amp;</span>cairo::Context);
 
     <span class="doccomment">/// Notifies the user about an input-related error on this widget.
@@ -10053,7 +10053,7 @@
     /// Note that the effect of [`Window::beep()`][crate::gdk::Window::beep()] can be configured in many
     /// ways, depending on the windowing backend and the desktop environment
     /// or window manager that is used.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_error_bell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_error_bell&quot;</span>)]
     </span><span class="kw">fn </span>error_bell(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Rarely-used function. This function is used to emit
@@ -10071,7 +10071,7 @@
     ///
     /// return from the event signal emission ([`true`] if
     ///  the event was handled)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_event&quot;</span>)]
     </span><span class="kw">fn </span>event(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::Event) -&gt; bool;
 
     <span class="doccomment">/// Stops emission of `signal::Widget::child-notify` signals on `self`. The
@@ -10079,7 +10079,7 @@
     /// on `self`.
     ///
     /// This is the analogue of [`ObjectExt::freeze_notify()`][crate::glib::prelude::ObjectExt::freeze_notify()] for child properties.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_freeze_child_notify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_freeze_child_notify&quot;</span>)]
     </span><span class="kw">fn </span>freeze_child_notify(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns the accessible object that describes the widget to an
@@ -10098,7 +10098,7 @@
     /// # Returns
     ///
     /// the [`atk::Object`][crate::atk::Object] associated with `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_accessible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_accessible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accessible&quot;</span>)]
     </span><span class="kw">fn </span>accessible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;atk::Object&gt;;
 
@@ -10113,7 +10113,7 @@
     /// # Returns
     ///
     /// A [`gio::ActionGroup`][crate::gio::ActionGroup] or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_action_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_action_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_action_group&quot;</span>)]
     </span><span class="kw">fn </span>action_group(<span class="kw-2">&amp;</span><span class="self">self</span>, prefix: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;gio::ActionGroup&gt;;
 
@@ -10125,7 +10125,7 @@
     /// # Returns
     ///
     /// the baseline of the `self`, or -1 if none
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_baseline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_baseline&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_allocated_baseline&quot;</span>)]
     </span><span class="kw">fn </span>allocated_baseline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10136,7 +10136,7 @@
     /// # Returns
     ///
     /// the height of the `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_allocated_height&quot;</span>)]
     </span><span class="kw">fn </span>allocated_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10158,7 +10158,7 @@
     ///
     /// ## `baseline`
     /// a pointer to an integer to copy to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_allocated_size&quot;</span>)]
     </span><span class="kw">fn </span>allocated_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Allocation, i32);
 
@@ -10169,7 +10169,7 @@
     /// # Returns
     ///
     /// the width of the `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocated_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_allocated_width&quot;</span>)]
     </span><span class="kw">fn </span>allocated_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10195,7 +10195,7 @@
     ///
     /// ## `allocation`
     /// a pointer to a `GtkAllocation` to copy to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_allocation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_allocation&quot;</span>)]
     </span><span class="kw">fn </span>allocation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Allocation;
 
@@ -10214,7 +10214,7 @@
     /// # Returns
     ///
     /// the ancestor widget, or [`None`] if not found
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_ancestor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_ancestor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_ancestor&quot;</span>)]
     #[must_use]
     </span><span class="kw">fn </span>ancestor(<span class="kw-2">&amp;</span><span class="self">self</span>, widget_type: glib::types::Type) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
@@ -10227,7 +10227,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is app paintable
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_app_paintable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_app_paintable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_app_paintable&quot;</span>)]
     </span><span class="kw">fn </span>is_app_paintable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10237,7 +10237,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` can be a default widget, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_can_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_can_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_can_default&quot;</span>)]
     </span><span class="kw">fn </span>can_default(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10247,7 +10247,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` can own the input focus, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_can_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_can_focus&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_can_focus&quot;</span>)]
     </span><span class="kw">fn </span>can_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10261,7 +10261,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is mapped with the parent.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_child_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_child_visible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_child_visible&quot;</span>)]
     </span><span class="kw">fn </span>is_child_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10278,7 +10278,7 @@
     ///
     /// ## `clip`
     /// a pointer to a `GtkAllocation` to copy to
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_clip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_clip&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_clip&quot;</span>)]
     </span><span class="kw">fn </span>clip(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Allocation;
 
@@ -10299,7 +10299,7 @@
     ///  clipboard already exists, a new one will
     ///  be created. Once a clipboard object has
     ///  been created, it is persistent for all time.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_clipboard&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_clipboard&quot;</span>)]
     </span><span class="kw">fn </span>clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; Clipboard;
 
@@ -10311,7 +10311,7 @@
     /// # Returns
     ///
     /// [`true`] is `device` is enabled for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_device_enabled&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_device_enabled&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_enabled&quot;</span>)]
     </span><span class="kw">fn </span>device_is_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device) -&gt; bool;
 
@@ -10323,7 +10323,7 @@
     /// # Returns
     ///
     /// device event mask for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_device_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_device_events&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_events&quot;</span>)]
     </span><span class="kw">fn </span>device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device) -&gt; gdk::EventMask;
 
@@ -10333,7 +10333,7 @@
     /// # Returns
     ///
     /// the reading direction for the widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_direction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_direction&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_direction&quot;</span>)]
     </span><span class="kw">fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextDirection;
 
@@ -10348,7 +10348,7 @@
     /// # Returns
     ///
     /// the [`gdk::Display`][crate::gdk::Display] for the toplevel for this widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Display;
 
@@ -10359,7 +10359,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is double buffered
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_double_buffered&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_double_buffered&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_double_buffered&quot;</span>)]
     </span><span class="kw">fn </span>is_double_buffered(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10370,7 +10370,7 @@
     ///
     /// [`true`] if the widget should grab focus when it is clicked with
     ///  the mouse.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_focus_on_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_focus_on_click&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_focus_on_click&quot;</span>)]
     </span><span class="kw">fn </span>gets_focus_on_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10379,7 +10379,7 @@
     /// # Returns
     ///
     /// A [`pango::FontMap`][crate::pango::FontMap], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_font_map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_font_map&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_map&quot;</span>)]
     </span><span class="kw">fn </span>font_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontMap&gt;;
 
@@ -10389,7 +10389,7 @@
     /// # Returns
     ///
     /// the [`cairo::FontOptions`][crate::cairo::FontOptions] or [`None`] if not set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_font_options&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_font_options&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_options&quot;</span>)]
     </span><span class="kw">fn </span>font_options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::FontOptions&gt;;
 
@@ -10419,7 +10419,7 @@
     ///
     /// a [`gdk::FrameClock`][crate::gdk::FrameClock],
     /// or [`None`] if widget is unrealized
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_frame_clock&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_frame_clock&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_frame_clock&quot;</span>)]
     </span><span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;;
 
@@ -10433,7 +10433,7 @@
     /// # Returns
     ///
     /// the horizontal alignment of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_halign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_halign&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_halign&quot;</span>)]
     </span><span class="kw">fn </span>halign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Align;
 
@@ -10443,7 +10443,7 @@
     /// # Returns
     ///
     /// current value of has-tooltip on `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_has_tooltip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_has_tooltip&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_tooltip&quot;</span>)]
     </span><span class="kw">fn </span>has_tooltip(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10453,7 +10453,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` has a window, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_has_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_has_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_window&quot;</span>)]
     </span><span class="kw">fn </span>has_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10475,7 +10475,7 @@
     /// # Returns
     ///
     /// whether hexpand flag is set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_hexpand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_hexpand&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hexpand&quot;</span>)]
     </span><span class="kw">fn </span>hexpands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10493,7 +10493,7 @@
     /// # Returns
     ///
     /// whether hexpand has been explicitly set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_hexpand_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_hexpand_set&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hexpand_set&quot;</span>)]
     </span><span class="kw">fn </span>is_hexpand_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10502,7 +10502,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is mapped, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_mapped&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_mapped&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mapped&quot;</span>)]
     </span><span class="kw">fn </span>is_mapped(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10511,7 +10511,7 @@
     /// # Returns
     ///
     /// The bottom margin of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_bottom&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_bottom&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin_bottom&quot;</span>)]
     </span><span class="kw">fn </span>margin_bottom(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10520,7 +10520,7 @@
     /// # Returns
     ///
     /// The end margin of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_end&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin_end&quot;</span>)]
     </span><span class="kw">fn </span>margin_end(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10529,7 +10529,7 @@
     /// # Returns
     ///
     /// The start margin of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_start&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_start&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin_start&quot;</span>)]
     </span><span class="kw">fn </span>margin_start(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10538,7 +10538,7 @@
     /// # Returns
     ///
     /// The top margin of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_top&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_margin_top&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin_top&quot;</span>)]
     </span><span class="kw">fn </span>margin_top(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10552,7 +10552,7 @@
     /// # Returns
     ///
     /// the modifier mask used for `intent`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_modifier_mask&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_modifier_mask&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modifier_mask&quot;</span>)]
     </span><span class="kw">fn </span>modifier_mask(<span class="kw-2">&amp;</span><span class="self">self</span>, intent: gdk::ModifierIntent) -&gt; gdk::ModifierType;
 
@@ -10563,7 +10563,7 @@
     ///
     /// name of the widget. This string is owned by GTK+ and
     /// should not be modified or freed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_name&quot;</span>)]
     </span><span class="kw">fn </span>widget_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::GString;
 
@@ -10574,7 +10574,7 @@
     /// # Returns
     ///
     /// the current value of the “no-show-all” property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_no_show_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_no_show_all&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_no_show_all&quot;</span>)]
     </span><span class="kw">fn </span>is_no_show_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10584,7 +10584,7 @@
     /// # Returns
     ///
     /// the requested opacity for this widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_opacity&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_opacity&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_opacity&quot;</span>)]
     </span><span class="kw">fn </span>opacity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
 
@@ -10599,7 +10599,7 @@
     /// # Returns
     ///
     /// the [`pango::Context`][crate::pango::Context] for the widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_pango_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_pango_context&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pango_context&quot;</span>)]
     </span><span class="kw">fn </span>pango_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Context;
 
@@ -10608,7 +10608,7 @@
     /// # Returns
     ///
     /// the parent container of `self`, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
     </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
@@ -10619,7 +10619,7 @@
     ///
     /// the parent window of `self`, or [`None`]
     /// if it does not have a parent window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_parent_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_parent_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent_window&quot;</span>)]
     </span><span class="kw">fn </span>parent_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
 
@@ -10630,7 +10630,7 @@
     /// # Returns
     ///
     /// The [`WidgetPath`][crate::WidgetPath] representing `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_path&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_path&quot;</span>)]
     </span><span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WidgetPath;
 
@@ -10652,7 +10652,7 @@
     ///
     /// ## `natural_height`
     /// location to store the natural height, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_height&quot;</span>)]
     </span><span class="kw">fn </span>preferred_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
 
@@ -10682,7 +10682,7 @@
     ///
     /// ## `natural_baseline`
     /// location for storing the baseline for the natural height, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height_and_baseline_for_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height_and_baseline_for_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_height_and_baseline_for_width&quot;</span>)]
     </span><span class="kw">fn </span>preferred_height_and_baseline_for_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32) -&gt; (i32, i32, i32, i32);
 
@@ -10705,7 +10705,7 @@
     ///
     /// ## `natural_height`
     /// location for storing the natural height, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height_for_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_height_for_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_height_for_width&quot;</span>)]
     </span><span class="kw">fn </span>preferred_height_for_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32) -&gt; (i32, i32);
 
@@ -10733,7 +10733,7 @@
     ///
     /// ## `natural_size`
     /// location for storing the natural size, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_size&quot;</span>)]
     </span><span class="kw">fn </span>preferred_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Requisition, Requisition);
 
@@ -10755,7 +10755,7 @@
     ///
     /// ## `natural_width`
     /// location to store the natural width, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_width&quot;</span>)]
     </span><span class="kw">fn </span>preferred_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
 
@@ -10778,7 +10778,7 @@
     ///
     /// ## `natural_width`
     /// location for storing the natural width, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_width_for_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_preferred_width_for_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preferred_width_for_height&quot;</span>)]
     </span><span class="kw">fn </span>preferred_width_for_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: i32) -&gt; (i32, i32);
 
@@ -10787,7 +10787,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is realized, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_realized&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_realized&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_realized&quot;</span>)]
     </span><span class="kw">fn </span>is_realized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10801,7 +10801,7 @@
     ///
     /// [`true`] if `self` acts as the default widget when focused,
     ///  [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_receives_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_receives_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_receives_default&quot;</span>)]
     </span><span class="kw">fn </span>receives_default(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10816,7 +10816,7 @@
     /// # Returns
     ///
     /// The [`SizeRequestMode`][crate::SizeRequestMode] preferred by `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_request_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_request_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_request_mode&quot;</span>)]
     </span><span class="kw">fn </span>request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SizeRequestMode;
 
@@ -10829,7 +10829,7 @@
     /// # Returns
     ///
     /// the scale factor for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_scale_factor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_scale_factor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale_factor&quot;</span>)]
     </span><span class="kw">fn </span>scale_factor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -10845,7 +10845,7 @@
     /// # Returns
     ///
     /// the [`gdk::Screen`][crate::gdk::Screen] for the toplevel for this widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
     </span><span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt;;
 
@@ -10858,7 +10858,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is sensitive
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_sensitive&quot;</span>)]
     </span><span class="kw">fn </span>get_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Gets the settings object holding the settings used for this widget.
@@ -10870,7 +10870,7 @@
     /// # Returns
     ///
     /// the relevant [`Settings`][crate::Settings] object
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_settings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_settings&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_settings&quot;</span>)]
     </span><span class="kw">fn </span>settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Settings&gt;;
 
@@ -10890,7 +10890,7 @@
     ///
     /// ## `height`
     /// return location for height, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_size_request&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_size_request&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_size_request&quot;</span>)]
     </span><span class="kw">fn </span>size_request(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
 
@@ -10906,7 +10906,7 @@
     /// # Returns
     ///
     /// The state flags for widget
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_state_flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_state_flags&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_state_flags&quot;</span>)]
     </span><span class="kw">fn </span>state_flags(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StateFlags;
 
@@ -10917,7 +10917,7 @@
     ///
     /// a [`StyleContext`][crate::StyleContext]. This memory is owned by `self` and
     ///  must not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_style_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_style_context&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_style_context&quot;</span>)]
     </span><span class="kw">fn </span>style_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StyleContext;
 
@@ -10927,7 +10927,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is multidevice aware.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_support_multidevice&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_support_multidevice&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_support_multidevice&quot;</span>)]
     </span><span class="kw">fn </span>supports_multidevice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -10948,7 +10948,7 @@
     /// # Returns
     ///
     /// The object built in the template XML with the id `name`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_template_child&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_template_child&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_template_child&quot;</span>)]
     </span><span class="kw">fn </span>template_child(<span class="kw-2">&amp;</span><span class="self">self</span>, widget_type: glib::types::Type, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Object&gt;;
 
@@ -10958,7 +10958,7 @@
     ///
     /// the tooltip text, or [`None`]. You should free the
     ///  returned string with `g_free()` when done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_markup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_markup&quot;</span>)]
     </span><span class="kw">fn </span>tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -10968,7 +10968,7 @@
     ///
     /// the tooltip text, or [`None`]. You should free the
     ///  returned string with `g_free()` when done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_text&quot;</span>)]
     </span><span class="kw">fn </span>tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -10979,7 +10979,7 @@
     /// # Returns
     ///
     /// The [`Window`][crate::Window] of the current tooltip.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_tooltip_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_window&quot;</span>)]
     </span><span class="kw">fn </span>tooltip_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt;;
 
@@ -11023,7 +11023,7 @@
     ///
     /// the topmost ancestor of `self`, or `self` itself
     ///  if there’s no ancestor.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_toplevel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_toplevel&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_toplevel&quot;</span>)]
     #[must_use]
     </span><span class="kw">fn </span>toplevel(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
@@ -11040,7 +11040,7 @@
     /// # Returns
     ///
     /// the vertical alignment of `self`, ignoring baseline alignment
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_valign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_valign&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_valign&quot;</span>)]
     </span><span class="kw">fn </span>valign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Align;
 
@@ -11050,7 +11050,7 @@
     /// # Returns
     ///
     /// the vertical alignment of `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_valign_with_baseline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_valign_with_baseline&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_valign_with_baseline&quot;</span>)]
     </span><span class="kw">fn </span>valign_with_baseline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Align;
 
@@ -11062,7 +11062,7 @@
     /// # Returns
     ///
     /// whether vexpand flag is set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_vexpand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_vexpand&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_vexpand&quot;</span>)]
     </span><span class="kw">fn </span>vexpands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -11074,7 +11074,7 @@
     /// # Returns
     ///
     /// whether vexpand has been explicitly set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_vexpand_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_vexpand_set&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_vexpand_set&quot;</span>)]
     </span><span class="kw">fn </span>is_vexpand_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -11089,7 +11089,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is visible
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_visible&quot;</span>)]
     </span><span class="kw">fn </span>get_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Gets the visual that will be used to render `self`.
@@ -11097,7 +11097,7 @@
     /// # Returns
     ///
     /// the visual for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_visual&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_visual&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visual&quot;</span>)]
     </span><span class="kw">fn </span>visual(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Visual&gt;;
 
@@ -11106,7 +11106,7 @@
     /// # Returns
     ///
     /// `self`’s window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_get_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
     </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
 
@@ -11118,7 +11118,7 @@
     ///
     /// If `self` is not sensitive, it is not set as the current
     /// grabbed widget and this function does nothing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_grab_add&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_grab_add&quot;</span>)]
     </span><span class="kw">fn </span>grab_add(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Causes `self` to become the default widget. `self` must be able to be
@@ -11130,7 +11130,7 @@
     /// that [`Entry`][crate::Entry] widgets require the “activates-default” property
     /// set to [`true`] before they activate the default widget when Enter
     /// is pressed and the [`Entry`][crate::Entry] is focused.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_grab_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_grab_default&quot;</span>)]
     </span><span class="kw">fn </span>grab_default(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Causes `self` to have the keyboard focus for the [`Window`][crate::Window] it&#39;s
@@ -11143,7 +11143,7 @@
     /// The widget also needs to be realized and mapped. This is indicated by the
     /// related signals. Grabbing the focus immediately after creating the widget
     /// will likely fail and cause critical warnings.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_grab_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_grab_focus&quot;</span>)]
     </span><span class="kw">fn </span>grab_focus(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Removes the grab from the given widget.
@@ -11151,7 +11151,7 @@
     /// You have to pair calls to [`grab_add()`][Self::grab_add()] and [`grab_remove()`][Self::grab_remove()].
     ///
     /// If `self` does not have the grab, this function does nothing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_grab_remove&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_grab_remove&quot;</span>)]
     </span><span class="kw">fn </span>grab_remove(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Determines whether `self` is the current default widget within its
@@ -11161,7 +11161,7 @@
     ///
     /// [`true`] if `self` is the current default widget within
     ///  its toplevel, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_has_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_has_default&quot;</span>)]
     </span><span class="kw">fn </span>has_default(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines if the widget has the global input focus. See
@@ -11171,7 +11171,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget has the global input focus.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_has_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_has_focus&quot;</span>)]
     </span><span class="kw">fn </span>has_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines whether the widget is currently grabbing events, so it
@@ -11182,7 +11182,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is in the grab_widgets stack
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_has_grab&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_has_grab&quot;</span>)]
     </span><span class="kw">fn </span>has_grab(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Checks whether there is a [`gdk::Screen`][crate::gdk::Screen] is associated with
@@ -11194,7 +11194,7 @@
     ///
     /// [`true`] if there is a [`gdk::Screen`][crate::gdk::Screen] associated
     ///  with the widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_has_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_has_screen&quot;</span>)]
     </span><span class="kw">fn </span>has_screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines if the widget should show a visible indication that
@@ -11210,12 +11210,12 @@
     /// # Returns
     ///
     /// [`true`] if the widget should display a “focus rectangle”
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_has_visible_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_has_visible_focus&quot;</span>)]
     </span><span class="kw">fn </span>has_visible_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Reverses the effects of [`show()`][Self::show()], causing the widget to be
     /// hidden (invisible to the user).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_hide&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_hide&quot;</span>)]
     </span><span class="kw">fn </span>hide(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns whether the widget is currently being destroyed.
@@ -11225,7 +11225,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is being destroyed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_in_destruction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_in_destruction&quot;</span>)]
     </span><span class="kw">fn </span>in_destruction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Creates and initializes child widgets defined in templates. This
@@ -11244,7 +11244,7 @@
     /// composite templates, it’s important to build the composite widgets
     /// before the construct properties are set. Properties passed to [`glib::Object::new()`][crate::glib::Object::new()]
     /// should take precedence over properties set in the private template XML.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_init_template&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_init_template&quot;</span>)]
     </span><span class="kw">fn </span>init_template(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Sets an input shape for this widget’s GDK window. This allows for
@@ -11252,7 +11252,7 @@
     /// [`Window::input_shape_combine_region()`][crate::gdk::Window::input_shape_combine_region()] for more information.
     /// ## `region`
     /// shape to be added, or [`None`] to remove an existing shape
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_input_shape_combine_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_input_shape_combine_region&quot;</span>)]
     </span><span class="kw">fn </span>input_shape_combine_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Region&gt;);
 
     <span class="doccomment">/// Inserts `group` into `self`. Children of `self` that implement
@@ -11266,7 +11266,7 @@
     /// the prefix for actions in `group`
     /// ## `group`
     /// a [`gio::ActionGroup`][crate::gio::ActionGroup], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_insert_action_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_insert_action_group&quot;</span>)]
     </span><span class="kw">fn </span>insert_action_group(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::ActionGroup&gt;&gt;);
 
     <span class="doccomment">/// Determines whether `self` is somewhere inside `ancestor`, possibly with
@@ -11278,7 +11278,7 @@
     ///
     /// [`true`] if `ancestor` contains `self` as a child,
     ///  grandchild, great grandchild, etc.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_ancestor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_ancestor&quot;</span>)]
     </span><span class="kw">fn </span>is_ancestor(<span class="kw-2">&amp;</span><span class="self">self</span>, ancestor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool;
 
     <span class="doccomment">/// Determines whether `self` can be drawn to. A widget can be drawn
@@ -11287,7 +11287,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is drawable, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_drawable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_drawable&quot;</span>)]
     </span><span class="kw">fn </span>is_drawable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines if the widget is the focus widget within its
@@ -11298,7 +11298,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is the focus widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_focus&quot;</span>)]
     </span><span class="kw">fn </span>is_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Returns the widget’s effective sensitivity, which means
@@ -11307,7 +11307,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget is effectively sensitive
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_sensitive&quot;</span>)]
     </span><span class="kw">fn </span>is_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines whether `self` is a toplevel widget.
@@ -11319,7 +11319,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is a toplevel, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_toplevel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_toplevel&quot;</span>)]
     </span><span class="kw">fn </span>is_toplevel(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Determines whether the widget and all its parents are marked as
@@ -11332,7 +11332,7 @@
     /// # Returns
     ///
     /// [`true`] if the widget and all its parents are visible
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_is_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_is_visible&quot;</span>)]
     </span><span class="kw">fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// This function should be called whenever keyboard navigation within
@@ -11370,7 +11370,7 @@
     /// [`true`] if stopping keyboard navigation is fine, [`false`]
     ///  if the emitting widget should try to handle the keyboard
     ///  navigation attempt in its parent container(s).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_keynav_failed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_keynav_failed&quot;</span>)]
     </span><span class="kw">fn </span>keynav_failed(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: DirectionType) -&gt; bool;
 
     <span class="doccomment">/// Lists the closures used by `self` for accelerator group connections
@@ -11384,7 +11384,7 @@
     ///
     ///
     ///  a newly allocated `GList` of closures
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_list_accel_closures&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_list_accel_closures&quot;</span>)]
     </span><span class="kw">fn </span>list_accel_closures(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::Closure&gt;;
 
     <span class="doccomment">/// Retrieves a [`None`]-terminated array of strings containing the prefixes of
@@ -11393,7 +11393,7 @@
     /// # Returns
     ///
     /// a [`None`]-terminated array of strings.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_list_action_prefixes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_list_action_prefixes&quot;</span>)]
     </span><span class="kw">fn </span>list_action_prefixes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Returns a newly allocated list of the widgets, normally labels, for
@@ -11412,12 +11412,12 @@
     /// the list of
     ///  mnemonic labels; free this list
     ///  with `g_list_free()` when you are done with it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_list_mnemonic_labels&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_list_mnemonic_labels&quot;</span>)]
     </span><span class="kw">fn </span>list_mnemonic_labels(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Widget&gt;;
 
     <span class="doccomment">/// This function is only for use in widget implementations. Causes
     /// a widget to be mapped if it isn’t already.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_map&quot;</span>)]
     </span><span class="kw">fn </span>map(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Emits the `signal::Widget::mnemonic-activate` signal.
@@ -11427,7 +11427,7 @@
     /// # Returns
     ///
     /// [`true`] if the signal has been handled
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_mnemonic_activate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_mnemonic_activate&quot;</span>)]
     </span><span class="kw">fn </span>mnemonic_activate(<span class="kw-2">&amp;</span><span class="self">self</span>, group_cycling: bool) -&gt; bool;
 
     <span class="doccomment">/// This function is only for use in widget implementations.
@@ -11438,7 +11438,7 @@
     /// reposition its contents.
     ///
     /// An example user of this function is [`set_halign()`][Self::set_halign()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_allocate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_allocate&quot;</span>)]
     </span><span class="kw">fn </span>queue_allocate(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Mark `self` as needing to recompute its expand flags. Call
@@ -11446,12 +11446,12 @@
     /// on the child of a container.
     ///
     /// See [`compute_expand()`][Self::compute_expand()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_compute_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_compute_expand&quot;</span>)]
     </span><span class="kw">fn </span>queue_compute_expand(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Equivalent to calling [`queue_draw_area()`][Self::queue_draw_area()] for the
     /// entire area of a widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw&quot;</span>)]
     </span><span class="kw">fn </span>queue_draw(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Convenience function that calls [`queue_draw_region()`][Self::queue_draw_region()] on
@@ -11473,7 +11473,7 @@
     /// width of region to draw
     /// ## `height`
     /// height of region to draw
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw_area&quot;</span>)]
     </span><span class="kw">fn </span>queue_draw_area(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32, width: i32, height: i32);
 
     <span class="doccomment">/// Invalidates the area of `self` defined by `region` by calling
@@ -11488,7 +11488,7 @@
     /// [`DrawingArea`][crate::DrawingArea] or some portion thereof.
     /// ## `region`
     /// region to draw
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_draw_region&quot;</span>)]
     </span><span class="kw">fn </span>queue_draw_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span>cairo::Region);
 
     <span class="doccomment">/// This function is only for use in widget implementations.
@@ -11501,12 +11501,12 @@
     /// from inside its implementation of the GtkWidgetClass::size_allocate
     /// virtual method. Calls to [`queue_resize()`][Self::queue_resize()] from inside
     /// GtkWidgetClass::size_allocate will be silently ignored.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_resize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_resize&quot;</span>)]
     </span><span class="kw">fn </span>queue_resize(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This function works like [`queue_resize()`][Self::queue_resize()],
     /// except that the widget is not invalidated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_queue_resize_no_redraw&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_queue_resize_no_redraw&quot;</span>)]
     </span><span class="kw">fn </span>queue_resize_no_redraw(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Creates the GDK (windowing system) resources associated with a
@@ -11527,7 +11527,7 @@
     /// called after the widget is realized automatically, such as
     /// `signal::Widget::draw`. Or simply g_signal_connect () to the
     /// `signal::Widget::realize` signal.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_realize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_realize&quot;</span>)]
     </span><span class="kw">fn </span>realize(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Registers a [`gdk::Window`][crate::gdk::Window] with the widget and sets it up so that
@@ -11540,7 +11540,7 @@
     /// transparency might not work perfectly.
     /// ## `window`
     /// a [`gdk::Window`][crate::gdk::Window]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_register_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_register_window&quot;</span>)]
     </span><span class="kw">fn </span>register_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window);
 
     <span class="doccomment">/// Removes an accelerator from `self`, previously installed with
@@ -11555,7 +11555,7 @@
     /// # Returns
     ///
     /// whether an accelerator was installed and could be removed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_remove_accelerator&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_remove_accelerator&quot;</span>)]
     </span><span class="kw">fn </span>remove_accelerator(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accel_group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;AccelGroup&gt;,
@@ -11570,14 +11570,14 @@
     /// ## `label`
     /// a [`Widget`][crate::Widget] that was previously set as a mnemonic label for
     ///  `self` with [`add_mnemonic_label()`][Self::add_mnemonic_label()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_remove_mnemonic_label&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_remove_mnemonic_label&quot;</span>)]
     </span><span class="kw">fn </span>remove_mnemonic_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
     <span class="doccomment">/// Updates the style context of `self` and all descendants
     /// by updating its widget path. `GtkContainers` may want
     /// to use this on a child when reordering it in a way that a different
     /// style might apply to it. See also [`ContainerExt::path_for_child()`][crate::prelude::ContainerExt::path_for_child()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_reset_style&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_reset_style&quot;</span>)]
     </span><span class="kw">fn </span>reset_style(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Sends the focus change `event` to `self`
@@ -11614,7 +11614,7 @@
     ///
     /// the return value from the event signal emission: [`true`]
     ///  if the event was handled, and [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_send_focus_change&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_send_focus_change&quot;</span>)]
     </span><span class="kw">fn </span>send_focus_change(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::Event) -&gt; bool;
 
     <span class="doccomment">/// Given an accelerator group, `accel_group`, and an accelerator path,
@@ -11642,7 +11642,7 @@
     /// path used to look up the accelerator
     /// ## `accel_group`
     /// a [`AccelGroup`][crate::AccelGroup].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_accel_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_accel_path&quot;</span>)]
     </span><span class="kw">fn </span>set_accel_path(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, accel_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;AccelGroup&gt;&gt;);
 
     <span class="doccomment">/// Sets the widget’s allocation. This should not be used
@@ -11656,7 +11656,7 @@
     /// allocation.
     /// ## `allocation`
     /// a pointer to a `GtkAllocation` to copy from
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_allocation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_allocation&quot;</span>)]
     </span><span class="kw">fn </span>set_allocation(<span class="kw-2">&amp;</span><span class="self">self</span>, allocation: <span class="kw-2">&amp;</span>Allocation);
 
     <span class="doccomment">/// Sets whether the application intends to draw on the widget in
@@ -11672,7 +11672,7 @@
     /// Note that the background is still drawn when the widget is mapped.
     /// ## `app_paintable`
     /// [`true`] if the application will paint on the widget
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_app_paintable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_app_paintable&quot;</span>)]
     </span><span class="kw">fn </span>set_app_paintable(<span class="kw-2">&amp;</span><span class="self">self</span>, app_paintable: bool);
 
     <span class="doccomment">/// Specifies whether `self` can be a default widget. See
@@ -11680,7 +11680,7 @@
     /// “default”.
     /// ## `can_default`
     /// whether or not `self` can be a default widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_can_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_can_default&quot;</span>)]
     </span><span class="kw">fn </span>set_can_default(<span class="kw-2">&amp;</span><span class="self">self</span>, can_default: bool);
 
     <span class="doccomment">/// Specifies whether `self` can own the input focus. See
@@ -11688,7 +11688,7 @@
     /// widget.
     /// ## `can_focus`
     /// whether or not `self` can own the input focus.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_can_focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_can_focus&quot;</span>)]
     </span><span class="kw">fn </span>set_can_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, can_focus: bool);
 
     <span class="doccomment">/// Sets whether `self` should be mapped along with its when its parent
@@ -11710,7 +11710,7 @@
     /// never should be called by an application.
     /// ## `is_visible`
     /// if [`true`], `self` should be mapped along with its parent.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_child_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_child_visible&quot;</span>)]
     </span><span class="kw">fn </span>set_child_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, is_visible: bool);
 
     <span class="doccomment">/// Sets the widget’s clip. This must not be used directly,
@@ -11725,7 +11725,7 @@
     /// the clip will be set to `self`&#39;s allocation.
     /// ## `clip`
     /// a pointer to a `GtkAllocation` to copy from
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_clip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_clip&quot;</span>)]
     </span><span class="kw">fn </span>set_clip(<span class="kw-2">&amp;</span><span class="self">self</span>, clip: <span class="kw-2">&amp;</span>Allocation);
 
     <span class="doccomment">/// Enables or disables a [`gdk::Device`][crate::gdk::Device] to interact with `self`
@@ -11738,7 +11738,7 @@
     /// a [`gdk::Device`][crate::gdk::Device]
     /// ## `enabled`
     /// whether to enable the device
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_device_enabled&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_device_enabled&quot;</span>)]
     </span><span class="kw">fn </span>set_device_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device, enabled: bool);
 
     <span class="doccomment">/// Sets the device event mask (see [`gdk::EventMask`][crate::gdk::EventMask]) for a widget. The event
@@ -11756,7 +11756,7 @@
     /// a [`gdk::Device`][crate::gdk::Device]
     /// ## `events`
     /// event mask
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_device_events&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_device_events&quot;</span>)]
     </span><span class="kw">fn </span>set_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device, events: gdk::EventMask);
 
     <span class="doccomment">/// Sets the reading direction on a particular widget. This direction
@@ -11773,7 +11773,7 @@
     /// set by [`Widget::set_default_direction()`][crate::Widget::set_default_direction()] will be used.
     /// ## `dir`
     /// the new direction
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_direction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_direction&quot;</span>)]
     </span><span class="kw">fn </span>set_direction(<span class="kw-2">&amp;</span><span class="self">self</span>, dir: TextDirection);
 
     <span class="doccomment">/// Sets whether the widget should grab focus when it is clicked with the mouse.
@@ -11782,7 +11782,7 @@
     /// application.
     /// ## `focus_on_click`
     /// whether the widget should grab focus when clicked with the mouse
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_focus_on_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_focus_on_click&quot;</span>)]
     </span><span class="kw">fn </span>set_focus_on_click(<span class="kw-2">&amp;</span><span class="self">self</span>, focus_on_click: bool);
 
     <span class="doccomment">/// Sets the font map to use for Pango rendering. When not set, the widget
@@ -11790,7 +11790,7 @@
     /// ## `font_map`
     /// a [`pango::FontMap`][crate::pango::FontMap], or [`None`] to unset any previously
     ///  set font map
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_font_map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_font_map&quot;</span>)]
     </span><span class="kw">fn </span>set_font_map(<span class="kw-2">&amp;</span><span class="self">self</span>, font_map: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;pango::FontMap&gt;&gt;);
 
     <span class="doccomment">/// Sets the [`cairo::FontOptions`][crate::cairo::FontOptions] used for Pango rendering in this widget.
@@ -11798,21 +11798,21 @@
     /// ## `options`
     /// a [`cairo::FontOptions`][crate::cairo::FontOptions], or [`None`] to unset any
     ///  previously set default font options.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_font_options&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_font_options&quot;</span>)]
     </span><span class="kw">fn </span>set_font_options(<span class="kw-2">&amp;</span><span class="self">self</span>, options: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::FontOptions&gt;);
 
     <span class="doccomment">/// Sets the horizontal alignment of `self`.
     /// See the `property::Widget::halign` property.
     /// ## `align`
     /// the horizontal alignment
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_halign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_halign&quot;</span>)]
     </span><span class="kw">fn </span>set_halign(<span class="kw-2">&amp;</span><span class="self">self</span>, align: Align);
 
     <span class="doccomment">/// Sets the has-tooltip property on `self` to `has_tooltip`. See
     /// `property::Widget::has-tooltip` for more information.
     /// ## `has_tooltip`
     /// whether or not `self` has a tooltip.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_has_tooltip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_has_tooltip&quot;</span>)]
     </span><span class="kw">fn </span>set_has_tooltip(<span class="kw-2">&amp;</span><span class="self">self</span>, has_tooltip: bool);
 
     <span class="doccomment">/// Specifies whether `self` has a [`gdk::Window`][crate::gdk::Window] of its own. Note that
@@ -11827,7 +11827,7 @@
     /// and they should call it in their `init()` function.
     /// ## `has_window`
     /// whether or not `self` has a window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_has_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_has_window&quot;</span>)]
     </span><span class="kw">fn </span>set_has_window(<span class="kw-2">&amp;</span><span class="self">self</span>, has_window: bool);
 
     <span class="doccomment">/// Sets whether the widget would like any available extra horizontal
@@ -11857,7 +11857,7 @@
     /// value to be used, rather than looking at children and widget state.
     /// ## `expand`
     /// whether to expand
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_hexpand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_hexpand&quot;</span>)]
     </span><span class="kw">fn </span>set_hexpand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
 
     <span class="doccomment">/// Sets whether the hexpand flag (see [`hexpands()`][Self::hexpands()]) will
@@ -11877,7 +11877,7 @@
     /// for completeness and consistency.
     /// ## `set`
     /// value for hexpand-set property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_hexpand_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_hexpand_set&quot;</span>)]
     </span><span class="kw">fn </span>set_hexpand_set(<span class="kw-2">&amp;</span><span class="self">self</span>, set: bool);
 
     <span class="doccomment">/// Marks the widget as being mapped.
@@ -11886,35 +11886,35 @@
     /// “map” or “unmap” implementation.
     /// ## `mapped`
     /// [`true`] to mark the widget as mapped
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_mapped&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_mapped&quot;</span>)]
     </span><span class="kw">fn </span>set_mapped(<span class="kw-2">&amp;</span><span class="self">self</span>, mapped: bool);
 
     <span class="doccomment">/// Sets the bottom margin of `self`.
     /// See the `property::Widget::margin-bottom` property.
     /// ## `margin`
     /// the bottom margin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_bottom&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_bottom&quot;</span>)]
     </span><span class="kw">fn </span>set_margin_bottom(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
 
     <span class="doccomment">/// Sets the end margin of `self`.
     /// See the `property::Widget::margin-end` property.
     /// ## `margin`
     /// the end margin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_end&quot;</span>)]
     </span><span class="kw">fn </span>set_margin_end(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
 
     <span class="doccomment">/// Sets the start margin of `self`.
     /// See the `property::Widget::margin-start` property.
     /// ## `margin`
     /// the start margin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_start&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_start&quot;</span>)]
     </span><span class="kw">fn </span>set_margin_start(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
 
     <span class="doccomment">/// Sets the top margin of `self`.
     /// See the `property::Widget::margin-top` property.
     /// ## `margin`
     /// the top margin
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_top&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_margin_top&quot;</span>)]
     </span><span class="kw">fn </span>set_margin_top(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
 
     <span class="doccomment">/// Widgets can be named, which allows you to refer to them from a
@@ -11928,7 +11928,7 @@
     /// of alphanumeric symbols, dashes and underscores will suffice.
     /// ## `name`
     /// name for the widget
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;set_name&quot;</span>)]
     </span><span class="kw">fn </span>set_widget_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
 
@@ -11939,7 +11939,7 @@
     /// controlled visibility, see `GtkUIManager`.
     /// ## `no_show_all`
     /// the new value for the “no-show-all” property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_no_show_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_no_show_all&quot;</span>)]
     </span><span class="kw">fn </span>set_no_show_all(<span class="kw-2">&amp;</span><span class="self">self</span>, no_show_all: bool);
 
     <span class="doccomment">/// Request the `self` to be rendered partially transparent,
@@ -11958,7 +11958,7 @@
     /// disables double buffering.
     /// ## `opacity`
     /// desired opacity, between 0 and 1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_opacity&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_opacity&quot;</span>)]
     </span><span class="kw">fn </span>set_opacity(<span class="kw-2">&amp;</span><span class="self">self</span>, opacity: f64);
 
     <span class="doccomment">/// This function is useful only when implementing subclasses of
@@ -11969,7 +11969,7 @@
     /// [`unparent()`][Self::unparent()].
     /// ## `parent`
     /// parent container
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_parent&quot;</span>)]
     </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
     <span class="doccomment">/// Sets a non default parent window for `self`.
@@ -11982,7 +11982,7 @@
     /// window is realized.
     /// ## `parent_window`
     /// the new parent window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_parent_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_parent_window&quot;</span>)]
     </span><span class="kw">fn </span>set_parent_window(<span class="kw-2">&amp;</span><span class="self">self</span>, parent_window: <span class="kw-2">&amp;</span>gdk::Window);
 
     <span class="doccomment">/// Marks the widget as being realized. This function must only be
@@ -11993,7 +11993,7 @@
     /// “realize” or “unrealize” implementation.
     /// ## `realized`
     /// [`true`] to mark the widget as realized
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_realized&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_realized&quot;</span>)]
     </span><span class="kw">fn </span>set_realized(<span class="kw-2">&amp;</span><span class="self">self</span>, realized: bool);
 
     <span class="doccomment">/// Specifies whether `self` will be treated as the default widget
@@ -12004,7 +12004,7 @@
     /// “default”.
     /// ## `receives_default`
     /// whether or not `self` can be a default widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_receives_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_receives_default&quot;</span>)]
     </span><span class="kw">fn </span>set_receives_default(<span class="kw-2">&amp;</span><span class="self">self</span>, receives_default: bool);
 
     <span class="doccomment">/// Sets whether the entire widget is queued for drawing when its size
@@ -12026,7 +12026,7 @@
     /// if [`true`], the entire widget will be redrawn
     ///  when it is allocated to a new size. Otherwise, only the
     ///  new portion of the widget will be redrawn.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_redraw_on_allocate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_redraw_on_allocate&quot;</span>)]
     </span><span class="kw">fn </span>set_redraw_on_allocate(<span class="kw-2">&amp;</span><span class="self">self</span>, redraw_on_allocate: bool);
 
     <span class="doccomment">/// Sets the sensitivity of a widget. A widget is sensitive if the user
@@ -12035,7 +12035,7 @@
     /// “inactive”, “disabled”, or “ghosted” in some other toolkits.
     /// ## `sensitive`
     /// [`true`] to make the widget sensitive
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_sensitive&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_sensitive&quot;</span>)]
     </span><span class="kw">fn </span>set_sensitive(<span class="kw-2">&amp;</span><span class="self">self</span>, sensitive: bool);
 
     <span class="doccomment">/// Sets the minimum size of a widget; that is, the widget’s size
@@ -12072,7 +12072,7 @@
     /// width `self` should request, or -1 to unset
     /// ## `height`
     /// height `self` should request, or -1 to unset
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_size_request&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_size_request&quot;</span>)]
     </span><span class="kw">fn </span>set_size_request(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32, height: i32);
 
     <span class="doccomment">/// This function is for use in widget implementations. Turns on flag
@@ -12092,7 +12092,7 @@
     /// State flags to turn on
     /// ## `clear`
     /// Whether to clear state before turning on `flags`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_state_flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_state_flags&quot;</span>)]
     </span><span class="kw">fn </span>set_state_flags(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags, clear: bool);
 
     <span class="doccomment">/// Enables or disables multiple pointer awareness. If this setting is [`true`],
@@ -12101,7 +12101,7 @@
     /// [`Window::set_support_multidevice()`][crate::gdk::Window::set_support_multidevice()] will have to be called manually on them.
     /// ## `support_multidevice`
     /// [`true`] to support input from multiple devices.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_support_multidevice&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_support_multidevice&quot;</span>)]
     </span><span class="kw">fn </span>set_support_multidevice(<span class="kw-2">&amp;</span><span class="self">self</span>, support_multidevice: bool);
 
     <span class="doccomment">/// Sets `markup` as the contents of the tooltip, which is marked up with
@@ -12114,7 +12114,7 @@
     /// [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].
     /// ## `markup`
     /// the contents of the tooltip for `self`, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_markup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_markup&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Sets `text` as the contents of the tooltip. This function will take
@@ -12124,7 +12124,7 @@
     /// See also the `property::Widget::tooltip-text` property and [`Tooltip::set_text()`][crate::Tooltip::set_text()].
     /// ## `text`
     /// the contents of the tooltip for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_text&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Replaces the default window used for displaying
@@ -12134,14 +12134,14 @@
     /// tooltip window will be used.
     /// ## `custom_window`
     /// a [`Window`][crate::Window], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_tooltip_window&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_window(<span class="kw-2">&amp;</span><span class="self">self</span>, custom_window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;);
 
     <span class="doccomment">/// Sets the vertical alignment of `self`.
     /// See the `property::Widget::valign` property.
     /// ## `align`
     /// the vertical alignment
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_valign&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_valign&quot;</span>)]
     </span><span class="kw">fn </span>set_valign(<span class="kw-2">&amp;</span><span class="self">self</span>, align: Align);
 
     <span class="doccomment">/// Sets whether the widget would like any available extra vertical
@@ -12150,7 +12150,7 @@
     /// See [`set_hexpand()`][Self::set_hexpand()] for more detail.
     /// ## `expand`
     /// whether to expand
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_vexpand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_vexpand&quot;</span>)]
     </span><span class="kw">fn </span>set_vexpand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
 
     <span class="doccomment">/// Sets whether the vexpand flag (see [`vexpands()`][Self::vexpands()]) will
@@ -12159,7 +12159,7 @@
     /// See [`set_hexpand_set()`][Self::set_hexpand_set()] for more detail.
     /// ## `set`
     /// value for vexpand-set property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_vexpand_set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_vexpand_set&quot;</span>)]
     </span><span class="kw">fn </span>set_vexpand_set(<span class="kw-2">&amp;</span><span class="self">self</span>, set: bool);
 
     <span class="doccomment">/// Sets the visibility state of `self`. Note that setting this to
@@ -12171,7 +12171,7 @@
     /// some condition.
     /// ## `visible`
     /// whether the widget should be shown or not
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_visible&quot;</span>)]
     </span><span class="kw">fn </span>set_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool);
 
     <span class="doccomment">/// Sets the visual that should be used for by widget and its children for
@@ -12183,7 +12183,7 @@
     /// so you should call this function before `self` is realized.
     /// ## `visual`
     /// visual to be used or [`None`] to unset a previous one
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_visual&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_visual&quot;</span>)]
     </span><span class="kw">fn </span>set_visual(<span class="kw-2">&amp;</span><span class="self">self</span>, visual: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Visual&gt;);
 
     <span class="doccomment">/// Sets a widget’s window. This function should only be used in a
@@ -12199,7 +12199,7 @@
     /// Note that this function does not add any reference to `window`.
     /// ## `window`
     /// a [`gdk::Window`][crate::gdk::Window]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_set_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_window&quot;</span>)]
     </span><span class="kw">fn </span>set_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window);
 
     <span class="doccomment">/// Sets a shape for this widget’s GDK window. This allows for
@@ -12207,7 +12207,7 @@
     /// for more information.
     /// ## `region`
     /// shape to be added, or [`None`] to remove an existing shape
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_shape_combine_region&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_shape_combine_region&quot;</span>)]
     </span><span class="kw">fn </span>shape_combine_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Region&gt;);
 
     <span class="doccomment">/// Flags a widget to be displayed. Any widget that isn’t shown will
@@ -12221,12 +12221,12 @@
     /// When a toplevel container is shown, it is immediately realized and
     /// mapped; other shown widgets are realized and mapped when their
     /// toplevel container is realized and mapped.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_show&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_show&quot;</span>)]
     </span><span class="kw">fn </span>show(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Recursively shows a widget, and any child widgets (if the widget is
     /// a container).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_show_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_show_all&quot;</span>)]
     </span><span class="kw">fn </span>show_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Shows a widget. If the widget is an unmapped toplevel widget
@@ -12234,7 +12234,7 @@
     /// loop and wait for the window to actually be mapped. Be careful;
     /// because the main loop is running, anything can happen during
     /// this function.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_show_now&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_show_now&quot;</span>)]
     </span><span class="kw">fn </span>show_now(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This function is only used by [`Container`][crate::Container] subclasses, to assign a size
@@ -12250,7 +12250,7 @@
     /// instead.
     /// ## `allocation`
     /// position and size to be allocated to `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_size_allocate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_size_allocate&quot;</span>)]
     </span><span class="kw">fn </span>size_allocate(<span class="kw-2">&amp;</span><span class="self">self</span>, allocation: <span class="kw-2">&amp;</span>Allocation);
 
     <span class="doccomment">/// This function is only used by [`Container`][crate::Container] subclasses, to assign a size,
@@ -12270,7 +12270,7 @@
     /// position and size to be allocated to `self`
     /// ## `baseline`
     /// The baseline of the child, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_size_allocate_with_baseline&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_size_allocate_with_baseline&quot;</span>)]
     </span><span class="kw">fn </span>size_allocate_with_baseline(<span class="kw-2">&amp;</span><span class="self">self</span>, allocation: <span class="kw-2">&amp;mut </span>Allocation, baseline: i32);
 
     <span class="comment">//#[doc(alias = &quot;gtk_widget_style_get&quot;)]
@@ -12285,7 +12285,7 @@
     ///
     /// ## `value`
     /// location to return the property value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_style_get_property&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_style_get_property&quot;</span>)]
     </span><span class="kw">fn </span>style_get_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span>str) -&gt; glib::Value;
 
     <span class="comment">//#[doc(alias = &quot;gtk_widget_style_get_valist&quot;)]
@@ -12294,7 +12294,7 @@
     </span><span class="doccomment">/// Reverts the effect of a previous call to [`freeze_child_notify()`][Self::freeze_child_notify()].
     /// This causes all queued `signal::Widget::child-notify` signals on `self` to be
     /// emitted.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_thaw_child_notify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_thaw_child_notify&quot;</span>)]
     </span><span class="kw">fn </span>thaw_child_notify(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Translate coordinates relative to `self`’s allocation to coordinates
@@ -12319,7 +12319,7 @@
     ///
     /// ## `dest_y`
     /// location to store Y position relative to `dest_widget`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_translate_coordinates&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_translate_coordinates&quot;</span>)]
     </span><span class="kw">fn </span>translate_coordinates(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         dest_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
@@ -12330,24 +12330,24 @@
     <span class="doccomment">/// Triggers a tooltip query on the display where the toplevel of `self`
     /// is located. See [`Tooltip::trigger_tooltip_query()`][crate::Tooltip::trigger_tooltip_query()] for more
     /// information.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_trigger_tooltip_query&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_trigger_tooltip_query&quot;</span>)]
     </span><span class="kw">fn </span>trigger_tooltip_query(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This function is only for use in widget implementations. Causes
     /// a widget to be unmapped if it’s currently mapped.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_unmap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_unmap&quot;</span>)]
     </span><span class="kw">fn </span>unmap(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This function is only for use in widget implementations.
     /// Should be called by implementations of the remove method
     /// on [`Container`][crate::Container], to dissociate a child from the container.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_unparent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_unparent&quot;</span>)]
     </span><span class="kw">fn </span>unparent(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// This function is only useful in widget implementations.
     /// Causes a widget to be unrealized (frees all GDK resources
     /// associated with the widget, such as `self`-&gt;window).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_unrealize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_unrealize&quot;</span>)]
     </span><span class="kw">fn </span>unrealize(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Unregisters a [`gdk::Window`][crate::gdk::Window] from the widget that was previously set up with
@@ -12355,7 +12355,7 @@
     /// no longer used by the widget, such as when you destroy it.
     /// ## `window`
     /// a [`gdk::Window`][crate::gdk::Window]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_unregister_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_unregister_window&quot;</span>)]
     </span><span class="kw">fn </span>unregister_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window);
 
     <span class="doccomment">/// This function is for use in widget implementations. Turns off flag
@@ -12363,10 +12363,10 @@
     /// See [`set_state_flags()`][Self::set_state_flags()].
     /// ## `flags`
     /// State flags to turn off
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_widget_unset_state_flags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_unset_state_flags&quot;</span>)]
     </span><span class="kw">fn </span>unset_state_flags(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;composite-child&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;composite-child&quot;</span>)]
     </span><span class="kw">fn </span>is_composite_child(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`
@@ -12375,19 +12375,19 @@
     <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`
     </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-default&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-default&quot;</span>)]
     </span><span class="kw">fn </span>set_has_default(<span class="kw-2">&amp;</span><span class="self">self</span>, has_default: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-focus&quot;</span>)]
     </span><span class="kw">fn </span>set_has_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, has_focus: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
     </span><span class="kw">fn </span>height_request(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
     </span><span class="kw">fn </span>set_height_request(<span class="kw-2">&amp;</span><span class="self">self</span>, height_request: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;is-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;is-focus&quot;</span>)]
     </span><span class="kw">fn </span>set_is_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, is_focus: bool);
 
     <span class="doccomment">/// Sets all four sides&#39; margin at once. If read, returns max
@@ -12398,13 +12398,13 @@
     /// margin on any side.
     </span><span class="kw">fn </span>set_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
     </span><span class="kw">fn </span>width_request(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
     </span><span class="kw">fn </span>set_width_request(<span class="kw-2">&amp;</span><span class="self">self</span>, width_request: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;accel-closures-changed&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;accel-closures-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_accel_closures_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::button-press-event signal will be emitted when a button
@@ -12422,7 +12422,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;button-press-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;button-press-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_button_press_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventButton) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -12445,7 +12445,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;button-release-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;button-release-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_button_release_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventButton) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -12464,7 +12464,7 @@
     /// # Returns
     ///
     /// [`true`] if the signal can be activated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;can-activate-accel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;can-activate-accel&quot;</span>)]
     </span><span class="kw">fn </span>connect_can_activate_accel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, u32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12475,7 +12475,7 @@
     /// changed on an object. The signal&#39;s detail holds the property name.
     /// ## `child_property`
     /// the [`glib::ParamSpec`][crate::glib::ParamSpec] of the changed child property
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;child-notify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;child-notify&quot;</span>)]
     </span><span class="kw">fn </span>connect_child_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>glib::ParamSpec) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
@@ -12496,7 +12496,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;configure-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;configure-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_configure_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventConfigure) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12512,7 +12512,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;damage-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;damage-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_damage_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventExpose) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12530,7 +12530,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;delete-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_delete_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::Event) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12541,7 +12541,7 @@
     /// if all references are released.
     ///
     /// This signal is not suitable for saving widget state.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;destroy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;destroy&quot;</span>)]
     </span><span class="kw">fn </span>connect_destroy&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::destroy-event signal is emitted when a [`gdk::Window`][crate::gdk::Window] is destroyed.
@@ -12559,7 +12559,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;destroy-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;destroy-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_destroy_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::Event) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12569,7 +12569,7 @@
     /// of a widget changes.
     /// ## `previous_direction`
     /// the previous text direction of `widget`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;direction-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;direction-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_direction_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TextDirection) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12584,7 +12584,7 @@
     /// override what the default handler did.
     /// ## `context`
     /// the drag context
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-begin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-begin&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12596,7 +12596,7 @@
     /// &quot;delete&quot; means depends on the context of the drag operation.
     /// ## `context`
     /// the drag context
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-data-delete&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-data-delete&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_data_delete&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12616,7 +12616,7 @@
     ///  [`TargetList`][crate::TargetList]
     /// ## `time`
     /// the timestamp at which the data was requested
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-data-get&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-data-get&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_data_get&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, <span class="kw-2">&amp;</span>SelectionData, u32, u32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12699,7 +12699,7 @@
     ///  [`TargetList`][crate::TargetList]
     /// ## `time`
     /// the timestamp at which the data was received
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-data-received&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-data-received&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_data_received&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, i32, i32, <span class="kw-2">&amp;</span>SelectionData, u32, u32) + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -12729,7 +12729,7 @@
     /// # Returns
     ///
     /// whether the cursor position is in a drop zone
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-drop&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-drop&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_drop&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, i32, i32, u32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12740,7 +12740,7 @@
     /// things done in `signal::Widget::drag-begin`.
     /// ## `context`
     /// the drag context
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-end&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::drag-failed signal is emitted on the drag source when a drag has
@@ -12756,7 +12756,7 @@
     /// # Returns
     ///
     /// [`true`] if the failed drag operation has been already handled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-failed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-failed&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_failed&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, DragResult) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -12777,7 +12777,7 @@
     /// the drag context
     /// ## `time`
     /// the timestamp of the motion event
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-leave&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-leave&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_leave&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, u32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12885,7 +12885,7 @@
     /// # Returns
     ///
     /// whether the cursor position is in a drop zone
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;drag-motion&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-motion&quot;</span>)]
     </span><span class="kw">fn </span>connect_drag_motion&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::DragContext, i32, i32, u32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12915,7 +12915,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     /// [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;draw&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;draw&quot;</span>)]
     </span><span class="kw">fn </span>connect_draw&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>cairo::Context) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12936,7 +12936,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;enter-notify-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;enter-notify-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_enter_notify_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventCrossing) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -12959,7 +12959,7 @@
     ///  [`false`] to propagate the event further and to allow the emission of
     ///  the second signal. The ::event-after signal is emitted regardless of
     ///  the return value.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;event&quot;</span>)]
     </span><span class="kw">fn </span>connect_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::Event) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12970,14 +12970,14 @@
     /// regardless of the previous two signals handlers return values.
     /// ## `event`
     /// the `GdkEvent` which triggered this signal
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;event-after&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;event-after&quot;</span>)]
     </span><span class="kw">fn </span>connect_event_after&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::Event) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">///
     /// # Returns
     ///
     /// [`true`] to stop other handlers from being invoked for the event. [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;focus&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_focus&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DirectionType) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -12996,7 +12996,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;focus-in-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;focus-in-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_focus_in_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventFocus) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13015,7 +13015,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;focus-out-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;focus-out-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_focus_out_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventFocus) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13034,7 +13034,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for
     ///  the event. [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;grab-broken-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;grab-broken-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_grab_broken_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventGrabBroken) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13042,7 +13042,7 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;grab-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;grab-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_grab_focus&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_grab_focus(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -13058,12 +13058,12 @@
     /// ## `was_grabbed`
     /// [`false`] if the widget becomes shadowed, [`true`]
     ///  if it becomes unshadowed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;grab-notify&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;grab-notify&quot;</span>)]
     </span><span class="kw">fn </span>connect_grab_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::hide signal is emitted when `widget` is hidden, for example with
     /// [`hide()`][Self::hide()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;hide&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;hide&quot;</span>)]
     </span><span class="kw">fn </span>connect_hide&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::hierarchy-changed signal is emitted when the
@@ -13074,7 +13074,7 @@
     /// ## `previous_toplevel`
     /// the previous toplevel ancestor, or [`None`]
     ///  if the widget was previously unanchored
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;hierarchy-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;hierarchy-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_hierarchy_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13094,7 +13094,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;key-press-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;key-press-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_key_press_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13113,7 +13113,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;key-release-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;key-release-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_key_release_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13129,7 +13129,7 @@
     /// [`true`] if stopping keyboard navigation is fine, [`false`]
     ///  if the emitting widget should try to handle the keyboard
     ///  navigation attempt in its parent container(s).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;keynav-failed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;keynav-failed&quot;</span>)]
     </span><span class="kw">fn </span>connect_keynav_failed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DirectionType) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13150,7 +13150,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;leave-notify-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;leave-notify-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_leave_notify_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventCrossing) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13167,7 +13167,7 @@
     /// The ::map signal can be used to determine whether a widget will be drawn,
     /// for instance it can resume an animation that was stopped during the
     /// emission of `signal::Widget::unmap`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;map&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;map&quot;</span>)]
     </span><span class="kw">fn </span>connect_map&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The default handler for this signal activates `widget` if `group_cycling`
@@ -13179,7 +13179,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     /// [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;mnemonic-activate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;mnemonic-activate&quot;</span>)]
     </span><span class="kw">fn </span>connect_mnemonic_activate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13200,7 +13200,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;motion-notify-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;motion-notify-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_motion_notify_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventMotion) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13208,7 +13208,7 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;move-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;move-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_focus&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DirectionType) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_move_focus(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: DirectionType);
@@ -13218,7 +13218,7 @@
     /// ## `old_parent`
     /// the previous parent, or [`None`] if the widget
     ///  just got its initial parent.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;parent-set&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;parent-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_parent_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Widget&gt;) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// This signal gets emitted whenever a widget should pop up a context
@@ -13232,7 +13232,7 @@
     /// # Returns
     ///
     /// [`true`] if a menu was activated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;popup-menu&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popup-menu&quot;</span>)]
     </span><span class="kw">fn </span>connect_popup_menu&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_popup_menu(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
@@ -13250,7 +13250,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;property-notify-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;property-notify-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_property_notify_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventProperty) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13270,7 +13270,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;proximity-in-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;proximity-in-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_proximity_in_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventProximity) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13290,7 +13290,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;proximity-out-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;proximity-out-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_proximity_out_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventProximity) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13324,7 +13324,7 @@
     /// # Returns
     ///
     /// [`true`] if `tooltip` should be shown right now, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;query-tooltip&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;query-tooltip&quot;</span>)]
     </span><span class="kw">fn </span>connect_query_tooltip&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32, bool, <span class="kw-2">&amp;</span>Tooltip) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13333,7 +13333,7 @@
     <span class="doccomment">/// The ::realize signal is emitted when `widget` is associated with a
     /// [`gdk::Window`][crate::gdk::Window], which means that [`realize()`][Self::realize()] has been called or the
     /// widget has been mapped (that is, it is going to be drawn).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;realize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;realize&quot;</span>)]
     </span><span class="kw">fn </span>connect_realize&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::screen-changed signal gets emitted when the
@@ -13341,7 +13341,7 @@
     /// ## `previous_screen`
     /// the previous screen, or [`None`] if the
     ///  widget was not associated with a screen before
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;screen-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;screen-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_screen_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Screen&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13363,7 +13363,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;scroll-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;scroll-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_scroll_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventScroll) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13379,7 +13379,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;selection-clear-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-clear-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_clear_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventSelection) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13387,7 +13387,7 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-get&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-get&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_get&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>SelectionData, u32, u32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13397,7 +13397,7 @@
     /// # Returns
     ///
     /// [`true`] to stop other handlers from being invoked for the event. [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;selection-notify-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-notify-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_notify_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventSelection) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13405,7 +13405,7 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-received&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-received&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_received&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>SelectionData, u32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13422,7 +13422,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;selection-request-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-request-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_request_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventSelection) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13432,7 +13432,7 @@
 
     <span class="doccomment">/// The ::show signal is emitted when `widget` is shown, for example with
     /// [`show()`][Self::show()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show&quot;</span>)]
     </span><span class="kw">fn </span>connect_show&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">///
@@ -13440,7 +13440,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     /// [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;show-help&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-help&quot;</span>)]
     </span><span class="kw">fn </span>connect_show_help&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, WidgetHelpType) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13451,14 +13451,14 @@
     <span class="doccomment">/// ## `allocation`
     /// the region which has been
     ///  allocated to the widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;size-allocate&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;size-allocate&quot;</span>)]
     </span><span class="kw">fn </span>connect_size_allocate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Allocation) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::state-flags-changed signal is emitted when the widget state
     /// changes, see [`state_flags()`][Self::state_flags()].
     /// ## `flags`
     /// The previous state flags.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;state-flags-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;state-flags-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_state_flags_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, StateFlags) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13470,10 +13470,10 @@
     ///
     /// Note that style-modifying functions like `gtk_widget_override_color()` also
     /// cause this signal to be emitted.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;style-updated&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;style-updated&quot;</span>)]
     </span><span class="kw">fn </span>connect_style_updated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;touch-event&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;touch-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_touch_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::Event) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -13485,14 +13485,14 @@
     ///
     /// As ::unmap indicates that a widget will not be shown any longer, it can be
     /// used to, for example, stop an animation on the widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;unmap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unmap&quot;</span>)]
     </span><span class="kw">fn </span>connect_unmap&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::unrealize signal is emitted when the [`gdk::Window`][crate::gdk::Window] associated with
     /// `widget` is destroyed, which means that [`unrealize()`][Self::unrealize()] has been
     /// called or the widget has been unmapped (that is, it is going to be
     /// hidden).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;unrealize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unrealize&quot;</span>)]
     </span><span class="kw">fn </span>connect_unrealize&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::window-state-event will be emitted when the state of the
@@ -13509,7 +13509,7 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the
     ///  event. [`false`] to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;window-state-event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;window-state-event&quot;</span>)]
     </span><span class="kw">fn </span>connect_window_state_event&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::EventWindowState) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -13517,109 +13517,109 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;app-paintable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;app-paintable&quot;</span>)]
     </span><span class="kw">fn </span>connect_app_paintable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;can-default&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;can-default&quot;</span>)]
     </span><span class="kw">fn </span>connect_can_default_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;can-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;can-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_can_focus_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;composite-child&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;composite-child&quot;</span>)]
     </span><span class="kw">fn </span>connect_composite_child_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;events&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;events&quot;</span>)]
     </span><span class="kw">fn </span>connect_events_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;expand&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;expand&quot;</span>)]
     </span><span class="kw">fn </span>connect_expand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;focus-on-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;focus-on-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_focus_on_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;halign&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;halign&quot;</span>)]
     </span><span class="kw">fn </span>connect_halign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-default&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-default&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_default_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_focus_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-tooltip&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-tooltip&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_tooltip_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;height-request&quot;</span>)]
     </span><span class="kw">fn </span>connect_height_request_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hexpand&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hexpand&quot;</span>)]
     </span><span class="kw">fn </span>connect_hexpand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hexpand-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hexpand-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_hexpand_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;is-focus&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;is-focus&quot;</span>)]
     </span><span class="kw">fn </span>connect_is_focus_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;margin&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;margin&quot;</span>)]
     </span><span class="kw">fn </span>connect_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;margin-bottom&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;margin-bottom&quot;</span>)]
     </span><span class="kw">fn </span>connect_margin_bottom_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;margin-end&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;margin-end&quot;</span>)]
     </span><span class="kw">fn </span>connect_margin_end_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;margin-start&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;margin-start&quot;</span>)]
     </span><span class="kw">fn </span>connect_margin_start_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;margin-top&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;margin-top&quot;</span>)]
     </span><span class="kw">fn </span>connect_margin_top_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;name&quot;</span>)]
     </span><span class="kw">fn </span>connect_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;no-show-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;no-show-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_no_show_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;opacity&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;opacity&quot;</span>)]
     </span><span class="kw">fn </span>connect_opacity_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
     </span><span class="kw">fn </span>connect_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;receives-default&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;receives-default&quot;</span>)]
     </span><span class="kw">fn </span>connect_receives_default_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;scale-factor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;scale-factor&quot;</span>)]
     </span><span class="kw">fn </span>connect_scale_factor_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;sensitive&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;sensitive&quot;</span>)]
     </span><span class="kw">fn </span>connect_sensitive_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tooltip-markup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tooltip-markup&quot;</span>)]
     </span><span class="kw">fn </span>connect_tooltip_markup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tooltip-text&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tooltip-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_tooltip_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;valign&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;valign&quot;</span>)]
     </span><span class="kw">fn </span>connect_valign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vexpand&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vexpand&quot;</span>)]
     </span><span class="kw">fn </span>connect_vexpand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vexpand-set&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vexpand-set&quot;</span>)]
     </span><span class="kw">fn </span>connect_vexpand_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;visible&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;visible&quot;</span>)]
     </span><span class="kw">fn </span>connect_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;width-request&quot;</span>)]
     </span><span class="kw">fn </span>connect_width_request_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;window&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;window&quot;</span>)]
     </span><span class="kw">fn </span>connect_window_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -15402,7 +15402,7 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;child-notify::{}\0&quot;</span>, name));
+            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;child-notify::{name}\0&quot;</span>));
             <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;child-notify\0&quot;</span>[..], |n| n.as_bytes());
@@ -18018,4 +18018,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

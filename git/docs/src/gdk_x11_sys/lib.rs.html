@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../gdk_x11_sys/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../gdk_x11_sys/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -646,16 +646,11 @@
 <span id="573">573</span>
 <span id="574">574</span>
 <span id="575">575</span>
-<span id="576">576</span>
-<span id="577">577</span>
-<span id="578">578</span>
-<span id="579">579</span>
-<span id="580">580</span>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attribute">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
+</span><span class="attr">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(
     clippy::approx_constant,
     clippy::type_complexity,
@@ -668,17 +663,17 @@
 
 <span class="kw">pub use </span>manual::<span class="kw-2">*</span>;
 
-<span class="attribute">#[allow(unused_imports)]
+<span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
     intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
-<span class="attribute">#[allow(unused_imports)]
+<span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>glib::{gboolean, gconstpointer, gpointer, GType};
 
 <span class="comment">// Records
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11AppLaunchContextClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -686,7 +681,7 @@
 
 <span class="kw">pub type </span>GdkX11AppLaunchContextClass = <span class="kw-2">*mut </span>_GdkX11AppLaunchContextClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11CursorClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -694,7 +689,7 @@
 
 <span class="kw">pub type </span>GdkX11CursorClass = <span class="kw-2">*mut </span>_GdkX11CursorClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DeviceCoreClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -702,7 +697,7 @@
 
 <span class="kw">pub type </span>GdkX11DeviceCoreClass = <span class="kw-2">*mut </span>_GdkX11DeviceCoreClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DeviceManagerCoreClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -710,7 +705,7 @@
 
 <span class="kw">pub type </span>GdkX11DeviceManagerCoreClass = <span class="kw-2">*mut </span>_GdkX11DeviceManagerCoreClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DeviceManagerXI2Class {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -718,7 +713,7 @@
 
 <span class="kw">pub type </span>GdkX11DeviceManagerXI2Class = <span class="kw-2">*mut </span>_GdkX11DeviceManagerXI2Class;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DeviceXI2Class {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -726,7 +721,7 @@
 
 <span class="kw">pub type </span>GdkX11DeviceXI2Class = <span class="kw-2">*mut </span>_GdkX11DeviceXI2Class;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DisplayClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -734,7 +729,7 @@
 
 <span class="kw">pub type </span>GdkX11DisplayClass = <span class="kw-2">*mut </span>_GdkX11DisplayClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DisplayManagerClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -742,7 +737,7 @@
 
 <span class="kw">pub type </span>GdkX11DisplayManagerClass = <span class="kw-2">*mut </span>_GdkX11DisplayManagerClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11DragContextClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -750,7 +745,7 @@
 
 <span class="kw">pub type </span>GdkX11DragContextClass = <span class="kw-2">*mut </span>_GdkX11DragContextClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11GLContextClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -758,7 +753,7 @@
 
 <span class="kw">pub type </span>GdkX11GLContextClass = <span class="kw-2">*mut </span>_GdkX11GLContextClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11KeymapClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -766,7 +761,7 @@
 
 <span class="kw">pub type </span>GdkX11KeymapClass = <span class="kw-2">*mut </span>_GdkX11KeymapClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11MonitorClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -774,7 +769,7 @@
 
 <span class="kw">pub type </span>GdkX11MonitorClass = <span class="kw-2">*mut </span>_GdkX11MonitorClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11ScreenClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -782,7 +777,7 @@
 
 <span class="kw">pub type </span>GdkX11ScreenClass = <span class="kw-2">*mut </span>_GdkX11ScreenClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11VisualClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -790,7 +785,7 @@
 
 <span class="kw">pub type </span>GdkX11VisualClass = <span class="kw-2">*mut </span>_GdkX11VisualClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkX11WindowClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -799,7 +794,7 @@
 <span class="kw">pub type </span>GdkX11WindowClass = <span class="kw-2">*mut </span>_GdkX11WindowClass;
 
 <span class="comment">// Classes
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11AppLaunchContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -807,12 +802,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11AppLaunchContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11AppLaunchContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11AppLaunchContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Cursor {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -820,12 +815,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Cursor {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Cursor @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Cursor @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DeviceCore {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -833,12 +827,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceCore {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceCore @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceCore @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DeviceManagerCore {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -846,12 +840,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceManagerCore {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerCore @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerCore @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DeviceManagerXI2 {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -859,12 +853,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceManagerXI2 {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerXI2 @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerXI2 @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DeviceXI2 {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -872,12 +866,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceXI2 {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceXI2 @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceXI2 @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Display {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -885,12 +879,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Display {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Display @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Display @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DisplayManager {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -898,12 +892,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DisplayManager {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DisplayManager @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DisplayManager @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11DragContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -911,12 +905,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DragContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DragContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DragContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11GLContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -924,12 +918,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11GLContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11GLContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11GLContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Keymap {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -937,12 +931,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Keymap {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Keymap @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Keymap @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Monitor {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -950,12 +943,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Monitor {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Monitor @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Monitor @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Screen {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -963,12 +956,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Screen {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Screen @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Screen @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Visual {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -976,12 +968,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Visual {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Visual @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Visual @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkX11Window {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -989,12 +980,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Window {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Window @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Window @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[link(name = <span class="string">&quot;gdk-3&quot;</span>)]
+<span class="attr">#[link(name = <span class="string">&quot;gdk-3&quot;</span>)]
 </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
 
     <span class="comment">//=========================================================================
@@ -1201,7 +1191,7 @@
     <span class="kw">pub fn </span>gdk_x11_get_default_root_xwindow() -&gt; xlib::Window;
     <span class="kw">pub fn </span>gdk_x11_get_default_screen() -&gt; c_int;
     <span class="kw">pub fn </span>gdk_x11_get_default_xdisplay() -&gt; <span class="kw-2">*mut </span>xlib::Display;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24_2&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_2&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24_2&quot;</span>)))]
     </span><span class="kw">pub fn </span>gdk_x11_get_parent_relative_pattern() -&gt; <span class="kw-2">*mut </span>cairo::cairo_pattern_t;
     <span class="kw">pub fn </span>gdk_x11_get_server_time(window: <span class="kw-2">*mut </span>GdkX11Window) -&gt; u32;
@@ -1232,4 +1222,4 @@
 
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdk_x11_sys" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_x11_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -3874,7 +3874,7 @@
     /// # Implements
     ///
     /// [`TextViewExt`][trait@crate::prelude::TextViewExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ScrollableExt`][trait@crate::prelude::ScrollableExt], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkTextView&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkTextView&quot;</span>)]
     </span><span class="kw">pub struct </span>TextView(Object&lt;ffi::GtkTextView, ffi::GtkTextViewClass&gt;) @extends Container, Widget, @implements Buildable, Scrollable;
 
     <span class="kw">match fn </span>{
@@ -3893,7 +3893,7 @@
     /// # Returns
     ///
     /// a new [`TextView`][crate::TextView]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; TextView {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_text_view_new()).unsafe_cast() }
@@ -3911,7 +3911,7 @@
     /// # Returns
     ///
     /// a new [`TextView`][crate::TextView].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_new_with_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_new_with_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_buffer&quot;</span>)]
     </span><span class="kw">pub fn </span>with_buffer(buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;) -&gt; TextView {
         <span class="macro">skip_assert_initialized!</span>();
@@ -3938,12 +3938,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`TextView`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>TextViewBuilder {
     accepts_tab: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     bottom_margin: <span class="prelude-ty">Option</span>&lt;i32&gt;,
@@ -4016,7 +4016,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`TextView`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; TextView {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accepts_tab) = <span class="self">self</span>.accepts_tab {
@@ -4638,7 +4638,7 @@
     /// a [`Widget`][crate::Widget]
     /// ## `anchor`
     /// a [`TextChildAnchor`][crate::TextChildAnchor] in the [`TextBuffer`][crate::TextBuffer] for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_add_child_at_anchor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_add_child_at_anchor&quot;</span>)]
     </span><span class="kw">fn </span>add_child_at_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;);
 
     <span class="doccomment">/// Adds a child at fixed coordinates in one of the text widget&#39;s
@@ -4659,7 +4659,7 @@
     /// X position of child in window coordinates
     /// ## `ypos`
     /// Y position of child in window coordinates
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_add_child_in_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_add_child_in_window&quot;</span>)]
     </span><span class="kw">fn </span>add_child_in_window(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
@@ -4682,7 +4682,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line&quot;</span>)]
     </span><span class="kw">fn </span>backward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
 
     <span class="doccomment">/// Moves the given `iter` backward to the next display line start.
@@ -4699,7 +4699,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line_start&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line_start&quot;</span>)]
     </span><span class="kw">fn </span>backward_display_line_start(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
 
     <span class="doccomment">/// Converts coordinate (`buffer_x`, `buffer_y`) to coordinates for the window
@@ -4722,7 +4722,7 @@
     ///
     /// ## `window_y`
     /// window y coordinate return location or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_buffer_to_window_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_buffer_to_window_coords&quot;</span>)]
     </span><span class="kw">fn </span>buffer_to_window_coords(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         win: TextWindowType,
@@ -4744,7 +4744,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line&quot;</span>)]
     </span><span class="kw">fn </span>forward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
 
     <span class="doccomment">/// Moves the given `iter` forward to the next display line end.
@@ -4761,7 +4761,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line_end&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line_end&quot;</span>)]
     </span><span class="kw">fn </span>forward_display_line_end(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
 
     <span class="doccomment">/// Returns whether pressing the Tab key inserts a tab characters.
@@ -4771,7 +4771,7 @@
     ///
     /// [`true`] if pressing the Tab key inserts a tab character,
     ///  [`false`] if pressing the Tab key moves the keyboard focus.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_accepts_tab&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_accepts_tab&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accepts_tab&quot;</span>)]
     </span><span class="kw">fn </span>accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -4783,7 +4783,7 @@
     /// # Returns
     ///
     /// width of window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_border_window_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_border_window_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_border_window_size&quot;</span>)]
     </span><span class="kw">fn </span>border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType) -&gt; i32;
 
@@ -4792,7 +4792,7 @@
     /// # Returns
     ///
     /// bottom margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_bottom_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_bottom_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bottom_margin&quot;</span>)]
     </span><span class="kw">fn </span>bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -4803,7 +4803,7 @@
     /// # Returns
     ///
     /// a [`TextBuffer`][crate::TextBuffer]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_buffer&quot;</span>)]
     </span><span class="kw">fn </span>buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextBuffer&gt;;
 
@@ -4839,7 +4839,7 @@
     /// ## `weak`
     /// location to store the weak
     ///  cursor position (may be [`None`])
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_locations&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_locations&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor_locations&quot;</span>)]
     </span><span class="kw">fn </span>cursor_locations(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;) -&gt; (gdk::Rectangle, gdk::Rectangle);
 
@@ -4848,7 +4848,7 @@
     /// # Returns
     ///
     /// whether the insertion mark is visible
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_visible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor_visible&quot;</span>)]
     </span><span class="kw">fn </span>is_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -4864,7 +4864,7 @@
     /// # Returns
     ///
     /// a new [`TextAttributes`][crate::TextAttributes]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_default_attributes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_default_attributes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_attributes&quot;</span>)]
     </span><span class="kw">fn </span>default_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextAttributes;
 
@@ -4874,7 +4874,7 @@
     /// # Returns
     ///
     /// whether text is editable by default
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_editable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_editable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_editable&quot;</span>)]
     </span><span class="kw">fn </span>is_editable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -4885,17 +4885,17 @@
     /// # Returns
     ///
     /// number of pixels of indentation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_indent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_indent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_indent&quot;</span>)]
     </span><span class="kw">fn </span>indent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
     <span class="doccomment">/// Gets the value of the `property::TextView::input-hints` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_hints&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_hints&quot;</span>)]
     </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints;
 
     <span class="doccomment">/// Gets the value of the `property::TextView::input-purpose` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_purpose&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_purpose&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_purpose&quot;</span>)]
     </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose;
 
@@ -4915,7 +4915,7 @@
     ///
     /// ## `iter`
     /// a [`TextIter`][crate::TextIter]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_location&quot;</span>)]
     </span><span class="kw">fn </span>iter_at_location(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TextIter&gt;;
 
@@ -4946,7 +4946,7 @@
     ///  in the grapheme the user clicked. It will either be
     ///  zero, or the number of characters in the grapheme.
     ///  0 represents the trailing edge of the grapheme.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_position&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_position&quot;</span>)]
     </span><span class="kw">fn </span>iter_at_position(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, i32)&gt;;
 
@@ -4962,7 +4962,7 @@
     ///
     /// ## `location`
     /// bounds of the character at `iter`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_location&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_location&quot;</span>)]
     </span><span class="kw">fn </span>iter_location(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; gdk::Rectangle;
 
@@ -4972,7 +4972,7 @@
     /// # Returns
     ///
     /// default justification
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_justification&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_justification&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_justification&quot;</span>)]
     </span><span class="kw">fn </span>justification(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Justification;
 
@@ -4982,7 +4982,7 @@
     /// # Returns
     ///
     /// left margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_left_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_left_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_left_margin&quot;</span>)]
     </span><span class="kw">fn </span>left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5002,7 +5002,7 @@
     ///
     /// ## `line_top`
     /// return location for top coordinate of the line
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_at_y&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_at_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_at_y&quot;</span>)]
     </span><span class="kw">fn </span>line_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; (TextIter, i32);
 
@@ -5020,7 +5020,7 @@
     ///
     /// ## `height`
     /// return location for a height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_yrange&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_yrange&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_yrange&quot;</span>)]
     </span><span class="kw">fn </span>line_yrange(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; (i32, i32);
 
@@ -5029,7 +5029,7 @@
     /// # Returns
     ///
     /// [`true`] if monospace fonts are desired
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_monospace&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_monospace&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monospace&quot;</span>)]
     </span><span class="kw">fn </span>is_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5038,7 +5038,7 @@
     /// # Returns
     ///
     /// whether `self` is in overwrite mode or not.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_overwrite&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_overwrite&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_overwrite&quot;</span>)]
     </span><span class="kw">fn </span>overwrites(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5049,7 +5049,7 @@
     /// # Returns
     ///
     /// default number of pixels above paragraphs
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_above_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_above_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_above_lines&quot;</span>)]
     </span><span class="kw">fn </span>pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5061,7 +5061,7 @@
     /// # Returns
     ///
     /// default number of blank pixels below paragraphs
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_below_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_below_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_below_lines&quot;</span>)]
     </span><span class="kw">fn </span>pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5070,7 +5070,7 @@
     /// # Returns
     ///
     /// default number of pixels of blank space between wrapped lines
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_inside_wrap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_inside_wrap&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_inside_wrap&quot;</span>)]
     </span><span class="kw">fn </span>pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5080,7 +5080,7 @@
     /// # Returns
     ///
     /// right margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_right_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_right_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_right_margin&quot;</span>)]
     </span><span class="kw">fn </span>right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5093,7 +5093,7 @@
     ///
     /// copy of default tab array, or [`None`] if
     ///  “standard&quot; tabs are used; must be freed with `pango_tab_array_free()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_tabs&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_tabs&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tabs&quot;</span>)]
     </span><span class="kw">fn </span>tabs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt;;
 
@@ -5102,7 +5102,7 @@
     /// # Returns
     ///
     /// top margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_top_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_top_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_top_margin&quot;</span>)]
     </span><span class="kw">fn </span>top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5115,7 +5115,7 @@
     ///
     /// ## `visible_rect`
     /// rectangle to fill
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_visible_rect&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_visible_rect&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_rect&quot;</span>)]
     </span><span class="kw">fn </span>visible_rect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle;
 
@@ -5131,7 +5131,7 @@
     /// # Returns
     ///
     /// a [`gdk::Window`][crate::gdk::Window], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
     </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>, win: TextWindowType) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
 
@@ -5145,7 +5145,7 @@
     /// # Returns
     ///
     /// the window type.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_type&quot;</span>)]
     </span><span class="kw">fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; TextWindowType;
 
@@ -5154,7 +5154,7 @@
     /// # Returns
     ///
     /// the line wrap setting
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_get_wrap_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_wrap_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wrap_mode&quot;</span>)]
     </span><span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WrapMode;
 
@@ -5198,7 +5198,7 @@
     /// # Returns
     ///
     /// [`true`] if the input method handled the key event.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_im_context_filter_keypress&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_im_context_filter_keypress&quot;</span>)]
     </span><span class="kw">fn </span>im_context_filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool;
 
     <span class="doccomment">/// Updates the position of a child, as for [`add_child_in_window()`][Self::add_child_in_window()].
@@ -5208,7 +5208,7 @@
     /// new X position in window coordinates
     /// ## `ypos`
     /// new Y position in window coordinates
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_move_child&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_child&quot;</span>)]
     </span><span class="kw">fn </span>move_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, xpos: i32, ypos: i32);
 
     <span class="doccomment">/// Moves a mark within the buffer so that it&#39;s
@@ -5219,7 +5219,7 @@
     /// # Returns
     ///
     /// [`true`] if the mark moved (wasn’t already onscreen)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_move_mark_onscreen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_mark_onscreen&quot;</span>)]
     </span><span class="kw">fn </span>move_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; bool;
 
     <span class="doccomment">/// Move the iterator a given number of characters visually, treating
@@ -5242,7 +5242,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` moved and is not on the end iterator
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_move_visually&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_visually&quot;</span>)]
     </span><span class="kw">fn </span>move_visually(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, count: i32) -&gt; bool;
 
     <span class="doccomment">/// Moves the cursor to the currently visible region of the
@@ -5251,7 +5251,7 @@
     /// # Returns
     ///
     /// [`true`] if the cursor had to be moved.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_place_cursor_onscreen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_place_cursor_onscreen&quot;</span>)]
     </span><span class="kw">fn </span>place_cursor_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Ensures that the cursor is shown (i.e. not in an &#39;off&#39; blink
@@ -5261,21 +5261,21 @@
     /// This function should be called in response to user input
     /// (e.g. from derived classes that override the textview&#39;s
     /// `signal::Widget::key-press-event` handler).
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_cursor_blink&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_cursor_blink&quot;</span>)]
     </span><span class="kw">fn </span>reset_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Reset the input method context of the text view if needed.
     ///
     /// This can be necessary in the case where modifying the buffer
     /// would confuse on-going input method behavior.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_im_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_im_context&quot;</span>)]
     </span><span class="kw">fn </span>reset_im_context(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Scrolls `self` the minimum distance such that `mark` is contained
     /// within the visible area of the widget.
     /// ## `mark`
     /// a mark in the buffer for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_mark_onscreen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_mark_onscreen&quot;</span>)]
     </span><span class="kw">fn </span>scroll_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;);
 
     <span class="doccomment">/// Scrolls `self` so that `iter` is on the screen in the position
@@ -5307,7 +5307,7 @@
     /// # Returns
     ///
     /// [`true`] if scrolling occurred
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_to_iter&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_to_iter&quot;</span>)]
     </span><span class="kw">fn </span>scroll_to_iter(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         iter: <span class="kw-2">&amp;mut </span>TextIter,
@@ -5335,7 +5335,7 @@
     /// horizontal alignment of mark within visible area
     /// ## `yalign`
     /// vertical alignment of mark within visible area
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_to_mark&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_to_mark&quot;</span>)]
     </span><span class="kw">fn </span>scroll_to_mark(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;,
@@ -5353,7 +5353,7 @@
     /// [`true`] if pressing the Tab key should insert a tab
     ///  character, [`false`], if pressing the Tab key should move the
     ///  keyboard focus.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_accepts_tab&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_accepts_tab&quot;</span>)]
     </span><span class="kw">fn </span>set_accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>, accepts_tab: bool);
 
     <span class="doccomment">/// Sets the width of [`TextWindowType::Left`][crate::TextWindowType::Left] or [`TextWindowType::Right`][crate::TextWindowType::Right],
@@ -5367,7 +5367,7 @@
     /// window to affect
     /// ## `size`
     /// width or height of the window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_border_window_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_border_window_size&quot;</span>)]
     </span><span class="kw">fn </span>set_border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType, size: i32);
 
     <span class="doccomment">/// Sets the bottom margin for text in `self`.
@@ -5376,7 +5376,7 @@
     /// In CSS terms, the value set here is padding.
     /// ## `bottom_margin`
     /// bottom margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_bottom_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_bottom_margin&quot;</span>)]
     </span><span class="kw">fn </span>set_bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, bottom_margin: i32);
 
     <span class="doccomment">/// Sets `buffer` as the buffer being displayed by `self`. The previous
@@ -5386,7 +5386,7 @@
     /// will not “adopt” it.
     /// ## `buffer`
     /// a [`TextBuffer`][crate::TextBuffer]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_buffer&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_buffer&quot;</span>)]
     </span><span class="kw">fn </span>set_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;&gt;);
 
     <span class="doccomment">/// Toggles whether the insertion point should be displayed. A buffer with
@@ -5397,7 +5397,7 @@
     /// `property::Settings::gtk-keynave-use-caret` settings.
     /// ## `setting`
     /// whether to show the insertion cursor
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_cursor_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_cursor_visible&quot;</span>)]
     </span><span class="kw">fn </span>set_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets the default editability of the [`TextView`][crate::TextView]. You can override
@@ -5405,21 +5405,21 @@
     /// attribute of tags.
     /// ## `setting`
     /// whether it’s editable
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_editable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_editable&quot;</span>)]
     </span><span class="kw">fn </span>set_editable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets the default indentation for paragraphs in `self`.
     /// Tags in the buffer may override the default.
     /// ## `indent`
     /// indentation in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_indent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_indent&quot;</span>)]
     </span><span class="kw">fn </span>set_indent(<span class="kw-2">&amp;</span><span class="self">self</span>, indent: i32);
 
     <span class="doccomment">/// Sets the `property::TextView::input-hints` property, which
     /// allows input methods to fine-tune their behaviour.
     /// ## `hints`
     /// the hints
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_hints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_hints&quot;</span>)]
     </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, hints: InputHints);
 
     <span class="doccomment">/// Sets the `property::TextView::input-purpose` property which
@@ -5427,14 +5427,14 @@
     /// methods to adjust their behaviour.
     /// ## `purpose`
     /// the purpose
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_purpose&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_purpose&quot;</span>)]
     </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: InputPurpose);
 
     <span class="doccomment">/// Sets the default justification of text in `self`.
     /// Tags in the view’s buffer may override the default.
     /// ## `justification`
     /// justification
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_justification&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_justification&quot;</span>)]
     </span><span class="kw">fn </span>set_justification(<span class="kw-2">&amp;</span><span class="self">self</span>, justification: Justification);
 
     <span class="doccomment">/// Sets the default left margin for text in `self`.
@@ -5444,7 +5444,7 @@
     /// In CSS terms, the value set here is padding.
     /// ## `left_margin`
     /// left margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_left_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_left_margin&quot;</span>)]
     </span><span class="kw">fn </span>set_left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, left_margin: i32);
 
     <span class="doccomment">/// Sets the `property::TextView::monospace` property, which
@@ -5452,20 +5452,20 @@
     /// fonts.
     /// ## `monospace`
     /// [`true`] to request monospace styling
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_monospace&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_monospace&quot;</span>)]
     </span><span class="kw">fn </span>set_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>, monospace: bool);
 
     <span class="doccomment">/// Changes the [`TextView`][crate::TextView] overwrite mode.
     /// ## `overwrite`
     /// [`true`] to turn on overwrite mode, [`false`] to turn it off
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_overwrite&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_overwrite&quot;</span>)]
     </span><span class="kw">fn </span>set_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>, overwrite: bool);
 
     <span class="doccomment">/// Sets the default number of blank pixels above paragraphs in `self`.
     /// Tags in the buffer for `self` may override the defaults.
     /// ## `pixels_above_lines`
     /// pixels above paragraphs
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_above_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_above_lines&quot;</span>)]
     </span><span class="kw">fn </span>set_pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_above_lines: i32);
 
     <span class="doccomment">/// Sets the default number of pixels of blank space
@@ -5473,7 +5473,7 @@
     /// by tags applied to `self`’s buffer.
     /// ## `pixels_below_lines`
     /// pixels below paragraphs
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_below_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_below_lines&quot;</span>)]
     </span><span class="kw">fn </span>set_pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_below_lines: i32);
 
     <span class="doccomment">/// Sets the default number of pixels of blank space to leave between
@@ -5481,7 +5481,7 @@
     /// tags in `self`’s buffer.
     /// ## `pixels_inside_wrap`
     /// default number of pixels between wrapped lines
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_inside_wrap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_inside_wrap&quot;</span>)]
     </span><span class="kw">fn </span>set_pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_inside_wrap: i32);
 
     <span class="doccomment">/// Sets the default right margin for text in the text view.
@@ -5491,14 +5491,14 @@
     /// In CSS terms, the value set here is padding.
     /// ## `right_margin`
     /// right margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_right_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_right_margin&quot;</span>)]
     </span><span class="kw">fn </span>set_right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, right_margin: i32);
 
     <span class="doccomment">/// Sets the default tab stops for paragraphs in `self`.
     /// Tags in the buffer may override the default.
     /// ## `tabs`
     /// tabs as a [`pango::TabArray`][crate::pango::TabArray]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_tabs&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_tabs&quot;</span>)]
     </span><span class="kw">fn </span>set_tabs(<span class="kw-2">&amp;</span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray);
 
     <span class="doccomment">/// Sets the top margin for text in `self`.
@@ -5507,13 +5507,13 @@
     /// In CSS terms, the value set here is padding.
     /// ## `top_margin`
     /// top margin in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_top_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_top_margin&quot;</span>)]
     </span><span class="kw">fn </span>set_top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, top_margin: i32);
 
     <span class="doccomment">/// Sets the line wrapping for the view.
     /// ## `wrap_mode`
     /// a [`WrapMode`][crate::WrapMode]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_set_wrap_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_wrap_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: WrapMode);
 
     <span class="doccomment">/// Determines whether `iter` is at the start of a display line.
@@ -5525,7 +5525,7 @@
     /// # Returns
     ///
     /// [`true`] if `iter` begins a wrapped line
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_starts_display_line&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_starts_display_line&quot;</span>)]
     </span><span class="kw">fn </span>starts_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; bool;
 
     <span class="doccomment">/// Converts coordinates on the window identified by `win` to buffer
@@ -5548,7 +5548,7 @@
     ///
     /// ## `buffer_y`
     /// buffer y coordinate return location or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_text_view_window_to_buffer_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_window_to_buffer_coords&quot;</span>)]
     </span><span class="kw">fn </span>window_to_buffer_coords(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         win: TextWindowType,
@@ -5562,7 +5562,7 @@
     /// Setting this to a non-[`None`] value overrides the
     /// system-wide IM module setting. See the GtkSettings
     /// `property::Settings::gtk-im-module` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Which IM (input method) module should be used for this text_view.
@@ -5571,17 +5571,17 @@
     /// Setting this to a non-[`None`] value overrides the
     /// system-wide IM module setting. See the GtkSettings
     /// `property::Settings::gtk-im-module` property.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>set_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::TextView::populate-popup`
     /// signal is also emitted for touch popups.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// If :populate-all is [`true`], the `signal::TextView::populate-popup`
     /// signal is also emitted for touch popups.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool);
 
     <span class="doccomment">/// The ::backspace signal is a
@@ -5590,7 +5590,7 @@
     ///
     /// The default bindings for this signal are
     /// Backspace and Shift-Backspace.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
     </span><span class="kw">fn </span>connect_backspace&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_backspace(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5601,7 +5601,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-c and Ctrl-Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5612,7 +5612,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-x and Shift-Delete.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_cut_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5633,7 +5633,7 @@
     /// the granularity of the deletion, as a [`DeleteType`][crate::DeleteType]
     /// ## `count`
     /// the number of `type_` units to delete
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_delete_from_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DeleteType, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -5656,7 +5656,7 @@
     ///
     /// `GDK_EVENT_STOP` to stop other handlers from being invoked for the
     ///  event. `GDK_EVENT_PROPAGATE` to propagate the event further.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;extend-selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;extend-selection&quot;</span>)]
     </span><span class="kw">fn </span>connect_extend_selection&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TextExtendSelection, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter) -&gt; glib::signal::Inhibit
             + <span class="lifetime">&#39;static</span>,
@@ -5673,7 +5673,7 @@
     /// This signal has no default bindings.
     /// ## `string`
     /// the string to insert
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_insert_at_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, string: <span class="kw-2">&amp;</span>str);
@@ -5683,7 +5683,7 @@
     /// which gets emitted to present the Emoji chooser for the `text_view`.
     ///
     /// The default bindings for this signal are Ctrl-. and Ctrl-;
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
     </span><span class="kw">fn </span>connect_insert_emoji&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_insert_emoji(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5713,7 +5713,7 @@
     /// the number of `step` units to move
     /// ## `extend_selection`
     /// [`true`] if the move should extend the selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -5732,7 +5732,7 @@
     /// the granularity of the movement, as a [`ScrollStep`][crate::ScrollStep]
     /// ## `count`
     /// the number of `step` units to move
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-viewport&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-viewport&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_viewport&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -5747,7 +5747,7 @@
     ///
     /// The default bindings for this signal are
     /// Ctrl-v and Shift-Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
     </span><span class="kw">fn </span>connect_paste_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_paste_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5768,7 +5768,7 @@
     /// or [`Toolbar`][crate::Toolbar] or another kind of container.
     /// ## `popup`
     /// the container that is being populated
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
     </span><span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// If an input method is used, the typed text will not immediately
@@ -5779,7 +5779,7 @@
     /// is actually editable.
     /// ## `preedit`
     /// the current preedit string
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_preedit_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, preedit: <span class="kw-2">&amp;</span>str);
@@ -5793,7 +5793,7 @@
     /// for selecting and Shift-Ctrl-a and Ctrl-\ for unselecting.
     /// ## `select`
     /// [`true`] to select, [`false`] to unselect
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>, select: bool);
@@ -5805,7 +5805,7 @@
     /// &quot;insert&quot; mark.
     ///
     /// This signal has no default bindings.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;set-anchor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;set-anchor&quot;</span>)]
     </span><span class="kw">fn </span>connect_set_anchor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_set_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5816,7 +5816,7 @@
     /// property.
     ///
     /// The default binding for this signal is F7.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;toggle-cursor-visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-visible&quot;</span>)]
     </span><span class="kw">fn </span>connect_toggle_cursor_visible&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_toggle_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -5826,72 +5826,72 @@
     /// which gets emitted to toggle the overwrite mode of the text view.
     ///
     /// The default bindings for this signal is Insert.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
     </span><span class="kw">fn </span>connect_toggle_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_toggle_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;accepts-tab&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;accepts-tab&quot;</span>)]
     </span><span class="kw">fn </span>connect_accepts_tab_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;bottom-margin&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;bottom-margin&quot;</span>)]
     </span><span class="kw">fn </span>connect_bottom_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
     </span><span class="kw">fn </span>connect_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;cursor-visible&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-visible&quot;</span>)]
     </span><span class="kw">fn </span>connect_cursor_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
     </span><span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
     </span><span class="kw">fn </span>connect_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;indent&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;indent&quot;</span>)]
     </span><span class="kw">fn </span>connect_indent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
     </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;justification&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;justification&quot;</span>)]
     </span><span class="kw">fn </span>connect_justification_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;left-margin&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;left-margin&quot;</span>)]
     </span><span class="kw">fn </span>connect_left_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;monospace&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;monospace&quot;</span>)]
     </span><span class="kw">fn </span>connect_monospace_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;overwrite&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;overwrite&quot;</span>)]
     </span><span class="kw">fn </span>connect_overwrite_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;pixels-above-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-above-lines&quot;</span>)]
     </span><span class="kw">fn </span>connect_pixels_above_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;pixels-below-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-below-lines&quot;</span>)]
     </span><span class="kw">fn </span>connect_pixels_below_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;pixels-inside-wrap&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-inside-wrap&quot;</span>)]
     </span><span class="kw">fn </span>connect_pixels_inside_wrap_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;right-margin&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;right-margin&quot;</span>)]
     </span><span class="kw">fn </span>connect_right_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
     </span><span class="kw">fn </span>connect_tabs_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;top-margin&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;top-margin&quot;</span>)]
     </span><span class="kw">fn </span>connect_top_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -7528,4 +7528,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

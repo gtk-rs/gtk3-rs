@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_operation.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_operation.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2045,7 +2045,7 @@
     /// # Implements
     ///
     /// [`PrintOperationExt`][trait@crate::prelude::PrintOperationExt], [`trait@glib::ObjectExt`], [`PrintOperationPreviewExt`][trait@crate::prelude::PrintOperationPreviewExt]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkPrintOperation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkPrintOperation&quot;</span>)]
     </span><span class="kw">pub struct </span>PrintOperation(Object&lt;ffi::GtkPrintOperation, ffi::GtkPrintOperationClass&gt;) @implements PrintOperationPreview;
 
     <span class="kw">match fn </span>{
@@ -2061,7 +2061,7 @@
     /// # Returns
     ///
     /// a new [`PrintOperation`][crate::PrintOperation]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; PrintOperation {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_operation_new()) }
@@ -2082,12 +2082,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`PrintOperation`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>PrintOperationBuilder {
     allow_async: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     current_page: <span class="prelude-ty">Option</span>&lt;i32&gt;,
@@ -2115,7 +2115,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`PrintOperation`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; PrintOperation {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>allow_async) = <span class="self">self</span>.allow_async {
@@ -2331,7 +2331,7 @@
     /// `signal::PrintOperation::paginate` or `signal::PrintOperation::draw-page`
     /// signal handler to stop the currently running print
     /// operation.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_cancel&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_cancel&quot;</span>)]
     </span><span class="kw">fn </span>cancel(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Signalize that drawing of particular page is complete.
@@ -2341,7 +2341,7 @@
     /// If [`set_defer_drawing()`][Self::set_defer_drawing()] was called before, then this function
     /// has to be called by application. In another case it is called by the library
     /// itself.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_draw_page_finish&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_draw_page_finish&quot;</span>)]
     </span><span class="kw">fn </span>draw_page_finish(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns the default page setup, see
@@ -2350,7 +2350,7 @@
     /// # Returns
     ///
     /// the default page setup
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_default_page_setup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_default_page_setup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_page_setup&quot;</span>)]
     </span><span class="kw">fn </span>default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PageSetup&gt;;
 
@@ -2359,7 +2359,7 @@
     /// # Returns
     ///
     /// whether page setup selection combos are embedded
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_embed_page_setup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_embed_page_setup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_embed_page_setup&quot;</span>)]
     </span><span class="kw">fn </span>embeds_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2368,7 +2368,7 @@
     /// # Returns
     ///
     /// whether there is a selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_has_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_has_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_selection&quot;</span>)]
     </span><span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2385,7 +2385,7 @@
     /// # Returns
     ///
     /// the number of pages that will be printed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_n_pages_to_print&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_n_pages_to_print&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_pages_to_print&quot;</span>)]
     </span><span class="kw">fn </span>n_pages_to_print(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2398,7 +2398,7 @@
     /// # Returns
     ///
     /// the current print settings of `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_print_settings&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_print_settings&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_print_settings&quot;</span>)]
     </span><span class="kw">fn </span>print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt;;
 
@@ -2408,7 +2408,7 @@
     /// # Returns
     ///
     /// the status of the print operation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_status&quot;</span>)]
     </span><span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintStatus;
 
@@ -2423,7 +2423,7 @@
     ///
     /// a string representation of the status
     ///  of the print operation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status_string&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status_string&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_status_string&quot;</span>)]
     </span><span class="kw">fn </span>status_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -2432,7 +2432,7 @@
     /// # Returns
     ///
     /// whether the application supports print of selection
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_support_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_support_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_support_selection&quot;</span>)]
     </span><span class="kw">fn </span>supports_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2447,7 +2447,7 @@
     /// # Returns
     ///
     /// [`true`], if the print operation is finished.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_is_finished&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_is_finished&quot;</span>)]
     </span><span class="kw">fn </span>is_finished(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Runs the print operation, by first letting the user modify
@@ -2524,7 +2524,7 @@
     ///  [`PrintOperationResult::InProgress`][crate::PrintOperationResult::InProgress] means the operation is running
     ///  asynchronously, and will emit the `signal::PrintOperation::done` signal when
     ///  done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_run&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_run&quot;</span>)]
     </span><span class="kw">fn </span>run(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         action: PrintOperationAction,
@@ -2536,7 +2536,7 @@
     /// some platforms may not allow asynchronous operation.
     /// ## `allow_async`
     /// [`true`] to allow asynchronous operation
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_allow_async&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_allow_async&quot;</span>)]
     </span><span class="kw">fn </span>set_allow_async(<span class="kw-2">&amp;</span><span class="self">self</span>, allow_async: bool);
 
     <span class="doccomment">/// Sets the current page.
@@ -2547,13 +2547,13 @@
     /// Note that this only makes sense for pre-paginated documents.
     /// ## `current_page`
     /// the current page, 0-based
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_current_page&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_current_page&quot;</span>)]
     </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, current_page: i32);
 
     <span class="doccomment">/// Sets the label for the tab holding custom widgets.
     /// ## `label`
     /// the label to use, or [`None`] to use the default label
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_custom_tab_label&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_custom_tab_label&quot;</span>)]
     </span><span class="kw">fn </span>set_custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
 
     <span class="doccomment">/// Makes `default_page_setup` the default page setup for `self`.
@@ -2563,7 +2563,7 @@
     /// to the `signal::PrintOperation::request-page-setup` signal.
     /// ## `default_page_setup`
     /// a [`PageSetup`][crate::PageSetup], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_default_page_setup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_default_page_setup&quot;</span>)]
     </span><span class="kw">fn </span>set_default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, default_page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;);
 
     <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to wait for calling of
@@ -2571,14 +2571,14 @@
     /// be used for drawing page in another thread.
     ///
     /// This function must be called in the callback of “draw-page” signal.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_defer_drawing&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_defer_drawing&quot;</span>)]
     </span><span class="kw">fn </span>set_defer_drawing(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Embed page size combo box and orientation combo box into page setup page.
     /// Selected page setup is stored as default page setup in [`PrintOperation`][crate::PrintOperation].
     /// ## `embed`
     /// [`true`] to embed page setup selection in the `GtkPrintUnixDialog`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_embed_page_setup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_embed_page_setup&quot;</span>)]
     </span><span class="kw">fn </span>set_embed_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, embed: bool);
 
     <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to generate a file instead
@@ -2591,97 +2591,97 @@
     /// of printers in the print dialog.
     /// ## `filename`
     /// the filename for the exported file
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_export_filename&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_export_filename&quot;</span>)]
     </span><span class="kw">fn </span>set_export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_has_selection&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_has_selection&quot;</span>)]
     </span><span class="kw">fn </span>set_has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, has_selection: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_job_name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_job_name&quot;</span>)]
     </span><span class="kw">fn </span>set_job_name(<span class="kw-2">&amp;</span><span class="self">self</span>, job_name: <span class="kw-2">&amp;</span>str);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_n_pages&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_n_pages&quot;</span>)]
     </span><span class="kw">fn </span>set_n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, n_pages: i32);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_print_settings&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_print_settings&quot;</span>)]
     </span><span class="kw">fn </span>set_print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>, print_settings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PrintSettings&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_show_progress&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_show_progress&quot;</span>)]
     </span><span class="kw">fn </span>set_show_progress(<span class="kw-2">&amp;</span><span class="self">self</span>, show_progress: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_support_selection&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_support_selection&quot;</span>)]
     </span><span class="kw">fn </span>set_support_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, support_selection: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_track_print_status&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_track_print_status&quot;</span>)]
     </span><span class="kw">fn </span>set_track_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>, track_status: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_unit&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_unit&quot;</span>)]
     </span><span class="kw">fn </span>set_unit(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_use_full_page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_use_full_page&quot;</span>)]
     </span><span class="kw">fn </span>set_use_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>, full_page: bool);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
     </span><span class="kw">fn </span>allows_async(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
     </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
     </span><span class="kw">fn </span>custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
     </span><span class="kw">fn </span>export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
     </span><span class="kw">fn </span>job_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
     </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
     </span><span class="kw">fn </span>shows_progress(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
     </span><span class="kw">fn </span>tracks_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="kw">fn </span>unit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Unit;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
     </span><span class="kw">fn </span>uses_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;begin-print&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;begin-print&quot;</span>)]
     </span><span class="kw">fn </span>connect_begin_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;create-custom-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;create-custom-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_create_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; glib::Object + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;custom-widget-apply&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;custom-widget-apply&quot;</span>)]
     </span><span class="kw">fn </span>connect_custom_widget_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;done&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;done&quot;</span>)]
     </span><span class="kw">fn </span>connect_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PrintOperationResult) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;draw-page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-page&quot;</span>)]
     </span><span class="kw">fn </span>connect_draw_page&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;end-print&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;end-print&quot;</span>)]
     </span><span class="kw">fn </span>connect_end_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;paginate&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;paginate&quot;</span>)]
     </span><span class="kw">fn </span>connect_paginate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;preview&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;preview&quot;</span>)]
     </span><span class="kw">fn </span>connect_preview&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintOperationPreview, <span class="kw-2">&amp;</span>PrintContext, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;) -&gt; bool + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -2689,73 +2689,73 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;request-page-setup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;request-page-setup&quot;</span>)]
     </span><span class="kw">fn </span>connect_request_page_setup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32, <span class="kw-2">&amp;</span>PageSetup) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;status-changed&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;status-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_status_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;update-custom-widget&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;update-custom-widget&quot;</span>)]
     </span><span class="kw">fn </span>connect_update_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget, <span class="kw-2">&amp;</span>PageSetup, <span class="kw-2">&amp;</span>PrintSettings) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
     </span><span class="kw">fn </span>connect_allow_async_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
     </span><span class="kw">fn </span>connect_current_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
     </span><span class="kw">fn </span>connect_custom_tab_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;default-page-setup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;default-page-setup&quot;</span>)]
     </span><span class="kw">fn </span>connect_default_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;embed-page-setup&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;embed-page-setup&quot;</span>)]
     </span><span class="kw">fn </span>connect_embed_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
     </span><span class="kw">fn </span>connect_export_filename_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
     </span><span class="kw">fn </span>connect_job_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
     </span><span class="kw">fn </span>connect_n_pages_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;n-pages-to-print&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages-to-print&quot;</span>)]
     </span><span class="kw">fn </span>connect_n_pages_to_print_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;print-settings&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;print-settings&quot;</span>)]
     </span><span class="kw">fn </span>connect_print_settings_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
     </span><span class="kw">fn </span>connect_show_progress_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;status&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;status&quot;</span>)]
     </span><span class="kw">fn </span>connect_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;status-string&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;status-string&quot;</span>)]
     </span><span class="kw">fn </span>connect_status_string_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;support-selection&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;support-selection&quot;</span>)]
     </span><span class="kw">fn </span>connect_support_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
     </span><span class="kw">fn </span>connect_track_print_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;unit&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;unit&quot;</span>)]
     </span><span class="kw">fn </span>connect_unit_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
     </span><span class="kw">fn </span>connect_use_full_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3828,4 +3828,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

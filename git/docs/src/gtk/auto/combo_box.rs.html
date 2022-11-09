@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/combo_box.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>combo_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/combo_box.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>combo_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2035,7 +2035,7 @@
     /// # Implements
     ///
     /// [`ComboBoxExt`][trait@crate::prelude::ComboBoxExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`CellEditableExt`][trait@crate::prelude::CellEditableExt], [`CellLayoutExt`][trait@crate::prelude::CellLayoutExt], [`ComboBoxExtManual`][trait@crate::prelude::ComboBoxExtManual], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkComboBox&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkComboBox&quot;</span>)]
     </span><span class="kw">pub struct </span>ComboBox(Object&lt;ffi::GtkComboBox, ffi::GtkComboBoxClass&gt;) @extends Bin, Container, Widget, @implements Buildable, CellEditable, CellLayout;
 
     <span class="kw">match fn </span>{
@@ -2051,7 +2051,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; ComboBox {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_combo_box_new()).unsafe_cast() }
@@ -2064,7 +2064,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_area&quot;</span>)]
     </span><span class="kw">pub fn </span>with_area(area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; ComboBox {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2085,7 +2085,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_area_and_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_area_and_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_area_and_entry&quot;</span>)]
     </span><span class="kw">pub fn </span>with_area_and_entry(area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; ComboBox {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2102,7 +2102,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_entry&quot;</span>)]
     </span><span class="kw">pub fn </span>with_entry() -&gt; ComboBox {
         <span class="macro">assert_initialized_main_thread!</span>();
@@ -2116,7 +2116,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_model&quot;</span>)]
     </span><span class="kw">pub fn </span>with_model(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;) -&gt; ComboBox {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2136,7 +2136,7 @@
     /// # Returns
     ///
     /// A new [`ComboBox`][crate::ComboBox]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_model_and_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_new_with_model_and_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_model_and_entry&quot;</span>)]
     </span><span class="kw">pub fn </span>with_model_and_entry(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;) -&gt; ComboBox {
         <span class="macro">skip_assert_initialized!</span>();
@@ -2163,12 +2163,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`ComboBox`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>ComboBoxBuilder {
     active: <span class="prelude-ty">Option</span>&lt;i32&gt;,
     active_id: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -2230,7 +2230,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`ComboBox`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ComboBox {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>active) = <span class="self">self</span>.active {
@@ -2757,7 +2757,7 @@
     /// # Returns
     ///
     /// the ID of the active row, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_active_id&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_active_id&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_active_id&quot;</span>)]
     </span><span class="kw">fn </span>active_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
@@ -2770,7 +2770,7 @@
     ///
     /// ## `iter`
     /// A [`TreeIter`][crate::TreeIter]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_active_iter&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_active_iter&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_active_iter&quot;</span>)]
     </span><span class="kw">fn </span>active_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeIter&gt;;
 
@@ -2784,7 +2784,7 @@
     ///  if the button is always insensitive or
     ///  [`SensitivityType::Auto`][crate::SensitivityType::Auto] if it is only sensitive as long as
     ///  the model has one item to be selected.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_button_sensitivity&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_button_sensitivity&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_button_sensitivity&quot;</span>)]
     </span><span class="kw">fn </span>button_sensitivity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SensitivityType;
 
@@ -2793,7 +2793,7 @@
     /// # Returns
     ///
     /// the column span column.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_column_span_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_column_span_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_column_span_column&quot;</span>)]
     </span><span class="kw">fn </span>column_span_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2803,7 +2803,7 @@
     /// # Returns
     ///
     /// A column in the data source model of `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_entry_text_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_entry_text_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_entry_text_column&quot;</span>)]
     </span><span class="kw">fn </span>entry_text_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2812,7 +2812,7 @@
     /// # Returns
     ///
     /// whether there is an entry in `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_has_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_has_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_entry&quot;</span>)]
     </span><span class="kw">fn </span>has_entry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2822,7 +2822,7 @@
     /// # Returns
     ///
     /// A column in the data source model of `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_id_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_id_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_id_column&quot;</span>)]
     </span><span class="kw">fn </span>id_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2832,7 +2832,7 @@
     ///
     /// A [`TreeModel`][crate::TreeModel] which was passed
     ///  during construction.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_model&quot;</span>)]
     </span><span class="kw">fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeModel&gt;;
 
@@ -2845,7 +2845,7 @@
     ///
     /// the accessible object corresponding
     ///  to the combo box’s popup.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_popup_accessible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_popup_accessible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_popup_accessible&quot;</span>)]
     </span><span class="kw">fn </span>popup_accessible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;atk::Object&gt;;
 
@@ -2855,7 +2855,7 @@
     /// # Returns
     ///
     /// [`true`] if the popup uses a fixed width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_popup_fixed_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_popup_fixed_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_popup_fixed_width&quot;</span>)]
     </span><span class="kw">fn </span>is_popup_fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2868,7 +2868,7 @@
     /// # Returns
     ///
     /// the row span column.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_row_span_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_row_span_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_span_column&quot;</span>)]
     </span><span class="kw">fn </span>row_span_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2879,7 +2879,7 @@
     /// # Returns
     ///
     /// the wrap width.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_wrap_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_get_wrap_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wrap_width&quot;</span>)]
     </span><span class="kw">fn </span>wrap_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2887,7 +2887,7 @@
     ///
     /// This function is mostly intended for use by accessibility technologies;
     /// applications should have little use for it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_popdown&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_popdown&quot;</span>)]
     </span><span class="kw">fn </span>popdown(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Pops up the menu or dropdown list of `self`.
@@ -2896,7 +2896,7 @@
     /// applications should have little use for it.
     ///
     /// Before calling this, `self` must be mapped, or nothing will happen.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_popup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_popup&quot;</span>)]
     </span><span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Pops up the menu or dropdown list of `self`, the popup window
@@ -2904,7 +2904,7 @@
     /// are the only `GdkDevices` able to send events to it.
     /// ## `device`
     /// a [`gdk::Device`][crate::gdk::Device]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_popup_for_device&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_popup_for_device&quot;</span>)]
     </span><span class="kw">fn </span>popup_for_device(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>gdk::Device);
 
     <span class="doccomment">/// Changes the active row of `self` to the one that has an ID equal to
@@ -2921,14 +2921,14 @@
     /// [`true`] if a row with a matching ID was found. If a [`None`]
     ///  `active_id` was given to unset the active row, the function
     ///  always returns [`true`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_active_id&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_active_id&quot;</span>)]
     </span><span class="kw">fn </span>set_active_id(<span class="kw-2">&amp;</span><span class="self">self</span>, active_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; bool;
 
     <span class="doccomment">/// Sets the current active item to be the one referenced by `iter`, or
     /// unsets the active item if `iter` is [`None`].
     /// ## `iter`
     /// The [`TreeIter`][crate::TreeIter], or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_active_iter&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_active_iter&quot;</span>)]
     </span><span class="kw">fn </span>set_active_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreeIter&gt;);
 
     <span class="doccomment">/// Sets whether the dropdown button of the combo box should be
@@ -2936,7 +2936,7 @@
     /// or only if there is at least one item to display ([`SensitivityType::Auto`][crate::SensitivityType::Auto]).
     /// ## `sensitivity`
     /// specify the sensitivity of the dropdown button
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_button_sensitivity&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_button_sensitivity&quot;</span>)]
     </span><span class="kw">fn </span>set_button_sensitivity(<span class="kw-2">&amp;</span><span class="self">self</span>, sensitivity: SensitivityType);
 
     <span class="doccomment">/// Sets the column with column span information for `self` to be
@@ -2944,7 +2944,7 @@
     /// how many columns an item should span.
     /// ## `column_span`
     /// A column in the model passed during construction
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_column_span_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_column_span_column&quot;</span>)]
     </span><span class="kw">fn </span>set_column_span_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column_span: i32);
 
     <span class="doccomment">/// Sets the model column which `self` should use to get strings from
@@ -2956,7 +2956,7 @@
     /// ## `text_column`
     /// A column in `model` to get the strings from for
     ///  the internal entry
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_entry_text_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_entry_text_column&quot;</span>)]
     </span><span class="kw">fn </span>set_entry_text_column(<span class="kw-2">&amp;</span><span class="self">self</span>, text_column: i32);
 
     <span class="doccomment">/// Sets the model column which `self` should use to get string IDs
@@ -2964,7 +2964,7 @@
     /// must be of type `G_TYPE_STRING`.
     /// ## `id_column`
     /// A column in `model` to get string IDs for values from
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_id_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_id_column&quot;</span>)]
     </span><span class="kw">fn </span>set_id_column(<span class="kw-2">&amp;</span><span class="self">self</span>, id_column: i32);
 
     <span class="doccomment">/// Sets the model used by `self` to be `model`. Will unset a previously set
@@ -2975,14 +2975,14 @@
     /// cell renderers for the new model.
     /// ## `model`
     /// A [`TreeModel`][crate::TreeModel]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_model&quot;</span>)]
     </span><span class="kw">fn </span>set_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;&gt;);
 
     <span class="doccomment">/// Specifies whether the popup’s width should be a fixed width
     /// matching the allocated width of the combo box.
     /// ## `fixed`
     /// whether to use a fixed popup width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_popup_fixed_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_popup_fixed_width&quot;</span>)]
     </span><span class="kw">fn </span>set_popup_fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>, fixed: bool);
 
     <span class="doccomment">/// Sets the row separator function, which is used to determine
@@ -2990,7 +2990,7 @@
     /// function is [`None`], no separators are drawn. This is the default value.
     /// ## `func`
     /// a `GtkTreeViewRowSeparatorFunc`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_row_separator_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_row_separator_func&quot;</span>)]
     </span><span class="kw">fn </span>set_row_separator_func&lt;P: Fn(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
 
     <span class="doccomment">/// Sets the column with row span information for `self` to be `row_span`.
@@ -2998,7 +2998,7 @@
     /// an item should span.
     /// ## `row_span`
     /// A column in the model passed during construction.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_row_span_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_row_span_column&quot;</span>)]
     </span><span class="kw">fn </span>set_row_span_column(<span class="kw-2">&amp;</span><span class="self">self</span>, row_span: i32);
 
     <span class="doccomment">/// Sets the wrap width of `self` to be `width`. The wrap width is basically
@@ -3006,30 +3006,30 @@
     /// in a table.
     /// ## `width`
     /// Preferred number of columns
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_wrap_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_combo_box_set_wrap_width&quot;</span>)]
     </span><span class="kw">fn </span>set_wrap_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32);
 
     <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this combo box.
     ///
     /// If no area is specified when creating the combo box with [`ComboBox::with_area()`][crate::ComboBox::with_area()]
     /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
     </span><span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt;;
 
     <span class="doccomment">/// The has-frame property controls whether a frame
     /// is drawn around the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
     </span><span class="kw">fn </span>has_frame(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// The has-frame property controls whether a frame
     /// is drawn around the entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
     </span><span class="kw">fn </span>set_has_frame(<span class="kw-2">&amp;</span><span class="self">self</span>, has_frame: bool);
 
     <span class="doccomment">/// Whether the combo boxes dropdown is popped up.
     /// Note that this property is mainly useful, because
     /// it allows you to connect to notify::popup-shown.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;popup-shown&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popup-shown&quot;</span>)]
     </span><span class="kw">fn </span>is_popup_shown(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// The changed signal is emitted when the active
@@ -3038,7 +3038,7 @@
     /// call to [`set_active_iter()`][Self::set_active_iter()].
     /// It will also be emitted while typing into the entry of a combo box
     /// with an entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// For combo boxes that are created with an entry (See GtkComboBox:has-entry).
@@ -3084,7 +3084,7 @@
     ///
     /// a newly allocated string representing `path`
     /// for the current GtkComboBox model.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;format-entry-text&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;format-entry-text&quot;</span>)]
     </span><span class="kw">fn </span>connect_format_entry_text&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) -&gt; String + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -3095,7 +3095,7 @@
     /// which gets emitted to move the active selection.
     /// ## `scroll_type`
     /// a [`ScrollType`][crate::ScrollType]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-active&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-active&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_active&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollType) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_move_active(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll_type: ScrollType);
@@ -3105,7 +3105,7 @@
     /// which gets emitted to popdown the combo box list.
     ///
     /// The default bindings for this signal are Alt+Up and Escape.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;popdown&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popdown&quot;</span>)]
     </span><span class="kw">fn </span>connect_popdown&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_popdown(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
@@ -3115,45 +3115,45 @@
     /// which gets emitted to popup the combo box list.
     ///
     /// The default binding for this signal is Alt+Down.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;popup&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popup&quot;</span>)]
     </span><span class="kw">fn </span>connect_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_popup(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
     </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;active-id&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;active-id&quot;</span>)]
     </span><span class="kw">fn </span>connect_active_id_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;button-sensitivity&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;button-sensitivity&quot;</span>)]
     </span><span class="kw">fn </span>connect_button_sensitivity_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;column-span-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;column-span-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_column_span_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;entry-text-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;entry-text-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_entry_text_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-frame&quot;</span>)]
     </span><span class="kw">fn </span>connect_has_frame_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;id-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;id-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_id_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">fn </span>connect_model_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;popup-fixed-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;popup-fixed-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_popup_fixed_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;popup-shown&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;popup-shown&quot;</span>)]
     </span><span class="kw">fn </span>connect_popup_shown_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;row-span-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;row-span-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_span_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_wrap_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3808,4 +3808,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/recent_info.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>recent_info.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/recent_info.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>recent_info.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -484,7 +484,7 @@
     ///
     /// [`RecentInfo`][crate::RecentInfo] constains all the meta-data
     /// associated with an entry in the recently used files list.
-    </span><span class="attribute">#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    </span><span class="attr">#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     </span><span class="kw">pub struct </span>RecentInfo(Shared&lt;ffi::GtkRecentInfo&gt;);
 
     <span class="kw">match fn </span>{
@@ -506,7 +506,7 @@
     /// the newly created [`gio::AppInfo`][crate::gio::AppInfo], or [`None`].
     ///  In case of error, `error` will be set either with a
     ///  `GTK_RECENT_MANAGER_ERROR` or a `G_IO_ERROR`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_create_app_info&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_create_app_info&quot;</span>)]
     </span><span class="kw">pub fn </span>create_app_info(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         app_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
@@ -533,7 +533,7 @@
     /// # Returns
     ///
     /// [`true`] if the resource exists
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_exists&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_exists&quot;</span>)]
     </span><span class="kw">pub fn </span>exists(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_recent_info_exists(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -545,7 +545,7 @@
     ///
     /// the number of seconds elapsed from system’s Epoch when
     ///  the resource was added to the list, or -1 on failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_added&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_added&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_added&quot;</span>)]
     </span><span class="kw">pub fn </span>added(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; libc::c_long {
         <span class="kw">unsafe </span>{ ffi::gtk_recent_info_get_added(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -558,7 +558,7 @@
     ///
     /// a positive integer containing the number of days
     ///  elapsed since the time this resource was last modified
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_age&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_age&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_age&quot;</span>)]
     </span><span class="kw">pub fn </span>age(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_recent_info_get_age(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -589,7 +589,7 @@
     /// ## `time_`
     /// return location for the timestamp this item was last registered
     ///  for this application
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_application_info&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_application_info&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_application_info&quot;</span>)]
     </span><span class="kw">pub fn </span>application_info(<span class="kw-2">&amp;</span><span class="self">self</span>, app_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;(glib::GString, u32, libc::c_long)&gt; {
         <span class="kw">unsafe </span>{
@@ -622,14 +622,14 @@
     ///
     ///  a newly allocated [`None`]-terminated array of strings.
     ///  Use `g_strfreev()` to free it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_applications&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_applications&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_applications&quot;</span>)]
     </span><span class="kw">pub fn </span>applications(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>length = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = FromGlibContainer::from_glib_full_num(
                 ffi::gtk_recent_info_get_applications(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, length.as_mut_ptr()),
-                length.assume_init() <span class="kw">as </span>usize,
+                length.assume_init() <span class="kw">as _</span>,
             );
             ret
         }
@@ -641,7 +641,7 @@
     ///
     /// the description of the resource. The returned string
     ///  is owned by the recent manager, and should not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_description&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_description&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_description&quot;</span>)]
     </span><span class="kw">pub fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_recent_info_get_description(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -654,7 +654,7 @@
     ///
     /// the display name of the resource. The returned string
     ///  is owned by the recent manager, and should not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_display_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_display_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display_name&quot;</span>)]
     </span><span class="kw">pub fn </span>display_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_recent_info_get_display_name(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -666,7 +666,7 @@
     ///
     /// a [`gio::Icon`][crate::gio::Icon] containing the icon, or [`None`].
     ///  Use `g_object_unref()` when finished using the icon
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_gicon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_gicon&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_gicon&quot;</span>)]
     </span><span class="kw">pub fn </span>gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gio::Icon&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_recent_info_get_gicon(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -681,14 +681,14 @@
     ///
     ///  a newly allocated [`None`] terminated array of strings.
     ///  Use `g_strfreev()` to free it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_groups&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_groups&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_groups&quot;</span>)]
     </span><span class="kw">pub fn </span>groups(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>length = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = FromGlibContainer::from_glib_full_num(
                 ffi::gtk_recent_info_get_groups(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, length.as_mut_ptr()),
-                length.assume_init() <span class="kw">as </span>usize,
+                length.assume_init() <span class="kw">as _</span>,
             );
             ret
         }
@@ -702,7 +702,7 @@
     ///
     /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] containing the icon,
     ///  or [`None`]. Use `g_object_unref()` when finished using the icon.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_icon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_icon&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon&quot;</span>)]
     </span><span class="kw">pub fn </span>icon(<span class="kw-2">&amp;</span><span class="self">self</span>, size: i32) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_recent_info_get_icon(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, size)) }
@@ -714,7 +714,7 @@
     ///
     /// the MIME type of the resource. The returned string
     ///  is owned by the recent manager, and should not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_mime_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_mime_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mime_type&quot;</span>)]
     </span><span class="kw">pub fn </span>mime_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_recent_info_get_mime_type(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -727,7 +727,7 @@
     ///
     /// the number of seconds elapsed from system’s Epoch when
     ///  the resource was last modified, or -1 on failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_modified&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_modified&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modified&quot;</span>)]
     </span><span class="kw">pub fn </span>modified(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; libc::c_long {
         <span class="kw">unsafe </span>{ ffi::gtk_recent_info_get_modified(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -740,7 +740,7 @@
     /// # Returns
     ///
     /// [`true`] if the private flag was found, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_private_hint&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_private_hint&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_private_hint&quot;</span>)]
     </span><span class="kw">pub fn </span>is_private_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_recent_info_get_private_hint(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -755,7 +755,7 @@
     ///
     /// A newly-allocated string in UTF-8 encoding
     ///  free it with `g_free()`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_short_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_short_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_short_name&quot;</span>)]
     </span><span class="kw">pub fn </span>short_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_recent_info_get_short_name(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -767,7 +767,7 @@
     ///
     /// the URI of the resource. The returned string is
     ///  owned by the recent manager, and should not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_uri&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_uri&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_uri&quot;</span>)]
     </span><span class="kw">pub fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_recent_info_get_uri(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -781,7 +781,7 @@
     ///
     /// a newly allocated UTF-8 string containing the
     ///  resource’s URI or [`None`]. Use `g_free()` when done using it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_uri_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_uri_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_uri_display&quot;</span>)]
     </span><span class="kw">pub fn </span>uri_display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_recent_info_get_uri_display(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -794,7 +794,7 @@
     ///
     /// the number of seconds elapsed from system’s Epoch when
     ///  the resource was last visited, or -1 on failure.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_visited&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_get_visited&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visited&quot;</span>)]
     </span><span class="kw">pub fn </span>visited(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; libc::c_long {
         <span class="kw">unsafe </span>{ ffi::gtk_recent_info_get_visited(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -808,7 +808,7 @@
     ///
     /// [`true`] if an application with name `app_name` was found,
     ///  [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_has_application&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_has_application&quot;</span>)]
     </span><span class="kw">pub fn </span>has_application(<span class="kw-2">&amp;</span><span class="self">self</span>, app_name: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_recent_info_has_application(
@@ -826,7 +826,7 @@
     /// # Returns
     ///
     /// [`true`] if the group was found
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_has_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_has_group&quot;</span>)]
     </span><span class="kw">pub fn </span>has_group(<span class="kw-2">&amp;</span><span class="self">self</span>, group_name: <span class="kw-2">&amp;</span>str) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_recent_info_has_group(
@@ -842,7 +842,7 @@
     /// # Returns
     ///
     /// [`true`] if the resource is local
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_is_local&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_is_local&quot;</span>)]
     </span><span class="kw">pub fn </span>is_local(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_recent_info_is_local(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -853,12 +853,12 @@
     /// # Returns
     ///
     /// an application name. Use `g_free()` to free it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_last_application&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_last_application&quot;</span>)]
     </span><span class="kw">pub fn </span>last_application(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_recent_info_last_application(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;gtk_recent_info_match&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_recent_info_match&quot;</span>)]
     #[doc(alias = <span class="string">&quot;match&quot;</span>)]
     </span><span class="kw">pub fn </span>match_(<span class="kw-2">&amp;</span><span class="self">self</span>, info_b: <span class="kw-2">&amp;</span>RecentInfo) -&gt; bool {
         <span class="kw">unsafe </span>{
@@ -870,4 +870,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

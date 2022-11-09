@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/list_box.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>list_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/list_box.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>list_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1686,7 +1686,7 @@
     /// # Implements
     ///
     /// [`ListBoxExt`][trait@crate::prelude::ListBoxExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ListBoxExtManual`][trait@crate::prelude::ListBoxExtManual], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkListBox&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkListBox&quot;</span>)]
     </span><span class="kw">pub struct </span>ListBox(Object&lt;ffi::GtkListBox, ffi::GtkListBoxClass&gt;) @extends Container, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -1702,7 +1702,7 @@
     /// # Returns
     ///
     /// a new [`ListBox`][crate::ListBox]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; ListBox {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_list_box_new()).unsafe_cast() }
@@ -1723,12 +1723,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`ListBox`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>ListBoxBuilder {
     activate_on_single_click: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     selection_mode: <span class="prelude-ty">Option</span>&lt;SelectionMode&gt;,
@@ -1778,7 +1778,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`ListBox`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ListBox {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>activate_on_single_click) = <span class="self">self</span>.activate_on_single_click {
@@ -2180,7 +2180,7 @@
     /// ## `create_widget_func`
     /// a function that creates widgets for items
     ///  or [`None`] in case you also passed [`None`] as `model`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_bind_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_bind_model&quot;</span>)]
     </span><span class="kw">fn </span>bind_model&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::ListModel&gt;&gt;,
@@ -2195,12 +2195,12 @@
     /// a drag leave event.
     /// ## `row`
     /// a [`ListBoxRow`][crate::ListBoxRow]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_highlight_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_highlight_row&quot;</span>)]
     </span><span class="kw">fn </span>drag_highlight_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;);
 
     <span class="doccomment">/// If a row has previously been highlighted via [`drag_highlight_row()`][Self::drag_highlight_row()]
     /// it will have the highlight removed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_unhighlight_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_unhighlight_row&quot;</span>)]
     </span><span class="kw">fn </span>drag_unhighlight_row(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Returns whether rows activate on single clicks.
@@ -2208,7 +2208,7 @@
     /// # Returns
     ///
     /// [`true`] if rows are activated on single click, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_activate_on_single_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_activate_on_single_click&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
     </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2218,7 +2218,7 @@
     /// # Returns
     ///
     /// the adjustment
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_adjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_adjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_adjustment&quot;</span>)]
     </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Adjustment&gt;;
 
@@ -2231,7 +2231,7 @@
     /// # Returns
     ///
     /// the child [`Widget`][crate::Widget] or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_index&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_index&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_at_index&quot;</span>)]
     </span><span class="kw">fn </span>row_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt;;
 
@@ -2243,7 +2243,7 @@
     ///
     /// the row or [`None`]
     ///  in case no row exists for the given y coordinate.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_y&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_at_y&quot;</span>)]
     </span><span class="kw">fn </span>row_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt;;
 
@@ -2256,7 +2256,7 @@
     /// # Returns
     ///
     /// the selected row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_row&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_row&quot;</span>)]
     </span><span class="kw">fn </span>selected_row(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt;;
 
@@ -2267,7 +2267,7 @@
     ///
     ///  A `GList` containing the [`Widget`][crate::Widget] for each selected child.
     ///  Free with `g_list_free()` when done.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_rows&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_rows&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_rows&quot;</span>)]
     </span><span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;ListBoxRow&gt;;
 
@@ -2276,7 +2276,7 @@
     /// # Returns
     ///
     /// a [`SelectionMode`][crate::SelectionMode]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selection_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selection_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_mode&quot;</span>)]
     </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode;
 
@@ -2290,7 +2290,7 @@
     /// the [`Widget`][crate::Widget] to add
     /// ## `position`
     /// the position to insert `child` in
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_insert&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_insert&quot;</span>)]
     </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32);
 
     <span class="doccomment">/// Update the filtering for all rows. Call this when result
@@ -2298,19 +2298,19 @@
     /// to an external factor. For instance, this would be used
     /// if the filter function just looked for a specific search
     /// string and the entry with the search string has changed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_filter&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_filter&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_filter(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Update the separators for all rows. Call this when result
     /// of the header function on the `self` is changed due
     /// to an external factor.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_headers&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_headers&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_headers(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Update the sorting for all rows. Call this when result
     /// of the sort function on the `self` is changed due
     /// to an external factor.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_sort&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_sort&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_sort(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Prepend a widget to the list. If a sort function is set, the widget will
@@ -2318,17 +2318,17 @@
     /// same effect of [`ContainerExt::add()`][crate::prelude::ContainerExt::add()].
     /// ## `child`
     /// the [`Widget`][crate::Widget] to add
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_prepend&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_prepend&quot;</span>)]
     </span><span class="kw">fn </span>prepend(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
 
     <span class="doccomment">/// Select all children of `self`, if the selection mode allows it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_select_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_select_all&quot;</span>)]
     </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Make `row` the currently selected row.
     /// ## `row`
     /// The row to select or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_select_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_select_row&quot;</span>)]
     </span><span class="kw">fn </span>select_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;&gt;);
 
     <span class="doccomment">/// Calls a function for each selected child.
@@ -2336,14 +2336,14 @@
     /// Note that the selection cannot be modified from within this function.
     /// ## `func`
     /// the function to call for each selected child
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_selected_foreach&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_selected_foreach&quot;</span>)]
     </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>ListBox, <span class="kw-2">&amp;</span>ListBoxRow)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
 
     <span class="doccomment">/// If `single` is [`true`], rows will be activated when you click on them,
     /// otherwise you need to double-click.
     /// ## `single`
     /// a boolean
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_activate_on_single_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_activate_on_single_click&quot;</span>)]
     </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool);
 
     <span class="doccomment">/// Sets the adjustment (if any) that the widget uses to
@@ -2356,7 +2356,7 @@
     /// to manually do that.
     /// ## `adjustment`
     /// the adjustment, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_adjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_adjustment&quot;</span>)]
     </span><span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;);
 
     <span class="doccomment">/// By setting a filter function on the `self` one can decide dynamically which
@@ -2371,7 +2371,7 @@
     /// (see [`bind_model()`][Self::bind_model()]).
     /// ## `filter_func`
     /// callback that lets you filter which rows to show
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_filter_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_filter_func&quot;</span>)]
     </span><span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;);
 
     <span class="doccomment">/// By setting a header function on the `self` one can dynamically add headers
@@ -2394,7 +2394,7 @@
     /// [`invalidate_headers()`][Self::invalidate_headers()] is called.
     /// ## `update_header`
     /// callback that lets you add row headers
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_header_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_header_func&quot;</span>)]
     </span><span class="kw">fn </span>set_header_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         update_header: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
@@ -2404,14 +2404,14 @@
     /// it doesn&#39;t display any visible children.
     /// ## `placeholder`
     /// a [`Widget`][crate::Widget] or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_placeholder&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_placeholder&quot;</span>)]
     </span><span class="kw">fn </span>set_placeholder(<span class="kw-2">&amp;</span><span class="self">self</span>, placeholder: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
 
     <span class="doccomment">/// Sets how selection works in the listbox.
     /// See [`SelectionMode`][crate::SelectionMode] for details.
     /// ## `mode`
     /// The [`SelectionMode`][crate::SelectionMode]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_selection_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_selection_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode);
 
     <span class="doccomment">/// By setting a sort function on the `self` one can dynamically reorder the rows
@@ -2425,28 +2425,28 @@
     /// (see [`bind_model()`][Self::bind_model()]).
     /// ## `sort_func`
     /// the sort function
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_set_sort_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_sort_func&quot;</span>)]
     </span><span class="kw">fn </span>set_sort_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         sort_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;,
     );
 
     <span class="doccomment">/// Unselect all children of `self`, if the selection mode allows it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_all&quot;</span>)]
     </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Unselects a single row of `self`, if the selection mode allows it.
     /// ## `row`
     /// the row to unselected
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_row&quot;</span>)]
     </span><span class="kw">fn </span>unselect_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;activate-cursor-row&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2457,7 +2457,7 @@
     <span class="doccomment">/// The ::row-activated signal is emitted when a row has been activated by the user.
     /// ## `row`
     /// the activated row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;row-activated&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;row-activated&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>ListBoxRow) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::row-selected signal is emitted when a new row is selected, or
@@ -2468,7 +2468,7 @@
     /// the `signal::ListBox::selected-rows-changed` signal instead.
     /// ## `row`
     /// the selected row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;row-selected&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;row-selected&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -2479,17 +2479,17 @@
     /// mode permits it.
     ///
     /// The default bindings for this signal is Ctrl-a.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// The ::selected-rows-changed signal is emitted when the
     /// set of selected rows changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;selected-rows-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selected-rows-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_selected_rows_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;toggle-cursor-row&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_toggle_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>);
@@ -2499,18 +2499,18 @@
     /// mode permits it.
     ///
     /// The default bindings for this signal is Ctrl-Shift-a.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3158,4 +3158,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scrolled_window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>scrolled_window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scrolled_window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>scrolled_window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2122,7 +2122,7 @@
     /// # Implements
     ///
     /// [`ScrolledWindowExt`][trait@crate::prelude::ScrolledWindowExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkScrolledWindow&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkScrolledWindow&quot;</span>)]
     </span><span class="kw">pub struct </span>ScrolledWindow(Object&lt;ffi::GtkScrolledWindow, ffi::GtkScrolledWindowClass&gt;) @extends Bin, Container, Widget, @implements Buildable;
 
     <span class="kw">match fn </span>{
@@ -2147,7 +2147,7 @@
     /// # Returns
     ///
     /// a new scrolled window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new(
         hadjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;,
         vadjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;,
@@ -2177,12 +2177,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`ScrolledWindow`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>ScrolledWindowBuilder {
     hadjustment: <span class="prelude-ty">Option</span>&lt;Adjustment&gt;,
     hscrollbar_policy: <span class="prelude-ty">Option</span>&lt;PolicyType&gt;,
@@ -2244,7 +2244,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`ScrolledWindow`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ScrolledWindow {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>hadjustment) = <span class="self">self</span>.hadjustment {
@@ -2750,7 +2750,7 @@
     /// # Returns
     ///
     /// [`true`] if button presses are captured during kinetic scrolling
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_capture_button_press&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_capture_button_press&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_capture_button_press&quot;</span>)]
     </span><span class="kw">fn </span>is_capture_button_press(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2761,7 +2761,7 @@
     /// # Returns
     ///
     /// the horizontal [`Adjustment`][crate::Adjustment]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_hadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_hadjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hadjustment&quot;</span>)]
     </span><span class="kw">fn </span>hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Adjustment;
 
@@ -2770,7 +2770,7 @@
     /// # Returns
     ///
     /// the horizontal scrollbar of the scrolled window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_hscrollbar&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_hscrollbar&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hscrollbar&quot;</span>)]
     </span><span class="kw">fn </span>hscrollbar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -2779,7 +2779,7 @@
     /// # Returns
     ///
     /// the scrolling behavior flags.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_kinetic_scrolling&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_kinetic_scrolling&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_kinetic_scrolling&quot;</span>)]
     </span><span class="kw">fn </span>is_kinetic_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2788,7 +2788,7 @@
     /// # Returns
     ///
     /// the maximum content height, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_max_content_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_max_content_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_content_height&quot;</span>)]
     </span><span class="kw">fn </span>max_content_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2797,7 +2797,7 @@
     /// # Returns
     ///
     /// the maximum content width, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_max_content_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_max_content_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_content_width&quot;</span>)]
     </span><span class="kw">fn </span>max_content_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2806,7 +2806,7 @@
     /// # Returns
     ///
     /// the minimal content height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_min_content_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_min_content_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_min_content_height&quot;</span>)]
     </span><span class="kw">fn </span>min_content_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2815,7 +2815,7 @@
     /// # Returns
     ///
     /// the minimum content width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_min_content_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_min_content_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_min_content_width&quot;</span>)]
     </span><span class="kw">fn </span>min_content_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -2824,7 +2824,7 @@
     /// # Returns
     ///
     /// [`true`] if overlay scrolling is enabled
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_overlay_scrolling&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_overlay_scrolling&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_overlay_scrolling&quot;</span>)]
     </span><span class="kw">fn </span>is_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2837,7 +2837,7 @@
     ///
     /// See also [`set_placement()`][Self::set_placement()] and
     /// [`unset_placement()`][Self::unset_placement()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_placement&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_placement&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_placement&quot;</span>)]
     </span><span class="kw">fn </span>placement(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CornerType;
 
@@ -2854,7 +2854,7 @@
     /// ## `vscrollbar_policy`
     /// location to store the policy
     ///  for the vertical scrollbar, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_policy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_policy&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_policy&quot;</span>)]
     </span><span class="kw">fn </span>policy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (PolicyType, PolicyType);
 
@@ -2864,7 +2864,7 @@
     /// # Returns
     ///
     /// whether natural height propagation is enabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_propagate_natural_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_propagate_natural_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_propagate_natural_height&quot;</span>)]
     </span><span class="kw">fn </span>propagates_natural_height(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2874,7 +2874,7 @@
     /// # Returns
     ///
     /// whether natural width propagation is enabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_propagate_natural_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_propagate_natural_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_propagate_natural_width&quot;</span>)]
     </span><span class="kw">fn </span>propagates_natural_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -2884,7 +2884,7 @@
     /// # Returns
     ///
     /// the current shadow type
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_shadow_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_shadow_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_shadow_type&quot;</span>)]
     </span><span class="kw">fn </span>shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ShadowType;
 
@@ -2894,7 +2894,7 @@
     /// # Returns
     ///
     /// the vertical [`Adjustment`][crate::Adjustment]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_vadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_vadjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_vadjustment&quot;</span>)]
     </span><span class="kw">fn </span>vadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Adjustment;
 
@@ -2903,7 +2903,7 @@
     /// # Returns
     ///
     /// the vertical scrollbar of the scrolled window.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_vscrollbar&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_get_vscrollbar&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_vscrollbar&quot;</span>)]
     </span><span class="kw">fn </span>vscrollbar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
 
@@ -2920,13 +2920,13 @@
     /// This setting only has an effect if kinetic scrolling is enabled.
     /// ## `capture_button_press`
     /// [`true`] to capture button presses
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_capture_button_press&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_capture_button_press&quot;</span>)]
     </span><span class="kw">fn </span>set_capture_button_press(<span class="kw-2">&amp;</span><span class="self">self</span>, capture_button_press: bool);
 
     <span class="doccomment">/// Sets the [`Adjustment`][crate::Adjustment] for the horizontal scrollbar.
     /// ## `hadjustment`
     /// the [`Adjustment`][crate::Adjustment] to use, or [`None`] to create a new one
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_hadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_hadjustment&quot;</span>)]
     </span><span class="kw">fn </span>set_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, hadjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;);
 
     <span class="doccomment">/// Turns kinetic scrolling on or off.
@@ -2934,7 +2934,7 @@
     /// `GDK_SOURCE_TOUCHSCREEN`.
     /// ## `kinetic_scrolling`
     /// [`true`] to enable kinetic scrolling
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_kinetic_scrolling&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_kinetic_scrolling&quot;</span>)]
     </span><span class="kw">fn </span>set_kinetic_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>, kinetic_scrolling: bool);
 
     <span class="doccomment">/// Sets the maximum height that `self` should keep visible. The
@@ -2945,7 +2945,7 @@
     /// smaller than `property::ScrolledWindow::min-content-height`.
     /// ## `height`
     /// the maximum content height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_max_content_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_max_content_height&quot;</span>)]
     </span><span class="kw">fn </span>set_max_content_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: i32);
 
     <span class="doccomment">/// Sets the maximum width that `self` should keep visible. The
@@ -2956,7 +2956,7 @@
     /// smaller than `property::ScrolledWindow::min-content-width`.
     /// ## `width`
     /// the maximum content width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_max_content_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_max_content_width&quot;</span>)]
     </span><span class="kw">fn </span>set_max_content_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32);
 
     <span class="doccomment">/// Sets the minimum height that `self` should keep visible.
@@ -2967,7 +2967,7 @@
     /// value greater than `property::ScrolledWindow::max-content-height`.
     /// ## `height`
     /// the minimal content height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_min_content_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_min_content_height&quot;</span>)]
     </span><span class="kw">fn </span>set_min_content_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: i32);
 
     <span class="doccomment">/// Sets the minimum width that `self` should keep visible.
@@ -2978,13 +2978,13 @@
     /// value greater than `property::ScrolledWindow::max-content-width`.
     /// ## `width`
     /// the minimal content width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_min_content_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_min_content_width&quot;</span>)]
     </span><span class="kw">fn </span>set_min_content_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: i32);
 
     <span class="doccomment">/// Enables or disables overlay scrolling for this scrolled window.
     /// ## `overlay_scrolling`
     /// whether to enable overlay scrolling
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_overlay_scrolling&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_overlay_scrolling&quot;</span>)]
     </span><span class="kw">fn </span>set_overlay_scrolling(<span class="kw-2">&amp;</span><span class="self">self</span>, overlay_scrolling: bool);
 
     <span class="doccomment">/// Sets the placement of the contents with respect to the scrollbars
@@ -2999,7 +2999,7 @@
     /// [`unset_placement()`][Self::unset_placement()].
     /// ## `window_placement`
     /// position of the child window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_placement&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_placement&quot;</span>)]
     </span><span class="kw">fn </span>set_placement(<span class="kw-2">&amp;</span><span class="self">self</span>, window_placement: CornerType);
 
     <span class="doccomment">/// Sets the scrollbar policy for the horizontal and vertical scrollbars.
@@ -3014,34 +3014,34 @@
     /// policy for horizontal bar
     /// ## `vscrollbar_policy`
     /// policy for vertical bar
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_policy&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_policy&quot;</span>)]
     </span><span class="kw">fn </span>set_policy(<span class="kw-2">&amp;</span><span class="self">self</span>, hscrollbar_policy: PolicyType, vscrollbar_policy: PolicyType);
 
     <span class="doccomment">/// Sets whether the natural height of the child should be calculated and propagated
     /// through the scrolled window’s requested natural height.
     /// ## `propagate`
     /// whether to propagate natural height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_propagate_natural_height&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_propagate_natural_height&quot;</span>)]
     </span><span class="kw">fn </span>set_propagate_natural_height(<span class="kw-2">&amp;</span><span class="self">self</span>, propagate: bool);
 
     <span class="doccomment">/// Sets whether the natural width of the child should be calculated and propagated
     /// through the scrolled window’s requested natural width.
     /// ## `propagate`
     /// whether to propagate natural width
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_propagate_natural_width&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_propagate_natural_width&quot;</span>)]
     </span><span class="kw">fn </span>set_propagate_natural_width(<span class="kw-2">&amp;</span><span class="self">self</span>, propagate: bool);
 
     <span class="doccomment">/// Changes the type of shadow drawn around the contents of
     /// `self`.
     /// ## `type_`
     /// kind of shadow to draw around scrolled window contents
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_shadow_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_shadow_type&quot;</span>)]
     </span><span class="kw">fn </span>set_shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: ShadowType);
 
     <span class="doccomment">/// Sets the [`Adjustment`][crate::Adjustment] for the vertical scrollbar.
     /// ## `vadjustment`
     /// the [`Adjustment`][crate::Adjustment] to use, or [`None`] to create a new one
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_vadjustment&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_set_vadjustment&quot;</span>)]
     </span><span class="kw">fn </span>set_vadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, vadjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;);
 
     <span class="doccomment">/// Unsets the placement of the contents with respect to the scrollbars
@@ -3050,25 +3050,25 @@
     ///
     /// See also [`set_placement()`][Self::set_placement()] and
     /// [`placement()`][Self::placement()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_unset_placement&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scrolled_window_unset_placement&quot;</span>)]
     </span><span class="kw">fn </span>unset_placement(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>hscrollbar_policy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PolicyType;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>set_hscrollbar_policy(<span class="kw-2">&amp;</span><span class="self">self</span>, hscrollbar_policy: PolicyType);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>vscrollbar_policy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PolicyType;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>set_vscrollbar_policy(<span class="kw-2">&amp;</span><span class="self">self</span>, vscrollbar_policy: PolicyType);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
     </span><span class="kw">fn </span>window_placement(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CornerType;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
     </span><span class="kw">fn </span>set_window_placement(<span class="kw-2">&amp;</span><span class="self">self</span>, window_placement: CornerType);
 
     <span class="doccomment">/// The ::edge-overshot signal is emitted whenever user initiated scrolling
@@ -3082,7 +3082,7 @@
     /// if intending to provide behavior on horizontal edges.
     /// ## `pos`
     /// edge side that was hit
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;edge-overshot&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;edge-overshot&quot;</span>)]
     </span><span class="kw">fn </span>connect_edge_overshot&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PositionType) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::edge-reached signal is emitted whenever user-initiated scrolling
@@ -3096,7 +3096,7 @@
     /// if intending to provide behavior on horizontal edges.
     /// ## `pos`
     /// edge side that was reached
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;edge-reached&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;edge-reached&quot;</span>)]
     </span><span class="kw">fn </span>connect_edge_reached&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PositionType) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The ::move-focus-out signal is a
@@ -3109,7 +3109,7 @@
     /// ## `direction_type`
     /// either [`DirectionType::TabForward`][crate::DirectionType::TabForward] or
     ///  [`DirectionType::TabBackward`][crate::DirectionType::TabBackward]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-focus-out&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-focus-out&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_focus_out&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DirectionType) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -3127,7 +3127,7 @@
     /// ## `horizontal`
     /// whether the keybinding scrolls the child
     ///  horizontally or not
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;scroll-child&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;scroll-child&quot;</span>)]
     </span><span class="kw">fn </span>connect_scroll_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollType, bool) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -3135,52 +3135,52 @@
 
     <span class="kw">fn </span>emit_scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: ScrollType, horizontal: bool) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hadjustment&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hadjustment&quot;</span>)]
     </span><span class="kw">fn </span>connect_hadjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>connect_hscrollbar_policy_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;kinetic-scrolling&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;kinetic-scrolling&quot;</span>)]
     </span><span class="kw">fn </span>connect_kinetic_scrolling_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-content-height&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-content-height&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_content_height_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;max-content-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-content-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_max_content_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;min-content-height&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;min-content-height&quot;</span>)]
     </span><span class="kw">fn </span>connect_min_content_height_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;min-content-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;min-content-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_min_content_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;overlay-scrolling&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;overlay-scrolling&quot;</span>)]
     </span><span class="kw">fn </span>connect_overlay_scrolling_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;propagate-natural-height&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;propagate-natural-height&quot;</span>)]
     </span><span class="kw">fn </span>connect_propagate_natural_height_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;propagate-natural-width&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;propagate-natural-width&quot;</span>)]
     </span><span class="kw">fn </span>connect_propagate_natural_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;shadow-type&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;shadow-type&quot;</span>)]
     </span><span class="kw">fn </span>connect_shadow_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vadjustment&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vadjustment&quot;</span>)]
     </span><span class="kw">fn </span>connect_vadjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;vscrollbar-policy&quot;</span>)]
     </span><span class="kw">fn </span>connect_vscrollbar_policy_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;window-placement&quot;</span>)]
     </span><span class="kw">fn </span>connect_window_placement_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -3942,4 +3942,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

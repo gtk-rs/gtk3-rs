@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/keymap.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>keymap.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/keymap.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>keymap.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -427,7 +427,7 @@
     /// to determine the effective keyboard group and level for the keyboard
     /// state; the second phase is to look up the keycode/group/level triplet
     /// in the keymap and see what keyval it corresponds to.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkKeymap&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkKeymap&quot;</span>)]
     </span><span class="kw">pub struct </span>Keymap(Object&lt;ffi::GdkKeymap&gt;);
 
     <span class="kw">match fn </span>{
@@ -441,7 +441,7 @@
     /// # Returns
     ///
     /// [`true`] if Caps Lock is on
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_caps_lock_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_caps_lock_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_caps_lock_state&quot;</span>)]
     </span><span class="kw">pub fn </span>is_caps_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_keymap_get_caps_lock_state(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -454,7 +454,7 @@
     /// [`pango::Direction::Ltr`][crate::pango::Direction::Ltr] or [`pango::Direction::Rtl`][crate::pango::Direction::Rtl]
     ///  if it can determine the direction. [`pango::Direction::Neutral`][crate::pango::Direction::Neutral]
     ///  otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_direction&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_direction&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_direction&quot;</span>)]
     </span><span class="kw">pub fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::Direction {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_keymap_get_direction(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -475,7 +475,7 @@
     /// # Returns
     ///
     /// the modifier mask used for `intent`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_modifier_mask&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_modifier_mask&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modifier_mask&quot;</span>)]
     </span><span class="kw">pub fn </span>modifier_mask(<span class="kw-2">&amp;</span><span class="self">self</span>, intent: ModifierIntent) -&gt; ModifierType {
         <span class="kw">unsafe </span>{
@@ -491,7 +491,7 @@
     /// # Returns
     ///
     /// the current modifier state.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_modifier_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_modifier_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modifier_state&quot;</span>)]
     </span><span class="kw">pub fn </span>modifier_state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gdk_keymap_get_modifier_state(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -502,7 +502,7 @@
     /// # Returns
     ///
     /// [`true`] if Num Lock is on
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_num_lock_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_num_lock_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_num_lock_state&quot;</span>)]
     </span><span class="kw">pub fn </span>is_num_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_keymap_get_num_lock_state(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -513,7 +513,7 @@
     /// # Returns
     ///
     /// [`true`] if Scroll Lock is on
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_scroll_lock_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_scroll_lock_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scroll_lock_state&quot;</span>)]
     </span><span class="kw">pub fn </span>is_scroll_locked(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_keymap_get_scroll_lock_state(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -525,7 +525,7 @@
     /// # Returns
     ///
     /// [`true`] if there are layouts in both directions, [`false`] otherwise
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_have_bidi_layouts&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_have_bidi_layouts&quot;</span>)]
     </span><span class="kw">pub fn </span>have_bidi_layouts(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_keymap_have_bidi_layouts(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -609,7 +609,7 @@
     /// ## `consumed_modifiers`
     /// return location for modifiers
     ///  that were used to determine the group or level, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_translate_keyboard_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_translate_keyboard_state&quot;</span>)]
     </span><span class="kw">pub fn </span>translate_keyboard_state(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         hardware_keycode: u32,
@@ -651,7 +651,7 @@
     /// # Returns
     ///
     /// the [`Keymap`][crate::Keymap] attached to `display`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_keymap_get_for_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_get_for_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_for_display&quot;</span>)]
     </span><span class="kw">pub fn </span>for_display(display: <span class="kw-2">&amp;</span>Display) -&gt; <span class="prelude-ty">Option</span>&lt;Keymap&gt; {
         <span class="macro">skip_assert_initialized!</span>();
@@ -660,7 +660,7 @@
 
     <span class="doccomment">/// The ::direction-changed signal gets emitted when the direction of
     /// the keymap changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;direction-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;direction-changed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_direction_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>direction_changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Keymap) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkKeymap,
@@ -684,7 +684,7 @@
 
     <span class="doccomment">/// The ::keys-changed signal is emitted when the mapping represented by
     /// `keymap` changes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;keys-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;keys-changed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_keys_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>keys_changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Keymap) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkKeymap,
@@ -709,7 +709,7 @@
     <span class="doccomment">/// The ::state-changed signal is emitted when the state of the
     /// keyboard changes, e.g when Caps Lock is turned on or off.
     /// See [`is_caps_locked()`][Self::is_caps_locked()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;state-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;state-changed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_state_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>state_changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Keymap) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkKeymap,
@@ -738,4 +738,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

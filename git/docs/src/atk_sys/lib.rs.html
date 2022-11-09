@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../atk_sys/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../atk_sys/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -2665,7 +2665,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attribute">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
+</span><span class="attr">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(
     clippy::approx_constant,
     clippy::type_complexity,
@@ -2680,7 +2680,7 @@
     intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
-<span class="attribute">#[allow(unused_imports)]
+<span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>glib::{gboolean, gconstpointer, gpointer, GType};
 
 <span class="comment">// Aliases
@@ -2916,7 +2916,7 @@
 <span class="kw">pub const </span>ATK_STATE_HAS_POPUP: AtkStateType = <span class="number">40</span>;
 <span class="kw">pub const </span>ATK_STATE_HAS_TOOLTIP: AtkStateType = <span class="number">41</span>;
 <span class="kw">pub const </span>ATK_STATE_READ_ONLY: AtkStateType = <span class="number">42</span>;
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_38&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_38&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_38&quot;</span>)))]
 </span><span class="kw">pub const </span>ATK_STATE_COLLAPSED: AtkStateType = <span class="number">43</span>;
 
@@ -3008,7 +3008,7 @@
     <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span>AtkObject, <span class="kw-2">*mut </span>AtkPropertyValues)&gt;;
 
 <span class="comment">// Records
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkActionIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3024,7 +3024,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkActionIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkActionIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkActionIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;do_action&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.do_action)
             .field(<span class="string">&quot;get_n_actions&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_n_actions)
             .field(<span class="string">&quot;get_description&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_description)
@@ -3036,7 +3036,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkAttribute {
     <span class="kw">pub </span>name: <span class="kw-2">*mut </span>c_char,
@@ -3045,14 +3045,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkAttribute {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkAttribute @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkAttribute @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name)
             .field(<span class="string">&quot;value&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.value)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkComponentIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3102,7 +3102,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkComponentIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkComponentIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkComponentIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;add_focus_handler&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.add_focus_handler)
             .field(<span class="string">&quot;contains&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.contains)
             .field(<span class="string">&quot;ref_accessible_at_point&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.ref_accessible_at_point)
@@ -3124,7 +3124,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkDocumentIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3143,7 +3143,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkDocumentIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkDocumentIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkDocumentIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_document_type&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_document_type)
             .field(<span class="string">&quot;get_document&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_document)
@@ -3160,7 +3160,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkEditableTextIface {
     <span class="kw">pub </span>parent_interface: gobject::GTypeInterface,
@@ -3178,7 +3178,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkEditableTextIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkEditableTextIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkEditableTextIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_interface&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_interface)
             .field(<span class="string">&quot;set_run_attributes&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.set_run_attributes)
             .field(<span class="string">&quot;set_text_contents&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.set_text_contents)
@@ -3191,7 +3191,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkGObjectAccessibleClass {
     <span class="kw">pub </span>parent_class: AtkObjectClass,
@@ -3201,7 +3201,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkGObjectAccessibleClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkGObjectAccessibleClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkGObjectAccessibleClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .field(<span class="string">&quot;pad1&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pad1)
             .field(<span class="string">&quot;pad2&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pad2)
@@ -3209,7 +3209,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkHyperlinkClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3227,7 +3227,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHyperlinkClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlinkClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlinkClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_uri&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_uri)
             .field(<span class="string">&quot;get_object&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_object)
@@ -3243,7 +3243,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkHyperlinkImplIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3252,14 +3252,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHyperlinkImplIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlinkImplIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlinkImplIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_hyperlink&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_hyperlink)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkHypertextIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3271,7 +3271,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHypertextIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHypertextIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHypertextIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_link&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_link)
             .field(<span class="string">&quot;get_n_links&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_n_links)
@@ -3281,7 +3281,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkImageIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3296,7 +3296,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkImageIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkImageIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkImageIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_image_position&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_image_position)
             .field(<span class="string">&quot;get_image_description&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_image_description)
@@ -3307,7 +3307,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_AtkImplementor {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -3315,7 +3315,7 @@
 
 <span class="kw">pub type </span>AtkImplementor = <span class="kw-2">*mut </span>_AtkImplementor;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkKeyEventStruct {
     <span class="kw">pub </span>type_: c_int,
@@ -3329,7 +3329,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkKeyEventStruct {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkKeyEventStruct @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkKeyEventStruct @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;state&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.state)
             .field(<span class="string">&quot;keyval&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.keyval)
@@ -3341,7 +3341,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkMiscClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3352,7 +3352,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkMiscClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkMiscClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkMiscClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;threads_enter&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.threads_enter)
             .field(<span class="string">&quot;threads_leave&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.threads_leave)
@@ -3361,7 +3361,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkNoOpObjectClass {
     <span class="kw">pub </span>parent_class: AtkObjectClass,
@@ -3369,13 +3369,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkNoOpObjectClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkNoOpObjectFactoryClass {
     <span class="kw">pub </span>parent_class: AtkObjectFactoryClass,
@@ -3383,13 +3383,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkNoOpObjectFactoryClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectFactoryClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectFactoryClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkObjectClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3425,7 +3425,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkObjectClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_name)
             .field(<span class="string">&quot;get_description&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_description)
@@ -3464,7 +3464,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkObjectFactoryClass {
     <span class="kw">pub </span>parent_class: gobject::GObjectClass,
@@ -3477,7 +3477,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkObjectFactoryClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectFactoryClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectFactoryClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .field(<span class="string">&quot;create_accessible&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.create_accessible)
             .field(<span class="string">&quot;invalidate&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.invalidate)
@@ -3488,7 +3488,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkPlugClass {
     <span class="kw">pub </span>parent_class: AtkObjectClass,
@@ -3497,14 +3497,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkPlugClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPlugClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPlugClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .field(<span class="string">&quot;get_object_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_object_id)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkPropertyValues {
     <span class="kw">pub </span>property_name: <span class="kw-2">*const </span>c_char,
@@ -3514,7 +3514,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkPropertyValues {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPropertyValues @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPropertyValues @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;property_name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.property_name)
             .field(<span class="string">&quot;old_value&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.old_value)
             .field(<span class="string">&quot;new_value&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.new_value)
@@ -3522,7 +3522,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkRange {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -3530,11 +3530,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRange {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRange @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRange @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRectangle {
     <span class="kw">pub </span>x: c_int,
@@ -3545,7 +3545,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRectangle {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRectangle @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRectangle @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.x)
             .field(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.y)
             .field(<span class="string">&quot;width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.width)
@@ -3554,7 +3554,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRegistryClass {
     <span class="kw">pub </span>parent_class: gobject::GObjectClass,
@@ -3562,13 +3562,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRegistryClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRegistryClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRegistryClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRelationClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3576,13 +3576,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRelationClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRelationSetClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3592,7 +3592,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRelationSetClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationSetClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationSetClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;pad1&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pad1)
             .field(<span class="string">&quot;pad2&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pad2)
@@ -3600,7 +3600,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkSelectionIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3616,7 +3616,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkSelectionIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSelectionIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSelectionIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;add_selection&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.add_selection)
             .field(<span class="string">&quot;clear_selection&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.clear_selection)
@@ -3630,7 +3630,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkSocketClass {
     <span class="kw">pub </span>parent_class: AtkObjectClass,
@@ -3639,14 +3639,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkSocketClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSocketClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSocketClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .field(<span class="string">&quot;embed&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.embed)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkStateSetClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3654,13 +3654,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkStateSetClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStateSetClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStateSetClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkStreamableContentIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3679,7 +3679,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkStreamableContentIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStreamableContentIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStreamableContentIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_n_mime_types&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_n_mime_types)
             .field(<span class="string">&quot;get_mime_type&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_mime_type)
@@ -3692,7 +3692,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkTableCellIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3718,7 +3718,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTableCellIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTableCellIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTableCellIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;get_column_span&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_column_span)
             .field(<span class="string">&quot;get_column_header_cells&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_column_header_cells)
             .field(<span class="string">&quot;get_position&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_position)
@@ -3730,7 +3730,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkTableIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3774,7 +3774,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTableIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTableIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTableIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;ref_at&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.ref_at)
             .field(<span class="string">&quot;get_index_at&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_index_at)
@@ -3816,7 +3816,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkTextIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -3909,7 +3909,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTextIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_text&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_text)
             .field(<span class="string">&quot;get_text_after_offset&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_text_after_offset)
@@ -3941,7 +3941,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkTextRange {
     <span class="kw">pub </span>bounds: AtkTextRectangle,
@@ -3952,7 +3952,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTextRange {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextRange @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextRange @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;bounds&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.bounds)
             .field(<span class="string">&quot;start_offset&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.start_offset)
             .field(<span class="string">&quot;end_offset&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.end_offset)
@@ -3961,7 +3961,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkTextRectangle {
     <span class="kw">pub </span>x: c_int,
@@ -3972,7 +3972,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTextRectangle {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextRectangle @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkTextRectangle @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.x)
             .field(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.y)
             .field(<span class="string">&quot;width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.width)
@@ -3981,7 +3981,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkUtilClass {
     <span class="kw">pub </span>parent: gobject::GObjectClass,
@@ -3997,7 +3997,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkUtilClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkUtilClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkUtilClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;add_global_event_listener&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.add_global_event_listener)
             .field(
@@ -4013,7 +4013,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkValueIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -4033,7 +4033,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkValueIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkValueIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkValueIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;get_current_value&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_current_value)
             .field(<span class="string">&quot;get_maximum_value&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.get_maximum_value)
@@ -4049,7 +4049,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkWindowIface {
     <span class="kw">pub </span>parent: gobject::GTypeInterface,
@@ -4057,14 +4057,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkWindowIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkWindowIface @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkWindowIface @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
 <span class="comment">// Classes
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkGObjectAccessible {
     <span class="kw">pub </span>parent: AtkObject,
@@ -4072,13 +4072,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkGObjectAccessible {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkGObjectAccessible @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkGObjectAccessible @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkHyperlink {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4086,13 +4086,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHyperlink {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlink @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkHyperlink @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkMisc {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4100,13 +4100,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkMisc {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkMisc @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkMisc @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkNoOpObject {
     <span class="kw">pub </span>parent: AtkObject,
@@ -4114,13 +4114,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkNoOpObject {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObject @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObject @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkNoOpObjectFactory {
     <span class="kw">pub </span>parent: AtkObjectFactory,
@@ -4128,13 +4128,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkNoOpObjectFactory {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectFactory @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkNoOpObjectFactory @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkObject {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4148,7 +4148,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkObject {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObject @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObject @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;description&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.description)
             .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.name)
@@ -4160,7 +4160,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkObjectFactory {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4168,13 +4168,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkObjectFactory {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectFactory @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkObjectFactory @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkPlug {
     <span class="kw">pub </span>parent: AtkObject,
@@ -4182,13 +4182,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkPlug {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPlug @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkPlug @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRegistry {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4198,7 +4198,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRegistry {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRegistry @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRegistry @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;factory_type_registry&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.factory_type_registry)
             .field(<span class="string">&quot;factory_singleton_cache&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.factory_singleton_cache)
@@ -4206,7 +4206,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRelation {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4216,7 +4216,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRelation {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelation @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelation @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;target&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.target)
             .field(<span class="string">&quot;relationship&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.relationship)
@@ -4224,7 +4224,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkRelationSet {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4233,14 +4233,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkRelationSet {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationSet @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkRelationSet @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .field(<span class="string">&quot;relations&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.relations)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkSocket {
     <span class="kw">pub </span>parent: AtkObject,
@@ -4249,13 +4249,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkSocket {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSocket @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkSocket @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkStateSet {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4263,13 +4263,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkStateSet {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStateSet @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkStateSet @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>AtkUtil {
     <span class="kw">pub </span>parent: gobject::GObject,
@@ -4277,14 +4277,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkUtil {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkUtil @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;AtkUtil @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent)
             .finish()
     }
 }
 
 <span class="comment">// Interfaces
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkAction {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4292,11 +4292,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkAction {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkAction @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkAction @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkComponent {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4304,11 +4304,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkComponent {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkComponent @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkComponent @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkDocument {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4316,11 +4316,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkDocument {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkDocument @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkDocument @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkEditableText {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4328,11 +4328,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkEditableText {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkEditableText @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkEditableText @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkHyperlinkImpl {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4340,11 +4340,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHyperlinkImpl {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkHyperlinkImpl @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkHyperlinkImpl @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkHypertext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4352,11 +4352,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkHypertext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkHypertext @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkHypertext @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkImage {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4364,11 +4364,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkImage {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkImage @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkImage @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkImplementorIface {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4376,11 +4376,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkImplementorIface {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkImplementorIface @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkImplementorIface @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkSelection {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4388,11 +4388,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkSelection {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkSelection @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkSelection @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkStreamableContent {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4400,11 +4400,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkStreamableContent {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkStreamableContent @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkStreamableContent @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkTable {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4412,11 +4412,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTable {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkTable @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkTable @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkTableCell {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4424,11 +4424,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkTableCell {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkTableCell @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkTableCell @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkText {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4436,11 +4436,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkText {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkText @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkText @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkValue {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4448,11 +4448,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkValue {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkValue @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkValue @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>AtkWindow {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -4460,11 +4460,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>AtkWindow {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;AtkWindow @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;AtkWindow @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[link(name = <span class="string">&quot;atk-1.0&quot;</span>)]
+<span class="attr">#[link(name = <span class="string">&quot;atk-1.0&quot;</span>)]
 </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
 
     <span class="comment">//=========================================================================
@@ -4502,7 +4502,7 @@
     <span class="comment">//=========================================================================
     // AtkScrollType
     //=========================================================================
-    </span><span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_scroll_type_get_type() -&gt; GType;
 
@@ -4640,7 +4640,7 @@
         accessible: <span class="kw-2">*mut </span>AtkObject,
         handler: <span class="kw-2">*mut </span>AtkPropertyChangeHandler,
     ) -&gt; c_uint;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_object_get_accessible_id(accessible: <span class="kw-2">*mut </span>AtkObject) -&gt; <span class="kw-2">*const </span>c_char;
     <span class="kw">pub fn </span>atk_object_get_attributes(accessible: <span class="kw-2">*mut </span>AtkObject) -&gt; <span class="kw-2">*mut </span>AtkAttributeSet;
@@ -4672,7 +4672,7 @@
         relationship: AtkRelationType,
         target: <span class="kw-2">*mut </span>AtkObject,
     ) -&gt; gboolean;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_object_set_accessible_id(accessible: <span class="kw-2">*mut </span>AtkObject, name: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>atk_object_set_description(accessible: <span class="kw-2">*mut </span>AtkObject, description: <span class="kw-2">*const </span>c_char);
@@ -4864,10 +4864,10 @@
         coord_type: AtkCoordType,
     ) -&gt; <span class="kw-2">*mut </span>AtkObject;
     <span class="kw">pub fn </span>atk_component_remove_focus_handler(component: <span class="kw-2">*mut </span>AtkComponent, handler_id: c_uint);
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_component_scroll_to(component: <span class="kw-2">*mut </span>AtkComponent, type_: AtkScrollType) -&gt; gboolean;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_30&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_component_scroll_to_point(
         component: <span class="kw-2">*mut </span>AtkComponent,
@@ -5171,7 +5171,7 @@
         end_offset: <span class="kw-2">*mut </span>c_int,
     ) -&gt; <span class="kw-2">*mut </span>c_char;
     <span class="kw">pub fn </span>atk_text_remove_selection(text: <span class="kw-2">*mut </span>AtkText, selection_num: c_int) -&gt; gboolean;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_text_scroll_substring_to(
         text: <span class="kw-2">*mut </span>AtkText,
@@ -5179,7 +5179,7 @@
         end_offset: c_int,
         type_: AtkScrollType,
     ) -&gt; gboolean;
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_32&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_text_scroll_substring_to_point(
         text: <span class="kw-2">*mut </span>AtkText,
@@ -5252,4 +5252,4 @@
 
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="atk_sys" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

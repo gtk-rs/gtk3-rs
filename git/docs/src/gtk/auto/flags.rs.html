@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1892,17 +1892,17 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Accelerator flags used with [`AccelGroupExtManual::connect_accel_group()`][crate::prelude::AccelGroupExtManual::connect_accel_group()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkAccelFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkAccelFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>AccelFlags: u32 {
         <span class="doccomment">/// Accelerator is visible
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ACCEL_VISIBLE&quot;</span>)]
-        </span><span class="kw">const </span>VISIBLE = ffi::GTK_ACCEL_VISIBLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ACCEL_VISIBLE&quot;</span>)]
+        </span><span class="kw">const </span>VISIBLE = ffi::GTK_ACCEL_VISIBLE <span class="kw">as _</span>;
         <span class="doccomment">/// Accelerator not removable
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ACCEL_LOCKED&quot;</span>)]
-        </span><span class="kw">const </span>LOCKED = ffi::GTK_ACCEL_LOCKED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ACCEL_LOCKED&quot;</span>)]
+        </span><span class="kw">const </span>LOCKED = ffi::GTK_ACCEL_LOCKED <span class="kw">as _</span>;
         <span class="doccomment">/// Mask
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ACCEL_MASK&quot;</span>)]
-        </span><span class="kw">const </span>MASK = ffi::GTK_ACCEL_MASK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ACCEL_MASK&quot;</span>)]
+        </span><span class="kw">const </span>MASK = ffi::GTK_ACCEL_MASK <span class="kw">as _</span>;
     }
 }
 
@@ -1912,7 +1912,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>AccelFlags {
     <span class="kw">type </span>GlibType = ffi::GtkAccelFlags;
 
@@ -1921,7 +1921,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkAccelFlags&gt; <span class="kw">for </span>AccelFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkAccelFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -1964,23 +1964,23 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Types of user actions that may be blocked by [`GtkApplicationExt::inhibit()`][crate::prelude::GtkApplicationExt::inhibit()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkApplicationInhibitFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkApplicationInhibitFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>ApplicationInhibitFlags: u32 {
         <span class="doccomment">/// Inhibit ending the user session
         ///  by logging out or by shutting down the computer
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_LOGOUT&quot;</span>)]
-        </span><span class="kw">const </span>LOGOUT = ffi::GTK_APPLICATION_INHIBIT_LOGOUT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_LOGOUT&quot;</span>)]
+        </span><span class="kw">const </span>LOGOUT = ffi::GTK_APPLICATION_INHIBIT_LOGOUT <span class="kw">as _</span>;
         <span class="doccomment">/// Inhibit user switching
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_SWITCH&quot;</span>)]
-        </span><span class="kw">const </span>SWITCH = ffi::GTK_APPLICATION_INHIBIT_SWITCH <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_SWITCH&quot;</span>)]
+        </span><span class="kw">const </span>SWITCH = ffi::GTK_APPLICATION_INHIBIT_SWITCH <span class="kw">as _</span>;
         <span class="doccomment">/// Inhibit suspending the
         ///  session or computer
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_SUSPEND&quot;</span>)]
-        </span><span class="kw">const </span>SUSPEND = ffi::GTK_APPLICATION_INHIBIT_SUSPEND <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_SUSPEND&quot;</span>)]
+        </span><span class="kw">const </span>SUSPEND = ffi::GTK_APPLICATION_INHIBIT_SUSPEND <span class="kw">as _</span>;
         <span class="doccomment">/// Inhibit the session being
         ///  marked as idle (and possibly locked)
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_IDLE&quot;</span>)]
-        </span><span class="kw">const </span>IDLE = ffi::GTK_APPLICATION_INHIBIT_IDLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_APPLICATION_INHIBIT_IDLE&quot;</span>)]
+        </span><span class="kw">const </span>IDLE = ffi::GTK_APPLICATION_INHIBIT_IDLE <span class="kw">as _</span>;
     }
 }
 
@@ -1990,7 +1990,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>ApplicationInhibitFlags {
     <span class="kw">type </span>GlibType = ffi::GtkApplicationInhibitFlags;
 
@@ -1999,7 +1999,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkApplicationInhibitFlags&gt; <span class="kw">for </span>ApplicationInhibitFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkApplicationInhibitFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2042,25 +2042,25 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// These options can be used to influence the display and behaviour of a [`Calendar`][crate::Calendar].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkCalendarDisplayOptions&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkCalendarDisplayOptions&quot;</span>)]
     </span><span class="kw">pub struct </span>CalendarDisplayOptions: u32 {
         <span class="doccomment">/// Specifies that the month and year should be displayed.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_HEADING&quot;</span>)]
-        </span><span class="kw">const </span>SHOW_HEADING = ffi::GTK_CALENDAR_SHOW_HEADING <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_HEADING&quot;</span>)]
+        </span><span class="kw">const </span>SHOW_HEADING = ffi::GTK_CALENDAR_SHOW_HEADING <span class="kw">as _</span>;
         <span class="doccomment">/// Specifies that three letter day descriptions should be present.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_DAY_NAMES&quot;</span>)]
-        </span><span class="kw">const </span>SHOW_DAY_NAMES = ffi::GTK_CALENDAR_SHOW_DAY_NAMES <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_DAY_NAMES&quot;</span>)]
+        </span><span class="kw">const </span>SHOW_DAY_NAMES = ffi::GTK_CALENDAR_SHOW_DAY_NAMES <span class="kw">as _</span>;
         <span class="doccomment">/// Prevents the user from switching months with the calendar.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_NO_MONTH_CHANGE&quot;</span>)]
-        </span><span class="kw">const </span>NO_MONTH_CHANGE = ffi::GTK_CALENDAR_NO_MONTH_CHANGE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_NO_MONTH_CHANGE&quot;</span>)]
+        </span><span class="kw">const </span>NO_MONTH_CHANGE = ffi::GTK_CALENDAR_NO_MONTH_CHANGE <span class="kw">as _</span>;
         <span class="doccomment">/// Displays each week numbers of the current year, down the
         /// left side of the calendar.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_WEEK_NUMBERS&quot;</span>)]
-        </span><span class="kw">const </span>SHOW_WEEK_NUMBERS = ffi::GTK_CALENDAR_SHOW_WEEK_NUMBERS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_WEEK_NUMBERS&quot;</span>)]
+        </span><span class="kw">const </span>SHOW_WEEK_NUMBERS = ffi::GTK_CALENDAR_SHOW_WEEK_NUMBERS <span class="kw">as _</span>;
         <span class="doccomment">/// Just show an indicator, not the full details
         /// text when details are provided. See [`CalendarExt::set_detail_func()`][crate::prelude::CalendarExt::set_detail_func()].
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_DETAILS&quot;</span>)]
-        </span><span class="kw">const </span>SHOW_DETAILS = ffi::GTK_CALENDAR_SHOW_DETAILS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CALENDAR_SHOW_DETAILS&quot;</span>)]
+        </span><span class="kw">const </span>SHOW_DETAILS = ffi::GTK_CALENDAR_SHOW_DETAILS <span class="kw">as _</span>;
     }
 }
 
@@ -2070,7 +2070,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>CalendarDisplayOptions {
     <span class="kw">type </span>GlibType = ffi::GtkCalendarDisplayOptions;
 
@@ -2079,7 +2079,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkCalendarDisplayOptions&gt; <span class="kw">for </span>CalendarDisplayOptions {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkCalendarDisplayOptions) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2122,30 +2122,30 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Tells how a cell is to be rendered.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkCellRendererState&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkCellRendererState&quot;</span>)]
     </span><span class="kw">pub struct </span>CellRendererState: u32 {
         <span class="doccomment">/// The cell is currently selected, and
         ///  probably has a selection colored background to render to.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_SELECTED&quot;</span>)]
-        </span><span class="kw">const </span>SELECTED = ffi::GTK_CELL_RENDERER_SELECTED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_SELECTED&quot;</span>)]
+        </span><span class="kw">const </span>SELECTED = ffi::GTK_CELL_RENDERER_SELECTED <span class="kw">as _</span>;
         <span class="doccomment">/// The mouse is hovering over the cell.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_PRELIT&quot;</span>)]
-        </span><span class="kw">const </span>PRELIT = ffi::GTK_CELL_RENDERER_PRELIT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_PRELIT&quot;</span>)]
+        </span><span class="kw">const </span>PRELIT = ffi::GTK_CELL_RENDERER_PRELIT <span class="kw">as _</span>;
         <span class="doccomment">/// The cell is drawn in an insensitive manner
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_INSENSITIVE&quot;</span>)]
-        </span><span class="kw">const </span>INSENSITIVE = ffi::GTK_CELL_RENDERER_INSENSITIVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_INSENSITIVE&quot;</span>)]
+        </span><span class="kw">const </span>INSENSITIVE = ffi::GTK_CELL_RENDERER_INSENSITIVE <span class="kw">as _</span>;
         <span class="doccomment">/// The cell is in a sorted row
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_SORTED&quot;</span>)]
-        </span><span class="kw">const </span>SORTED = ffi::GTK_CELL_RENDERER_SORTED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_SORTED&quot;</span>)]
+        </span><span class="kw">const </span>SORTED = ffi::GTK_CELL_RENDERER_SORTED <span class="kw">as _</span>;
         <span class="doccomment">/// The cell is in the focus row.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_FOCUSED&quot;</span>)]
-        </span><span class="kw">const </span>FOCUSED = ffi::GTK_CELL_RENDERER_FOCUSED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_FOCUSED&quot;</span>)]
+        </span><span class="kw">const </span>FOCUSED = ffi::GTK_CELL_RENDERER_FOCUSED <span class="kw">as _</span>;
         <span class="doccomment">/// The cell is in a row that can be expanded. Since 3.4
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_EXPANDABLE&quot;</span>)]
-        </span><span class="kw">const </span>EXPANDABLE = ffi::GTK_CELL_RENDERER_EXPANDABLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_EXPANDABLE&quot;</span>)]
+        </span><span class="kw">const </span>EXPANDABLE = ffi::GTK_CELL_RENDERER_EXPANDABLE <span class="kw">as _</span>;
         <span class="doccomment">/// The cell is in a row that is expanded. Since 3.4
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_EXPANDED&quot;</span>)]
-        </span><span class="kw">const </span>EXPANDED = ffi::GTK_CELL_RENDERER_EXPANDED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_CELL_RENDERER_EXPANDED&quot;</span>)]
+        </span><span class="kw">const </span>EXPANDED = ffi::GTK_CELL_RENDERER_EXPANDED <span class="kw">as _</span>;
     }
 }
 
@@ -2155,7 +2155,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>CellRendererState {
     <span class="kw">type </span>GlibType = ffi::GtkCellRendererState;
 
@@ -2164,7 +2164,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkCellRendererState&gt; <span class="kw">for </span>CellRendererState {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkCellRendererState) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2209,31 +2209,31 @@
     <span class="doccomment">/// The [`DestDefaults`][crate::DestDefaults] enumeration specifies the various
     /// types of action that will be taken on behalf
     /// of the user for a drag destination site.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkDestDefaults&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkDestDefaults&quot;</span>)]
     </span><span class="kw">pub struct </span>DestDefaults: u32 {
         <span class="doccomment">/// If set for a widget, GTK+, during a drag over this
         ///  widget will check if the drag matches this widget’s list of possible targets
         ///  and actions.
         ///  GTK+ will then call `gdk_drag_status()` as appropriate.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_MOTION&quot;</span>)]
-        </span><span class="kw">const </span>MOTION = ffi::GTK_DEST_DEFAULT_MOTION <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_MOTION&quot;</span>)]
+        </span><span class="kw">const </span>MOTION = ffi::GTK_DEST_DEFAULT_MOTION <span class="kw">as _</span>;
         <span class="doccomment">/// If set for a widget, GTK+ will draw a highlight on
         ///  this widget as long as a drag is over this widget and the widget drag format
         ///  and action are acceptable.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_HIGHLIGHT&quot;</span>)]
-        </span><span class="kw">const </span>HIGHLIGHT = ffi::GTK_DEST_DEFAULT_HIGHLIGHT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_HIGHLIGHT&quot;</span>)]
+        </span><span class="kw">const </span>HIGHLIGHT = ffi::GTK_DEST_DEFAULT_HIGHLIGHT <span class="kw">as _</span>;
         <span class="doccomment">/// If set for a widget, when a drop occurs, GTK+ will
         ///  will check if the drag matches this widget’s list of possible targets and
         ///  actions. If so, GTK+ will call [`WidgetExt::drag_get_data()`][crate::prelude::WidgetExt::drag_get_data()] on behalf of the widget.
         ///  Whether or not the drop is successful, GTK+ will call `gtk_drag_finish()`. If
         ///  the action was a move, then if the drag was successful, then [`true`] will be
         ///  passed for the `delete` parameter to `gtk_drag_finish()`.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_DROP&quot;</span>)]
-        </span><span class="kw">const </span>DROP = ffi::GTK_DEST_DEFAULT_DROP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_DROP&quot;</span>)]
+        </span><span class="kw">const </span>DROP = ffi::GTK_DEST_DEFAULT_DROP <span class="kw">as _</span>;
         <span class="doccomment">/// If set, specifies that all default actions should
         ///  be taken.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_ALL&quot;</span>)]
-        </span><span class="kw">const </span>ALL = ffi::GTK_DEST_DEFAULT_ALL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DEST_DEFAULT_ALL&quot;</span>)]
+        </span><span class="kw">const </span>ALL = ffi::GTK_DEST_DEFAULT_ALL <span class="kw">as _</span>;
     }
 }
 
@@ -2243,7 +2243,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>DestDefaults {
     <span class="kw">type </span>GlibType = ffi::GtkDestDefaults;
 
@@ -2252,7 +2252,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkDestDefaults&gt; <span class="kw">for </span>DestDefaults {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkDestDefaults) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2295,20 +2295,20 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to influence dialog construction.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkDialogFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkDialogFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>DialogFlags: u32 {
         <span class="doccomment">/// Make the constructed dialog modal,
         ///  see [`GtkWindowExt::set_modal()`][crate::prelude::GtkWindowExt::set_modal()]
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DIALOG_MODAL&quot;</span>)]
-        </span><span class="kw">const </span>MODAL = ffi::GTK_DIALOG_MODAL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DIALOG_MODAL&quot;</span>)]
+        </span><span class="kw">const </span>MODAL = ffi::GTK_DIALOG_MODAL <span class="kw">as _</span>;
         <span class="doccomment">/// Destroy the dialog when its
         ///  parent is destroyed, see [`GtkWindowExt::set_destroy_with_parent()`][crate::prelude::GtkWindowExt::set_destroy_with_parent()]
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DIALOG_DESTROY_WITH_PARENT&quot;</span>)]
-        </span><span class="kw">const </span>DESTROY_WITH_PARENT = ffi::GTK_DIALOG_DESTROY_WITH_PARENT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DIALOG_DESTROY_WITH_PARENT&quot;</span>)]
+        </span><span class="kw">const </span>DESTROY_WITH_PARENT = ffi::GTK_DIALOG_DESTROY_WITH_PARENT <span class="kw">as _</span>;
         <span class="doccomment">/// Create dialog with actions in header
         ///  bar instead of action area. Since 3.12.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_DIALOG_USE_HEADER_BAR&quot;</span>)]
-        </span><span class="kw">const </span>USE_HEADER_BAR = ffi::GTK_DIALOG_USE_HEADER_BAR <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_DIALOG_USE_HEADER_BAR&quot;</span>)]
+        </span><span class="kw">const </span>USE_HEADER_BAR = ffi::GTK_DIALOG_USE_HEADER_BAR <span class="kw">as _</span>;
     }
 }
 
@@ -2318,7 +2318,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>DialogFlags {
     <span class="kw">type </span>GlibType = ffi::GtkDialogFlags;
 
@@ -2327,7 +2327,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkDialogFlags&gt; <span class="kw">for </span>DialogFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkDialogFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2368,35 +2368,35 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 </span><span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes the behavior of a [`EventControllerScroll`][crate::EventControllerScroll].
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;GtkEventControllerScrollFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>EventControllerScrollFlags: u32 {
         <span class="doccomment">/// Don&#39;t emit scroll.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GTK_EVENT_CONTROLLER_SCROLL_NONE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GTK_EVENT_CONTROLLER_SCROLL_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// Emit scroll with vertical deltas.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_VERTICAL&quot;</span>)]
-        </span><span class="kw">const </span>VERTICAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_VERTICAL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_VERTICAL&quot;</span>)]
+        </span><span class="kw">const </span>VERTICAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_VERTICAL <span class="kw">as _</span>;
         <span class="doccomment">/// Emit scroll with horizontal deltas.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL&quot;</span>)]
-        </span><span class="kw">const </span>HORIZONTAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL&quot;</span>)]
+        </span><span class="kw">const </span>HORIZONTAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL <span class="kw">as _</span>;
         <span class="doccomment">/// Only emit deltas that are multiples of 1.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_DISCRETE&quot;</span>)]
-        </span><span class="kw">const </span>DISCRETE = ffi::GTK_EVENT_CONTROLLER_SCROLL_DISCRETE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_DISCRETE&quot;</span>)]
+        </span><span class="kw">const </span>DISCRETE = ffi::GTK_EVENT_CONTROLLER_SCROLL_DISCRETE <span class="kw">as _</span>;
         <span class="doccomment">/// Emit `signal::EventControllerScroll::decelerate`
         ///  after continuous scroll finishes.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_KINETIC&quot;</span>)]
-        </span><span class="kw">const </span>KINETIC = ffi::GTK_EVENT_CONTROLLER_SCROLL_KINETIC <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_KINETIC&quot;</span>)]
+        </span><span class="kw">const </span>KINETIC = ffi::GTK_EVENT_CONTROLLER_SCROLL_KINETIC <span class="kw">as _</span>;
         <span class="doccomment">/// Emit scroll on both axes.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES&quot;</span>)]
-        </span><span class="kw">const </span>BOTH_AXES = ffi::GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES&quot;</span>)]
+        </span><span class="kw">const </span>BOTH_AXES = ffi::GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES <span class="kw">as _</span>;
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>EventControllerScrollFlags {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
@@ -2404,7 +2404,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 #[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>EventControllerScrollFlags {
@@ -2415,7 +2415,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 #[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkEventControllerScrollFlags&gt; <span class="kw">for </span>EventControllerScrollFlags {
@@ -2425,7 +2425,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>StaticType <span class="kw">for </span>EventControllerScrollFlags {
     <span class="kw">fn </span>static_type() -&gt; Type {
@@ -2433,13 +2433,13 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>EventControllerScrollFlags {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>EventControllerScrollFlags {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
@@ -2450,7 +2450,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>ToValue <span class="kw">for </span>EventControllerScrollFlags {
     <span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
@@ -2469,21 +2469,21 @@
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a [`FileFilterInfo`][crate::FileFilterInfo] struct
     /// are filled or need to be filled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkFileFilterFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkFileFilterFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>FileFilterFlags: u32 {
         <span class="doccomment">/// the filename of the file being tested
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_FILENAME&quot;</span>)]
-        </span><span class="kw">const </span>FILENAME = ffi::GTK_FILE_FILTER_FILENAME <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_FILENAME&quot;</span>)]
+        </span><span class="kw">const </span>FILENAME = ffi::GTK_FILE_FILTER_FILENAME <span class="kw">as _</span>;
         <span class="doccomment">/// the URI for the file being tested
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_URI&quot;</span>)]
-        </span><span class="kw">const </span>URI = ffi::GTK_FILE_FILTER_URI <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_URI&quot;</span>)]
+        </span><span class="kw">const </span>URI = ffi::GTK_FILE_FILTER_URI <span class="kw">as _</span>;
         <span class="doccomment">/// the string that will be used to
         ///  display the file in the file chooser
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_DISPLAY_NAME&quot;</span>)]
-        </span><span class="kw">const </span>DISPLAY_NAME = ffi::GTK_FILE_FILTER_DISPLAY_NAME <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_DISPLAY_NAME&quot;</span>)]
+        </span><span class="kw">const </span>DISPLAY_NAME = ffi::GTK_FILE_FILTER_DISPLAY_NAME <span class="kw">as _</span>;
         <span class="doccomment">/// the mime type of the file
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_MIME_TYPE&quot;</span>)]
-        </span><span class="kw">const </span>MIME_TYPE = ffi::GTK_FILE_FILTER_MIME_TYPE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FILE_FILTER_MIME_TYPE&quot;</span>)]
+        </span><span class="kw">const </span>MIME_TYPE = ffi::GTK_FILE_FILTER_MIME_TYPE <span class="kw">as _</span>;
     }
 }
 
@@ -2493,7 +2493,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>FileFilterFlags {
     <span class="kw">type </span>GlibType = ffi::GtkFileFilterFlags;
 
@@ -2502,7 +2502,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkFileFilterFlags&gt; <span class="kw">for </span>FileFilterFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkFileFilterFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2543,34 +2543,34 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 </span><span class="macro">bitflags! </span>{
     <span class="doccomment">/// This enumeration specifies the granularity of font selection
     /// that is desired in a font chooser.
     ///
     /// This enumeration may be extended in the future; applications should
     /// ignore unknown values.
-    </span><span class="attribute">#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;GtkFontChooserLevel&quot;</span>)]
     </span><span class="kw">pub struct </span>FontChooserLevel: u32 {
         <span class="doccomment">/// Allow selecting a font family
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_FAMILY&quot;</span>)]
-        </span><span class="kw">const </span>FAMILY = ffi::GTK_FONT_CHOOSER_LEVEL_FAMILY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_FAMILY&quot;</span>)]
+        </span><span class="kw">const </span>FAMILY = ffi::GTK_FONT_CHOOSER_LEVEL_FAMILY <span class="kw">as _</span>;
         <span class="doccomment">/// Allow selecting a specific font face
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_STYLE&quot;</span>)]
-        </span><span class="kw">const </span>STYLE = ffi::GTK_FONT_CHOOSER_LEVEL_STYLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_STYLE&quot;</span>)]
+        </span><span class="kw">const </span>STYLE = ffi::GTK_FONT_CHOOSER_LEVEL_STYLE <span class="kw">as _</span>;
         <span class="doccomment">/// Allow selecting a specific font size
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>SIZE = ffi::GTK_FONT_CHOOSER_LEVEL_SIZE <span class="kw">as </span>u32;
-        <span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_VARIATIONS&quot;</span>)]
-        </span><span class="kw">const </span>VARIATIONS = ffi::GTK_FONT_CHOOSER_LEVEL_VARIATIONS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>SIZE = ffi::GTK_FONT_CHOOSER_LEVEL_SIZE <span class="kw">as _</span>;
+        <span class="attr">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_VARIATIONS&quot;</span>)]
+        </span><span class="kw">const </span>VARIATIONS = ffi::GTK_FONT_CHOOSER_LEVEL_VARIATIONS <span class="kw">as _</span>;
         <span class="doccomment">/// Allow selecting specific OpenType font features
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_FEATURES&quot;</span>)]
-        </span><span class="kw">const </span>FEATURES = ffi::GTK_FONT_CHOOSER_LEVEL_FEATURES <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_FONT_CHOOSER_LEVEL_FEATURES&quot;</span>)]
+        </span><span class="kw">const </span>FEATURES = ffi::GTK_FONT_CHOOSER_LEVEL_FEATURES <span class="kw">as _</span>;
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>fmt::Display <span class="kw">for </span>FontChooserLevel {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
@@ -2578,7 +2578,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 #[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>FontChooserLevel {
@@ -2589,7 +2589,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 #[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkFontChooserLevel&gt; <span class="kw">for </span>FontChooserLevel {
@@ -2599,7 +2599,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>StaticType <span class="kw">for </span>FontChooserLevel {
     <span class="kw">fn </span>static_type() -&gt; Type {
@@ -2607,13 +2607,13 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>FontChooserLevel {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>FontChooserLevel {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
@@ -2624,7 +2624,7 @@
     }
 }
 
-<span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">impl </span>ToValue <span class="kw">for </span>FontChooserLevel {
     <span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
@@ -2642,49 +2642,49 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Used to specify options for [`IconThemeExt::lookup_icon()`][crate::prelude::IconThemeExt::lookup_icon()]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkIconLookupFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkIconLookupFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>IconLookupFlags: u32 {
         <span class="doccomment">/// Never get SVG icons, even if gdk-pixbuf
         ///  supports them. Cannot be used together with [`FORCE_SVG`][Self::FORCE_SVG].
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_NO_SVG&quot;</span>)]
-        </span><span class="kw">const </span>NO_SVG = ffi::GTK_ICON_LOOKUP_NO_SVG <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_NO_SVG&quot;</span>)]
+        </span><span class="kw">const </span>NO_SVG = ffi::GTK_ICON_LOOKUP_NO_SVG <span class="kw">as _</span>;
         <span class="doccomment">/// Get SVG icons, even if gdk-pixbuf
         ///  doesn’t support them.
         ///  Cannot be used together with [`NO_SVG`][Self::NO_SVG].
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SVG&quot;</span>)]
-        </span><span class="kw">const </span>FORCE_SVG = ffi::GTK_ICON_LOOKUP_FORCE_SVG <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SVG&quot;</span>)]
+        </span><span class="kw">const </span>FORCE_SVG = ffi::GTK_ICON_LOOKUP_FORCE_SVG <span class="kw">as _</span>;
         <span class="doccomment">/// When passed to
         ///  [`IconThemeExt::lookup_icon()`][crate::prelude::IconThemeExt::lookup_icon()] includes builtin icons
         ///  as well as files. For a builtin icon, [`IconInfo::filename()`][crate::IconInfo::filename()]
         ///  is [`None`] and you need to call `gtk_icon_info_get_builtin_pixbuf()`.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_USE_BUILTIN&quot;</span>)]
-        </span><span class="kw">const </span>USE_BUILTIN = ffi::GTK_ICON_LOOKUP_USE_BUILTIN <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_USE_BUILTIN&quot;</span>)]
+        </span><span class="kw">const </span>USE_BUILTIN = ffi::GTK_ICON_LOOKUP_USE_BUILTIN <span class="kw">as _</span>;
         <span class="doccomment">/// Try to shorten icon name at &#39;-&#39;
         ///  characters before looking at inherited themes. This flag is only
         ///  supported in functions that take a single icon name. For more general
         ///  fallback, see `gtk_icon_theme_choose_icon()`. Since 2.12.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_GENERIC_FALLBACK&quot;</span>)]
-        </span><span class="kw">const </span>GENERIC_FALLBACK = ffi::GTK_ICON_LOOKUP_GENERIC_FALLBACK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_GENERIC_FALLBACK&quot;</span>)]
+        </span><span class="kw">const </span>GENERIC_FALLBACK = ffi::GTK_ICON_LOOKUP_GENERIC_FALLBACK <span class="kw">as _</span>;
         <span class="doccomment">/// Always get the icon scaled to the
         ///  requested size. Since 2.14.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SIZE&quot;</span>)]
-        </span><span class="kw">const </span>FORCE_SIZE = ffi::GTK_ICON_LOOKUP_FORCE_SIZE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SIZE&quot;</span>)]
+        </span><span class="kw">const </span>FORCE_SIZE = ffi::GTK_ICON_LOOKUP_FORCE_SIZE <span class="kw">as _</span>;
         <span class="doccomment">/// Try to always load regular icons, even
         ///  when symbolic icon names are given. Since 3.14.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_REGULAR&quot;</span>)]
-        </span><span class="kw">const </span>FORCE_REGULAR = ffi::GTK_ICON_LOOKUP_FORCE_REGULAR <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_REGULAR&quot;</span>)]
+        </span><span class="kw">const </span>FORCE_REGULAR = ffi::GTK_ICON_LOOKUP_FORCE_REGULAR <span class="kw">as _</span>;
         <span class="doccomment">/// Try to always load symbolic icons, even
         ///  when regular icon names are given. Since 3.14.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SYMBOLIC&quot;</span>)]
-        </span><span class="kw">const </span>FORCE_SYMBOLIC = ffi::GTK_ICON_LOOKUP_FORCE_SYMBOLIC <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_FORCE_SYMBOLIC&quot;</span>)]
+        </span><span class="kw">const </span>FORCE_SYMBOLIC = ffi::GTK_ICON_LOOKUP_FORCE_SYMBOLIC <span class="kw">as _</span>;
         <span class="doccomment">/// Try to load a variant of the icon for left-to-right
         ///  text direction. Since 3.14.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_DIR_LTR&quot;</span>)]
-        </span><span class="kw">const </span>DIR_LTR = ffi::GTK_ICON_LOOKUP_DIR_LTR <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_DIR_LTR&quot;</span>)]
+        </span><span class="kw">const </span>DIR_LTR = ffi::GTK_ICON_LOOKUP_DIR_LTR <span class="kw">as _</span>;
         <span class="doccomment">/// Try to load a variant of the icon for right-to-left
         ///  text direction. Since 3.14.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_DIR_RTL&quot;</span>)]
-        </span><span class="kw">const </span>DIR_RTL = ffi::GTK_ICON_LOOKUP_DIR_RTL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_ICON_LOOKUP_DIR_RTL&quot;</span>)]
+        </span><span class="kw">const </span>DIR_RTL = ffi::GTK_ICON_LOOKUP_DIR_RTL <span class="kw">as _</span>;
     }
 }
 
@@ -2694,7 +2694,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>IconLookupFlags {
     <span class="kw">type </span>GlibType = ffi::GtkIconLookupFlags;
 
@@ -2703,7 +2703,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkIconLookupFlags&gt; <span class="kw">for </span>IconLookupFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkIconLookupFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2754,47 +2754,47 @@
     ///
     /// This enumeration may be extended in the future; input methods should
     /// ignore unknown values.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkInputHints&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkInputHints&quot;</span>)]
     </span><span class="kw">pub struct </span>InputHints: u32 {
         <span class="doccomment">/// No special behaviour suggested
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GTK_INPUT_HINT_NONE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GTK_INPUT_HINT_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest checking for typos
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_SPELLCHECK&quot;</span>)]
-        </span><span class="kw">const </span>SPELLCHECK = ffi::GTK_INPUT_HINT_SPELLCHECK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_SPELLCHECK&quot;</span>)]
+        </span><span class="kw">const </span>SPELLCHECK = ffi::GTK_INPUT_HINT_SPELLCHECK <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest not checking for typos
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NO_SPELLCHECK&quot;</span>)]
-        </span><span class="kw">const </span>NO_SPELLCHECK = ffi::GTK_INPUT_HINT_NO_SPELLCHECK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NO_SPELLCHECK&quot;</span>)]
+        </span><span class="kw">const </span>NO_SPELLCHECK = ffi::GTK_INPUT_HINT_NO_SPELLCHECK <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest word completion
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_WORD_COMPLETION&quot;</span>)]
-        </span><span class="kw">const </span>WORD_COMPLETION = ffi::GTK_INPUT_HINT_WORD_COMPLETION <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_WORD_COMPLETION&quot;</span>)]
+        </span><span class="kw">const </span>WORD_COMPLETION = ffi::GTK_INPUT_HINT_WORD_COMPLETION <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest to convert all text to lowercase
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_LOWERCASE&quot;</span>)]
-        </span><span class="kw">const </span>LOWERCASE = ffi::GTK_INPUT_HINT_LOWERCASE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_LOWERCASE&quot;</span>)]
+        </span><span class="kw">const </span>LOWERCASE = ffi::GTK_INPUT_HINT_LOWERCASE <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest to capitalize all text
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_CHARS&quot;</span>)]
-        </span><span class="kw">const </span>UPPERCASE_CHARS = ffi::GTK_INPUT_HINT_UPPERCASE_CHARS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_CHARS&quot;</span>)]
+        </span><span class="kw">const </span>UPPERCASE_CHARS = ffi::GTK_INPUT_HINT_UPPERCASE_CHARS <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest to capitalize the first
         ///  character of each word
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_WORDS&quot;</span>)]
-        </span><span class="kw">const </span>UPPERCASE_WORDS = ffi::GTK_INPUT_HINT_UPPERCASE_WORDS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_WORDS&quot;</span>)]
+        </span><span class="kw">const </span>UPPERCASE_WORDS = ffi::GTK_INPUT_HINT_UPPERCASE_WORDS <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest to capitalize the
         ///  first word of each sentence
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_SENTENCES&quot;</span>)]
-        </span><span class="kw">const </span>UPPERCASE_SENTENCES = ffi::GTK_INPUT_HINT_UPPERCASE_SENTENCES <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_UPPERCASE_SENTENCES&quot;</span>)]
+        </span><span class="kw">const </span>UPPERCASE_SENTENCES = ffi::GTK_INPUT_HINT_UPPERCASE_SENTENCES <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest to not show an onscreen keyboard
         ///  (e.g for a calculator that already has all the keys).
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_INHIBIT_OSK&quot;</span>)]
-        </span><span class="kw">const </span>INHIBIT_OSK = ffi::GTK_INPUT_HINT_INHIBIT_OSK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_INHIBIT_OSK&quot;</span>)]
+        </span><span class="kw">const </span>INHIBIT_OSK = ffi::GTK_INPUT_HINT_INHIBIT_OSK <span class="kw">as _</span>;
         <span class="doccomment">/// The text is vertical. Since 3.18
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_VERTICAL_WRITING&quot;</span>)]
-        </span><span class="kw">const </span>VERTICAL_WRITING = ffi::GTK_INPUT_HINT_VERTICAL_WRITING <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_VERTICAL_WRITING&quot;</span>)]
+        </span><span class="kw">const </span>VERTICAL_WRITING = ffi::GTK_INPUT_HINT_VERTICAL_WRITING <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest offering Emoji support. Since 3.22.20
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_EMOJI&quot;</span>)]
-        </span><span class="kw">const </span>EMOJI = ffi::GTK_INPUT_HINT_EMOJI <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_EMOJI&quot;</span>)]
+        </span><span class="kw">const </span>EMOJI = ffi::GTK_INPUT_HINT_EMOJI <span class="kw">as _</span>;
         <span class="doccomment">/// Suggest not offering Emoji support. Since 3.22.20
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NO_EMOJI&quot;</span>)]
-        </span><span class="kw">const </span>NO_EMOJI = ffi::GTK_INPUT_HINT_NO_EMOJI <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_INPUT_HINT_NO_EMOJI&quot;</span>)]
+        </span><span class="kw">const </span>NO_EMOJI = ffi::GTK_INPUT_HINT_NO_EMOJI <span class="kw">as _</span>;
     }
 }
 
@@ -2804,7 +2804,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>InputHints {
     <span class="kw">type </span>GlibType = ffi::GtkInputHints;
 
@@ -2813,7 +2813,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkInputHints&gt; <span class="kw">for </span>InputHints {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkInputHints) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2856,35 +2856,35 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes how a rendered element connects to adjacent elements.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkJunctionSides&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkJunctionSides&quot;</span>)]
     </span><span class="kw">pub struct </span>JunctionSides: u32 {
         <span class="doccomment">/// No junctions.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GTK_JUNCTION_NONE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GTK_JUNCTION_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the top-left corner.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_TOPLEFT&quot;</span>)]
-        </span><span class="kw">const </span>CORNER_TOPLEFT = ffi::GTK_JUNCTION_CORNER_TOPLEFT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_TOPLEFT&quot;</span>)]
+        </span><span class="kw">const </span>CORNER_TOPLEFT = ffi::GTK_JUNCTION_CORNER_TOPLEFT <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the top-right corner.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_TOPRIGHT&quot;</span>)]
-        </span><span class="kw">const </span>CORNER_TOPRIGHT = ffi::GTK_JUNCTION_CORNER_TOPRIGHT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_TOPRIGHT&quot;</span>)]
+        </span><span class="kw">const </span>CORNER_TOPRIGHT = ffi::GTK_JUNCTION_CORNER_TOPRIGHT <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the bottom-left corner.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_BOTTOMLEFT&quot;</span>)]
-        </span><span class="kw">const </span>CORNER_BOTTOMLEFT = ffi::GTK_JUNCTION_CORNER_BOTTOMLEFT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_BOTTOMLEFT&quot;</span>)]
+        </span><span class="kw">const </span>CORNER_BOTTOMLEFT = ffi::GTK_JUNCTION_CORNER_BOTTOMLEFT <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the bottom-right corner.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_BOTTOMRIGHT&quot;</span>)]
-        </span><span class="kw">const </span>CORNER_BOTTOMRIGHT = ffi::GTK_JUNCTION_CORNER_BOTTOMRIGHT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_CORNER_BOTTOMRIGHT&quot;</span>)]
+        </span><span class="kw">const </span>CORNER_BOTTOMRIGHT = ffi::GTK_JUNCTION_CORNER_BOTTOMRIGHT <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the top side.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_TOP&quot;</span>)]
-        </span><span class="kw">const </span>TOP = ffi::GTK_JUNCTION_TOP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_TOP&quot;</span>)]
+        </span><span class="kw">const </span>TOP = ffi::GTK_JUNCTION_TOP <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the bottom side.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_BOTTOM&quot;</span>)]
-        </span><span class="kw">const </span>BOTTOM = ffi::GTK_JUNCTION_BOTTOM <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_BOTTOM&quot;</span>)]
+        </span><span class="kw">const </span>BOTTOM = ffi::GTK_JUNCTION_BOTTOM <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the left side.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_LEFT&quot;</span>)]
-        </span><span class="kw">const </span>LEFT = ffi::GTK_JUNCTION_LEFT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_LEFT&quot;</span>)]
+        </span><span class="kw">const </span>LEFT = ffi::GTK_JUNCTION_LEFT <span class="kw">as _</span>;
         <span class="doccomment">/// Element connects on the right side.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_RIGHT&quot;</span>)]
-        </span><span class="kw">const </span>RIGHT = ffi::GTK_JUNCTION_RIGHT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_JUNCTION_RIGHT&quot;</span>)]
+        </span><span class="kw">const </span>RIGHT = ffi::GTK_JUNCTION_RIGHT <span class="kw">as _</span>;
     }
 }
 
@@ -2894,7 +2894,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>JunctionSides {
     <span class="kw">type </span>GlibType = ffi::GtkJunctionSides;
 
@@ -2903,7 +2903,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkJunctionSides&gt; <span class="kw">for </span>JunctionSides {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkJunctionSides) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -2959,23 +2959,23 @@
     /// If the application never calls [`PlacesSidebar::set_open_flags()`][crate::PlacesSidebar::set_open_flags()], then the sidebar will only
     /// use [`NORMAL`][Self::NORMAL] in the `signal::PlacesSidebar::open-location` signal. This is the
     /// default mode of operation.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkPlacesOpenFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkPlacesOpenFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>PlacesOpenFlags: u32 {
         <span class="doccomment">/// This is the default mode that [`PlacesSidebar`][crate::PlacesSidebar] uses if no other flags
         ///  are specified. It indicates that the calling application should open the selected location
         ///  in the normal way, for example, in the folder view beside the sidebar.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NORMAL&quot;</span>)]
-        </span><span class="kw">const </span>NORMAL = ffi::GTK_PLACES_OPEN_NORMAL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NORMAL&quot;</span>)]
+        </span><span class="kw">const </span>NORMAL = ffi::GTK_PLACES_OPEN_NORMAL <span class="kw">as _</span>;
         <span class="doccomment">/// When passed to [`PlacesSidebar::set_open_flags()`][crate::PlacesSidebar::set_open_flags()], this indicates
         ///  that the application can open folders selected from the sidebar in new tabs. This value
         ///  will be passed to the `signal::PlacesSidebar::open-location` signal when the user selects
         ///  that a location be opened in a new tab instead of in the standard fashion.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NEW_TAB&quot;</span>)]
-        </span><span class="kw">const </span>NEW_TAB = ffi::GTK_PLACES_OPEN_NEW_TAB <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NEW_TAB&quot;</span>)]
+        </span><span class="kw">const </span>NEW_TAB = ffi::GTK_PLACES_OPEN_NEW_TAB <span class="kw">as _</span>;
         <span class="doccomment">/// Similar to [`NEW_TAB`][Self::NEW_TAB], but indicates that the application
         ///  can open folders in new windows.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NEW_WINDOW&quot;</span>)]
-        </span><span class="kw">const </span>NEW_WINDOW = ffi::GTK_PLACES_OPEN_NEW_WINDOW <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_PLACES_OPEN_NEW_WINDOW&quot;</span>)]
+        </span><span class="kw">const </span>NEW_WINDOW = ffi::GTK_PLACES_OPEN_NEW_WINDOW <span class="kw">as _</span>;
     }
 }
 
@@ -2985,7 +2985,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>PlacesOpenFlags {
     <span class="kw">type </span>GlibType = ffi::GtkPlacesOpenFlags;
 
@@ -2994,7 +2994,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkPlacesOpenFlags&gt; <span class="kw">for </span>PlacesOpenFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkPlacesOpenFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3038,29 +3038,29 @@
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a `GtkRecentFilterInfo` struct
     /// are filled or need to be filled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkRecentFilterFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkRecentFilterFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>RecentFilterFlags: u32 {
         <span class="doccomment">/// the URI of the file being tested
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_URI&quot;</span>)]
-        </span><span class="kw">const </span>URI = ffi::GTK_RECENT_FILTER_URI <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_URI&quot;</span>)]
+        </span><span class="kw">const </span>URI = ffi::GTK_RECENT_FILTER_URI <span class="kw">as _</span>;
         <span class="doccomment">/// the string that will be used to
         ///  display the file in the recent chooser
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_DISPLAY_NAME&quot;</span>)]
-        </span><span class="kw">const </span>DISPLAY_NAME = ffi::GTK_RECENT_FILTER_DISPLAY_NAME <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_DISPLAY_NAME&quot;</span>)]
+        </span><span class="kw">const </span>DISPLAY_NAME = ffi::GTK_RECENT_FILTER_DISPLAY_NAME <span class="kw">as _</span>;
         <span class="doccomment">/// the mime type of the file
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_MIME_TYPE&quot;</span>)]
-        </span><span class="kw">const </span>MIME_TYPE = ffi::GTK_RECENT_FILTER_MIME_TYPE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_MIME_TYPE&quot;</span>)]
+        </span><span class="kw">const </span>MIME_TYPE = ffi::GTK_RECENT_FILTER_MIME_TYPE <span class="kw">as _</span>;
         <span class="doccomment">/// the list of applications that have
         ///  registered the file
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_APPLICATION&quot;</span>)]
-        </span><span class="kw">const </span>APPLICATION = ffi::GTK_RECENT_FILTER_APPLICATION <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_APPLICATION&quot;</span>)]
+        </span><span class="kw">const </span>APPLICATION = ffi::GTK_RECENT_FILTER_APPLICATION <span class="kw">as _</span>;
         <span class="doccomment">/// the groups to which the file belongs to
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_GROUP&quot;</span>)]
-        </span><span class="kw">const </span>GROUP = ffi::GTK_RECENT_FILTER_GROUP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_GROUP&quot;</span>)]
+        </span><span class="kw">const </span>GROUP = ffi::GTK_RECENT_FILTER_GROUP <span class="kw">as _</span>;
         <span class="doccomment">/// the number of days elapsed since the file
         ///  has been registered
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_AGE&quot;</span>)]
-        </span><span class="kw">const </span>AGE = ffi::GTK_RECENT_FILTER_AGE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_RECENT_FILTER_AGE&quot;</span>)]
+        </span><span class="kw">const </span>AGE = ffi::GTK_RECENT_FILTER_AGE <span class="kw">as _</span>;
     }
 }
 
@@ -3070,7 +3070,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>RecentFilterFlags {
     <span class="kw">type </span>GlibType = ffi::GtkRecentFilterFlags;
 
@@ -3079,7 +3079,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkRecentFilterFlags&gt; <span class="kw">for </span>RecentFilterFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkRecentFilterFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3122,26 +3122,26 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes a region within a widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkRegionFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkRegionFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>RegionFlags: u32 {
         <span class="doccomment">/// Region has an even number within a set.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_EVEN&quot;</span>)]
-        </span><span class="kw">const </span>EVEN = ffi::GTK_REGION_EVEN <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_EVEN&quot;</span>)]
+        </span><span class="kw">const </span>EVEN = ffi::GTK_REGION_EVEN <span class="kw">as _</span>;
         <span class="doccomment">/// Region has an odd number within a set.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_ODD&quot;</span>)]
-        </span><span class="kw">const </span>ODD = ffi::GTK_REGION_ODD <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_ODD&quot;</span>)]
+        </span><span class="kw">const </span>ODD = ffi::GTK_REGION_ODD <span class="kw">as _</span>;
         <span class="doccomment">/// Region is the first one within a set.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_FIRST&quot;</span>)]
-        </span><span class="kw">const </span>FIRST = ffi::GTK_REGION_FIRST <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_FIRST&quot;</span>)]
+        </span><span class="kw">const </span>FIRST = ffi::GTK_REGION_FIRST <span class="kw">as _</span>;
         <span class="doccomment">/// Region is the last one within a set.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_LAST&quot;</span>)]
-        </span><span class="kw">const </span>LAST = ffi::GTK_REGION_LAST <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_LAST&quot;</span>)]
+        </span><span class="kw">const </span>LAST = ffi::GTK_REGION_LAST <span class="kw">as _</span>;
         <span class="doccomment">/// Region is the only one within a set.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_ONLY&quot;</span>)]
-        </span><span class="kw">const </span>ONLY = ffi::GTK_REGION_ONLY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_ONLY&quot;</span>)]
+        </span><span class="kw">const </span>ONLY = ffi::GTK_REGION_ONLY <span class="kw">as _</span>;
         <span class="doccomment">/// Region is part of a sorted area.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_REGION_SORTED&quot;</span>)]
-        </span><span class="kw">const </span>SORTED = ffi::GTK_REGION_SORTED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_REGION_SORTED&quot;</span>)]
+        </span><span class="kw">const </span>SORTED = ffi::GTK_REGION_SORTED <span class="kw">as _</span>;
     }
 }
 
@@ -3151,7 +3151,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>RegionFlags {
     <span class="kw">type </span>GlibType = ffi::GtkRegionFlags;
 
@@ -3160,7 +3160,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkRegionFlags&gt; <span class="kw">for </span>RegionFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkRegionFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3205,50 +3205,50 @@
     <span class="doccomment">/// Describes a widget state. Widget states are used to match the widget
     /// against CSS pseudo-classes. Note that GTK extends the regular CSS
     /// classes and sometimes uses different names.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkStateFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkStateFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>StateFlags: u32 {
         <span class="doccomment">/// State during normal operation.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_NORMAL&quot;</span>)]
-        </span><span class="kw">const </span>NORMAL = ffi::GTK_STATE_FLAG_NORMAL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_NORMAL&quot;</span>)]
+        </span><span class="kw">const </span>NORMAL = ffi::GTK_STATE_FLAG_NORMAL <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is active.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_ACTIVE&quot;</span>)]
-        </span><span class="kw">const </span>ACTIVE = ffi::GTK_STATE_FLAG_ACTIVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_ACTIVE&quot;</span>)]
+        </span><span class="kw">const </span>ACTIVE = ffi::GTK_STATE_FLAG_ACTIVE <span class="kw">as _</span>;
         <span class="doccomment">/// Widget has a mouse pointer over it.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_PRELIGHT&quot;</span>)]
-        </span><span class="kw">const </span>PRELIGHT = ffi::GTK_STATE_FLAG_PRELIGHT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_PRELIGHT&quot;</span>)]
+        </span><span class="kw">const </span>PRELIGHT = ffi::GTK_STATE_FLAG_PRELIGHT <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is selected.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_SELECTED&quot;</span>)]
-        </span><span class="kw">const </span>SELECTED = ffi::GTK_STATE_FLAG_SELECTED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_SELECTED&quot;</span>)]
+        </span><span class="kw">const </span>SELECTED = ffi::GTK_STATE_FLAG_SELECTED <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is insensitive.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_INSENSITIVE&quot;</span>)]
-        </span><span class="kw">const </span>INSENSITIVE = ffi::GTK_STATE_FLAG_INSENSITIVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_INSENSITIVE&quot;</span>)]
+        </span><span class="kw">const </span>INSENSITIVE = ffi::GTK_STATE_FLAG_INSENSITIVE <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is inconsistent.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_INCONSISTENT&quot;</span>)]
-        </span><span class="kw">const </span>INCONSISTENT = ffi::GTK_STATE_FLAG_INCONSISTENT <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_INCONSISTENT&quot;</span>)]
+        </span><span class="kw">const </span>INCONSISTENT = ffi::GTK_STATE_FLAG_INCONSISTENT <span class="kw">as _</span>;
         <span class="doccomment">/// Widget has the keyboard focus.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_FOCUSED&quot;</span>)]
-        </span><span class="kw">const </span>FOCUSED = ffi::GTK_STATE_FLAG_FOCUSED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_FOCUSED&quot;</span>)]
+        </span><span class="kw">const </span>FOCUSED = ffi::GTK_STATE_FLAG_FOCUSED <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is in a background toplevel window.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_BACKDROP&quot;</span>)]
-        </span><span class="kw">const </span>BACKDROP = ffi::GTK_STATE_FLAG_BACKDROP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_BACKDROP&quot;</span>)]
+        </span><span class="kw">const </span>BACKDROP = ffi::GTK_STATE_FLAG_BACKDROP <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is in left-to-right text direction. Since 3.8
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DIR_LTR&quot;</span>)]
-        </span><span class="kw">const </span>DIR_LTR = ffi::GTK_STATE_FLAG_DIR_LTR <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DIR_LTR&quot;</span>)]
+        </span><span class="kw">const </span>DIR_LTR = ffi::GTK_STATE_FLAG_DIR_LTR <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is in right-to-left text direction. Since 3.8
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DIR_RTL&quot;</span>)]
-        </span><span class="kw">const </span>DIR_RTL = ffi::GTK_STATE_FLAG_DIR_RTL <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DIR_RTL&quot;</span>)]
+        </span><span class="kw">const </span>DIR_RTL = ffi::GTK_STATE_FLAG_DIR_RTL <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is a link. Since 3.12
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_LINK&quot;</span>)]
-        </span><span class="kw">const </span>LINK = ffi::GTK_STATE_FLAG_LINK <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_LINK&quot;</span>)]
+        </span><span class="kw">const </span>LINK = ffi::GTK_STATE_FLAG_LINK <span class="kw">as _</span>;
         <span class="doccomment">/// The location the widget points to has already been visited. Since 3.12
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_VISITED&quot;</span>)]
-        </span><span class="kw">const </span>VISITED = ffi::GTK_STATE_FLAG_VISITED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_VISITED&quot;</span>)]
+        </span><span class="kw">const </span>VISITED = ffi::GTK_STATE_FLAG_VISITED <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is checked. Since 3.14
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_CHECKED&quot;</span>)]
-        </span><span class="kw">const </span>CHECKED = ffi::GTK_STATE_FLAG_CHECKED <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_CHECKED&quot;</span>)]
+        </span><span class="kw">const </span>CHECKED = ffi::GTK_STATE_FLAG_CHECKED <span class="kw">as _</span>;
         <span class="doccomment">/// Widget is highlighted as a drop target for DND. Since 3.20
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DROP_ACTIVE&quot;</span>)]
-        </span><span class="kw">const </span>DROP_ACTIVE = ffi::GTK_STATE_FLAG_DROP_ACTIVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STATE_FLAG_DROP_ACTIVE&quot;</span>)]
+        </span><span class="kw">const </span>DROP_ACTIVE = ffi::GTK_STATE_FLAG_DROP_ACTIVE <span class="kw">as _</span>;
     }
 }
 
@@ -3258,7 +3258,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>StateFlags {
     <span class="kw">type </span>GlibType = ffi::GtkStateFlags;
 
@@ -3267,7 +3267,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkStateFlags&gt; <span class="kw">for </span>StateFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkStateFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3311,18 +3311,18 @@
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags that modify the behavior of [`StyleContextExt::to_string()`][crate::prelude::StyleContextExt::to_string()].
     /// New values may be added to this enumeration.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkStyleContextPrintFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkStyleContextPrintFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>StyleContextPrintFlags: u32 {
-        <span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_NONE&quot;</span>)]
-        </span><span class="kw">const </span>NONE = ffi::GTK_STYLE_CONTEXT_PRINT_NONE <span class="kw">as </span>u32;
+        <span class="attr">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_NONE&quot;</span>)]
+        </span><span class="kw">const </span>NONE = ffi::GTK_STYLE_CONTEXT_PRINT_NONE <span class="kw">as _</span>;
         <span class="doccomment">/// Print the entire tree of
         ///  CSS nodes starting at the style context&#39;s node
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_RECURSE&quot;</span>)]
-        </span><span class="kw">const </span>RECURSE = ffi::GTK_STYLE_CONTEXT_PRINT_RECURSE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_RECURSE&quot;</span>)]
+        </span><span class="kw">const </span>RECURSE = ffi::GTK_STYLE_CONTEXT_PRINT_RECURSE <span class="kw">as _</span>;
         <span class="doccomment">/// Show the values of the
         ///  CSS properties for each node
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE&quot;</span>)]
-        </span><span class="kw">const </span>SHOW_STYLE = ffi::GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE&quot;</span>)]
+        </span><span class="kw">const </span>SHOW_STYLE = ffi::GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE <span class="kw">as _</span>;
     }
 }
 
@@ -3332,7 +3332,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>StyleContextPrintFlags {
     <span class="kw">type </span>GlibType = ffi::GtkStyleContextPrintFlags;
 
@@ -3341,7 +3341,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkStyleContextPrintFlags&gt; <span class="kw">for </span>StyleContextPrintFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkStyleContextPrintFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3385,24 +3385,24 @@
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// The [`TargetFlags`][crate::TargetFlags] enumeration is used to specify
     /// constraints on a [`TargetEntry`][crate::TargetEntry].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkTargetFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkTargetFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>TargetFlags: u32 {
         <span class="doccomment">/// If this is set, the target will only be selected
         ///  for drags within a single application.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TARGET_SAME_APP&quot;</span>)]
-        </span><span class="kw">const </span>SAME_APP = ffi::GTK_TARGET_SAME_APP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TARGET_SAME_APP&quot;</span>)]
+        </span><span class="kw">const </span>SAME_APP = ffi::GTK_TARGET_SAME_APP <span class="kw">as _</span>;
         <span class="doccomment">/// If this is set, the target will only be selected
         ///  for drags within a single widget.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TARGET_SAME_WIDGET&quot;</span>)]
-        </span><span class="kw">const </span>SAME_WIDGET = ffi::GTK_TARGET_SAME_WIDGET <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TARGET_SAME_WIDGET&quot;</span>)]
+        </span><span class="kw">const </span>SAME_WIDGET = ffi::GTK_TARGET_SAME_WIDGET <span class="kw">as _</span>;
         <span class="doccomment">/// If this is set, the target will not be selected
         ///  for drags within a single application.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TARGET_OTHER_APP&quot;</span>)]
-        </span><span class="kw">const </span>OTHER_APP = ffi::GTK_TARGET_OTHER_APP <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TARGET_OTHER_APP&quot;</span>)]
+        </span><span class="kw">const </span>OTHER_APP = ffi::GTK_TARGET_OTHER_APP <span class="kw">as _</span>;
         <span class="doccomment">/// If this is set, the target will not be selected
         ///  for drags withing a single widget.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TARGET_OTHER_WIDGET&quot;</span>)]
-        </span><span class="kw">const </span>OTHER_WIDGET = ffi::GTK_TARGET_OTHER_WIDGET <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TARGET_OTHER_WIDGET&quot;</span>)]
+        </span><span class="kw">const </span>OTHER_WIDGET = ffi::GTK_TARGET_OTHER_WIDGET <span class="kw">as _</span>;
     }
 }
 
@@ -3412,7 +3412,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>TargetFlags {
     <span class="kw">type </span>GlibType = ffi::GtkTargetFlags;
 
@@ -3421,7 +3421,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkTargetFlags&gt; <span class="kw">for </span>TargetFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkTargetFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3468,20 +3468,20 @@
     /// If neither [`VISIBLE_ONLY`][Self::VISIBLE_ONLY] nor [`TEXT_ONLY`][Self::TEXT_ONLY] are
     /// enabled, the match must be exact; the special 0xFFFC character will match
     /// embedded pixbufs or child widgets.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkTextSearchFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkTextSearchFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>TextSearchFlags: u32 {
         <span class="doccomment">/// Search only visible data. A search match may
         /// have invisible text interspersed.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_VISIBLE_ONLY&quot;</span>)]
-        </span><span class="kw">const </span>VISIBLE_ONLY = ffi::GTK_TEXT_SEARCH_VISIBLE_ONLY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_VISIBLE_ONLY&quot;</span>)]
+        </span><span class="kw">const </span>VISIBLE_ONLY = ffi::GTK_TEXT_SEARCH_VISIBLE_ONLY <span class="kw">as _</span>;
         <span class="doccomment">/// Search only text. A match may have pixbufs or
         /// child widgets mixed inside the matched range.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_TEXT_ONLY&quot;</span>)]
-        </span><span class="kw">const </span>TEXT_ONLY = ffi::GTK_TEXT_SEARCH_TEXT_ONLY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_TEXT_ONLY&quot;</span>)]
+        </span><span class="kw">const </span>TEXT_ONLY = ffi::GTK_TEXT_SEARCH_TEXT_ONLY <span class="kw">as _</span>;
         <span class="doccomment">/// The text will be matched regardless of
         /// what case it is in.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_CASE_INSENSITIVE&quot;</span>)]
-        </span><span class="kw">const </span>CASE_INSENSITIVE = ffi::GTK_TEXT_SEARCH_CASE_INSENSITIVE <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TEXT_SEARCH_CASE_INSENSITIVE&quot;</span>)]
+        </span><span class="kw">const </span>CASE_INSENSITIVE = ffi::GTK_TEXT_SEARCH_CASE_INSENSITIVE <span class="kw">as _</span>;
     }
 }
 
@@ -3491,7 +3491,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>TextSearchFlags {
     <span class="kw">type </span>GlibType = ffi::GtkTextSearchFlags;
 
@@ -3500,7 +3500,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkTextSearchFlags&gt; <span class="kw">for </span>TextSearchFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkTextSearchFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3543,14 +3543,14 @@
 
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to specify the supported drag targets.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkToolPaletteDragTargets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkToolPaletteDragTargets&quot;</span>)]
     </span><span class="kw">pub struct </span>ToolPaletteDragTargets: u32 {
         <span class="doccomment">/// Support drag of items.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TOOL_PALETTE_DRAG_ITEMS&quot;</span>)]
-        </span><span class="kw">const </span>ITEMS = ffi::GTK_TOOL_PALETTE_DRAG_ITEMS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TOOL_PALETTE_DRAG_ITEMS&quot;</span>)]
+        </span><span class="kw">const </span>ITEMS = ffi::GTK_TOOL_PALETTE_DRAG_ITEMS <span class="kw">as _</span>;
         <span class="doccomment">/// Support drag of groups.
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TOOL_PALETTE_DRAG_GROUPS&quot;</span>)]
-        </span><span class="kw">const </span>GROUPS = ffi::GTK_TOOL_PALETTE_DRAG_GROUPS <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TOOL_PALETTE_DRAG_GROUPS&quot;</span>)]
+        </span><span class="kw">const </span>GROUPS = ffi::GTK_TOOL_PALETTE_DRAG_GROUPS <span class="kw">as _</span>;
     }
 }
 
@@ -3560,7 +3560,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>ToolPaletteDragTargets {
     <span class="kw">type </span>GlibType = ffi::GtkToolPaletteDragTargets;
 
@@ -3569,7 +3569,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkToolPaletteDragTargets&gt; <span class="kw">for </span>ToolPaletteDragTargets {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkToolPaletteDragTargets) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3617,16 +3617,16 @@
     /// static for the lifetime of the object. A more complete description
     /// of [`ITERS_PERSIST`][Self::ITERS_PERSIST] can be found in the overview of
     /// this section.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkTreeModelFlags&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkTreeModelFlags&quot;</span>)]
     </span><span class="kw">pub struct </span>TreeModelFlags: u32 {
         <span class="doccomment">/// iterators survive all signals
         ///  emitted by the tree
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TREE_MODEL_ITERS_PERSIST&quot;</span>)]
-        </span><span class="kw">const </span>ITERS_PERSIST = ffi::GTK_TREE_MODEL_ITERS_PERSIST <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TREE_MODEL_ITERS_PERSIST&quot;</span>)]
+        </span><span class="kw">const </span>ITERS_PERSIST = ffi::GTK_TREE_MODEL_ITERS_PERSIST <span class="kw">as _</span>;
         <span class="doccomment">/// the model is a list only, and never
         ///  has children
-        </span><span class="attribute">#[doc(alias = <span class="string">&quot;GTK_TREE_MODEL_LIST_ONLY&quot;</span>)]
-        </span><span class="kw">const </span>LIST_ONLY = ffi::GTK_TREE_MODEL_LIST_ONLY <span class="kw">as </span>u32;
+        </span><span class="attr">#[doc(alias = <span class="string">&quot;GTK_TREE_MODEL_LIST_ONLY&quot;</span>)]
+        </span><span class="kw">const </span>LIST_ONLY = ffi::GTK_TREE_MODEL_LIST_ONLY <span class="kw">as _</span>;
     }
 }
 
@@ -3636,7 +3636,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>TreeModelFlags {
     <span class="kw">type </span>GlibType = ffi::GtkTreeModelFlags;
 
@@ -3645,7 +3645,7 @@
     }
 }
 
-<span class="attribute">#[doc(hidden)]
+<span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span>FromGlib&lt;ffi::GtkTreeModelFlags&gt; <span class="kw">for </span>TreeModelFlags {
     <span class="kw">unsafe fn </span>from_glib(value: ffi::GtkTreeModelFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
@@ -3686,4 +3686,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

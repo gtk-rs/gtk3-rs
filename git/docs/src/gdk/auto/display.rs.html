@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/display.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/display.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -841,6 +841,7 @@
 <span id="768">768</span>
 <span id="769">769</span>
 <span id="770">770</span>
+<span id="771">771</span>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -885,7 +886,7 @@
     /// # Implements
     ///
     /// [`DisplayExtManual`][trait@crate::prelude::DisplayExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkDisplay&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkDisplay&quot;</span>)]
     </span><span class="kw">pub struct </span>Display(Object&lt;ffi::GdkDisplay&gt;);
 
     <span class="kw">match fn </span>{
@@ -895,7 +896,7 @@
 
 <span class="kw">impl </span>Display {
     <span class="doccomment">/// Emits a short beep on `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_beep&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_beep&quot;</span>)]
     </span><span class="kw">pub fn </span>beep(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_beep(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -904,7 +905,7 @@
 
     <span class="doccomment">/// Closes the connection to the windowing system for the given display,
     /// and cleans up associated resources.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_close&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_close&quot;</span>)]
     </span><span class="kw">pub fn </span>close(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_close(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -918,7 +919,7 @@
     /// # Returns
     ///
     /// [`true`] if there is a grab in effect for `device`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_device_is_grabbed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_device_is_grabbed&quot;</span>)]
     </span><span class="kw">pub fn </span>device_is_grabbed(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_device_is_grabbed(
@@ -937,7 +938,7 @@
     ///
     /// This is most useful for X11. On windowing systems where requests are
     /// handled synchronously, this function will do nothing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_flush&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_flush&quot;</span>)]
     </span><span class="kw">pub fn </span>flush(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_flush(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -951,7 +952,7 @@
     ///
     /// a new [`AppLaunchContext`][crate::AppLaunchContext] for `self`.
     ///  Free with `g_object_unref()` when done
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_app_launch_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_app_launch_context&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_app_launch_context&quot;</span>)]
     </span><span class="kw">pub fn </span>app_launch_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;AppLaunchContext&gt; {
         <span class="kw">unsafe </span>{
@@ -966,7 +967,7 @@
     /// # Returns
     ///
     /// the default cursor size.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_default_cursor_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_default_cursor_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_cursor_size&quot;</span>)]
     </span><span class="kw">pub fn </span>default_cursor_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gdk_display_get_default_cursor_size(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -980,7 +981,7 @@
     ///
     /// The default group leader window
     /// for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_default_group&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_default_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_group&quot;</span>)]
     </span><span class="kw">pub fn </span>default_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Window {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_default_group(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -991,7 +992,7 @@
     /// # Returns
     ///
     /// the default [`Screen`][crate::Screen] object for `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_default_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_default_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>default_screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Screen {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_default_screen(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1002,7 +1003,7 @@
     /// # Returns
     ///
     /// the default seat.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_default_seat&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_default_seat&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_seat&quot;</span>)]
     </span><span class="kw">pub fn </span>default_seat(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Seat&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_default_seat(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1016,7 +1017,7 @@
     /// the next `GdkEvent` to be processed, or [`None`]
     /// if no events are pending. The returned `GdkEvent` should be freed
     /// with `gdk_event_free()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_event&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_event&quot;</span>)]
     </span><span class="kw">pub fn </span>event(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Event&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_display_get_event(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1032,7 +1033,7 @@
     ///
     /// ## `height`
     /// the return location for the maximal cursor height
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_maximal_cursor_size&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_maximal_cursor_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_maximal_cursor_size&quot;</span>)]
     </span><span class="kw">pub fn </span>maximal_cursor_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, u32) {
         <span class="kw">unsafe </span>{
@@ -1055,7 +1056,7 @@
     ///
     /// the [`Monitor`][crate::Monitor], or [`None`] if
     ///  `monitor_num` is not a valid monitor number
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monitor&quot;</span>)]
     </span><span class="kw">pub fn </span>monitor(<span class="kw-2">&amp;</span><span class="self">self</span>, monitor_num: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Monitor&gt; {
         <span class="kw">unsafe </span>{
@@ -1076,7 +1077,7 @@
     /// # Returns
     ///
     /// the monitor containing the point
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor_at_point&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor_at_point&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monitor_at_point&quot;</span>)]
     </span><span class="kw">pub fn </span>monitor_at_point(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Monitor&gt; {
         <span class="kw">unsafe </span>{
@@ -1097,7 +1098,7 @@
     /// # Returns
     ///
     /// the monitor with the largest overlap with `window`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor_at_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_monitor_at_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monitor_at_window&quot;</span>)]
     </span><span class="kw">pub fn </span>monitor_at_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>Window) -&gt; <span class="prelude-ty">Option</span>&lt;Monitor&gt; {
         <span class="kw">unsafe </span>{
@@ -1116,7 +1117,7 @@
     /// # Returns
     ///
     /// the number of monitors
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_n_monitors&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_n_monitors&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_monitors&quot;</span>)]
     </span><span class="kw">pub fn </span>n_monitors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_display_get_n_monitors(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1128,7 +1129,7 @@
     ///
     /// a string representing the display name. This string is owned
     /// by GDK and should not be modified or freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_name&quot;</span>)]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::GString {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_name(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1145,7 +1146,7 @@
     ///
     /// the primary monitor, or [`None`] if no primary
     ///  monitor is configured by the user
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_primary_monitor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_primary_monitor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_primary_monitor&quot;</span>)]
     </span><span class="kw">pub fn </span>primary_monitor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Monitor&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_primary_monitor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1157,7 +1158,7 @@
     /// # Returns
     ///
     /// [`true`] if there are events ready to be processed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_has_pending&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_has_pending&quot;</span>)]
     </span><span class="kw">pub fn </span>has_pending(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_display_has_pending(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1167,7 +1168,7 @@
     /// # Returns
     ///
     /// [`true`] if the display is closed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_is_closed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_is_closed&quot;</span>)]
     </span><span class="kw">pub fn </span>is_closed(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_display_is_closed(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1178,7 +1179,7 @@
     ///
     /// the
     ///  list of seats known to the [`Display`][crate::Display]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_list_seats&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_list_seats&quot;</span>)]
     </span><span class="kw">pub fn </span>list_seats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Seat&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_container(ffi::gdk_display_list_seats(
@@ -1197,7 +1198,7 @@
     /// ## `startup_id`
     /// a startup-notification identifier, for which
     ///  notification process should be completed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_notify_startup_complete&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_notify_startup_complete&quot;</span>)]
     </span><span class="kw">pub fn </span>notify_startup_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, startup_id: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_notify_startup_complete(
@@ -1217,7 +1218,7 @@
     /// a copy of the first `GdkEvent` on the event
     /// queue, or [`None`] if no events are in the queue. The returned
     /// `GdkEvent` should be freed with `gdk_event_free()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_peek_event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_peek_event&quot;</span>)]
     </span><span class="kw">pub fn </span>peek_event(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Event&gt; {
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_display_peek_event(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1226,7 +1227,7 @@
     /// queue for `self`.
     /// ## `event`
     /// a `GdkEvent`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_put_event&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_put_event&quot;</span>)]
     </span><span class="kw">pub fn </span>put_event(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>Event) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_put_event(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, event.to_glib_none().<span class="number">0</span>);
@@ -1243,7 +1244,7 @@
     ///
     /// whether [`EventOwnerChange`][crate::EventOwnerChange] events will
     ///  be sent.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_request_selection_notification&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_request_selection_notification&quot;</span>)]
     </span><span class="kw">pub fn </span>request_selection_notification(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>Atom) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_request_selection_notification(
@@ -1260,7 +1261,7 @@
     /// user-configured setting.
     /// ## `distance`
     /// distance in pixels
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_set_double_click_distance&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_set_double_click_distance&quot;</span>)]
     </span><span class="kw">pub fn </span>set_double_click_distance(<span class="kw-2">&amp;</span><span class="self">self</span>, distance: u32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_set_double_click_distance(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, distance);
@@ -1273,7 +1274,7 @@
     /// user-configured setting.
     /// ## `msec`
     /// double click time in milliseconds (thousandths of a second)
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_set_double_click_time&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_set_double_click_time&quot;</span>)]
     </span><span class="kw">pub fn </span>set_double_click_time(<span class="kw-2">&amp;</span><span class="self">self</span>, msec: u32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_set_double_click_time(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, msec);
@@ -1292,9 +1293,9 @@
     /// an array of targets
     ///  that should be saved, or [`None`]
     ///  if all available targets should be saved.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_store_clipboard&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_store_clipboard&quot;</span>)]
     </span><span class="kw">pub fn </span>store_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard_window: <span class="kw-2">&amp;</span>Window, time_: u32, targets: <span class="kw-2">&amp;</span>[Atom]) {
-        <span class="kw">let </span>n_targets = targets.len() <span class="kw">as </span>i32;
+        <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
             ffi::gdk_display_store_clipboard(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
@@ -1314,7 +1315,7 @@
     /// # Returns
     ///
     /// [`true`] if the display supports clipboard persistance.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_clipboard_persistence&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_clipboard_persistence&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_clipboard_persistence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_supports_clipboard_persistence(
@@ -1330,7 +1331,7 @@
     /// # Returns
     ///
     /// whether cursors can have alpha channels.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_cursor_alpha&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_cursor_alpha&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_cursor_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_supports_cursor_alpha(
@@ -1346,7 +1347,7 @@
     /// # Returns
     ///
     /// whether cursors can have multiple colors.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_cursor_color&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_cursor_color&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_cursor_color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_supports_cursor_color(
@@ -1361,7 +1362,7 @@
     /// # Returns
     ///
     /// [`true`] if windows with modified input shape are supported
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_input_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_input_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_input_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_supports_input_shapes(
@@ -1377,7 +1378,7 @@
     ///
     /// whether [`EventOwnerChange`][crate::EventOwnerChange] events will
     ///  be sent.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_selection_notification&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_selection_notification&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_selection_notification(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_display_supports_selection_notification(
@@ -1392,7 +1393,7 @@
     /// # Returns
     ///
     /// [`true`] if shaped windows are supported
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_supports_shapes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_supports_shapes&quot;</span>)]
     </span><span class="kw">pub fn </span>supports_shapes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_display_supports_shapes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
@@ -1406,7 +1407,7 @@
     ///
     /// This is most useful for X11. On windowing systems where requests are
     /// handled synchronously, this function will do nothing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_sync&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_sync&quot;</span>)]
     </span><span class="kw">pub fn </span>sync(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_display_sync(<span class="self">self</span>.to_glib_none().<span class="number">0</span>);
@@ -1421,8 +1422,9 @@
     ///
     /// a [`Display`][crate::Display], or [`None`] if
     ///  there is no default display.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_get_default&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_get_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default&quot;</span>)]
+    #[allow(clippy::should_implement_trait)]
     </span><span class="kw">pub fn </span>default() -&gt; <span class="prelude-ty">Option</span>&lt;Display&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_get_default()) }
@@ -1436,7 +1438,7 @@
     ///
     /// a [`Display`][crate::Display], or [`None`] if the
     ///  display could not be opened
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_display_open&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_display_open&quot;</span>)]
     </span><span class="kw">pub fn </span>open(display_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Display&gt; {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_display_open(display_name.to_glib_none().<span class="number">0</span>)) }
@@ -1446,7 +1448,7 @@
     /// system for `display` is closed.
     /// ## `is_error`
     /// [`true`] if the display was closed due to an error
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;closed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;closed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_closed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>closed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Display, bool) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
@@ -1473,7 +1475,7 @@
     /// added.
     /// ## `monitor`
     /// the monitor that was just added
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;monitor-added&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;monitor-added&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_monitor_added&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Monitor) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>monitor_added_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Display, <span class="kw-2">&amp;</span>Monitor) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
@@ -1500,7 +1502,7 @@
     /// removed.
     /// ## `monitor`
     /// the monitor that was just removed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;monitor-removed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;monitor-removed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_monitor_removed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Monitor) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1528,7 +1530,7 @@
 
     <span class="doccomment">/// The ::opened signal is emitted when the connection to the windowing
     /// system for `display` is opened.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;opened&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;opened&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_opened&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>opened_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Display) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
@@ -1554,7 +1556,7 @@
     /// known to the windowing system.
     /// ## `seat`
     /// the seat that was just added
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;seat-added&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;seat-added&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_seat_added&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Seat) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>seat_added_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Display, <span class="kw-2">&amp;</span>Seat) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
@@ -1581,7 +1583,7 @@
     /// by the windowing system.
     /// ## `seat`
     /// the seat that was just removed
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;seat-removed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;seat-removed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_seat_removed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Seat) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>seat_removed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Display, <span class="kw-2">&amp;</span>Seat) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
@@ -1606,10 +1608,10 @@
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Display {
-    <span class="attribute">#[inline]
+    <span class="attr">#[inline]
     </span><span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
         f.write_str(<span class="kw-2">&amp;</span><span class="self">self</span>.name())
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../gdk_sys/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../gdk_sys/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -5867,12 +5867,11 @@
 <span id="5794">5794</span>
 <span id="5795">5795</span>
 <span id="5796">5796</span>
-<span id="5797">5797</span>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attribute">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
+</span><span class="attr">#![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(
     clippy::approx_constant,
     clippy::type_complexity,
@@ -5887,7 +5886,7 @@
     intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
-<span class="attribute">#[allow(unused_imports)]
+<span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>glib::{gboolean, gconstpointer, gpointer, GType};
 
 <span class="comment">// Aliases
@@ -8719,7 +8718,7 @@
 <span class="kw">pub const </span>GDK_WINDOW_STATE_LEFT_RESIZABLE: GdkWindowState = <span class="number">65536</span>;
 
 <span class="comment">// Unions
-</span><span class="attribute">#[derive(Copy, Clone)]
+</span><span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub union </span>GdkEvent {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8751,7 +8750,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEvent {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEvent @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEvent @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw">unsafe </span>{ <span class="kw-2">&amp;</span><span class="self">self</span>.type_ })
             .field(<span class="string">&quot;any&quot;</span>, <span class="kw">unsafe </span>{ <span class="kw-2">&amp;</span><span class="self">self</span>.any })
             .field(<span class="string">&quot;expose&quot;</span>, <span class="kw">unsafe </span>{ <span class="kw-2">&amp;</span><span class="self">self</span>.expose })
@@ -8792,7 +8791,7 @@
     <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span>GdkWindow, <span class="kw-2">*mut </span>cairo::cairo_region_t)&gt;;
 
 <span class="comment">// Records
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkAtom {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -8800,7 +8799,7 @@
 
 <span class="kw">pub type </span>GdkAtom = <span class="kw-2">*mut </span>_GdkAtom;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkColor {
     <span class="kw">pub </span>pixel: u32,
@@ -8811,7 +8810,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkColor {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkColor @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkColor @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;pixel&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pixel)
             .field(<span class="string">&quot;red&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.red)
             .field(<span class="string">&quot;green&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.green)
@@ -8820,7 +8819,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkDevicePadInterface {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -8828,7 +8827,7 @@
 
 <span class="kw">pub type </span>GdkDevicePadInterface = <span class="kw-2">*mut </span>_GdkDevicePadInterface;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkDrawingContextClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -8836,7 +8835,7 @@
 
 <span class="kw">pub type </span>GdkDrawingContextClass = <span class="kw-2">*mut </span>_GdkDrawingContextClass;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventAny {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8846,7 +8845,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventAny {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventAny @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventAny @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -8854,7 +8853,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventButton {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8873,7 +8872,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventButton @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventButton @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -8890,7 +8889,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventConfigure {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8904,7 +8903,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventConfigure {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventConfigure @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventConfigure @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -8916,7 +8915,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventCrossing {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8936,7 +8935,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventCrossing {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventCrossing @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventCrossing @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -8954,7 +8953,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventDND {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8968,7 +8967,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventDND {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventDND @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventDND @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -8980,7 +8979,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventExpose {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -8993,7 +8992,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventExpose {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventExpose @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventExpose @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9004,7 +9003,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventFocus {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9015,7 +9014,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventFocus {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventFocus @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventFocus @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9024,7 +9023,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventGrabBroken {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9037,7 +9036,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventGrabBroken {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventGrabBroken @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventGrabBroken @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9048,7 +9047,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventKey {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9066,7 +9065,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventKey {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventKey @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventKey @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9082,7 +9081,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventMotion {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9101,7 +9100,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventMotion {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventMotion @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventMotion @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9118,7 +9117,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventOwnerChange {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9133,7 +9132,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventOwnerChange {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventOwnerChange @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventOwnerChange @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9146,7 +9145,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventPadAxis {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9161,7 +9160,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventPadAxis {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadAxis @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadAxis @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9174,7 +9173,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventPadButton {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9188,7 +9187,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventPadButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadButton @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadButton @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9200,7 +9199,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventPadGroupMode {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9213,7 +9212,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventPadGroupMode {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadGroupMode @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventPadGroupMode @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9224,7 +9223,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventProperty {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9237,7 +9236,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventProperty {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventProperty @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventProperty @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9248,7 +9247,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventProximity {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9260,7 +9259,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventProximity {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventProximity @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventProximity @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9270,7 +9269,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventScroll {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9291,7 +9290,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventScroll {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventScroll @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventScroll @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9310,7 +9309,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventSelection {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9325,7 +9324,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventSelection {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSelection @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSelection @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9338,7 +9337,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventSequence {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9346,12 +9345,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventSequence {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSequence @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSequence @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventSetting {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9363,7 +9362,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventSetting {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSetting @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventSetting @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9373,7 +9372,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventTouch {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9393,7 +9392,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventTouch {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouch @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouch @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9411,7 +9410,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventTouchpadPinch {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9433,7 +9432,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventTouchpadPinch {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouchpadPinch @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouchpadPinch @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9453,7 +9452,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventTouchpadSwipe {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9473,7 +9472,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventTouchpadSwipe {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouchpadSwipe @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventTouchpadSwipe @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9491,7 +9490,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventVisibility {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9502,7 +9501,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventVisibility {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventVisibility @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventVisibility @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9511,7 +9510,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkEventWindowState {
     <span class="kw">pub </span>type_: GdkEventType,
@@ -9523,7 +9522,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkEventWindowState {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventWindowState @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkEventWindowState @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;type_&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.type_)
             .field(<span class="string">&quot;window&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.window)
             .field(<span class="string">&quot;send_event&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.send_event)
@@ -9533,7 +9532,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkFrameClockClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9541,7 +9540,7 @@
 
 <span class="kw">pub type </span>GdkFrameClockClass = <span class="kw-2">*mut </span>_GdkFrameClockClass;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkFrameClockPrivate {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9549,7 +9548,7 @@
 
 <span class="kw">pub type </span>GdkFrameClockPrivate = <span class="kw-2">*mut </span>_GdkFrameClockPrivate;
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkFrameTimings {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9557,12 +9556,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkFrameTimings {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkFrameTimings @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkFrameTimings @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkGeometry {
     <span class="kw">pub </span>min_width: c_int,
@@ -9580,7 +9579,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkGeometry {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkGeometry @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkGeometry @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;min_width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.min_width)
             .field(<span class="string">&quot;min_height&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.min_height)
             .field(<span class="string">&quot;max_width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.max_width)
@@ -9596,7 +9595,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkKeymapKey {
     <span class="kw">pub </span>keycode: c_uint,
@@ -9606,7 +9605,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkKeymapKey {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkKeymapKey @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkKeymapKey @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;keycode&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.keycode)
             .field(<span class="string">&quot;group&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.group)
             .field(<span class="string">&quot;level&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.level)
@@ -9614,7 +9613,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkMonitorClass {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9622,7 +9621,7 @@
 
 <span class="kw">pub type </span>GdkMonitorClass = <span class="kw-2">*mut </span>_GdkMonitorClass;
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkPoint {
     <span class="kw">pub </span>x: c_int,
@@ -9631,14 +9630,14 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkPoint {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkPoint @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkPoint @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.x)
             .field(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.y)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkRGBA {
     <span class="kw">pub </span>red: c_double,
@@ -9649,7 +9648,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkRGBA {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkRGBA @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkRGBA @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;red&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.red)
             .field(<span class="string">&quot;green&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.green)
             .field(<span class="string">&quot;blue&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.blue)
@@ -9658,7 +9657,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkRectangle {
     <span class="kw">pub </span>x: c_int,
@@ -9669,7 +9668,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkRectangle {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkRectangle @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkRectangle @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.x)
             .field(<span class="string">&quot;y&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.y)
             .field(<span class="string">&quot;width&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.width)
@@ -9678,7 +9677,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkTimeCoord {
     <span class="kw">pub </span>time: u32,
@@ -9687,13 +9686,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkTimeCoord {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkTimeCoord @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkTimeCoord @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;time&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.time)
             .finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkWindowAttr {
     <span class="kw">pub </span>title: <span class="kw-2">*mut </span>c_char,
@@ -9714,7 +9713,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkWindowAttr {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindowAttr @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindowAttr @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;title&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.title)
             .field(<span class="string">&quot;event_mask&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.event_mask)
             .field(<span class="string">&quot;x&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.x)
@@ -9733,7 +9732,7 @@
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkWindowClass {
     <span class="kw">pub </span>parent_class: gobject::GObjectClass,
@@ -9759,7 +9758,7 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkWindowClass {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindowClass @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindowClass @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_class&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_class)
             .field(<span class="string">&quot;pick_embedded_child&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.pick_embedded_child)
             .field(<span class="string">&quot;to_embedder&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.to_embedder)
@@ -9777,7 +9776,7 @@
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>_GdkWindowRedirect {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9786,7 +9785,7 @@
 <span class="kw">pub type </span>GdkWindowRedirect = <span class="kw-2">*mut </span>_GdkWindowRedirect;
 
 <span class="comment">// Classes
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkAppLaunchContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9794,12 +9793,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkAppLaunchContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkAppLaunchContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkAppLaunchContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkCursor {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9807,11 +9806,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkCursor {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkCursor @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkCursor @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDevice {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9819,11 +9818,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDevice {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDevice @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDevice @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDeviceManager {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9831,12 +9830,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDeviceManager {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDeviceManager @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDeviceManager @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDeviceTool {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9844,12 +9843,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDeviceTool {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDeviceTool @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDeviceTool @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDisplay {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9857,11 +9856,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDisplay {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDisplay @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDisplay @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDisplayManager {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9869,12 +9868,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDisplayManager {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDisplayManager @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDisplayManager @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDragContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9882,12 +9881,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDragContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDragContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDragContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDrawingContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9895,12 +9894,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDrawingContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDrawingContext @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkDrawingContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkFrameClock {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9908,12 +9907,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkFrameClock {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkFrameClock @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkFrameClock @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkGLContext {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9921,12 +9920,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkGLContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkGLContext @ {:p}&quot;</span>, <span class="self">self</span>))
-            .finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkGLContext @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkKeymap {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9934,11 +9932,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkKeymap {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkKeymap @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkKeymap @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkMonitor {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9946,11 +9944,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkMonitor {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkMonitor @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkMonitor @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkScreen {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9958,11 +9956,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkScreen {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkScreen @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkScreen @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[derive(Copy, Clone)]
+<span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span>GdkSeat {
     <span class="kw">pub </span>parent_instance: gobject::GObject,
@@ -9970,13 +9968,13 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkSeat {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkSeat @ {:p}&quot;</span>, <span class="self">self</span>))
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkSeat @ {self:p}&quot;</span>))
             .field(<span class="string">&quot;parent_instance&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.parent_instance)
             .finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkVisual {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9984,11 +9982,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkVisual {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkVisual @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkVisual @ {self:p}&quot;</span>)).finish()
     }
 }
 
-<span class="attribute">#[repr(C)]
+<span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkWindow {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -9996,12 +9994,12 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkWindow {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindow @ {:p}&quot;</span>, <span class="self">self</span>)).finish()
+        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkWindow @ {self:p}&quot;</span>)).finish()
     }
 }
 
 <span class="comment">// Interfaces
-</span><span class="attribute">#[repr(C)]
+</span><span class="attr">#[repr(C)]
 </span><span class="kw">pub struct </span>GdkDevicePad {
     _data: [u8; <span class="number">0</span>],
     _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
@@ -10009,11 +10007,11 @@
 
 <span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkDevicePad {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        <span class="macro">write!</span>(f, <span class="string">&quot;GdkDevicePad @ {:p}&quot;</span>, <span class="self">self</span>)
+        <span class="macro">write!</span>(f, <span class="string">&quot;GdkDevicePad @ {self:p}&quot;</span>)
     }
 }
 
-<span class="attribute">#[link(name = <span class="string">&quot;gdk-3&quot;</span>)]
+<span class="attr">#[link(name = <span class="string">&quot;gdk-3&quot;</span>)]
 </span><span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
 
     <span class="comment">//=========================================================================
@@ -11203,7 +11201,7 @@
         width: c_int,
         height: c_int,
     );
-    <span class="attribute">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gdk_window_move_to_rect(
         window: <span class="kw-2">*mut </span>GdkWindow,
@@ -11666,4 +11664,4 @@
 
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="gdk_sys" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

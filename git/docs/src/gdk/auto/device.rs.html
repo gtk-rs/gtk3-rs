@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/device.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/device.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -939,7 +939,7 @@
     /// relationships.
     ///
     /// This is an Abstract Base Class, you cannot instantiate it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GdkDevice&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkDevice&quot;</span>)]
     </span><span class="kw">pub struct </span>Device(Object&lt;ffi::GdkDevice&gt;);
 
     <span class="kw">match fn </span>{
@@ -962,7 +962,7 @@
     ///
     /// The associated device, or
     ///  [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_associated_device&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_associated_device&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_associated_device&quot;</span>)]
     #[must_use]
     </span><span class="kw">pub fn </span>associated_device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Device&gt; {
@@ -970,7 +970,7 @@
     }
 
     <span class="doccomment">/// Returns the axes currently available on the device.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_axes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_axes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_axes&quot;</span>)]
     </span><span class="kw">pub fn </span>axes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; AxisFlags {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_axes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -989,7 +989,7 @@
     /// # Returns
     ///
     /// a [`AxisUse`][crate::AxisUse] specifying how the axis is used.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_axis_use&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_axis_use&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_axis_use&quot;</span>)]
     </span><span class="kw">pub fn </span>axis_use(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: u32) -&gt; AxisUse {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_axis_use(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, index_)) }
@@ -1006,7 +1006,7 @@
     /// # Returns
     ///
     /// the [`DeviceType`][crate::DeviceType] for `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_device_type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_device_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_type&quot;</span>)]
     </span><span class="kw">pub fn </span>device_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DeviceType {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_device_type(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1018,7 +1018,7 @@
     ///
     /// a [`Display`][crate::Display]. This memory is owned
     ///  by GTK+, and must not be freed or unreffed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_display&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Display {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_display(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1030,7 +1030,7 @@
     /// # Returns
     ///
     /// [`true`] if the pointer follows device motion
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_has_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_has_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_cursor&quot;</span>)]
     </span><span class="kw">pub fn </span>has_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_has_cursor(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1050,7 +1050,7 @@
     ///
     /// ## `modifiers`
     /// return value for modifiers.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_key&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_key&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_key&quot;</span>)]
     </span><span class="kw">pub fn </span>key(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: u32) -&gt; <span class="prelude-ty">Option</span>&lt;(u32, ModifierType)&gt; {
         <span class="kw">unsafe </span>{
@@ -1079,7 +1079,7 @@
     /// # Returns
     ///
     /// the last window the device
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_last_event_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_last_event_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_last_event_window&quot;</span>)]
     </span><span class="kw">pub fn </span>last_event_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Window&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_last_event_window(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1090,7 +1090,7 @@
     /// # Returns
     ///
     /// a [`InputSource`][crate::InputSource]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mode&quot;</span>)]
     </span><span class="kw">pub fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputMode {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_mode(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1101,7 +1101,7 @@
     /// # Returns
     ///
     /// the number of axes.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_n_axes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_n_axes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_axes&quot;</span>)]
     </span><span class="kw">pub fn </span>n_axes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_device_get_n_axes(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1112,7 +1112,7 @@
     /// # Returns
     ///
     /// the number of keys.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_n_keys&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_n_keys&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_keys&quot;</span>)]
     </span><span class="kw">pub fn </span>n_keys(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gdk_device_get_n_keys(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
@@ -1123,7 +1123,7 @@
     /// # Returns
     ///
     /// a name
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_name&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_name&quot;</span>)]
     </span><span class="kw">pub fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_name(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1146,7 +1146,7 @@
     ///
     /// ## `y`
     /// location to store root window Y coordinate of `self`, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_position&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_position&quot;</span>)]
     </span><span class="kw">pub fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Screen, i32, i32) {
         <span class="kw">unsafe </span>{
@@ -1180,7 +1180,7 @@
     ///
     /// ## `y`
     /// location to store root window Y coordinate of `self`, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_position_double&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_position_double&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_position_double&quot;</span>)]
     </span><span class="kw">pub fn </span>position_double(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Screen, f64, f64) {
         <span class="kw">unsafe </span>{
@@ -1204,7 +1204,7 @@
     /// # Returns
     ///
     /// the product ID, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_product_id&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_product_id&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_product_id&quot;</span>)]
     </span><span class="kw">pub fn </span>product_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_product_id(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1216,7 +1216,7 @@
     ///
     /// A [`Seat`][crate::Seat]. This memory is owned by GTK+ and
     ///  must not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_seat&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_seat&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_seat&quot;</span>)]
     </span><span class="kw">pub fn </span>seat(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Seat&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_seat(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1227,7 +1227,7 @@
     /// # Returns
     ///
     /// a [`InputSource`][crate::InputSource]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_source&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_source&quot;</span>)]
     </span><span class="kw">pub fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputSource {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_device_get_source(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1273,7 +1273,7 @@
     /// # Returns
     ///
     /// the vendor ID, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_vendor_id&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_vendor_id&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_vendor_id&quot;</span>)]
     </span><span class="kw">pub fn </span>vendor_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_get_vendor_id(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
@@ -1298,7 +1298,7 @@
     /// ## `win_y`
     /// return location for the Y coordinate of the device location,
     ///  relative to the window origin, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_window_at_position&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_window_at_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_at_position&quot;</span>)]
     </span><span class="kw">pub fn </span>window_at_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, i32, i32) {
         <span class="kw">unsafe </span>{
@@ -1333,7 +1333,7 @@
     /// ## `win_y`
     /// return location for the Y coordinate of the device location,
     ///  relative to the window origin, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_get_window_at_position_double&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_window_at_position_double&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_at_position_double&quot;</span>)]
     </span><span class="kw">pub fn </span>window_at_position_double(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, f64, f64) {
         <span class="kw">unsafe </span>{
@@ -1355,7 +1355,7 @@
     ///
     ///
     ///  A `GList` of `GdkAtoms`, free with `g_list_free()`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_list_axes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_list_axes&quot;</span>)]
     </span><span class="kw">pub fn </span>list_axes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Atom&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_axes(
@@ -1374,7 +1374,7 @@
     ///  the list of slave devices, or [`None`]. The list must be
     ///  freed with `g_list_free()`, the contents of the list are
     ///  owned by GTK+ and should not be freed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_list_slave_devices&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_list_slave_devices&quot;</span>)]
     </span><span class="kw">pub fn </span>list_slave_devices(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Device&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_slave_devices(
@@ -1388,7 +1388,7 @@
     /// the index of the axis
     /// ## `use_`
     /// specifies how the axis is used
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_set_axis_use&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_set_axis_use&quot;</span>)]
     </span><span class="kw">pub fn </span>set_axis_use(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: u32, use_: AxisUse) {
         <span class="kw">unsafe </span>{
             ffi::gdk_device_set_axis_use(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, index_, use_.into_glib());
@@ -1403,7 +1403,7 @@
     /// the keyval to generate
     /// ## `modifiers`
     /// the modifiers to set
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_set_key&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_set_key&quot;</span>)]
     </span><span class="kw">pub fn </span>set_key(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: u32, keyval: u32, modifiers: ModifierType) {
         <span class="kw">unsafe </span>{
             ffi::gdk_device_set_key(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, index_, keyval, modifiers.into_glib());
@@ -1423,7 +1423,7 @@
     /// # Returns
     ///
     /// [`true`] if the mode was successfully changed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_set_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_set_mode&quot;</span>)]
     </span><span class="kw">pub fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: InputMode) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_device_set_mode(
@@ -1450,7 +1450,7 @@
     /// the X coordinate of the destination.
     /// ## `y`
     /// the Y coordinate of the destination.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gdk_device_warp&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_warp&quot;</span>)]
     </span><span class="kw">pub fn </span>warp(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>Screen, x: i32, y: i32) {
         <span class="kw">unsafe </span>{
             ffi::gdk_device_warp(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, screen.to_glib_none().<span class="number">0</span>, x, y);
@@ -1458,23 +1458,23 @@
     }
 
     <span class="doccomment">/// The [`DeviceManager`][crate::DeviceManager] the [`Device`][crate::Device] pertains to.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;device-manager&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;device-manager&quot;</span>)]
     </span><span class="kw">pub fn </span>device_manager(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;DeviceManager&gt; {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;device-manager&quot;</span>)
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
     </span><span class="kw">pub fn </span>input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputMode {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;input-mode&quot;</span>)
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
     </span><span class="kw">pub fn </span>set_input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, input_mode: InputMode) {
         glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;input-mode&quot;</span>, <span class="kw-2">&amp;</span>input_mode)
     }
 
     <span class="doccomment">/// Source type for the device.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;input-source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;input-source&quot;</span>)]
     </span><span class="kw">pub fn </span>input_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputSource {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;input-source&quot;</span>)
     }
@@ -1482,7 +1482,7 @@
     <span class="doccomment">/// The maximal number of concurrent touches on a touch device.
     /// Will be 0 if the device is not a touch device or if the number
     /// of touches is unknown.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;num-touches&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;num-touches&quot;</span>)]
     </span><span class="kw">pub fn </span>num_touches(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;num-touches&quot;</span>)
     }
@@ -1497,7 +1497,7 @@
     }
 
     <span class="doccomment">/// Device role in the device manager.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;type&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub fn </span>type_(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DeviceType {
         glib::ObjectExt::property(<span class="self">self</span>, <span class="string">&quot;type&quot;</span>)
     }
@@ -1509,7 +1509,7 @@
     /// switches from the USB mouse to a tablet), in that case the
     /// master device will change to reflect the new slave device
     /// axes and keys.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1535,7 +1535,7 @@
     /// `GdkDevices` whenever tools enter or leave proximity.
     /// ## `tool`
     /// The new current tool
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;tool-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;tool-changed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_tool_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>DeviceTool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1561,7 +1561,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;associated-device&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;associated-device&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_associated_device_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -1587,7 +1587,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;axes&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;axes&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_axes_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_axes_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1610,7 +1610,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-mode&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_input_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_input_mode_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1633,7 +1633,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;n-axes&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-axes&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_n_axes_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_n_axes_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1656,7 +1656,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;seat&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;seat&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_seat_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_seat_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1679,7 +1679,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tool&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tool&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_tool_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_tool_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1702,7 +1702,7 @@
         }
     }
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;type&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;type&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_type_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkDevice,
@@ -1732,4 +1732,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

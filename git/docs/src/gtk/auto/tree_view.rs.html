@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -4489,7 +4489,7 @@
     /// # Implements
     ///
     /// [`TreeViewExt`][trait@crate::prelude::TreeViewExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ScrollableExt`][trait@crate::prelude::ScrollableExt], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkTreeView&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkTreeView&quot;</span>)]
     </span><span class="kw">pub struct </span>TreeView(Object&lt;ffi::GtkTreeView, ffi::GtkTreeViewClass&gt;) @extends Container, Widget, @implements Buildable, Scrollable;
 
     <span class="kw">match fn </span>{
@@ -4505,7 +4505,7 @@
     /// # Returns
     ///
     /// A newly created [`TreeView`][crate::TreeView] widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; TreeView {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_tree_view_new()).unsafe_cast() }
@@ -4518,7 +4518,7 @@
     /// # Returns
     ///
     /// A newly created [`TreeView`][crate::TreeView] widget.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_new_with_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_new_with_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_with_model&quot;</span>)]
     </span><span class="kw">pub fn </span>with_model(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;) -&gt; TreeView {
         <span class="macro">skip_assert_initialized!</span>();
@@ -4545,12 +4545,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`TreeView`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>TreeViewBuilder {
     activate_on_single_click: <span class="prelude-ty">Option</span>&lt;bool&gt;,
     enable_grid_lines: <span class="prelude-ty">Option</span>&lt;TreeViewGridLines&gt;,
@@ -4619,7 +4619,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`TreeView`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; TreeView {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>activate_on_single_click) = <span class="self">self</span>.activate_on_single_click {
@@ -5191,11 +5191,11 @@
     /// # Returns
     ///
     /// The number of columns in `self` after appending.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_append_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_append_column&quot;</span>)]
     </span><span class="kw">fn </span>append_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;) -&gt; i32;
 
     <span class="doccomment">/// Recursively collapses all visible, expanded nodes in `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_collapse_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_collapse_all&quot;</span>)]
     </span><span class="kw">fn </span>collapse_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Collapses a row (hides its child rows, if they exist).
@@ -5205,12 +5205,12 @@
     /// # Returns
     ///
     /// [`true`] if the row was collapsed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_collapse_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_collapse_row&quot;</span>)]
     </span><span class="kw">fn </span>collapse_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool;
 
     <span class="doccomment">/// Resizes all columns to their optimal width. Only works after the
     /// treeview has been realized.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_columns_autosize&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_columns_autosize&quot;</span>)]
     </span><span class="kw">fn </span>columns_autosize(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Converts bin_window coordinates to coordinates for the
@@ -5228,7 +5228,7 @@
     ///
     /// ## `ty`
     /// return location for tree Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_bin_window_to_tree_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_bin_window_to_tree_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_bin_window_to_tree_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, bx: i32, by: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Converts bin_window coordinates (see [`bin_window()`][Self::bin_window()])
@@ -5246,7 +5246,7 @@
     ///
     /// ## `wy`
     /// return location for widget Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_bin_window_to_widget_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_bin_window_to_widget_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_bin_window_to_widget_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, bx: i32, by: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Converts tree coordinates (coordinates in full scrollable area of the tree)
@@ -5264,7 +5264,7 @@
     ///
     /// ## `by`
     /// return location for Y coordinate relative to bin_window
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_tree_to_bin_window_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_tree_to_bin_window_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_tree_to_bin_window_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, tx: i32, ty: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Converts tree coordinates (coordinates in full scrollable area of the tree)
@@ -5282,7 +5282,7 @@
     ///
     /// ## `wy`
     /// return location for widget Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_tree_to_widget_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_tree_to_widget_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_tree_to_widget_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, tx: i32, ty: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Converts widget coordinates to coordinates for the bin_window
@@ -5300,7 +5300,7 @@
     ///
     /// ## `by`
     /// return location for bin_window Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_widget_to_bin_window_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_widget_to_bin_window_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_widget_to_bin_window_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, wx: i32, wy: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Converts widget coordinates to coordinates for the
@@ -5318,7 +5318,7 @@
     ///
     /// ## `ty`
     /// return location for tree Y coordinate
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_widget_to_tree_coords&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_convert_widget_to_tree_coords&quot;</span>)]
     </span><span class="kw">fn </span>convert_widget_to_tree_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, wx: i32, wy: i32) -&gt; (i32, i32);
 
     <span class="doccomment">/// Creates a [`cairo::Surface`][crate::cairo::Surface] representation of the row at `path`.
@@ -5329,11 +5329,11 @@
     /// # Returns
     ///
     /// a newly-allocated surface of the drag icon.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_create_row_drag_icon&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_create_row_drag_icon&quot;</span>)]
     </span><span class="kw">fn </span>create_row_drag_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt;;
 
     <span class="doccomment">/// Recursively expands all nodes in the `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_all&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_all&quot;</span>)]
     </span><span class="kw">fn </span>expand_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Opens the row so its children are visible.
@@ -5345,14 +5345,14 @@
     /// # Returns
     ///
     /// [`true`] if the row existed and had children
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_row&quot;</span>)]
     </span><span class="kw">fn </span>expand_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath, open_all: bool) -&gt; bool;
 
     <span class="doccomment">/// Expands the row at `path`. This will also expand all parent rows of
     /// `path` as necessary.
     /// ## `path`
     /// path to a row.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_to_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_expand_to_path&quot;</span>)]
     </span><span class="kw">fn </span>expand_to_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
 
     <span class="doccomment">/// Gets the setting set by [`set_activate_on_single_click()`][Self::set_activate_on_single_click()].
@@ -5360,7 +5360,7 @@
     /// # Returns
     ///
     /// [`true`] if row-activated will be emitted on a single click
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_activate_on_single_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_activate_on_single_click&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
     </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5383,7 +5383,7 @@
     ///
     /// ## `rect`
     /// rectangle to fill with cell background rect
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_background_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_background_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_background_area&quot;</span>)]
     </span><span class="kw">fn </span>background_area(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5399,7 +5399,7 @@
     ///
     /// A [`gdk::Window`][crate::gdk::Window], or [`None`] when `self`
     /// hasn’t been realized yet.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_bin_window&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_bin_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bin_window&quot;</span>)]
     </span><span class="kw">fn </span>bin_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
 
@@ -5422,7 +5422,7 @@
     ///
     /// ## `rect`
     /// rectangle to fill with cell rect
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_cell_area&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_cell_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cell_area&quot;</span>)]
     </span><span class="kw">fn </span>cell_area(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5438,7 +5438,7 @@
     ///
     /// The [`TreeViewColumn`][crate::TreeViewColumn], or [`None`] if the
     /// position is outside the range of columns.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_column&quot;</span>)]
     </span><span class="kw">fn </span>column(<span class="kw-2">&amp;</span><span class="self">self</span>, n: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TreeViewColumn&gt;;
 
@@ -5448,7 +5448,7 @@
     /// # Returns
     ///
     /// A list of [`TreeViewColumn`][crate::TreeViewColumn] s
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_columns&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_columns&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_columns&quot;</span>)]
     </span><span class="kw">fn </span>columns(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;TreeViewColumn&gt;;
 
@@ -5469,7 +5469,7 @@
     /// ## `focus_column`
     /// A
     ///  pointer to be filled with the current focus column, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor&quot;</span>)]
     </span><span class="kw">fn </span>cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="prelude-ty">Option</span>&lt;TreePath&gt;, <span class="prelude-ty">Option</span>&lt;TreeViewColumn&gt;);
 
@@ -5494,7 +5494,7 @@
     /// ## `pos`
     /// Return location for the drop position, or
     ///  [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_dest_row_at_pos&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_dest_row_at_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_dest_row_at_pos&quot;</span>)]
     </span><span class="kw">fn </span>dest_row_at_pos(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5512,7 +5512,7 @@
     ///
     /// ## `pos`
     /// Return location for the drop position, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_drag_dest_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_drag_dest_row&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drag_dest_row&quot;</span>)]
     </span><span class="kw">fn </span>drag_dest_row(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="prelude-ty">Option</span>&lt;TreePath&gt;, TreeViewDropPosition);
 
@@ -5522,7 +5522,7 @@
     /// # Returns
     ///
     /// whether or not to let the user search interactively
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_enable_search&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_enable_search&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_enable_search&quot;</span>)]
     </span><span class="kw">fn </span>enables_search(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5532,7 +5532,7 @@
     ///
     /// [`true`] if tree lines are drawn in `self`, [`false`]
     /// otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_enable_tree_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_enable_tree_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_enable_tree_lines&quot;</span>)]
     </span><span class="kw">fn </span>enables_tree_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5542,7 +5542,7 @@
     /// # Returns
     ///
     /// The expander column.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_expander_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_expander_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_expander_column&quot;</span>)]
     </span><span class="kw">fn </span>expander_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeViewColumn&gt;;
 
@@ -5551,7 +5551,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is in fixed height mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_fixed_height_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_fixed_height_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_fixed_height_mode&quot;</span>)]
     </span><span class="kw">fn </span>is_fixed_height_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5561,7 +5561,7 @@
     ///
     /// a [`TreeViewGridLines`][crate::TreeViewGridLines] value indicating which grid lines
     /// are enabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_grid_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_grid_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_grid_lines&quot;</span>)]
     </span><span class="kw">fn </span>grid_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeViewGridLines;
 
@@ -5570,7 +5570,7 @@
     /// # Returns
     ///
     /// [`true`] if all header columns are clickable, otherwise [`false`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_headers_clickable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_headers_clickable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_headers_clickable&quot;</span>)]
     </span><span class="kw">fn </span>is_headers_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5579,7 +5579,7 @@
     /// # Returns
     ///
     /// Whether the headers are visible or not.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_headers_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_headers_visible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_headers_visible&quot;</span>)]
     </span><span class="kw">fn </span>is_headers_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5588,7 +5588,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is in hover expansion mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_hover_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_hover_expand&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hover_expand&quot;</span>)]
     </span><span class="kw">fn </span>hover_expands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5597,7 +5597,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` is in hover selection mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_hover_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_hover_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_hover_selection&quot;</span>)]
     </span><span class="kw">fn </span>is_hover_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5608,7 +5608,7 @@
     ///
     /// the amount of extra indentation for child levels in
     /// `self`. A return value of 0 means that this feature is disabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_level_indentation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_level_indentation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_level_indentation&quot;</span>)]
     </span><span class="kw">fn </span>level_indentation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5619,7 +5619,7 @@
     ///
     /// A [`TreeModel`][crate::TreeModel], or [`None`] if
     /// none is currently being used.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_model&quot;</span>)]
     </span><span class="kw">fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeModel&gt;;
 
@@ -5628,7 +5628,7 @@
     /// # Returns
     ///
     /// The number of columns in the `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_n_columns&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_n_columns&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_columns&quot;</span>)]
     </span><span class="kw">fn </span>n_columns(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
 
@@ -5673,7 +5673,7 @@
     /// ## `cell_y`
     /// A pointer where the Y coordinate
     ///  relative to the cell can be placed, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_path_at_pos&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_path_at_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_path_at_pos&quot;</span>)]
     </span><span class="kw">fn </span>path_at_pos(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5687,7 +5687,7 @@
     /// # Returns
     ///
     /// [`true`] if the tree can be reordered.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_reorderable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_reorderable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_reorderable&quot;</span>)]
     </span><span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5702,7 +5702,7 @@
     /// # Returns
     ///
     /// [`true`] if rubber banding in `self` is enabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_rubber_banding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_rubber_banding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_rubber_banding&quot;</span>)]
     </span><span class="kw">fn </span>is_rubber_banding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5711,7 +5711,7 @@
     /// # Returns
     ///
     /// the column the interactive search code searches in.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_search_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_search_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_search_column&quot;</span>)]
     </span><span class="kw">fn </span>search_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5722,7 +5722,7 @@
     /// # Returns
     ///
     /// the entry currently in use as search entry.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_search_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_search_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_search_entry&quot;</span>)]
     </span><span class="kw">fn </span>search_entry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Entry&gt;;
 
@@ -5739,7 +5739,7 @@
     /// # Returns
     ///
     /// A [`TreeSelection`][crate::TreeSelection] object.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection&quot;</span>)]
     </span><span class="kw">fn </span>selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeSelection;
 
@@ -5749,7 +5749,7 @@
     ///
     /// [`true`] if expanders are drawn in `self`, [`false`]
     /// otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_show_expanders&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_show_expanders&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_expanders&quot;</span>)]
     </span><span class="kw">fn </span>shows_expanders(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
@@ -5760,7 +5760,7 @@
     ///
     /// the index of the tooltip column that is currently being
     /// used, or -1 if this is disabled.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_tooltip_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_tooltip_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_column&quot;</span>)]
     </span><span class="kw">fn </span>tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -5795,7 +5795,7 @@
     ///
     /// ## `iter`
     /// a pointer to receive a [`TreeIter`][crate::TreeIter] or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_tooltip_context&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_tooltip_context&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_context&quot;</span>)]
     </span><span class="kw">fn </span>tooltip_context(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5819,7 +5819,7 @@
     ///
     /// ## `end_path`
     /// Return location for end of region, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_visible_range&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_visible_range&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_range&quot;</span>)]
     </span><span class="kw">fn </span>visible_range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, TreePath)&gt;;
 
@@ -5834,7 +5834,7 @@
     ///
     /// ## `visible_rect`
     /// rectangle to fill
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_visible_rect&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_get_visible_rect&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_rect&quot;</span>)]
     </span><span class="kw">fn </span>visible_rect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle;
 
@@ -5850,7 +5850,7 @@
     /// # Returns
     ///
     /// The number of columns in `self` after insertion.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_insert_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_insert_column&quot;</span>)]
     </span><span class="kw">fn </span>insert_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;, position: i32) -&gt; i32;
 
     <span class="comment">//#[doc(alias = &quot;gtk_tree_view_insert_column_with_attributes&quot;)]
@@ -5874,7 +5874,7 @@
     /// # Returns
     ///
     /// number of columns in the tree view post-insert
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_insert_column_with_data_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_insert_column_with_data_func&quot;</span>)]
     </span><span class="kw">fn </span>insert_column_with_data_func&lt;
         P: Fn(<span class="kw-2">&amp;</span>TreeViewColumn, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -5927,7 +5927,7 @@
     /// ## `cell_y`
     /// A pointer where the Y coordinate relative to the
     ///  cell can be placed, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_is_blank_at_pos&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_is_blank_at_pos&quot;</span>)]
     </span><span class="kw">fn </span>is_blank_at_pos(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         x: i32,
@@ -5941,13 +5941,13 @@
     ///
     /// [`true`] if a rubber banding operation is currently being
     /// done in `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_is_rubber_banding_active&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_is_rubber_banding_active&quot;</span>)]
     </span><span class="kw">fn </span>is_rubber_banding_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
     <span class="doccomment">/// Calls `func` on all expanded rows.
     /// ## `func`
     /// A function to be called
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_map_expanded_rows&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_map_expanded_rows&quot;</span>)]
     </span><span class="kw">fn </span>map_expanded_rows&lt;P: FnMut(<span class="kw-2">&amp;</span>TreeView, <span class="kw-2">&amp;</span>TreePath)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
 
     <span class="doccomment">/// Moves `column` to be after to `base_column`. If `base_column` is [`None`], then
@@ -5956,7 +5956,7 @@
     /// The [`TreeViewColumn`][crate::TreeViewColumn] to be moved.
     /// ## `base_column`
     /// The [`TreeViewColumn`][crate::TreeViewColumn] to be moved relative to, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_move_column_after&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_move_column_after&quot;</span>)]
     </span><span class="kw">fn </span>move_column_after(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         column: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;,
@@ -5970,7 +5970,7 @@
     /// # Returns
     ///
     /// The number of columns in `self` after removing.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_remove_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_remove_column&quot;</span>)]
     </span><span class="kw">fn </span>remove_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;) -&gt; i32;
 
     <span class="doccomment">/// Activates the cell determined by `path` and `column`.
@@ -5978,7 +5978,7 @@
     /// The [`TreePath`][crate::TreePath] to be activated.
     /// ## `column`
     /// The [`TreeViewColumn`][crate::TreeViewColumn] to be activated.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_row_activated&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_row_activated&quot;</span>)]
     </span><span class="kw">fn </span>row_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath, column: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;);
 
     <span class="doccomment">/// Returns [`true`] if the node pointed to by `path` is expanded in `self`.
@@ -5988,7 +5988,7 @@
     /// # Returns
     ///
     /// [`true`] if `path` is expanded.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_row_expanded&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_row_expanded&quot;</span>)]
     </span><span class="kw">fn </span>row_expanded(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool;
 
     <span class="doccomment">/// Moves the alignments of `self` to the position specified by `column` and
@@ -6017,7 +6017,7 @@
     /// The vertical alignment of the row specified by `path`.
     /// ## `col_align`
     /// The horizontal alignment of the column specified by `column`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_scroll_to_cell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_scroll_to_cell&quot;</span>)]
     </span><span class="kw">fn </span>scroll_to_cell(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreePath&gt;,
@@ -6038,14 +6038,14 @@
     /// X coordinate of new top-left pixel of visible area, or -1
     /// ## `tree_y`
     /// Y coordinate of new top-left pixel of visible area, or -1
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_scroll_to_point&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_scroll_to_point&quot;</span>)]
     </span><span class="kw">fn </span>scroll_to_point(<span class="kw-2">&amp;</span><span class="self">self</span>, tree_x: i32, tree_y: i32);
 
     <span class="doccomment">/// Cause the `signal::TreeView::row-activated` signal to be emitted
     /// on a single click instead of a double click.
     /// ## `single`
     /// [`true`] to emit row-activated on a single click
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_activate_on_single_click&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_activate_on_single_click&quot;</span>)]
     </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool);
 
     <span class="doccomment">/// Sets a user function for determining where a column may be dropped when
@@ -6059,7 +6059,7 @@
     /// dropped everywhere.
     /// ## `func`
     /// A function to determine which columns are reorderable, or [`None`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_column_drag_function&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_column_drag_function&quot;</span>)]
     </span><span class="kw">fn </span>set_column_drag_function(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         func: <span class="prelude-ty">Option</span>&lt;
@@ -6087,7 +6087,7 @@
     /// A [`TreeViewColumn`][crate::TreeViewColumn], or [`None`]
     /// ## `start_editing`
     /// [`true`] if the specified cell should start being edited.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_cursor&quot;</span>)]
     </span><span class="kw">fn </span>set_cursor(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: <span class="kw-2">&amp;</span>TreePath,
@@ -6117,7 +6117,7 @@
     /// A [`CellRenderer`][crate::CellRenderer], or [`None`]
     /// ## `start_editing`
     /// [`true`] if the specified cell should start being edited.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_cursor_on_cell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_cursor_on_cell&quot;</span>)]
     </span><span class="kw">fn </span>set_cursor_on_cell(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: <span class="kw-2">&amp;</span>TreePath,
@@ -6132,7 +6132,7 @@
     /// The path of the row to highlight, or [`None`]
     /// ## `pos`
     /// Specifies whether to drop before, after or into the row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_drag_dest_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_drag_dest_row&quot;</span>)]
     </span><span class="kw">fn </span>set_drag_dest_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreePath&gt;, pos: TreeViewDropPosition);
 
     <span class="doccomment">/// If `enable_search` is set, then the user can type in text to search through
@@ -6142,14 +6142,14 @@
     /// using the “start-interactive-search” key binding.
     /// ## `enable_search`
     /// [`true`], if the user can search interactively
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_enable_search&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_enable_search&quot;</span>)]
     </span><span class="kw">fn </span>set_enable_search(<span class="kw-2">&amp;</span><span class="self">self</span>, enable_search: bool);
 
     <span class="doccomment">/// Sets whether to draw lines interconnecting the expanders in `self`.
     /// This does not have any visible effects for lists.
     /// ## `enabled`
     /// [`true`] to enable tree line drawing, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_enable_tree_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_enable_tree_lines&quot;</span>)]
     </span><span class="kw">fn </span>set_enable_tree_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, enabled: bool);
 
     <span class="doccomment">/// Sets the column to draw the expander arrow at. It must be in `self`.
@@ -6160,7 +6160,7 @@
     /// expander column to a hidden column.
     /// ## `column`
     /// [`None`], or the column to draw the expander arrow at.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_expander_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_expander_column&quot;</span>)]
     </span><span class="kw">fn </span>set_expander_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeViewColumn&gt;&gt;);
 
     <span class="doccomment">/// Enables or disables the fixed height mode of `self`.
@@ -6170,26 +6170,26 @@
     /// columns are of type [`TreeViewColumnSizing::Fixed`][crate::TreeViewColumnSizing::Fixed].
     /// ## `enable`
     /// [`true`] to enable fixed height mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_fixed_height_mode&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_fixed_height_mode&quot;</span>)]
     </span><span class="kw">fn </span>set_fixed_height_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, enable: bool);
 
     <span class="doccomment">/// Sets which grid lines to draw in `self`.
     /// ## `grid_lines`
     /// a [`TreeViewGridLines`][crate::TreeViewGridLines] value indicating which grid lines to
     /// enable.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_grid_lines&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_grid_lines&quot;</span>)]
     </span><span class="kw">fn </span>set_grid_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, grid_lines: TreeViewGridLines);
 
     <span class="doccomment">/// Allow the column title buttons to be clicked.
     /// ## `setting`
     /// [`true`] if the columns are clickable.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_headers_clickable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_headers_clickable&quot;</span>)]
     </span><span class="kw">fn </span>set_headers_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
 
     <span class="doccomment">/// Sets the visibility state of the headers.
     /// ## `headers_visible`
     /// [`true`] if the headers are visible
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_headers_visible&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_headers_visible&quot;</span>)]
     </span><span class="kw">fn </span>set_headers_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, headers_visible: bool);
 
     <span class="doccomment">/// Enables or disables the hover expansion mode of `self`.
@@ -6197,7 +6197,7 @@
     /// moves over them.
     /// ## `expand`
     /// [`true`] to enable hover selection mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_hover_expand&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_hover_expand&quot;</span>)]
     </span><span class="kw">fn </span>set_hover_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
 
     <span class="doccomment">/// Enables or disables the hover selection mode of `self`.
@@ -6206,7 +6206,7 @@
     /// [`SelectionMode::Single`][crate::SelectionMode::Single] and [`SelectionMode::Browse`][crate::SelectionMode::Browse].
     /// ## `hover`
     /// [`true`] to enable hover selection mode
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_hover_selection&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_hover_selection&quot;</span>)]
     </span><span class="kw">fn </span>set_hover_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, hover: bool);
 
     <span class="doccomment">/// Sets the amount of extra indentation for child levels to use in `self`
@@ -6216,7 +6216,7 @@
     /// This does not have any visible effects for lists.
     /// ## `indentation`
     /// the amount, in pixels, of extra indentation in `self`.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_level_indentation&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_level_indentation&quot;</span>)]
     </span><span class="kw">fn </span>set_level_indentation(<span class="kw-2">&amp;</span><span class="self">self</span>, indentation: i32);
 
     <span class="doccomment">/// Sets the model for a [`TreeView`][crate::TreeView]. If the `self` already has a model
@@ -6224,7 +6224,7 @@
     /// then it will unset the old model.
     /// ## `model`
     /// The model.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_model&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_model&quot;</span>)]
     </span><span class="kw">fn </span>set_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;&gt;);
 
     <span class="doccomment">/// This function is a convenience function to allow you to reorder
@@ -6243,7 +6243,7 @@
     /// handle drag and drop manually.
     /// ## `reorderable`
     /// [`true`], if the tree can be reordered.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_reorderable&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_reorderable&quot;</span>)]
     </span><span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool);
 
     <span class="doccomment">/// Sets the row separator function, which is used to determine
@@ -6251,7 +6251,7 @@
     /// function is [`None`], no separators are drawn. This is the default value.
     /// ## `func`
     /// a `GtkTreeViewRowSeparatorFunc`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_row_separator_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_row_separator_func&quot;</span>)]
     </span><span class="kw">fn </span>set_row_separator_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;,
@@ -6262,7 +6262,7 @@
     /// multiple rows by dragging the mouse.
     /// ## `enable`
     /// [`true`] to enable rubber banding
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_rubber_banding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_rubber_banding&quot;</span>)]
     </span><span class="kw">fn </span>set_rubber_banding(<span class="kw-2">&amp;</span><span class="self">self</span>, enable: bool);
 
     <span class="doccomment">/// Sets `column` as the column where the interactive search code should
@@ -6276,7 +6276,7 @@
     /// column is reset to -1 when the model is changed.
     /// ## `column`
     /// the column of the model to search in, or -1 to disable searching
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_column&quot;</span>)]
     </span><span class="kw">fn </span>set_search_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
 
     <span class="doccomment">/// Sets the entry which the interactive search code will use for this
@@ -6286,7 +6286,7 @@
     /// entry again.
     /// ## `entry`
     /// the entry the interactive search code of `self` should use or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_entry&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_entry&quot;</span>)]
     </span><span class="kw">fn </span>set_search_entry(<span class="kw-2">&amp;</span><span class="self">self</span>, entry: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Entry&gt;&gt;);
 
     <span class="doccomment">/// Sets the compare function for the interactive search capabilities; note
@@ -6298,7 +6298,7 @@
     /// user data to pass to `search_equal_func`, or [`None`]
     /// ## `search_destroy`
     /// Destroy notifier for `search_user_data`, or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_equal_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_equal_func&quot;</span>)]
     </span><span class="kw">fn </span>set_search_equal_func&lt;P: Fn(<span class="kw-2">&amp;</span>TreeModel, i32, <span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>TreeIter) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         search_equal_func: P,
@@ -6308,7 +6308,7 @@
     /// ## `func`
     /// the function to use to position the search dialog, or [`None`]
     ///  to use the default search position function
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_position_func&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_search_position_func&quot;</span>)]
     </span><span class="kw">fn </span>set_search_position_func(<span class="kw-2">&amp;</span><span class="self">self</span>, func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>TreeView, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;&gt;);
 
     <span class="doccomment">/// Sets whether to draw and enable expanders and indent child rows in
@@ -6320,7 +6320,7 @@
     /// This does not have any visible effects for lists.
     /// ## `enabled`
     /// [`true`] to enable expander drawing, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_show_expanders&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_show_expanders&quot;</span>)]
     </span><span class="kw">fn </span>set_show_expanders(<span class="kw-2">&amp;</span><span class="self">self</span>, enabled: bool);
 
     <span class="doccomment">/// Sets the tip area of `tooltip` to the area `path`, `column` and `cell` have
@@ -6342,7 +6342,7 @@
     /// a [`TreeViewColumn`][crate::TreeViewColumn] or [`None`]
     /// ## `cell`
     /// a [`CellRenderer`][crate::CellRenderer] or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_cell&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_cell&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_cell(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tooltip: <span class="kw-2">&amp;</span>Tooltip,
@@ -6363,7 +6363,7 @@
     /// so &amp;, &lt;, etc have to be escaped in the text.
     /// ## `column`
     /// an integer, which is a valid column number for `self`’s model
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_column&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_column&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
 
     <span class="doccomment">/// Sets the tip area of `tooltip` to be the area covered by the row at `path`.
@@ -6373,36 +6373,36 @@
     /// a [`Tooltip`][crate::Tooltip]
     /// ## `path`
     /// a [`TreePath`][crate::TreePath]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_set_tooltip_row&quot;</span>)]
     </span><span class="kw">fn </span>set_tooltip_row(<span class="kw-2">&amp;</span><span class="self">self</span>, tooltip: <span class="kw-2">&amp;</span>Tooltip, path: <span class="kw-2">&amp;</span>TreePath);
 
     <span class="doccomment">/// Undoes the effect of
     /// `gtk_tree_view_enable_model_drag_dest()`. Calling this method sets
     /// `property::TreeView::reorderable` to [`false`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_unset_rows_drag_dest&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_unset_rows_drag_dest&quot;</span>)]
     </span><span class="kw">fn </span>unset_rows_drag_dest(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Undoes the effect of
     /// `gtk_tree_view_enable_model_drag_source()`. Calling this method sets
     /// `property::TreeView::reorderable` to [`false`].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_tree_view_unset_rows_drag_source&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_unset_rows_drag_source&quot;</span>)]
     </span><span class="kw">fn </span>unset_rows_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
     </span><span class="kw">fn </span>enable_grid_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeViewGridLines;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
     </span><span class="kw">fn </span>set_enable_grid_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, enable_grid_lines: TreeViewGridLines);
 
     <span class="doccomment">/// The number of columns of the treeview has changed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;columns-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;columns-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_columns_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="doccomment">/// The position of the cursor (focused cell) has changed.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;cursor-changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cursor-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_cursor_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;expand-collapse-cursor-row&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;expand-collapse-cursor-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_expand_collapse_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool, bool, bool) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6434,7 +6434,7 @@
     /// # Returns
     ///
     /// [`true`] if `step` is supported, [`false`] otherwise.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
     </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6457,7 +6457,7 @@
     /// the [`TreePath`][crate::TreePath] for the activated row
     /// ## `column`
     /// the [`TreeViewColumn`][crate::TreeViewColumn] in which the activation occurred
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;row-activated&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;row-activated&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreePath, <span class="kw-2">&amp;</span>TreeViewColumn) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6470,7 +6470,7 @@
     /// the tree iter of the collapsed row
     /// ## `path`
     /// a tree path that points to the row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;row-collapsed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;row-collapsed&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_collapsed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreeIter, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6481,24 +6481,24 @@
     /// the tree iter of the expanded row
     /// ## `path`
     /// a tree path that points to the row
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;row-expanded&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;row-expanded&quot;</span>)]
     </span><span class="kw">fn </span>connect_row_expanded&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreeIter, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;select-cursor-parent&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;select-cursor-parent&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_cursor_parent&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
         -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_select_cursor_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;select-cursor-row&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;select-cursor-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_select_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6506,7 +6506,7 @@
 
     <span class="kw">fn </span>emit_select_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>, object: bool) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;start-interactive-search&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;start-interactive-search&quot;</span>)]
     </span><span class="kw">fn </span>connect_start_interactive_search&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
@@ -6524,7 +6524,7 @@
     /// # Returns
     ///
     /// [`false`] to allow collapsing, [`true`] to reject
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;test-collapse-row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;test-collapse-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_test_collapse_row&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreeIter, <span class="kw-2">&amp;</span>TreePath) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -6542,7 +6542,7 @@
     /// # Returns
     ///
     /// [`false`] to allow expansion, [`true`] to reject
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;test-expand-row&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;test-expand-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_test_expand_row&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreeIter, <span class="kw-2">&amp;</span>TreePath) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -6550,68 +6550,68 @@
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;toggle-cursor-row&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-row&quot;</span>)]
     </span><span class="kw">fn </span>connect_toggle_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
     </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
     <span class="kw">fn </span>emit_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-grid-lines&quot;</span>)]
     </span><span class="kw">fn </span>connect_enable_grid_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-search&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-search&quot;</span>)]
     </span><span class="kw">fn </span>connect_enable_search_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;enable-tree-lines&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;enable-tree-lines&quot;</span>)]
     </span><span class="kw">fn </span>connect_enable_tree_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;expander-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;expander-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_expander_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;fixed-height-mode&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;fixed-height-mode&quot;</span>)]
     </span><span class="kw">fn </span>connect_fixed_height_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;headers-clickable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;headers-clickable&quot;</span>)]
     </span><span class="kw">fn </span>connect_headers_clickable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;headers-visible&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;headers-visible&quot;</span>)]
     </span><span class="kw">fn </span>connect_headers_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hover-expand&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hover-expand&quot;</span>)]
     </span><span class="kw">fn </span>connect_hover_expand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;hover-selection&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;hover-selection&quot;</span>)]
     </span><span class="kw">fn </span>connect_hover_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;level-indentation&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;level-indentation&quot;</span>)]
     </span><span class="kw">fn </span>connect_level_indentation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
     </span><span class="kw">fn </span>connect_model_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
     </span><span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;rubber-banding&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;rubber-banding&quot;</span>)]
     </span><span class="kw">fn </span>connect_rubber_banding_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;search-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;search-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_search_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;show-expanders&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-expanders&quot;</span>)]
     </span><span class="kw">fn </span>connect_show_expanders_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;tooltip-column&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;tooltip-column&quot;</span>)]
     </span><span class="kw">fn </span>connect_tooltip_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -8660,4 +8660,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>

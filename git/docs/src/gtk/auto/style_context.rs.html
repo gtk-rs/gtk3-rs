@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ef244fc9943488f7.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-c11f492748536797.css"><link rel="stylesheet" disabled href="../../../static.files/dark-a78f946771c40031.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-70b683d68cb31790.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-74087aa2e88f4475.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0dede64717b247ca.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-201a7e04dc4c6fce.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1292,7 +1292,7 @@
     /// # Implements
     ///
     /// [`StyleContextExt`][trait@crate::prelude::StyleContextExt], [`trait@glib::ObjectExt`], [`StyleContextExtManual`][trait@crate::prelude::StyleContextExtManual]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;GtkStyleContext&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkStyleContext&quot;</span>)]
     </span><span class="kw">pub struct </span>StyleContext(Object&lt;ffi::GtkStyleContext, ffi::GtkStyleContextClass&gt;);
 
     <span class="kw">match fn </span>{
@@ -1315,7 +1315,7 @@
     /// # Returns
     ///
     /// A newly created [`StyleContext`][crate::StyleContext].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_new&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; StyleContext {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_style_context_new()) }
@@ -1348,7 +1348,7 @@
     ///  construction. Typically this will be in the range
     ///  between `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK` and
     ///  `GTK_STYLE_PROVIDER_PRIORITY_USER`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_add_provider_for_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_add_provider_for_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>add_provider_for_screen(
         screen: <span class="kw-2">&amp;</span>gdk::Screen,
         provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;,
@@ -1369,7 +1369,7 @@
     /// a [`gdk::Screen`][crate::gdk::Screen]
     /// ## `provider`
     /// a [`StyleProvider`][crate::StyleProvider]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_provider_for_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_provider_for_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>remove_provider_for_screen(screen: <span class="kw-2">&amp;</span>gdk::Screen, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;) {
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe </span>{
@@ -1388,7 +1388,7 @@
     /// in the related [`Settings`][crate::Settings] object.
     /// ## `screen`
     /// a [`gdk::Screen`][crate::gdk::Screen]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_reset_widgets&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_reset_widgets&quot;</span>)]
     </span><span class="kw">pub fn </span>reset_widgets(screen: <span class="kw-2">&amp;</span>gdk::Screen) {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{
@@ -1403,12 +1403,12 @@
     }
 }
 
-<span class="attribute">#[derive(Clone, Default)]
+<span class="attr">#[derive(Clone, Default)]
 </span><span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`StyleContext`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-</span><span class="attribute">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
+</span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>StyleContextBuilder {
     direction: <span class="prelude-ty">Option</span>&lt;TextDirection&gt;,
     paint_clock: <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;,
@@ -1425,7 +1425,7 @@
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`StyleContext`].
-    </span><span class="attribute">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; StyleContext {
         <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
         <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>direction) = <span class="self">self</span>.direction {
@@ -1498,7 +1498,7 @@
     /// ```
     /// ## `class_name`
     /// class name to use in styling
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_add_class&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_add_class&quot;</span>)]
     </span><span class="kw">fn </span>add_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Adds a style provider to `self`, to be used in style construction.
@@ -1518,7 +1518,7 @@
     ///  construction. Typically this will be in the range
     ///  between `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK` and
     ///  `GTK_STYLE_PROVIDER_PRIORITY_USER`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_add_provider&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_add_provider&quot;</span>)]
     </span><span class="kw">fn </span>add_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;, priority: u32);
 
     <span class="doccomment">/// Gets the border for a given state as a [`Border`][crate::Border].
@@ -1533,7 +1533,7 @@
     ///
     /// ## `border`
     /// return value for the border settings
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_border&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_border&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_border&quot;</span>)]
     </span><span class="kw">fn </span>border(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
 
@@ -1549,7 +1549,7 @@
     ///
     /// ## `color`
     /// return value for the foreground color
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_color&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_color&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_color&quot;</span>)]
     </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; gdk::RGBA;
 
@@ -1559,7 +1559,7 @@
     ///
     /// a [`gdk::FrameClock`][crate::gdk::FrameClock], or [`None`]
     ///  if `self` does not have an attached frame clock.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_frame_clock&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_frame_clock&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_frame_clock&quot;</span>)]
     </span><span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;;
 
@@ -1568,7 +1568,7 @@
     /// # Returns
     ///
     /// the junction sides
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_junction_sides&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_junction_sides&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_junction_sides&quot;</span>)]
     </span><span class="kw">fn </span>junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; JunctionSides;
 
@@ -1583,7 +1583,7 @@
     ///
     /// ## `margin`
     /// return value for the margin settings
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_margin&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin&quot;</span>)]
     </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
 
@@ -1598,7 +1598,7 @@
     ///
     /// ## `padding`
     /// return value for the padding settings
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_padding&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_padding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_padding&quot;</span>)]
     </span><span class="kw">fn </span>padding(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
 
@@ -1608,7 +1608,7 @@
     /// # Returns
     ///
     /// the parent context or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
     </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StyleContext&gt;;
@@ -1618,7 +1618,7 @@
     /// # Returns
     ///
     /// A [`WidgetPath`][crate::WidgetPath]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_path&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_path&quot;</span>)]
     </span><span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WidgetPath&gt;;
 
@@ -1645,7 +1645,7 @@
     ///
     /// ## `value`
     /// return location for the style property value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_property&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_property&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_property&quot;</span>)]
     </span><span class="kw">fn </span>style_property_for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str, state: StateFlags) -&gt; glib::Value;
 
@@ -1654,7 +1654,7 @@
     /// # Returns
     ///
     /// the scale
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_scale&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_scale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale&quot;</span>)]
     </span><span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
 
@@ -1663,7 +1663,7 @@
     /// # Returns
     ///
     /// a [`gdk::Screen`][crate::gdk::Screen].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
     </span><span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt;;
 
@@ -1686,7 +1686,7 @@
     ///
     /// [`None`] or the section where a value
     /// for `property` was defined
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_section&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_section&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_section&quot;</span>)]
     </span><span class="kw">fn </span>section(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;CssSection&gt;;
 
@@ -1700,7 +1700,7 @@
     /// # Returns
     ///
     /// the state flags
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_state&quot;</span>)]
     </span><span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StateFlags;
 
@@ -1720,7 +1720,7 @@
     ///
     /// ## `value`
     /// Return location for the property value
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_get_style_property&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_style_property&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_style_property&quot;</span>)]
     </span><span class="kw">fn </span>style_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span>str) -&gt; glib::Value;
 
@@ -1740,7 +1740,7 @@
     /// # Returns
     ///
     /// [`true`] if `self` has `class_name` defined
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_has_class&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_has_class&quot;</span>)]
     </span><span class="kw">fn </span>has_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) -&gt; bool;
 
     <span class="doccomment">/// Returns the list of classes currently defined in `self`.
@@ -1751,7 +1751,7 @@
     ///  strings with the currently defined classes. The contents
     ///  of the list are owned by GTK+, but you must free the list
     ///  itself with `g_list_free()` when you are done with it.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_list_classes&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_list_classes&quot;</span>)]
     </span><span class="kw">fn </span>list_classes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
 
     <span class="doccomment">/// Looks up and resolves a color name in the `self` color map.
@@ -1764,24 +1764,24 @@
     ///
     /// ## `color`
     /// Return location for the looked up color
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_lookup_color&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_lookup_color&quot;</span>)]
     </span><span class="kw">fn </span>lookup_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;;
 
     <span class="doccomment">/// Removes `class_name` from `self`.
     /// ## `class_name`
     /// class name to remove
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_class&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_class&quot;</span>)]
     </span><span class="kw">fn </span>remove_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str);
 
     <span class="doccomment">/// Removes `provider` from the style providers list in `self`.
     /// ## `provider`
     /// a [`StyleProvider`][crate::StyleProvider]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_provider&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_provider&quot;</span>)]
     </span><span class="kw">fn </span>remove_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;);
 
     <span class="doccomment">/// Restores `self` state to a previous stage.
     /// See [`save()`][Self::save()].
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_restore&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_restore&quot;</span>)]
     </span><span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Saves the `self` state, so temporary modifications done through
@@ -1791,7 +1791,7 @@
     ///
     /// The matching call to [`restore()`][Self::restore()] must be done
     /// before GTK returns to the main loop.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_save&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_save&quot;</span>)]
     </span><span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
     <span class="doccomment">/// Attaches `self` to the given frame clock.
@@ -1803,7 +1803,7 @@
     /// call this yourself.
     /// ## `frame_clock`
     /// a [`gdk::FrameClock`][crate::gdk::FrameClock]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_frame_clock&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_frame_clock&quot;</span>)]
     </span><span class="kw">fn </span>set_frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_clock: <span class="kw-2">&amp;</span>gdk::FrameClock);
 
     <span class="doccomment">/// Sets the sides where rendered elements (mostly through
@@ -1818,7 +1818,7 @@
     /// ## `sides`
     /// sides where rendered elements are visually connected to
     ///  other elements
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_junction_sides&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_junction_sides&quot;</span>)]
     </span><span class="kw">fn </span>set_junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>, sides: JunctionSides);
 
     <span class="doccomment">/// Sets the parent style context for `self`. The parent style
@@ -1830,7 +1830,7 @@
     /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the parent will be set for you.
     /// ## `parent`
     /// the new parent or [`None`]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_parent&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_parent&quot;</span>)]
     </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;&gt;);
 
     <span class="doccomment">/// Sets the [`WidgetPath`][crate::WidgetPath] used for style matching. As a
@@ -1842,13 +1842,13 @@
     /// this yourself.
     /// ## `path`
     /// a [`WidgetPath`][crate::WidgetPath]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_path&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_path&quot;</span>)]
     </span><span class="kw">fn </span>set_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>WidgetPath);
 
     <span class="doccomment">/// Sets the scale to use when getting image assets for the style.
     /// ## `scale`
     /// scale
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_scale&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_scale&quot;</span>)]
     </span><span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: i32);
 
     <span class="doccomment">/// Attaches `self` to the given screen.
@@ -1861,13 +1861,13 @@
     /// call this yourself.
     /// ## `screen`
     /// a [`gdk::Screen`][crate::gdk::Screen]
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_screen&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_screen&quot;</span>)]
     </span><span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen);
 
     <span class="doccomment">/// Sets the state to be used for style matching.
     /// ## `flags`
     /// state to represent
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_set_state&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_state&quot;</span>)]
     </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags);
 
     <span class="doccomment">/// Converts the style context into a string representation.
@@ -1886,17 +1886,17 @@
     /// # Returns
     ///
     /// a newly allocated string representing `self`
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;gtk_style_context_to_string&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_to_string&quot;</span>)]
     </span><span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StyleContextPrintFlags) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
 
     <span class="kw">fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextDirection;
 
     <span class="kw">fn </span>set_direction(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: TextDirection);
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
     </span><span class="kw">fn </span>paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
     </span><span class="kw">fn </span>set_paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, paint_clock: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::FrameClock&gt;);
 
     <span class="doccomment">/// The ::changed signal is emitted when there is a change in the
@@ -1906,19 +1906,19 @@
     /// `signal::Widget::style-updated` signal/vfunc might be more convenient to use.
     ///
     /// This signal is useful when using the theming layer standalone.
-    </span><span class="attribute">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;direction&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;direction&quot;</span>)]
     </span><span class="kw">fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
     </span><span class="kw">fn </span>connect_paint_clock_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
     </span><span class="kw">fn </span>connect_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 
-    <span class="attribute">#[doc(alias = <span class="string">&quot;screen&quot;</span>)]
+    <span class="attr">#[doc(alias = <span class="string">&quot;screen&quot;</span>)]
     </span><span class="kw">fn </span>connect_screen_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
 }
 
@@ -2352,4 +2352,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gtk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (77e57db38 2022-10-30)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (85f4f41de 2022-11-08)" data-search-js="search-39ee4160c7dc16c9.js" data-settings-js="settings-3a0b9947ba1bd99a.js" data-settings-css="settings-a66f7524084a489a.css" ></div></body></html>
