@@ -404,7 +404,7 @@ impl<O: IsA<TreeModel>> TreeModelExt for O {
         iter: Option<&TreeIter>,
         new_order: &[i32],
     ) {
-        let length = new_order.len() as i32;
+        let length = new_order.len() as _;
         unsafe {
             ffi::gtk_tree_model_rows_reordered_with_length(
                 self.as_ref().to_glib_none().0,

@@ -14,11 +14,11 @@ bitflags! {
     #[doc(alias = "GtkAccelFlags")]
     pub struct AccelFlags: u32 {
         #[doc(alias = "GTK_ACCEL_VISIBLE")]
-        const VISIBLE = ffi::GTK_ACCEL_VISIBLE as u32;
+        const VISIBLE = ffi::GTK_ACCEL_VISIBLE as _;
         #[doc(alias = "GTK_ACCEL_LOCKED")]
-        const LOCKED = ffi::GTK_ACCEL_LOCKED as u32;
+        const LOCKED = ffi::GTK_ACCEL_LOCKED as _;
         #[doc(alias = "GTK_ACCEL_MASK")]
-        const MASK = ffi::GTK_ACCEL_MASK as u32;
+        const MASK = ffi::GTK_ACCEL_MASK as _;
     }
 }
 
@@ -82,13 +82,13 @@ bitflags! {
     #[doc(alias = "GtkApplicationInhibitFlags")]
     pub struct ApplicationInhibitFlags: u32 {
         #[doc(alias = "GTK_APPLICATION_INHIBIT_LOGOUT")]
-        const LOGOUT = ffi::GTK_APPLICATION_INHIBIT_LOGOUT as u32;
+        const LOGOUT = ffi::GTK_APPLICATION_INHIBIT_LOGOUT as _;
         #[doc(alias = "GTK_APPLICATION_INHIBIT_SWITCH")]
-        const SWITCH = ffi::GTK_APPLICATION_INHIBIT_SWITCH as u32;
+        const SWITCH = ffi::GTK_APPLICATION_INHIBIT_SWITCH as _;
         #[doc(alias = "GTK_APPLICATION_INHIBIT_SUSPEND")]
-        const SUSPEND = ffi::GTK_APPLICATION_INHIBIT_SUSPEND as u32;
+        const SUSPEND = ffi::GTK_APPLICATION_INHIBIT_SUSPEND as _;
         #[doc(alias = "GTK_APPLICATION_INHIBIT_IDLE")]
-        const IDLE = ffi::GTK_APPLICATION_INHIBIT_IDLE as u32;
+        const IDLE = ffi::GTK_APPLICATION_INHIBIT_IDLE as _;
     }
 }
 
@@ -152,15 +152,15 @@ bitflags! {
     #[doc(alias = "GtkCalendarDisplayOptions")]
     pub struct CalendarDisplayOptions: u32 {
         #[doc(alias = "GTK_CALENDAR_SHOW_HEADING")]
-        const SHOW_HEADING = ffi::GTK_CALENDAR_SHOW_HEADING as u32;
+        const SHOW_HEADING = ffi::GTK_CALENDAR_SHOW_HEADING as _;
         #[doc(alias = "GTK_CALENDAR_SHOW_DAY_NAMES")]
-        const SHOW_DAY_NAMES = ffi::GTK_CALENDAR_SHOW_DAY_NAMES as u32;
+        const SHOW_DAY_NAMES = ffi::GTK_CALENDAR_SHOW_DAY_NAMES as _;
         #[doc(alias = "GTK_CALENDAR_NO_MONTH_CHANGE")]
-        const NO_MONTH_CHANGE = ffi::GTK_CALENDAR_NO_MONTH_CHANGE as u32;
+        const NO_MONTH_CHANGE = ffi::GTK_CALENDAR_NO_MONTH_CHANGE as _;
         #[doc(alias = "GTK_CALENDAR_SHOW_WEEK_NUMBERS")]
-        const SHOW_WEEK_NUMBERS = ffi::GTK_CALENDAR_SHOW_WEEK_NUMBERS as u32;
+        const SHOW_WEEK_NUMBERS = ffi::GTK_CALENDAR_SHOW_WEEK_NUMBERS as _;
         #[doc(alias = "GTK_CALENDAR_SHOW_DETAILS")]
-        const SHOW_DETAILS = ffi::GTK_CALENDAR_SHOW_DETAILS as u32;
+        const SHOW_DETAILS = ffi::GTK_CALENDAR_SHOW_DETAILS as _;
     }
 }
 
@@ -224,19 +224,19 @@ bitflags! {
     #[doc(alias = "GtkCellRendererState")]
     pub struct CellRendererState: u32 {
         #[doc(alias = "GTK_CELL_RENDERER_SELECTED")]
-        const SELECTED = ffi::GTK_CELL_RENDERER_SELECTED as u32;
+        const SELECTED = ffi::GTK_CELL_RENDERER_SELECTED as _;
         #[doc(alias = "GTK_CELL_RENDERER_PRELIT")]
-        const PRELIT = ffi::GTK_CELL_RENDERER_PRELIT as u32;
+        const PRELIT = ffi::GTK_CELL_RENDERER_PRELIT as _;
         #[doc(alias = "GTK_CELL_RENDERER_INSENSITIVE")]
-        const INSENSITIVE = ffi::GTK_CELL_RENDERER_INSENSITIVE as u32;
+        const INSENSITIVE = ffi::GTK_CELL_RENDERER_INSENSITIVE as _;
         #[doc(alias = "GTK_CELL_RENDERER_SORTED")]
-        const SORTED = ffi::GTK_CELL_RENDERER_SORTED as u32;
+        const SORTED = ffi::GTK_CELL_RENDERER_SORTED as _;
         #[doc(alias = "GTK_CELL_RENDERER_FOCUSED")]
-        const FOCUSED = ffi::GTK_CELL_RENDERER_FOCUSED as u32;
+        const FOCUSED = ffi::GTK_CELL_RENDERER_FOCUSED as _;
         #[doc(alias = "GTK_CELL_RENDERER_EXPANDABLE")]
-        const EXPANDABLE = ffi::GTK_CELL_RENDERER_EXPANDABLE as u32;
+        const EXPANDABLE = ffi::GTK_CELL_RENDERER_EXPANDABLE as _;
         #[doc(alias = "GTK_CELL_RENDERER_EXPANDED")]
-        const EXPANDED = ffi::GTK_CELL_RENDERER_EXPANDED as u32;
+        const EXPANDED = ffi::GTK_CELL_RENDERER_EXPANDED as _;
     }
 }
 
@@ -300,13 +300,13 @@ bitflags! {
     #[doc(alias = "GtkDestDefaults")]
     pub struct DestDefaults: u32 {
         #[doc(alias = "GTK_DEST_DEFAULT_MOTION")]
-        const MOTION = ffi::GTK_DEST_DEFAULT_MOTION as u32;
+        const MOTION = ffi::GTK_DEST_DEFAULT_MOTION as _;
         #[doc(alias = "GTK_DEST_DEFAULT_HIGHLIGHT")]
-        const HIGHLIGHT = ffi::GTK_DEST_DEFAULT_HIGHLIGHT as u32;
+        const HIGHLIGHT = ffi::GTK_DEST_DEFAULT_HIGHLIGHT as _;
         #[doc(alias = "GTK_DEST_DEFAULT_DROP")]
-        const DROP = ffi::GTK_DEST_DEFAULT_DROP as u32;
+        const DROP = ffi::GTK_DEST_DEFAULT_DROP as _;
         #[doc(alias = "GTK_DEST_DEFAULT_ALL")]
-        const ALL = ffi::GTK_DEST_DEFAULT_ALL as u32;
+        const ALL = ffi::GTK_DEST_DEFAULT_ALL as _;
     }
 }
 
@@ -370,11 +370,11 @@ bitflags! {
     #[doc(alias = "GtkDialogFlags")]
     pub struct DialogFlags: u32 {
         #[doc(alias = "GTK_DIALOG_MODAL")]
-        const MODAL = ffi::GTK_DIALOG_MODAL as u32;
+        const MODAL = ffi::GTK_DIALOG_MODAL as _;
         #[doc(alias = "GTK_DIALOG_DESTROY_WITH_PARENT")]
-        const DESTROY_WITH_PARENT = ffi::GTK_DIALOG_DESTROY_WITH_PARENT as u32;
+        const DESTROY_WITH_PARENT = ffi::GTK_DIALOG_DESTROY_WITH_PARENT as _;
         #[doc(alias = "GTK_DIALOG_USE_HEADER_BAR")]
-        const USE_HEADER_BAR = ffi::GTK_DIALOG_USE_HEADER_BAR as u32;
+        const USE_HEADER_BAR = ffi::GTK_DIALOG_USE_HEADER_BAR as _;
     }
 }
 
@@ -440,17 +440,17 @@ bitflags! {
     #[doc(alias = "GtkEventControllerScrollFlags")]
     pub struct EventControllerScrollFlags: u32 {
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_NONE")]
-        const NONE = ffi::GTK_EVENT_CONTROLLER_SCROLL_NONE as u32;
+        const NONE = ffi::GTK_EVENT_CONTROLLER_SCROLL_NONE as _;
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_VERTICAL")]
-        const VERTICAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_VERTICAL as u32;
+        const VERTICAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_VERTICAL as _;
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL")]
-        const HORIZONTAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL as u32;
+        const HORIZONTAL = ffi::GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL as _;
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_DISCRETE")]
-        const DISCRETE = ffi::GTK_EVENT_CONTROLLER_SCROLL_DISCRETE as u32;
+        const DISCRETE = ffi::GTK_EVENT_CONTROLLER_SCROLL_DISCRETE as _;
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_KINETIC")]
-        const KINETIC = ffi::GTK_EVENT_CONTROLLER_SCROLL_KINETIC as u32;
+        const KINETIC = ffi::GTK_EVENT_CONTROLLER_SCROLL_KINETIC as _;
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES")]
-        const BOTH_AXES = ffi::GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES as u32;
+        const BOTH_AXES = ffi::GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES as _;
     }
 }
 
@@ -528,13 +528,13 @@ bitflags! {
     #[doc(alias = "GtkFileFilterFlags")]
     pub struct FileFilterFlags: u32 {
         #[doc(alias = "GTK_FILE_FILTER_FILENAME")]
-        const FILENAME = ffi::GTK_FILE_FILTER_FILENAME as u32;
+        const FILENAME = ffi::GTK_FILE_FILTER_FILENAME as _;
         #[doc(alias = "GTK_FILE_FILTER_URI")]
-        const URI = ffi::GTK_FILE_FILTER_URI as u32;
+        const URI = ffi::GTK_FILE_FILTER_URI as _;
         #[doc(alias = "GTK_FILE_FILTER_DISPLAY_NAME")]
-        const DISPLAY_NAME = ffi::GTK_FILE_FILTER_DISPLAY_NAME as u32;
+        const DISPLAY_NAME = ffi::GTK_FILE_FILTER_DISPLAY_NAME as _;
         #[doc(alias = "GTK_FILE_FILTER_MIME_TYPE")]
-        const MIME_TYPE = ffi::GTK_FILE_FILTER_MIME_TYPE as u32;
+        const MIME_TYPE = ffi::GTK_FILE_FILTER_MIME_TYPE as _;
     }
 }
 
@@ -600,15 +600,15 @@ bitflags! {
     #[doc(alias = "GtkFontChooserLevel")]
     pub struct FontChooserLevel: u32 {
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FAMILY")]
-        const FAMILY = ffi::GTK_FONT_CHOOSER_LEVEL_FAMILY as u32;
+        const FAMILY = ffi::GTK_FONT_CHOOSER_LEVEL_FAMILY as _;
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_STYLE")]
-        const STYLE = ffi::GTK_FONT_CHOOSER_LEVEL_STYLE as u32;
+        const STYLE = ffi::GTK_FONT_CHOOSER_LEVEL_STYLE as _;
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_SIZE")]
-        const SIZE = ffi::GTK_FONT_CHOOSER_LEVEL_SIZE as u32;
+        const SIZE = ffi::GTK_FONT_CHOOSER_LEVEL_SIZE as _;
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_VARIATIONS")]
-        const VARIATIONS = ffi::GTK_FONT_CHOOSER_LEVEL_VARIATIONS as u32;
+        const VARIATIONS = ffi::GTK_FONT_CHOOSER_LEVEL_VARIATIONS as _;
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FEATURES")]
-        const FEATURES = ffi::GTK_FONT_CHOOSER_LEVEL_FEATURES as u32;
+        const FEATURES = ffi::GTK_FONT_CHOOSER_LEVEL_FEATURES as _;
     }
 }
 
@@ -686,23 +686,23 @@ bitflags! {
     #[doc(alias = "GtkIconLookupFlags")]
     pub struct IconLookupFlags: u32 {
         #[doc(alias = "GTK_ICON_LOOKUP_NO_SVG")]
-        const NO_SVG = ffi::GTK_ICON_LOOKUP_NO_SVG as u32;
+        const NO_SVG = ffi::GTK_ICON_LOOKUP_NO_SVG as _;
         #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SVG")]
-        const FORCE_SVG = ffi::GTK_ICON_LOOKUP_FORCE_SVG as u32;
+        const FORCE_SVG = ffi::GTK_ICON_LOOKUP_FORCE_SVG as _;
         #[doc(alias = "GTK_ICON_LOOKUP_USE_BUILTIN")]
-        const USE_BUILTIN = ffi::GTK_ICON_LOOKUP_USE_BUILTIN as u32;
+        const USE_BUILTIN = ffi::GTK_ICON_LOOKUP_USE_BUILTIN as _;
         #[doc(alias = "GTK_ICON_LOOKUP_GENERIC_FALLBACK")]
-        const GENERIC_FALLBACK = ffi::GTK_ICON_LOOKUP_GENERIC_FALLBACK as u32;
+        const GENERIC_FALLBACK = ffi::GTK_ICON_LOOKUP_GENERIC_FALLBACK as _;
         #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SIZE")]
-        const FORCE_SIZE = ffi::GTK_ICON_LOOKUP_FORCE_SIZE as u32;
+        const FORCE_SIZE = ffi::GTK_ICON_LOOKUP_FORCE_SIZE as _;
         #[doc(alias = "GTK_ICON_LOOKUP_FORCE_REGULAR")]
-        const FORCE_REGULAR = ffi::GTK_ICON_LOOKUP_FORCE_REGULAR as u32;
+        const FORCE_REGULAR = ffi::GTK_ICON_LOOKUP_FORCE_REGULAR as _;
         #[doc(alias = "GTK_ICON_LOOKUP_FORCE_SYMBOLIC")]
-        const FORCE_SYMBOLIC = ffi::GTK_ICON_LOOKUP_FORCE_SYMBOLIC as u32;
+        const FORCE_SYMBOLIC = ffi::GTK_ICON_LOOKUP_FORCE_SYMBOLIC as _;
         #[doc(alias = "GTK_ICON_LOOKUP_DIR_LTR")]
-        const DIR_LTR = ffi::GTK_ICON_LOOKUP_DIR_LTR as u32;
+        const DIR_LTR = ffi::GTK_ICON_LOOKUP_DIR_LTR as _;
         #[doc(alias = "GTK_ICON_LOOKUP_DIR_RTL")]
-        const DIR_RTL = ffi::GTK_ICON_LOOKUP_DIR_RTL as u32;
+        const DIR_RTL = ffi::GTK_ICON_LOOKUP_DIR_RTL as _;
     }
 }
 
@@ -766,29 +766,29 @@ bitflags! {
     #[doc(alias = "GtkInputHints")]
     pub struct InputHints: u32 {
         #[doc(alias = "GTK_INPUT_HINT_NONE")]
-        const NONE = ffi::GTK_INPUT_HINT_NONE as u32;
+        const NONE = ffi::GTK_INPUT_HINT_NONE as _;
         #[doc(alias = "GTK_INPUT_HINT_SPELLCHECK")]
-        const SPELLCHECK = ffi::GTK_INPUT_HINT_SPELLCHECK as u32;
+        const SPELLCHECK = ffi::GTK_INPUT_HINT_SPELLCHECK as _;
         #[doc(alias = "GTK_INPUT_HINT_NO_SPELLCHECK")]
-        const NO_SPELLCHECK = ffi::GTK_INPUT_HINT_NO_SPELLCHECK as u32;
+        const NO_SPELLCHECK = ffi::GTK_INPUT_HINT_NO_SPELLCHECK as _;
         #[doc(alias = "GTK_INPUT_HINT_WORD_COMPLETION")]
-        const WORD_COMPLETION = ffi::GTK_INPUT_HINT_WORD_COMPLETION as u32;
+        const WORD_COMPLETION = ffi::GTK_INPUT_HINT_WORD_COMPLETION as _;
         #[doc(alias = "GTK_INPUT_HINT_LOWERCASE")]
-        const LOWERCASE = ffi::GTK_INPUT_HINT_LOWERCASE as u32;
+        const LOWERCASE = ffi::GTK_INPUT_HINT_LOWERCASE as _;
         #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_CHARS")]
-        const UPPERCASE_CHARS = ffi::GTK_INPUT_HINT_UPPERCASE_CHARS as u32;
+        const UPPERCASE_CHARS = ffi::GTK_INPUT_HINT_UPPERCASE_CHARS as _;
         #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_WORDS")]
-        const UPPERCASE_WORDS = ffi::GTK_INPUT_HINT_UPPERCASE_WORDS as u32;
+        const UPPERCASE_WORDS = ffi::GTK_INPUT_HINT_UPPERCASE_WORDS as _;
         #[doc(alias = "GTK_INPUT_HINT_UPPERCASE_SENTENCES")]
-        const UPPERCASE_SENTENCES = ffi::GTK_INPUT_HINT_UPPERCASE_SENTENCES as u32;
+        const UPPERCASE_SENTENCES = ffi::GTK_INPUT_HINT_UPPERCASE_SENTENCES as _;
         #[doc(alias = "GTK_INPUT_HINT_INHIBIT_OSK")]
-        const INHIBIT_OSK = ffi::GTK_INPUT_HINT_INHIBIT_OSK as u32;
+        const INHIBIT_OSK = ffi::GTK_INPUT_HINT_INHIBIT_OSK as _;
         #[doc(alias = "GTK_INPUT_HINT_VERTICAL_WRITING")]
-        const VERTICAL_WRITING = ffi::GTK_INPUT_HINT_VERTICAL_WRITING as u32;
+        const VERTICAL_WRITING = ffi::GTK_INPUT_HINT_VERTICAL_WRITING as _;
         #[doc(alias = "GTK_INPUT_HINT_EMOJI")]
-        const EMOJI = ffi::GTK_INPUT_HINT_EMOJI as u32;
+        const EMOJI = ffi::GTK_INPUT_HINT_EMOJI as _;
         #[doc(alias = "GTK_INPUT_HINT_NO_EMOJI")]
-        const NO_EMOJI = ffi::GTK_INPUT_HINT_NO_EMOJI as u32;
+        const NO_EMOJI = ffi::GTK_INPUT_HINT_NO_EMOJI as _;
     }
 }
 
@@ -852,23 +852,23 @@ bitflags! {
     #[doc(alias = "GtkJunctionSides")]
     pub struct JunctionSides: u32 {
         #[doc(alias = "GTK_JUNCTION_NONE")]
-        const NONE = ffi::GTK_JUNCTION_NONE as u32;
+        const NONE = ffi::GTK_JUNCTION_NONE as _;
         #[doc(alias = "GTK_JUNCTION_CORNER_TOPLEFT")]
-        const CORNER_TOPLEFT = ffi::GTK_JUNCTION_CORNER_TOPLEFT as u32;
+        const CORNER_TOPLEFT = ffi::GTK_JUNCTION_CORNER_TOPLEFT as _;
         #[doc(alias = "GTK_JUNCTION_CORNER_TOPRIGHT")]
-        const CORNER_TOPRIGHT = ffi::GTK_JUNCTION_CORNER_TOPRIGHT as u32;
+        const CORNER_TOPRIGHT = ffi::GTK_JUNCTION_CORNER_TOPRIGHT as _;
         #[doc(alias = "GTK_JUNCTION_CORNER_BOTTOMLEFT")]
-        const CORNER_BOTTOMLEFT = ffi::GTK_JUNCTION_CORNER_BOTTOMLEFT as u32;
+        const CORNER_BOTTOMLEFT = ffi::GTK_JUNCTION_CORNER_BOTTOMLEFT as _;
         #[doc(alias = "GTK_JUNCTION_CORNER_BOTTOMRIGHT")]
-        const CORNER_BOTTOMRIGHT = ffi::GTK_JUNCTION_CORNER_BOTTOMRIGHT as u32;
+        const CORNER_BOTTOMRIGHT = ffi::GTK_JUNCTION_CORNER_BOTTOMRIGHT as _;
         #[doc(alias = "GTK_JUNCTION_TOP")]
-        const TOP = ffi::GTK_JUNCTION_TOP as u32;
+        const TOP = ffi::GTK_JUNCTION_TOP as _;
         #[doc(alias = "GTK_JUNCTION_BOTTOM")]
-        const BOTTOM = ffi::GTK_JUNCTION_BOTTOM as u32;
+        const BOTTOM = ffi::GTK_JUNCTION_BOTTOM as _;
         #[doc(alias = "GTK_JUNCTION_LEFT")]
-        const LEFT = ffi::GTK_JUNCTION_LEFT as u32;
+        const LEFT = ffi::GTK_JUNCTION_LEFT as _;
         #[doc(alias = "GTK_JUNCTION_RIGHT")]
-        const RIGHT = ffi::GTK_JUNCTION_RIGHT as u32;
+        const RIGHT = ffi::GTK_JUNCTION_RIGHT as _;
     }
 }
 
@@ -932,11 +932,11 @@ bitflags! {
     #[doc(alias = "GtkPlacesOpenFlags")]
     pub struct PlacesOpenFlags: u32 {
         #[doc(alias = "GTK_PLACES_OPEN_NORMAL")]
-        const NORMAL = ffi::GTK_PLACES_OPEN_NORMAL as u32;
+        const NORMAL = ffi::GTK_PLACES_OPEN_NORMAL as _;
         #[doc(alias = "GTK_PLACES_OPEN_NEW_TAB")]
-        const NEW_TAB = ffi::GTK_PLACES_OPEN_NEW_TAB as u32;
+        const NEW_TAB = ffi::GTK_PLACES_OPEN_NEW_TAB as _;
         #[doc(alias = "GTK_PLACES_OPEN_NEW_WINDOW")]
-        const NEW_WINDOW = ffi::GTK_PLACES_OPEN_NEW_WINDOW as u32;
+        const NEW_WINDOW = ffi::GTK_PLACES_OPEN_NEW_WINDOW as _;
     }
 }
 
@@ -1000,17 +1000,17 @@ bitflags! {
     #[doc(alias = "GtkRecentFilterFlags")]
     pub struct RecentFilterFlags: u32 {
         #[doc(alias = "GTK_RECENT_FILTER_URI")]
-        const URI = ffi::GTK_RECENT_FILTER_URI as u32;
+        const URI = ffi::GTK_RECENT_FILTER_URI as _;
         #[doc(alias = "GTK_RECENT_FILTER_DISPLAY_NAME")]
-        const DISPLAY_NAME = ffi::GTK_RECENT_FILTER_DISPLAY_NAME as u32;
+        const DISPLAY_NAME = ffi::GTK_RECENT_FILTER_DISPLAY_NAME as _;
         #[doc(alias = "GTK_RECENT_FILTER_MIME_TYPE")]
-        const MIME_TYPE = ffi::GTK_RECENT_FILTER_MIME_TYPE as u32;
+        const MIME_TYPE = ffi::GTK_RECENT_FILTER_MIME_TYPE as _;
         #[doc(alias = "GTK_RECENT_FILTER_APPLICATION")]
-        const APPLICATION = ffi::GTK_RECENT_FILTER_APPLICATION as u32;
+        const APPLICATION = ffi::GTK_RECENT_FILTER_APPLICATION as _;
         #[doc(alias = "GTK_RECENT_FILTER_GROUP")]
-        const GROUP = ffi::GTK_RECENT_FILTER_GROUP as u32;
+        const GROUP = ffi::GTK_RECENT_FILTER_GROUP as _;
         #[doc(alias = "GTK_RECENT_FILTER_AGE")]
-        const AGE = ffi::GTK_RECENT_FILTER_AGE as u32;
+        const AGE = ffi::GTK_RECENT_FILTER_AGE as _;
     }
 }
 
@@ -1074,17 +1074,17 @@ bitflags! {
     #[doc(alias = "GtkRegionFlags")]
     pub struct RegionFlags: u32 {
         #[doc(alias = "GTK_REGION_EVEN")]
-        const EVEN = ffi::GTK_REGION_EVEN as u32;
+        const EVEN = ffi::GTK_REGION_EVEN as _;
         #[doc(alias = "GTK_REGION_ODD")]
-        const ODD = ffi::GTK_REGION_ODD as u32;
+        const ODD = ffi::GTK_REGION_ODD as _;
         #[doc(alias = "GTK_REGION_FIRST")]
-        const FIRST = ffi::GTK_REGION_FIRST as u32;
+        const FIRST = ffi::GTK_REGION_FIRST as _;
         #[doc(alias = "GTK_REGION_LAST")]
-        const LAST = ffi::GTK_REGION_LAST as u32;
+        const LAST = ffi::GTK_REGION_LAST as _;
         #[doc(alias = "GTK_REGION_ONLY")]
-        const ONLY = ffi::GTK_REGION_ONLY as u32;
+        const ONLY = ffi::GTK_REGION_ONLY as _;
         #[doc(alias = "GTK_REGION_SORTED")]
-        const SORTED = ffi::GTK_REGION_SORTED as u32;
+        const SORTED = ffi::GTK_REGION_SORTED as _;
     }
 }
 
@@ -1148,33 +1148,33 @@ bitflags! {
     #[doc(alias = "GtkStateFlags")]
     pub struct StateFlags: u32 {
         #[doc(alias = "GTK_STATE_FLAG_NORMAL")]
-        const NORMAL = ffi::GTK_STATE_FLAG_NORMAL as u32;
+        const NORMAL = ffi::GTK_STATE_FLAG_NORMAL as _;
         #[doc(alias = "GTK_STATE_FLAG_ACTIVE")]
-        const ACTIVE = ffi::GTK_STATE_FLAG_ACTIVE as u32;
+        const ACTIVE = ffi::GTK_STATE_FLAG_ACTIVE as _;
         #[doc(alias = "GTK_STATE_FLAG_PRELIGHT")]
-        const PRELIGHT = ffi::GTK_STATE_FLAG_PRELIGHT as u32;
+        const PRELIGHT = ffi::GTK_STATE_FLAG_PRELIGHT as _;
         #[doc(alias = "GTK_STATE_FLAG_SELECTED")]
-        const SELECTED = ffi::GTK_STATE_FLAG_SELECTED as u32;
+        const SELECTED = ffi::GTK_STATE_FLAG_SELECTED as _;
         #[doc(alias = "GTK_STATE_FLAG_INSENSITIVE")]
-        const INSENSITIVE = ffi::GTK_STATE_FLAG_INSENSITIVE as u32;
+        const INSENSITIVE = ffi::GTK_STATE_FLAG_INSENSITIVE as _;
         #[doc(alias = "GTK_STATE_FLAG_INCONSISTENT")]
-        const INCONSISTENT = ffi::GTK_STATE_FLAG_INCONSISTENT as u32;
+        const INCONSISTENT = ffi::GTK_STATE_FLAG_INCONSISTENT as _;
         #[doc(alias = "GTK_STATE_FLAG_FOCUSED")]
-        const FOCUSED = ffi::GTK_STATE_FLAG_FOCUSED as u32;
+        const FOCUSED = ffi::GTK_STATE_FLAG_FOCUSED as _;
         #[doc(alias = "GTK_STATE_FLAG_BACKDROP")]
-        const BACKDROP = ffi::GTK_STATE_FLAG_BACKDROP as u32;
+        const BACKDROP = ffi::GTK_STATE_FLAG_BACKDROP as _;
         #[doc(alias = "GTK_STATE_FLAG_DIR_LTR")]
-        const DIR_LTR = ffi::GTK_STATE_FLAG_DIR_LTR as u32;
+        const DIR_LTR = ffi::GTK_STATE_FLAG_DIR_LTR as _;
         #[doc(alias = "GTK_STATE_FLAG_DIR_RTL")]
-        const DIR_RTL = ffi::GTK_STATE_FLAG_DIR_RTL as u32;
+        const DIR_RTL = ffi::GTK_STATE_FLAG_DIR_RTL as _;
         #[doc(alias = "GTK_STATE_FLAG_LINK")]
-        const LINK = ffi::GTK_STATE_FLAG_LINK as u32;
+        const LINK = ffi::GTK_STATE_FLAG_LINK as _;
         #[doc(alias = "GTK_STATE_FLAG_VISITED")]
-        const VISITED = ffi::GTK_STATE_FLAG_VISITED as u32;
+        const VISITED = ffi::GTK_STATE_FLAG_VISITED as _;
         #[doc(alias = "GTK_STATE_FLAG_CHECKED")]
-        const CHECKED = ffi::GTK_STATE_FLAG_CHECKED as u32;
+        const CHECKED = ffi::GTK_STATE_FLAG_CHECKED as _;
         #[doc(alias = "GTK_STATE_FLAG_DROP_ACTIVE")]
-        const DROP_ACTIVE = ffi::GTK_STATE_FLAG_DROP_ACTIVE as u32;
+        const DROP_ACTIVE = ffi::GTK_STATE_FLAG_DROP_ACTIVE as _;
     }
 }
 
@@ -1238,11 +1238,11 @@ bitflags! {
     #[doc(alias = "GtkStyleContextPrintFlags")]
     pub struct StyleContextPrintFlags: u32 {
         #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_NONE")]
-        const NONE = ffi::GTK_STYLE_CONTEXT_PRINT_NONE as u32;
+        const NONE = ffi::GTK_STYLE_CONTEXT_PRINT_NONE as _;
         #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_RECURSE")]
-        const RECURSE = ffi::GTK_STYLE_CONTEXT_PRINT_RECURSE as u32;
+        const RECURSE = ffi::GTK_STYLE_CONTEXT_PRINT_RECURSE as _;
         #[doc(alias = "GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE")]
-        const SHOW_STYLE = ffi::GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE as u32;
+        const SHOW_STYLE = ffi::GTK_STYLE_CONTEXT_PRINT_SHOW_STYLE as _;
     }
 }
 
@@ -1306,13 +1306,13 @@ bitflags! {
     #[doc(alias = "GtkTargetFlags")]
     pub struct TargetFlags: u32 {
         #[doc(alias = "GTK_TARGET_SAME_APP")]
-        const SAME_APP = ffi::GTK_TARGET_SAME_APP as u32;
+        const SAME_APP = ffi::GTK_TARGET_SAME_APP as _;
         #[doc(alias = "GTK_TARGET_SAME_WIDGET")]
-        const SAME_WIDGET = ffi::GTK_TARGET_SAME_WIDGET as u32;
+        const SAME_WIDGET = ffi::GTK_TARGET_SAME_WIDGET as _;
         #[doc(alias = "GTK_TARGET_OTHER_APP")]
-        const OTHER_APP = ffi::GTK_TARGET_OTHER_APP as u32;
+        const OTHER_APP = ffi::GTK_TARGET_OTHER_APP as _;
         #[doc(alias = "GTK_TARGET_OTHER_WIDGET")]
-        const OTHER_WIDGET = ffi::GTK_TARGET_OTHER_WIDGET as u32;
+        const OTHER_WIDGET = ffi::GTK_TARGET_OTHER_WIDGET as _;
     }
 }
 
@@ -1376,11 +1376,11 @@ bitflags! {
     #[doc(alias = "GtkTextSearchFlags")]
     pub struct TextSearchFlags: u32 {
         #[doc(alias = "GTK_TEXT_SEARCH_VISIBLE_ONLY")]
-        const VISIBLE_ONLY = ffi::GTK_TEXT_SEARCH_VISIBLE_ONLY as u32;
+        const VISIBLE_ONLY = ffi::GTK_TEXT_SEARCH_VISIBLE_ONLY as _;
         #[doc(alias = "GTK_TEXT_SEARCH_TEXT_ONLY")]
-        const TEXT_ONLY = ffi::GTK_TEXT_SEARCH_TEXT_ONLY as u32;
+        const TEXT_ONLY = ffi::GTK_TEXT_SEARCH_TEXT_ONLY as _;
         #[doc(alias = "GTK_TEXT_SEARCH_CASE_INSENSITIVE")]
-        const CASE_INSENSITIVE = ffi::GTK_TEXT_SEARCH_CASE_INSENSITIVE as u32;
+        const CASE_INSENSITIVE = ffi::GTK_TEXT_SEARCH_CASE_INSENSITIVE as _;
     }
 }
 
@@ -1444,9 +1444,9 @@ bitflags! {
     #[doc(alias = "GtkToolPaletteDragTargets")]
     pub struct ToolPaletteDragTargets: u32 {
         #[doc(alias = "GTK_TOOL_PALETTE_DRAG_ITEMS")]
-        const ITEMS = ffi::GTK_TOOL_PALETTE_DRAG_ITEMS as u32;
+        const ITEMS = ffi::GTK_TOOL_PALETTE_DRAG_ITEMS as _;
         #[doc(alias = "GTK_TOOL_PALETTE_DRAG_GROUPS")]
-        const GROUPS = ffi::GTK_TOOL_PALETTE_DRAG_GROUPS as u32;
+        const GROUPS = ffi::GTK_TOOL_PALETTE_DRAG_GROUPS as _;
     }
 }
 
@@ -1510,9 +1510,9 @@ bitflags! {
     #[doc(alias = "GtkTreeModelFlags")]
     pub struct TreeModelFlags: u32 {
         #[doc(alias = "GTK_TREE_MODEL_ITERS_PERSIST")]
-        const ITERS_PERSIST = ffi::GTK_TREE_MODEL_ITERS_PERSIST as u32;
+        const ITERS_PERSIST = ffi::GTK_TREE_MODEL_ITERS_PERSIST as _;
         #[doc(alias = "GTK_TREE_MODEL_LIST_ONLY")]
-        const LIST_ONLY = ffi::GTK_TREE_MODEL_LIST_ONLY as u32;
+        const LIST_ONLY = ffi::GTK_TREE_MODEL_LIST_ONLY as _;
     }
 }
 

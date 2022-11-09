@@ -41,7 +41,7 @@ impl TreePath {
     #[doc(alias = "new_from_indicesv")]
     pub fn from_indicesv(indices: &[i32]) -> TreePath {
         assert_initialized_main_thread!();
-        let length = indices.len() as usize;
+        let length = indices.len() as _;
         unsafe {
             from_glib_full(ffi::gtk_tree_path_new_from_indicesv(
                 indices.to_glib_none().0,
@@ -92,7 +92,7 @@ impl TreePath {
                     self.to_glib_none_mut().0,
                     depth.as_mut_ptr(),
                 ),
-                depth.assume_init() as usize,
+                depth.assume_init() as _,
             );
             ret
         }

@@ -35,6 +35,7 @@ impl CssProvider {
     #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     #[doc(alias = "gtk_css_provider_get_default")]
     #[doc(alias = "get_default")]
+    #[allow(clippy::should_implement_trait)]
     pub fn default() -> Option<CssProvider> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_css_provider_get_default()) }
@@ -92,7 +93,7 @@ pub trait CssProviderExt: 'static {
 
 impl<O: IsA<CssProvider>> CssProviderExt for O {
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error> {
-        let length = data.len() as isize;
+        let length = data.len() as _;
         unsafe {
             let mut error = ptr::null_mut();
             let is_ok = ffi::gtk_css_provider_load_from_data(

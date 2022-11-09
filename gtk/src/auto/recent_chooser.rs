@@ -280,7 +280,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
                     self.as_ref().to_glib_none().0,
                     length.as_mut_ptr(),
                 ),
-                length.assume_init() as usize,
+                length.assume_init() as _,
             );
             ret
         }
