@@ -84,7 +84,7 @@ fn create_list_store_model() -> gtk::ListStore {
                     );
                 }
                 Err(err) => {
-                    println!("Error: {}", err);
+                    println!("Error: {err}");
                     process::exit(1);
                 }
             }

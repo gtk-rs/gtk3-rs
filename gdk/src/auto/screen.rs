@@ -103,6 +103,7 @@ impl Screen {
 
     #[doc(alias = "gdk_screen_get_default")]
     #[doc(alias = "get_default")]
+    #[allow(clippy::should_implement_trait)]
     pub fn default() -> Option<Screen> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_screen_get_default()) }

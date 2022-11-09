@@ -130,7 +130,7 @@ impl<O: IsA<Editable>> EditableExt for O {
     }
 
     fn insert_text(&self, new_text: &str, position: &mut i32) {
-        let new_text_length = new_text.len() as i32;
+        let new_text_length = new_text.len() as _;
         unsafe {
             ffi::gtk_editable_insert_text(
                 self.as_ref().to_glib_none().0,

@@ -34,7 +34,7 @@ fn build_ui(application: &gtk::Application) {
     let scale: Scale = builder.object("scale").expect("Couldn't get scale");
     scale.connect_format_value(|scale, value| {
         let digits = scale.digits() as usize;
-        format!("<{:.*}>", digits, value)
+        format!("<{value:.digits$}>")
     });
 
     let spin_button: SpinButton = builder
@@ -42,7 +42,7 @@ fn build_ui(application: &gtk::Application) {
         .expect("Couldn't get spin_button");
     spin_button.connect_input(|spin_button| {
         let text = spin_button.text();
-        println!("spin_button_input: \"{}\"", text);
+        println!("spin_button_input: \"{text}\"");
         match text.parse::<f64>() {
             Ok(value) if value >= 90. => {
                 println!("circular right");
@@ -72,7 +72,7 @@ fn build_ui(application: &gtk::Application) {
                                                 ("Custom", ResponseType::Other(0))]);
 
         dialog.connect_response(glib::clone!(@weak entry => move |dialog, response| {
-            entry.set_text(&format!("Clicked {}", response));
+            entry.set_text(&format!("Clicked {response}"));
             dialog.close();
         }));
         dialog.show_all();
@@ -119,7 +119,7 @@ fn build_ui(application: &gtk::Application) {
         dialog.connect_response(|dialog, response| {
             if response == ResponseType::Ok {
                 let files = dialog.filenames();
-                println!("Files: {:?}", files);
+                println!("Files: {files:?}");
             }
             dialog.close();
         });
@@ -159,7 +159,7 @@ fn build_ui(application: &gtk::Application) {
             let keyval = key.keyval();
             let keystate = key.state();
 
-            println!("key pressed: {} / {:?}", keyval, keystate);
+            println!("key pressed: {keyval} / {keystate:?}");
             println!("text: {}", entry.text());
 
             if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {

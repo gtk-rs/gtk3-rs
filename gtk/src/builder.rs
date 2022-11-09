@@ -105,7 +105,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
     }
 
     fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
+        let length = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
             let exit_code = ffi::gtk_builder_add_from_string(
@@ -150,7 +150,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         buffer: &str,
         object_ids: &[&str],
     ) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
+        let length = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
             let exit_code = ffi::gtk_builder_add_objects_from_string(
@@ -222,7 +222,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         template_type: glib::types::Type,
         buffer: &str,
     ) -> Result<(), glib::Error> {
-        let length = buffer.len() as usize;
+        let length = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
             let exit_code = ffi::gtk_builder_extend_with_template(

@@ -241,7 +241,7 @@ pub fn property_get(
             Some((
                 actual_property_type,
                 actual_format.assume_init(),
-                FromGlibContainer::from_glib_full_num(data, actual_length.assume_init() as usize),
+                FromGlibContainer::from_glib_full_num(data, actual_length.assume_init() as _),
             ))
         } else {
             None
@@ -463,7 +463,7 @@ pub fn text_property_to_utf8_list_for_display(
     text: &[u8],
 ) -> (i32, Vec<glib::GString>) {
     skip_assert_initialized!();
-    let length = text.len() as i32;
+    let length = text.len() as _;
     unsafe {
         let mut list = ptr::null_mut();
         let ret = ffi::gdk_text_property_to_utf8_list_for_display(

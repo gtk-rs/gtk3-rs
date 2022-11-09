@@ -656,7 +656,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name =
-                detail.map(|name| format!("active-descendant-changed::{}\0", name));
+                detail.map(|name| format!("active-descendant-changed::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"active-descendant-changed\0"[..], |n| n.as_bytes());
@@ -721,7 +721,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("children-changed::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("children-changed::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"children-changed\0"[..], |n| n.as_bytes());
@@ -763,7 +763,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("state-change::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("state-change::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"state-change\0"[..], |n| n.as_bytes());

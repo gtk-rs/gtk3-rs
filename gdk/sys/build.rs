@@ -11,7 +11,7 @@ fn main() {} // prevent linking libraries to avoid documentation failure
 #[cfg(not(feature = "dox"))]
 fn main() {
     if let Err(s) = system_deps::Config::new().probe() {
-        let _ = writeln!(io::stderr(), "{}", s);
+        let _ = writeln!(io::stderr(), "{s}");
         process::exit(1);
     }
 
@@ -34,9 +34,9 @@ fn check_features() {
     // For reference, the backend set at time of writing consists of:
     // x11 win32 quartz broadway wayland
     if let Ok(targets) = pkg_config::get_variable(PKG_CONFIG_PACKAGE, "targets") {
-        println!("cargo:backends={}", targets);
+        println!("cargo:backends={targets}");
         for target in targets.split_whitespace() {
-            println!("cargo:rustc-cfg=gdk_backend=\"{}\"", target);
+            println!("cargo:rustc-cfg=gdk_backend=\"{target}\"");
         }
     }
 }

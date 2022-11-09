@@ -29,7 +29,7 @@ impl Relation {
     #[doc(alias = "atk_relation_new")]
     pub fn new(targets: &[Object], relationship: RelationType) -> Relation {
         assert_initialized_main_thread!();
-        let n_targets = targets.len() as i32;
+        let n_targets = targets.len() as _;
         unsafe {
             from_glib_full(ffi::atk_relation_new(
                 targets.to_glib_none().0,

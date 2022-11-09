@@ -178,7 +178,7 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     for i in 0..10 {
-        model.append(&RowData::new(&format!("Name {}", i), i * 10));
+        model.append(&RowData::new(&format!("Name {i}"), i * 10));
     }
 
     window.show_all();
