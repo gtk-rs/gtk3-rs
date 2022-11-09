@@ -30,7 +30,7 @@ fn build_ui(application: &gtk::Application) {
                 }),
             )
         } else {
-            panic!("Unknown handler name {}", handler_name)
+            panic!("Unknown handler name {handler_name}")
         }
     });
 

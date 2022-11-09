@@ -35,7 +35,7 @@ fn build_ui(application: &gtk::Application) {
             // do long work
             thread::sleep(Duration::from_millis(50));
             // send result to channel
-            tx.send(format!("#{} Text from another thread.", i))
+            tx.send(format!("#{i} Text from another thread."))
                 .expect("Couldn't send data to channel");
             // receiver will be run on the main thread
         }
