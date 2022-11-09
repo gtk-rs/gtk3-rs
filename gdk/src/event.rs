@@ -256,7 +256,7 @@ impl Event {
                 self.to_glib_none().0,
                 state.as_mut_ptr(),
             )) {
-                Some(from_glib(state.assume_init() as u32))
+                Some(from_glib(state.assume_init() as _))
             } else {
                 None
             }

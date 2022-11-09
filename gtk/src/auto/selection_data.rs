@@ -76,7 +76,7 @@ impl SelectionData {
             if ret {
                 Some(FromGlibContainer::from_glib_container_num(
                     targets,
-                    n_atoms.assume_init() as usize,
+                    n_atoms.assume_init() as _,
                 ))
             } else {
                 None
@@ -102,7 +102,7 @@ impl SelectionData {
 
     #[doc(alias = "gtk_selection_data_set")]
     pub fn set(&self, type_: &gdk::Atom, format: i32, data: &[u8]) {
-        let length = data.len() as i32;
+        let length = data.len() as _;
         unsafe {
             ffi::gtk_selection_data_set(
                 mut_override(self.to_glib_none().0),
@@ -126,7 +126,7 @@ impl SelectionData {
 
     #[doc(alias = "gtk_selection_data_set_text")]
     pub fn set_text(&self, str: &str) -> bool {
-        let len = str.len() as i32;
+        let len = str.len() as _;
         unsafe {
             from_glib(ffi::gtk_selection_data_set_text(
                 mut_override(self.to_glib_none().0),

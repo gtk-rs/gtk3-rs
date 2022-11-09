@@ -361,7 +361,7 @@ pub struct AtkActionIface {
 
 impl ::std::fmt::Debug for AtkActionIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkActionIface @ {:p}", self))
+        f.debug_struct(&format!("AtkActionIface @ {self:p}"))
             .field("do_action", &self.do_action)
             .field("get_n_actions", &self.get_n_actions)
             .field("get_description", &self.get_description)
@@ -382,7 +382,7 @@ pub struct AtkAttribute {
 
 impl ::std::fmt::Debug for AtkAttribute {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkAttribute @ {:p}", self))
+        f.debug_struct(&format!("AtkAttribute @ {self:p}"))
             .field("name", &self.name)
             .field("value", &self.value)
             .finish()
@@ -439,7 +439,7 @@ pub struct AtkComponentIface {
 
 impl ::std::fmt::Debug for AtkComponentIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkComponentIface @ {:p}", self))
+        f.debug_struct(&format!("AtkComponentIface @ {self:p}"))
             .field("add_focus_handler", &self.add_focus_handler)
             .field("contains", &self.contains)
             .field("ref_accessible_at_point", &self.ref_accessible_at_point)
@@ -480,7 +480,7 @@ pub struct AtkDocumentIface {
 
 impl ::std::fmt::Debug for AtkDocumentIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkDocumentIface @ {:p}", self))
+        f.debug_struct(&format!("AtkDocumentIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_document_type", &self.get_document_type)
             .field("get_document", &self.get_document)
@@ -515,7 +515,7 @@ pub struct AtkEditableTextIface {
 
 impl ::std::fmt::Debug for AtkEditableTextIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkEditableTextIface @ {:p}", self))
+        f.debug_struct(&format!("AtkEditableTextIface @ {self:p}"))
             .field("parent_interface", &self.parent_interface)
             .field("set_run_attributes", &self.set_run_attributes)
             .field("set_text_contents", &self.set_text_contents)
@@ -538,7 +538,7 @@ pub struct AtkGObjectAccessibleClass {
 
 impl ::std::fmt::Debug for AtkGObjectAccessibleClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkGObjectAccessibleClass @ {:p}", self))
+        f.debug_struct(&format!("AtkGObjectAccessibleClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .field("pad1", &self.pad1)
             .field("pad2", &self.pad2)
@@ -564,7 +564,7 @@ pub struct AtkHyperlinkClass {
 
 impl ::std::fmt::Debug for AtkHyperlinkClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkHyperlinkClass @ {:p}", self))
+        f.debug_struct(&format!("AtkHyperlinkClass @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_uri", &self.get_uri)
             .field("get_object", &self.get_object)
@@ -589,7 +589,7 @@ pub struct AtkHyperlinkImplIface {
 
 impl ::std::fmt::Debug for AtkHyperlinkImplIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkHyperlinkImplIface @ {:p}", self))
+        f.debug_struct(&format!("AtkHyperlinkImplIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_hyperlink", &self.get_hyperlink)
             .finish()
@@ -608,7 +608,7 @@ pub struct AtkHypertextIface {
 
 impl ::std::fmt::Debug for AtkHypertextIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkHypertextIface @ {:p}", self))
+        f.debug_struct(&format!("AtkHypertextIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_link", &self.get_link)
             .field("get_n_links", &self.get_n_links)
@@ -633,7 +633,7 @@ pub struct AtkImageIface {
 
 impl ::std::fmt::Debug for AtkImageIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkImageIface @ {:p}", self))
+        f.debug_struct(&format!("AtkImageIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_image_position", &self.get_image_position)
             .field("get_image_description", &self.get_image_description)
@@ -666,7 +666,7 @@ pub struct AtkKeyEventStruct {
 
 impl ::std::fmt::Debug for AtkKeyEventStruct {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkKeyEventStruct @ {:p}", self))
+        f.debug_struct(&format!("AtkKeyEventStruct @ {self:p}"))
             .field("type_", &self.type_)
             .field("state", &self.state)
             .field("keyval", &self.keyval)
@@ -689,7 +689,7 @@ pub struct AtkMiscClass {
 
 impl ::std::fmt::Debug for AtkMiscClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkMiscClass @ {:p}", self))
+        f.debug_struct(&format!("AtkMiscClass @ {self:p}"))
             .field("parent", &self.parent)
             .field("threads_enter", &self.threads_enter)
             .field("threads_leave", &self.threads_leave)
@@ -706,7 +706,7 @@ pub struct AtkNoOpObjectClass {
 
 impl ::std::fmt::Debug for AtkNoOpObjectClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkNoOpObjectClass @ {:p}", self))
+        f.debug_struct(&format!("AtkNoOpObjectClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -720,7 +720,7 @@ pub struct AtkNoOpObjectFactoryClass {
 
 impl ::std::fmt::Debug for AtkNoOpObjectFactoryClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkNoOpObjectFactoryClass @ {:p}", self))
+        f.debug_struct(&format!("AtkNoOpObjectFactoryClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -762,7 +762,7 @@ pub struct AtkObjectClass {
 
 impl ::std::fmt::Debug for AtkObjectClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkObjectClass @ {:p}", self))
+        f.debug_struct(&format!("AtkObjectClass @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_name", &self.get_name)
             .field("get_description", &self.get_description)
@@ -814,7 +814,7 @@ pub struct AtkObjectFactoryClass {
 
 impl ::std::fmt::Debug for AtkObjectFactoryClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkObjectFactoryClass @ {:p}", self))
+        f.debug_struct(&format!("AtkObjectFactoryClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .field("create_accessible", &self.create_accessible)
             .field("invalidate", &self.invalidate)
@@ -834,7 +834,7 @@ pub struct AtkPlugClass {
 
 impl ::std::fmt::Debug for AtkPlugClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkPlugClass @ {:p}", self))
+        f.debug_struct(&format!("AtkPlugClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .field("get_object_id", &self.get_object_id)
             .finish()
@@ -851,7 +851,7 @@ pub struct AtkPropertyValues {
 
 impl ::std::fmt::Debug for AtkPropertyValues {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkPropertyValues @ {:p}", self))
+        f.debug_struct(&format!("AtkPropertyValues @ {self:p}"))
             .field("property_name", &self.property_name)
             .field("old_value", &self.old_value)
             .field("new_value", &self.new_value)
@@ -867,7 +867,7 @@ pub struct AtkRange {
 
 impl ::std::fmt::Debug for AtkRange {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRange @ {:p}", self)).finish()
+        f.debug_struct(&format!("AtkRange @ {self:p}")).finish()
     }
 }
 
@@ -882,7 +882,7 @@ pub struct AtkRectangle {
 
 impl ::std::fmt::Debug for AtkRectangle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRectangle @ {:p}", self))
+        f.debug_struct(&format!("AtkRectangle @ {self:p}"))
             .field("x", &self.x)
             .field("y", &self.y)
             .field("width", &self.width)
@@ -899,7 +899,7 @@ pub struct AtkRegistryClass {
 
 impl ::std::fmt::Debug for AtkRegistryClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRegistryClass @ {:p}", self))
+        f.debug_struct(&format!("AtkRegistryClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -913,7 +913,7 @@ pub struct AtkRelationClass {
 
 impl ::std::fmt::Debug for AtkRelationClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRelationClass @ {:p}", self))
+        f.debug_struct(&format!("AtkRelationClass @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -929,7 +929,7 @@ pub struct AtkRelationSetClass {
 
 impl ::std::fmt::Debug for AtkRelationSetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRelationSetClass @ {:p}", self))
+        f.debug_struct(&format!("AtkRelationSetClass @ {self:p}"))
             .field("parent", &self.parent)
             .field("pad1", &self.pad1)
             .field("pad2", &self.pad2)
@@ -953,7 +953,7 @@ pub struct AtkSelectionIface {
 
 impl ::std::fmt::Debug for AtkSelectionIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkSelectionIface @ {:p}", self))
+        f.debug_struct(&format!("AtkSelectionIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("add_selection", &self.add_selection)
             .field("clear_selection", &self.clear_selection)
@@ -976,7 +976,7 @@ pub struct AtkSocketClass {
 
 impl ::std::fmt::Debug for AtkSocketClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkSocketClass @ {:p}", self))
+        f.debug_struct(&format!("AtkSocketClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .field("embed", &self.embed)
             .finish()
@@ -991,7 +991,7 @@ pub struct AtkStateSetClass {
 
 impl ::std::fmt::Debug for AtkStateSetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkStateSetClass @ {:p}", self))
+        f.debug_struct(&format!("AtkStateSetClass @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1016,7 +1016,7 @@ pub struct AtkStreamableContentIface {
 
 impl ::std::fmt::Debug for AtkStreamableContentIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkStreamableContentIface @ {:p}", self))
+        f.debug_struct(&format!("AtkStreamableContentIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_n_mime_types", &self.get_n_mime_types)
             .field("get_mime_type", &self.get_mime_type)
@@ -1055,7 +1055,7 @@ pub struct AtkTableCellIface {
 
 impl ::std::fmt::Debug for AtkTableCellIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkTableCellIface @ {:p}", self))
+        f.debug_struct(&format!("AtkTableCellIface @ {self:p}"))
             .field("get_column_span", &self.get_column_span)
             .field("get_column_header_cells", &self.get_column_header_cells)
             .field("get_position", &self.get_position)
@@ -1111,7 +1111,7 @@ pub struct AtkTableIface {
 
 impl ::std::fmt::Debug for AtkTableIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkTableIface @ {:p}", self))
+        f.debug_struct(&format!("AtkTableIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("ref_at", &self.ref_at)
             .field("get_index_at", &self.get_index_at)
@@ -1246,7 +1246,7 @@ pub struct AtkTextIface {
 
 impl ::std::fmt::Debug for AtkTextIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkTextIface @ {:p}", self))
+        f.debug_struct(&format!("AtkTextIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_text", &self.get_text)
             .field("get_text_after_offset", &self.get_text_after_offset)
@@ -1289,7 +1289,7 @@ pub struct AtkTextRange {
 
 impl ::std::fmt::Debug for AtkTextRange {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkTextRange @ {:p}", self))
+        f.debug_struct(&format!("AtkTextRange @ {self:p}"))
             .field("bounds", &self.bounds)
             .field("start_offset", &self.start_offset)
             .field("end_offset", &self.end_offset)
@@ -1309,7 +1309,7 @@ pub struct AtkTextRectangle {
 
 impl ::std::fmt::Debug for AtkTextRectangle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkTextRectangle @ {:p}", self))
+        f.debug_struct(&format!("AtkTextRectangle @ {self:p}"))
             .field("x", &self.x)
             .field("y", &self.y)
             .field("width", &self.width)
@@ -1334,7 +1334,7 @@ pub struct AtkUtilClass {
 
 impl ::std::fmt::Debug for AtkUtilClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkUtilClass @ {:p}", self))
+        f.debug_struct(&format!("AtkUtilClass @ {self:p}"))
             .field("parent", &self.parent)
             .field("add_global_event_listener", &self.add_global_event_listener)
             .field(
@@ -1370,7 +1370,7 @@ pub struct AtkValueIface {
 
 impl ::std::fmt::Debug for AtkValueIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkValueIface @ {:p}", self))
+        f.debug_struct(&format!("AtkValueIface @ {self:p}"))
             .field("parent", &self.parent)
             .field("get_current_value", &self.get_current_value)
             .field("get_maximum_value", &self.get_maximum_value)
@@ -1394,7 +1394,7 @@ pub struct AtkWindowIface {
 
 impl ::std::fmt::Debug for AtkWindowIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkWindowIface @ {:p}", self))
+        f.debug_struct(&format!("AtkWindowIface @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1409,7 +1409,7 @@ pub struct AtkGObjectAccessible {
 
 impl ::std::fmt::Debug for AtkGObjectAccessible {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkGObjectAccessible @ {:p}", self))
+        f.debug_struct(&format!("AtkGObjectAccessible @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1423,7 +1423,7 @@ pub struct AtkHyperlink {
 
 impl ::std::fmt::Debug for AtkHyperlink {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkHyperlink @ {:p}", self))
+        f.debug_struct(&format!("AtkHyperlink @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1437,7 +1437,7 @@ pub struct AtkMisc {
 
 impl ::std::fmt::Debug for AtkMisc {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkMisc @ {:p}", self))
+        f.debug_struct(&format!("AtkMisc @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1451,7 +1451,7 @@ pub struct AtkNoOpObject {
 
 impl ::std::fmt::Debug for AtkNoOpObject {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkNoOpObject @ {:p}", self))
+        f.debug_struct(&format!("AtkNoOpObject @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1465,7 +1465,7 @@ pub struct AtkNoOpObjectFactory {
 
 impl ::std::fmt::Debug for AtkNoOpObjectFactory {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkNoOpObjectFactory @ {:p}", self))
+        f.debug_struct(&format!("AtkNoOpObjectFactory @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1485,7 +1485,7 @@ pub struct AtkObject {
 
 impl ::std::fmt::Debug for AtkObject {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkObject @ {:p}", self))
+        f.debug_struct(&format!("AtkObject @ {self:p}"))
             .field("parent", &self.parent)
             .field("description", &self.description)
             .field("name", &self.name)
@@ -1505,7 +1505,7 @@ pub struct AtkObjectFactory {
 
 impl ::std::fmt::Debug for AtkObjectFactory {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkObjectFactory @ {:p}", self))
+        f.debug_struct(&format!("AtkObjectFactory @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1519,7 +1519,7 @@ pub struct AtkPlug {
 
 impl ::std::fmt::Debug for AtkPlug {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkPlug @ {:p}", self))
+        f.debug_struct(&format!("AtkPlug @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1535,7 +1535,7 @@ pub struct AtkRegistry {
 
 impl ::std::fmt::Debug for AtkRegistry {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRegistry @ {:p}", self))
+        f.debug_struct(&format!("AtkRegistry @ {self:p}"))
             .field("parent", &self.parent)
             .field("factory_type_registry", &self.factory_type_registry)
             .field("factory_singleton_cache", &self.factory_singleton_cache)
@@ -1553,7 +1553,7 @@ pub struct AtkRelation {
 
 impl ::std::fmt::Debug for AtkRelation {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRelation @ {:p}", self))
+        f.debug_struct(&format!("AtkRelation @ {self:p}"))
             .field("parent", &self.parent)
             .field("target", &self.target)
             .field("relationship", &self.relationship)
@@ -1570,7 +1570,7 @@ pub struct AtkRelationSet {
 
 impl ::std::fmt::Debug for AtkRelationSet {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkRelationSet @ {:p}", self))
+        f.debug_struct(&format!("AtkRelationSet @ {self:p}"))
             .field("parent", &self.parent)
             .field("relations", &self.relations)
             .finish()
@@ -1586,7 +1586,7 @@ pub struct AtkSocket {
 
 impl ::std::fmt::Debug for AtkSocket {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkSocket @ {:p}", self))
+        f.debug_struct(&format!("AtkSocket @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1600,7 +1600,7 @@ pub struct AtkStateSet {
 
 impl ::std::fmt::Debug for AtkStateSet {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkStateSet @ {:p}", self))
+        f.debug_struct(&format!("AtkStateSet @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1614,7 +1614,7 @@ pub struct AtkUtil {
 
 impl ::std::fmt::Debug for AtkUtil {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkUtil @ {:p}", self))
+        f.debug_struct(&format!("AtkUtil @ {self:p}"))
             .field("parent", &self.parent)
             .finish()
     }
@@ -1629,7 +1629,7 @@ pub struct AtkAction {
 
 impl ::std::fmt::Debug for AtkAction {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkAction @ {:p}", self)
+        write!(f, "AtkAction @ {self:p}")
     }
 }
 
@@ -1641,7 +1641,7 @@ pub struct AtkComponent {
 
 impl ::std::fmt::Debug for AtkComponent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkComponent @ {:p}", self)
+        write!(f, "AtkComponent @ {self:p}")
     }
 }
 
@@ -1653,7 +1653,7 @@ pub struct AtkDocument {
 
 impl ::std::fmt::Debug for AtkDocument {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkDocument @ {:p}", self)
+        write!(f, "AtkDocument @ {self:p}")
     }
 }
 
@@ -1665,7 +1665,7 @@ pub struct AtkEditableText {
 
 impl ::std::fmt::Debug for AtkEditableText {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkEditableText @ {:p}", self)
+        write!(f, "AtkEditableText @ {self:p}")
     }
 }
 
@@ -1677,7 +1677,7 @@ pub struct AtkHyperlinkImpl {
 
 impl ::std::fmt::Debug for AtkHyperlinkImpl {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkHyperlinkImpl @ {:p}", self)
+        write!(f, "AtkHyperlinkImpl @ {self:p}")
     }
 }
 
@@ -1689,7 +1689,7 @@ pub struct AtkHypertext {
 
 impl ::std::fmt::Debug for AtkHypertext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkHypertext @ {:p}", self)
+        write!(f, "AtkHypertext @ {self:p}")
     }
 }
 
@@ -1701,7 +1701,7 @@ pub struct AtkImage {
 
 impl ::std::fmt::Debug for AtkImage {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkImage @ {:p}", self)
+        write!(f, "AtkImage @ {self:p}")
     }
 }
 
@@ -1713,7 +1713,7 @@ pub struct AtkImplementorIface {
 
 impl ::std::fmt::Debug for AtkImplementorIface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkImplementorIface @ {:p}", self)
+        write!(f, "AtkImplementorIface @ {self:p}")
     }
 }
 
@@ -1725,7 +1725,7 @@ pub struct AtkSelection {
 
 impl ::std::fmt::Debug for AtkSelection {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkSelection @ {:p}", self)
+        write!(f, "AtkSelection @ {self:p}")
     }
 }
 
@@ -1737,7 +1737,7 @@ pub struct AtkStreamableContent {
 
 impl ::std::fmt::Debug for AtkStreamableContent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkStreamableContent @ {:p}", self)
+        write!(f, "AtkStreamableContent @ {self:p}")
     }
 }
 
@@ -1749,7 +1749,7 @@ pub struct AtkTable {
 
 impl ::std::fmt::Debug for AtkTable {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkTable @ {:p}", self)
+        write!(f, "AtkTable @ {self:p}")
     }
 }
 
@@ -1761,7 +1761,7 @@ pub struct AtkTableCell {
 
 impl ::std::fmt::Debug for AtkTableCell {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkTableCell @ {:p}", self)
+        write!(f, "AtkTableCell @ {self:p}")
     }
 }
 
@@ -1773,7 +1773,7 @@ pub struct AtkText {
 
 impl ::std::fmt::Debug for AtkText {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkText @ {:p}", self)
+        write!(f, "AtkText @ {self:p}")
     }
 }
 
@@ -1785,7 +1785,7 @@ pub struct AtkValue {
 
 impl ::std::fmt::Debug for AtkValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkValue @ {:p}", self)
+        write!(f, "AtkValue @ {self:p}")
     }
 }
 
@@ -1797,7 +1797,7 @@ pub struct AtkWindow {
 
 impl ::std::fmt::Debug for AtkWindow {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "AtkWindow @ {:p}", self)
+        write!(f, "AtkWindow @ {self:p}")
     }
 }
 

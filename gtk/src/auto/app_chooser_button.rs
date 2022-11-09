@@ -714,7 +714,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name =
-                detail.map(|name| format!("custom-item-activated::{}\0", name));
+                detail.map(|name| format!("custom-item-activated::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"custom-item-activated\0"[..], |n| n.as_bytes());

@@ -200,7 +200,7 @@ impl<O: IsA<IMContext>> IMContextExt for O {
     }
 
     fn set_surrounding(&self, text: &str, cursor_index: i32) {
-        let len = text.len() as i32;
+        let len = text.len() as _;
         unsafe {
             ffi::gtk_im_context_set_surrounding(
                 self.as_ref().to_glib_none().0,

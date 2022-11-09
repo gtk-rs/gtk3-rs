@@ -470,7 +470,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("text-insert::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("text-insert::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"text-insert\0"[..], |n| n.as_bytes());
@@ -510,7 +510,7 @@ impl<O: IsA<Text>> TextExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("text-remove::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("text-remove::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"text-remove\0"[..], |n| n.as_bytes());

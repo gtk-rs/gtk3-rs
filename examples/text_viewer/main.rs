@@ -32,7 +32,7 @@ pub fn build_ui(application: &gtk::Application) {
         file_chooser.connect_response(glib::clone!(@weak text_view => move |file_chooser, response| {
             if response == gtk::ResponseType::Ok {
                 let filename = file_chooser.filename().expect("Couldn't get filename");
-                let file = File::open(&filename).expect("Couldn't open file");
+                let file = File::open(filename).expect("Couldn't open file");
 
                 let mut reader = BufReader::new(file);
                 let mut contents = String::new();

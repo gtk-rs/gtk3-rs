@@ -11,7 +11,7 @@ fn check_features() {
     // x11 win32 quartz broadway wayland
     if let Ok(targets) = pkg_config::get_variable("gtk+-3.0", "targets") {
         for target in targets.split_whitespace() {
-            println!("cargo:rustc-cfg=gdk_backend=\"{}\"", target);
+            println!("cargo:rustc-cfg=gdk_backend=\"{target}\"");
         }
     }
 }

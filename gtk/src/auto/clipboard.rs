@@ -176,7 +176,7 @@ impl Clipboard {
 
     #[doc(alias = "gtk_clipboard_set_text")]
     pub fn set_text(&self, text: &str) {
-        let len = text.len() as i32;
+        let len = text.len() as _;
         unsafe {
             ffi::gtk_clipboard_set_text(self.to_glib_none().0, text.to_glib_none().0, len);
         }
@@ -216,7 +216,7 @@ impl Clipboard {
                     format.to_glib_none_mut().0,
                     length.as_mut_ptr(),
                 ),
-                length.assume_init() as usize,
+                length.assume_init() as _,
             );
             (ret, format)
         }
@@ -235,7 +235,7 @@ impl Clipboard {
             if ret {
                 Some(FromGlibContainer::from_glib_container_num(
                     targets,
-                    n_targets.assume_init() as usize,
+                    n_targets.assume_init() as _,
                 ))
             } else {
                 None
@@ -312,6 +312,7 @@ impl Clipboard {
 
     #[doc(alias = "gtk_clipboard_get_default")]
     #[doc(alias = "get_default")]
+    #[allow(clippy::should_implement_trait)]
     pub fn default(display: &gdk::Display) -> Option<Clipboard> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_clipboard_get_default(display.to_glib_none().0)) }

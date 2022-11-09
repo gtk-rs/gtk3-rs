@@ -46,7 +46,7 @@ impl Builder {
     #[doc(alias = "new_from_string")]
     pub fn from_string(string: &str) -> Builder {
         assert_initialized_main_thread!();
-        let length = string.len() as isize;
+        let length = string.len() as _;
         unsafe {
             from_glib_full(ffi::gtk_builder_new_from_string(
                 string.to_glib_none().0,

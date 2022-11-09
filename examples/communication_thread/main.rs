@@ -49,8 +49,8 @@ fn start_communication_thread(mut sender: mpsc::Sender<String>) {
         loop {
             // Instead of a counter, your application code will
             // block here on TCP or serial communications.
-            let data = format!("Counter = {}!", counter);
-            println!("Thread received data: {}", data);
+            let data = format!("Counter = {counter}!");
+            println!("Thread received data: {data}");
             match sender.try_send(data) {
                 Ok(_) => {}
                 Err(err) => {

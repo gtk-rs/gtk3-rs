@@ -234,7 +234,7 @@ impl Display {
 
     #[doc(alias = "gdk_display_store_clipboard")]
     pub fn store_clipboard(&self, clipboard_window: &Window, time_: u32, targets: &[Atom]) {
-        let n_targets = targets.len() as i32;
+        let n_targets = targets.len() as _;
         unsafe {
             ffi::gdk_display_store_clipboard(
                 self.to_glib_none().0,
@@ -305,6 +305,7 @@ impl Display {
 
     #[doc(alias = "gdk_display_get_default")]
     #[doc(alias = "get_default")]
+    #[allow(clippy::should_implement_trait)]
     pub fn default() -> Option<Display> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_get_default()) }

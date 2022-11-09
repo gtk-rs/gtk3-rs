@@ -112,7 +112,7 @@ impl X11Display {
                 ret,
                 encoding,
                 format.assume_init(),
-                FromGlibContainer::from_glib_full_num(ctext, length.assume_init() as usize),
+                FromGlibContainer::from_glib_full_num(ctext, length.assume_init() as _),
             )
         }
     }
@@ -143,7 +143,7 @@ impl X11Display {
                 Some((
                     encoding,
                     format.assume_init(),
-                    FromGlibContainer::from_glib_full_num(ctext, length.assume_init() as usize),
+                    FromGlibContainer::from_glib_full_num(ctext, length.assume_init() as _),
                 ))
             } else {
                 None
