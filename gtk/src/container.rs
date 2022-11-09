@@ -34,13 +34,13 @@ impl<O: IsA<Container>> ContainerExtManual for O {
                     property_name.to_glib_none().0,
                 ));
             let pspec = pspec.unwrap_or_else(|| {
-                panic!("The Container property '{}' doesn't exists", property_name)
+                panic!("The Container property '{property_name}' doesn't exists")
             });
 
             if !pspec.flags().contains(glib::ParamFlags::READABLE)
                 || !pspec.flags().contains(glib::ParamFlags::READWRITE)
             {
-                panic!("The Container property '{}' is not readable", property_name);
+                panic!("The Container property '{property_name}' is not readable");
             }
 
             let mut value = glib::Value::from_type(pspec.value_type());
@@ -79,16 +79,13 @@ impl<O: IsA<Container>> ContainerExtManual for O {
                     property_name.to_glib_none().0,
                 ));
             let pspec = pspec.unwrap_or_else(|| {
-                panic!("The Container property '{}' doesn't exists", property_name)
+                panic!("The Container property '{property_name}' doesn't exists")
             });
 
             if !pspec.flags().contains(glib::ParamFlags::WRITABLE)
                 || !pspec.flags().contains(glib::ParamFlags::READWRITE)
             {
-                panic!(
-                    "The Container property '{}' is not writeable",
-                    property_name
-                );
+                panic!("The Container property '{property_name}' is not writeable");
             }
 
             assert!(

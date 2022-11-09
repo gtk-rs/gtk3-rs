@@ -104,10 +104,10 @@ fn create_sub_window(
         }),
     );
 
-    let button = gtk::Button::with_label(&format!("Notify main window with id {}!", id));
+    let button = gtk::Button::with_label(&format!("Notify main window with id {id}!"));
     button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
         // When the button is clicked, let's write it on the main window's entry!
-        main_window_entry.buffer().set_text(&format!("sub window {} clicked", id));
+        main_window_entry.buffer().set_text(&format!("sub window {id} clicked"));
     }));
     window.add(&button);
 

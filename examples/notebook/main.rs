@@ -25,7 +25,7 @@ fn build_ui(application: &gtk::Application) {
     let mut notebook = Notebook::new();
 
     for i in 1..4 {
-        let title = format!("sheet {}", i);
+        let title = format!("sheet {i}");
         let label = gtk::Label::new(Some(&*title));
         notebook.create_tab(&title, label.upcast());
     }

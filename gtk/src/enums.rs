@@ -14,7 +14,7 @@ impl IconSize {
 impl From<IconSize> for i32 {
     fn from(val: IconSize) -> i32 {
         skip_assert_initialized!();
-        val.into_glib() as i32
+        val.into_glib() as _
     }
 }
 
@@ -28,7 +28,7 @@ impl From<i32> for IconSize {
 impl From<ResponseType> for i32 {
     fn from(val: ResponseType) -> i32 {
         skip_assert_initialized!();
-        val.into_glib() as i32
+        val.into_glib() as _
     }
 }
 
