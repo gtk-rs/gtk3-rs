@@ -200,7 +200,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("accel-activate::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("accel-activate::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"accel-activate\0"[..], |n| n.as_bytes());
@@ -240,7 +240,7 @@ impl<O: IsA<AccelGroup>> AccelGroupExt for O {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let detailed_signal_name = detail.map(|name| format!("accel-changed::{}\0", name));
+            let detailed_signal_name = detail.map(|name| format!("accel-changed::{name}\0"));
             let signal_name: &[u8] = detailed_signal_name
                 .as_ref()
                 .map_or(&b"accel-changed\0"[..], |n| n.as_bytes());
