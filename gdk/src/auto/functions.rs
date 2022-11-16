@@ -361,7 +361,7 @@ pub fn selection_send_notify_for_display(
 
 #[doc(alias = "gdk_set_allowed_backends")]
 pub fn set_allowed_backends(backends: &str) {
-    assert_initialized_main_thread!();
+    skip_assert_initialized!();
     unsafe {
         ffi::gdk_set_allowed_backends(backends.to_glib_none().0);
     }

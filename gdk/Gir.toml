@@ -220,6 +220,9 @@ status = "generate"
     [[object.function]]
     name = "init_check"
     ignore = true # TODO: manually implement
+    [[object.function]]
+    name = "set_allowed_backends"
+    assertion = "skip"
 
 [[object]]
 name = "Gdk.Cursor"
