@@ -78,6 +78,14 @@ impl ToValue for AccelFlags {
     }
 }
 
+impl From<AccelFlags> for glib::Value {
+    #[inline]
+    fn from(v: AccelFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkApplicationInhibitFlags")]
     pub struct ApplicationInhibitFlags: u32 {
@@ -145,6 +153,14 @@ impl ToValue for ApplicationInhibitFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<ApplicationInhibitFlags> for glib::Value {
+    #[inline]
+    fn from(v: ApplicationInhibitFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -217,6 +233,14 @@ impl ToValue for CalendarDisplayOptions {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<CalendarDisplayOptions> for glib::Value {
+    #[inline]
+    fn from(v: CalendarDisplayOptions) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -296,6 +320,14 @@ impl ToValue for CellRendererState {
     }
 }
 
+impl From<CellRendererState> for glib::Value {
+    #[inline]
+    fn from(v: CellRendererState) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkDestDefaults")]
     pub struct DestDefaults: u32 {
@@ -366,6 +398,14 @@ impl ToValue for DestDefaults {
     }
 }
 
+impl From<DestDefaults> for glib::Value {
+    #[inline]
+    fn from(v: DestDefaults) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkDialogFlags")]
     pub struct DialogFlags: u32 {
@@ -431,6 +471,14 @@ impl ToValue for DialogFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<DialogFlags> for glib::Value {
+    #[inline]
+    fn from(v: DialogFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -524,6 +572,16 @@ impl ToValue for EventControllerScrollFlags {
     }
 }
 
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl From<EventControllerScrollFlags> for glib::Value {
+    #[inline]
+    fn from(v: EventControllerScrollFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkFileFilterFlags")]
     pub struct FileFilterFlags: u32 {
@@ -591,6 +649,14 @@ impl ToValue for FileFilterFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<FileFilterFlags> for glib::Value {
+    #[inline]
+    fn from(v: FileFilterFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -682,6 +748,16 @@ impl ToValue for FontChooserLevel {
     }
 }
 
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl From<FontChooserLevel> for glib::Value {
+    #[inline]
+    fn from(v: FontChooserLevel) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkIconLookupFlags")]
     pub struct IconLookupFlags: u32 {
@@ -759,6 +835,14 @@ impl ToValue for IconLookupFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<IconLookupFlags> for glib::Value {
+    #[inline]
+    fn from(v: IconLookupFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -848,6 +932,14 @@ impl ToValue for InputHints {
     }
 }
 
+impl From<InputHints> for glib::Value {
+    #[inline]
+    fn from(v: InputHints) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkJunctionSides")]
     pub struct JunctionSides: u32 {
@@ -928,6 +1020,14 @@ impl ToValue for JunctionSides {
     }
 }
 
+impl From<JunctionSides> for glib::Value {
+    #[inline]
+    fn from(v: JunctionSides) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkPlacesOpenFlags")]
     pub struct PlacesOpenFlags: u32 {
@@ -993,6 +1093,14 @@ impl ToValue for PlacesOpenFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<PlacesOpenFlags> for glib::Value {
+    #[inline]
+    fn from(v: PlacesOpenFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1070,6 +1178,14 @@ impl ToValue for RecentFilterFlags {
     }
 }
 
+impl From<RecentFilterFlags> for glib::Value {
+    #[inline]
+    fn from(v: RecentFilterFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkRegionFlags")]
     pub struct RegionFlags: u32 {
@@ -1141,6 +1257,14 @@ impl ToValue for RegionFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<RegionFlags> for glib::Value {
+    #[inline]
+    fn from(v: RegionFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1234,6 +1358,14 @@ impl ToValue for StateFlags {
     }
 }
 
+impl From<StateFlags> for glib::Value {
+    #[inline]
+    fn from(v: StateFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkStyleContextPrintFlags")]
     pub struct StyleContextPrintFlags: u32 {
@@ -1299,6 +1431,14 @@ impl ToValue for StyleContextPrintFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<StyleContextPrintFlags> for glib::Value {
+    #[inline]
+    fn from(v: StyleContextPrintFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1372,6 +1512,14 @@ impl ToValue for TargetFlags {
     }
 }
 
+impl From<TargetFlags> for glib::Value {
+    #[inline]
+    fn from(v: TargetFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkTextSearchFlags")]
     pub struct TextSearchFlags: u32 {
@@ -1437,6 +1585,14 @@ impl ToValue for TextSearchFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<TextSearchFlags> for glib::Value {
+    #[inline]
+    fn from(v: TextSearchFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1506,6 +1662,14 @@ impl ToValue for ToolPaletteDragTargets {
     }
 }
 
+impl From<ToolPaletteDragTargets> for glib::Value {
+    #[inline]
+    fn from(v: ToolPaletteDragTargets) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GtkTreeModelFlags")]
     pub struct TreeModelFlags: u32 {
@@ -1569,5 +1733,13 @@ impl ToValue for TreeModelFlags {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<TreeModelFlags> for glib::Value {
+    #[inline]
+    fn from(v: TreeModelFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }

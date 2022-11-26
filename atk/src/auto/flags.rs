@@ -73,3 +73,11 @@ impl ToValue for HyperlinkStateFlags {
         Self::static_type()
     }
 }
+
+impl From<HyperlinkStateFlags> for glib::Value {
+    #[inline]
+    fn from(v: HyperlinkStateFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
