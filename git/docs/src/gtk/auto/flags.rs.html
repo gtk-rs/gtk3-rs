@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ea97c800646ec4c5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-2da75ee0e1909b3a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-75894291877b32c0.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-3bcdcab5f4113412.css"><link rel="stylesheet" disabled href="../../../static.files/dark-091ecdca18d5df85.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-45445754dcd01ab2.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-458bffc4c06ccf37.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1878,6 +1878,178 @@
 <a href="#1805" id="1805">1805</a>
 <a href="#1806" id="1806">1806</a>
 <a href="#1807" id="1807">1807</a>
+<a href="#1808" id="1808">1808</a>
+<a href="#1809" id="1809">1809</a>
+<a href="#1810" id="1810">1810</a>
+<a href="#1811" id="1811">1811</a>
+<a href="#1812" id="1812">1812</a>
+<a href="#1813" id="1813">1813</a>
+<a href="#1814" id="1814">1814</a>
+<a href="#1815" id="1815">1815</a>
+<a href="#1816" id="1816">1816</a>
+<a href="#1817" id="1817">1817</a>
+<a href="#1818" id="1818">1818</a>
+<a href="#1819" id="1819">1819</a>
+<a href="#1820" id="1820">1820</a>
+<a href="#1821" id="1821">1821</a>
+<a href="#1822" id="1822">1822</a>
+<a href="#1823" id="1823">1823</a>
+<a href="#1824" id="1824">1824</a>
+<a href="#1825" id="1825">1825</a>
+<a href="#1826" id="1826">1826</a>
+<a href="#1827" id="1827">1827</a>
+<a href="#1828" id="1828">1828</a>
+<a href="#1829" id="1829">1829</a>
+<a href="#1830" id="1830">1830</a>
+<a href="#1831" id="1831">1831</a>
+<a href="#1832" id="1832">1832</a>
+<a href="#1833" id="1833">1833</a>
+<a href="#1834" id="1834">1834</a>
+<a href="#1835" id="1835">1835</a>
+<a href="#1836" id="1836">1836</a>
+<a href="#1837" id="1837">1837</a>
+<a href="#1838" id="1838">1838</a>
+<a href="#1839" id="1839">1839</a>
+<a href="#1840" id="1840">1840</a>
+<a href="#1841" id="1841">1841</a>
+<a href="#1842" id="1842">1842</a>
+<a href="#1843" id="1843">1843</a>
+<a href="#1844" id="1844">1844</a>
+<a href="#1845" id="1845">1845</a>
+<a href="#1846" id="1846">1846</a>
+<a href="#1847" id="1847">1847</a>
+<a href="#1848" id="1848">1848</a>
+<a href="#1849" id="1849">1849</a>
+<a href="#1850" id="1850">1850</a>
+<a href="#1851" id="1851">1851</a>
+<a href="#1852" id="1852">1852</a>
+<a href="#1853" id="1853">1853</a>
+<a href="#1854" id="1854">1854</a>
+<a href="#1855" id="1855">1855</a>
+<a href="#1856" id="1856">1856</a>
+<a href="#1857" id="1857">1857</a>
+<a href="#1858" id="1858">1858</a>
+<a href="#1859" id="1859">1859</a>
+<a href="#1860" id="1860">1860</a>
+<a href="#1861" id="1861">1861</a>
+<a href="#1862" id="1862">1862</a>
+<a href="#1863" id="1863">1863</a>
+<a href="#1864" id="1864">1864</a>
+<a href="#1865" id="1865">1865</a>
+<a href="#1866" id="1866">1866</a>
+<a href="#1867" id="1867">1867</a>
+<a href="#1868" id="1868">1868</a>
+<a href="#1869" id="1869">1869</a>
+<a href="#1870" id="1870">1870</a>
+<a href="#1871" id="1871">1871</a>
+<a href="#1872" id="1872">1872</a>
+<a href="#1873" id="1873">1873</a>
+<a href="#1874" id="1874">1874</a>
+<a href="#1875" id="1875">1875</a>
+<a href="#1876" id="1876">1876</a>
+<a href="#1877" id="1877">1877</a>
+<a href="#1878" id="1878">1878</a>
+<a href="#1879" id="1879">1879</a>
+<a href="#1880" id="1880">1880</a>
+<a href="#1881" id="1881">1881</a>
+<a href="#1882" id="1882">1882</a>
+<a href="#1883" id="1883">1883</a>
+<a href="#1884" id="1884">1884</a>
+<a href="#1885" id="1885">1885</a>
+<a href="#1886" id="1886">1886</a>
+<a href="#1887" id="1887">1887</a>
+<a href="#1888" id="1888">1888</a>
+<a href="#1889" id="1889">1889</a>
+<a href="#1890" id="1890">1890</a>
+<a href="#1891" id="1891">1891</a>
+<a href="#1892" id="1892">1892</a>
+<a href="#1893" id="1893">1893</a>
+<a href="#1894" id="1894">1894</a>
+<a href="#1895" id="1895">1895</a>
+<a href="#1896" id="1896">1896</a>
+<a href="#1897" id="1897">1897</a>
+<a href="#1898" id="1898">1898</a>
+<a href="#1899" id="1899">1899</a>
+<a href="#1900" id="1900">1900</a>
+<a href="#1901" id="1901">1901</a>
+<a href="#1902" id="1902">1902</a>
+<a href="#1903" id="1903">1903</a>
+<a href="#1904" id="1904">1904</a>
+<a href="#1905" id="1905">1905</a>
+<a href="#1906" id="1906">1906</a>
+<a href="#1907" id="1907">1907</a>
+<a href="#1908" id="1908">1908</a>
+<a href="#1909" id="1909">1909</a>
+<a href="#1910" id="1910">1910</a>
+<a href="#1911" id="1911">1911</a>
+<a href="#1912" id="1912">1912</a>
+<a href="#1913" id="1913">1913</a>
+<a href="#1914" id="1914">1914</a>
+<a href="#1915" id="1915">1915</a>
+<a href="#1916" id="1916">1916</a>
+<a href="#1917" id="1917">1917</a>
+<a href="#1918" id="1918">1918</a>
+<a href="#1919" id="1919">1919</a>
+<a href="#1920" id="1920">1920</a>
+<a href="#1921" id="1921">1921</a>
+<a href="#1922" id="1922">1922</a>
+<a href="#1923" id="1923">1923</a>
+<a href="#1924" id="1924">1924</a>
+<a href="#1925" id="1925">1925</a>
+<a href="#1926" id="1926">1926</a>
+<a href="#1927" id="1927">1927</a>
+<a href="#1928" id="1928">1928</a>
+<a href="#1929" id="1929">1929</a>
+<a href="#1930" id="1930">1930</a>
+<a href="#1931" id="1931">1931</a>
+<a href="#1932" id="1932">1932</a>
+<a href="#1933" id="1933">1933</a>
+<a href="#1934" id="1934">1934</a>
+<a href="#1935" id="1935">1935</a>
+<a href="#1936" id="1936">1936</a>
+<a href="#1937" id="1937">1937</a>
+<a href="#1938" id="1938">1938</a>
+<a href="#1939" id="1939">1939</a>
+<a href="#1940" id="1940">1940</a>
+<a href="#1941" id="1941">1941</a>
+<a href="#1942" id="1942">1942</a>
+<a href="#1943" id="1943">1943</a>
+<a href="#1944" id="1944">1944</a>
+<a href="#1945" id="1945">1945</a>
+<a href="#1946" id="1946">1946</a>
+<a href="#1947" id="1947">1947</a>
+<a href="#1948" id="1948">1948</a>
+<a href="#1949" id="1949">1949</a>
+<a href="#1950" id="1950">1950</a>
+<a href="#1951" id="1951">1951</a>
+<a href="#1952" id="1952">1952</a>
+<a href="#1953" id="1953">1953</a>
+<a href="#1954" id="1954">1954</a>
+<a href="#1955" id="1955">1955</a>
+<a href="#1956" id="1956">1956</a>
+<a href="#1957" id="1957">1957</a>
+<a href="#1958" id="1958">1958</a>
+<a href="#1959" id="1959">1959</a>
+<a href="#1960" id="1960">1960</a>
+<a href="#1961" id="1961">1961</a>
+<a href="#1962" id="1962">1962</a>
+<a href="#1963" id="1963">1963</a>
+<a href="#1964" id="1964">1964</a>
+<a href="#1965" id="1965">1965</a>
+<a href="#1966" id="1966">1966</a>
+<a href="#1967" id="1967">1967</a>
+<a href="#1968" id="1968">1968</a>
+<a href="#1969" id="1969">1969</a>
+<a href="#1970" id="1970">1970</a>
+<a href="#1971" id="1971">1971</a>
+<a href="#1972" id="1972">1972</a>
+<a href="#1973" id="1973">1973</a>
+<a href="#1974" id="1974">1974</a>
+<a href="#1975" id="1975">1975</a>
+<a href="#1976" id="1976">1976</a>
+<a href="#1977" id="1977">1977</a>
+<a href="#1978" id="1978">1978</a>
+<a href="#1979" id="1979">1979</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -1962,6 +2134,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;AccelFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: AccelFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Types of user actions that may be blocked by [`GtkApplicationExt::inhibit()`][crate::prelude::GtkApplicationExt::inhibit()].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkApplicationInhibitFlags&quot;</span>)]
@@ -2037,6 +2217,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;ApplicationInhibitFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: ApplicationInhibitFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2117,6 +2305,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;CalendarDisplayOptions&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: CalendarDisplayOptions) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2202,6 +2398,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;CellRendererState&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: CellRendererState) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2293,6 +2497,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;DestDefaults&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: DestDefaults) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to influence dialog construction.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkDialogFlags&quot;</span>)]
@@ -2365,6 +2577,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;DialogFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: DialogFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2466,6 +2686,16 @@
     }
 }
 
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+</span><span class="kw">impl </span>From&lt;EventControllerScrollFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: EventControllerScrollFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a [`FileFilterInfo`][crate::FileFilterInfo] struct
     /// are filled or need to be filled.
@@ -2540,6 +2770,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;FileFilterFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: FileFilterFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2637,6 +2875,16 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
+#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+</span><span class="kw">impl </span>From&lt;FontChooserLevel&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: FontChooserLevel) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2741,6 +2989,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;IconLookupFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: IconLookupFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -2854,6 +3110,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;InputHints&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: InputHints) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes how a rendered element connects to adjacent elements.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkJunctionSides&quot;</span>)]
@@ -2941,6 +3205,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;JunctionSides&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: JunctionSides) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -3035,6 +3307,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;PlacesOpenFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: PlacesOpenFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a `GtkRecentFilterInfo` struct
     /// are filled or need to be filled.
@@ -3120,6 +3400,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;RecentFilterFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: RecentFilterFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes a region within a widget.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkRegionFlags&quot;</span>)]
@@ -3198,6 +3486,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;RegionFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: RegionFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -3308,6 +3604,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;StateFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: StateFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags that modify the behavior of [`StyleContextExt::to_string()`][crate::prelude::StyleContextExt::to_string()].
     /// New values may be added to this enumeration.
@@ -3379,6 +3683,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;StyleContextPrintFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: StyleContextPrintFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -3462,6 +3774,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;TargetFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: TargetFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags affecting how a search is done.
     ///
@@ -3541,6 +3861,14 @@
     }
 }
 
+<span class="kw">impl </span>From&lt;TextSearchFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: TextSearchFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
+
 <span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to specify the supported drag targets.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkToolPaletteDragTargets&quot;</span>)]
@@ -3607,6 +3935,14 @@
 
     <span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
         <span class="self">Self</span>::static_type()
+    }
+}
+
+<span class="kw">impl </span>From&lt;ToolPaletteDragTargets&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: ToolPaletteDragTargets) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
     }
 }
 
@@ -3685,5 +4021,13 @@
         <span class="self">Self</span>::static_type()
     }
 }
+
+<span class="kw">impl </span>From&lt;TreeModelFlags&gt; <span class="kw">for </span>glib::Value {
+    <span class="attr">#[inline]
+    </span><span class="kw">fn </span>from(v: TreeModelFlags) -&gt; <span class="self">Self </span>{
+        <span class="macro">skip_assert_initialized!</span>();
+        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+    }
+}
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (e9493d63c 2022-11-16)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (80a96467e 2022-11-26)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7e1cf5cc683233f7.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
