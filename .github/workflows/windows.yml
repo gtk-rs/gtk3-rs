@@ -45,7 +45,9 @@ jobs:
       # Temporarily move the preinstalled git, it causes errors related to cygwin.
       - name: (GTK binaries) move git binary
         if: steps.cache.outputs.cache-hit != 'true'
-        run: move "C:\Program Files\Git\usr\bin" "C:\Program Files\Git\usr\notbin"
+        run: |
+          move "C:\Program Files\Git\usr\bin" "C:\Program Files\Git\usr\notbin"
+          move "C:\Program Files\Git\bin" "C:\Program Files\Git\notbin"
         shell: cmd
 
       - name: (GTK binaries) install gvsbuild
@@ -59,7 +61,9 @@ jobs:
 
       - name: (GTK binaries) restore git binary
         if: steps.cache.outputs.cache-hit != 'true'
-        run: move "C:\Program Files\Git\usr\notbin" "C:\Program Files\Git\usr\bin"
+        run: |
+          move "C:\Program Files\Git\usr\notbin" "C:\Program Files\Git\usr\bin"
+          move "C:\Program Files\Git\notbin" "C:\Program Files\Git\bin"
         shell: cmd
 
       - name: (GTK binaries) output cache key
