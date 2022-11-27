@@ -137,3 +137,10 @@ impl ToValue for ResponseType {
         Self::static_type()
     }
 }
+
+impl From<ResponseType> for glib::Value {
+    fn from(t: ResponseType) -> Self {
+        skip_assert_initialized!();
+        t.to_value()
+    }
+}
