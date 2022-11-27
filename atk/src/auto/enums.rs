@@ -98,6 +98,14 @@ impl ToValue for CoordType {
     }
 }
 
+impl From<CoordType> for glib::Value {
+    #[inline]
+    fn from(v: CoordType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkLayer")]
@@ -209,6 +217,14 @@ impl ToValue for Layer {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<Layer> for glib::Value {
+    #[inline]
+    fn from(v: Layer) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -408,6 +424,14 @@ impl ToValue for RelationType {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<RelationType> for glib::Value {
+    #[inline]
+    fn from(v: RelationType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1152,6 +1176,14 @@ impl ToValue for Role {
     }
 }
 
+impl From<Role> for glib::Value {
+    #[inline]
+    fn from(v: Role) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1274,6 +1306,16 @@ impl ToValue for ScrollType {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+impl From<ScrollType> for glib::Value {
+    #[inline]
+    fn from(v: ScrollType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -1591,6 +1633,14 @@ impl ToValue for StateType {
     }
 }
 
+impl From<StateType> for glib::Value {
+    #[inline]
+    fn from(v: StateType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkTextAttribute")]
@@ -1837,6 +1887,14 @@ impl ToValue for TextAttribute {
     }
 }
 
+impl From<TextAttribute> for glib::Value {
+    #[inline]
+    fn from(v: TextAttribute) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkTextBoundary")]
@@ -1946,6 +2004,14 @@ impl ToValue for TextBoundary {
     }
 }
 
+impl From<TextBoundary> for glib::Value {
+    #[inline]
+    fn from(v: TextBoundary) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkTextClipType")]
@@ -2037,6 +2103,14 @@ impl ToValue for TextClipType {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<TextClipType> for glib::Value {
+    #[inline]
+    fn from(v: TextClipType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -2136,6 +2210,14 @@ impl ToValue for TextGranularity {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<TextGranularity> for glib::Value {
+    #[inline]
+    fn from(v: TextGranularity) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -2306,5 +2388,13 @@ impl ToValue for ValueType {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<ValueType> for glib::Value {
+    #[inline]
+    fn from(v: ValueType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }

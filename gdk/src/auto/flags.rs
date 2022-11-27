@@ -90,6 +90,14 @@ impl ToValue for AnchorHints {
     }
 }
 
+impl From<AnchorHints> for glib::Value {
+    #[inline]
+    fn from(v: AnchorHints) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GdkAxisFlags")]
     pub struct AxisFlags: u32 {
@@ -170,6 +178,14 @@ impl ToValue for AxisFlags {
     }
 }
 
+impl From<AxisFlags> for glib::Value {
+    #[inline]
+    fn from(v: AxisFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GdkDragAction")]
     pub struct DragAction: u32 {
@@ -241,6 +257,14 @@ impl ToValue for DragAction {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<DragAction> for glib::Value {
+    #[inline]
+    fn from(v: DragAction) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -358,6 +382,14 @@ impl ToValue for EventMask {
     }
 }
 
+impl From<EventMask> for glib::Value {
+    #[inline]
+    fn from(v: EventMask) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GdkFrameClockPhase")]
     pub struct FrameClockPhase: u32 {
@@ -433,6 +465,14 @@ impl ToValue for FrameClockPhase {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<FrameClockPhase> for glib::Value {
+    #[inline]
+    fn from(v: FrameClockPhase) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -562,6 +602,14 @@ impl ToValue for ModifierType {
     }
 }
 
+impl From<ModifierType> for glib::Value {
+    #[inline]
+    fn from(v: ModifierType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GdkSeatCapabilities")]
     pub struct SeatCapabilities: u32 {
@@ -635,6 +683,14 @@ impl ToValue for SeatCapabilities {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<SeatCapabilities> for glib::Value {
+    #[inline]
+    fn from(v: SeatCapabilities) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -714,6 +770,14 @@ impl ToValue for WMDecoration {
     }
 }
 
+impl From<WMDecoration> for glib::Value {
+    #[inline]
+    fn from(v: WMDecoration) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 bitflags! {
     #[doc(alias = "GdkWMFunction")]
     pub struct WMFunction: u32 {
@@ -785,6 +849,14 @@ impl ToValue for WMFunction {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<WMFunction> for glib::Value {
+    #[inline]
+    fn from(v: WMFunction) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -865,6 +937,14 @@ impl ToValue for WindowHints {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<WindowHints> for glib::Value {
+    #[inline]
+    fn from(v: WindowHints) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
 
@@ -961,5 +1041,13 @@ impl ToValue for WindowState {
 
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<WindowState> for glib::Value {
+    #[inline]
+    fn from(v: WindowState) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
     }
 }
