@@ -10,11 +10,11 @@ jobs:
 
   gvsbuild:
     name: build GTK binaries with gvsbuild
-    runs-on: windows-2019
+    runs-on: windows-2022
 
     env:
       # git revision of gvsbuild we use for to build GTK and the other dependencies
-      gvsbuildref: 861244f84a04da49172c23646d9e23885094cab4
+      gvsbuildref: 078140d0b7dcfd6147b3063114fb38365b7ad5a1
 
       # bump this number if you want to force a rebuild of gvsbuild with the same revision
       gvsbuildupdate: 1
@@ -45,17 +45,25 @@ jobs:
       # Temporarily move the preinstalled git, it causes errors related to cygwin.
       - name: (GTK binaries) move git binary
         if: steps.cache.outputs.cache-hit != 'true'
-        run: move "C:\Program Files\Git\usr\bin" "C:\Program Files\Git\usr\notbin"
+        run: |
+          move "C:\Program Files\Git\usr\bin" "C:\Program Files\Git\usr\notbin"
+          move "C:\Program Files\Git\bin" "C:\Program Files\Git\notbin"
         shell: cmd
+
+      - name: (GTK binaries) install gvsbuild
+        if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: gvsbuild
+        run: python -m pip install .
 
       - name: (GTK binaries) run gvsbuild
         if: steps.cache.outputs.cache-hit != 'true'
-        working-directory: gvsbuild
-        run: python .\build.py build -p=x64 --vs-ver=16 --msys-dir=C:\msys64 gtk3 graphene
+        run: gvsbuild build --platform=x64 --vs-ver=17 --msys-dir=C:\msys64 gtk3 graphene
 
       - name: (GTK binaries) restore git binary
         if: steps.cache.outputs.cache-hit != 'true'
-        run: move "C:\Program Files\Git\usr\notbin" "C:\Program Files\Git\usr\bin"
+        run: |
+          move "C:\Program Files\Git\usr\notbin" "C:\Program Files\Git\usr\bin"
+          move "C:\Program Files\Git\notbin" "C:\Program Files\Git\bin"
         shell: cmd
 
       - name: (GTK binaries) output cache key
@@ -64,7 +72,7 @@ jobs:
 
   build:
     name: build gtk-rs on Windows
-    runs-on: windows-2019
+    runs-on: windows-2022
     needs: gvsbuild
 
     strategy:
