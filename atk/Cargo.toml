@@ -12,7 +12,7 @@ keywords = ["atk", "gtk-rs", "gnome", "accessibility"]
 repository = "https://github.com/gtk-rs/gtk3-rs"
 exclude = ["gir-files/*"]
 edition = "2021"
-rust-version = "1.63"
+rust-version = "1.64"
 
 [lib]
 name = "atk"
