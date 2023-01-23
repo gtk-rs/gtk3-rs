@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>file_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1511,23 +1511,216 @@
 <a href="#1438" id="1438">1438</a>
 <a href="#1439" id="1439">1439</a>
 <a href="#1440" id="1440">1440</a>
+<a href="#1441" id="1441">1441</a>
+<a href="#1442" id="1442">1442</a>
+<a href="#1443" id="1443">1443</a>
+<a href="#1444" id="1444">1444</a>
+<a href="#1445" id="1445">1445</a>
+<a href="#1446" id="1446">1446</a>
+<a href="#1447" id="1447">1447</a>
+<a href="#1448" id="1448">1448</a>
+<a href="#1449" id="1449">1449</a>
+<a href="#1450" id="1450">1450</a>
+<a href="#1451" id="1451">1451</a>
+<a href="#1452" id="1452">1452</a>
+<a href="#1453" id="1453">1453</a>
+<a href="#1454" id="1454">1454</a>
+<a href="#1455" id="1455">1455</a>
+<a href="#1456" id="1456">1456</a>
+<a href="#1457" id="1457">1457</a>
+<a href="#1458" id="1458">1458</a>
+<a href="#1459" id="1459">1459</a>
+<a href="#1460" id="1460">1460</a>
+<a href="#1461" id="1461">1461</a>
+<a href="#1462" id="1462">1462</a>
+<a href="#1463" id="1463">1463</a>
+<a href="#1464" id="1464">1464</a>
+<a href="#1465" id="1465">1465</a>
+<a href="#1466" id="1466">1466</a>
+<a href="#1467" id="1467">1467</a>
+<a href="#1468" id="1468">1468</a>
+<a href="#1469" id="1469">1469</a>
+<a href="#1470" id="1470">1470</a>
+<a href="#1471" id="1471">1471</a>
+<a href="#1472" id="1472">1472</a>
+<a href="#1473" id="1473">1473</a>
+<a href="#1474" id="1474">1474</a>
+<a href="#1475" id="1475">1475</a>
+<a href="#1476" id="1476">1476</a>
+<a href="#1477" id="1477">1477</a>
+<a href="#1478" id="1478">1478</a>
+<a href="#1479" id="1479">1479</a>
+<a href="#1480" id="1480">1480</a>
+<a href="#1481" id="1481">1481</a>
+<a href="#1482" id="1482">1482</a>
+<a href="#1483" id="1483">1483</a>
+<a href="#1484" id="1484">1484</a>
+<a href="#1485" id="1485">1485</a>
+<a href="#1486" id="1486">1486</a>
+<a href="#1487" id="1487">1487</a>
+<a href="#1488" id="1488">1488</a>
+<a href="#1489" id="1489">1489</a>
+<a href="#1490" id="1490">1490</a>
+<a href="#1491" id="1491">1491</a>
+<a href="#1492" id="1492">1492</a>
+<a href="#1493" id="1493">1493</a>
+<a href="#1494" id="1494">1494</a>
+<a href="#1495" id="1495">1495</a>
+<a href="#1496" id="1496">1496</a>
+<a href="#1497" id="1497">1497</a>
+<a href="#1498" id="1498">1498</a>
+<a href="#1499" id="1499">1499</a>
+<a href="#1500" id="1500">1500</a>
+<a href="#1501" id="1501">1501</a>
+<a href="#1502" id="1502">1502</a>
+<a href="#1503" id="1503">1503</a>
+<a href="#1504" id="1504">1504</a>
+<a href="#1505" id="1505">1505</a>
+<a href="#1506" id="1506">1506</a>
+<a href="#1507" id="1507">1507</a>
+<a href="#1508" id="1508">1508</a>
+<a href="#1509" id="1509">1509</a>
+<a href="#1510" id="1510">1510</a>
+<a href="#1511" id="1511">1511</a>
+<a href="#1512" id="1512">1512</a>
+<a href="#1513" id="1513">1513</a>
+<a href="#1514" id="1514">1514</a>
+<a href="#1515" id="1515">1515</a>
+<a href="#1516" id="1516">1516</a>
+<a href="#1517" id="1517">1517</a>
+<a href="#1518" id="1518">1518</a>
+<a href="#1519" id="1519">1519</a>
+<a href="#1520" id="1520">1520</a>
+<a href="#1521" id="1521">1521</a>
+<a href="#1522" id="1522">1522</a>
+<a href="#1523" id="1523">1523</a>
+<a href="#1524" id="1524">1524</a>
+<a href="#1525" id="1525">1525</a>
+<a href="#1526" id="1526">1526</a>
+<a href="#1527" id="1527">1527</a>
+<a href="#1528" id="1528">1528</a>
+<a href="#1529" id="1529">1529</a>
+<a href="#1530" id="1530">1530</a>
+<a href="#1531" id="1531">1531</a>
+<a href="#1532" id="1532">1532</a>
+<a href="#1533" id="1533">1533</a>
+<a href="#1534" id="1534">1534</a>
+<a href="#1535" id="1535">1535</a>
+<a href="#1536" id="1536">1536</a>
+<a href="#1537" id="1537">1537</a>
+<a href="#1538" id="1538">1538</a>
+<a href="#1539" id="1539">1539</a>
+<a href="#1540" id="1540">1540</a>
+<a href="#1541" id="1541">1541</a>
+<a href="#1542" id="1542">1542</a>
+<a href="#1543" id="1543">1543</a>
+<a href="#1544" id="1544">1544</a>
+<a href="#1545" id="1545">1545</a>
+<a href="#1546" id="1546">1546</a>
+<a href="#1547" id="1547">1547</a>
+<a href="#1548" id="1548">1548</a>
+<a href="#1549" id="1549">1549</a>
+<a href="#1550" id="1550">1550</a>
+<a href="#1551" id="1551">1551</a>
+<a href="#1552" id="1552">1552</a>
+<a href="#1553" id="1553">1553</a>
+<a href="#1554" id="1554">1554</a>
+<a href="#1555" id="1555">1555</a>
+<a href="#1556" id="1556">1556</a>
+<a href="#1557" id="1557">1557</a>
+<a href="#1558" id="1558">1558</a>
+<a href="#1559" id="1559">1559</a>
+<a href="#1560" id="1560">1560</a>
+<a href="#1561" id="1561">1561</a>
+<a href="#1562" id="1562">1562</a>
+<a href="#1563" id="1563">1563</a>
+<a href="#1564" id="1564">1564</a>
+<a href="#1565" id="1565">1565</a>
+<a href="#1566" id="1566">1566</a>
+<a href="#1567" id="1567">1567</a>
+<a href="#1568" id="1568">1568</a>
+<a href="#1569" id="1569">1569</a>
+<a href="#1570" id="1570">1570</a>
+<a href="#1571" id="1571">1571</a>
+<a href="#1572" id="1572">1572</a>
+<a href="#1573" id="1573">1573</a>
+<a href="#1574" id="1574">1574</a>
+<a href="#1575" id="1575">1575</a>
+<a href="#1576" id="1576">1576</a>
+<a href="#1577" id="1577">1577</a>
+<a href="#1578" id="1578">1578</a>
+<a href="#1579" id="1579">1579</a>
+<a href="#1580" id="1580">1580</a>
+<a href="#1581" id="1581">1581</a>
+<a href="#1582" id="1582">1582</a>
+<a href="#1583" id="1583">1583</a>
+<a href="#1584" id="1584">1584</a>
+<a href="#1585" id="1585">1585</a>
+<a href="#1586" id="1586">1586</a>
+<a href="#1587" id="1587">1587</a>
+<a href="#1588" id="1588">1588</a>
+<a href="#1589" id="1589">1589</a>
+<a href="#1590" id="1590">1590</a>
+<a href="#1591" id="1591">1591</a>
+<a href="#1592" id="1592">1592</a>
+<a href="#1593" id="1593">1593</a>
+<a href="#1594" id="1594">1594</a>
+<a href="#1595" id="1595">1595</a>
+<a href="#1596" id="1596">1596</a>
+<a href="#1597" id="1597">1597</a>
+<a href="#1598" id="1598">1598</a>
+<a href="#1599" id="1599">1599</a>
+<a href="#1600" id="1600">1600</a>
+<a href="#1601" id="1601">1601</a>
+<a href="#1602" id="1602">1602</a>
+<a href="#1603" id="1603">1603</a>
+<a href="#1604" id="1604">1604</a>
+<a href="#1605" id="1605">1605</a>
+<a href="#1606" id="1606">1606</a>
+<a href="#1607" id="1607">1607</a>
+<a href="#1608" id="1608">1608</a>
+<a href="#1609" id="1609">1609</a>
+<a href="#1610" id="1610">1610</a>
+<a href="#1611" id="1611">1611</a>
+<a href="#1612" id="1612">1612</a>
+<a href="#1613" id="1613">1613</a>
+<a href="#1614" id="1614">1614</a>
+<a href="#1615" id="1615">1615</a>
+<a href="#1616" id="1616">1616</a>
+<a href="#1617" id="1617">1617</a>
+<a href="#1618" id="1618">1618</a>
+<a href="#1619" id="1619">1619</a>
+<a href="#1620" id="1620">1620</a>
+<a href="#1621" id="1621">1621</a>
+<a href="#1622" id="1622">1622</a>
+<a href="#1623" id="1623">1623</a>
+<a href="#1624" id="1624">1624</a>
+<a href="#1625" id="1625">1625</a>
+<a href="#1626" id="1626">1626</a>
+<a href="#1627" id="1627">1627</a>
+<a href="#1628" id="1628">1628</a>
+<a href="#1629" id="1629">1629</a>
+<a href="#1630" id="1630">1630</a>
+<a href="#1631" id="1631">1631</a>
+<a href="#1632" id="1632">1632</a>
+<a href="#1633" id="1633">1633</a>
+<a href="#1634" id="1634">1634</a>
+<a href="#1635" id="1635">1635</a>
+<a href="#1636" id="1636">1636</a>
+<a href="#1637" id="1637">1637</a>
+<a href="#1638" id="1638">1638</a>
+<a href="#1639" id="1639">1639</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::FileChooserAction;
-<span class="kw">use </span><span class="kw">crate</span>::FileChooserConfirmation;
-<span class="kw">use </span><span class="kw">crate</span>::FileFilter;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
-<span class="kw">use </span>std::ptr;
+</span><span class="kw">use crate</span>::{FileChooserAction, FileChooserConfirmation, FileFilter, Widget};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute, ptr};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// [`FileChooser`][crate::FileChooser] is an interface that can be implemented by file
@@ -1580,7 +1773,7 @@
     /// get notification about when the preview needs to be updated.
     /// To install a preview widget, use
     /// [`FileChooserExt::set_preview_widget()`][crate::prelude::FileChooserExt::set_preview_widget()]. Then, connect to the
-    /// `signal::FileChooser::update-preview` signal to get notified when
+    /// [`update-preview`][struct@crate::FileChooser#update-preview] signal to get notified when
     /// you need to update the contents of the preview.
     ///
     /// Your callback should use
@@ -1663,6 +1856,208 @@
     /// and include your widgets in it. Then, set the container as
     /// the whole extra widget.
     ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `action`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `create-folders`
+    ///  Whether a file chooser not in [`FileChooserAction::Open`][crate::FileChooserAction::Open] mode
+    /// will offer the user to create new folders.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `do-overwrite-confirmation`
+    ///  Whether a file chooser in [`FileChooserAction::Save`][crate::FileChooserAction::Save] mode
+    /// will present an overwrite confirmation dialog if the user
+    /// selects a file name that already exists.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `extra-widget`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `filter`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `local-only`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `preview-widget`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `preview-widget-active`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `select-multiple`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `show-hidden`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `use-preview-label`
+    ///  Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `confirm-overwrite`
+    ///  This signal gets emitted whenever it is appropriate to present a
+    /// confirmation dialog when the user has selected a file name that
+    /// already exists. The signal only gets emitted when the file
+    /// chooser is in [`FileChooserAction::Save`][crate::FileChooserAction::Save] mode.
+    ///
+    /// Most applications just need to turn on the
+    /// [`do-overwrite-confirmation`][struct@crate::FileChooser#do-overwrite-confirmation] property (or call the
+    /// [`FileChooserExt::set_do_overwrite_confirmation()`][crate::prelude::FileChooserExt::set_do_overwrite_confirmation()] function), and
+    /// they will automatically get a stock confirmation dialog.
+    /// Applications which need to customize this behavior should do
+    /// that, and also connect to the [`confirm-overwrite`][struct@crate::FileChooser#confirm-overwrite]
+    /// signal.
+    ///
+    /// A signal handler for this signal must return a
+    /// [`FileChooserConfirmation`][crate::FileChooserConfirmation] value, which indicates the action to
+    /// take. If the handler determines that the user wants to select a
+    /// different filename, it should return
+    /// [`FileChooserConfirmation::SelectAgain`][crate::FileChooserConfirmation::SelectAgain]. If it determines
+    /// that the user is satisfied with his choice of file name, it
+    /// should return [`FileChooserConfirmation::AcceptFilename`][crate::FileChooserConfirmation::AcceptFilename].
+    /// On the other hand, if it determines that the stock confirmation
+    /// dialog should be used, it should return
+    /// [`FileChooserConfirmation::Confirm`][crate::FileChooserConfirmation::Confirm]. The following example
+    /// illustrates this.
+    ///
+    /// ## Custom confirmation ## {`gtkfilechooser`-confirmation}
+    ///
+    ///
+    ///
+    /// **⚠️ The following code is in C ⚠️**
+    ///
+    /// ```C
+    /// static GtkFileChooserConfirmation
+    /// confirm_overwrite_callback (GtkFileChooser *chooser, gpointer data)
+    /// {
+    ///   char *uri;
+    ///
+    ///   uri = gtk_file_chooser_get_uri (chooser);
+    ///
+    ///   if (is_uri_read_only (uri))
+    ///     {
+    ///       if (user_wants_to_replace_read_only_file (uri))
+    ///         return GTK_FILE_CHOOSER_CONFIRMATION_ACCEPT_FILENAME;
+    ///       else
+    ///         return GTK_FILE_CHOOSER_CONFIRMATION_SELECT_AGAIN;
+    ///     } else
+    ///       return GTK_FILE_CHOOSER_CONFIRMATION_CONFIRM; // fall back to the default dialog
+    /// }
+    ///
+    /// ...
+    ///
+    /// chooser = gtk_file_chooser_dialog_new (...);
+    ///
+    /// gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
+    /// g_signal_connect (chooser, &quot;confirm-overwrite&quot;,
+    ///                   G_CALLBACK (confirm_overwrite_callback), NULL);
+    ///
+    /// if (gtk_dialog_run (chooser) == GTK_RESPONSE_ACCEPT)
+    ///         save_to_file (gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
+    ///
+    /// gtk_widget_destroy (chooser);
+    /// ```
+    ///
+    ///
+    ///
+    ///
+    /// #### `current-folder-changed`
+    ///  This signal is emitted when the current folder in a [`FileChooser`][crate::FileChooser]
+    /// changes. This can happen due to the user performing some action that
+    /// changes folders, such as selecting a bookmark or visiting a folder on the
+    /// file list. It can also happen as a result of calling a function to
+    /// explicitly change the current folder in a file chooser.
+    ///
+    /// Normally you do not need to connect to this signal, unless you need to keep
+    /// track of which folder a file chooser is showing.
+    ///
+    /// See also: [`FileChooserExt::set_current_folder()`][crate::prelude::FileChooserExt::set_current_folder()],
+    /// [`FileChooserExt::current_folder()`][crate::prelude::FileChooserExt::current_folder()],
+    /// [`FileChooserExt::set_current_folder_uri()`][crate::prelude::FileChooserExt::set_current_folder_uri()],
+    /// [`FileChooserExt::current_folder_uri()`][crate::prelude::FileChooserExt::current_folder_uri()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `file-activated`
+    ///  This signal is emitted when the user &quot;activates&quot; a file in the file
+    /// chooser. This can happen by double-clicking on a file in the file list, or
+    /// by pressing `Enter`.
+    ///
+    /// Normally you do not need to connect to this signal. It is used internally
+    /// by [`FileChooserDialog`][crate::FileChooserDialog] to know when to activate the default button in the
+    /// dialog.
+    ///
+    /// See also: [`FileChooserExt::filename()`][crate::prelude::FileChooserExt::filename()],
+    /// [`FileChooserExt::filenames()`][crate::prelude::FileChooserExt::filenames()], [`FileChooserExt::uri()`][crate::prelude::FileChooserExt::uri()],
+    /// [`FileChooserExt::uris()`][crate::prelude::FileChooserExt::uris()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `selection-changed`
+    ///  This signal is emitted when there is a change in the set of selected files
+    /// in a [`FileChooser`][crate::FileChooser]. This can happen when the user modifies the selection
+    /// with the mouse or the keyboard, or when explicitly calling functions to
+    /// change the selection.
+    ///
+    /// Normally you do not need to connect to this signal, as it is easier to wait
+    /// for the file chooser to finish running, and then to get the list of
+    /// selected files using the functions mentioned below.
+    ///
+    /// See also: [`FileChooserExt::select_filename()`][crate::prelude::FileChooserExt::select_filename()],
+    /// [`FileChooserExt::unselect_filename()`][crate::prelude::FileChooserExt::unselect_filename()], [`FileChooserExt::filename()`][crate::prelude::FileChooserExt::filename()],
+    /// [`FileChooserExt::filenames()`][crate::prelude::FileChooserExt::filenames()], [`FileChooserExt::select_uri()`][crate::prelude::FileChooserExt::select_uri()],
+    /// [`FileChooserExt::unselect_uri()`][crate::prelude::FileChooserExt::unselect_uri()], [`FileChooserExt::uri()`][crate::prelude::FileChooserExt::uri()],
+    /// [`FileChooserExt::uris()`][crate::prelude::FileChooserExt::uris()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `update-preview`
+    ///  This signal is emitted when the preview in a file chooser should be
+    /// regenerated. For example, this can happen when the currently selected file
+    /// changes. You should use this signal if you want your file chooser to have
+    /// a preview widget.
+    ///
+    /// Once you have installed a preview widget with
+    /// [`FileChooserExt::set_preview_widget()`][crate::prelude::FileChooserExt::set_preview_widget()], you should update it when this
+    /// signal is emitted. You can use the functions
+    /// [`FileChooserExt::preview_filename()`][crate::prelude::FileChooserExt::preview_filename()] or
+    /// [`FileChooserExt::preview_uri()`][crate::prelude::FileChooserExt::preview_uri()] to get the name of the file to preview.
+    /// Your widget may not be able to preview all kinds of files; your callback
+    /// must call [`FileChooserExt::set_preview_widget_active()`][crate::prelude::FileChooserExt::set_preview_widget_active()] to inform the file
+    /// chooser about whether the preview was generated successfully or not.
+    ///
+    /// Please see the example code in
+    /// [Using a Preview Widget][gtkfilechooser-preview].
+    ///
+    /// See also: [`FileChooserExt::set_preview_widget()`][crate::prelude::FileChooserExt::set_preview_widget()],
+    /// [`FileChooserExt::set_preview_widget_active()`][crate::prelude::FileChooserExt::set_preview_widget_active()],
+    /// [`FileChooserExt::set_use_preview_label()`][crate::prelude::FileChooserExt::set_use_preview_label()],
+    /// [`FileChooserExt::preview_filename()`][crate::prelude::FileChooserExt::preview_filename()],
+    /// [`FileChooserExt::preview_uri()`][crate::prelude::FileChooserExt::preview_uri()].
+    ///
+    ///
+    ///
     /// # Implements
     ///
     /// [`FileChooserExt`][trait@crate::prelude::FileChooserExt], [`FileChooserExtManual`][trait@crate::prelude::FileChooserExtManual]
@@ -1693,7 +2088,7 @@
     /// ## `filter`
     /// a [`FileFilter`][crate::FileFilter]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_file_chooser_add_filter&quot;</span>)]
-    </span><span class="kw">fn </span>add_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: <span class="kw-2">&amp;</span>FileFilter);
+    </span><span class="kw">fn </span>add_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: FileFilter);
 
     <span class="doccomment">/// Adds a folder to be displayed with the shortcut folders in a file chooser.
     /// Note that shortcut folders do not get saved, as they are provided by the
@@ -1974,9 +2369,12 @@
 }
 
 <span class="kw">impl</span>&lt;O: IsA&lt;FileChooser&gt;&gt; FileChooserExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: <span class="kw-2">&amp;</span>FileFilter) {
+    <span class="kw">fn </span>add_filter(<span class="kw-2">&amp;</span><span class="self">self</span>, filter: FileFilter) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_file_chooser_add_filter(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, filter.to_glib_full());
+            ffi::gtk_file_chooser_add_filter(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                filter.into_glib_ptr(),
+            );
         }
     }
 
@@ -1988,7 +2386,7 @@
                 folder.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2005,7 +2403,7 @@
                 uri.to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2268,7 +2666,7 @@
                 folder.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2285,7 +2683,7 @@
                 uri.to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2308,7 +2706,7 @@
                 file.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2377,7 +2775,7 @@
                 file.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2430,7 +2828,7 @@
                 file.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2952,4 +3350,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

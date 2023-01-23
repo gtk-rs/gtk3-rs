@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1221,30 +1221,16 @@
 <a href="#1148" id="1148">1148</a>
 <a href="#1149" id="1149">1149</a>
 <a href="#1150" id="1150">1150</a>
-<a href="#1151" id="1151">1151</a>
-<a href="#1152" id="1152">1152</a>
-<a href="#1153" id="1153">1153</a>
-<a href="#1154" id="1154">1154</a>
-<a href="#1155" id="1155">1155</a>
-<a href="#1156" id="1156">1156</a>
-<a href="#1157" id="1157">1157</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::NumberUpLayout;
-<span class="kw">use </span><span class="kw">crate</span>::PageOrientation;
-<span class="kw">use </span><span class="kw">crate</span>::PageRange;
-<span class="kw">use </span><span class="kw">crate</span>::PageSet;
-<span class="kw">use </span><span class="kw">crate</span>::PaperSize;
-<span class="kw">use </span><span class="kw">crate</span>::PrintDuplex;
-<span class="kw">use </span><span class="kw">crate</span>::PrintPages;
-<span class="kw">use </span><span class="kw">crate</span>::PrintQuality;
-<span class="kw">use </span><span class="kw">crate</span>::Unit;
+</span><span class="kw">use crate</span>::{
+    NumberUpLayout, PageOrientation, PageRange, PageSet, PaperSize, PrintDuplex, PrintPages,
+    PrintQuality, Unit,
+};
 <span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::ptr;
+<span class="kw">use </span>std::{fmt, mem, ptr};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// A GtkPrintSettings object represents the settings of a print dialog in
@@ -1908,7 +1894,7 @@
                 file_name.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -1943,7 +1929,7 @@
                 group_name.to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2326,7 +2312,7 @@
                 file_name.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -2386,4 +2372,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

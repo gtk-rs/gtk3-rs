@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view_column.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view_column.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view_column.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>tree_view_column.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1838,30 +1838,52 @@
 <a href="#1765" id="1765">1765</a>
 <a href="#1766" id="1766">1766</a>
 <a href="#1767" id="1767">1767</a>
+<a href="#1768" id="1768">1768</a>
+<a href="#1769" id="1769">1769</a>
+<a href="#1770" id="1770">1770</a>
+<a href="#1771" id="1771">1771</a>
+<a href="#1772" id="1772">1772</a>
+<a href="#1773" id="1773">1773</a>
+<a href="#1774" id="1774">1774</a>
+<a href="#1775" id="1775">1775</a>
+<a href="#1776" id="1776">1776</a>
+<a href="#1777" id="1777">1777</a>
+<a href="#1778" id="1778">1778</a>
+<a href="#1779" id="1779">1779</a>
+<a href="#1780" id="1780">1780</a>
+<a href="#1781" id="1781">1781</a>
+<a href="#1782" id="1782">1782</a>
+<a href="#1783" id="1783">1783</a>
+<a href="#1784" id="1784">1784</a>
+<a href="#1785" id="1785">1785</a>
+<a href="#1786" id="1786">1786</a>
+<a href="#1787" id="1787">1787</a>
+<a href="#1788" id="1788">1788</a>
+<a href="#1789" id="1789">1789</a>
+<a href="#1790" id="1790">1790</a>
+<a href="#1791" id="1791">1791</a>
+<a href="#1792" id="1792">1792</a>
+<a href="#1793" id="1793">1793</a>
+<a href="#1794" id="1794">1794</a>
+<a href="#1795" id="1795">1795</a>
+<a href="#1796" id="1796">1796</a>
+<a href="#1797" id="1797">1797</a>
+<a href="#1798" id="1798">1798</a>
+<a href="#1799" id="1799">1799</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Buildable;
-<span class="kw">use </span><span class="kw">crate</span>::CellArea;
-<span class="kw">use </span><span class="kw">crate</span>::CellLayout;
-<span class="kw">use </span><span class="kw">crate</span>::CellRenderer;
-<span class="kw">use </span><span class="kw">crate</span>::SortType;
-<span class="kw">use </span><span class="kw">crate</span>::TreeIter;
-<span class="kw">use </span><span class="kw">crate</span>::TreeModel;
-<span class="kw">use </span><span class="kw">crate</span>::TreeViewColumnSizing;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{
+    Buildable, CellArea, CellLayout, CellRenderer, SortType, TreeIter, TreeModel,
+    TreeViewColumnSizing, Widget,
+};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// The GtkTreeViewColumn object represents a visible column in a [`TreeView`][crate::TreeView] widget.
@@ -1871,6 +1893,98 @@
     /// Please refer to the [tree widget conceptual overview][TreeWidget]
     /// for an overview of all the objects and data types related to the tree widget and how
     /// they work together.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `alignment`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `cell-area`
+    ///  The [`CellArea`][crate::CellArea] used to layout cell renderers for this column.
+    ///
+    /// If no area is specified when creating the tree view column with [`TreeViewColumn::with_area()`][crate::TreeViewColumn::with_area()]
+    /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
+    ///
+    /// Readable | Writeable | Construct Only
+    ///
+    ///
+    /// #### `clickable`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `expand`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `fixed-width`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `max-width`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `min-width`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `reorderable`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `resizable`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `sizing`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `sort-column-id`
+    ///  Logical sort column ID this column sorts on when selected for sorting. Setting the sort column ID makes the column header
+    /// clickable. Set to -1 to make the column unsortable.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `sort-indicator`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `sort-order`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `spacing`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `title`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `visible`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `widget`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `width`
+    ///  Readable
+    ///
+    ///
+    /// #### `x-offset`
+    ///  Readable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `clicked`
+    ///
     ///
     /// # Implements
     ///
@@ -1920,7 +2034,7 @@
     ///
     /// This method returns an instance of [`TreeViewColumnBuilder`](crate::builders::TreeViewColumnBuilder) which can be used to create [`TreeViewColumn`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; TreeViewColumnBuilder {
-        TreeViewColumnBuilder::default()
+        TreeViewColumnBuilder::new()
     }
 }
 
@@ -1930,188 +2044,138 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`TreeViewColumn`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>TreeViewColumnBuilder {
-    alignment: <span class="prelude-ty">Option</span>&lt;f32&gt;,
-    cell_area: <span class="prelude-ty">Option</span>&lt;CellArea&gt;,
-    clickable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    expand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    fixed_width: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    max_width: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    min_width: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    reorderable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    resizable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    sizing: <span class="prelude-ty">Option</span>&lt;TreeViewColumnSizing&gt;,
-    sort_column_id: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    sort_indicator: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    sort_order: <span class="prelude-ty">Option</span>&lt;SortType&gt;,
-    spacing: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    title: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    visible: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    widget: <span class="prelude-ty">Option</span>&lt;Widget&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, TreeViewColumn&gt;,
 }
 
 <span class="kw">impl </span>TreeViewColumnBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`TreeViewColumnBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    <span class="kw">pub fn </span>alignment(<span class="self">self</span>, alignment: f32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;alignment&quot;</span>, alignment),
+        }
+    }
+
+    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this column.
+    ///
+    /// If no area is specified when creating the tree view column with [`TreeViewColumn::with_area()`][crate::TreeViewColumn::with_area()]
+    /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
+    </span><span class="kw">pub fn </span>cell_area(<span class="self">self</span>, cell_area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;cell-area&quot;</span>, cell_area.clone().upcast()),
+        }
+    }
+
+    <span class="kw">pub fn </span>clickable(<span class="self">self</span>, clickable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;clickable&quot;</span>, clickable),
+        }
+    }
+
+    <span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;expand&quot;</span>, expand),
+        }
+    }
+
+    <span class="kw">pub fn </span>fixed_width(<span class="self">self</span>, fixed_width: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;fixed-width&quot;</span>, fixed_width),
+        }
+    }
+
+    <span class="kw">pub fn </span>max_width(<span class="self">self</span>, max_width: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;max-width&quot;</span>, max_width),
+        }
+    }
+
+    <span class="kw">pub fn </span>min_width(<span class="self">self</span>, min_width: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;min-width&quot;</span>, min_width),
+        }
+    }
+
+    <span class="kw">pub fn </span>reorderable(<span class="self">self</span>, reorderable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;reorderable&quot;</span>, reorderable),
+        }
+    }
+
+    <span class="kw">pub fn </span>resizable(<span class="self">self</span>, resizable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;resizable&quot;</span>, resizable),
+        }
+    }
+
+    <span class="kw">pub fn </span>sizing(<span class="self">self</span>, sizing: TreeViewColumnSizing) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sizing&quot;</span>, sizing),
+        }
+    }
+
+    <span class="doccomment">/// Logical sort column ID this column sorts on when selected for sorting. Setting the sort column ID makes the column header
+    /// clickable. Set to -1 to make the column unsortable.
+    </span><span class="kw">pub fn </span>sort_column_id(<span class="self">self</span>, sort_column_id: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sort-column-id&quot;</span>, sort_column_id),
+        }
+    }
+
+    <span class="kw">pub fn </span>sort_indicator(<span class="self">self</span>, sort_indicator: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sort-indicator&quot;</span>, sort_indicator),
+        }
+    }
+
+    <span class="kw">pub fn </span>sort_order(<span class="self">self</span>, sort_order: SortType) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sort-order&quot;</span>, sort_order),
+        }
+    }
+
+    <span class="kw">pub fn </span>spacing(<span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;spacing&quot;</span>, spacing),
+        }
+    }
+
+    <span class="kw">pub fn </span>title(<span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;title&quot;</span>, title.into()),
+        }
+    }
+
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+        }
+    }
+
+    <span class="kw">pub fn </span>widget(<span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;widget&quot;</span>, widget.clone().upcast()),
+        }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`TreeViewColumn`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; TreeViewColumn {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>alignment) = <span class="self">self</span>.alignment {
-            properties.push((<span class="string">&quot;alignment&quot;</span>, alignment));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>cell_area) = <span class="self">self</span>.cell_area {
-            properties.push((<span class="string">&quot;cell-area&quot;</span>, cell_area));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>clickable) = <span class="self">self</span>.clickable {
-            properties.push((<span class="string">&quot;clickable&quot;</span>, clickable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>expand) = <span class="self">self</span>.expand {
-            properties.push((<span class="string">&quot;expand&quot;</span>, expand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>fixed_width) = <span class="self">self</span>.fixed_width {
-            properties.push((<span class="string">&quot;fixed-width&quot;</span>, fixed_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>max_width) = <span class="self">self</span>.max_width {
-            properties.push((<span class="string">&quot;max-width&quot;</span>, max_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>min_width) = <span class="self">self</span>.min_width {
-            properties.push((<span class="string">&quot;min-width&quot;</span>, min_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>reorderable) = <span class="self">self</span>.reorderable {
-            properties.push((<span class="string">&quot;reorderable&quot;</span>, reorderable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>resizable) = <span class="self">self</span>.resizable {
-            properties.push((<span class="string">&quot;resizable&quot;</span>, resizable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sizing) = <span class="self">self</span>.sizing {
-            properties.push((<span class="string">&quot;sizing&quot;</span>, sizing));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sort_column_id) = <span class="self">self</span>.sort_column_id {
-            properties.push((<span class="string">&quot;sort-column-id&quot;</span>, sort_column_id));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sort_indicator) = <span class="self">self</span>.sort_indicator {
-            properties.push((<span class="string">&quot;sort-indicator&quot;</span>, sort_indicator));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sort_order) = <span class="self">self</span>.sort_order {
-            properties.push((<span class="string">&quot;sort-order&quot;</span>, sort_order));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>spacing) = <span class="self">self</span>.spacing {
-            properties.push((<span class="string">&quot;spacing&quot;</span>, spacing));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>title) = <span class="self">self</span>.title {
-            properties.push((<span class="string">&quot;title&quot;</span>, title));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>visible) = <span class="self">self</span>.visible {
-            properties.push((<span class="string">&quot;visible&quot;</span>, visible));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>widget) = <span class="self">self</span>.widget {
-            properties.push((<span class="string">&quot;widget&quot;</span>, widget));
-        }
-        glib::Object::new::&lt;TreeViewColumn&gt;(<span class="kw-2">&amp;</span>properties)
+        <span class="self">self</span>.builder.build()
     }
-
-    <span class="kw">pub fn </span>alignment(<span class="kw-2">mut </span><span class="self">self</span>, alignment: f32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.alignment = <span class="prelude-val">Some</span>(alignment);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this column.
-    ///
-    /// If no area is specified when creating the tree view column with [`TreeViewColumn::with_area()`][crate::TreeViewColumn::with_area()]
-    /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
-    </span><span class="kw">pub fn </span>cell_area(<span class="kw-2">mut </span><span class="self">self</span>, cell_area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cell_area = <span class="prelude-val">Some</span>(cell_area.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>clickable(<span class="kw-2">mut </span><span class="self">self</span>, clickable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.clickable = <span class="prelude-val">Some</span>(clickable);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>expand(<span class="kw-2">mut </span><span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.expand = <span class="prelude-val">Some</span>(expand);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>fixed_width(<span class="kw-2">mut </span><span class="self">self</span>, fixed_width: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.fixed_width = <span class="prelude-val">Some</span>(fixed_width);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>max_width(<span class="kw-2">mut </span><span class="self">self</span>, max_width: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.max_width = <span class="prelude-val">Some</span>(max_width);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>min_width(<span class="kw-2">mut </span><span class="self">self</span>, min_width: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.min_width = <span class="prelude-val">Some</span>(min_width);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>reorderable(<span class="kw-2">mut </span><span class="self">self</span>, reorderable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.reorderable = <span class="prelude-val">Some</span>(reorderable);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>resizable(<span class="kw-2">mut </span><span class="self">self</span>, resizable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.resizable = <span class="prelude-val">Some</span>(resizable);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>sizing(<span class="kw-2">mut </span><span class="self">self</span>, sizing: TreeViewColumnSizing) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sizing = <span class="prelude-val">Some</span>(sizing);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Logical sort column ID this column sorts on when selected for sorting. Setting the sort column ID makes the column header
-    /// clickable. Set to -1 to make the column unsortable.
-    </span><span class="kw">pub fn </span>sort_column_id(<span class="kw-2">mut </span><span class="self">self</span>, sort_column_id: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sort_column_id = <span class="prelude-val">Some</span>(sort_column_id);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>sort_indicator(<span class="kw-2">mut </span><span class="self">self</span>, sort_indicator: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sort_indicator = <span class="prelude-val">Some</span>(sort_indicator);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>sort_order(<span class="kw-2">mut </span><span class="self">self</span>, sort_order: SortType) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sort_order = <span class="prelude-val">Some</span>(sort_order);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>spacing(<span class="kw-2">mut </span><span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.spacing = <span class="prelude-val">Some</span>(spacing);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>title(<span class="kw-2">mut </span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.title = <span class="prelude-val">Some</span>(title.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>visible(<span class="kw-2">mut </span><span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.visible = <span class="prelude-val">Some</span>(visible);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>widget(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.widget = <span class="prelude-val">Some</span>(widget.clone().upcast());
-        <span class="self">self
-    </span>}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@TreeViewColumn`] methods.
@@ -3606,4 +3670,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

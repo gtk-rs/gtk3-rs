@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2382,39 +2382,16 @@
 <a href="#2309" id="2309">2309</a>
 <a href="#2310" id="2310">2310</a>
 <a href="#2311" id="2311">2311</a>
-<a href="#2312" id="2312">2312</a>
-<a href="#2313" id="2313">2313</a>
-<a href="#2314" id="2314">2314</a>
-<a href="#2315" id="2315">2315</a>
-<a href="#2316" id="2316">2316</a>
-<a href="#2317" id="2317">2317</a>
-<a href="#2318" id="2318">2318</a>
-<a href="#2319" id="2319">2319</a>
-<a href="#2320" id="2320">2320</a>
-<a href="#2321" id="2321">2321</a>
-<a href="#2322" id="2322">2322</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::AccelGroup;
-<span class="kw">use </span><span class="kw">crate</span>::Orientation;
-<span class="kw">use </span><span class="kw">crate</span>::PageSetup;
-<span class="kw">use </span><span class="kw">crate</span>::PositionType;
-<span class="kw">use </span><span class="kw">crate</span>::PrintSettings;
-<span class="kw">use </span><span class="kw">crate</span>::SelectionData;
-<span class="kw">use </span><span class="kw">crate</span>::StyleContext;
-<span class="kw">use </span><span class="kw">crate</span>::TextBuffer;
-<span class="kw">use </span><span class="kw">crate</span>::TextDirection;
-<span class="kw">use </span><span class="kw">crate</span>::TreeModel;
-<span class="kw">use </span><span class="kw">crate</span>::TreePath;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span><span class="kw">crate</span>::Window;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::ptr;
+</span><span class="kw">use crate</span>::{
+    AccelGroup, Orientation, PageSetup, PositionType, PrintSettings, SelectionData, StyleContext,
+    TextBuffer, TextDirection, TreeModel, TreePath, Widget, Window,
+};
+<span class="kw">use </span>glib::{prelude::<span class="kw-2">*</span>, translate::<span class="kw-2">*</span>};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, mem, ptr};
 
 <span class="doccomment">/// Finds the first accelerator in any [`AccelGroup`][crate::AccelGroup] attached
 /// to `object` that matches `accel_key` and `accel_mods`, and
@@ -2736,7 +2713,7 @@
     }
 }
 
-<span class="doccomment">/// This function is supposed to be called in `signal::Widget::draw`
+<span class="doccomment">/// This function is supposed to be called in [`draw`][struct@crate::Widget#draw]
 /// implementations for widgets that support multiple windows.
 /// `cr` must be untransformed from invoking of the draw function.
 /// This function will return [`true`] if the contents of the given
@@ -2771,7 +2748,7 @@
 /// modification will be applied.
 ///
 /// This is the inverse to the transformation GTK applies when
-/// preparing an expose event to be emitted with the `signal::Widget::draw`
+/// preparing an expose event to be emitted with the [`draw`][struct@crate::Widget#draw]
 /// signal. It is intended to help porting multiwindow widgets from
 /// GTK+ 2 to the rendering architecture of GTK+ 3.
 /// ## `cr`
@@ -2959,7 +2936,7 @@
 
 <span class="doccomment">/// Obtains a copy of the event currently being processed by GTK+.
 ///
-/// For example, if you are handling a `signal::Button::clicked` signal,
+/// For example, if you are handling a [`clicked`][struct@crate::Button#clicked] signal,
 /// the current event will be the [`gdk::EventButton`][crate::gdk::EventButton] that triggered
 /// the ::clicked signal.
 ///
@@ -3393,7 +3370,7 @@
 ///
 /// [`propagate_event()`][crate::propagate_event()] calls [`WidgetExt::event()`][crate::prelude::WidgetExt::event()] on each widget it
 /// decides to send the event to. So [`WidgetExt::event()`][crate::prelude::WidgetExt::event()] is the lowest-level
-/// function; it simply emits the `signal::Widget::event` and possibly an
+/// function; it simply emits the [`event`][struct@crate::Widget#event] and possibly an
 /// event-specific signal on a widget. [`propagate_event()`][crate::propagate_event()] is a bit
 /// higher-level, and [`main_do_event()`][crate::main_do_event()] is the highest level.
 ///
@@ -3812,6 +3789,7 @@
 /// ## `xy1_gap`
 /// end coordinate (X or Y depending on `gap_side`) for the gap
 </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_24&quot;</span>, deprecated = <span class="string">&quot;Since 3.24&quot;</span>)]
+#[allow(deprecated)]
 #[doc(alias = <span class="string">&quot;gtk_render_frame_gap&quot;</span>)]
 </span><span class="kw">pub fn </span>render_frame_gap(
     context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
@@ -4383,7 +4361,7 @@
             timestamp,
             <span class="kw-2">&amp;mut </span>error,
         );
-        <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+        <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
         <span class="kw">if </span>error.is_null() {
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
@@ -4716,4 +4694,4 @@
     <span class="kw">unsafe </span>{ from_glib(ffi::gtk_true()) }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

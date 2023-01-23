@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/css_provider.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>css_provider.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/css_provider.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>css_provider.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -393,21 +393,34 @@
 <a href="#320" id="320">320</a>
 <a href="#321" id="321">321</a>
 <a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
+</span><span class="attr">#![allow(deprecated)]
 
-</span><span class="kw">use </span><span class="kw">crate</span>::CssSection;
-<span class="kw">use </span><span class="kw">crate</span>::StyleProvider;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
-<span class="kw">use </span>std::ptr;
+</span><span class="kw">use crate</span>::{CssSection, StyleProvider};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute, ptr};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// GtkCssProvider is an object implementing the [`StyleProvider`][crate::StyleProvider] interface.
@@ -425,14 +438,32 @@
     /// `$HOME/.themes/THEME/gtk-VERSION/gtk.css`,
     /// `$XDG_DATA_DIRS/themes/THEME/gtk-VERSION/gtk.css` and
     /// `DATADIR/share/themes/THEME/gtk-VERSION/gtk.css`, where `THEME` is the name of
-    /// the current theme (see the `property::Settings::gtk-theme-name` setting), `DATADIR`
+    /// the current theme (see the [`gtk-theme-name`][struct@crate::Settings#gtk-theme-name] setting), `DATADIR`
     /// is the prefix configured when GTK+ was compiled (unless overridden by the
     /// `GTK_DATA_PREFIX` environment variable), and `VERSION` is the GTK+ version number.
     /// If no file is found for the current version, GTK+ tries older versions all the
     /// way back to 3.0.
     ///
     /// In the same way, GTK+ tries to load a gtk-keys.css file for the current
-    /// key theme, as defined by `property::Settings::gtk-key-theme-name`.
+    /// key theme, as defined by [`gtk-key-theme-name`][struct@crate::Settings#gtk-key-theme-name].
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `parsing-error`
+    ///  Signals that a parsing error occurred. the `path`, `line` and `position`
+    /// describe the actual location of the error as accurately as possible.
+    ///
+    /// Parsing errors are never fatal, so the parsing will resume after
+    /// the error. Errors may however cause parts of the given
+    /// data or even all of it to not be parsed at all. So it is a useful idea
+    /// to check that the parsing succeeds by connecting to this signal.
+    ///
+    /// Note that this signal may be emitted at any time as the css provider
+    /// may opt to defer parsing parts or all of the input to a later time
+    /// than when a loading function was called.
+    ///
+    ///
     ///
     /// # Implements
     ///
@@ -471,6 +502,7 @@
     /// The provider used for fallback styling.
     ///  This memory is owned by GTK+, and you must not free it.
     </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_24&quot;</span>, deprecated = <span class="string">&quot;Since 3.24&quot;</span>)]
+    #[allow(deprecated)]
     #[doc(alias = <span class="string">&quot;gtk_css_provider_get_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default&quot;</span>)]
     #[allow(clippy::should_implement_trait)]
@@ -532,7 +564,7 @@
     /// [`true`]. The return value is deprecated and [`false`] will only be
     ///  returned for backwards compatibility reasons if an `error` is not
     ///  [`None`] and a loading error occurred. To track errors while loading
-    ///  CSS, connect to the `signal::CssProvider::parsing-error` signal.
+    ///  CSS, connect to the [`parsing-error`][struct@crate::CssProvider#parsing-error] signal.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_css_provider_load_from_data&quot;</span>)]
     </span><span class="kw">fn </span>load_from_data(<span class="kw-2">&amp;</span><span class="self">self</span>, data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
@@ -546,7 +578,7 @@
     /// [`true`]. The return value is deprecated and [`false`] will only be
     ///  returned for backwards compatibility reasons if an `error` is not
     ///  [`None`] and a loading error occurred. To track errors while loading
-    ///  CSS, connect to the `signal::CssProvider::parsing-error` signal.
+    ///  CSS, connect to the [`parsing-error`][struct@crate::CssProvider#parsing-error] signal.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_css_provider_load_from_file&quot;</span>)]
     </span><span class="kw">fn </span>load_from_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::File&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
@@ -560,7 +592,7 @@
     /// [`true`]. The return value is deprecated and [`false`] will only be
     ///  returned for backwards compatibility reasons if an `error` is not
     ///  [`None`] and a loading error occurred. To track errors while loading
-    ///  CSS, connect to the `signal::CssProvider::parsing-error` signal.
+    ///  CSS, connect to the [`parsing-error`][struct@crate::CssProvider#parsing-error] signal.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_css_provider_load_from_path&quot;</span>)]
     </span><span class="kw">fn </span>load_from_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
 
@@ -568,7 +600,7 @@
     /// the [`CssProvider`][crate::CssProvider], clearing any previously loaded information.
     ///
     /// To track errors while loading CSS, connect to the
-    /// `signal::CssProvider::parsing-error` signal.
+    /// [`parsing-error`][struct@crate::CssProvider#parsing-error] signal.
     /// ## `resource_path`
     /// a `GResource` resource path
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_css_provider_load_from_resource&quot;</span>)]
@@ -622,7 +654,7 @@
                 length,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -639,7 +671,7 @@
                 file.as_ref().to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -656,7 +688,7 @@
                 path.to_glib_none().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span>error,
             );
-            <span class="macro">assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
@@ -716,4 +748,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

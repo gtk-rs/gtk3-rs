@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/entry_completion.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>entry_completion.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/entry_completion.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>entry_completion.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1242,25 +1242,109 @@
 <a href="#1169" id="1169">1169</a>
 <a href="#1170" id="1170">1170</a>
 <a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
+<a href="#1185" id="1185">1185</a>
+<a href="#1186" id="1186">1186</a>
+<a href="#1187" id="1187">1187</a>
+<a href="#1188" id="1188">1188</a>
+<a href="#1189" id="1189">1189</a>
+<a href="#1190" id="1190">1190</a>
+<a href="#1191" id="1191">1191</a>
+<a href="#1192" id="1192">1192</a>
+<a href="#1193" id="1193">1193</a>
+<a href="#1194" id="1194">1194</a>
+<a href="#1195" id="1195">1195</a>
+<a href="#1196" id="1196">1196</a>
+<a href="#1197" id="1197">1197</a>
+<a href="#1198" id="1198">1198</a>
+<a href="#1199" id="1199">1199</a>
+<a href="#1200" id="1200">1200</a>
+<a href="#1201" id="1201">1201</a>
+<a href="#1202" id="1202">1202</a>
+<a href="#1203" id="1203">1203</a>
+<a href="#1204" id="1204">1204</a>
+<a href="#1205" id="1205">1205</a>
+<a href="#1206" id="1206">1206</a>
+<a href="#1207" id="1207">1207</a>
+<a href="#1208" id="1208">1208</a>
+<a href="#1209" id="1209">1209</a>
+<a href="#1210" id="1210">1210</a>
+<a href="#1211" id="1211">1211</a>
+<a href="#1212" id="1212">1212</a>
+<a href="#1213" id="1213">1213</a>
+<a href="#1214" id="1214">1214</a>
+<a href="#1215" id="1215">1215</a>
+<a href="#1216" id="1216">1216</a>
+<a href="#1217" id="1217">1217</a>
+<a href="#1218" id="1218">1218</a>
+<a href="#1219" id="1219">1219</a>
+<a href="#1220" id="1220">1220</a>
+<a href="#1221" id="1221">1221</a>
+<a href="#1222" id="1222">1222</a>
+<a href="#1223" id="1223">1223</a>
+<a href="#1224" id="1224">1224</a>
+<a href="#1225" id="1225">1225</a>
+<a href="#1226" id="1226">1226</a>
+<a href="#1227" id="1227">1227</a>
+<a href="#1228" id="1228">1228</a>
+<a href="#1229" id="1229">1229</a>
+<a href="#1230" id="1230">1230</a>
+<a href="#1231" id="1231">1231</a>
+<a href="#1232" id="1232">1232</a>
+<a href="#1233" id="1233">1233</a>
+<a href="#1234" id="1234">1234</a>
+<a href="#1235" id="1235">1235</a>
+<a href="#1236" id="1236">1236</a>
+<a href="#1237" id="1237">1237</a>
+<a href="#1238" id="1238">1238</a>
+<a href="#1239" id="1239">1239</a>
+<a href="#1240" id="1240">1240</a>
+<a href="#1241" id="1241">1241</a>
+<a href="#1242" id="1242">1242</a>
+<a href="#1243" id="1243">1243</a>
+<a href="#1244" id="1244">1244</a>
+<a href="#1245" id="1245">1245</a>
+<a href="#1246" id="1246">1246</a>
+<a href="#1247" id="1247">1247</a>
+<a href="#1248" id="1248">1248</a>
+<a href="#1249" id="1249">1249</a>
+<a href="#1250" id="1250">1250</a>
+<a href="#1251" id="1251">1251</a>
+<a href="#1252" id="1252">1252</a>
+<a href="#1253" id="1253">1253</a>
+<a href="#1254" id="1254">1254</a>
+<a href="#1255" id="1255">1255</a>
+<a href="#1256" id="1256">1256</a>
+<a href="#1257" id="1257">1257</a>
+<a href="#1258" id="1258">1258</a>
+<a href="#1259" id="1259">1259</a>
+<a href="#1260" id="1260">1260</a>
+<a href="#1261" id="1261">1261</a>
+<a href="#1262" id="1262">1262</a>
+<a href="#1263" id="1263">1263</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Buildable;
-<span class="kw">use </span><span class="kw">crate</span>::CellArea;
-<span class="kw">use </span><span class="kw">crate</span>::CellLayout;
-<span class="kw">use </span><span class="kw">crate</span>::TreeIter;
-<span class="kw">use </span><span class="kw">crate</span>::TreeModel;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{Buildable, CellArea, CellLayout, TreeIter, TreeModel};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// [`EntryCompletion`][crate::EntryCompletion] is an auxiliary object to be used in conjunction with
@@ -1279,7 +1363,7 @@
     /// When the user selects a completion, the content of the entry is
     /// updated. By default, the content of the entry is replaced by the
     /// text column of the model, but this can be overridden by connecting
-    /// to the `signal::EntryCompletion::match-selected` signal and updating the
+    /// to the [`match-selected`][struct@crate::EntryCompletion#match-selected] signal and updating the
     /// entry in the signal handler. Note that you should return [`true`] from
     /// the signal handler to suppress the default behaviour.
     ///
@@ -1289,20 +1373,140 @@
     /// entry when they are selected, [`EntryCompletion`][crate::EntryCompletion] also allows to display
     /// “actions” in the popup window. Their appearance is similar to menuitems,
     /// to differentiate them clearly from completion strings. When an action is
-    /// selected, the `signal::EntryCompletion::action-activated` signal is emitted.
+    /// selected, the [`action-activated`][struct@crate::EntryCompletion#action-activated] signal is emitted.
     ///
     /// GtkEntryCompletion uses a [`TreeModelFilter`][crate::TreeModelFilter] model to represent the
     /// subset of the entire model that is currently matching. While the
-    /// GtkEntryCompletion signals `signal::EntryCompletion::match-selected` and
-    /// `signal::EntryCompletion::cursor-on-match` take the original model and an
+    /// GtkEntryCompletion signals [`match-selected`][struct@crate::EntryCompletion#match-selected] and
+    /// [`cursor-on-match`][struct@crate::EntryCompletion#cursor-on-match] take the original model and an
     /// iter pointing to that model as arguments, other callbacks and signals
-    /// (such as `GtkCellLayoutDataFuncs` or `signal::CellArea::apply-attributes`)
+    /// (such as `GtkCellLayoutDataFuncs` or [`apply-attributes`][struct@crate::CellArea#apply-attributes])
     /// will generally take the filter model as argument. As long as you are
     /// only calling `gtk_tree_model_get()`, this will make no difference to
     /// you. If for some reason, you need the original model, use
     /// [`TreeModelFilterExt::model()`][crate::prelude::TreeModelFilterExt::model()]. Don’t forget to use
     /// [`TreeModelFilterExt::convert_iter_to_child_iter()`][crate::prelude::TreeModelFilterExt::convert_iter_to_child_iter()] to obtain a
     /// matching iter.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `cell-area`
+    ///  The [`CellArea`][crate::CellArea] used to layout cell renderers in the treeview column.
+    ///
+    /// If no area is specified when creating the entry completion with
+    /// [`EntryCompletion::with_area()`][crate::EntryCompletion::with_area()] a horizontally oriented
+    /// [`CellAreaBox`][crate::CellAreaBox] will be used.
+    ///
+    /// Readable | Writeable | Construct Only
+    ///
+    ///
+    /// #### `inline-completion`
+    ///  Determines whether the common prefix of the possible completions
+    /// should be inserted automatically in the entry. Note that this
+    /// requires text-column to be set, even if you are using a custom
+    /// match function.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `inline-selection`
+    ///  Determines whether the possible completions on the popup
+    /// will appear in the entry as you navigate through them.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `minimum-key-length`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `model`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `popup-completion`
+    ///  Determines whether the possible completions should be
+    /// shown in a popup window.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `popup-set-width`
+    ///  Determines whether the completions popup window will be
+    /// resized to the width of the entry.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `popup-single-match`
+    ///  Determines whether the completions popup window will shown
+    /// for a single possible completion. You probably want to set
+    /// this to [`false`] if you are using
+    /// [inline completion][GtkEntryCompletion--inline-completion].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `text-column`
+    ///  The column of the model containing the strings.
+    /// Note that the strings must be UTF-8.
+    ///
+    /// Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `action-activated`
+    ///  Gets emitted when an action is activated.
+    ///
+    ///
+    ///
+    ///
+    /// #### `cursor-on-match`
+    ///  Gets emitted when a match from the cursor is on a match
+    /// of the list. The default behaviour is to replace the contents
+    /// of the entry with the contents of the text column in the row
+    /// pointed to by `iter`.
+    ///
+    /// Note that `model` is the model that was passed to
+    /// [`EntryCompletionExt::set_model()`][crate::prelude::EntryCompletionExt::set_model()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `insert-prefix`
+    ///  Gets emitted when the inline autocompletion is triggered.
+    /// The default behaviour is to make the entry display the
+    /// whole prefix and select the newly inserted part.
+    ///
+    /// Applications may connect to this signal in order to insert only a
+    /// smaller part of the `prefix` into the entry - e.g. the entry used in
+    /// the [`FileChooser`][crate::FileChooser] inserts only the part of the prefix up to the
+    /// next &#39;/&#39;.
+    ///
+    ///
+    ///
+    ///
+    /// #### `match-selected`
+    ///  Gets emitted when a match from the list is selected.
+    /// The default behaviour is to replace the contents of the
+    /// entry with the contents of the text column in the row
+    /// pointed to by `iter`.
+    ///
+    /// Note that `model` is the model that was passed to
+    /// [`EntryCompletionExt::set_model()`][crate::prelude::EntryCompletionExt::set_model()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `no-matches`
+    ///  Gets emitted when the filter model has zero
+    /// number of rows in completion_complete method.
+    /// (In other words when GtkEntryCompletion is out of
+    ///  suggestions)
+    ///
+    ///
     ///
     /// # Implements
     ///
@@ -1354,7 +1558,7 @@
     ///
     /// This method returns an instance of [`EntryCompletionBuilder`](crate::builders::EntryCompletionBuilder) which can be used to create [`EntryCompletion`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; EntryCompletionBuilder {
-        EntryCompletionBuilder::default()
+        EntryCompletionBuilder::new()
     }
 }
 
@@ -1364,64 +1568,20 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`EntryCompletion`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>EntryCompletionBuilder {
-    cell_area: <span class="prelude-ty">Option</span>&lt;CellArea&gt;,
-    inline_completion: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    inline_selection: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    minimum_key_length: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    model: <span class="prelude-ty">Option</span>&lt;TreeModel&gt;,
-    popup_completion: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    popup_set_width: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    popup_single_match: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    text_column: <span class="prelude-ty">Option</span>&lt;i32&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, EntryCompletion&gt;,
 }
 
 <span class="kw">impl </span>EntryCompletionBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`EntryCompletionBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
-    }
-
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Build the [`EntryCompletion`].
-    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; EntryCompletion {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>cell_area) = <span class="self">self</span>.cell_area {
-            properties.push((<span class="string">&quot;cell-area&quot;</span>, cell_area));
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>inline_completion) = <span class="self">self</span>.inline_completion {
-            properties.push((<span class="string">&quot;inline-completion&quot;</span>, inline_completion));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>inline_selection) = <span class="self">self</span>.inline_selection {
-            properties.push((<span class="string">&quot;inline-selection&quot;</span>, inline_selection));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>minimum_key_length) = <span class="self">self</span>.minimum_key_length {
-            properties.push((<span class="string">&quot;minimum-key-length&quot;</span>, minimum_key_length));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>model) = <span class="self">self</span>.model {
-            properties.push((<span class="string">&quot;model&quot;</span>, model));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>popup_completion) = <span class="self">self</span>.popup_completion {
-            properties.push((<span class="string">&quot;popup-completion&quot;</span>, popup_completion));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>popup_set_width) = <span class="self">self</span>.popup_set_width {
-            properties.push((<span class="string">&quot;popup-set-width&quot;</span>, popup_set_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>popup_single_match) = <span class="self">self</span>.popup_single_match {
-            properties.push((<span class="string">&quot;popup-single-match&quot;</span>, popup_single_match));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>text_column) = <span class="self">self</span>.text_column {
-            properties.push((<span class="string">&quot;text-column&quot;</span>, text_column));
-        }
-        glib::Object::new::&lt;EntryCompletion&gt;(<span class="kw-2">&amp;</span>properties)
     }
 
     <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers in the treeview column.
@@ -1429,66 +1589,90 @@
     /// If no area is specified when creating the entry completion with
     /// [`EntryCompletion::with_area()`][crate::EntryCompletion::with_area()] a horizontally oriented
     /// [`CellAreaBox`][crate::CellAreaBox] will be used.
-    </span><span class="kw">pub fn </span>cell_area(<span class="kw-2">mut </span><span class="self">self</span>, cell_area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cell_area = <span class="prelude-val">Some</span>(cell_area.clone().upcast());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>cell_area(<span class="self">self</span>, cell_area: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellArea&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;cell-area&quot;</span>, cell_area.clone().upcast()),
+        }
+    }
 
     <span class="doccomment">/// Determines whether the common prefix of the possible completions
     /// should be inserted automatically in the entry. Note that this
     /// requires text-column to be set, even if you are using a custom
     /// match function.
-    </span><span class="kw">pub fn </span>inline_completion(<span class="kw-2">mut </span><span class="self">self</span>, inline_completion: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.inline_completion = <span class="prelude-val">Some</span>(inline_completion);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>inline_completion(<span class="self">self</span>, inline_completion: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;inline-completion&quot;</span>, inline_completion),
+        }
+    }
 
     <span class="doccomment">/// Determines whether the possible completions on the popup
     /// will appear in the entry as you navigate through them.
-    </span><span class="kw">pub fn </span>inline_selection(<span class="kw-2">mut </span><span class="self">self</span>, inline_selection: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.inline_selection = <span class="prelude-val">Some</span>(inline_selection);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>inline_selection(<span class="self">self</span>, inline_selection: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;inline-selection&quot;</span>, inline_selection),
+        }
+    }
 
-    <span class="kw">pub fn </span>minimum_key_length(<span class="kw-2">mut </span><span class="self">self</span>, minimum_key_length: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.minimum_key_length = <span class="prelude-val">Some</span>(minimum_key_length);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>minimum_key_length(<span class="self">self</span>, minimum_key_length: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;minimum-key-length&quot;</span>, minimum_key_length),
+        }
+    }
 
-    <span class="kw">pub fn </span>model(<span class="kw-2">mut </span><span class="self">self</span>, model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.model = <span class="prelude-val">Some</span>(model.clone().upcast());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>model(<span class="self">self</span>, model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;model&quot;</span>, model.clone().upcast()),
+        }
+    }
 
     <span class="doccomment">/// Determines whether the possible completions should be
     /// shown in a popup window.
-    </span><span class="kw">pub fn </span>popup_completion(<span class="kw-2">mut </span><span class="self">self</span>, popup_completion: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.popup_completion = <span class="prelude-val">Some</span>(popup_completion);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>popup_completion(<span class="self">self</span>, popup_completion: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;popup-completion&quot;</span>, popup_completion),
+        }
+    }
 
     <span class="doccomment">/// Determines whether the completions popup window will be
     /// resized to the width of the entry.
-    </span><span class="kw">pub fn </span>popup_set_width(<span class="kw-2">mut </span><span class="self">self</span>, popup_set_width: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.popup_set_width = <span class="prelude-val">Some</span>(popup_set_width);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>popup_set_width(<span class="self">self</span>, popup_set_width: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;popup-set-width&quot;</span>, popup_set_width),
+        }
+    }
 
     <span class="doccomment">/// Determines whether the completions popup window will shown
     /// for a single possible completion. You probably want to set
     /// this to [`false`] if you are using
     /// [inline completion][GtkEntryCompletion--inline-completion].
-    </span><span class="kw">pub fn </span>popup_single_match(<span class="kw-2">mut </span><span class="self">self</span>, popup_single_match: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.popup_single_match = <span class="prelude-val">Some</span>(popup_single_match);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>popup_single_match(<span class="self">self</span>, popup_single_match: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;popup-single-match&quot;</span>, popup_single_match),
+        }
+    }
 
     <span class="doccomment">/// The column of the model containing the strings.
     /// Note that the strings must be UTF-8.
-    </span><span class="kw">pub fn </span>text_column(<span class="kw-2">mut </span><span class="self">self</span>, text_column: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.text_column = <span class="prelude-val">Some</span>(text_column);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>text_column(<span class="self">self</span>, text_column: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;text-column&quot;</span>, text_column),
+        }
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Build the [`EntryCompletion`].
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; EntryCompletion {
+        <span class="self">self</span>.builder.build()
+    }
 }
 
 <span class="doccomment">/// Trait containing all [`struct@EntryCompletion`] methods.
@@ -1713,7 +1897,7 @@
     ///
     /// This functions creates and adds a [`CellRendererText`][crate::CellRendererText] for the selected
     /// column. If you need to set the text column, but don&#39;t want the cell
-    /// renderer, use [`ObjectExt::set()`][crate::glib::prelude::ObjectExt::set()] to set the `property::EntryCompletion::text-column`
+    /// renderer, use [`ObjectExt::set()`][crate::glib::prelude::ObjectExt::set()] to set the [`text-column`][struct@crate::EntryCompletion#text-column]
     /// property directly.
     /// ## `column`
     /// the column in the model of `self` to get strings from
@@ -2414,4 +2598,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

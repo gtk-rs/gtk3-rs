@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/sys/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -28102,84 +28102,6 @@
 <a href="#28029" id="28029">28029</a>
 <a href="#28030" id="28030">28030</a>
 <a href="#28031" id="28031">28031</a>
-<a href="#28032" id="28032">28032</a>
-<a href="#28033" id="28033">28033</a>
-<a href="#28034" id="28034">28034</a>
-<a href="#28035" id="28035">28035</a>
-<a href="#28036" id="28036">28036</a>
-<a href="#28037" id="28037">28037</a>
-<a href="#28038" id="28038">28038</a>
-<a href="#28039" id="28039">28039</a>
-<a href="#28040" id="28040">28040</a>
-<a href="#28041" id="28041">28041</a>
-<a href="#28042" id="28042">28042</a>
-<a href="#28043" id="28043">28043</a>
-<a href="#28044" id="28044">28044</a>
-<a href="#28045" id="28045">28045</a>
-<a href="#28046" id="28046">28046</a>
-<a href="#28047" id="28047">28047</a>
-<a href="#28048" id="28048">28048</a>
-<a href="#28049" id="28049">28049</a>
-<a href="#28050" id="28050">28050</a>
-<a href="#28051" id="28051">28051</a>
-<a href="#28052" id="28052">28052</a>
-<a href="#28053" id="28053">28053</a>
-<a href="#28054" id="28054">28054</a>
-<a href="#28055" id="28055">28055</a>
-<a href="#28056" id="28056">28056</a>
-<a href="#28057" id="28057">28057</a>
-<a href="#28058" id="28058">28058</a>
-<a href="#28059" id="28059">28059</a>
-<a href="#28060" id="28060">28060</a>
-<a href="#28061" id="28061">28061</a>
-<a href="#28062" id="28062">28062</a>
-<a href="#28063" id="28063">28063</a>
-<a href="#28064" id="28064">28064</a>
-<a href="#28065" id="28065">28065</a>
-<a href="#28066" id="28066">28066</a>
-<a href="#28067" id="28067">28067</a>
-<a href="#28068" id="28068">28068</a>
-<a href="#28069" id="28069">28069</a>
-<a href="#28070" id="28070">28070</a>
-<a href="#28071" id="28071">28071</a>
-<a href="#28072" id="28072">28072</a>
-<a href="#28073" id="28073">28073</a>
-<a href="#28074" id="28074">28074</a>
-<a href="#28075" id="28075">28075</a>
-<a href="#28076" id="28076">28076</a>
-<a href="#28077" id="28077">28077</a>
-<a href="#28078" id="28078">28078</a>
-<a href="#28079" id="28079">28079</a>
-<a href="#28080" id="28080">28080</a>
-<a href="#28081" id="28081">28081</a>
-<a href="#28082" id="28082">28082</a>
-<a href="#28083" id="28083">28083</a>
-<a href="#28084" id="28084">28084</a>
-<a href="#28085" id="28085">28085</a>
-<a href="#28086" id="28086">28086</a>
-<a href="#28087" id="28087">28087</a>
-<a href="#28088" id="28088">28088</a>
-<a href="#28089" id="28089">28089</a>
-<a href="#28090" id="28090">28090</a>
-<a href="#28091" id="28091">28091</a>
-<a href="#28092" id="28092">28092</a>
-<a href="#28093" id="28093">28093</a>
-<a href="#28094" id="28094">28094</a>
-<a href="#28095" id="28095">28095</a>
-<a href="#28096" id="28096">28096</a>
-<a href="#28097" id="28097">28097</a>
-<a href="#28098" id="28098">28098</a>
-<a href="#28099" id="28099">28099</a>
-<a href="#28100" id="28100">28100</a>
-<a href="#28101" id="28101">28101</a>
-<a href="#28102" id="28102">28102</a>
-<a href="#28103" id="28103">28103</a>
-<a href="#28104" id="28104">28104</a>
-<a href="#28105" id="28105">28105</a>
-<a href="#28106" id="28106">28106</a>
-<a href="#28107" id="28107">28107</a>
-<a href="#28108" id="28108">28108</a>
-<a href="#28109" id="28109">28109</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -28920,337 +28842,259 @@
 
 <span class="comment">// Constants
 </span><span class="kw">pub const </span>GTK_INPUT_ERROR: c_int = -<span class="number">1</span>;
-<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_FULL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;full\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_HIGH: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;high\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_LOW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;low\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
+<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_FULL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;full\0&quot;</span>;
+<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_HIGH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;high\0&quot;</span>;
+<span class="kw">pub const </span>GTK_LEVEL_BAR_OFFSET_LOW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;low\0&quot;</span>;
 <span class="kw">pub const </span>GTK_MAX_COMPOSE_LEN: c_int = <span class="number">7</span>;
-<span class="kw">pub const </span>GTK_PAPER_NAME_A3: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;iso_a3\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_A4: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;iso_a4\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_A5: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;iso_a5\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_B5: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;iso_b5\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_EXECUTIVE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;na_executive\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_LEGAL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;na_legal\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PAPER_NAME_LETTER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;na_letter\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
+<span class="kw">pub const </span>GTK_PAPER_NAME_A3: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;iso_a3\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_A4: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;iso_a4\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_A5: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;iso_a5\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_B5: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;iso_b5\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_EXECUTIVE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;na_executive\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_LEGAL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;na_legal\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PAPER_NAME_LETTER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;na_letter\0&quot;</span>;
 <span class="kw">pub const </span>GTK_PATH_PRIO_MASK: c_int = <span class="number">15</span>;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_COLLATE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;collate\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DEFAULT_SOURCE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;default-source\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DITHER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;dither\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DUPLEX: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;duplex\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_FINISHINGS: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;finishings\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_MEDIA_TYPE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;media-type\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_NUMBER_UP: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;number-up\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;number-up-layout\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_N_COPIES: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;n-copies\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_ORIENTATION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;orientation\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_BASENAME: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;output-basename\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_BIN: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;output-bin\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_DIR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;output-dir\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;output-file-format\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_URI: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;output-uri\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAGE_RANGES: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;page-ranges\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAGE_SET: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;page-set\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_FORMAT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;paper-format\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_HEIGHT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;paper-height\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_WIDTH: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;paper-width\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINTER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;printer\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINTER_LPI: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;printer-lpi\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINT_PAGES: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;print-pages\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_QUALITY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;quality\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;resolution\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION_X: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;resolution-x\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION_Y: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;resolution-y\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_REVERSE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;reverse\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_SCALE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;scale\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_USE_COLOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;use-color\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;win32-driver-extra\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;win32-driver-version\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_COLLATE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;collate\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DEFAULT_SOURCE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;default-source\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DITHER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;dither\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_DUPLEX: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;duplex\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_FINISHINGS: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;finishings\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_MEDIA_TYPE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;media-type\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_NUMBER_UP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;number-up\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;number-up-layout\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_N_COPIES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;n-copies\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_ORIENTATION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;orientation\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_BASENAME: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;output-basename\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_BIN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;output-bin\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_DIR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;output-dir\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;output-file-format\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_OUTPUT_URI: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;output-uri\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAGE_RANGES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;page-ranges\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAGE_SET: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;page-set\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_FORMAT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;paper-format\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_HEIGHT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;paper-height\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PAPER_WIDTH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;paper-width\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINTER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;printer\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINTER_LPI: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;printer-lpi\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_PRINT_PAGES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;print-pages\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_QUALITY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;quality\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;resolution\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION_X: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;resolution-x\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_RESOLUTION_Y: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;resolution-y\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_REVERSE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;reverse\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_SCALE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scale\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_USE_COLOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;use-color\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;win32-driver-extra\0&quot;</span>;
+<span class="kw">pub const </span>GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;win32-driver-version\0&quot;</span>;
 <span class="kw">pub const </span>GTK_PRIORITY_RESIZE: c_int = <span class="number">110</span>;
-<span class="kw">pub const </span>GTK_STOCK_ABOUT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-about\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ADD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-add\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_APPLY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-apply\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_BOLD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-bold\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CANCEL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-cancel\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CAPS_LOCK_WARNING: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-caps-lock-warning\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CDROM: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-cdrom\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CLEAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-clear\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CLOSE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-close\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_COLOR_PICKER: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-color-picker\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CONNECT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-connect\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CONVERT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-convert\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_COPY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-copy\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_CUT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-cut\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DELETE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-delete\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIALOG_AUTHENTICATION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-dialog-authentication\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIALOG_ERROR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-dialog-error\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIALOG_INFO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-dialog-info\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIALOG_QUESTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-dialog-question\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIALOG_WARNING: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-dialog-warning\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DIRECTORY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-directory\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DISCARD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-discard\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DISCONNECT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-disconnect\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DND: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-dnd\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_DND_MULTIPLE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-dnd-multiple\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_EDIT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-edit\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_EXECUTE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-execute\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_FILE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-file\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_FIND: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-find\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_FIND_AND_REPLACE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-find-and-replace\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_FLOPPY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-floppy\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_FULLSCREEN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-fullscreen\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GOTO_BOTTOM: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-goto-bottom\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GOTO_FIRST: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-goto-first\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GOTO_LAST: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-goto-last\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GOTO_TOP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-goto-top\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GO_BACK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-go-back\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GO_DOWN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-go-down\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GO_FORWARD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-go-forward\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_GO_UP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-go-up\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_HARDDISK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-harddisk\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_HELP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-help\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_HOME: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-home\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_INDENT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-indent\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_INDEX: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-index\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_INFO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-info\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ITALIC: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-italic\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_JUMP_TO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-jump-to\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_CENTER: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-justify-center\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_FILL: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-justify-fill\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_LEFT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-justify-left\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_RIGHT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-justify-right\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_LEAVE_FULLSCREEN: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-leave-fullscreen\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_FORWARD: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-media-forward\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_NEXT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-media-next\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_PAUSE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-media-pause\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_PLAY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-media-play\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_PREVIOUS: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-media-previous\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_RECORD: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-media-record\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_REWIND: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-media-rewind\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MEDIA_STOP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-media-stop\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_MISSING_IMAGE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-missing-image\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_NETWORK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-network\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_NEW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-new\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_NO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-no\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_OK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-ok\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_OPEN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-open\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_LANDSCAPE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-orientation-landscape\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_PORTRAIT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-orientation-portrait\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-orientation-reverse-landscape\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-orientation-reverse-portrait\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PAGE_SETUP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-page-setup\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PASTE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-paste\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PREFERENCES: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-preferences\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-print\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT_ERROR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-print-error\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT_PAUSED: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-print-paused\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT_PREVIEW: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-print-preview\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT_REPORT: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-print-report\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PRINT_WARNING: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-print-warning\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_PROPERTIES: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-properties\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_QUIT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-quit\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_REDO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-redo\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_REFRESH: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-refresh\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_REMOVE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-remove\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_REVERT_TO_SAVED: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-revert-to-saved\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SAVE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-save\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SAVE_AS: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-save-as\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SELECT_ALL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-select-all\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SELECT_COLOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-select-color\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SELECT_FONT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-select-font\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SORT_ASCENDING: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-sort-ascending\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SORT_DESCENDING: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-sort-descending\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_SPELL_CHECK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-spell-check\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_STOP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-stop\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_STRIKETHROUGH: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;gtk-strikethrough\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_UNDELETE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-undelete\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_UNDERLINE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-underline\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_UNDO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-undo\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_UNINDENT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-unindent\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_YES: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-yes\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ZOOM_100: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-zoom-100\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ZOOM_FIT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-zoom-fit\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ZOOM_IN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-zoom-in\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STOCK_ZOOM_OUT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;gtk-zoom-out\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_ACCELERATOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;accelerator\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_ARROW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;arrow\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_BACKGROUND: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;background\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_BOTTOM: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;bottom\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_BUTTON: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;button\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CALENDAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;calendar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CELL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;cell\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CHECK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;check\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_COMBOBOX_ENTRY: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;combobox-entry\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CONTEXT_MENU: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;context-menu\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CSD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;csd\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_CURSOR_HANDLE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;cursor-handle\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_DEFAULT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;default\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_DESTRUCTIVE_ACTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;destructive-action\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_DIM_LABEL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;dim-label\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_DND: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;dnd\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_DOCK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;dock\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_ENTRY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;entry\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_ERROR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;error\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_EXPANDER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;expander\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_FLAT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;flat\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_FRAME: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;frame\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_GRIP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;grip\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_HEADER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;header\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_HIGHLIGHT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;highlight\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_HORIZONTAL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;horizontal\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_IMAGE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;image\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_INFO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;info\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_INLINE_TOOLBAR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;inline-toolbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_INSERTION_CURSOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;insertion-cursor\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LABEL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;label\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LEFT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;left\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LEVEL_BAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;level-bar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LINKED: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;linked\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LIST: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;list\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_LIST_ROW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;list-row\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MARK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;mark\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MENU: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;menu\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MENUBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;menubar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MENUITEM: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;menuitem\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MESSAGE_DIALOG: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;message-dialog\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_MONOSPACE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;monospace\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_NEEDS_ATTENTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;needs-attention\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_NOTEBOOK: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;notebook\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_OSD: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;osd\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_OVERSHOOT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;overshoot\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_PANE_SEPARATOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;pane-separator\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_PAPER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;paper\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_POPOVER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;popover\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_POPUP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;popup\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_PRIMARY_TOOLBAR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;primary-toolbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_PROGRESSBAR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;progressbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_PULSE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;pulse\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_QUESTION: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;question\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_RADIO: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;radio\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_RAISED: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;raised\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_READ_ONLY: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;read-only\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_RIGHT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;right\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_RUBBERBAND: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;rubberband\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;scale\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;scale-has-marks-above\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;scale-has-marks-below\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SCROLLBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;scrollbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SCROLLBARS_JUNCTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;scrollbars-junction\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SEPARATOR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;separator\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SIDEBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;sidebar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SLIDER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;slider\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SPINBUTTON: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;spinbutton\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SPINNER: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;spinner\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_STATUSBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;statusbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SUBTITLE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;subtitle\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_SUGGESTED_ACTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;suggested-action\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TITLE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;title\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TITLEBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;titlebar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TOOLBAR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;toolbar\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TOOLTIP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;tooltip\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TOP: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;top\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TOUCH_SELECTION: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;touch-selection\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_TROUGH: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;trough\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_UNDERSHOOT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;undershoot\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_VERTICAL: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;vertical\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_VIEW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;view\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_WARNING: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;warning\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_CLASS_WIDE: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;wide\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BACKGROUND_COLOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;background-color\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BACKGROUND_IMAGE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;background-image\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_COLOR: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;border-color\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_RADIUS: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;border-radius\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_STYLE: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;border-style\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_WIDTH: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;border-width\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_COLOR: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;color\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_FONT: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;font\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_MARGIN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;margin\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_PROPERTY_PADDING: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;padding\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
+<span class="kw">pub const </span>GTK_STOCK_ABOUT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-about\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ADD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-add\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_APPLY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-apply\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_BOLD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-bold\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CANCEL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-cancel\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CAPS_LOCK_WARNING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-caps-lock-warning\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CDROM: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-cdrom\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CLEAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-clear\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CLOSE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-close\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_COLOR_PICKER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-color-picker\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CONNECT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-connect\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CONVERT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-convert\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_COPY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-copy\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_CUT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-cut\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DELETE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-delete\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIALOG_AUTHENTICATION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dialog-authentication\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIALOG_ERROR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dialog-error\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIALOG_INFO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dialog-info\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIALOG_QUESTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dialog-question\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIALOG_WARNING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dialog-warning\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DIRECTORY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-directory\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DISCARD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-discard\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DISCONNECT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-disconnect\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dnd\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_DND_MULTIPLE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-dnd-multiple\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_EDIT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-edit\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_EXECUTE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-execute\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_FILE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-file\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_FIND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-find\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_FIND_AND_REPLACE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-find-and-replace\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_FLOPPY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-floppy\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_FULLSCREEN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-fullscreen\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GOTO_BOTTOM: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-goto-bottom\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GOTO_FIRST: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-goto-first\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GOTO_LAST: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-goto-last\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GOTO_TOP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-goto-top\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GO_BACK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-go-back\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GO_DOWN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-go-down\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GO_FORWARD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-go-forward\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_GO_UP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-go-up\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_HARDDISK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-harddisk\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_HELP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-help\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_HOME: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-home\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_INDENT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-indent\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_INDEX: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-index\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_INFO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-info\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ITALIC: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-italic\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_JUMP_TO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-jump-to\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_CENTER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-justify-center\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_FILL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-justify-fill\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_LEFT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-justify-left\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_JUSTIFY_RIGHT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-justify-right\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_LEAVE_FULLSCREEN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-leave-fullscreen\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_FORWARD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-forward\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_NEXT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-next\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_PAUSE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-pause\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_PLAY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-play\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_PREVIOUS: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-previous\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_RECORD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-record\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_REWIND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-rewind\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MEDIA_STOP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-media-stop\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_MISSING_IMAGE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-missing-image\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_NETWORK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-network\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_NEW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-new\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_NO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-no\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_OK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-ok\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_OPEN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-open\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_LANDSCAPE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-orientation-landscape\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_PORTRAIT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-orientation-portrait\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-orientation-reverse-landscape\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-orientation-reverse-portrait\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PAGE_SETUP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-page-setup\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PASTE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-paste\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PREFERENCES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-preferences\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT_ERROR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print-error\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT_PAUSED: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print-paused\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT_PREVIEW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print-preview\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT_REPORT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print-report\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PRINT_WARNING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-print-warning\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_PROPERTIES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-properties\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_QUIT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-quit\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_REDO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-redo\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_REFRESH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-refresh\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_REMOVE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-remove\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_REVERT_TO_SAVED: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-revert-to-saved\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SAVE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-save\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SAVE_AS: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-save-as\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SELECT_ALL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-select-all\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SELECT_COLOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-select-color\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SELECT_FONT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-select-font\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SORT_ASCENDING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-sort-ascending\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SORT_DESCENDING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-sort-descending\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_SPELL_CHECK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-spell-check\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_STOP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-stop\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_STRIKETHROUGH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-strikethrough\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_UNDELETE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-undelete\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_UNDERLINE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-underline\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_UNDO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-undo\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_UNINDENT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-unindent\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_YES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-yes\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ZOOM_100: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-zoom-100\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ZOOM_FIT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-zoom-fit\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ZOOM_IN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-zoom-in\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STOCK_ZOOM_OUT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;gtk-zoom-out\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_ACCELERATOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;accelerator\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_ARROW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;arrow\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_BACKGROUND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;background\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_BOTTOM: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;bottom\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_BUTTON: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;button\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CALENDAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;calendar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CELL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;cell\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CHECK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;check\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_COMBOBOX_ENTRY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;combobox-entry\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CONTEXT_MENU: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;context-menu\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CSD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;csd\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_CURSOR_HANDLE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;cursor-handle\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_DEFAULT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;default\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_DESTRUCTIVE_ACTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;destructive-action\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_DIM_LABEL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;dim-label\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_DND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;dnd\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_DOCK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;dock\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_ENTRY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;entry\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_ERROR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;error\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_EXPANDER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;expander\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_FLAT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;flat\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_FRAME: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;frame\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_GRIP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;grip\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_HEADER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;header\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_HIGHLIGHT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;highlight\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_HORIZONTAL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;horizontal\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_IMAGE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;image\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_INFO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;info\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_INLINE_TOOLBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;inline-toolbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_INSERTION_CURSOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;insertion-cursor\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LABEL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;label\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LEFT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;left\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LEVEL_BAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;level-bar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LINKED: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;linked\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LIST: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;list\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_LIST_ROW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;list-row\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MARK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;mark\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MENU: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;menu\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MENUBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;menubar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MENUITEM: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;menuitem\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MESSAGE_DIALOG: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;message-dialog\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_MONOSPACE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;monospace\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_NEEDS_ATTENTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;needs-attention\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_NOTEBOOK: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;notebook\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_OSD: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;osd\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_OVERSHOOT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;overshoot\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_PANE_SEPARATOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;pane-separator\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_PAPER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;paper\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_POPOVER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;popover\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_POPUP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;popup\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_PRIMARY_TOOLBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;primary-toolbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_PROGRESSBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;progressbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_PULSE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;pulse\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_QUESTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;question\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_RADIO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;radio\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_RAISED: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;raised\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_READ_ONLY: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;read-only\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_RIGHT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;right\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_RUBBERBAND: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;rubberband\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scale\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scale-has-marks-above\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scale-has-marks-below\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SCROLLBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scrollbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SCROLLBARS_JUNCTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;scrollbars-junction\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SEPARATOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;separator\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SIDEBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;sidebar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SLIDER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;slider\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SPINBUTTON: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;spinbutton\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SPINNER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;spinner\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_STATUSBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;statusbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SUBTITLE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;subtitle\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_SUGGESTED_ACTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;suggested-action\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TITLE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;title\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TITLEBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;titlebar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TOOLBAR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;toolbar\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TOOLTIP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;tooltip\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TOP: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;top\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TOUCH_SELECTION: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;touch-selection\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_TROUGH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;trough\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_UNDERSHOOT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;undershoot\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_VERTICAL: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;vertical\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_VIEW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;view\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_WARNING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;warning\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_CLASS_WIDE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;wide\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BACKGROUND_COLOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;background-color\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BACKGROUND_IMAGE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;background-image\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_COLOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;border-color\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_RADIUS: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;border-radius\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_STYLE: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;border-style\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_BORDER_WIDTH: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;border-width\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_COLOR: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;color\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_FONT: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;font\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_MARGIN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;margin\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_PROPERTY_PADDING: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;padding\0&quot;</span>;
 <span class="kw">pub const </span>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION: c_int = <span class="number">600</span>;
 <span class="kw">pub const </span>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK: c_int = <span class="number">1</span>;
 <span class="kw">pub const </span>GTK_STYLE_PROVIDER_PRIORITY_SETTINGS: c_int = <span class="number">400</span>;
 <span class="kw">pub const </span>GTK_STYLE_PROVIDER_PRIORITY_THEME: c_int = <span class="number">200</span>;
 <span class="kw">pub const </span>GTK_STYLE_PROVIDER_PRIORITY_USER: c_int = <span class="number">800</span>;
-<span class="kw">pub const </span>GTK_STYLE_REGION_COLUMN: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;column\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_REGION_COLUMN_HEADER: <span class="kw-2">*const </span>c_char =
-    <span class="string">b&quot;column-header\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_REGION_ROW: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;row\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
-<span class="kw">pub const </span>GTK_STYLE_REGION_TAB: <span class="kw-2">*const </span>c_char = <span class="string">b&quot;tab\0&quot; </span><span class="kw">as </span><span class="kw-2">*const </span>u8 <span class="kw">as </span><span class="kw-2">*const </span>c_char;
+<span class="kw">pub const </span>GTK_STYLE_REGION_COLUMN: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;column\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_REGION_COLUMN_HEADER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;column-header\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_REGION_ROW: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;row\0&quot;</span>;
+<span class="kw">pub const </span>GTK_STYLE_REGION_TAB: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;tab\0&quot;</span>;
 <span class="kw">pub const </span>GTK_TEXT_VIEW_PRIORITY_VALIDATE: c_int = <span class="number">125</span>;
 <span class="kw">pub const </span>GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID: c_int = -<span class="number">1</span>;
 <span class="kw">pub const </span>GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: c_int = -<span class="number">2</span>;
@@ -48055,12 +47899,12 @@
     <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_scroll_get_flags(
-        controller: <span class="kw-2">*mut </span>GtkEventControllerScroll,
+        scroll: <span class="kw-2">*mut </span>GtkEventControllerScroll,
     ) -&gt; GtkEventControllerScrollFlags;
     <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_scroll_set_flags(
-        controller: <span class="kw-2">*mut </span>GtkEventControllerScroll,
+        scroll: <span class="kw-2">*mut </span>GtkEventControllerScroll,
         flags: GtkEventControllerScrollFlags,
     );
 
@@ -56290,4 +56134,4 @@
 
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

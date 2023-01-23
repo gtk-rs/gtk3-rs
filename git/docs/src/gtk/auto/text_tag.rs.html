@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_tag.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text_tag.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_tag.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>text_tag.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -3958,24 +3958,209 @@
 <a href="#3885" id="3885">3885</a>
 <a href="#3886" id="3886">3886</a>
 <a href="#3887" id="3887">3887</a>
+<a href="#3888" id="3888">3888</a>
+<a href="#3889" id="3889">3889</a>
+<a href="#3890" id="3890">3890</a>
+<a href="#3891" id="3891">3891</a>
+<a href="#3892" id="3892">3892</a>
+<a href="#3893" id="3893">3893</a>
+<a href="#3894" id="3894">3894</a>
+<a href="#3895" id="3895">3895</a>
+<a href="#3896" id="3896">3896</a>
+<a href="#3897" id="3897">3897</a>
+<a href="#3898" id="3898">3898</a>
+<a href="#3899" id="3899">3899</a>
+<a href="#3900" id="3900">3900</a>
+<a href="#3901" id="3901">3901</a>
+<a href="#3902" id="3902">3902</a>
+<a href="#3903" id="3903">3903</a>
+<a href="#3904" id="3904">3904</a>
+<a href="#3905" id="3905">3905</a>
+<a href="#3906" id="3906">3906</a>
+<a href="#3907" id="3907">3907</a>
+<a href="#3908" id="3908">3908</a>
+<a href="#3909" id="3909">3909</a>
+<a href="#3910" id="3910">3910</a>
+<a href="#3911" id="3911">3911</a>
+<a href="#3912" id="3912">3912</a>
+<a href="#3913" id="3913">3913</a>
+<a href="#3914" id="3914">3914</a>
+<a href="#3915" id="3915">3915</a>
+<a href="#3916" id="3916">3916</a>
+<a href="#3917" id="3917">3917</a>
+<a href="#3918" id="3918">3918</a>
+<a href="#3919" id="3919">3919</a>
+<a href="#3920" id="3920">3920</a>
+<a href="#3921" id="3921">3921</a>
+<a href="#3922" id="3922">3922</a>
+<a href="#3923" id="3923">3923</a>
+<a href="#3924" id="3924">3924</a>
+<a href="#3925" id="3925">3925</a>
+<a href="#3926" id="3926">3926</a>
+<a href="#3927" id="3927">3927</a>
+<a href="#3928" id="3928">3928</a>
+<a href="#3929" id="3929">3929</a>
+<a href="#3930" id="3930">3930</a>
+<a href="#3931" id="3931">3931</a>
+<a href="#3932" id="3932">3932</a>
+<a href="#3933" id="3933">3933</a>
+<a href="#3934" id="3934">3934</a>
+<a href="#3935" id="3935">3935</a>
+<a href="#3936" id="3936">3936</a>
+<a href="#3937" id="3937">3937</a>
+<a href="#3938" id="3938">3938</a>
+<a href="#3939" id="3939">3939</a>
+<a href="#3940" id="3940">3940</a>
+<a href="#3941" id="3941">3941</a>
+<a href="#3942" id="3942">3942</a>
+<a href="#3943" id="3943">3943</a>
+<a href="#3944" id="3944">3944</a>
+<a href="#3945" id="3945">3945</a>
+<a href="#3946" id="3946">3946</a>
+<a href="#3947" id="3947">3947</a>
+<a href="#3948" id="3948">3948</a>
+<a href="#3949" id="3949">3949</a>
+<a href="#3950" id="3950">3950</a>
+<a href="#3951" id="3951">3951</a>
+<a href="#3952" id="3952">3952</a>
+<a href="#3953" id="3953">3953</a>
+<a href="#3954" id="3954">3954</a>
+<a href="#3955" id="3955">3955</a>
+<a href="#3956" id="3956">3956</a>
+<a href="#3957" id="3957">3957</a>
+<a href="#3958" id="3958">3958</a>
+<a href="#3959" id="3959">3959</a>
+<a href="#3960" id="3960">3960</a>
+<a href="#3961" id="3961">3961</a>
+<a href="#3962" id="3962">3962</a>
+<a href="#3963" id="3963">3963</a>
+<a href="#3964" id="3964">3964</a>
+<a href="#3965" id="3965">3965</a>
+<a href="#3966" id="3966">3966</a>
+<a href="#3967" id="3967">3967</a>
+<a href="#3968" id="3968">3968</a>
+<a href="#3969" id="3969">3969</a>
+<a href="#3970" id="3970">3970</a>
+<a href="#3971" id="3971">3971</a>
+<a href="#3972" id="3972">3972</a>
+<a href="#3973" id="3973">3973</a>
+<a href="#3974" id="3974">3974</a>
+<a href="#3975" id="3975">3975</a>
+<a href="#3976" id="3976">3976</a>
+<a href="#3977" id="3977">3977</a>
+<a href="#3978" id="3978">3978</a>
+<a href="#3979" id="3979">3979</a>
+<a href="#3980" id="3980">3980</a>
+<a href="#3981" id="3981">3981</a>
+<a href="#3982" id="3982">3982</a>
+<a href="#3983" id="3983">3983</a>
+<a href="#3984" id="3984">3984</a>
+<a href="#3985" id="3985">3985</a>
+<a href="#3986" id="3986">3986</a>
+<a href="#3987" id="3987">3987</a>
+<a href="#3988" id="3988">3988</a>
+<a href="#3989" id="3989">3989</a>
+<a href="#3990" id="3990">3990</a>
+<a href="#3991" id="3991">3991</a>
+<a href="#3992" id="3992">3992</a>
+<a href="#3993" id="3993">3993</a>
+<a href="#3994" id="3994">3994</a>
+<a href="#3995" id="3995">3995</a>
+<a href="#3996" id="3996">3996</a>
+<a href="#3997" id="3997">3997</a>
+<a href="#3998" id="3998">3998</a>
+<a href="#3999" id="3999">3999</a>
+<a href="#4000" id="4000">4000</a>
+<a href="#4001" id="4001">4001</a>
+<a href="#4002" id="4002">4002</a>
+<a href="#4003" id="4003">4003</a>
+<a href="#4004" id="4004">4004</a>
+<a href="#4005" id="4005">4005</a>
+<a href="#4006" id="4006">4006</a>
+<a href="#4007" id="4007">4007</a>
+<a href="#4008" id="4008">4008</a>
+<a href="#4009" id="4009">4009</a>
+<a href="#4010" id="4010">4010</a>
+<a href="#4011" id="4011">4011</a>
+<a href="#4012" id="4012">4012</a>
+<a href="#4013" id="4013">4013</a>
+<a href="#4014" id="4014">4014</a>
+<a href="#4015" id="4015">4015</a>
+<a href="#4016" id="4016">4016</a>
+<a href="#4017" id="4017">4017</a>
+<a href="#4018" id="4018">4018</a>
+<a href="#4019" id="4019">4019</a>
+<a href="#4020" id="4020">4020</a>
+<a href="#4021" id="4021">4021</a>
+<a href="#4022" id="4022">4022</a>
+<a href="#4023" id="4023">4023</a>
+<a href="#4024" id="4024">4024</a>
+<a href="#4025" id="4025">4025</a>
+<a href="#4026" id="4026">4026</a>
+<a href="#4027" id="4027">4027</a>
+<a href="#4028" id="4028">4028</a>
+<a href="#4029" id="4029">4029</a>
+<a href="#4030" id="4030">4030</a>
+<a href="#4031" id="4031">4031</a>
+<a href="#4032" id="4032">4032</a>
+<a href="#4033" id="4033">4033</a>
+<a href="#4034" id="4034">4034</a>
+<a href="#4035" id="4035">4035</a>
+<a href="#4036" id="4036">4036</a>
+<a href="#4037" id="4037">4037</a>
+<a href="#4038" id="4038">4038</a>
+<a href="#4039" id="4039">4039</a>
+<a href="#4040" id="4040">4040</a>
+<a href="#4041" id="4041">4041</a>
+<a href="#4042" id="4042">4042</a>
+<a href="#4043" id="4043">4043</a>
+<a href="#4044" id="4044">4044</a>
+<a href="#4045" id="4045">4045</a>
+<a href="#4046" id="4046">4046</a>
+<a href="#4047" id="4047">4047</a>
+<a href="#4048" id="4048">4048</a>
+<a href="#4049" id="4049">4049</a>
+<a href="#4050" id="4050">4050</a>
+<a href="#4051" id="4051">4051</a>
+<a href="#4052" id="4052">4052</a>
+<a href="#4053" id="4053">4053</a>
+<a href="#4054" id="4054">4054</a>
+<a href="#4055" id="4055">4055</a>
+<a href="#4056" id="4056">4056</a>
+<a href="#4057" id="4057">4057</a>
+<a href="#4058" id="4058">4058</a>
+<a href="#4059" id="4059">4059</a>
+<a href="#4060" id="4060">4060</a>
+<a href="#4061" id="4061">4061</a>
+<a href="#4062" id="4062">4062</a>
+<a href="#4063" id="4063">4063</a>
+<a href="#4064" id="4064">4064</a>
+<a href="#4065" id="4065">4065</a>
+<a href="#4066" id="4066">4066</a>
+<a href="#4067" id="4067">4067</a>
+<a href="#4068" id="4068">4068</a>
+<a href="#4069" id="4069">4069</a>
+<a href="#4070" id="4070">4070</a>
+<a href="#4071" id="4071">4071</a>
+<a href="#4072" id="4072">4072</a>
+<a href="#4073" id="4073">4073</a>
+<a href="#4074" id="4074">4074</a>
+<a href="#4075" id="4075">4075</a>
+<a href="#4076" id="4076">4076</a>
+<a href="#4077" id="4077">4077</a>
+<a href="#4078" id="4078">4078</a>
+<a href="#4079" id="4079">4079</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Justification;
-<span class="kw">use </span><span class="kw">crate</span>::TextDirection;
-<span class="kw">use </span><span class="kw">crate</span>::TextIter;
-<span class="kw">use </span><span class="kw">crate</span>::WrapMode;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{Justification, TextDirection, TextIter, WrapMode};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// You may wish to begin by reading the
@@ -3993,6 +4178,374 @@
     /// “font-set” corresponds to “font”. These “set” properties reflect
     /// whether a property has been set or not.
     /// They are maintained by GTK+ and you should not set them independently.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `accumulative-margin`
+    ///  Whether the margins accumulate or override each other.
+    ///
+    /// When set to [`true`] the margins of this tag are added to the margins
+    /// of any other non-accumulative margins present. When set to [`false`]
+    /// the margins override one another (the default).
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `background`
+    ///  Writeable
+    ///
+    ///
+    /// #### `background-full-height`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `background-full-height-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `background-gdk`
+    ///  Background color as a `GdkColor`.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `background-rgba`
+    ///  Background color as a [`gdk::RGBA`][crate::gdk::RGBA].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `background-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `direction`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `editable`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `editable-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `fallback`
+    ///  Whether font fallback is enabled.
+    ///
+    /// When set to [`true`], other fonts will be substituted
+    /// where the current font is missing glyphs.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `fallback-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `family`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `family-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `font`
+    ///  Font description as string, e.g. \&quot;Sans Italic 12\&quot;.
+    ///
+    /// Note that the initial value of this property depends on
+    /// the internals of [`pango::FontDescription`][crate::pango::FontDescription].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `font-desc`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `font-features`
+    ///  OpenType font features, as a string.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `font-features-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `foreground`
+    ///  Writeable
+    ///
+    ///
+    /// #### `foreground-gdk`
+    ///  Foreground color as a `GdkColor`.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `foreground-rgba`
+    ///  Foreground color as a [`gdk::RGBA`][crate::gdk::RGBA].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `foreground-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `indent`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `indent-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `invisible`
+    ///  Whether this text is hidden.
+    ///
+    /// Note that there may still be problems with the support for invisible
+    /// text, in particular when navigating programmatically inside a buffer
+    /// containing invisible segments.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `invisible-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `justification`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `justification-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `language`
+    ///  The language this text is in, as an ISO code. Pango can use this as a
+    /// hint when rendering the text. If not set, an appropriate default will be
+    /// used.
+    ///
+    /// Note that the initial value of this property depends on the current
+    /// locale, see also [`default_language()`][crate::default_language()].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `language-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `left-margin`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `left-margin-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `letter-spacing`
+    ///  Extra spacing between graphemes, in Pango units.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `letter-spacing-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `name`
+    ///  Readable | Writeable | Construct Only
+    ///
+    ///
+    /// #### `paragraph-background`
+    ///  The paragraph background color as a string.
+    ///
+    /// Writeable
+    ///
+    ///
+    /// #### `paragraph-background-gdk`
+    ///  The paragraph background color as a `GdkColor`.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `paragraph-background-rgba`
+    ///  The paragraph background color as a [`gdk::RGBA`][crate::gdk::RGBA].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `paragraph-background-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-above-lines`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-above-lines-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-below-lines`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-below-lines-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-inside-wrap`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pixels-inside-wrap-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `right-margin`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `right-margin-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `rise`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `rise-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `scale`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `scale-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `size`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `size-points`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `size-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `stretch`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `stretch-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `strikethrough`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `strikethrough-rgba`
+    ///  This property modifies the color of strikeouts. If not set, strikeouts
+    /// will use the forground color.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `strikethrough-rgba-set`
+    ///  If the [`strikethrough-rgba`][struct@crate::TextTag#strikethrough-rgba] property has been set.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `strikethrough-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `style`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `style-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `tabs`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `tabs-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `underline`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `underline-rgba`
+    ///  This property modifies the color of underlines. If not set, underlines
+    /// will use the forground color.
+    ///
+    /// If [`underline`][struct@crate::TextTag#underline] is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
+    /// color may be applied instead of the foreground. Setting this property
+    /// will always override those defaults.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `underline-rgba-set`
+    ///  If the [`underline-rgba`][struct@crate::TextTag#underline-rgba] property has been set.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `underline-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `variant`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `variant-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `weight`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `weight-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `wrap-mode`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `wrap-mode-set`
+    ///  Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `event`
+    ///  The ::event signal is emitted when an event occurs on a region of the
+    /// buffer marked with this tag.
+    ///
+    ///
     ///
     /// # Implements
     ///
@@ -4027,322 +4580,30 @@
     ///
     /// This method returns an instance of [`TextTagBuilder`](crate::builders::TextTagBuilder) which can be used to create [`TextTag`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; TextTagBuilder {
-        TextTagBuilder::default()
+        TextTagBuilder::new()
     }
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>TextTag {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        glib::object::Object::new::&lt;<span class="self">Self</span>&gt;(<span class="kw-2">&amp;</span>[])
+        glib::object::Object::new_default::&lt;<span class="self">Self</span>&gt;()
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`TextTag`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>TextTagBuilder {
-    accumulative_margin: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    background: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    background_full_height: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    background_full_height_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    background_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    background_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    direction: <span class="prelude-ty">Option</span>&lt;TextDirection&gt;,
-    editable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    editable_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    fallback: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    fallback_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    family: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    family_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    font: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    font_desc: <span class="prelude-ty">Option</span>&lt;pango::FontDescription&gt;,
-    font_features: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    font_features_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    foreground: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    foreground_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    foreground_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    indent: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    indent_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    invisible: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    invisible_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    justification: <span class="prelude-ty">Option</span>&lt;Justification&gt;,
-    justification_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    language: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    language_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    left_margin: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    left_margin_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    letter_spacing: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    letter_spacing_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    paragraph_background: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    paragraph_background_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    paragraph_background_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    pixels_above_lines: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    pixels_above_lines_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    pixels_below_lines: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    pixels_below_lines_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    pixels_inside_wrap: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    pixels_inside_wrap_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    right_margin: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    right_margin_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    rise: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    rise_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    scale: <span class="prelude-ty">Option</span>&lt;f64&gt;,
-    scale_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    size: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    size_points: <span class="prelude-ty">Option</span>&lt;f64&gt;,
-    size_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    stretch: <span class="prelude-ty">Option</span>&lt;pango::Stretch&gt;,
-    stretch_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    strikethrough: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    strikethrough_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    strikethrough_rgba_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    strikethrough_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    style: <span class="prelude-ty">Option</span>&lt;pango::Style&gt;,
-    style_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    tabs: <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt;,
-    tabs_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    underline: <span class="prelude-ty">Option</span>&lt;pango::Underline&gt;,
-    underline_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    underline_rgba_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    underline_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    variant: <span class="prelude-ty">Option</span>&lt;pango::Variant&gt;,
-    variant_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    weight: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    weight_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    wrap_mode: <span class="prelude-ty">Option</span>&lt;WrapMode&gt;,
-    wrap_mode_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, TextTag&gt;,
 }
 
 <span class="kw">impl </span>TextTagBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`TextTagBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
-    }
-
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Build the [`TextTag`].
-    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; TextTag {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accumulative_margin) = <span class="self">self</span>.accumulative_margin {
-            properties.push((<span class="string">&quot;accumulative-margin&quot;</span>, accumulative_margin));
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>background) = <span class="self">self</span>.background {
-            properties.push((<span class="string">&quot;background&quot;</span>, background));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>background_full_height) = <span class="self">self</span>.background_full_height {
-            properties.push((<span class="string">&quot;background-full-height&quot;</span>, background_full_height));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>background_full_height_set) = <span class="self">self</span>.background_full_height_set {
-            properties.push((<span class="string">&quot;background-full-height-set&quot;</span>, background_full_height_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>background_rgba) = <span class="self">self</span>.background_rgba {
-            properties.push((<span class="string">&quot;background-rgba&quot;</span>, background_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>background_set) = <span class="self">self</span>.background_set {
-            properties.push((<span class="string">&quot;background-set&quot;</span>, background_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>direction) = <span class="self">self</span>.direction {
-            properties.push((<span class="string">&quot;direction&quot;</span>, direction));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>editable) = <span class="self">self</span>.editable {
-            properties.push((<span class="string">&quot;editable&quot;</span>, editable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>editable_set) = <span class="self">self</span>.editable_set {
-            properties.push((<span class="string">&quot;editable-set&quot;</span>, editable_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>fallback) = <span class="self">self</span>.fallback {
-            properties.push((<span class="string">&quot;fallback&quot;</span>, fallback));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>fallback_set) = <span class="self">self</span>.fallback_set {
-            properties.push((<span class="string">&quot;fallback-set&quot;</span>, fallback_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>family) = <span class="self">self</span>.family {
-            properties.push((<span class="string">&quot;family&quot;</span>, family));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>family_set) = <span class="self">self</span>.family_set {
-            properties.push((<span class="string">&quot;family-set&quot;</span>, family_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>font) = <span class="self">self</span>.font {
-            properties.push((<span class="string">&quot;font&quot;</span>, font));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>font_desc) = <span class="self">self</span>.font_desc {
-            properties.push((<span class="string">&quot;font-desc&quot;</span>, font_desc));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>font_features) = <span class="self">self</span>.font_features {
-            properties.push((<span class="string">&quot;font-features&quot;</span>, font_features));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>font_features_set) = <span class="self">self</span>.font_features_set {
-            properties.push((<span class="string">&quot;font-features-set&quot;</span>, font_features_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>foreground) = <span class="self">self</span>.foreground {
-            properties.push((<span class="string">&quot;foreground&quot;</span>, foreground));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>foreground_rgba) = <span class="self">self</span>.foreground_rgba {
-            properties.push((<span class="string">&quot;foreground-rgba&quot;</span>, foreground_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>foreground_set) = <span class="self">self</span>.foreground_set {
-            properties.push((<span class="string">&quot;foreground-set&quot;</span>, foreground_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>indent) = <span class="self">self</span>.indent {
-            properties.push((<span class="string">&quot;indent&quot;</span>, indent));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>indent_set) = <span class="self">self</span>.indent_set {
-            properties.push((<span class="string">&quot;indent-set&quot;</span>, indent_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>invisible) = <span class="self">self</span>.invisible {
-            properties.push((<span class="string">&quot;invisible&quot;</span>, invisible));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>invisible_set) = <span class="self">self</span>.invisible_set {
-            properties.push((<span class="string">&quot;invisible-set&quot;</span>, invisible_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>justification) = <span class="self">self</span>.justification {
-            properties.push((<span class="string">&quot;justification&quot;</span>, justification));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>justification_set) = <span class="self">self</span>.justification_set {
-            properties.push((<span class="string">&quot;justification-set&quot;</span>, justification_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>language) = <span class="self">self</span>.language {
-            properties.push((<span class="string">&quot;language&quot;</span>, language));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>language_set) = <span class="self">self</span>.language_set {
-            properties.push((<span class="string">&quot;language-set&quot;</span>, language_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>left_margin) = <span class="self">self</span>.left_margin {
-            properties.push((<span class="string">&quot;left-margin&quot;</span>, left_margin));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>left_margin_set) = <span class="self">self</span>.left_margin_set {
-            properties.push((<span class="string">&quot;left-margin-set&quot;</span>, left_margin_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>letter_spacing) = <span class="self">self</span>.letter_spacing {
-            properties.push((<span class="string">&quot;letter-spacing&quot;</span>, letter_spacing));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>letter_spacing_set) = <span class="self">self</span>.letter_spacing_set {
-            properties.push((<span class="string">&quot;letter-spacing-set&quot;</span>, letter_spacing_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>name) = <span class="self">self</span>.name {
-            properties.push((<span class="string">&quot;name&quot;</span>, name));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>paragraph_background) = <span class="self">self</span>.paragraph_background {
-            properties.push((<span class="string">&quot;paragraph-background&quot;</span>, paragraph_background));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>paragraph_background_rgba) = <span class="self">self</span>.paragraph_background_rgba {
-            properties.push((<span class="string">&quot;paragraph-background-rgba&quot;</span>, paragraph_background_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>paragraph_background_set) = <span class="self">self</span>.paragraph_background_set {
-            properties.push((<span class="string">&quot;paragraph-background-set&quot;</span>, paragraph_background_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_above_lines) = <span class="self">self</span>.pixels_above_lines {
-            properties.push((<span class="string">&quot;pixels-above-lines&quot;</span>, pixels_above_lines));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_above_lines_set) = <span class="self">self</span>.pixels_above_lines_set {
-            properties.push((<span class="string">&quot;pixels-above-lines-set&quot;</span>, pixels_above_lines_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_below_lines) = <span class="self">self</span>.pixels_below_lines {
-            properties.push((<span class="string">&quot;pixels-below-lines&quot;</span>, pixels_below_lines));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_below_lines_set) = <span class="self">self</span>.pixels_below_lines_set {
-            properties.push((<span class="string">&quot;pixels-below-lines-set&quot;</span>, pixels_below_lines_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_inside_wrap) = <span class="self">self</span>.pixels_inside_wrap {
-            properties.push((<span class="string">&quot;pixels-inside-wrap&quot;</span>, pixels_inside_wrap));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pixels_inside_wrap_set) = <span class="self">self</span>.pixels_inside_wrap_set {
-            properties.push((<span class="string">&quot;pixels-inside-wrap-set&quot;</span>, pixels_inside_wrap_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>right_margin) = <span class="self">self</span>.right_margin {
-            properties.push((<span class="string">&quot;right-margin&quot;</span>, right_margin));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>right_margin_set) = <span class="self">self</span>.right_margin_set {
-            properties.push((<span class="string">&quot;right-margin-set&quot;</span>, right_margin_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>rise) = <span class="self">self</span>.rise {
-            properties.push((<span class="string">&quot;rise&quot;</span>, rise));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>rise_set) = <span class="self">self</span>.rise_set {
-            properties.push((<span class="string">&quot;rise-set&quot;</span>, rise_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>scale) = <span class="self">self</span>.scale {
-            properties.push((<span class="string">&quot;scale&quot;</span>, scale));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>scale_set) = <span class="self">self</span>.scale_set {
-            properties.push((<span class="string">&quot;scale-set&quot;</span>, scale_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>size) = <span class="self">self</span>.size {
-            properties.push((<span class="string">&quot;size&quot;</span>, size));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>size_points) = <span class="self">self</span>.size_points {
-            properties.push((<span class="string">&quot;size-points&quot;</span>, size_points));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>size_set) = <span class="self">self</span>.size_set {
-            properties.push((<span class="string">&quot;size-set&quot;</span>, size_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>stretch) = <span class="self">self</span>.stretch {
-            properties.push((<span class="string">&quot;stretch&quot;</span>, stretch));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>stretch_set) = <span class="self">self</span>.stretch_set {
-            properties.push((<span class="string">&quot;stretch-set&quot;</span>, stretch_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>strikethrough) = <span class="self">self</span>.strikethrough {
-            properties.push((<span class="string">&quot;strikethrough&quot;</span>, strikethrough));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>strikethrough_rgba) = <span class="self">self</span>.strikethrough_rgba {
-            properties.push((<span class="string">&quot;strikethrough-rgba&quot;</span>, strikethrough_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>strikethrough_rgba_set) = <span class="self">self</span>.strikethrough_rgba_set {
-            properties.push((<span class="string">&quot;strikethrough-rgba-set&quot;</span>, strikethrough_rgba_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>strikethrough_set) = <span class="self">self</span>.strikethrough_set {
-            properties.push((<span class="string">&quot;strikethrough-set&quot;</span>, strikethrough_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>style) = <span class="self">self</span>.style {
-            properties.push((<span class="string">&quot;style&quot;</span>, style));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>style_set) = <span class="self">self</span>.style_set {
-            properties.push((<span class="string">&quot;style-set&quot;</span>, style_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tabs) = <span class="self">self</span>.tabs {
-            properties.push((<span class="string">&quot;tabs&quot;</span>, tabs));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tabs_set) = <span class="self">self</span>.tabs_set {
-            properties.push((<span class="string">&quot;tabs-set&quot;</span>, tabs_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>underline) = <span class="self">self</span>.underline {
-            properties.push((<span class="string">&quot;underline&quot;</span>, underline));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>underline_rgba) = <span class="self">self</span>.underline_rgba {
-            properties.push((<span class="string">&quot;underline-rgba&quot;</span>, underline_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>underline_rgba_set) = <span class="self">self</span>.underline_rgba_set {
-            properties.push((<span class="string">&quot;underline-rgba-set&quot;</span>, underline_rgba_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>underline_set) = <span class="self">self</span>.underline_set {
-            properties.push((<span class="string">&quot;underline-set&quot;</span>, underline_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>variant) = <span class="self">self</span>.variant {
-            properties.push((<span class="string">&quot;variant&quot;</span>, variant));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>variant_set) = <span class="self">self</span>.variant_set {
-            properties.push((<span class="string">&quot;variant-set&quot;</span>, variant_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>weight) = <span class="self">self</span>.weight {
-            properties.push((<span class="string">&quot;weight&quot;</span>, weight));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>weight_set) = <span class="self">self</span>.weight_set {
-            properties.push((<span class="string">&quot;weight-set&quot;</span>, weight_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>wrap_mode) = <span class="self">self</span>.wrap_mode {
-            properties.push((<span class="string">&quot;wrap-mode&quot;</span>, wrap_mode));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>wrap_mode_set) = <span class="self">self</span>.wrap_mode_set {
-            properties.push((<span class="string">&quot;wrap-mode-set&quot;</span>, wrap_mode_set));
-        }
-        glib::Object::new::&lt;TextTag&gt;(<span class="kw-2">&amp;</span>properties)
     }
 
     <span class="doccomment">/// Whether the margins accumulate or override each other.
@@ -4350,151 +4611,191 @@
     /// When set to [`true`] the margins of this tag are added to the margins
     /// of any other non-accumulative margins present. When set to [`false`]
     /// the margins override one another (the default).
-    </span><span class="kw">pub fn </span>accumulative_margin(<span class="kw-2">mut </span><span class="self">self</span>, accumulative_margin: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accumulative_margin = <span class="prelude-val">Some</span>(accumulative_margin);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>accumulative_margin(<span class="self">self</span>, accumulative_margin: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;accumulative-margin&quot;</span>, accumulative_margin),
+        }
+    }
 
-    <span class="kw">pub fn </span>background(<span class="kw-2">mut </span><span class="self">self</span>, background: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.background = <span class="prelude-val">Some</span>(background.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>background(<span class="self">self</span>, background: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;background&quot;</span>, background.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>background_full_height(<span class="kw-2">mut </span><span class="self">self</span>, background_full_height: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.background_full_height = <span class="prelude-val">Some</span>(background_full_height);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>background_full_height(<span class="self">self</span>, background_full_height: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;background-full-height&quot;</span>, background_full_height),
+        }
+    }
 
-    <span class="kw">pub fn </span>background_full_height_set(<span class="kw-2">mut </span><span class="self">self</span>, background_full_height_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.background_full_height_set = <span class="prelude-val">Some</span>(background_full_height_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>background_full_height_set(<span class="self">self</span>, background_full_height_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;background-full-height-set&quot;</span>, background_full_height_set),
+        }
+    }
 
     <span class="doccomment">/// Background color as a [`gdk::RGBA`][crate::gdk::RGBA].
-    </span><span class="kw">pub fn </span>background_rgba(<span class="kw-2">mut </span><span class="self">self</span>, background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.background_rgba = <span class="prelude-val">Some</span>(background_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>background_rgba(<span class="self">self</span>, background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;background-rgba&quot;</span>, background_rgba.clone()),
+        }
+    }
 
-    <span class="kw">pub fn </span>background_set(<span class="kw-2">mut </span><span class="self">self</span>, background_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.background_set = <span class="prelude-val">Some</span>(background_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>background_set(<span class="self">self</span>, background_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;background-set&quot;</span>, background_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>direction(<span class="kw-2">mut </span><span class="self">self</span>, direction: TextDirection) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.direction = <span class="prelude-val">Some</span>(direction);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>direction(<span class="self">self</span>, direction: TextDirection) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;direction&quot;</span>, direction),
+        }
+    }
 
-    <span class="kw">pub fn </span>editable(<span class="kw-2">mut </span><span class="self">self</span>, editable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.editable = <span class="prelude-val">Some</span>(editable);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>editable(<span class="self">self</span>, editable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;editable&quot;</span>, editable),
+        }
+    }
 
-    <span class="kw">pub fn </span>editable_set(<span class="kw-2">mut </span><span class="self">self</span>, editable_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.editable_set = <span class="prelude-val">Some</span>(editable_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>editable_set(<span class="self">self</span>, editable_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;editable-set&quot;</span>, editable_set),
+        }
+    }
 
     <span class="doccomment">/// Whether font fallback is enabled.
     ///
     /// When set to [`true`], other fonts will be substituted
     /// where the current font is missing glyphs.
-    </span><span class="kw">pub fn </span>fallback(<span class="kw-2">mut </span><span class="self">self</span>, fallback: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.fallback = <span class="prelude-val">Some</span>(fallback);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>fallback(<span class="self">self</span>, fallback: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;fallback&quot;</span>, fallback),
+        }
+    }
 
-    <span class="kw">pub fn </span>fallback_set(<span class="kw-2">mut </span><span class="self">self</span>, fallback_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.fallback_set = <span class="prelude-val">Some</span>(fallback_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>fallback_set(<span class="self">self</span>, fallback_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;fallback-set&quot;</span>, fallback_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>family(<span class="kw-2">mut </span><span class="self">self</span>, family: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.family = <span class="prelude-val">Some</span>(family.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>family(<span class="self">self</span>, family: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;family&quot;</span>, family.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>family_set(<span class="kw-2">mut </span><span class="self">self</span>, family_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.family_set = <span class="prelude-val">Some</span>(family_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>family_set(<span class="self">self</span>, family_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;family-set&quot;</span>, family_set),
+        }
+    }
 
     <span class="doccomment">/// Font description as string, e.g. \&quot;Sans Italic 12\&quot;.
     ///
     /// Note that the initial value of this property depends on
     /// the internals of [`pango::FontDescription`][crate::pango::FontDescription].
-    </span><span class="kw">pub fn </span>font(<span class="kw-2">mut </span><span class="self">self</span>, font: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.font = <span class="prelude-val">Some</span>(font.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>font(<span class="self">self</span>, font: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;font&quot;</span>, font.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>font_desc(<span class="kw-2">mut </span><span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.font_desc = <span class="prelude-val">Some</span>(font_desc.clone());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>font_desc(<span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;font-desc&quot;</span>, font_desc.clone()),
+        }
+    }
 
     <span class="doccomment">/// OpenType font features, as a string.
-    </span><span class="kw">pub fn </span>font_features(<span class="kw-2">mut </span><span class="self">self</span>, font_features: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.font_features = <span class="prelude-val">Some</span>(font_features.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>font_features(<span class="self">self</span>, font_features: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;font-features&quot;</span>, font_features.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>font_features_set(<span class="kw-2">mut </span><span class="self">self</span>, font_features_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.font_features_set = <span class="prelude-val">Some</span>(font_features_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>font_features_set(<span class="self">self</span>, font_features_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;font-features-set&quot;</span>, font_features_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>foreground(<span class="kw-2">mut </span><span class="self">self</span>, foreground: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.foreground = <span class="prelude-val">Some</span>(foreground.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>foreground(<span class="self">self</span>, foreground: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;foreground&quot;</span>, foreground.into()),
+        }
+    }
 
     <span class="doccomment">/// Foreground color as a [`gdk::RGBA`][crate::gdk::RGBA].
-    </span><span class="kw">pub fn </span>foreground_rgba(<span class="kw-2">mut </span><span class="self">self</span>, foreground_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.foreground_rgba = <span class="prelude-val">Some</span>(foreground_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>foreground_rgba(<span class="self">self</span>, foreground_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;foreground-rgba&quot;</span>, foreground_rgba.clone()),
+        }
+    }
 
-    <span class="kw">pub fn </span>foreground_set(<span class="kw-2">mut </span><span class="self">self</span>, foreground_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.foreground_set = <span class="prelude-val">Some</span>(foreground_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>foreground_set(<span class="self">self</span>, foreground_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;foreground-set&quot;</span>, foreground_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>indent(<span class="kw-2">mut </span><span class="self">self</span>, indent: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.indent = <span class="prelude-val">Some</span>(indent);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>indent(<span class="self">self</span>, indent: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;indent&quot;</span>, indent),
+        }
+    }
 
-    <span class="kw">pub fn </span>indent_set(<span class="kw-2">mut </span><span class="self">self</span>, indent_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.indent_set = <span class="prelude-val">Some</span>(indent_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>indent_set(<span class="self">self</span>, indent_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;indent-set&quot;</span>, indent_set),
+        }
+    }
 
     <span class="doccomment">/// Whether this text is hidden.
     ///
     /// Note that there may still be problems with the support for invisible
     /// text, in particular when navigating programmatically inside a buffer
     /// containing invisible segments.
-    </span><span class="kw">pub fn </span>invisible(<span class="kw-2">mut </span><span class="self">self</span>, invisible: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.invisible = <span class="prelude-val">Some</span>(invisible);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>invisible(<span class="self">self</span>, invisible: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;invisible&quot;</span>, invisible),
+        }
+    }
 
-    <span class="kw">pub fn </span>invisible_set(<span class="kw-2">mut </span><span class="self">self</span>, invisible_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.invisible_set = <span class="prelude-val">Some</span>(invisible_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>invisible_set(<span class="self">self</span>, invisible_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;invisible-set&quot;</span>, invisible_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>justification(<span class="kw-2">mut </span><span class="self">self</span>, justification: Justification) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.justification = <span class="prelude-val">Some</span>(justification);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>justification(<span class="self">self</span>, justification: Justification) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;justification&quot;</span>, justification),
+        }
+    }
 
-    <span class="kw">pub fn </span>justification_set(<span class="kw-2">mut </span><span class="self">self</span>, justification_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.justification_set = <span class="prelude-val">Some</span>(justification_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>justification_set(<span class="self">self</span>, justification_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;justification-set&quot;</span>, justification_set),
+        }
+    }
 
     <span class="doccomment">/// The language this text is in, as an ISO code. Pango can use this as a
     /// hint when rendering the text. If not set, an appropriate default will be
@@ -4502,243 +4803,326 @@
     ///
     /// Note that the initial value of this property depends on the current
     /// locale, see also [`default_language()`][crate::default_language()].
-    </span><span class="kw">pub fn </span>language(<span class="kw-2">mut </span><span class="self">self</span>, language: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.language = <span class="prelude-val">Some</span>(language.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;language&quot;</span>, language.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>language_set(<span class="kw-2">mut </span><span class="self">self</span>, language_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.language_set = <span class="prelude-val">Some</span>(language_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>language_set(<span class="self">self</span>, language_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;language-set&quot;</span>, language_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>left_margin(<span class="kw-2">mut </span><span class="self">self</span>, left_margin: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.left_margin = <span class="prelude-val">Some</span>(left_margin);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>left_margin(<span class="self">self</span>, left_margin: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;left-margin&quot;</span>, left_margin),
+        }
+    }
 
-    <span class="kw">pub fn </span>left_margin_set(<span class="kw-2">mut </span><span class="self">self</span>, left_margin_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.left_margin_set = <span class="prelude-val">Some</span>(left_margin_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>left_margin_set(<span class="self">self</span>, left_margin_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;left-margin-set&quot;</span>, left_margin_set),
+        }
+    }
 
     <span class="doccomment">/// Extra spacing between graphemes, in Pango units.
-    </span><span class="kw">pub fn </span>letter_spacing(<span class="kw-2">mut </span><span class="self">self</span>, letter_spacing: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.letter_spacing = <span class="prelude-val">Some</span>(letter_spacing);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>letter_spacing(<span class="self">self</span>, letter_spacing: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;letter-spacing&quot;</span>, letter_spacing),
+        }
+    }
 
-    <span class="kw">pub fn </span>letter_spacing_set(<span class="kw-2">mut </span><span class="self">self</span>, letter_spacing_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.letter_spacing_set = <span class="prelude-val">Some</span>(letter_spacing_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>letter_spacing_set(<span class="self">self</span>, letter_spacing_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;letter-spacing-set&quot;</span>, letter_spacing_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;name&quot;</span>, name.into()),
+        }
+    }
 
     <span class="doccomment">/// The paragraph background color as a string.
-    </span><span class="kw">pub fn </span>paragraph_background(<span class="kw-2">mut </span><span class="self">self</span>, paragraph_background: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.paragraph_background = <span class="prelude-val">Some</span>(paragraph_background.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>paragraph_background(<span class="self">self</span>, paragraph_background: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;paragraph-background&quot;</span>, paragraph_background.into()),
+        }
+    }
 
     <span class="doccomment">/// The paragraph background color as a [`gdk::RGBA`][crate::gdk::RGBA].
-    </span><span class="kw">pub fn </span>paragraph_background_rgba(<span class="kw-2">mut </span><span class="self">self</span>, paragraph_background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.paragraph_background_rgba = <span class="prelude-val">Some</span>(paragraph_background_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>paragraph_background_rgba(<span class="self">self</span>, paragraph_background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;paragraph-background-rgba&quot;</span>,
+                paragraph_background_rgba.clone(),
+            ),
+        }
+    }
 
-    <span class="kw">pub fn </span>paragraph_background_set(<span class="kw-2">mut </span><span class="self">self</span>, paragraph_background_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.paragraph_background_set = <span class="prelude-val">Some</span>(paragraph_background_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>paragraph_background_set(<span class="self">self</span>, paragraph_background_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;paragraph-background-set&quot;</span>, paragraph_background_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_above_lines(<span class="kw-2">mut </span><span class="self">self</span>, pixels_above_lines: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_above_lines = <span class="prelude-val">Some</span>(pixels_above_lines);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_above_lines(<span class="self">self</span>, pixels_above_lines: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-above-lines&quot;</span>, pixels_above_lines),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_above_lines_set(<span class="kw-2">mut </span><span class="self">self</span>, pixels_above_lines_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_above_lines_set = <span class="prelude-val">Some</span>(pixels_above_lines_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_above_lines_set(<span class="self">self</span>, pixels_above_lines_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-above-lines-set&quot;</span>, pixels_above_lines_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_below_lines(<span class="kw-2">mut </span><span class="self">self</span>, pixels_below_lines: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_below_lines = <span class="prelude-val">Some</span>(pixels_below_lines);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_below_lines(<span class="self">self</span>, pixels_below_lines: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-below-lines&quot;</span>, pixels_below_lines),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_below_lines_set(<span class="kw-2">mut </span><span class="self">self</span>, pixels_below_lines_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_below_lines_set = <span class="prelude-val">Some</span>(pixels_below_lines_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_below_lines_set(<span class="self">self</span>, pixels_below_lines_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-below-lines-set&quot;</span>, pixels_below_lines_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_inside_wrap(<span class="kw-2">mut </span><span class="self">self</span>, pixels_inside_wrap: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_inside_wrap = <span class="prelude-val">Some</span>(pixels_inside_wrap);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_inside_wrap(<span class="self">self</span>, pixels_inside_wrap: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-inside-wrap&quot;</span>, pixels_inside_wrap),
+        }
+    }
 
-    <span class="kw">pub fn </span>pixels_inside_wrap_set(<span class="kw-2">mut </span><span class="self">self</span>, pixels_inside_wrap_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pixels_inside_wrap_set = <span class="prelude-val">Some</span>(pixels_inside_wrap_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>pixels_inside_wrap_set(<span class="self">self</span>, pixels_inside_wrap_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;pixels-inside-wrap-set&quot;</span>, pixels_inside_wrap_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>right_margin(<span class="kw-2">mut </span><span class="self">self</span>, right_margin: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.right_margin = <span class="prelude-val">Some</span>(right_margin);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>right_margin(<span class="self">self</span>, right_margin: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;right-margin&quot;</span>, right_margin),
+        }
+    }
 
-    <span class="kw">pub fn </span>right_margin_set(<span class="kw-2">mut </span><span class="self">self</span>, right_margin_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.right_margin_set = <span class="prelude-val">Some</span>(right_margin_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>right_margin_set(<span class="self">self</span>, right_margin_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;right-margin-set&quot;</span>, right_margin_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>rise(<span class="kw-2">mut </span><span class="self">self</span>, rise: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.rise = <span class="prelude-val">Some</span>(rise);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>rise(<span class="self">self</span>, rise: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;rise&quot;</span>, rise),
+        }
+    }
 
-    <span class="kw">pub fn </span>rise_set(<span class="kw-2">mut </span><span class="self">self</span>, rise_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.rise_set = <span class="prelude-val">Some</span>(rise_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>rise_set(<span class="self">self</span>, rise_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;rise-set&quot;</span>, rise_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>scale(<span class="kw-2">mut </span><span class="self">self</span>, scale: f64) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.scale = <span class="prelude-val">Some</span>(scale);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>scale(<span class="self">self</span>, scale: f64) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;scale&quot;</span>, scale),
+        }
+    }
 
-    <span class="kw">pub fn </span>scale_set(<span class="kw-2">mut </span><span class="self">self</span>, scale_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.scale_set = <span class="prelude-val">Some</span>(scale_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>scale_set(<span class="self">self</span>, scale_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;scale-set&quot;</span>, scale_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>size(<span class="kw-2">mut </span><span class="self">self</span>, size: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.size = <span class="prelude-val">Some</span>(size);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>size(<span class="self">self</span>, size: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size&quot;</span>, size),
+        }
+    }
 
-    <span class="kw">pub fn </span>size_points(<span class="kw-2">mut </span><span class="self">self</span>, size_points: f64) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.size_points = <span class="prelude-val">Some</span>(size_points);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>size_points(<span class="self">self</span>, size_points: f64) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size-points&quot;</span>, size_points),
+        }
+    }
 
-    <span class="kw">pub fn </span>size_set(<span class="kw-2">mut </span><span class="self">self</span>, size_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.size_set = <span class="prelude-val">Some</span>(size_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>size_set(<span class="self">self</span>, size_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size-set&quot;</span>, size_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>stretch(<span class="kw-2">mut </span><span class="self">self</span>, stretch: pango::Stretch) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.stretch = <span class="prelude-val">Some</span>(stretch);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>stretch(<span class="self">self</span>, stretch: pango::Stretch) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;stretch&quot;</span>, stretch),
+        }
+    }
 
-    <span class="kw">pub fn </span>stretch_set(<span class="kw-2">mut </span><span class="self">self</span>, stretch_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.stretch_set = <span class="prelude-val">Some</span>(stretch_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>stretch_set(<span class="self">self</span>, stretch_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;stretch-set&quot;</span>, stretch_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>strikethrough(<span class="kw-2">mut </span><span class="self">self</span>, strikethrough: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.strikethrough = <span class="prelude-val">Some</span>(strikethrough);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>strikethrough(<span class="self">self</span>, strikethrough: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;strikethrough&quot;</span>, strikethrough),
+        }
+    }
 
     <span class="doccomment">/// This property modifies the color of strikeouts. If not set, strikeouts
     /// will use the forground color.
-    </span><span class="kw">pub fn </span>strikethrough_rgba(<span class="kw-2">mut </span><span class="self">self</span>, strikethrough_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.strikethrough_rgba = <span class="prelude-val">Some</span>(strikethrough_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>strikethrough_rgba(<span class="self">self</span>, strikethrough_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;strikethrough-rgba&quot;</span>, strikethrough_rgba.clone()),
+        }
+    }
 
-    <span class="doccomment">/// If the `property::TextTag::strikethrough-rgba` property has been set.
-    </span><span class="kw">pub fn </span>strikethrough_rgba_set(<span class="kw-2">mut </span><span class="self">self</span>, strikethrough_rgba_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.strikethrough_rgba_set = <span class="prelude-val">Some</span>(strikethrough_rgba_set);
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// If the [`strikethrough-rgba`][struct@crate::TextTag#strikethrough-rgba] property has been set.
+    </span><span class="kw">pub fn </span>strikethrough_rgba_set(<span class="self">self</span>, strikethrough_rgba_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;strikethrough-rgba-set&quot;</span>, strikethrough_rgba_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>strikethrough_set(<span class="kw-2">mut </span><span class="self">self</span>, strikethrough_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.strikethrough_set = <span class="prelude-val">Some</span>(strikethrough_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>strikethrough_set(<span class="self">self</span>, strikethrough_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;strikethrough-set&quot;</span>, strikethrough_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>style(<span class="kw-2">mut </span><span class="self">self</span>, style: pango::Style) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.style = <span class="prelude-val">Some</span>(style);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>style(<span class="self">self</span>, style: pango::Style) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;style&quot;</span>, style),
+        }
+    }
 
-    <span class="kw">pub fn </span>style_set(<span class="kw-2">mut </span><span class="self">self</span>, style_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.style_set = <span class="prelude-val">Some</span>(style_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>style_set(<span class="self">self</span>, style_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;style-set&quot;</span>, style_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>tabs(<span class="kw-2">mut </span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tabs = <span class="prelude-val">Some</span>(tabs.clone());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>tabs(<span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tabs&quot;</span>, tabs.clone()),
+        }
+    }
 
-    <span class="kw">pub fn </span>tabs_set(<span class="kw-2">mut </span><span class="self">self</span>, tabs_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tabs_set = <span class="prelude-val">Some</span>(tabs_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>tabs_set(<span class="self">self</span>, tabs_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tabs-set&quot;</span>, tabs_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>underline(<span class="kw-2">mut </span><span class="self">self</span>, underline: pango::Underline) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.underline = <span class="prelude-val">Some</span>(underline);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>underline(<span class="self">self</span>, underline: pango::Underline) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;underline&quot;</span>, underline),
+        }
+    }
 
     <span class="doccomment">/// This property modifies the color of underlines. If not set, underlines
     /// will use the forground color.
     ///
-    /// If `property::TextTag::underline` is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
+    /// If [`underline`][struct@crate::TextTag#underline] is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
     /// color may be applied instead of the foreground. Setting this property
     /// will always override those defaults.
-    </span><span class="kw">pub fn </span>underline_rgba(<span class="kw-2">mut </span><span class="self">self</span>, underline_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.underline_rgba = <span class="prelude-val">Some</span>(underline_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>underline_rgba(<span class="self">self</span>, underline_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;underline-rgba&quot;</span>, underline_rgba.clone()),
+        }
+    }
 
-    <span class="doccomment">/// If the `property::TextTag::underline-rgba` property has been set.
-    </span><span class="kw">pub fn </span>underline_rgba_set(<span class="kw-2">mut </span><span class="self">self</span>, underline_rgba_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.underline_rgba_set = <span class="prelude-val">Some</span>(underline_rgba_set);
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// If the [`underline-rgba`][struct@crate::TextTag#underline-rgba] property has been set.
+    </span><span class="kw">pub fn </span>underline_rgba_set(<span class="self">self</span>, underline_rgba_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;underline-rgba-set&quot;</span>, underline_rgba_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>underline_set(<span class="kw-2">mut </span><span class="self">self</span>, underline_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.underline_set = <span class="prelude-val">Some</span>(underline_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>underline_set(<span class="self">self</span>, underline_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;underline-set&quot;</span>, underline_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>variant(<span class="kw-2">mut </span><span class="self">self</span>, variant: pango::Variant) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.variant = <span class="prelude-val">Some</span>(variant);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>variant(<span class="self">self</span>, variant: pango::Variant) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;variant&quot;</span>, variant),
+        }
+    }
 
-    <span class="kw">pub fn </span>variant_set(<span class="kw-2">mut </span><span class="self">self</span>, variant_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.variant_set = <span class="prelude-val">Some</span>(variant_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>variant_set(<span class="self">self</span>, variant_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;variant-set&quot;</span>, variant_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>weight(<span class="kw-2">mut </span><span class="self">self</span>, weight: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.weight = <span class="prelude-val">Some</span>(weight);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>weight(<span class="self">self</span>, weight: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;weight&quot;</span>, weight),
+        }
+    }
 
-    <span class="kw">pub fn </span>weight_set(<span class="kw-2">mut </span><span class="self">self</span>, weight_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.weight_set = <span class="prelude-val">Some</span>(weight_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>weight_set(<span class="self">self</span>, weight_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;weight-set&quot;</span>, weight_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>wrap_mode(<span class="kw-2">mut </span><span class="self">self</span>, wrap_mode: WrapMode) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.wrap_mode = <span class="prelude-val">Some</span>(wrap_mode);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>wrap_mode(<span class="self">self</span>, wrap_mode: WrapMode) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;wrap-mode&quot;</span>, wrap_mode),
+        }
+    }
 
-    <span class="kw">pub fn </span>wrap_mode_set(<span class="kw-2">mut </span><span class="self">self</span>, wrap_mode_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.wrap_mode_set = <span class="prelude-val">Some</span>(wrap_mode_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>wrap_mode_set(<span class="self">self</span>, wrap_mode_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;wrap-mode-set&quot;</span>, wrap_mode_set),
+        }
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Build the [`TextTag`].
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; TextTag {
+        <span class="self">self</span>.builder.build()
+    }
 }
 
 <span class="doccomment">/// Trait containing all [`struct@TextTag`] methods.
@@ -4747,7 +5131,7 @@
 ///
 /// [`TextTag`][struct@crate::TextTag]
 </span><span class="kw">pub trait </span>TextTagExt: <span class="lifetime">&#39;static </span>{
-    <span class="doccomment">/// Emits the `signal::TextTagTable::tag-changed` signal on the [`TextTagTable`][crate::TextTagTable] where
+    <span class="doccomment">/// Emits the [`tag-changed`][struct@crate::TextTagTable#tag-changed] signal on the [`TextTagTable`][crate::TextTagTable] where
     /// the tag is included.
     ///
     /// The signal is already emitted when setting a [`TextTag`][crate::TextTag] property. This
@@ -5151,11 +5535,11 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-rgba&quot;</span>)]
     </span><span class="kw">fn </span>set_strikethrough_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, strikethrough_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::RGBA&gt;);
 
-    <span class="doccomment">/// If the `property::TextTag::strikethrough-rgba` property has been set.
+    <span class="doccomment">/// If the [`strikethrough-rgba`][struct@crate::TextTag#strikethrough-rgba] property has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-rgba-set&quot;</span>)]
     </span><span class="kw">fn </span>is_strikethrough_rgba_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="doccomment">/// If the `property::TextTag::strikethrough-rgba` property has been set.
+    <span class="doccomment">/// If the [`strikethrough-rgba`][struct@crate::TextTag#strikethrough-rgba] property has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;strikethrough-rgba-set&quot;</span>)]
     </span><span class="kw">fn </span>set_strikethrough_rgba_set(<span class="kw-2">&amp;</span><span class="self">self</span>, strikethrough_rgba_set: bool);
 
@@ -5192,7 +5576,7 @@
     <span class="doccomment">/// This property modifies the color of underlines. If not set, underlines
     /// will use the forground color.
     ///
-    /// If `property::TextTag::underline` is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
+    /// If [`underline`][struct@crate::TextTag#underline] is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
     /// color may be applied instead of the foreground. Setting this property
     /// will always override those defaults.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;underline-rgba&quot;</span>)]
@@ -5201,17 +5585,17 @@
     <span class="doccomment">/// This property modifies the color of underlines. If not set, underlines
     /// will use the forground color.
     ///
-    /// If `property::TextTag::underline` is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
+    /// If [`underline`][struct@crate::TextTag#underline] is set to [`pango::Underline::Error`][crate::pango::Underline::Error], an alternate
     /// color may be applied instead of the foreground. Setting this property
     /// will always override those defaults.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;underline-rgba&quot;</span>)]
     </span><span class="kw">fn </span>set_underline_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, underline_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::RGBA&gt;);
 
-    <span class="doccomment">/// If the `property::TextTag::underline-rgba` property has been set.
+    <span class="doccomment">/// If the [`underline-rgba`][struct@crate::TextTag#underline-rgba] property has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;underline-rgba-set&quot;</span>)]
     </span><span class="kw">fn </span>is_underline_rgba_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
 
-    <span class="doccomment">/// If the `property::TextTag::underline-rgba` property has been set.
+    <span class="doccomment">/// If the [`underline-rgba`][struct@crate::TextTag#underline-rgba] property has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;underline-rgba-set&quot;</span>)]
     </span><span class="kw">fn </span>set_underline_rgba_set(<span class="kw-2">&amp;</span><span class="self">self</span>, underline_rgba_set: bool);
 
@@ -7846,4 +8230,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

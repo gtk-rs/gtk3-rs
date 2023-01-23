@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1211,28 +1211,34 @@
 <a href="#1138" id="1138">1138</a>
 <a href="#1139" id="1139">1139</a>
 <a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Border;
-<span class="kw">use </span><span class="kw">crate</span>::CssSection;
-<span class="kw">use </span><span class="kw">crate</span>::JunctionSides;
-<span class="kw">use </span><span class="kw">crate</span>::StateFlags;
-<span class="kw">use </span><span class="kw">crate</span>::StyleContextPrintFlags;
-<span class="kw">use </span><span class="kw">crate</span>::StyleProvider;
-<span class="kw">use </span><span class="kw">crate</span>::TextDirection;
-<span class="kw">use </span><span class="kw">crate</span>::WidgetPath;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{
+    Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
+    TextDirection, WidgetPath,
+};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// [`StyleContext`][crate::StyleContext] is an object that stores styling information affecting
@@ -1289,6 +1295,41 @@
     /// still take precedence over your changes, as it uses the
     /// `GTK_STYLE_PROVIDER_PRIORITY_USER` priority.
     ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `direction`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `paint-clock`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `parent`
+    ///  Sets or gets the style context’s parent. See [`StyleContextExt::set_parent()`][crate::prelude::StyleContextExt::set_parent()]
+    /// for details.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `screen`
+    ///  Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `changed`
+    ///  The ::changed signal is emitted when there is a change in the
+    /// [`StyleContext`][crate::StyleContext].
+    ///
+    /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
+    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
+    ///
+    /// This signal is useful when using the theming layer standalone.
+    ///
+    ///
+    ///
     /// # Implements
     ///
     /// [`StyleContextExt`][trait@crate::prelude::StyleContextExt], [`trait@glib::ObjectExt`], [`StyleContextExtManual`][trait@crate::prelude::StyleContextExtManual]
@@ -1326,7 +1367,7 @@
     ///
     /// This method returns an instance of [`StyleContextBuilder`](crate::builders::StyleContextBuilder) which can be used to create [`StyleContext`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; StyleContextBuilder {
-        StyleContextBuilder::default()
+        StyleContextBuilder::new()
     }
 
     <span class="doccomment">/// Adds a global style provider to `screen`, which will be used
@@ -1403,67 +1444,54 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`StyleContext`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>StyleContextBuilder {
-    direction: <span class="prelude-ty">Option</span>&lt;TextDirection&gt;,
-    paint_clock: <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;,
-    parent: <span class="prelude-ty">Option</span>&lt;StyleContext&gt;,
-    screen: <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, StyleContext&gt;,
 }
 
 <span class="kw">impl </span>StyleContextBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`StyleContextBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    <span class="kw">pub fn </span>direction(<span class="self">self</span>, direction: TextDirection) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;direction&quot;</span>, direction),
+        }
+    }
+
+    <span class="kw">pub fn </span>paint_clock(<span class="self">self</span>, paint_clock: <span class="kw-2">&amp;</span>gdk::FrameClock) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;paint-clock&quot;</span>, paint_clock.clone()),
+        }
+    }
+
+    <span class="doccomment">/// Sets or gets the style context’s parent. See [`StyleContextExt::set_parent()`][crate::prelude::StyleContextExt::set_parent()]
+    /// for details.
+    </span><span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;parent&quot;</span>, parent.clone().upcast()),
+        }
+    }
+
+    <span class="kw">pub fn </span>screen(<span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;screen&quot;</span>, screen.clone()),
+        }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`StyleContext`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; StyleContext {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>direction) = <span class="self">self</span>.direction {
-            properties.push((<span class="string">&quot;direction&quot;</span>, direction));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>paint_clock) = <span class="self">self</span>.paint_clock {
-            properties.push((<span class="string">&quot;paint-clock&quot;</span>, paint_clock));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>parent) = <span class="self">self</span>.parent {
-            properties.push((<span class="string">&quot;parent&quot;</span>, parent));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>screen) = <span class="self">self</span>.screen {
-            properties.push((<span class="string">&quot;screen&quot;</span>, screen));
-        }
-        glib::Object::new::&lt;StyleContext&gt;(<span class="kw-2">&amp;</span>properties)
+        <span class="self">self</span>.builder.build()
     }
-
-    <span class="kw">pub fn </span>direction(<span class="kw-2">mut </span><span class="self">self</span>, direction: TextDirection) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.direction = <span class="prelude-val">Some</span>(direction);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>paint_clock(<span class="kw-2">mut </span><span class="self">self</span>, paint_clock: <span class="kw-2">&amp;</span>gdk::FrameClock) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.paint_clock = <span class="prelude-val">Some</span>(paint_clock.clone());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Sets or gets the style context’s parent. See [`StyleContextExt::set_parent()`][crate::prelude::StyleContextExt::set_parent()]
-    /// for details.
-    </span><span class="kw">pub fn </span>parent(<span class="kw-2">mut </span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.parent = <span class="prelude-val">Some</span>(parent.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>screen(<span class="kw-2">mut </span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.screen = <span class="prelude-val">Some</span>(screen.clone());
-        <span class="self">self
-    </span>}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@StyleContext`] methods.
@@ -1903,7 +1931,7 @@
     /// [`StyleContext`][crate::StyleContext].
     ///
     /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
-    /// `signal::Widget::style-updated` signal/vfunc might be more convenient to use.
+    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
     ///
     /// This signal is useful when using the theming layer standalone.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
@@ -2352,4 +2380,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

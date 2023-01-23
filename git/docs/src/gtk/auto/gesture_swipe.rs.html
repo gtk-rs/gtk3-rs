@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_swipe.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>gesture_swipe.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_swipe.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>gesture_swipe.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -312,39 +312,125 @@
 <a href="#239" id="239">239</a>
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::EventController;
-<span class="kw">use </span><span class="kw">crate</span>::Gesture;
-<span class="kw">use </span><span class="kw">crate</span>::GestureSingle;
-<span class="kw">use </span><span class="kw">crate</span>::PropagationPhase;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::object::ObjectType <span class="kw">as </span>ObjectType_;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{EventController, Gesture, GestureSingle, PropagationPhase, Widget};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// [`GestureSwipe`][crate::GestureSwipe] is a [`Gesture`][crate::Gesture] implementation able to recognize
     /// swipes, after a press/move/.../move/release sequence happens, the
-    /// `signal::GestureSwipe::swipe` signal will be emitted, providing the velocity
+    /// [`swipe`][struct@crate::GestureSwipe#swipe] signal will be emitted, providing the velocity
     /// and directionality of the sequence at the time it was lifted.
     ///
     /// If the velocity is desired in intermediate points,
     /// [`velocity()`][Self::velocity()] can be called on eg. a
-    /// `signal::Gesture::update` handler.
+    /// [`update`][struct@crate::Gesture#update] handler.
     ///
     /// All velocities are reported in pixels/sec units.
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `swipe`
+    ///  This signal is emitted when the recognized gesture is finished, velocity
+    /// and direction are a product of previously recorded events.
+    ///
+    ///
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;Gesture&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `begin`
+    ///  This signal is emitted when the gesture is recognized. This means the
+    /// number of touch sequences matches [`n-points`][struct@crate::Gesture#n-points], and the [`check`][struct@crate::Gesture#check]
+    /// handler(s) returned [`true`].
+    ///
+    /// Note: These conditions may also happen when an extra touch (eg. a third touch
+    /// on a 2-touches gesture) is lifted, in that situation `sequence` won&#39;t pertain
+    /// to the current set of active touches, so don&#39;t rely on this being true.
+    ///
+    ///
+    ///
+    ///
+    /// #### `cancel`
+    ///  This signal is emitted whenever a sequence is cancelled. This usually
+    /// happens on active touches when [`EventControllerExt::reset()`][crate::prelude::EventControllerExt::reset()] is called
+    /// on `gesture` (manually, due to grabs...), or the individual `sequence`
+    /// was claimed by parent widgets&#39; controllers (see [`GestureExt::set_sequence_state()`][crate::prelude::GestureExt::set_sequence_state()]).
+    ///
+    /// `gesture` must forget everything about `sequence` as a reaction to this signal.
+    ///
+    ///
+    ///
+    ///
+    /// #### `end`
+    ///  This signal is emitted when `gesture` either stopped recognizing the event
+    /// sequences as something to be handled (the [`check`][struct@crate::Gesture#check] handler returned
+    /// [`false`]), or the number of touch sequences became higher or lower than
+    /// [`n-points`][struct@crate::Gesture#n-points].
+    ///
+    /// Note: `sequence` might not pertain to the group of sequences that were
+    /// previously triggering recognition on `gesture` (ie. a just pressed touch
+    /// sequence that exceeds [`n-points`][struct@crate::Gesture#n-points]). This situation may be detected
+    /// by checking through [`GestureExt::handles_sequence()`][crate::prelude::GestureExt::handles_sequence()].
+    ///
+    ///
+    ///
+    ///
+    /// #### `sequence-state-changed`
+    ///  This signal is emitted whenever a sequence state changes. See
+    /// [`GestureExt::set_sequence_state()`][crate::prelude::GestureExt::set_sequence_state()] to know more about the expectable
+    /// sequence lifetimes.
+    ///
+    ///
+    ///
+    ///
+    /// #### `update`
+    ///  This signal is emitted whenever an event is handled while the gesture is
+    /// recognized. `sequence` is guaranteed to pertain to the set of active touches.
+    ///
+    ///
+    /// &lt;/details&gt;
     ///
     /// # Implements
     ///
@@ -379,7 +465,7 @@
     ///
     /// This method returns an instance of [`GestureSwipeBuilder`](crate::builders::GestureSwipeBuilder) which can be used to create [`GestureSwipe`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; GestureSwipeBuilder {
-        GestureSwipeBuilder::default()
+        GestureSwipeBuilder::new()
     }
 
     <span class="doccomment">/// If the gesture is recognized, this function returns [`true`] and fill in
@@ -447,105 +533,85 @@
 
 <span class="kw">impl </span>Default <span class="kw">for </span>GestureSwipe {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        glib::object::Object::new::&lt;<span class="self">Self</span>&gt;(<span class="kw-2">&amp;</span>[])
+        glib::object::Object::new_default::&lt;<span class="self">Self</span>&gt;()
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`GestureSwipe`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>GestureSwipeBuilder {
-    button: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    exclusive: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    touch_only: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    n_points: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    window: <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;,
-    propagation_phase: <span class="prelude-ty">Option</span>&lt;PropagationPhase&gt;,
-    widget: <span class="prelude-ty">Option</span>&lt;Widget&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, GestureSwipe&gt;,
 }
 
 <span class="kw">impl </span>GestureSwipeBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`GestureSwipeBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    <span class="doccomment">/// Mouse button number to listen to, or 0 to listen for any button.
+    </span><span class="kw">pub fn </span>button(<span class="self">self</span>, button: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;button&quot;</span>, button),
+        }
+    }
+
+    <span class="doccomment">/// Whether the gesture is exclusive. Exclusive gestures only listen to pointer
+    /// and pointer emulated events.
+    </span><span class="kw">pub fn </span>exclusive(<span class="self">self</span>, exclusive: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;exclusive&quot;</span>, exclusive),
+        }
+    }
+
+    <span class="doccomment">/// Whether the gesture handles only touch events.
+    </span><span class="kw">pub fn </span>touch_only(<span class="self">self</span>, touch_only: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;touch-only&quot;</span>, touch_only),
+        }
+    }
+
+    <span class="doccomment">/// The number of touch points that trigger recognition on this gesture,
+    </span><span class="kw">pub fn </span>n_points(<span class="self">self</span>, n_points: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;n-points&quot;</span>, n_points),
+        }
+    }
+
+    <span class="doccomment">/// If non-[`None`], the gesture will only listen for events that happen on
+    /// this [`gdk::Window`][crate::gdk::Window], or a child of it.
+    </span><span class="kw">pub fn </span>window(<span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;window&quot;</span>, window.clone()),
+        }
+    }
+
+    <span class="doccomment">/// The propagation phase at which this controller will handle events.
+    </span><span class="kw">pub fn </span>propagation_phase(<span class="self">self</span>, propagation_phase: PropagationPhase) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;propagation-phase&quot;</span>, propagation_phase),
+        }
+    }
+
+    <span class="doccomment">/// The widget receiving the `GdkEvents` that the controller will handle.
+    </span><span class="kw">pub fn </span>widget(<span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;widget&quot;</span>, widget.clone().upcast()),
+        }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`GestureSwipe`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; GestureSwipe {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>button) = <span class="self">self</span>.button {
-            properties.push((<span class="string">&quot;button&quot;</span>, button));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>exclusive) = <span class="self">self</span>.exclusive {
-            properties.push((<span class="string">&quot;exclusive&quot;</span>, exclusive));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>touch_only) = <span class="self">self</span>.touch_only {
-            properties.push((<span class="string">&quot;touch-only&quot;</span>, touch_only));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>n_points) = <span class="self">self</span>.n_points {
-            properties.push((<span class="string">&quot;n-points&quot;</span>, n_points));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>window) = <span class="self">self</span>.window {
-            properties.push((<span class="string">&quot;window&quot;</span>, window));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>propagation_phase) = <span class="self">self</span>.propagation_phase {
-            properties.push((<span class="string">&quot;propagation-phase&quot;</span>, propagation_phase));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>widget) = <span class="self">self</span>.widget {
-            properties.push((<span class="string">&quot;widget&quot;</span>, widget));
-        }
-        glib::Object::new::&lt;GestureSwipe&gt;(<span class="kw-2">&amp;</span>properties)
+        <span class="self">self</span>.builder.build()
     }
-
-    <span class="doccomment">/// Mouse button number to listen to, or 0 to listen for any button.
-    </span><span class="kw">pub fn </span>button(<span class="kw-2">mut </span><span class="self">self</span>, button: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.button = <span class="prelude-val">Some</span>(button);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Whether the gesture is exclusive. Exclusive gestures only listen to pointer
-    /// and pointer emulated events.
-    </span><span class="kw">pub fn </span>exclusive(<span class="kw-2">mut </span><span class="self">self</span>, exclusive: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.exclusive = <span class="prelude-val">Some</span>(exclusive);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Whether the gesture handles only touch events.
-    </span><span class="kw">pub fn </span>touch_only(<span class="kw-2">mut </span><span class="self">self</span>, touch_only: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.touch_only = <span class="prelude-val">Some</span>(touch_only);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// The number of touch points that trigger recognition on this gesture,
-    </span><span class="kw">pub fn </span>n_points(<span class="kw-2">mut </span><span class="self">self</span>, n_points: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.n_points = <span class="prelude-val">Some</span>(n_points);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// If non-[`None`], the gesture will only listen for events that happen on
-    /// this [`gdk::Window`][crate::gdk::Window], or a child of it.
-    </span><span class="kw">pub fn </span>window(<span class="kw-2">mut </span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.window = <span class="prelude-val">Some</span>(window.clone());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// The propagation phase at which this controller will handle events.
-    </span><span class="kw">pub fn </span>propagation_phase(<span class="kw-2">mut </span><span class="self">self</span>, propagation_phase: PropagationPhase) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.propagation_phase = <span class="prelude-val">Some</span>(propagation_phase);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// The widget receiving the `GdkEvents` that the controller will handle.
-    </span><span class="kw">pub fn </span>widget(<span class="kw-2">mut </span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.widget = <span class="prelude-val">Some</span>(widget.clone().upcast());
-        <span class="self">self
-    </span>}
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>GestureSwipe {
@@ -554,4 +620,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

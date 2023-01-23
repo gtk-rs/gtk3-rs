@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/header_bar_accessible.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>header_bar_accessible.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/header_bar_accessible.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>header_bar_accessible.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -270,41 +270,11 @@
 <a href="#197" id="197">197</a>
 <a href="#198" id="198">198</a>
 <a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
-<a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
+</span><span class="kw">use </span>glib::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::fmt;
 
 <span class="macro">glib::wrapper! </span>{
@@ -329,193 +299,169 @@
     ///
     /// This method returns an instance of [`HeaderBarAccessibleBuilder`](crate::builders::HeaderBarAccessibleBuilder) which can be used to create [`HeaderBarAccessible`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; HeaderBarAccessibleBuilder {
-        HeaderBarAccessibleBuilder::default()
+        HeaderBarAccessibleBuilder::new()
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`HeaderBarAccessible`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>HeaderBarAccessibleBuilder {
-    accessible_description: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    accessible_name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    accessible_parent: <span class="prelude-ty">Option</span>&lt;atk::Object&gt;,
-    accessible_role: <span class="prelude-ty">Option</span>&lt;atk::Role&gt;,
-    accessible_table_caption: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    accessible_table_caption_object: <span class="prelude-ty">Option</span>&lt;atk::Object&gt;,
-    accessible_table_column_description: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    accessible_table_column_header: <span class="prelude-ty">Option</span>&lt;atk::Object&gt;,
-    accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    accessible_table_row_header: <span class="prelude-ty">Option</span>&lt;atk::Object&gt;,
-    accessible_table_summary: <span class="prelude-ty">Option</span>&lt;atk::Object&gt;,
-    accessible_value: <span class="prelude-ty">Option</span>&lt;f64&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, HeaderBarAccessible&gt;,
 }
 
 <span class="kw">impl </span>HeaderBarAccessibleBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`HeaderBarAccessibleBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_description(<span class="self">self</span>, accessible_description: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;accessible-description&quot;</span>, accessible_description.into()),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_name(<span class="self">self</span>, accessible_name: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;accessible-name&quot;</span>, accessible_name.into()),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_parent(<span class="self">self</span>, accessible_parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;accessible-parent&quot;</span>, accessible_parent.clone().upcast()),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_role(<span class="self">self</span>, accessible_role: atk::Role) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;accessible-role&quot;</span>, accessible_role),
+        }
+    }
+
+    <span class="doccomment">/// Table caption.
+    /// Since 1.3. Use table-caption-object instead.
+    </span><span class="kw">pub fn </span>accessible_table_caption(
+        <span class="self">self</span>,
+        accessible_table_caption: <span class="kw">impl </span>Into&lt;glib::GString&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;accessible-table-caption&quot;</span>, accessible_table_caption.into()),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_table_caption_object(
+        <span class="self">self</span>,
+        accessible_table_caption_object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-caption-object&quot;</span>,
+                accessible_table_caption_object.clone().upcast(),
+            ),
+        }
+    }
+
+    <span class="doccomment">/// Accessible table column description.
+    /// Since 2.12. Use `atk_table_get_column_description()`
+    /// and `atk_table_set_column_description()` instead.
+    </span><span class="kw">pub fn </span>accessible_table_column_description(
+        <span class="self">self</span>,
+        accessible_table_column_description: <span class="kw">impl </span>Into&lt;glib::GString&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-column-description&quot;</span>,
+                accessible_table_column_description.into(),
+            ),
+        }
+    }
+
+    <span class="doccomment">/// Accessible table column header.
+    /// Since 2.12. Use `atk_table_get_column_header()` and
+    /// `atk_table_set_column_header()` instead.
+    </span><span class="kw">pub fn </span>accessible_table_column_header(
+        <span class="self">self</span>,
+        accessible_table_column_header: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-column-header&quot;</span>,
+                accessible_table_column_header.clone().upcast(),
+            ),
+        }
+    }
+
+    <span class="doccomment">/// Accessible table row description.
+    /// Since 2.12. Use `atk_table_get_row_description()` and
+    /// `atk_table_set_row_description()` instead.
+    </span><span class="kw">pub fn </span>accessible_table_row_description(
+        <span class="self">self</span>,
+        accessible_table_row_description: <span class="kw">impl </span>Into&lt;glib::GString&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-row-description&quot;</span>,
+                accessible_table_row_description.into(),
+            ),
+        }
+    }
+
+    <span class="doccomment">/// Accessible table row header.
+    /// Since 2.12. Use `atk_table_get_row_header()` and
+    /// `atk_table_set_row_header()` instead.
+    </span><span class="kw">pub fn </span>accessible_table_row_header(
+        <span class="self">self</span>,
+        accessible_table_row_header: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-row-header&quot;</span>,
+                accessible_table_row_header.clone().upcast(),
+            ),
+        }
+    }
+
+    <span class="kw">pub fn </span>accessible_table_summary(
+        <span class="self">self</span>,
+        accessible_table_summary: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(
+                <span class="string">&quot;accessible-table-summary&quot;</span>,
+                accessible_table_summary.clone().upcast(),
+            ),
+        }
+    }
+
+    <span class="doccomment">/// Numeric value of this object, in case being and AtkValue.
+    /// Since 2.12. Use `atk_value_get_value_and_text()` to get
+    /// the value, and value-changed signal to be notified on their value
+    /// changes.
+    </span><span class="kw">pub fn </span>accessible_value(<span class="self">self</span>, accessible_value: f64) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;accessible-value&quot;</span>, accessible_value),
+        }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`HeaderBarAccessible`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; HeaderBarAccessible {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_description) = <span class="self">self</span>.accessible_description {
-            properties.push((<span class="string">&quot;accessible-description&quot;</span>, accessible_description));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_name) = <span class="self">self</span>.accessible_name {
-            properties.push((<span class="string">&quot;accessible-name&quot;</span>, accessible_name));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_parent) = <span class="self">self</span>.accessible_parent {
-            properties.push((<span class="string">&quot;accessible-parent&quot;</span>, accessible_parent));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_role) = <span class="self">self</span>.accessible_role {
-            properties.push((<span class="string">&quot;accessible-role&quot;</span>, accessible_role));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_caption) = <span class="self">self</span>.accessible_table_caption {
-            properties.push((<span class="string">&quot;accessible-table-caption&quot;</span>, accessible_table_caption));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_caption_object) = <span class="self">self</span>.accessible_table_caption_object {
-            properties.push((
-                <span class="string">&quot;accessible-table-caption-object&quot;</span>,
-                accessible_table_caption_object,
-            ));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_column_description) =
-            <span class="self">self</span>.accessible_table_column_description
-        {
-            properties.push((
-                <span class="string">&quot;accessible-table-column-description&quot;</span>,
-                accessible_table_column_description,
-            ));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_column_header) = <span class="self">self</span>.accessible_table_column_header {
-            properties.push((
-                <span class="string">&quot;accessible-table-column-header&quot;</span>,
-                accessible_table_column_header,
-            ));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_row_description) = <span class="self">self</span>.accessible_table_row_description {
-            properties.push((
-                <span class="string">&quot;accessible-table-row-description&quot;</span>,
-                accessible_table_row_description,
-            ));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_row_header) = <span class="self">self</span>.accessible_table_row_header {
-            properties.push((<span class="string">&quot;accessible-table-row-header&quot;</span>, accessible_table_row_header));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_table_summary) = <span class="self">self</span>.accessible_table_summary {
-            properties.push((<span class="string">&quot;accessible-table-summary&quot;</span>, accessible_table_summary));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>accessible_value) = <span class="self">self</span>.accessible_value {
-            properties.push((<span class="string">&quot;accessible-value&quot;</span>, accessible_value));
-        }
-        glib::Object::new::&lt;HeaderBarAccessible&gt;(<span class="kw-2">&amp;</span>properties)
+        <span class="self">self</span>.builder.build()
     }
-
-    <span class="kw">pub fn </span>accessible_description(<span class="kw-2">mut </span><span class="self">self</span>, accessible_description: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_description = <span class="prelude-val">Some</span>(accessible_description.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>accessible_name(<span class="kw-2">mut </span><span class="self">self</span>, accessible_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_name = <span class="prelude-val">Some</span>(accessible_name.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>accessible_parent(<span class="kw-2">mut </span><span class="self">self</span>, accessible_parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_parent = <span class="prelude-val">Some</span>(accessible_parent.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>accessible_role(<span class="kw-2">mut </span><span class="self">self</span>, accessible_role: atk::Role) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_role = <span class="prelude-val">Some</span>(accessible_role);
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Table caption.
-    /// Since 1.3. Use table-caption-object instead.
-    </span><span class="kw">pub fn </span>accessible_table_caption(<span class="kw-2">mut </span><span class="self">self</span>, accessible_table_caption: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_caption = <span class="prelude-val">Some</span>(accessible_table_caption.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>accessible_table_caption_object(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_caption_object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_caption_object =
-            <span class="prelude-val">Some</span>(accessible_table_caption_object.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Accessible table column description.
-    /// Since 2.12. Use `atk_table_get_column_description()`
-    /// and `atk_table_set_column_description()` instead.
-    </span><span class="kw">pub fn </span>accessible_table_column_description(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_column_description: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_column_description =
-            <span class="prelude-val">Some</span>(accessible_table_column_description.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Accessible table column header.
-    /// Since 2.12. Use `atk_table_get_column_header()` and
-    /// `atk_table_set_column_header()` instead.
-    </span><span class="kw">pub fn </span>accessible_table_column_header(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_column_header: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_column_header = <span class="prelude-val">Some</span>(accessible_table_column_header.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Accessible table row description.
-    /// Since 2.12. Use `atk_table_get_row_description()` and
-    /// `atk_table_set_row_description()` instead.
-    </span><span class="kw">pub fn </span>accessible_table_row_description(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_row_description: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_row_description = <span class="prelude-val">Some</span>(accessible_table_row_description.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Accessible table row header.
-    /// Since 2.12. Use `atk_table_get_row_header()` and
-    /// `atk_table_set_row_header()` instead.
-    </span><span class="kw">pub fn </span>accessible_table_row_header(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_row_header: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_row_header = <span class="prelude-val">Some</span>(accessible_table_row_header.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>accessible_table_summary(
-        <span class="kw-2">mut </span><span class="self">self</span>,
-        accessible_table_summary: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;atk::Object&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_table_summary = <span class="prelude-val">Some</span>(accessible_table_summary.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="doccomment">/// Numeric value of this object, in case being and AtkValue.
-    /// Since 2.12. Use `atk_value_get_value_and_text()` to get
-    /// the value, and value-changed signal to be notified on their value
-    /// changes.
-    </span><span class="kw">pub fn </span>accessible_value(<span class="kw-2">mut </span><span class="self">self</span>, accessible_value: f64) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.accessible_value = <span class="prelude-val">Some</span>(accessible_value);
-        <span class="self">self
-    </span>}
 }
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>HeaderBarAccessible {
@@ -524,4 +470,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

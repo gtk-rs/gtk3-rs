@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -562,22 +562,22 @@
     ///
     /// The default behaviors listed in `flags` have an effect similar
     /// to installing default handlers for the widget’s drag-and-drop signals
-    /// (`signal::Widget::drag-motion`, `signal::Widget::drag-drop`, ...). They all exist
+    /// ([`drag-motion`][struct@crate::Widget#drag-motion], [`drag-drop`][struct@crate::Widget#drag-drop], ...). They all exist
     /// for convenience. When passing [`DestDefaults::ALL`][crate::DestDefaults::ALL] for instance it is
-    /// sufficient to connect to the widget’s `signal::Widget::drag-data-received`
+    /// sufficient to connect to the widget’s [`drag-data-received`][struct@crate::Widget#drag-data-received]
     /// signal to get primitive, but consistent drag-and-drop support.
     ///
     /// Things become more complicated when you try to preview the dragged data,
-    /// as described in the documentation for `signal::Widget::drag-motion`. The default
+    /// as described in the documentation for [`drag-motion`][struct@crate::Widget#drag-motion]. The default
     /// behaviors described by `flags` make some assumptions, that can conflict
     /// with your own signal handlers. For instance [`DestDefaults::DROP`][crate::DestDefaults::DROP] causes
-    /// invokations of `gdk_drag_status()` in the context of `signal::Widget::drag-motion`,
-    /// and invokations of `gtk_drag_finish()` in `signal::Widget::drag-data-received`.
-    /// Especially the later is dramatic, when your own `signal::Widget::drag-motion`
+    /// invokations of `gdk_drag_status()` in the context of [`drag-motion`][struct@crate::Widget#drag-motion],
+    /// and invokations of `gtk_drag_finish()` in [`drag-data-received`][struct@crate::Widget#drag-data-received].
+    /// Especially the later is dramatic, when your own [`drag-motion`][struct@crate::Widget#drag-motion]
     /// handler calls [`WidgetExt::drag_get_data()`][crate::prelude::WidgetExt::drag_get_data()] to inspect the dragged data.
     ///
     /// There’s no way to set a default action here, you can use the
-    /// `signal::Widget::drag-motion` callback for that. Here’s an example which selects
+    /// [`drag-motion`][struct@crate::Widget#drag-motion] callback for that. Here’s an example which selects
     /// the action to use depending on whether the control key is pressed or not:
     ///
     ///
@@ -699,7 +699,7 @@
     /// trying to display isolated frames at particular times.
     ///
     /// This is a more convenient alternative to connecting directly to the
-    /// `signal::gdk::FrameClock::update` signal of [`gdk::FrameClock`][crate::gdk::FrameClock], since you don&#39;t
+    /// [`update`][struct@crate::gdk::FrameClock#update] signal of [`gdk::FrameClock`][crate::gdk::FrameClock], since you don&#39;t
     /// have to worry about when a [`gdk::FrameClock`][crate::gdk::FrameClock] is assigned to a widget.
     /// ## `callback`
     /// function to call for updating animations
@@ -766,7 +766,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_destroy&quot;</span>)]
     </span><span class="kw">unsafe fn </span>destroy(<span class="kw-2">&amp;</span><span class="self">self</span>);
 
-    <span class="doccomment">/// Utility function; intended to be connected to the `signal::Widget::delete-event`
+    <span class="doccomment">/// Utility function; intended to be connected to the [`delete-event`][struct@crate::Widget#delete-event]
     /// signal on a [`Window`][crate::Window]. The function calls [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] on its
     /// argument, then returns [`true`]. If connected to ::delete-event, the
     /// result is that clicking the close button for a window (on the
@@ -986,4 +986,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

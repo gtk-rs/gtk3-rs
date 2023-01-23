@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/mount_operation.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mount_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/mount_operation.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mount_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -466,24 +466,144 @@
 <a href="#393" id="393">393</a>
 <a href="#394" id="394">394</a>
 <a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
 </span><span class="kw">use </span><span class="kw">crate</span>::Window;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// This should not be accessed directly. Use the accessor functions below.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `is-showing`
+    ///  Readable
+    ///
+    ///
+    /// #### `parent`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `screen`
+    ///  Readable | Writeable
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;MountOperation&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `anonymous`
+    ///  Whether to use an anonymous user when authenticating.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `choice`
+    ///  The index of the user&#39;s choice when a question is asked during the
+    /// mount operation. See the [`ask-question`][struct@crate::gio::MountOperation#ask-question] signal.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `domain`
+    ///  The domain to use for the mount operation.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `is-tcrypt-hidden-volume`
+    ///  Whether the device to be unlocked is a TCRYPT hidden volume.
+    /// See [the VeraCrypt documentation](https://www.veracrypt.fr/en/Hidden`20Volume`).
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `is-tcrypt-system-volume`
+    ///  Whether the device to be unlocked is a TCRYPT system volume.
+    /// In this context, a system volume is a volume with a bootloader
+    /// and operating system installed. This is only supported for Windows
+    /// operating systems. For further documentation, see
+    /// [the VeraCrypt documentation](https://www.veracrypt.fr/en/System`20Encryption`).
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `password`
+    ///  The password that is used for authentication when carrying out
+    /// the mount operation.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `password-save`
+    ///  Determines if and how the password information should be saved.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `pim`
+    ///  The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
+    /// [the VeraCrypt documentation](https://www.veracrypt.fr/en/Personal`20Iterations``20Multiplier``20`(PIM).html).
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `username`
+    ///  The user name that is used for authentication when carrying out
+    /// the mount operation.
+    ///
+    /// Readable | Writeable
+    /// &lt;/details&gt;
     ///
     /// # Implements
     ///
@@ -522,127 +642,77 @@
     ///
     /// This method returns an instance of [`MountOperationBuilder`](crate::builders::MountOperationBuilder) which can be used to create [`MountOperation`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; MountOperationBuilder {
-        MountOperationBuilder::default()
+        MountOperationBuilder::new()
     }
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>MountOperation {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        glib::object::Object::new::&lt;<span class="self">Self</span>&gt;(<span class="kw-2">&amp;</span>[])
+        glib::object::Object::new_default::&lt;<span class="self">Self</span>&gt;()
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`MountOperation`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>MountOperationBuilder {
-    parent: <span class="prelude-ty">Option</span>&lt;Window&gt;,
-    screen: <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt;,
-    anonymous: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    choice: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    domain: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span>is_tcrypt_hidden_volume: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span>is_tcrypt_system_volume: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    password: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="comment">//password-save: /*Unknown type*/,
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span>pim: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    username: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, MountOperation&gt;,
 }
 
 <span class="kw">impl </span>MountOperationBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`MountOperationBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
     }
 
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Build the [`MountOperation`].
-    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; MountOperation {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>parent) = <span class="self">self</span>.parent {
-            properties.push((<span class="string">&quot;parent&quot;</span>, parent));
+    <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;parent&quot;</span>, parent.clone().upcast()),
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>screen) = <span class="self">self</span>.screen {
-            properties.push((<span class="string">&quot;screen&quot;</span>, screen));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>anonymous) = <span class="self">self</span>.anonymous {
-            properties.push((<span class="string">&quot;anonymous&quot;</span>, anonymous));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>choice) = <span class="self">self</span>.choice {
-            properties.push((<span class="string">&quot;choice&quot;</span>, choice));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>domain) = <span class="self">self</span>.domain {
-            properties.push((<span class="string">&quot;domain&quot;</span>, domain));
-        }
-        <span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_tcrypt_hidden_volume) = <span class="self">self</span>.is_tcrypt_hidden_volume {
-            properties.push((<span class="string">&quot;is-tcrypt-hidden-volume&quot;</span>, is_tcrypt_hidden_volume));
-        }
-        <span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_tcrypt_system_volume) = <span class="self">self</span>.is_tcrypt_system_volume {
-            properties.push((<span class="string">&quot;is-tcrypt-system-volume&quot;</span>, is_tcrypt_system_volume));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>password) = <span class="self">self</span>.password {
-            properties.push((<span class="string">&quot;password&quot;</span>, password));
-        }
-        <span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pim) = <span class="self">self</span>.pim {
-            properties.push((<span class="string">&quot;pim&quot;</span>, pim));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>username) = <span class="self">self</span>.username {
-            properties.push((<span class="string">&quot;username&quot;</span>, username));
-        }
-        glib::Object::new::&lt;MountOperation&gt;(<span class="kw-2">&amp;</span>properties)
     }
 
-    <span class="kw">pub fn </span>parent(<span class="kw-2">mut </span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.parent = <span class="prelude-val">Some</span>(parent.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>screen(<span class="kw-2">mut </span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.screen = <span class="prelude-val">Some</span>(screen.clone());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>screen(<span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;screen&quot;</span>, screen.clone()),
+        }
+    }
 
     <span class="doccomment">/// Whether to use an anonymous user when authenticating.
-    </span><span class="kw">pub fn </span>anonymous(<span class="kw-2">mut </span><span class="self">self</span>, anonymous: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.anonymous = <span class="prelude-val">Some</span>(anonymous);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>anonymous(<span class="self">self</span>, anonymous: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;anonymous&quot;</span>, anonymous),
+        }
+    }
 
     <span class="doccomment">/// The index of the user&#39;s choice when a question is asked during the
-    /// mount operation. See the `signal::gio::MountOperation::ask-question` signal.
-    </span><span class="kw">pub fn </span>choice(<span class="kw-2">mut </span><span class="self">self</span>, choice: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.choice = <span class="prelude-val">Some</span>(choice);
-        <span class="self">self
-    </span>}
+    /// mount operation. See the [`ask-question`][struct@crate::gio::MountOperation#ask-question] signal.
+    </span><span class="kw">pub fn </span>choice(<span class="self">self</span>, choice: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;choice&quot;</span>, choice),
+        }
+    }
 
     <span class="doccomment">/// The domain to use for the mount operation.
-    </span><span class="kw">pub fn </span>domain(<span class="kw-2">mut </span><span class="self">self</span>, domain: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.domain = <span class="prelude-val">Some</span>(domain.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>domain(<span class="self">self</span>, domain: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;domain&quot;</span>, domain.into()),
+        }
+    }
 
     <span class="doccomment">/// Whether the device to be unlocked is a TCRYPT hidden volume.
     /// See [the VeraCrypt documentation](https://www.veracrypt.fr/en/Hidden`20Volume`).
     </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span><span class="kw">pub fn </span>is_tcrypt_hidden_volume(<span class="kw-2">mut </span><span class="self">self</span>, is_tcrypt_hidden_volume: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_tcrypt_hidden_volume = <span class="prelude-val">Some</span>(is_tcrypt_hidden_volume);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>is_tcrypt_hidden_volume(<span class="self">self</span>, is_tcrypt_hidden_volume: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;is-tcrypt-hidden-volume&quot;</span>, is_tcrypt_hidden_volume),
+        }
+    }
 
     <span class="doccomment">/// Whether the device to be unlocked is a TCRYPT system volume.
     /// In this context, a system volume is a volume with a bootloader
@@ -651,33 +721,53 @@
     /// [the VeraCrypt documentation](https://www.veracrypt.fr/en/System`20Encryption`).
     </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span><span class="kw">pub fn </span>is_tcrypt_system_volume(<span class="kw-2">mut </span><span class="self">self</span>, is_tcrypt_system_volume: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_tcrypt_system_volume = <span class="prelude-val">Some</span>(is_tcrypt_system_volume);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>is_tcrypt_system_volume(<span class="self">self</span>, is_tcrypt_system_volume: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;is-tcrypt-system-volume&quot;</span>, is_tcrypt_system_volume),
+        }
+    }
 
     <span class="doccomment">/// The password that is used for authentication when carrying out
     /// the mount operation.
-    </span><span class="kw">pub fn </span>password(<span class="kw-2">mut </span><span class="self">self</span>, password: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.password = <span class="prelude-val">Some</span>(password.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>password(<span class="self">self</span>, password: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;password&quot;</span>, password.into()),
+        }
+    }
+
+    <span class="doccomment">/// Determines if and how the password information should be saved.
+    </span><span class="kw">pub fn </span>password_save(<span class="self">self</span>, password_save: gio::PasswordSave) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;password-save&quot;</span>, password_save),
+        }
+    }
 
     <span class="doccomment">/// The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
     /// [the VeraCrypt documentation](https://www.veracrypt.fr/en/Personal`20Iterations``20Multiplier``20`(PIM).html).
     </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;gio_v2_58&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;gio_v2_58&quot;</span>)))]
-    </span><span class="kw">pub fn </span>pim(<span class="kw-2">mut </span><span class="self">self</span>, pim: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pim = <span class="prelude-val">Some</span>(pim);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>pim(<span class="self">self</span>, pim: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;pim&quot;</span>, pim),
+        }
+    }
 
     <span class="doccomment">/// The user name that is used for authentication when carrying out
     /// the mount operation.
-    </span><span class="kw">pub fn </span>username(<span class="kw-2">mut </span><span class="self">self</span>, username: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.username = <span class="prelude-val">Some</span>(username.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>username(<span class="self">self</span>, username: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;username&quot;</span>, username.into()),
+        }
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Build the [`MountOperation`].
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; MountOperation {
+        <span class="self">self</span>.builder.build()
+    }
 }
 
 <span class="doccomment">/// Trait containing all [`struct@MountOperation`] methods.
@@ -862,4 +952,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

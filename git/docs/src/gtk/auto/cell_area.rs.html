@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_area.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_area.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_area.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_area.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2063,32 +2063,69 @@
 <a href="#1990" id="1990">1990</a>
 <a href="#1991" id="1991">1991</a>
 <a href="#1992" id="1992">1992</a>
+<a href="#1993" id="1993">1993</a>
+<a href="#1994" id="1994">1994</a>
+<a href="#1995" id="1995">1995</a>
+<a href="#1996" id="1996">1996</a>
+<a href="#1997" id="1997">1997</a>
+<a href="#1998" id="1998">1998</a>
+<a href="#1999" id="1999">1999</a>
+<a href="#2000" id="2000">2000</a>
+<a href="#2001" id="2001">2001</a>
+<a href="#2002" id="2002">2002</a>
+<a href="#2003" id="2003">2003</a>
+<a href="#2004" id="2004">2004</a>
+<a href="#2005" id="2005">2005</a>
+<a href="#2006" id="2006">2006</a>
+<a href="#2007" id="2007">2007</a>
+<a href="#2008" id="2008">2008</a>
+<a href="#2009" id="2009">2009</a>
+<a href="#2010" id="2010">2010</a>
+<a href="#2011" id="2011">2011</a>
+<a href="#2012" id="2012">2012</a>
+<a href="#2013" id="2013">2013</a>
+<a href="#2014" id="2014">2014</a>
+<a href="#2015" id="2015">2015</a>
+<a href="#2016" id="2016">2016</a>
+<a href="#2017" id="2017">2017</a>
+<a href="#2018" id="2018">2018</a>
+<a href="#2019" id="2019">2019</a>
+<a href="#2020" id="2020">2020</a>
+<a href="#2021" id="2021">2021</a>
+<a href="#2022" id="2022">2022</a>
+<a href="#2023" id="2023">2023</a>
+<a href="#2024" id="2024">2024</a>
+<a href="#2025" id="2025">2025</a>
+<a href="#2026" id="2026">2026</a>
+<a href="#2027" id="2027">2027</a>
+<a href="#2028" id="2028">2028</a>
+<a href="#2029" id="2029">2029</a>
+<a href="#2030" id="2030">2030</a>
+<a href="#2031" id="2031">2031</a>
+<a href="#2032" id="2032">2032</a>
+<a href="#2033" id="2033">2033</a>
+<a href="#2034" id="2034">2034</a>
+<a href="#2035" id="2035">2035</a>
+<a href="#2036" id="2036">2036</a>
+<a href="#2037" id="2037">2037</a>
+<a href="#2038" id="2038">2038</a>
+<a href="#2039" id="2039">2039</a>
+<a href="#2040" id="2040">2040</a>
+<a href="#2041" id="2041">2041</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Buildable;
-<span class="kw">use </span><span class="kw">crate</span>::CellAreaContext;
-<span class="kw">use </span><span class="kw">crate</span>::CellEditable;
-<span class="kw">use </span><span class="kw">crate</span>::CellLayout;
-<span class="kw">use </span><span class="kw">crate</span>::CellRenderer;
-<span class="kw">use </span><span class="kw">crate</span>::CellRendererState;
-<span class="kw">use </span><span class="kw">crate</span>::DirectionType;
-<span class="kw">use </span><span class="kw">crate</span>::Orientation;
-<span class="kw">use </span><span class="kw">crate</span>::SizeRequestMode;
-<span class="kw">use </span><span class="kw">crate</span>::TreeIter;
-<span class="kw">use </span><span class="kw">crate</span>::TreeModel;
-<span class="kw">use </span><span class="kw">crate</span>::TreePath;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{
+    Buildable, CellAreaContext, CellEditable, CellLayout, CellRenderer, CellRendererState,
+    DirectionType, Orientation, SizeRequestMode, TreeIter, TreeModel, TreePath, Widget,
+};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// The [`CellArea`][crate::CellArea] is an abstract class for [`CellLayout`][crate::CellLayout] widgets
@@ -2306,7 +2343,7 @@
     /// give every row its minimum or natural height or, if the model content
     /// is expected to fit inside the layouting widget without scrolling, it
     /// would make sense to calculate the allocation for each row at
-    /// `signal::Widget::size-allocate` time using `gtk_distribute_natural_allocation()`.
+    /// [`size-allocate`][struct@crate::Widget#size-allocate] time using `gtk_distribute_natural_allocation()`.
     ///
     /// # Handling Events and Driving Keyboard Focus
     ///
@@ -2315,8 +2352,8 @@
     /// API as they come in. Usually [`CellArea`][crate::CellArea] is only interested in
     /// button events, however some customized derived areas can be implemented
     /// who are interested in handling other events. Handling an event can
-    /// trigger the `signal::CellArea::focus-changed` signal to fire; as well as
-    /// `signal::CellArea::add-editable` in the case that an editable cell was
+    /// trigger the [`focus-changed`][struct@crate::CellArea#focus-changed] signal to fire; as well as
+    /// [`add-editable`][struct@crate::CellArea#add-editable] in the case that an editable cell was
     /// clicked and needs to start editing. You can call
     /// [`CellAreaExt::stop_editing()`][crate::prelude::CellAreaExt::stop_editing()] at any time to cancel any cell editing
     /// that is currently in progress.
@@ -2426,6 +2463,67 @@
     /// `gtk_cell_area_cell_get()` or `gtk_cell_area_cell_get_valist()`.
     ///
     /// This is an Abstract Base Class, you cannot instantiate it.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `edit-widget`
+    ///  The widget currently editing the edited cell
+    ///
+    /// This property is read-only and only changes as
+    /// a result of a call [`CellAreaExt::activate_cell()`][crate::prelude::CellAreaExt::activate_cell()].
+    ///
+    /// Readable
+    ///
+    ///
+    /// #### `edited-cell`
+    ///  The cell in the area that is currently edited
+    ///
+    /// This property is read-only and only changes as
+    /// a result of a call [`CellAreaExt::activate_cell()`][crate::prelude::CellAreaExt::activate_cell()].
+    ///
+    /// Readable
+    ///
+    ///
+    /// #### `focus-cell`
+    ///  The cell in the area that currently has focus
+    ///
+    /// Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `add-editable`
+    ///  Indicates that editing has started on `renderer` and that `editable`
+    /// should be added to the owning cell-layouting widget at `cell_area`.
+    ///
+    ///
+    ///
+    ///
+    /// #### `apply-attributes`
+    ///  This signal is emitted whenever applying attributes to `area` from `model`
+    ///
+    ///
+    ///
+    ///
+    /// #### `focus-changed`
+    ///  Indicates that focus changed on this `area`. This signal
+    /// is emitted either as a result of focus handling or event
+    /// handling.
+    ///
+    /// It&#39;s possible that the signal is emitted even if the
+    /// currently focused renderer did not change, this is
+    /// because focus may change to the same renderer in the
+    /// same cell area for a different row of data.
+    ///
+    ///
+    ///
+    ///
+    /// #### `remove-editable`
+    ///  Indicates that editing finished on `renderer` and that `editable`
+    /// should be removed from the owning cell-layouting widget.
+    ///
+    ///
     ///
     /// # Implements
     ///
@@ -4056,4 +4154,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

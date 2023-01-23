@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/stack_switcher.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>stack_switcher.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/stack_switcher.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>stack_switcher.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -419,127 +419,6 @@
 <a href="#346" id="346">346</a>
 <a href="#347" id="347">347</a>
 <a href="#348" id="348">348</a>
-<a href="#349" id="349">349</a>
-<a href="#350" id="350">350</a>
-<a href="#351" id="351">351</a>
-<a href="#352" id="352">352</a>
-<a href="#353" id="353">353</a>
-<a href="#354" id="354">354</a>
-<a href="#355" id="355">355</a>
-<a href="#356" id="356">356</a>
-<a href="#357" id="357">357</a>
-<a href="#358" id="358">358</a>
-<a href="#359" id="359">359</a>
-<a href="#360" id="360">360</a>
-<a href="#361" id="361">361</a>
-<a href="#362" id="362">362</a>
-<a href="#363" id="363">363</a>
-<a href="#364" id="364">364</a>
-<a href="#365" id="365">365</a>
-<a href="#366" id="366">366</a>
-<a href="#367" id="367">367</a>
-<a href="#368" id="368">368</a>
-<a href="#369" id="369">369</a>
-<a href="#370" id="370">370</a>
-<a href="#371" id="371">371</a>
-<a href="#372" id="372">372</a>
-<a href="#373" id="373">373</a>
-<a href="#374" id="374">374</a>
-<a href="#375" id="375">375</a>
-<a href="#376" id="376">376</a>
-<a href="#377" id="377">377</a>
-<a href="#378" id="378">378</a>
-<a href="#379" id="379">379</a>
-<a href="#380" id="380">380</a>
-<a href="#381" id="381">381</a>
-<a href="#382" id="382">382</a>
-<a href="#383" id="383">383</a>
-<a href="#384" id="384">384</a>
-<a href="#385" id="385">385</a>
-<a href="#386" id="386">386</a>
-<a href="#387" id="387">387</a>
-<a href="#388" id="388">388</a>
-<a href="#389" id="389">389</a>
-<a href="#390" id="390">390</a>
-<a href="#391" id="391">391</a>
-<a href="#392" id="392">392</a>
-<a href="#393" id="393">393</a>
-<a href="#394" id="394">394</a>
-<a href="#395" id="395">395</a>
-<a href="#396" id="396">396</a>
-<a href="#397" id="397">397</a>
-<a href="#398" id="398">398</a>
-<a href="#399" id="399">399</a>
-<a href="#400" id="400">400</a>
-<a href="#401" id="401">401</a>
-<a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
-<a href="#405" id="405">405</a>
-<a href="#406" id="406">406</a>
-<a href="#407" id="407">407</a>
-<a href="#408" id="408">408</a>
-<a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-<a href="#412" id="412">412</a>
-<a href="#413" id="413">413</a>
-<a href="#414" id="414">414</a>
-<a href="#415" id="415">415</a>
-<a href="#416" id="416">416</a>
-<a href="#417" id="417">417</a>
-<a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-<a href="#448" id="448">448</a>
-<a href="#449" id="449">449</a>
-<a href="#450" id="450">450</a>
-<a href="#451" id="451">451</a>
-<a href="#452" id="452">452</a>
-<a href="#453" id="453">453</a>
-<a href="#454" id="454">454</a>
-<a href="#455" id="455">455</a>
-<a href="#456" id="456">456</a>
-<a href="#457" id="457">457</a>
-<a href="#458" id="458">458</a>
-<a href="#459" id="459">459</a>
-<a href="#460" id="460">460</a>
-<a href="#461" id="461">461</a>
-<a href="#462" id="462">462</a>
-<a href="#463" id="463">463</a>
-<a href="#464" id="464">464</a>
-<a href="#465" id="465">465</a>
-<a href="#466" id="466">466</a>
-<a href="#467" id="467">467</a>
-<a href="#468" id="468">468</a>
-<a href="#469" id="469">469</a>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::Align;
@@ -556,7 +435,6 @@
 <span class="kw">use </span>glib::signal::{connect_raw, SignalHandlerId};
 <span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
 <span class="kw">use </span>glib::Cast;
-<span class="kw">use </span>glib::ToValue;
 <span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
 <span class="kw">use </span>std::mem::transmute;
 
@@ -613,401 +491,281 @@
     ///
     /// This method returns an instance of [`StackSwitcherBuilder`] which can be used to create a [`StackSwitcher`].
     </span><span class="kw">pub fn </span>builder() -&gt; StackSwitcherBuilder {
-        StackSwitcherBuilder::default()
+        StackSwitcherBuilder::new()
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A builder for generating a [`StackSwitcher`].
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>StackSwitcherBuilder {
-    icon_size: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    stack: <span class="prelude-ty">Option</span>&lt;Stack&gt;,
-    baseline_position: <span class="prelude-ty">Option</span>&lt;BaselinePosition&gt;,
-    homogeneous: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    spacing: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    border_width: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    child: <span class="prelude-ty">Option</span>&lt;Widget&gt;,
-    resize_mode: <span class="prelude-ty">Option</span>&lt;ResizeMode&gt;,
-    app_paintable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    can_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    can_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    events: <span class="prelude-ty">Option</span>&lt;gdk::EventMask&gt;,
-    expand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    focus_on_click: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    halign: <span class="prelude-ty">Option</span>&lt;Align&gt;,
-    has_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    has_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    has_tooltip: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    height_request: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    hexpand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    hexpand_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    is_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    margin: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_bottom: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_end: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_start: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_top: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    no_show_all: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    opacity: <span class="prelude-ty">Option</span>&lt;f64&gt;,
-    parent: <span class="prelude-ty">Option</span>&lt;Container&gt;,
-    receives_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    sensitive: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    tooltip_markup: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    tooltip_text: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    valign: <span class="prelude-ty">Option</span>&lt;Align&gt;,
-    vexpand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    vexpand_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    visible: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    width_request: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    orientation: <span class="prelude-ty">Option</span>&lt;Orientation&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, StackSwitcher&gt;,
 }
 
 <span class="kw">impl </span>StackSwitcherBuilder {
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Create a new [`StackSwitcherBuilder`].
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    <span class="kw">pub fn </span>icon_size(<span class="self">self</span>, icon_size: IconSize) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;icon-size&quot;</span>, icon_size),
+        }
+    }
+
+    <span class="kw">pub fn </span>stack&lt;P: IsA&lt;Stack&gt;&gt;(<span class="self">self</span>, stack: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;stack&quot;</span>, stack),
+        }
+    }
+
+    <span class="kw">pub fn </span>baseline_position(<span class="self">self</span>, baseline_position: BaselinePosition) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;baseline-position&quot;</span>, baseline_position),
+        }
+    }
+
+    <span class="kw">pub fn </span>homogeneous(<span class="self">self</span>, homogeneous: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;homogeneous&quot;</span>, homogeneous),
+        }
+    }
+
+    <span class="kw">pub fn </span>spacing(<span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;spacing&quot;</span>, spacing),
+        }
+    }
+
+    <span class="kw">pub fn </span>border_width(<span class="self">self</span>, border_width: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;border-width&quot;</span>, border_width),
+        }
+    }
+
+    <span class="kw">pub fn </span>child&lt;P: IsA&lt;Widget&gt;&gt;(<span class="self">self</span>, child: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;child&quot;</span>, child),
+        }
+    }
+
+    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: ResizeMode) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, resize_mode),
+        }
+    }
+
+    <span class="kw">pub fn </span>app_paintable(<span class="self">self</span>, app_paintable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, app_paintable),
+        }
+    }
+
+    <span class="kw">pub fn </span>can_default(<span class="self">self</span>, can_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-default&quot;</span>, can_default),
+        }
+    }
+
+    <span class="kw">pub fn </span>can_focus(<span class="self">self</span>, can_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-focus&quot;</span>, can_focus),
+        }
+    }
+
+    <span class="kw">pub fn </span>events(<span class="self">self</span>, events: gdk::EventMask) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;events&quot;</span>, events),
+        }
+    }
+
+    <span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;expand&quot;</span>, expand),
+        }
+    }
+
+    <span class="kw">pub fn </span>focus_on_click(<span class="self">self</span>, focus_on_click: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, focus_on_click),
+        }
+    }
+
+    <span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: Align) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;halign&quot;</span>, halign),
+        }
+    }
+
+    <span class="kw">pub fn </span>has_default(<span class="self">self</span>, has_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-default&quot;</span>, has_default),
+        }
+    }
+
+    <span class="kw">pub fn </span>has_focus(<span class="self">self</span>, has_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-focus&quot;</span>, has_focus),
+        }
+    }
+
+    <span class="kw">pub fn </span>has_tooltip(<span class="self">self</span>, has_tooltip: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, has_tooltip),
+        }
+    }
+
+    <span class="kw">pub fn </span>height_request(<span class="self">self</span>, height_request: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;height-request&quot;</span>, height_request),
+        }
+    }
+
+    <span class="kw">pub fn </span>hexpand(<span class="self">self</span>, hexpand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand&quot;</span>, hexpand),
+        }
+    }
+
+    <span class="kw">pub fn </span>hexpand_set(<span class="self">self</span>, hexpand_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, hexpand_set),
+        }
+    }
+
+    <span class="attr">#[allow(clippy::wrong_self_convention)]
+    </span><span class="kw">pub fn </span>is_focus(<span class="self">self</span>, is_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-focus&quot;</span>, is_focus),
+        }
+    }
+
+    <span class="kw">pub fn </span>margin(<span class="self">self</span>, margin: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin&quot;</span>, margin),
+        }
+    }
+
+    <span class="kw">pub fn </span>margin_bottom(<span class="self">self</span>, margin_bottom: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, margin_bottom),
+        }
+    }
+
+    <span class="kw">pub fn </span>margin_end(<span class="self">self</span>, margin_end: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-end&quot;</span>, margin_end),
+        }
+    }
+
+    <span class="kw">pub fn </span>margin_start(<span class="self">self</span>, margin_start: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-start&quot;</span>, margin_start),
+        }
+    }
+
+    <span class="kw">pub fn </span>margin_top(<span class="self">self</span>, margin_top: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-top&quot;</span>, margin_top),
+        }
+    }
+
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;name&quot;</span>, name),
+        }
+    }
+
+    <span class="kw">pub fn </span>no_show_all(<span class="self">self</span>, no_show_all: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, no_show_all),
+        }
+    }
+
+    <span class="kw">pub fn </span>opacity(<span class="self">self</span>, opacity: f64) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;opacity&quot;</span>, opacity),
+        }
+    }
+
+    <span class="kw">pub fn </span>parent&lt;P: IsA&lt;Container&gt;&gt;(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;parent&quot;</span>, parent),
+        }
+    }
+
+    <span class="kw">pub fn </span>receives_default(<span class="self">self</span>, receives_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;receives-default&quot;</span>, receives_default),
+        }
+    }
+
+    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sensitive&quot;</span>, sensitive),
+        }
+    }
+
+    <span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tooltip-markup&quot;</span>, tooltip_markup),
+        }
+    }
+
+    <span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, tooltip_text),
+        }
+    }
+
+    <span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: Align) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;valign&quot;</span>, valign),
+        }
+    }
+
+    <span class="kw">pub fn </span>vexpand(<span class="self">self</span>, vexpand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand&quot;</span>, vexpand),
+        }
+    }
+
+    <span class="kw">pub fn </span>vexpand_set(<span class="self">self</span>, vexpand_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand*set&quot;</span>, vexpand_set),
+        }
+    }
+
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+        }
+    }
+
+    <span class="kw">pub fn </span>width_request(<span class="self">self</span>, width_request: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width-request&quot;</span>, width_request),
+        }
+    }
+
+    <span class="kw">pub fn </span>orientation(<span class="self">self</span>, orientation: Orientation) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;orientation&quot;</span>, orientation),
+        }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`StackSwitcher`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
     </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; StackSwitcher {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>icon_size) = <span class="self">self</span>.icon_size {
-            properties.push((<span class="string">&quot;icon-size&quot;</span>, icon_size));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>stack) = <span class="self">self</span>.stack {
-            properties.push((<span class="string">&quot;stack&quot;</span>, stack));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>baseline_position) = <span class="self">self</span>.baseline_position {
-            properties.push((<span class="string">&quot;baseline-position&quot;</span>, baseline_position));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>homogeneous) = <span class="self">self</span>.homogeneous {
-            properties.push((<span class="string">&quot;homogeneous&quot;</span>, homogeneous));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>spacing) = <span class="self">self</span>.spacing {
-            properties.push((<span class="string">&quot;spacing&quot;</span>, spacing));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>border_width) = <span class="self">self</span>.border_width {
-            properties.push((<span class="string">&quot;border-width&quot;</span>, border_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>child) = <span class="self">self</span>.child {
-            properties.push((<span class="string">&quot;child&quot;</span>, child));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>resize_mode) = <span class="self">self</span>.resize_mode {
-            properties.push((<span class="string">&quot;resize-mode&quot;</span>, resize_mode));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>app_paintable) = <span class="self">self</span>.app_paintable {
-            properties.push((<span class="string">&quot;app-paintable&quot;</span>, app_paintable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>can_default) = <span class="self">self</span>.can_default {
-            properties.push((<span class="string">&quot;can-default&quot;</span>, can_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>can_focus) = <span class="self">self</span>.can_focus {
-            properties.push((<span class="string">&quot;can-focus&quot;</span>, can_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>events) = <span class="self">self</span>.events {
-            properties.push((<span class="string">&quot;events&quot;</span>, events));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>expand) = <span class="self">self</span>.expand {
-            properties.push((<span class="string">&quot;expand&quot;</span>, expand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>focus_on_click) = <span class="self">self</span>.focus_on_click {
-            properties.push((<span class="string">&quot;focus-on-click&quot;</span>, focus_on_click));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>halign) = <span class="self">self</span>.halign {
-            properties.push((<span class="string">&quot;halign&quot;</span>, halign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_default) = <span class="self">self</span>.has_default {
-            properties.push((<span class="string">&quot;has-default&quot;</span>, has_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_focus) = <span class="self">self</span>.has_focus {
-            properties.push((<span class="string">&quot;has-focus&quot;</span>, has_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_tooltip) = <span class="self">self</span>.has_tooltip {
-            properties.push((<span class="string">&quot;has-tooltip&quot;</span>, has_tooltip));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>height_request) = <span class="self">self</span>.height_request {
-            properties.push((<span class="string">&quot;height-request&quot;</span>, height_request));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>hexpand) = <span class="self">self</span>.hexpand {
-            properties.push((<span class="string">&quot;hexpand&quot;</span>, hexpand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>hexpand_set) = <span class="self">self</span>.hexpand_set {
-            properties.push((<span class="string">&quot;hexpand-set&quot;</span>, hexpand_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_focus) = <span class="self">self</span>.is_focus {
-            properties.push((<span class="string">&quot;is-focus&quot;</span>, is_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin) = <span class="self">self</span>.margin {
-            properties.push((<span class="string">&quot;margin&quot;</span>, margin));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_bottom) = <span class="self">self</span>.margin_bottom {
-            properties.push((<span class="string">&quot;margin-bottom&quot;</span>, margin_bottom));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_end) = <span class="self">self</span>.margin_end {
-            properties.push((<span class="string">&quot;margin-end&quot;</span>, margin_end));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_start) = <span class="self">self</span>.margin_start {
-            properties.push((<span class="string">&quot;margin-start&quot;</span>, margin_start));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_top) = <span class="self">self</span>.margin_top {
-            properties.push((<span class="string">&quot;margin-top&quot;</span>, margin_top));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>name) = <span class="self">self</span>.name {
-            properties.push((<span class="string">&quot;name&quot;</span>, name));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>no_show_all) = <span class="self">self</span>.no_show_all {
-            properties.push((<span class="string">&quot;no-show-all&quot;</span>, no_show_all));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>opacity) = <span class="self">self</span>.opacity {
-            properties.push((<span class="string">&quot;opacity&quot;</span>, opacity));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>parent) = <span class="self">self</span>.parent {
-            properties.push((<span class="string">&quot;parent&quot;</span>, parent));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>receives_default) = <span class="self">self</span>.receives_default {
-            properties.push((<span class="string">&quot;receives-default&quot;</span>, receives_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sensitive) = <span class="self">self</span>.sensitive {
-            properties.push((<span class="string">&quot;sensitive&quot;</span>, sensitive));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tooltip_markup) = <span class="self">self</span>.tooltip_markup {
-            properties.push((<span class="string">&quot;tooltip-markup&quot;</span>, tooltip_markup));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tooltip_text) = <span class="self">self</span>.tooltip_text {
-            properties.push((<span class="string">&quot;tooltip-text&quot;</span>, tooltip_text));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>valign) = <span class="self">self</span>.valign {
-            properties.push((<span class="string">&quot;valign&quot;</span>, valign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>vexpand) = <span class="self">self</span>.vexpand {
-            properties.push((<span class="string">&quot;vexpand&quot;</span>, vexpand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>vexpand_set) = <span class="self">self</span>.vexpand_set {
-            properties.push((<span class="string">&quot;vexpand-set&quot;</span>, vexpand_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>visible) = <span class="self">self</span>.visible {
-            properties.push((<span class="string">&quot;visible&quot;</span>, visible));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>width_request) = <span class="self">self</span>.width_request {
-            properties.push((<span class="string">&quot;width-request&quot;</span>, width_request));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>orientation) = <span class="self">self</span>.orientation {
-            properties.push((<span class="string">&quot;orientation&quot;</span>, orientation));
-        }
-        glib::Object::new::&lt;StackSwitcher&gt;(<span class="kw-2">&amp;</span>properties)
+        <span class="self">self</span>.builder.build()
     }
-
-    <span class="kw">pub fn </span>icon_size(<span class="kw-2">mut </span><span class="self">self</span>, icon_size: IconSize) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.icon_size = <span class="prelude-val">Some</span>(icon_size.into_glib());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>stack&lt;P: IsA&lt;Stack&gt;&gt;(<span class="kw-2">mut </span><span class="self">self</span>, stack: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.stack = <span class="prelude-val">Some</span>(stack.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>baseline_position(<span class="kw-2">mut </span><span class="self">self</span>, baseline_position: BaselinePosition) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.baseline_position = <span class="prelude-val">Some</span>(baseline_position);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>homogeneous(<span class="kw-2">mut </span><span class="self">self</span>, homogeneous: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.homogeneous = <span class="prelude-val">Some</span>(homogeneous);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>spacing(<span class="kw-2">mut </span><span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.spacing = <span class="prelude-val">Some</span>(spacing);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>border_width(<span class="kw-2">mut </span><span class="self">self</span>, border_width: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.border_width = <span class="prelude-val">Some</span>(border_width);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>child&lt;P: IsA&lt;Widget&gt;&gt;(<span class="kw-2">mut </span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.child = <span class="prelude-val">Some</span>(child.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>resize_mode(<span class="kw-2">mut </span><span class="self">self</span>, resize_mode: ResizeMode) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.resize_mode = <span class="prelude-val">Some</span>(resize_mode);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>app_paintable(<span class="kw-2">mut </span><span class="self">self</span>, app_paintable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.app_paintable = <span class="prelude-val">Some</span>(app_paintable);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>can_default(<span class="kw-2">mut </span><span class="self">self</span>, can_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.can_default = <span class="prelude-val">Some</span>(can_default);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>can_focus(<span class="kw-2">mut </span><span class="self">self</span>, can_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.can_focus = <span class="prelude-val">Some</span>(can_focus);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>events(<span class="kw-2">mut </span><span class="self">self</span>, events: gdk::EventMask) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.events = <span class="prelude-val">Some</span>(events);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>expand(<span class="kw-2">mut </span><span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.expand = <span class="prelude-val">Some</span>(expand);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>focus_on_click(<span class="kw-2">mut </span><span class="self">self</span>, focus_on_click: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.focus_on_click = <span class="prelude-val">Some</span>(focus_on_click);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>halign(<span class="kw-2">mut </span><span class="self">self</span>, halign: Align) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.halign = <span class="prelude-val">Some</span>(halign);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>has_default(<span class="kw-2">mut </span><span class="self">self</span>, has_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_default = <span class="prelude-val">Some</span>(has_default);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>has_focus(<span class="kw-2">mut </span><span class="self">self</span>, has_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_focus = <span class="prelude-val">Some</span>(has_focus);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>has_tooltip(<span class="kw-2">mut </span><span class="self">self</span>, has_tooltip: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_tooltip = <span class="prelude-val">Some</span>(has_tooltip);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>height_request(<span class="kw-2">mut </span><span class="self">self</span>, height_request: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.height_request = <span class="prelude-val">Some</span>(height_request);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>hexpand(<span class="kw-2">mut </span><span class="self">self</span>, hexpand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.hexpand = <span class="prelude-val">Some</span>(hexpand);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>hexpand_set(<span class="kw-2">mut </span><span class="self">self</span>, hexpand_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.hexpand_set = <span class="prelude-val">Some</span>(hexpand_set);
-        <span class="self">self
-    </span>}
-
-    <span class="attr">#[allow(clippy::wrong_self_convention)]
-    </span><span class="kw">pub fn </span>is_focus(<span class="kw-2">mut </span><span class="self">self</span>, is_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_focus = <span class="prelude-val">Some</span>(is_focus);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>margin(<span class="kw-2">mut </span><span class="self">self</span>, margin: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin = <span class="prelude-val">Some</span>(margin);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>margin_bottom(<span class="kw-2">mut </span><span class="self">self</span>, margin_bottom: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_bottom = <span class="prelude-val">Some</span>(margin_bottom);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>margin_end(<span class="kw-2">mut </span><span class="self">self</span>, margin_end: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_end = <span class="prelude-val">Some</span>(margin_end);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>margin_start(<span class="kw-2">mut </span><span class="self">self</span>, margin_start: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_start = <span class="prelude-val">Some</span>(margin_start);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>margin_top(<span class="kw-2">mut </span><span class="self">self</span>, margin_top: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_top = <span class="prelude-val">Some</span>(margin_top);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>no_show_all(<span class="kw-2">mut </span><span class="self">self</span>, no_show_all: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.no_show_all = <span class="prelude-val">Some</span>(no_show_all);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>opacity(<span class="kw-2">mut </span><span class="self">self</span>, opacity: f64) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.opacity = <span class="prelude-val">Some</span>(opacity);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>parent&lt;P: IsA&lt;Container&gt;&gt;(<span class="kw-2">mut </span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span>P) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.parent = <span class="prelude-val">Some</span>(parent.clone().upcast());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>receives_default(<span class="kw-2">mut </span><span class="self">self</span>, receives_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.receives_default = <span class="prelude-val">Some</span>(receives_default);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>sensitive(<span class="kw-2">mut </span><span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sensitive = <span class="prelude-val">Some</span>(sensitive);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>tooltip_markup(<span class="kw-2">mut </span><span class="self">self</span>, tooltip_markup: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tooltip_markup = <span class="prelude-val">Some</span>(tooltip_markup.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>tooltip_text(<span class="kw-2">mut </span><span class="self">self</span>, tooltip_text: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tooltip_text = <span class="prelude-val">Some</span>(tooltip_text.to_string());
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>valign(<span class="kw-2">mut </span><span class="self">self</span>, valign: Align) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.valign = <span class="prelude-val">Some</span>(valign);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>vexpand(<span class="kw-2">mut </span><span class="self">self</span>, vexpand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.vexpand = <span class="prelude-val">Some</span>(vexpand);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>vexpand_set(<span class="kw-2">mut </span><span class="self">self</span>, vexpand_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.vexpand_set = <span class="prelude-val">Some</span>(vexpand_set);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>visible(<span class="kw-2">mut </span><span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.visible = <span class="prelude-val">Some</span>(visible);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>width_request(<span class="kw-2">mut </span><span class="self">self</span>, width_request: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.width_request = <span class="prelude-val">Some</span>(width_request);
-        <span class="self">self
-    </span>}
-
-    <span class="kw">pub fn </span>orientation(<span class="kw-2">mut </span><span class="self">self</span>, orientation: Orientation) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.orientation = <span class="prelude-val">Some</span>(orientation);
-        <span class="self">self
-    </span>}
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

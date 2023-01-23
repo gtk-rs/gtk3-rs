@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2927,53 +2927,139 @@
 <a href="#2854" id="2854">2854</a>
 <a href="#2855" id="2855">2855</a>
 <a href="#2856" id="2856">2856</a>
+<a href="#2857" id="2857">2857</a>
+<a href="#2858" id="2858">2858</a>
+<a href="#2859" id="2859">2859</a>
+<a href="#2860" id="2860">2860</a>
+<a href="#2861" id="2861">2861</a>
+<a href="#2862" id="2862">2862</a>
+<a href="#2863" id="2863">2863</a>
+<a href="#2864" id="2864">2864</a>
+<a href="#2865" id="2865">2865</a>
+<a href="#2866" id="2866">2866</a>
+<a href="#2867" id="2867">2867</a>
+<a href="#2868" id="2868">2868</a>
+<a href="#2869" id="2869">2869</a>
+<a href="#2870" id="2870">2870</a>
+<a href="#2871" id="2871">2871</a>
+<a href="#2872" id="2872">2872</a>
+<a href="#2873" id="2873">2873</a>
+<a href="#2874" id="2874">2874</a>
+<a href="#2875" id="2875">2875</a>
+<a href="#2876" id="2876">2876</a>
+<a href="#2877" id="2877">2877</a>
+<a href="#2878" id="2878">2878</a>
+<a href="#2879" id="2879">2879</a>
+<a href="#2880" id="2880">2880</a>
+<a href="#2881" id="2881">2881</a>
+<a href="#2882" id="2882">2882</a>
+<a href="#2883" id="2883">2883</a>
+<a href="#2884" id="2884">2884</a>
+<a href="#2885" id="2885">2885</a>
+<a href="#2886" id="2886">2886</a>
+<a href="#2887" id="2887">2887</a>
+<a href="#2888" id="2888">2888</a>
+<a href="#2889" id="2889">2889</a>
+<a href="#2890" id="2890">2890</a>
+<a href="#2891" id="2891">2891</a>
+<a href="#2892" id="2892">2892</a>
+<a href="#2893" id="2893">2893</a>
+<a href="#2894" id="2894">2894</a>
+<a href="#2895" id="2895">2895</a>
+<a href="#2896" id="2896">2896</a>
+<a href="#2897" id="2897">2897</a>
+<a href="#2898" id="2898">2898</a>
+<a href="#2899" id="2899">2899</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
 </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
 #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">use </span><span class="kw">crate</span>::AnchorHints;
-<span class="kw">use </span><span class="kw">crate</span>::Cursor;
-<span class="kw">use </span><span class="kw">crate</span>::Device;
-<span class="kw">use </span><span class="kw">crate</span>::Display;
-<span class="kw">use </span><span class="kw">crate</span>::DragProtocol;
-<span class="kw">use </span><span class="kw">crate</span>::DrawingContext;
-<span class="kw">use </span><span class="kw">crate</span>::Event;
-<span class="kw">use </span><span class="kw">crate</span>::EventMask;
-<span class="kw">use </span><span class="kw">crate</span>::FrameClock;
-<span class="kw">use </span><span class="kw">crate</span>::FullscreenMode;
-<span class="kw">use </span><span class="kw">crate</span>::GLContext;
-<span class="kw">use </span><span class="kw">crate</span>::Geometry;
-<span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">use </span><span class="kw">crate</span>::Gravity;
-<span class="kw">use </span><span class="kw">crate</span>::InputSource;
-<span class="kw">use </span><span class="kw">crate</span>::ModifierType;
-<span class="kw">use </span><span class="kw">crate</span>::Rectangle;
-<span class="kw">use </span><span class="kw">crate</span>::Screen;
-<span class="kw">use </span><span class="kw">crate</span>::Visual;
-<span class="kw">use </span><span class="kw">crate</span>::WMDecoration;
-<span class="kw">use </span><span class="kw">crate</span>::WMFunction;
-<span class="kw">use </span><span class="kw">crate</span>::WindowEdge;
-<span class="kw">use </span><span class="kw">crate</span>::WindowHints;
-<span class="kw">use </span><span class="kw">crate</span>::WindowState;
-<span class="kw">use </span><span class="kw">crate</span>::WindowType;
-<span class="kw">use </span><span class="kw">crate</span>::WindowTypeHint;
-<span class="kw">use </span>glib::object::ObjectType <span class="kw">as </span>ObjectType_;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::mem::transmute;
-<span class="kw">use </span>std::ptr;
+</span><span class="kw">use crate</span>::{AnchorHints, Gravity};
+<span class="kw">use crate</span>::{
+    Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
+    FullscreenMode, GLContext, Geometry, InputSource, ModifierType, Rectangle, Screen, Visual,
+    WMDecoration, WMFunction, WindowEdge, WindowHints, WindowState, WindowType, WindowTypeHint,
+};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem, mem::transmute, ptr};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">///
     ///
     /// This is an Abstract Base Class, you cannot instantiate it.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `cursor`
+    ///  The mouse pointer for a [`Window`][crate::Window]. See [`Window::set_cursor()`][crate::Window::set_cursor()] and
+    /// [`Window::cursor()`][crate::Window::cursor()] for details.
+    ///
+    /// Readable | Writeable
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `create-surface`
+    ///  The ::create-surface signal is emitted when an offscreen window
+    /// needs its surface (re)created, which happens either when the
+    /// window is first drawn to, or when the window is being
+    /// resized. The first signal handler that returns a non-[`None`]
+    /// surface will stop any further signal emission, and its surface
+    /// will be used.
+    ///
+    /// Note that it is not possible to access the window&#39;s previous
+    /// surface from within any callback of this signal. Calling
+    /// `gdk_offscreen_window_get_surface()` will lead to a crash.
+    ///
+    ///
+    ///
+    ///
+    /// #### `from-embedder`
+    ///  The ::from-embedder signal is emitted to translate coordinates
+    /// in the embedder of an offscreen window to the offscreen window.
+    ///
+    /// See also [`to-embedder`][struct@crate::Window#to-embedder].
+    ///
+    ///
+    ///
+    ///
+    /// #### `moved-to-rect`
+    ///  Emitted when the position of `window` is finalized after being moved to a
+    /// destination rectangle.
+    ///
+    /// `window` might be flipped over the destination rectangle in order to keep
+    /// it on-screen, in which case `flipped_x` and `flipped_y` will be set to [`true`]
+    /// accordingly.
+    ///
+    /// `flipped_rect` is the ideal position of `window` after any possible
+    /// flipping, but before any possible sliding. `final_rect` is `flipped_rect`,
+    /// but possibly translated in the case that flipping is still ineffective in
+    /// keeping `window` on-screen.
+    ///
+    ///
+    ///
+    ///
+    /// #### `pick-embedded-child`
+    ///  The ::pick-embedded-child signal is emitted to find an embedded
+    /// child at the given position.
+    ///
+    ///
+    ///
+    ///
+    /// #### `to-embedder`
+    ///  The ::to-embedder signal is emitted to translate coordinates
+    /// in an offscreen window to its embedder.
+    ///
+    /// See also [`from-embedder`][struct@crate::Window#from-embedder].
+    ///
+    ///
     ///
     /// # Implements
     ///
@@ -4623,7 +4709,7 @@
     /// [`Gravity::NorthWest`][crate::Gravity::NorthWest] with [`Gravity::NorthEast`][crate::Gravity::NorthEast] and vice versa if
     /// `self` extends beyond the left or right edges of the monitor.
     ///
-    /// Connect to the `signal::Window::moved-to-rect` signal to find out how it was
+    /// Connect to the [`moved-to-rect`][struct@crate::Window#moved-to-rect] signal to find out how it was
     /// actually positioned.
     /// ## `rect`
     /// the destination [`Rectangle`][crate::Rectangle] to align `self` with
@@ -5104,7 +5190,7 @@
     }
 
     <span class="comment">//#[doc(alias = &quot;gdk_window_set_invalidate_handler&quot;)]
-    //pub fn set_invalidate_handler&lt;P: Fn(&amp;Window, &amp;cairo::Region) + &#39;static&gt;(&amp;self, handler: P) {
+    //pub fn set_invalidate_handler&lt;P: Fn(&amp;Window) + &#39;static&gt;(&amp;self, handler: P) {
     //    unsafe { TODO: call ffi:gdk_window_set_invalidate_handler() }
     //}
 
@@ -5784,4 +5870,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

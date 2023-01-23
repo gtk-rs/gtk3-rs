@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/color_chooser_widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>color_chooser_widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/color_chooser_widget.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>color_chooser_widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -709,30 +709,223 @@
 <a href="#636" id="636">636</a>
 <a href="#637" id="637">637</a>
 <a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
+<a href="#648" id="648">648</a>
+<a href="#649" id="649">649</a>
+<a href="#650" id="650">650</a>
+<a href="#651" id="651">651</a>
+<a href="#652" id="652">652</a>
+<a href="#653" id="653">653</a>
+<a href="#654" id="654">654</a>
+<a href="#655" id="655">655</a>
+<a href="#656" id="656">656</a>
+<a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
+<a href="#675" id="675">675</a>
+<a href="#676" id="676">676</a>
+<a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+<a href="#748" id="748">748</a>
+<a href="#749" id="749">749</a>
+<a href="#750" id="750">750</a>
+<a href="#751" id="751">751</a>
+<a href="#752" id="752">752</a>
+<a href="#753" id="753">753</a>
+<a href="#754" id="754">754</a>
+<a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
+<a href="#803" id="803">803</a>
+<a href="#804" id="804">804</a>
+<a href="#805" id="805">805</a>
+<a href="#806" id="806">806</a>
+<a href="#807" id="807">807</a>
+<a href="#808" id="808">808</a>
+<a href="#809" id="809">809</a>
+<a href="#810" id="810">810</a>
+<a href="#811" id="811">811</a>
+<a href="#812" id="812">812</a>
+<a href="#813" id="813">813</a>
+<a href="#814" id="814">814</a>
+<a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
+<a href="#820" id="820">820</a>
+<a href="#821" id="821">821</a>
+<a href="#822" id="822">822</a>
+<a href="#823" id="823">823</a>
+<a href="#824" id="824">824</a>
+<a href="#825" id="825">825</a>
+<a href="#826" id="826">826</a>
+<a href="#827" id="827">827</a>
+<a href="#828" id="828">828</a>
+<a href="#829" id="829">829</a>
+<a href="#830" id="830">830</a>
+<a href="#831" id="831">831</a>
+<a href="#832" id="832">832</a>
+<a href="#833" id="833">833</a>
+<a href="#834" id="834">834</a>
+<a href="#835" id="835">835</a>
+<a href="#836" id="836">836</a>
+<a href="#837" id="837">837</a>
+<a href="#838" id="838">838</a>
+<a href="#839" id="839">839</a>
+<a href="#840" id="840">840</a>
+<a href="#841" id="841">841</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Align;
-<span class="kw">use </span><span class="kw">crate</span>::BaselinePosition;
-<span class="kw">use </span><span class="kw">crate</span>::Box;
-<span class="kw">use </span><span class="kw">crate</span>::Buildable;
-<span class="kw">use </span><span class="kw">crate</span>::ColorChooser;
-<span class="kw">use </span><span class="kw">crate</span>::Container;
-<span class="kw">use </span><span class="kw">crate</span>::Orientable;
-<span class="kw">use </span><span class="kw">crate</span>::Orientation;
-<span class="kw">use </span><span class="kw">crate</span>::ResizeMode;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{
+    Align, BaselinePosition, Box, Buildable, ColorChooser, Container, Orientable, Orientation,
+    ResizeMode, Widget,
+};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// The [`ColorChooserWidget`][crate::ColorChooserWidget] widget lets the user select a
@@ -755,6 +948,342 @@
     /// # CSS names
     ///
     /// GtkColorChooserWidget has a single CSS node with name colorchooser.
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `show-editor`
+    ///  The ::show-editor property is [`true`] when the color chooser
+    /// is showing the single-color editor. It can be set to switch
+    /// the color chooser into single-color editing mode.
+    ///
+    /// Readable | Writeable
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;Box&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `baseline-position`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `homogeneous`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `spacing`
+    ///  Readable | Writeable
+    /// &lt;/details&gt;
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;Container&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `border-width`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `child`
+    ///  Writeable
+    ///
+    ///
+    /// #### `resize-mode`
+    ///  Readable | Writeable
+    /// &lt;/details&gt;
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;Widget&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `app-paintable`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `can-default`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `can-focus`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `composite-child`
+    ///  Readable
+    ///
+    ///
+    /// #### `double-buffered`
+    ///  Whether the widget is double buffered.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `events`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `expand`
+    ///  Whether to expand in both directions. Setting this sets both [`hexpand`][struct@crate::Widget#hexpand] and [`vexpand`][struct@crate::Widget#vexpand]
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `focus-on-click`
+    ///  Whether the widget should grab focus when it is clicked with the mouse.
+    ///
+    /// This property is only relevant for widgets that can take focus.
+    ///
+    /// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,
+    /// GtkComboBox) implemented this property individually.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `halign`
+    ///  How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `has-default`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `has-focus`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `has-tooltip`
+    ///  Enables or disables the emission of [`query-tooltip`][struct@crate::Widget#query-tooltip] on `widget`.
+    /// A value of [`true`] indicates that `widget` can have a tooltip, in this case
+    /// the widget will be queried using [`query-tooltip`][struct@crate::Widget#query-tooltip] to determine
+    /// whether it will provide a tooltip or not.
+    ///
+    /// Note that setting this property to [`true`] for the first time will change
+    /// the event masks of the GdkWindows of this widget to include leave-notify
+    /// and motion-notify events. This cannot and will not be undone when the
+    /// property is set to [`false`] again.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `height-request`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `hexpand`
+    ///  Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `hexpand-set`
+    ///  Whether to use the [`hexpand`][struct@crate::Widget#hexpand] property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `is-focus`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `margin`
+    ///  Sets all four sides&#39; margin at once. If read, returns max
+    /// margin on any side.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-bottom`
+    ///  Margin on bottom side of widget.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-end`
+    ///  Margin on end of widget, horizontally. This property supports
+    /// left-to-right and right-to-left text directions.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-left`
+    ///  Margin on left side of widget.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-right`
+    ///  Margin on right side of widget.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-start`
+    ///  Margin on start of widget, horizontally. This property supports
+    /// left-to-right and right-to-left text directions.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `margin-top`
+    ///  Margin on top side of widget.
+    ///
+    /// This property adds margin outside of the widget&#39;s normal size
+    /// request, the margin will be added in addition to the size from
+    /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `name`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `no-show-all`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `opacity`
+    ///  The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for
+    /// more details about window opacity.
+    ///
+    /// Before 3.8 this was only available in GtkWindow
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `parent`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `receives-default`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `scale-factor`
+    ///  The scale factor of the widget. See [`WidgetExt::scale_factor()`][crate::prelude::WidgetExt::scale_factor()] for
+    /// more details about widget scaling.
+    ///
+    /// Readable
+    ///
+    ///
+    /// #### `sensitive`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `style`
+    ///  The style of the widget, which contains information about how it will look (colors, etc).
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `tooltip-markup`
+    ///  Sets the text of tooltip to be the given string, which is marked up
+    /// with the [Pango text markup language][PangoMarkupFormat].
+    /// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].
+    ///
+    /// This is a convenience property which will take care of getting the
+    /// tooltip shown if the given string is not [`None`]: [`has-tooltip`][struct@crate::Widget#has-tooltip]
+    /// will automatically be set to [`true`] and there will be taken care of
+    /// [`query-tooltip`][struct@crate::Widget#query-tooltip] in the default signal handler.
+    ///
+    /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
+    /// are set, the last one wins.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `tooltip-text`
+    ///  Sets the text of tooltip to be the given string.
+    ///
+    /// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].
+    ///
+    /// This is a convenience property which will take care of getting the
+    /// tooltip shown if the given string is not [`None`]: [`has-tooltip`][struct@crate::Widget#has-tooltip]
+    /// will automatically be set to [`true`] and there will be taken care of
+    /// [`query-tooltip`][struct@crate::Widget#query-tooltip] in the default signal handler.
+    ///
+    /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
+    /// are set, the last one wins.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `valign`
+    ///  How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `vexpand`
+    ///  Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `vexpand-set`
+    ///  Whether to use the [`vexpand`][struct@crate::Widget#vexpand] property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `visible`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `width-request`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `window`
+    ///  The widget&#39;s window if it is realized, [`None`] otherwise.
+    ///
+    /// Readable
+    /// &lt;/details&gt;
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;Orientable&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `orientation`
+    ///  The orientation of the orientable.
+    ///
+    /// Readable | Writeable
+    /// &lt;/details&gt;
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;ColorChooser&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `rgba`
+    ///  The ::rgba property contains the currently selected color,
+    /// as a [`gdk::RGBA`][crate::gdk::RGBA] struct. The property can be set to change
+    /// the current selection programmatically.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `use-alpha`
+    ///  When ::use-alpha is [`true`], colors may have alpha (translucency)
+    /// information. When it is [`false`], the [`gdk::RGBA`][crate::gdk::RGBA] struct obtained
+    /// via the [`rgba`][struct@crate::ColorChooser#rgba] property will be forced to have
+    /// alpha == 1.
+    ///
+    /// Implementations are expected to show alpha by rendering the color
+    /// over a non-uniform background (like a checkerboard pattern).
+    ///
+    /// Readable | Writeable
+    /// &lt;/details&gt;
     ///
     /// # Implements
     ///
@@ -786,7 +1315,7 @@
     ///
     /// This method returns an instance of [`ColorChooserWidgetBuilder`](crate::builders::ColorChooserWidgetBuilder) which can be used to create [`ColorChooserWidget`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; ColorChooserWidgetBuilder {
-        ColorChooserWidgetBuilder::default()
+        ColorChooserWidgetBuilder::new()
     }
 }
 
@@ -796,261 +1325,99 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`ColorChooserWidget`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>ColorChooserWidgetBuilder {
-    show_editor: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    baseline_position: <span class="prelude-ty">Option</span>&lt;BaselinePosition&gt;,
-    homogeneous: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    spacing: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    border_width: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    child: <span class="prelude-ty">Option</span>&lt;Widget&gt;,
-    resize_mode: <span class="prelude-ty">Option</span>&lt;ResizeMode&gt;,
-    app_paintable: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    can_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    can_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    events: <span class="prelude-ty">Option</span>&lt;gdk::EventMask&gt;,
-    expand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    focus_on_click: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    halign: <span class="prelude-ty">Option</span>&lt;Align&gt;,
-    has_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    has_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    has_tooltip: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    height_request: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    hexpand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    hexpand_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    is_focus: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    margin: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_bottom: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_end: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_start: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    margin_top: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    no_show_all: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    opacity: <span class="prelude-ty">Option</span>&lt;f64&gt;,
-    parent: <span class="prelude-ty">Option</span>&lt;Container&gt;,
-    receives_default: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    sensitive: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    tooltip_markup: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    tooltip_text: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    valign: <span class="prelude-ty">Option</span>&lt;Align&gt;,
-    vexpand: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    vexpand_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    visible: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    width_request: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    orientation: <span class="prelude-ty">Option</span>&lt;Orientation&gt;,
-    rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    use_alpha: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, ColorChooserWidget&gt;,
 }
 
 <span class="kw">impl </span>ColorChooserWidgetBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`ColorChooserWidgetBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
-    }
-
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Build the [`ColorChooserWidget`].
-    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ColorChooserWidget {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>show_editor) = <span class="self">self</span>.show_editor {
-            properties.push((<span class="string">&quot;show-editor&quot;</span>, show_editor));
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>baseline_position) = <span class="self">self</span>.baseline_position {
-            properties.push((<span class="string">&quot;baseline-position&quot;</span>, baseline_position));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>homogeneous) = <span class="self">self</span>.homogeneous {
-            properties.push((<span class="string">&quot;homogeneous&quot;</span>, homogeneous));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>spacing) = <span class="self">self</span>.spacing {
-            properties.push((<span class="string">&quot;spacing&quot;</span>, spacing));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>border_width) = <span class="self">self</span>.border_width {
-            properties.push((<span class="string">&quot;border-width&quot;</span>, border_width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>child) = <span class="self">self</span>.child {
-            properties.push((<span class="string">&quot;child&quot;</span>, child));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>resize_mode) = <span class="self">self</span>.resize_mode {
-            properties.push((<span class="string">&quot;resize-mode&quot;</span>, resize_mode));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>app_paintable) = <span class="self">self</span>.app_paintable {
-            properties.push((<span class="string">&quot;app-paintable&quot;</span>, app_paintable));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>can_default) = <span class="self">self</span>.can_default {
-            properties.push((<span class="string">&quot;can-default&quot;</span>, can_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>can_focus) = <span class="self">self</span>.can_focus {
-            properties.push((<span class="string">&quot;can-focus&quot;</span>, can_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>events) = <span class="self">self</span>.events {
-            properties.push((<span class="string">&quot;events&quot;</span>, events));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>expand) = <span class="self">self</span>.expand {
-            properties.push((<span class="string">&quot;expand&quot;</span>, expand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>focus_on_click) = <span class="self">self</span>.focus_on_click {
-            properties.push((<span class="string">&quot;focus-on-click&quot;</span>, focus_on_click));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>halign) = <span class="self">self</span>.halign {
-            properties.push((<span class="string">&quot;halign&quot;</span>, halign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_default) = <span class="self">self</span>.has_default {
-            properties.push((<span class="string">&quot;has-default&quot;</span>, has_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_focus) = <span class="self">self</span>.has_focus {
-            properties.push((<span class="string">&quot;has-focus&quot;</span>, has_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>has_tooltip) = <span class="self">self</span>.has_tooltip {
-            properties.push((<span class="string">&quot;has-tooltip&quot;</span>, has_tooltip));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>height_request) = <span class="self">self</span>.height_request {
-            properties.push((<span class="string">&quot;height-request&quot;</span>, height_request));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>hexpand) = <span class="self">self</span>.hexpand {
-            properties.push((<span class="string">&quot;hexpand&quot;</span>, hexpand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>hexpand_set) = <span class="self">self</span>.hexpand_set {
-            properties.push((<span class="string">&quot;hexpand-set&quot;</span>, hexpand_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_focus) = <span class="self">self</span>.is_focus {
-            properties.push((<span class="string">&quot;is-focus&quot;</span>, is_focus));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin) = <span class="self">self</span>.margin {
-            properties.push((<span class="string">&quot;margin&quot;</span>, margin));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_bottom) = <span class="self">self</span>.margin_bottom {
-            properties.push((<span class="string">&quot;margin-bottom&quot;</span>, margin_bottom));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_end) = <span class="self">self</span>.margin_end {
-            properties.push((<span class="string">&quot;margin-end&quot;</span>, margin_end));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_start) = <span class="self">self</span>.margin_start {
-            properties.push((<span class="string">&quot;margin-start&quot;</span>, margin_start));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>margin_top) = <span class="self">self</span>.margin_top {
-            properties.push((<span class="string">&quot;margin-top&quot;</span>, margin_top));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>name) = <span class="self">self</span>.name {
-            properties.push((<span class="string">&quot;name&quot;</span>, name));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>no_show_all) = <span class="self">self</span>.no_show_all {
-            properties.push((<span class="string">&quot;no-show-all&quot;</span>, no_show_all));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>opacity) = <span class="self">self</span>.opacity {
-            properties.push((<span class="string">&quot;opacity&quot;</span>, opacity));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>parent) = <span class="self">self</span>.parent {
-            properties.push((<span class="string">&quot;parent&quot;</span>, parent));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>receives_default) = <span class="self">self</span>.receives_default {
-            properties.push((<span class="string">&quot;receives-default&quot;</span>, receives_default));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sensitive) = <span class="self">self</span>.sensitive {
-            properties.push((<span class="string">&quot;sensitive&quot;</span>, sensitive));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tooltip_markup) = <span class="self">self</span>.tooltip_markup {
-            properties.push((<span class="string">&quot;tooltip-markup&quot;</span>, tooltip_markup));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>tooltip_text) = <span class="self">self</span>.tooltip_text {
-            properties.push((<span class="string">&quot;tooltip-text&quot;</span>, tooltip_text));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>valign) = <span class="self">self</span>.valign {
-            properties.push((<span class="string">&quot;valign&quot;</span>, valign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>vexpand) = <span class="self">self</span>.vexpand {
-            properties.push((<span class="string">&quot;vexpand&quot;</span>, vexpand));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>vexpand_set) = <span class="self">self</span>.vexpand_set {
-            properties.push((<span class="string">&quot;vexpand-set&quot;</span>, vexpand_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>visible) = <span class="self">self</span>.visible {
-            properties.push((<span class="string">&quot;visible&quot;</span>, visible));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>width_request) = <span class="self">self</span>.width_request {
-            properties.push((<span class="string">&quot;width-request&quot;</span>, width_request));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>orientation) = <span class="self">self</span>.orientation {
-            properties.push((<span class="string">&quot;orientation&quot;</span>, orientation));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>rgba) = <span class="self">self</span>.rgba {
-            properties.push((<span class="string">&quot;rgba&quot;</span>, rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>use_alpha) = <span class="self">self</span>.use_alpha {
-            properties.push((<span class="string">&quot;use-alpha&quot;</span>, use_alpha));
-        }
-        glib::Object::new::&lt;ColorChooserWidget&gt;(<span class="kw-2">&amp;</span>properties)
     }
 
     <span class="doccomment">/// The ::show-editor property is [`true`] when the color chooser
     /// is showing the single-color editor. It can be set to switch
     /// the color chooser into single-color editing mode.
-    </span><span class="kw">pub fn </span>show_editor(<span class="kw-2">mut </span><span class="self">self</span>, show_editor: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.show_editor = <span class="prelude-val">Some</span>(show_editor);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>show_editor(<span class="self">self</span>, show_editor: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;show-editor&quot;</span>, show_editor),
+        }
+    }
 
-    <span class="kw">pub fn </span>baseline_position(<span class="kw-2">mut </span><span class="self">self</span>, baseline_position: BaselinePosition) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.baseline_position = <span class="prelude-val">Some</span>(baseline_position);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>baseline_position(<span class="self">self</span>, baseline_position: BaselinePosition) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;baseline-position&quot;</span>, baseline_position),
+        }
+    }
 
-    <span class="kw">pub fn </span>homogeneous(<span class="kw-2">mut </span><span class="self">self</span>, homogeneous: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.homogeneous = <span class="prelude-val">Some</span>(homogeneous);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>homogeneous(<span class="self">self</span>, homogeneous: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;homogeneous&quot;</span>, homogeneous),
+        }
+    }
 
-    <span class="kw">pub fn </span>spacing(<span class="kw-2">mut </span><span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.spacing = <span class="prelude-val">Some</span>(spacing);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>spacing(<span class="self">self</span>, spacing: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;spacing&quot;</span>, spacing),
+        }
+    }
 
-    <span class="kw">pub fn </span>border_width(<span class="kw-2">mut </span><span class="self">self</span>, border_width: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.border_width = <span class="prelude-val">Some</span>(border_width);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>border_width(<span class="self">self</span>, border_width: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;border-width&quot;</span>, border_width),
+        }
+    }
 
-    <span class="kw">pub fn </span>child(<span class="kw-2">mut </span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.child = <span class="prelude-val">Some</span>(child.clone().upcast());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>child(<span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;child&quot;</span>, child.clone().upcast()),
+        }
+    }
 
-    <span class="kw">pub fn </span>resize_mode(<span class="kw-2">mut </span><span class="self">self</span>, resize_mode: ResizeMode) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.resize_mode = <span class="prelude-val">Some</span>(resize_mode);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: ResizeMode) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, resize_mode),
+        }
+    }
 
-    <span class="kw">pub fn </span>app_paintable(<span class="kw-2">mut </span><span class="self">self</span>, app_paintable: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.app_paintable = <span class="prelude-val">Some</span>(app_paintable);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>app_paintable(<span class="self">self</span>, app_paintable: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, app_paintable),
+        }
+    }
 
-    <span class="kw">pub fn </span>can_default(<span class="kw-2">mut </span><span class="self">self</span>, can_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.can_default = <span class="prelude-val">Some</span>(can_default);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>can_default(<span class="self">self</span>, can_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-default&quot;</span>, can_default),
+        }
+    }
 
-    <span class="kw">pub fn </span>can_focus(<span class="kw-2">mut </span><span class="self">self</span>, can_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.can_focus = <span class="prelude-val">Some</span>(can_focus);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>can_focus(<span class="self">self</span>, can_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-focus&quot;</span>, can_focus),
+        }
+    }
 
-    <span class="kw">pub fn </span>events(<span class="kw-2">mut </span><span class="self">self</span>, events: gdk::EventMask) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.events = <span class="prelude-val">Some</span>(events);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>events(<span class="self">self</span>, events: gdk::EventMask) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;events&quot;</span>, events),
+        }
+    }
 
-    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both `property::Widget::hexpand` and `property::Widget::vexpand`
-    </span><span class="kw">pub fn </span>expand(<span class="kw-2">mut </span><span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.expand = <span class="prelude-val">Some</span>(expand);
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`hexpand`][struct@crate::Widget#hexpand] and [`vexpand`][struct@crate::Widget#vexpand]
+    </span><span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;expand&quot;</span>, expand),
+        }
+    }
 
     <span class="doccomment">/// Whether the widget should grab focus when it is clicked with the mouse.
     ///
@@ -1058,79 +1425,90 @@
     ///
     /// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,
     /// GtkComboBox) implemented this property individually.
-    </span><span class="kw">pub fn </span>focus_on_click(<span class="kw-2">mut </span><span class="self">self</span>, focus_on_click: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.focus_on_click = <span class="prelude-val">Some</span>(focus_on_click);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>focus_on_click(<span class="self">self</span>, focus_on_click: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, focus_on_click),
+        }
+    }
 
     <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>halign(<span class="kw-2">mut </span><span class="self">self</span>, halign: Align) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.halign = <span class="prelude-val">Some</span>(halign);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: Align) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;halign&quot;</span>, halign),
+        }
+    }
 
-    <span class="kw">pub fn </span>has_default(<span class="kw-2">mut </span><span class="self">self</span>, has_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_default = <span class="prelude-val">Some</span>(has_default);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>has_default(<span class="self">self</span>, has_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-default&quot;</span>, has_default),
+        }
+    }
 
-    <span class="kw">pub fn </span>has_focus(<span class="kw-2">mut </span><span class="self">self</span>, has_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_focus = <span class="prelude-val">Some</span>(has_focus);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>has_focus(<span class="self">self</span>, has_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-focus&quot;</span>, has_focus),
+        }
+    }
 
-    <span class="doccomment">/// Enables or disables the emission of `signal::Widget::query-tooltip` on `widget`.
+    <span class="doccomment">/// Enables or disables the emission of [`query-tooltip`][struct@crate::Widget#query-tooltip] on `widget`.
     /// A value of [`true`] indicates that `widget` can have a tooltip, in this case
-    /// the widget will be queried using `signal::Widget::query-tooltip` to determine
+    /// the widget will be queried using [`query-tooltip`][struct@crate::Widget#query-tooltip] to determine
     /// whether it will provide a tooltip or not.
     ///
     /// Note that setting this property to [`true`] for the first time will change
     /// the event masks of the GdkWindows of this widget to include leave-notify
     /// and motion-notify events. This cannot and will not be undone when the
     /// property is set to [`false`] again.
-    </span><span class="kw">pub fn </span>has_tooltip(<span class="kw-2">mut </span><span class="self">self</span>, has_tooltip: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.has_tooltip = <span class="prelude-val">Some</span>(has_tooltip);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>has_tooltip(<span class="self">self</span>, has_tooltip: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, has_tooltip),
+        }
+    }
 
-    <span class="kw">pub fn </span>height_request(<span class="kw-2">mut </span><span class="self">self</span>, height_request: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.height_request = <span class="prelude-val">Some</span>(height_request);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>height_request(<span class="self">self</span>, height_request: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;height-request&quot;</span>, height_request),
+        }
+    }
 
     <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].
-    </span><span class="kw">pub fn </span>hexpand(<span class="kw-2">mut </span><span class="self">self</span>, hexpand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.hexpand = <span class="prelude-val">Some</span>(hexpand);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>hexpand(<span class="self">self</span>, hexpand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand&quot;</span>, hexpand),
+        }
+    }
 
-    <span class="doccomment">/// Whether to use the `property::Widget::hexpand` property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].
-    </span><span class="kw">pub fn </span>hexpand_set(<span class="kw-2">mut </span><span class="self">self</span>, hexpand_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.hexpand_set = <span class="prelude-val">Some</span>(hexpand_set);
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// Whether to use the [`hexpand`][struct@crate::Widget#hexpand] property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].
+    </span><span class="kw">pub fn </span>hexpand_set(<span class="self">self</span>, hexpand_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, hexpand_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>is_focus(<span class="kw-2">mut </span><span class="self">self</span>, is_focus: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_focus = <span class="prelude-val">Some</span>(is_focus);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>is_focus(<span class="self">self</span>, is_focus: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-focus&quot;</span>, is_focus),
+        }
+    }
 
     <span class="doccomment">/// Sets all four sides&#39; margin at once. If read, returns max
     /// margin on any side.
-    </span><span class="kw">pub fn </span>margin(<span class="kw-2">mut </span><span class="self">self</span>, margin: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin = <span class="prelude-val">Some</span>(margin);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>margin(<span class="self">self</span>, margin: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin&quot;</span>, margin),
+        }
+    }
 
     <span class="doccomment">/// Margin on bottom side of widget.
     ///
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_bottom(<span class="kw-2">mut </span><span class="self">self</span>, margin_bottom: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_bottom = <span class="prelude-val">Some</span>(margin_bottom);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>margin_bottom(<span class="self">self</span>, margin_bottom: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, margin_bottom),
+        }
+    }
 
     <span class="doccomment">/// Margin on end of widget, horizontally. This property supports
     /// left-to-right and right-to-left text directions.
@@ -1138,10 +1516,11 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_end(<span class="kw-2">mut </span><span class="self">self</span>, margin_end: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_end = <span class="prelude-val">Some</span>(margin_end);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>margin_end(<span class="self">self</span>, margin_end: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-end&quot;</span>, margin_end),
+        }
+    }
 
     <span class="doccomment">/// Margin on start of widget, horizontally. This property supports
     /// left-to-right and right-to-left text directions.
@@ -1149,140 +1528,167 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_start(<span class="kw-2">mut </span><span class="self">self</span>, margin_start: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_start = <span class="prelude-val">Some</span>(margin_start);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>margin_start(<span class="self">self</span>, margin_start: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-start&quot;</span>, margin_start),
+        }
+    }
 
     <span class="doccomment">/// Margin on top side of widget.
     ///
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_top(<span class="kw-2">mut </span><span class="self">self</span>, margin_top: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.margin_top = <span class="prelude-val">Some</span>(margin_top);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>margin_top(<span class="self">self</span>, margin_top: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-top&quot;</span>, margin_top),
+        }
+    }
 
-    <span class="kw">pub fn </span>name(<span class="kw-2">mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.name = <span class="prelude-val">Some</span>(name.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;name&quot;</span>, name.into()),
+        }
+    }
 
-    <span class="kw">pub fn </span>no_show_all(<span class="kw-2">mut </span><span class="self">self</span>, no_show_all: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.no_show_all = <span class="prelude-val">Some</span>(no_show_all);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>no_show_all(<span class="self">self</span>, no_show_all: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, no_show_all),
+        }
+    }
 
     <span class="doccomment">/// The requested opacity of the widget. See [`WidgetExt::set_opacity()`][crate::prelude::WidgetExt::set_opacity()] for
     /// more details about window opacity.
     ///
     /// Before 3.8 this was only available in GtkWindow
-    </span><span class="kw">pub fn </span>opacity(<span class="kw-2">mut </span><span class="self">self</span>, opacity: f64) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.opacity = <span class="prelude-val">Some</span>(opacity);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>opacity(<span class="self">self</span>, opacity: f64) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;opacity&quot;</span>, opacity),
+        }
+    }
 
-    <span class="kw">pub fn </span>parent(<span class="kw-2">mut </span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Container&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.parent = <span class="prelude-val">Some</span>(parent.clone().upcast());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Container&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;parent&quot;</span>, parent.clone().upcast()),
+        }
+    }
 
-    <span class="kw">pub fn </span>receives_default(<span class="kw-2">mut </span><span class="self">self</span>, receives_default: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.receives_default = <span class="prelude-val">Some</span>(receives_default);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>receives_default(<span class="self">self</span>, receives_default: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;receives-default&quot;</span>, receives_default),
+        }
+    }
 
-    <span class="kw">pub fn </span>sensitive(<span class="kw-2">mut </span><span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sensitive = <span class="prelude-val">Some</span>(sensitive);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sensitive&quot;</span>, sensitive),
+        }
+    }
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string, which is marked up
     /// with the [Pango text markup language][PangoMarkupFormat].
     /// Also see [`Tooltip::set_markup()`][crate::Tooltip::set_markup()].
     ///
     /// This is a convenience property which will take care of getting the
-    /// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`
+    /// tooltip shown if the given string is not [`None`]: [`has-tooltip`][struct@crate::Widget#has-tooltip]
     /// will automatically be set to [`true`] and there will be taken care of
-    /// `signal::Widget::query-tooltip` in the default signal handler.
+    /// [`query-tooltip`][struct@crate::Widget#query-tooltip] in the default signal handler.
     ///
-    /// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`
+    /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_markup(<span class="kw-2">mut </span><span class="self">self</span>, tooltip_markup: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tooltip_markup = <span class="prelude-val">Some</span>(tooltip_markup.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;tooltip-markup&quot;</span>, tooltip_markup.into()),
+        }
+    }
 
     <span class="doccomment">/// Sets the text of tooltip to be the given string.
     ///
     /// Also see [`Tooltip::set_text()`][crate::Tooltip::set_text()].
     ///
     /// This is a convenience property which will take care of getting the
-    /// tooltip shown if the given string is not [`None`]: `property::Widget::has-tooltip`
+    /// tooltip shown if the given string is not [`None`]: [`has-tooltip`][struct@crate::Widget#has-tooltip]
     /// will automatically be set to [`true`] and there will be taken care of
-    /// `signal::Widget::query-tooltip` in the default signal handler.
+    /// [`query-tooltip`][struct@crate::Widget#query-tooltip] in the default signal handler.
     ///
-    /// Note that if both `property::Widget::tooltip-text` and `property::Widget::tooltip-markup`
+    /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_text(<span class="kw-2">mut </span><span class="self">self</span>, tooltip_text: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.tooltip_text = <span class="prelude-val">Some</span>(tooltip_text.to_string());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, tooltip_text.into()),
+        }
+    }
 
     <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>valign(<span class="kw-2">mut </span><span class="self">self</span>, valign: Align) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.valign = <span class="prelude-val">Some</span>(valign);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: Align) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;valign&quot;</span>, valign),
+        }
+    }
 
     <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].
-    </span><span class="kw">pub fn </span>vexpand(<span class="kw-2">mut </span><span class="self">self</span>, vexpand: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.vexpand = <span class="prelude-val">Some</span>(vexpand);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>vexpand(<span class="self">self</span>, vexpand: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand&quot;</span>, vexpand),
+        }
+    }
 
-    <span class="doccomment">/// Whether to use the `property::Widget::vexpand` property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].
-    </span><span class="kw">pub fn </span>vexpand_set(<span class="kw-2">mut </span><span class="self">self</span>, vexpand_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.vexpand_set = <span class="prelude-val">Some</span>(vexpand_set);
-        <span class="self">self
-    </span>}
+    <span class="doccomment">/// Whether to use the [`vexpand`][struct@crate::Widget#vexpand] property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].
+    </span><span class="kw">pub fn </span>vexpand_set(<span class="self">self</span>, vexpand_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand-set&quot;</span>, vexpand_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>visible(<span class="kw-2">mut </span><span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.visible = <span class="prelude-val">Some</span>(visible);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+        }
+    }
 
-    <span class="kw">pub fn </span>width_request(<span class="kw-2">mut </span><span class="self">self</span>, width_request: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.width_request = <span class="prelude-val">Some</span>(width_request);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>width_request(<span class="self">self</span>, width_request: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width-request&quot;</span>, width_request),
+        }
+    }
 
     <span class="doccomment">/// The orientation of the orientable.
-    </span><span class="kw">pub fn </span>orientation(<span class="kw-2">mut </span><span class="self">self</span>, orientation: Orientation) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.orientation = <span class="prelude-val">Some</span>(orientation);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>orientation(<span class="self">self</span>, orientation: Orientation) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;orientation&quot;</span>, orientation),
+        }
+    }
 
     <span class="doccomment">/// The ::rgba property contains the currently selected color,
     /// as a [`gdk::RGBA`][crate::gdk::RGBA] struct. The property can be set to change
     /// the current selection programmatically.
-    </span><span class="kw">pub fn </span>rgba(<span class="kw-2">mut </span><span class="self">self</span>, rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.rgba = <span class="prelude-val">Some</span>(rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>rgba(<span class="self">self</span>, rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;rgba&quot;</span>, rgba.clone()),
+        }
+    }
 
     <span class="doccomment">/// When ::use-alpha is [`true`], colors may have alpha (translucency)
     /// information. When it is [`false`], the [`gdk::RGBA`][crate::gdk::RGBA] struct obtained
-    /// via the `property::ColorChooser::rgba` property will be forced to have
+    /// via the [`rgba`][struct@crate::ColorChooser#rgba] property will be forced to have
     /// alpha == 1.
     ///
     /// Implementations are expected to show alpha by rendering the color
     /// over a non-uniform background (like a checkerboard pattern).
-    </span><span class="kw">pub fn </span>use_alpha(<span class="kw-2">mut </span><span class="self">self</span>, use_alpha: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.use_alpha = <span class="prelude-val">Some</span>(use_alpha);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>use_alpha(<span class="self">self</span>, use_alpha: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;use-alpha&quot;</span>, use_alpha),
+        }
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Build the [`ColorChooserWidget`].
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ColorChooserWidget {
+        <span class="self">self</span>.builder.build()
+    }
 }
 
 <span class="doccomment">/// Trait containing all [`struct@ColorChooserWidget`] methods.
@@ -1348,4 +1754,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>

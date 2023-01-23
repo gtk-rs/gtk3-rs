@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spinner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_renderer_spinner.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b07ed6aaa412307b.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-d695502c06d5afea.css"><link rel="stylesheet" disabled href="../../../static.files/dark-aa222ca57e08648b.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-d5b7bae5e01694db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-4a084badb5778746.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spinner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>cell_renderer_spinner.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-a6e10e60fb712b0f.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-5f7299aa2b503fb1.css"><link rel="stylesheet" disabled href="../../../static.files/dark-dfb18ef8114bb428.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-4047a6aaddd3789d.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-3367e395607fafc1.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -473,23 +473,57 @@
 <a href="#400" id="400">400</a>
 <a href="#401" id="401">401</a>
 <a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><span class="kw">crate</span>::CellRenderer;
-<span class="kw">use </span><span class="kw">crate</span>::CellRendererMode;
-<span class="kw">use </span><span class="kw">crate</span>::IconSize;
-<span class="kw">use </span>glib::object::Cast;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::signal::connect_raw;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::StaticType;
-<span class="kw">use </span>glib::ToValue;
-<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
-<span class="kw">use </span>std::fmt;
-<span class="kw">use </span>std::mem::transmute;
+</span><span class="kw">use crate</span>::{CellRenderer, CellRendererMode, IconSize};
+<span class="kw">use </span>glib::{
+    prelude::<span class="kw-2">*</span>,
+    signal::{connect_raw, SignalHandlerId},
+    translate::<span class="kw-2">*</span>,
+};
+<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// GtkCellRendererSpinner renders a spinning animation in a cell, very
@@ -497,11 +531,103 @@
     /// to a [`CellRendererProgress`][crate::CellRendererProgress] for displaying indefinite activity,
     /// instead of actual progress.
     ///
-    /// To start the animation in a cell, set the `property::CellRendererSpinner::active`
-    /// property to [`true`] and increment the `property::CellRendererSpinner::pulse` property
+    /// To start the animation in a cell, set the [`active`][struct@crate::CellRendererSpinner#active]
+    /// property to [`true`] and increment the [`pulse`][struct@crate::CellRendererSpinner#pulse] property
     /// at regular intervals. The usual way to set the cell renderer properties
     /// for each cell is to bind them to columns in your tree model using e.g.
     /// [`TreeViewColumnExt::add_attribute()`][crate::prelude::TreeViewColumnExt::add_attribute()].
+    ///
+    /// ## Properties
+    ///
+    ///
+    /// #### `active`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `pulse`
+    ///  Pulse of the spinner. Increment this value to draw the next frame of the
+    /// spinner animation. Usually, you would update this value in a timeout.
+    ///
+    /// By default, the [`Spinner`][crate::Spinner] widget draws one full cycle of the animation,
+    /// consisting of 12 frames, in 750 milliseconds.
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `size`
+    ///  The [`IconSize`][crate::IconSize] value that specifies the size of the rendered spinner.
+    ///
+    /// Readable | Writeable
+    /// &lt;details&gt;&lt;summary&gt;&lt;h4&gt;CellRenderer&lt;/h4&gt;&lt;/summary&gt;
+    ///
+    ///
+    /// #### `cell-background`
+    ///  Writeable
+    ///
+    ///
+    /// #### `cell-background-gdk`
+    ///  Cell background as a `GdkColor`
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `cell-background-rgba`
+    ///  Cell background as a [`gdk::RGBA`][crate::gdk::RGBA]
+    ///
+    /// Readable | Writeable
+    ///
+    ///
+    /// #### `cell-background-set`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `editing`
+    ///  Readable
+    ///
+    ///
+    /// #### `height`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `is-expanded`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `is-expander`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `mode`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `sensitive`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `visible`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `width`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `xalign`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `xpad`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `yalign`
+    ///  Readable | Writeable
+    ///
+    ///
+    /// #### `ypad`
+    ///  Readable | Writeable
+    /// &lt;/details&gt;
     ///
     /// # Implements
     ///
@@ -534,7 +660,7 @@
     ///
     /// This method returns an instance of [`CellRendererSpinnerBuilder`](crate::builders::CellRendererSpinnerBuilder) which can be used to create [`CellRendererSpinner`] objects.
     </span><span class="kw">pub fn </span>builder() -&gt; CellRendererSpinnerBuilder {
-        CellRendererSpinnerBuilder::default()
+        CellRendererSpinnerBuilder::new()
     }
 }
 
@@ -544,189 +670,143 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Default)]
-</span><span class="comment">// rustdoc-stripper-ignore-next
+<span class="comment">// rustdoc-stripper-ignore-next
 </span><span class="doccomment">/// A [builder-pattern] type to construct [`CellRendererSpinner`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span>CellRendererSpinnerBuilder {
-    active: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    pulse: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    size: <span class="prelude-ty">Option</span>&lt;IconSize&gt;,
-    cell_background: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    cell_background_rgba: <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;,
-    cell_background_set: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    height: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    is_expanded: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    is_expander: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    mode: <span class="prelude-ty">Option</span>&lt;CellRendererMode&gt;,
-    sensitive: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    visible: <span class="prelude-ty">Option</span>&lt;bool&gt;,
-    width: <span class="prelude-ty">Option</span>&lt;i32&gt;,
-    xalign: <span class="prelude-ty">Option</span>&lt;f32&gt;,
-    xpad: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    yalign: <span class="prelude-ty">Option</span>&lt;f32&gt;,
-    ypad: <span class="prelude-ty">Option</span>&lt;u32&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, CellRendererSpinner&gt;,
 }
 
 <span class="kw">impl </span>CellRendererSpinnerBuilder {
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Create a new [`CellRendererSpinnerBuilder`].
-    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self</span>::default()
+    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: glib::object::Object::builder(),
+        }
     }
 
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Build the [`CellRendererSpinner`].
-    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; CellRendererSpinner {
-        <span class="kw">let </span><span class="kw-2">mut </span>properties: Vec&lt;(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span><span class="kw">dyn </span>ToValue)&gt; = <span class="macro">vec!</span>[];
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>active) = <span class="self">self</span>.active {
-            properties.push((<span class="string">&quot;active&quot;</span>, active));
+    <span class="kw">pub fn </span>active(<span class="self">self</span>, active: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;active&quot;</span>, active),
         }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>pulse) = <span class="self">self</span>.pulse {
-            properties.push((<span class="string">&quot;pulse&quot;</span>, pulse));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>size) = <span class="self">self</span>.size {
-            properties.push((<span class="string">&quot;size&quot;</span>, size));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>cell_background) = <span class="self">self</span>.cell_background {
-            properties.push((<span class="string">&quot;cell-background&quot;</span>, cell_background));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>cell_background_rgba) = <span class="self">self</span>.cell_background_rgba {
-            properties.push((<span class="string">&quot;cell-background-rgba&quot;</span>, cell_background_rgba));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>cell_background_set) = <span class="self">self</span>.cell_background_set {
-            properties.push((<span class="string">&quot;cell-background-set&quot;</span>, cell_background_set));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>height) = <span class="self">self</span>.height {
-            properties.push((<span class="string">&quot;height&quot;</span>, height));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_expanded) = <span class="self">self</span>.is_expanded {
-            properties.push((<span class="string">&quot;is-expanded&quot;</span>, is_expanded));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>is_expander) = <span class="self">self</span>.is_expander {
-            properties.push((<span class="string">&quot;is-expander&quot;</span>, is_expander));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>mode) = <span class="self">self</span>.mode {
-            properties.push((<span class="string">&quot;mode&quot;</span>, mode));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sensitive) = <span class="self">self</span>.sensitive {
-            properties.push((<span class="string">&quot;sensitive&quot;</span>, sensitive));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>visible) = <span class="self">self</span>.visible {
-            properties.push((<span class="string">&quot;visible&quot;</span>, visible));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>width) = <span class="self">self</span>.width {
-            properties.push((<span class="string">&quot;width&quot;</span>, width));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>xalign) = <span class="self">self</span>.xalign {
-            properties.push((<span class="string">&quot;xalign&quot;</span>, xalign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>xpad) = <span class="self">self</span>.xpad {
-            properties.push((<span class="string">&quot;xpad&quot;</span>, xpad));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>yalign) = <span class="self">self</span>.yalign {
-            properties.push((<span class="string">&quot;yalign&quot;</span>, yalign));
-        }
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>ypad) = <span class="self">self</span>.ypad {
-            properties.push((<span class="string">&quot;ypad&quot;</span>, ypad));
-        }
-        glib::Object::new::&lt;CellRendererSpinner&gt;(<span class="kw-2">&amp;</span>properties)
     }
-
-    <span class="kw">pub fn </span>active(<span class="kw-2">mut </span><span class="self">self</span>, active: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.active = <span class="prelude-val">Some</span>(active);
-        <span class="self">self
-    </span>}
 
     <span class="doccomment">/// Pulse of the spinner. Increment this value to draw the next frame of the
     /// spinner animation. Usually, you would update this value in a timeout.
     ///
     /// By default, the [`Spinner`][crate::Spinner] widget draws one full cycle of the animation,
     /// consisting of 12 frames, in 750 milliseconds.
-    </span><span class="kw">pub fn </span>pulse(<span class="kw-2">mut </span><span class="self">self</span>, pulse: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.pulse = <span class="prelude-val">Some</span>(pulse);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>pulse(<span class="self">self</span>, pulse: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;pulse&quot;</span>, pulse),
+        }
+    }
 
     <span class="doccomment">/// The [`IconSize`][crate::IconSize] value that specifies the size of the rendered spinner.
-    </span><span class="kw">pub fn </span>size(<span class="kw-2">mut </span><span class="self">self</span>, size: IconSize) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.size = <span class="prelude-val">Some</span>(size);
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>size(<span class="self">self</span>, size: IconSize) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size&quot;</span>, size),
+        }
+    }
 
-    <span class="kw">pub fn </span>cell_background(<span class="kw-2">mut </span><span class="self">self</span>, cell_background: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cell_background = <span class="prelude-val">Some</span>(cell_background.to_string());
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>cell_background(<span class="self">self</span>, cell_background: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;cell-background&quot;</span>, cell_background.into()),
+        }
+    }
 
     <span class="doccomment">/// Cell background as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="kw">pub fn </span>cell_background_rgba(<span class="kw-2">mut </span><span class="self">self</span>, cell_background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cell_background_rgba = <span class="prelude-val">Some</span>(cell_background_rgba.clone());
-        <span class="self">self
-    </span>}
+    </span><span class="kw">pub fn </span>cell_background_rgba(<span class="self">self</span>, cell_background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;cell-background-rgba&quot;</span>, cell_background_rgba.clone()),
+        }
+    }
 
-    <span class="kw">pub fn </span>cell_background_set(<span class="kw-2">mut </span><span class="self">self</span>, cell_background_set: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.cell_background_set = <span class="prelude-val">Some</span>(cell_background_set);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>cell_background_set(<span class="self">self</span>, cell_background_set: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self
+                </span>.builder
+                .property(<span class="string">&quot;cell-background-set&quot;</span>, cell_background_set),
+        }
+    }
 
-    <span class="kw">pub fn </span>height(<span class="kw-2">mut </span><span class="self">self</span>, height: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.height = <span class="prelude-val">Some</span>(height);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>height(<span class="self">self</span>, height: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;height&quot;</span>, height),
+        }
+    }
 
-    <span class="kw">pub fn </span>is_expanded(<span class="kw-2">mut </span><span class="self">self</span>, is_expanded: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_expanded = <span class="prelude-val">Some</span>(is_expanded);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>is_expanded(<span class="self">self</span>, is_expanded: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-expanded&quot;</span>, is_expanded),
+        }
+    }
 
-    <span class="kw">pub fn </span>is_expander(<span class="kw-2">mut </span><span class="self">self</span>, is_expander: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.is_expander = <span class="prelude-val">Some</span>(is_expander);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>is_expander(<span class="self">self</span>, is_expander: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-expander&quot;</span>, is_expander),
+        }
+    }
 
-    <span class="kw">pub fn </span>mode(<span class="kw-2">mut </span><span class="self">self</span>, mode: CellRendererMode) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.mode = <span class="prelude-val">Some</span>(mode);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>mode(<span class="self">self</span>, mode: CellRendererMode) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;mode&quot;</span>, mode),
+        }
+    }
 
-    <span class="kw">pub fn </span>sensitive(<span class="kw-2">mut </span><span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.sensitive = <span class="prelude-val">Some</span>(sensitive);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sensitive&quot;</span>, sensitive),
+        }
+    }
 
-    <span class="kw">pub fn </span>visible(<span class="kw-2">mut </span><span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.visible = <span class="prelude-val">Some</span>(visible);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+        }
+    }
 
-    <span class="kw">pub fn </span>width(<span class="kw-2">mut </span><span class="self">self</span>, width: i32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.width = <span class="prelude-val">Some</span>(width);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>width(<span class="self">self</span>, width: i32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width&quot;</span>, width),
+        }
+    }
 
-    <span class="kw">pub fn </span>xalign(<span class="kw-2">mut </span><span class="self">self</span>, xalign: f32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.xalign = <span class="prelude-val">Some</span>(xalign);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>xalign(<span class="self">self</span>, xalign: f32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;xalign&quot;</span>, xalign),
+        }
+    }
 
-    <span class="kw">pub fn </span>xpad(<span class="kw-2">mut </span><span class="self">self</span>, xpad: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.xpad = <span class="prelude-val">Some</span>(xpad);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>xpad(<span class="self">self</span>, xpad: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;xpad&quot;</span>, xpad),
+        }
+    }
 
-    <span class="kw">pub fn </span>yalign(<span class="kw-2">mut </span><span class="self">self</span>, yalign: f32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.yalign = <span class="prelude-val">Some</span>(yalign);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>yalign(<span class="self">self</span>, yalign: f32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;yalign&quot;</span>, yalign),
+        }
+    }
 
-    <span class="kw">pub fn </span>ypad(<span class="kw-2">mut </span><span class="self">self</span>, ypad: u32) -&gt; <span class="self">Self </span>{
-        <span class="self">self</span>.ypad = <span class="prelude-val">Some</span>(ypad);
-        <span class="self">self
-    </span>}
+    <span class="kw">pub fn </span>ypad(<span class="self">self</span>, ypad: u32) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;ypad&quot;</span>, ypad),
+        }
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Build the [`CellRendererSpinner`].
+    </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; CellRendererSpinner {
+        <span class="self">self</span>.builder.build()
+    }
 }
 
 <span class="doccomment">/// Trait containing all [`struct@CellRendererSpinner`] methods.
@@ -876,4 +956,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.68.0-nightly (92c1937a9 2022-12-27)" data-search-js="search-181581080540673f.js" data-settings-js="settings-bebeae96e00e4617.js" data-settings-css="settings-58836c674e2f7bd2.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (5e37043d6 2023-01-22)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-c3c521c753752a1a.js" data-settings-css="settings-08ddfdda51b8ee2e.css" ></div></body></html>
