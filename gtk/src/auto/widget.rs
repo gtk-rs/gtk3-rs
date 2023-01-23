@@ -2,39 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AccelFlags;
-use crate::AccelGroup;
-use crate::Align;
-use crate::Allocation;
-use crate::Buildable;
-use crate::Clipboard;
-use crate::DirectionType;
-use crate::DragResult;
-use crate::Orientation;
-use crate::Requisition;
-use crate::SelectionData;
-use crate::Settings;
-use crate::SizeRequestMode;
-use crate::StateFlags;
-use crate::StyleContext;
-use crate::TargetList;
-use crate::TextDirection;
-use crate::Tooltip;
-use crate::WidgetHelpType;
-use crate::WidgetPath;
-use crate::Window;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectExt;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
+use crate::{
+    AccelFlags, AccelGroup, Align, Allocation, Buildable, Clipboard, DirectionType, DragResult,
+    Orientation, Requisition, SelectionData, Settings, SizeRequestMode, StateFlags, StyleContext,
+    TargetList, TextDirection, Tooltip, WidgetHelpType, WidgetPath, Window,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkWidget")]
@@ -753,7 +731,7 @@ pub trait WidgetExt: 'static {
     fn set_visual(&self, visual: Option<&gdk::Visual>);
 
     #[doc(alias = "gtk_widget_set_window")]
-    fn set_window(&self, window: &gdk::Window);
+    fn set_window(&self, window: gdk::Window);
 
     #[doc(alias = "gtk_widget_shape_combine_region")]
     fn shape_combine_region(&self, region: Option<&cairo::Region>);
@@ -2763,9 +2741,9 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn set_window(&self, window: &gdk::Window) {
+    fn set_window(&self, window: gdk::Window) {
         unsafe {
-            ffi::gtk_widget_set_window(self.as_ref().to_glib_none().0, window.to_glib_full());
+            ffi::gtk_widget_set_window(self.as_ref().to_glib_none().0, window.into_glib_ptr());
         }
     }
 

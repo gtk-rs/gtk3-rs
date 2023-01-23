@@ -2,24 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AccelGroup;
-use crate::Orientation;
-use crate::PageSetup;
-use crate::PositionType;
-use crate::PrintSettings;
-use crate::SelectionData;
-use crate::StyleContext;
-use crate::TextBuffer;
-use crate::TextDirection;
-use crate::TreeModel;
-use crate::TreePath;
-use crate::Widget;
-use crate::Window;
-use glib::object::IsA;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::mem;
-use std::ptr;
+use crate::{
+    AccelGroup, Orientation, PageSetup, PositionType, PrintSettings, SelectionData, StyleContext,
+    TextBuffer, TextDirection, TreeModel, TreePath, Widget, Window,
+};
+use glib::{prelude::*, translate::*};
+use std::{boxed::Box as Box_, mem, ptr};
 
 #[doc(alias = "gtk_accel_groups_activate")]
 pub fn accel_groups_activate(
@@ -666,6 +654,7 @@ pub fn render_frame(
 }
 
 #[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
+#[allow(deprecated)]
 #[doc(alias = "gtk_render_frame_gap")]
 pub fn render_frame_gap(
     context: &impl IsA<StyleContext>,
@@ -997,7 +986,7 @@ pub fn show_uri_on_window(
             timestamp,
             &mut error,
         );
-        assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+        debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
         if error.is_null() {
             Ok(())
         } else {

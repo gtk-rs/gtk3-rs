@@ -2,15 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Buildable;
-use crate::IconSize;
-use crate::Orientation;
-use crate::ReliefStyle;
-use crate::SizeGroup;
-use crate::ToolbarStyle;
-use crate::Widget;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{Buildable, IconSize, Orientation, ReliefStyle, SizeGroup, ToolbarStyle, Widget};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

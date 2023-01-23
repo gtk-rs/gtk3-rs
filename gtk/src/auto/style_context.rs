@@ -2,24 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Border;
-use crate::CssSection;
-use crate::JunctionSides;
-use crate::StateFlags;
-use crate::StyleContextPrintFlags;
-use crate::StyleProvider;
-use crate::TextDirection;
-use crate::WidgetPath;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use crate::{
+    Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
+    TextDirection, WidgetPath,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkStyleContext")]
@@ -44,7 +36,7 @@ impl StyleContext {
     ///
     /// This method returns an instance of [`StyleContextBuilder`](crate::builders::StyleContextBuilder) which can be used to create [`StyleContext`] objects.
     pub fn builder() -> StyleContextBuilder {
-        StyleContextBuilder::default()
+        StyleContextBuilder::new()
     }
 
     #[doc(alias = "gtk_style_context_add_provider_for_screen")]
@@ -89,64 +81,51 @@ impl Default for StyleContext {
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`StyleContext`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct StyleContextBuilder {
-    direction: Option<TextDirection>,
-    paint_clock: Option<gdk::FrameClock>,
-    parent: Option<StyleContext>,
-    screen: Option<gdk::Screen>,
+    builder: glib::object::ObjectBuilder<'static, StyleContext>,
 }
 
 impl StyleContextBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`StyleContextBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn direction(self, direction: TextDirection) -> Self {
+        Self {
+            builder: self.builder.property("direction", direction),
+        }
+    }
+
+    pub fn paint_clock(self, paint_clock: &gdk::FrameClock) -> Self {
+        Self {
+            builder: self.builder.property("paint-clock", paint_clock.clone()),
+        }
+    }
+
+    pub fn parent(self, parent: &impl IsA<StyleContext>) -> Self {
+        Self {
+            builder: self.builder.property("parent", parent.clone().upcast()),
+        }
+    }
+
+    pub fn screen(self, screen: &gdk::Screen) -> Self {
+        Self {
+            builder: self.builder.property("screen", screen.clone()),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`StyleContext`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StyleContext {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref direction) = self.direction {
-            properties.push(("direction", direction));
-        }
-        if let Some(ref paint_clock) = self.paint_clock {
-            properties.push(("paint-clock", paint_clock));
-        }
-        if let Some(ref parent) = self.parent {
-            properties.push(("parent", parent));
-        }
-        if let Some(ref screen) = self.screen {
-            properties.push(("screen", screen));
-        }
-        glib::Object::new::<StyleContext>(&properties)
-    }
-
-    pub fn direction(mut self, direction: TextDirection) -> Self {
-        self.direction = Some(direction);
-        self
-    }
-
-    pub fn paint_clock(mut self, paint_clock: &gdk::FrameClock) -> Self {
-        self.paint_clock = Some(paint_clock.clone());
-        self
-    }
-
-    pub fn parent(mut self, parent: &impl IsA<StyleContext>) -> Self {
-        self.parent = Some(parent.clone().upcast());
-        self
-    }
-
-    pub fn screen(mut self, screen: &gdk::Screen) -> Self {
-        self.screen = Some(screen.clone());
-        self
+        self.builder.build()
     }
 }
 

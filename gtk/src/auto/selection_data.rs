@@ -3,10 +3,8 @@
 // DO NOT EDIT
 
 use crate::TextBuffer;
-use glib::object::IsA;
-use glib::translate::*;
-use std::mem;
-use std::ptr;
+use glib::{prelude::*, translate::*};
+use std::{mem, ptr};
 
 glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]

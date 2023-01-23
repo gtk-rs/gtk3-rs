@@ -3,9 +3,7 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use std::cmp;
-use std::fmt;
-use std::mem;
+use std::{cmp, fmt, mem};
 
 glib::wrapper! {
     #[derive(Debug, Hash)]

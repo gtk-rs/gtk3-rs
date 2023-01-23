@@ -2,19 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Buildable;
-use crate::SizeGroupMode;
-use crate::Widget;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use crate::{Buildable, SizeGroupMode, Widget};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkSizeGroup")]
@@ -39,47 +33,43 @@ impl SizeGroup {
     ///
     /// This method returns an instance of [`SizeGroupBuilder`](crate::builders::SizeGroupBuilder) which can be used to create [`SizeGroup`] objects.
     pub fn builder() -> SizeGroupBuilder {
-        SizeGroupBuilder::default()
+        SizeGroupBuilder::new()
     }
 }
 
 impl Default for SizeGroup {
     fn default() -> Self {
-        glib::object::Object::new::<Self>(&[])
+        glib::object::Object::new_default::<Self>()
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`SizeGroup`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct SizeGroupBuilder {
-    mode: Option<SizeGroupMode>,
+    builder: glib::object::ObjectBuilder<'static, SizeGroup>,
 }
 
 impl SizeGroupBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`SizeGroupBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn mode(self, mode: SizeGroupMode) -> Self {
+        Self {
+            builder: self.builder.property("mode", mode),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SizeGroup`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SizeGroup {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref mode) = self.mode {
-            properties.push(("mode", mode));
-        }
-        glib::Object::new::<SizeGroup>(&properties)
-    }
-
-    pub fn mode(mut self, mode: SizeGroupMode) -> Self {
-        self.mode = Some(mode);
-        self
+        self.builder.build()
     }
 }
 

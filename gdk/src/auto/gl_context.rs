@@ -2,12 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Display;
-use crate::Window;
+use crate::{Display, Window};
 use glib::translate::*;
-use std::fmt;
-use std::mem;
-use std::ptr;
+use std::{fmt, mem, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GdkGLContext")]
@@ -111,7 +108,7 @@ impl GLContext {
         unsafe {
             let mut error = ptr::null_mut();
             let is_ok = ffi::gdk_gl_context_realize(self.to_glib_none().0, &mut error);
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

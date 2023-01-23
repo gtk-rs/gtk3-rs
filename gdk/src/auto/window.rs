@@ -4,42 +4,18 @@
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use crate::AnchorHints;
-use crate::Cursor;
-use crate::Device;
-use crate::Display;
-use crate::DragProtocol;
-use crate::DrawingContext;
-use crate::Event;
-use crate::EventMask;
-use crate::FrameClock;
-use crate::FullscreenMode;
-use crate::GLContext;
-use crate::Geometry;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
-use crate::Gravity;
-use crate::InputSource;
-use crate::ModifierType;
-use crate::Rectangle;
-use crate::Screen;
-use crate::Visual;
-use crate::WMDecoration;
-use crate::WMFunction;
-use crate::WindowEdge;
-use crate::WindowHints;
-use crate::WindowState;
-use crate::WindowType;
-use crate::WindowTypeHint;
-use glib::object::ObjectType as ObjectType_;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
-use std::ptr;
+use crate::{AnchorHints, Gravity};
+use crate::{
+    Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
+    FullscreenMode, GLContext, Geometry, InputSource, ModifierType, Rectangle, Screen, Visual,
+    WMDecoration, WMFunction, WindowEdge, WindowHints, WindowState, WindowType, WindowTypeHint,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GdkWindow")]
@@ -1052,7 +1028,7 @@ impl Window {
     }
 
     //#[doc(alias = "gdk_window_set_invalidate_handler")]
-    //pub fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P) {
+    //pub fn set_invalidate_handler<P: Fn(&Window) + 'static>(&self, handler: P) {
     //    unsafe { TODO: call ffi:gdk_window_set_invalidate_handler() }
     //}
 

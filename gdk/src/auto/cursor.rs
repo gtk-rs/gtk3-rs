@@ -2,11 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::CursorType;
-use crate::Display;
+use crate::{CursorType, Display};
 use glib::translate::*;
-use std::fmt;
-use std::mem;
+use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GdkCursor")]

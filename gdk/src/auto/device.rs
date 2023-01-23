@@ -2,30 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Atom;
-use crate::AxisFlags;
-use crate::AxisUse;
-use crate::DeviceManager;
-use crate::DeviceTool;
-use crate::DeviceType;
-use crate::Display;
-use crate::InputMode;
-use crate::InputSource;
-use crate::ModifierType;
-use crate::Screen;
-use crate::Seat;
-use crate::Window;
-use glib::object::ObjectType as ObjectType_;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
-use std::ptr;
+use crate::{
+    Atom, AxisFlags, AxisUse, DeviceManager, DeviceTool, DeviceType, Display, InputMode,
+    InputSource, ModifierType, Screen, Seat, Window,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GdkDevice")]

@@ -2,17 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Atom;
-use crate::Display;
-use crate::Event;
-use crate::EventType;
-use crate::ModifierType;
-use crate::Screen;
-use crate::Window;
-use crate::WindowState;
+use crate::{Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState};
 use glib::translate::*;
-use std::mem;
-use std::ptr;
+use std::{mem, ptr};
 
 #[doc(alias = "gdk_beep")]
 pub fn beep() {

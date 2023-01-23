@@ -2,33 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Adjustment;
-use crate::Align;
-use crate::Buildable;
-use crate::CellEditable;
-use crate::Container;
-use crate::Editable;
-use crate::Entry;
-use crate::EntryBuffer;
-use crate::EntryCompletion;
-use crate::InputHints;
-use crate::InputPurpose;
-use crate::Orientable;
-use crate::Orientation;
-use crate::SpinButtonUpdatePolicy;
-use crate::SpinType;
-use crate::Widget;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
+use crate::{
+    Adjustment, Align, Buildable, CellEditable, Container, Editable, Entry, EntryBuffer,
+    EntryCompletion, InputHints, InputPurpose, Orientable, Orientation, SpinButtonUpdatePolicy,
+    SpinType, Widget,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkSpinButton")]
@@ -74,788 +58,602 @@ impl SpinButton {
     ///
     /// This method returns an instance of [`SpinButtonBuilder`](crate::builders::SpinButtonBuilder) which can be used to create [`SpinButton`] objects.
     pub fn builder() -> SpinButtonBuilder {
-        SpinButtonBuilder::default()
+        SpinButtonBuilder::new()
     }
 }
 
 impl Default for SpinButton {
     fn default() -> Self {
-        glib::object::Object::new::<Self>(&[])
+        glib::object::Object::new_default::<Self>()
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`SpinButton`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct SpinButtonBuilder {
-    adjustment: Option<Adjustment>,
-    climb_rate: Option<f64>,
-    digits: Option<u32>,
-    numeric: Option<bool>,
-    snap_to_ticks: Option<bool>,
-    update_policy: Option<SpinButtonUpdatePolicy>,
-    value: Option<f64>,
-    wrap: Option<bool>,
-    activates_default: Option<bool>,
-    attributes: Option<pango::AttrList>,
-    buffer: Option<EntryBuffer>,
-    caps_lock_warning: Option<bool>,
-    completion: Option<EntryCompletion>,
-    editable: Option<bool>,
-    enable_emoji_completion: Option<bool>,
-    has_frame: Option<bool>,
-    im_module: Option<String>,
-    input_hints: Option<InputHints>,
-    input_purpose: Option<InputPurpose>,
-    invisible_char: Option<u32>,
-    invisible_char_set: Option<bool>,
-    max_length: Option<i32>,
-    max_width_chars: Option<i32>,
-    overwrite_mode: Option<bool>,
-    placeholder_text: Option<String>,
-    populate_all: Option<bool>,
-    primary_icon_activatable: Option<bool>,
-    primary_icon_gicon: Option<gio::Icon>,
-    primary_icon_name: Option<String>,
-    primary_icon_pixbuf: Option<gdk_pixbuf::Pixbuf>,
-    primary_icon_sensitive: Option<bool>,
-    primary_icon_tooltip_markup: Option<String>,
-    primary_icon_tooltip_text: Option<String>,
-    progress_fraction: Option<f64>,
-    progress_pulse_step: Option<f64>,
-    secondary_icon_activatable: Option<bool>,
-    secondary_icon_gicon: Option<gio::Icon>,
-    secondary_icon_name: Option<String>,
-    secondary_icon_pixbuf: Option<gdk_pixbuf::Pixbuf>,
-    secondary_icon_sensitive: Option<bool>,
-    secondary_icon_tooltip_markup: Option<String>,
-    secondary_icon_tooltip_text: Option<String>,
-    show_emoji_icon: Option<bool>,
-    tabs: Option<pango::TabArray>,
-    text: Option<String>,
-    truncate_multiline: Option<bool>,
-    visibility: Option<bool>,
-    width_chars: Option<i32>,
-    xalign: Option<f32>,
-    app_paintable: Option<bool>,
-    can_default: Option<bool>,
-    can_focus: Option<bool>,
-    events: Option<gdk::EventMask>,
-    expand: Option<bool>,
-    focus_on_click: Option<bool>,
-    halign: Option<Align>,
-    has_default: Option<bool>,
-    has_focus: Option<bool>,
-    has_tooltip: Option<bool>,
-    height_request: Option<i32>,
-    hexpand: Option<bool>,
-    hexpand_set: Option<bool>,
-    is_focus: Option<bool>,
-    margin: Option<i32>,
-    margin_bottom: Option<i32>,
-    margin_end: Option<i32>,
-    margin_start: Option<i32>,
-    margin_top: Option<i32>,
-    name: Option<String>,
-    no_show_all: Option<bool>,
-    opacity: Option<f64>,
-    parent: Option<Container>,
-    receives_default: Option<bool>,
-    sensitive: Option<bool>,
-    tooltip_markup: Option<String>,
-    tooltip_text: Option<String>,
-    valign: Option<Align>,
-    vexpand: Option<bool>,
-    vexpand_set: Option<bool>,
-    visible: Option<bool>,
-    width_request: Option<i32>,
-    editing_canceled: Option<bool>,
-    orientation: Option<Orientation>,
+    builder: glib::object::ObjectBuilder<'static, SpinButton>,
 }
 
 impl SpinButtonBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`SpinButtonBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn adjustment(self, adjustment: &impl IsA<Adjustment>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("adjustment", adjustment.clone().upcast()),
+        }
+    }
+
+    pub fn climb_rate(self, climb_rate: f64) -> Self {
+        Self {
+            builder: self.builder.property("climb-rate", climb_rate),
+        }
+    }
+
+    pub fn digits(self, digits: u32) -> Self {
+        Self {
+            builder: self.builder.property("digits", digits),
+        }
+    }
+
+    pub fn numeric(self, numeric: bool) -> Self {
+        Self {
+            builder: self.builder.property("numeric", numeric),
+        }
+    }
+
+    pub fn snap_to_ticks(self, snap_to_ticks: bool) -> Self {
+        Self {
+            builder: self.builder.property("snap-to-ticks", snap_to_ticks),
+        }
+    }
+
+    pub fn update_policy(self, update_policy: SpinButtonUpdatePolicy) -> Self {
+        Self {
+            builder: self.builder.property("update-policy", update_policy),
+        }
+    }
+
+    pub fn value(self, value: f64) -> Self {
+        Self {
+            builder: self.builder.property("value", value),
+        }
+    }
+
+    pub fn wrap(self, wrap: bool) -> Self {
+        Self {
+            builder: self.builder.property("wrap", wrap),
+        }
+    }
+
+    pub fn activates_default(self, activates_default: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("activates-default", activates_default),
+        }
+    }
+
+    pub fn attributes(self, attributes: &pango::AttrList) -> Self {
+        Self {
+            builder: self.builder.property("attributes", attributes.clone()),
+        }
+    }
+
+    pub fn buffer(self, buffer: &impl IsA<EntryBuffer>) -> Self {
+        Self {
+            builder: self.builder.property("buffer", buffer.clone().upcast()),
+        }
+    }
+
+    pub fn caps_lock_warning(self, caps_lock_warning: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("caps-lock-warning", caps_lock_warning),
+        }
+    }
+
+    pub fn completion(self, completion: &impl IsA<EntryCompletion>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("completion", completion.clone().upcast()),
+        }
+    }
+
+    pub fn editable(self, editable: bool) -> Self {
+        Self {
+            builder: self.builder.property("editable", editable),
+        }
+    }
+
+    pub fn enable_emoji_completion(self, enable_emoji_completion: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("enable-emoji-completion", enable_emoji_completion),
+        }
+    }
+
+    pub fn has_frame(self, has_frame: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-frame", has_frame),
+        }
+    }
+
+    pub fn im_module(self, im_module: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("im-module", im_module.into()),
+        }
+    }
+
+    pub fn input_hints(self, input_hints: InputHints) -> Self {
+        Self {
+            builder: self.builder.property("input-hints", input_hints),
+        }
+    }
+
+    pub fn input_purpose(self, input_purpose: InputPurpose) -> Self {
+        Self {
+            builder: self.builder.property("input-purpose", input_purpose),
+        }
+    }
+
+    pub fn invisible_char(self, invisible_char: u32) -> Self {
+        Self {
+            builder: self.builder.property("invisible-char", invisible_char),
+        }
+    }
+
+    pub fn invisible_char_set(self, invisible_char_set: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("invisible-char-set", invisible_char_set),
+        }
+    }
+
+    pub fn max_length(self, max_length: i32) -> Self {
+        Self {
+            builder: self.builder.property("max-length", max_length),
+        }
+    }
+
+    pub fn max_width_chars(self, max_width_chars: i32) -> Self {
+        Self {
+            builder: self.builder.property("max-width-chars", max_width_chars),
+        }
+    }
+
+    pub fn overwrite_mode(self, overwrite_mode: bool) -> Self {
+        Self {
+            builder: self.builder.property("overwrite-mode", overwrite_mode),
+        }
+    }
+
+    pub fn placeholder_text(self, placeholder_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("placeholder-text", placeholder_text.into()),
+        }
+    }
+
+    pub fn populate_all(self, populate_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("populate-all", populate_all),
+        }
+    }
+
+    pub fn primary_icon_activatable(self, primary_icon_activatable: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("primary-icon-activatable", primary_icon_activatable),
+        }
+    }
+
+    pub fn primary_icon_gicon(self, primary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("primary-icon-gicon", primary_icon_gicon.clone().upcast()),
+        }
+    }
+
+    pub fn primary_icon_name(self, primary_icon_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("primary-icon-name", primary_icon_name.into()),
+        }
+    }
+
+    pub fn primary_icon_pixbuf(self, primary_icon_pixbuf: &gdk_pixbuf::Pixbuf) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("primary-icon-pixbuf", primary_icon_pixbuf.clone()),
+        }
+    }
+
+    pub fn primary_icon_sensitive(self, primary_icon_sensitive: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("primary-icon-sensitive", primary_icon_sensitive),
+        }
+    }
+
+    pub fn primary_icon_tooltip_markup(
+        self,
+        primary_icon_tooltip_markup: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "primary-icon-tooltip-markup",
+                primary_icon_tooltip_markup.into(),
+            ),
+        }
+    }
+
+    pub fn primary_icon_tooltip_text(
+        self,
+        primary_icon_tooltip_text: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "primary-icon-tooltip-text",
+                primary_icon_tooltip_text.into(),
+            ),
+        }
+    }
+
+    pub fn progress_fraction(self, progress_fraction: f64) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("progress-fraction", progress_fraction),
+        }
+    }
+
+    pub fn progress_pulse_step(self, progress_pulse_step: f64) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("progress-pulse-step", progress_pulse_step),
+        }
+    }
+
+    pub fn secondary_icon_activatable(self, secondary_icon_activatable: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("secondary-icon-activatable", secondary_icon_activatable),
+        }
+    }
+
+    pub fn secondary_icon_gicon(self, secondary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
+        Self {
+            builder: self.builder.property(
+                "secondary-icon-gicon",
+                secondary_icon_gicon.clone().upcast(),
+            ),
+        }
+    }
+
+    pub fn secondary_icon_name(self, secondary_icon_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("secondary-icon-name", secondary_icon_name.into()),
+        }
+    }
+
+    pub fn secondary_icon_pixbuf(self, secondary_icon_pixbuf: &gdk_pixbuf::Pixbuf) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("secondary-icon-pixbuf", secondary_icon_pixbuf.clone()),
+        }
+    }
+
+    pub fn secondary_icon_sensitive(self, secondary_icon_sensitive: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("secondary-icon-sensitive", secondary_icon_sensitive),
+        }
+    }
+
+    pub fn secondary_icon_tooltip_markup(
+        self,
+        secondary_icon_tooltip_markup: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "secondary-icon-tooltip-markup",
+                secondary_icon_tooltip_markup.into(),
+            ),
+        }
+    }
+
+    pub fn secondary_icon_tooltip_text(
+        self,
+        secondary_icon_tooltip_text: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "secondary-icon-tooltip-text",
+                secondary_icon_tooltip_text.into(),
+            ),
+        }
+    }
+
+    pub fn show_emoji_icon(self, show_emoji_icon: bool) -> Self {
+        Self {
+            builder: self.builder.property("show-emoji-icon", show_emoji_icon),
+        }
+    }
+
+    pub fn tabs(self, tabs: &pango::TabArray) -> Self {
+        Self {
+            builder: self.builder.property("tabs", tabs.clone()),
+        }
+    }
+
+    pub fn text(self, text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("text", text.into()),
+        }
+    }
+
+    pub fn truncate_multiline(self, truncate_multiline: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("truncate-multiline", truncate_multiline),
+        }
+    }
+
+    pub fn visibility(self, visibility: bool) -> Self {
+        Self {
+            builder: self.builder.property("visibility", visibility),
+        }
+    }
+
+    pub fn width_chars(self, width_chars: i32) -> Self {
+        Self {
+            builder: self.builder.property("width-chars", width_chars),
+        }
+    }
+
+    pub fn xalign(self, xalign: f32) -> Self {
+        Self {
+            builder: self.builder.property("xalign", xalign),
+        }
+    }
+
+    pub fn app_paintable(self, app_paintable: bool) -> Self {
+        Self {
+            builder: self.builder.property("app-paintable", app_paintable),
+        }
+    }
+
+    pub fn can_default(self, can_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-default", can_default),
+        }
+    }
+
+    pub fn can_focus(self, can_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-focus", can_focus),
+        }
+    }
+
+    pub fn events(self, events: gdk::EventMask) -> Self {
+        Self {
+            builder: self.builder.property("events", events),
+        }
+    }
+
+    pub fn expand(self, expand: bool) -> Self {
+        Self {
+            builder: self.builder.property("expand", expand),
+        }
+    }
+
+    pub fn focus_on_click(self, focus_on_click: bool) -> Self {
+        Self {
+            builder: self.builder.property("focus-on-click", focus_on_click),
+        }
+    }
+
+    pub fn halign(self, halign: Align) -> Self {
+        Self {
+            builder: self.builder.property("halign", halign),
+        }
+    }
+
+    pub fn has_default(self, has_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-default", has_default),
+        }
+    }
+
+    pub fn has_focus(self, has_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-focus", has_focus),
+        }
+    }
+
+    pub fn has_tooltip(self, has_tooltip: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-tooltip", has_tooltip),
+        }
+    }
+
+    pub fn height_request(self, height_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("height-request", height_request),
+        }
+    }
+
+    pub fn hexpand(self, hexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand", hexpand),
+        }
+    }
+
+    pub fn hexpand_set(self, hexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand-set", hexpand_set),
+        }
+    }
+
+    pub fn is_focus(self, is_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("is-focus", is_focus),
+        }
+    }
+
+    pub fn margin(self, margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin", margin),
+        }
+    }
+
+    pub fn margin_bottom(self, margin_bottom: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-bottom", margin_bottom),
+        }
+    }
+
+    pub fn margin_end(self, margin_end: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-end", margin_end),
+        }
+    }
+
+    pub fn margin_start(self, margin_start: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-start", margin_start),
+        }
+    }
+
+    pub fn margin_top(self, margin_top: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-top", margin_top),
+        }
+    }
+
+    pub fn name(self, name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("name", name.into()),
+        }
+    }
+
+    pub fn no_show_all(self, no_show_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("no-show-all", no_show_all),
+        }
+    }
+
+    pub fn opacity(self, opacity: f64) -> Self {
+        Self {
+            builder: self.builder.property("opacity", opacity),
+        }
+    }
+
+    pub fn parent(self, parent: &impl IsA<Container>) -> Self {
+        Self {
+            builder: self.builder.property("parent", parent.clone().upcast()),
+        }
+    }
+
+    pub fn receives_default(self, receives_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("receives-default", receives_default),
+        }
+    }
+
+    pub fn sensitive(self, sensitive: bool) -> Self {
+        Self {
+            builder: self.builder.property("sensitive", sensitive),
+        }
+    }
+
+    pub fn tooltip_markup(self, tooltip_markup: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("tooltip-markup", tooltip_markup.into()),
+        }
+    }
+
+    pub fn tooltip_text(self, tooltip_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("tooltip-text", tooltip_text.into()),
+        }
+    }
+
+    pub fn valign(self, valign: Align) -> Self {
+        Self {
+            builder: self.builder.property("valign", valign),
+        }
+    }
+
+    pub fn vexpand(self, vexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand", vexpand),
+        }
+    }
+
+    pub fn vexpand_set(self, vexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand-set", vexpand_set),
+        }
+    }
+
+    pub fn visible(self, visible: bool) -> Self {
+        Self {
+            builder: self.builder.property("visible", visible),
+        }
+    }
+
+    pub fn width_request(self, width_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("width-request", width_request),
+        }
+    }
+
+    pub fn editing_canceled(self, editing_canceled: bool) -> Self {
+        Self {
+            builder: self.builder.property("editing-canceled", editing_canceled),
+        }
+    }
+
+    pub fn orientation(self, orientation: Orientation) -> Self {
+        Self {
+            builder: self.builder.property("orientation", orientation),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`SpinButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SpinButton {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref adjustment) = self.adjustment {
-            properties.push(("adjustment", adjustment));
-        }
-        if let Some(ref climb_rate) = self.climb_rate {
-            properties.push(("climb-rate", climb_rate));
-        }
-        if let Some(ref digits) = self.digits {
-            properties.push(("digits", digits));
-        }
-        if let Some(ref numeric) = self.numeric {
-            properties.push(("numeric", numeric));
-        }
-        if let Some(ref snap_to_ticks) = self.snap_to_ticks {
-            properties.push(("snap-to-ticks", snap_to_ticks));
-        }
-        if let Some(ref update_policy) = self.update_policy {
-            properties.push(("update-policy", update_policy));
-        }
-        if let Some(ref value) = self.value {
-            properties.push(("value", value));
-        }
-        if let Some(ref wrap) = self.wrap {
-            properties.push(("wrap", wrap));
-        }
-        if let Some(ref activates_default) = self.activates_default {
-            properties.push(("activates-default", activates_default));
-        }
-        if let Some(ref attributes) = self.attributes {
-            properties.push(("attributes", attributes));
-        }
-        if let Some(ref buffer) = self.buffer {
-            properties.push(("buffer", buffer));
-        }
-        if let Some(ref caps_lock_warning) = self.caps_lock_warning {
-            properties.push(("caps-lock-warning", caps_lock_warning));
-        }
-        if let Some(ref completion) = self.completion {
-            properties.push(("completion", completion));
-        }
-        if let Some(ref editable) = self.editable {
-            properties.push(("editable", editable));
-        }
-        if let Some(ref enable_emoji_completion) = self.enable_emoji_completion {
-            properties.push(("enable-emoji-completion", enable_emoji_completion));
-        }
-        if let Some(ref has_frame) = self.has_frame {
-            properties.push(("has-frame", has_frame));
-        }
-        if let Some(ref im_module) = self.im_module {
-            properties.push(("im-module", im_module));
-        }
-        if let Some(ref input_hints) = self.input_hints {
-            properties.push(("input-hints", input_hints));
-        }
-        if let Some(ref input_purpose) = self.input_purpose {
-            properties.push(("input-purpose", input_purpose));
-        }
-        if let Some(ref invisible_char) = self.invisible_char {
-            properties.push(("invisible-char", invisible_char));
-        }
-        if let Some(ref invisible_char_set) = self.invisible_char_set {
-            properties.push(("invisible-char-set", invisible_char_set));
-        }
-        if let Some(ref max_length) = self.max_length {
-            properties.push(("max-length", max_length));
-        }
-        if let Some(ref max_width_chars) = self.max_width_chars {
-            properties.push(("max-width-chars", max_width_chars));
-        }
-        if let Some(ref overwrite_mode) = self.overwrite_mode {
-            properties.push(("overwrite-mode", overwrite_mode));
-        }
-        if let Some(ref placeholder_text) = self.placeholder_text {
-            properties.push(("placeholder-text", placeholder_text));
-        }
-        if let Some(ref populate_all) = self.populate_all {
-            properties.push(("populate-all", populate_all));
-        }
-        if let Some(ref primary_icon_activatable) = self.primary_icon_activatable {
-            properties.push(("primary-icon-activatable", primary_icon_activatable));
-        }
-        if let Some(ref primary_icon_gicon) = self.primary_icon_gicon {
-            properties.push(("primary-icon-gicon", primary_icon_gicon));
-        }
-        if let Some(ref primary_icon_name) = self.primary_icon_name {
-            properties.push(("primary-icon-name", primary_icon_name));
-        }
-        if let Some(ref primary_icon_pixbuf) = self.primary_icon_pixbuf {
-            properties.push(("primary-icon-pixbuf", primary_icon_pixbuf));
-        }
-        if let Some(ref primary_icon_sensitive) = self.primary_icon_sensitive {
-            properties.push(("primary-icon-sensitive", primary_icon_sensitive));
-        }
-        if let Some(ref primary_icon_tooltip_markup) = self.primary_icon_tooltip_markup {
-            properties.push(("primary-icon-tooltip-markup", primary_icon_tooltip_markup));
-        }
-        if let Some(ref primary_icon_tooltip_text) = self.primary_icon_tooltip_text {
-            properties.push(("primary-icon-tooltip-text", primary_icon_tooltip_text));
-        }
-        if let Some(ref progress_fraction) = self.progress_fraction {
-            properties.push(("progress-fraction", progress_fraction));
-        }
-        if let Some(ref progress_pulse_step) = self.progress_pulse_step {
-            properties.push(("progress-pulse-step", progress_pulse_step));
-        }
-        if let Some(ref secondary_icon_activatable) = self.secondary_icon_activatable {
-            properties.push(("secondary-icon-activatable", secondary_icon_activatable));
-        }
-        if let Some(ref secondary_icon_gicon) = self.secondary_icon_gicon {
-            properties.push(("secondary-icon-gicon", secondary_icon_gicon));
-        }
-        if let Some(ref secondary_icon_name) = self.secondary_icon_name {
-            properties.push(("secondary-icon-name", secondary_icon_name));
-        }
-        if let Some(ref secondary_icon_pixbuf) = self.secondary_icon_pixbuf {
-            properties.push(("secondary-icon-pixbuf", secondary_icon_pixbuf));
-        }
-        if let Some(ref secondary_icon_sensitive) = self.secondary_icon_sensitive {
-            properties.push(("secondary-icon-sensitive", secondary_icon_sensitive));
-        }
-        if let Some(ref secondary_icon_tooltip_markup) = self.secondary_icon_tooltip_markup {
-            properties.push((
-                "secondary-icon-tooltip-markup",
-                secondary_icon_tooltip_markup,
-            ));
-        }
-        if let Some(ref secondary_icon_tooltip_text) = self.secondary_icon_tooltip_text {
-            properties.push(("secondary-icon-tooltip-text", secondary_icon_tooltip_text));
-        }
-        if let Some(ref show_emoji_icon) = self.show_emoji_icon {
-            properties.push(("show-emoji-icon", show_emoji_icon));
-        }
-        if let Some(ref tabs) = self.tabs {
-            properties.push(("tabs", tabs));
-        }
-        if let Some(ref text) = self.text {
-            properties.push(("text", text));
-        }
-        if let Some(ref truncate_multiline) = self.truncate_multiline {
-            properties.push(("truncate-multiline", truncate_multiline));
-        }
-        if let Some(ref visibility) = self.visibility {
-            properties.push(("visibility", visibility));
-        }
-        if let Some(ref width_chars) = self.width_chars {
-            properties.push(("width-chars", width_chars));
-        }
-        if let Some(ref xalign) = self.xalign {
-            properties.push(("xalign", xalign));
-        }
-        if let Some(ref app_paintable) = self.app_paintable {
-            properties.push(("app-paintable", app_paintable));
-        }
-        if let Some(ref can_default) = self.can_default {
-            properties.push(("can-default", can_default));
-        }
-        if let Some(ref can_focus) = self.can_focus {
-            properties.push(("can-focus", can_focus));
-        }
-        if let Some(ref events) = self.events {
-            properties.push(("events", events));
-        }
-        if let Some(ref expand) = self.expand {
-            properties.push(("expand", expand));
-        }
-        if let Some(ref focus_on_click) = self.focus_on_click {
-            properties.push(("focus-on-click", focus_on_click));
-        }
-        if let Some(ref halign) = self.halign {
-            properties.push(("halign", halign));
-        }
-        if let Some(ref has_default) = self.has_default {
-            properties.push(("has-default", has_default));
-        }
-        if let Some(ref has_focus) = self.has_focus {
-            properties.push(("has-focus", has_focus));
-        }
-        if let Some(ref has_tooltip) = self.has_tooltip {
-            properties.push(("has-tooltip", has_tooltip));
-        }
-        if let Some(ref height_request) = self.height_request {
-            properties.push(("height-request", height_request));
-        }
-        if let Some(ref hexpand) = self.hexpand {
-            properties.push(("hexpand", hexpand));
-        }
-        if let Some(ref hexpand_set) = self.hexpand_set {
-            properties.push(("hexpand-set", hexpand_set));
-        }
-        if let Some(ref is_focus) = self.is_focus {
-            properties.push(("is-focus", is_focus));
-        }
-        if let Some(ref margin) = self.margin {
-            properties.push(("margin", margin));
-        }
-        if let Some(ref margin_bottom) = self.margin_bottom {
-            properties.push(("margin-bottom", margin_bottom));
-        }
-        if let Some(ref margin_end) = self.margin_end {
-            properties.push(("margin-end", margin_end));
-        }
-        if let Some(ref margin_start) = self.margin_start {
-            properties.push(("margin-start", margin_start));
-        }
-        if let Some(ref margin_top) = self.margin_top {
-            properties.push(("margin-top", margin_top));
-        }
-        if let Some(ref name) = self.name {
-            properties.push(("name", name));
-        }
-        if let Some(ref no_show_all) = self.no_show_all {
-            properties.push(("no-show-all", no_show_all));
-        }
-        if let Some(ref opacity) = self.opacity {
-            properties.push(("opacity", opacity));
-        }
-        if let Some(ref parent) = self.parent {
-            properties.push(("parent", parent));
-        }
-        if let Some(ref receives_default) = self.receives_default {
-            properties.push(("receives-default", receives_default));
-        }
-        if let Some(ref sensitive) = self.sensitive {
-            properties.push(("sensitive", sensitive));
-        }
-        if let Some(ref tooltip_markup) = self.tooltip_markup {
-            properties.push(("tooltip-markup", tooltip_markup));
-        }
-        if let Some(ref tooltip_text) = self.tooltip_text {
-            properties.push(("tooltip-text", tooltip_text));
-        }
-        if let Some(ref valign) = self.valign {
-            properties.push(("valign", valign));
-        }
-        if let Some(ref vexpand) = self.vexpand {
-            properties.push(("vexpand", vexpand));
-        }
-        if let Some(ref vexpand_set) = self.vexpand_set {
-            properties.push(("vexpand-set", vexpand_set));
-        }
-        if let Some(ref visible) = self.visible {
-            properties.push(("visible", visible));
-        }
-        if let Some(ref width_request) = self.width_request {
-            properties.push(("width-request", width_request));
-        }
-        if let Some(ref editing_canceled) = self.editing_canceled {
-            properties.push(("editing-canceled", editing_canceled));
-        }
-        if let Some(ref orientation) = self.orientation {
-            properties.push(("orientation", orientation));
-        }
-        glib::Object::new::<SpinButton>(&properties)
-    }
-
-    pub fn adjustment(mut self, adjustment: &impl IsA<Adjustment>) -> Self {
-        self.adjustment = Some(adjustment.clone().upcast());
-        self
-    }
-
-    pub fn climb_rate(mut self, climb_rate: f64) -> Self {
-        self.climb_rate = Some(climb_rate);
-        self
-    }
-
-    pub fn digits(mut self, digits: u32) -> Self {
-        self.digits = Some(digits);
-        self
-    }
-
-    pub fn numeric(mut self, numeric: bool) -> Self {
-        self.numeric = Some(numeric);
-        self
-    }
-
-    pub fn snap_to_ticks(mut self, snap_to_ticks: bool) -> Self {
-        self.snap_to_ticks = Some(snap_to_ticks);
-        self
-    }
-
-    pub fn update_policy(mut self, update_policy: SpinButtonUpdatePolicy) -> Self {
-        self.update_policy = Some(update_policy);
-        self
-    }
-
-    pub fn value(mut self, value: f64) -> Self {
-        self.value = Some(value);
-        self
-    }
-
-    pub fn wrap(mut self, wrap: bool) -> Self {
-        self.wrap = Some(wrap);
-        self
-    }
-
-    pub fn activates_default(mut self, activates_default: bool) -> Self {
-        self.activates_default = Some(activates_default);
-        self
-    }
-
-    pub fn attributes(mut self, attributes: &pango::AttrList) -> Self {
-        self.attributes = Some(attributes.clone());
-        self
-    }
-
-    pub fn buffer(mut self, buffer: &impl IsA<EntryBuffer>) -> Self {
-        self.buffer = Some(buffer.clone().upcast());
-        self
-    }
-
-    pub fn caps_lock_warning(mut self, caps_lock_warning: bool) -> Self {
-        self.caps_lock_warning = Some(caps_lock_warning);
-        self
-    }
-
-    pub fn completion(mut self, completion: &impl IsA<EntryCompletion>) -> Self {
-        self.completion = Some(completion.clone().upcast());
-        self
-    }
-
-    pub fn editable(mut self, editable: bool) -> Self {
-        self.editable = Some(editable);
-        self
-    }
-
-    pub fn enable_emoji_completion(mut self, enable_emoji_completion: bool) -> Self {
-        self.enable_emoji_completion = Some(enable_emoji_completion);
-        self
-    }
-
-    pub fn has_frame(mut self, has_frame: bool) -> Self {
-        self.has_frame = Some(has_frame);
-        self
-    }
-
-    pub fn im_module(mut self, im_module: &str) -> Self {
-        self.im_module = Some(im_module.to_string());
-        self
-    }
-
-    pub fn input_hints(mut self, input_hints: InputHints) -> Self {
-        self.input_hints = Some(input_hints);
-        self
-    }
-
-    pub fn input_purpose(mut self, input_purpose: InputPurpose) -> Self {
-        self.input_purpose = Some(input_purpose);
-        self
-    }
-
-    pub fn invisible_char(mut self, invisible_char: u32) -> Self {
-        self.invisible_char = Some(invisible_char);
-        self
-    }
-
-    pub fn invisible_char_set(mut self, invisible_char_set: bool) -> Self {
-        self.invisible_char_set = Some(invisible_char_set);
-        self
-    }
-
-    pub fn max_length(mut self, max_length: i32) -> Self {
-        self.max_length = Some(max_length);
-        self
-    }
-
-    pub fn max_width_chars(mut self, max_width_chars: i32) -> Self {
-        self.max_width_chars = Some(max_width_chars);
-        self
-    }
-
-    pub fn overwrite_mode(mut self, overwrite_mode: bool) -> Self {
-        self.overwrite_mode = Some(overwrite_mode);
-        self
-    }
-
-    pub fn placeholder_text(mut self, placeholder_text: &str) -> Self {
-        self.placeholder_text = Some(placeholder_text.to_string());
-        self
-    }
-
-    pub fn populate_all(mut self, populate_all: bool) -> Self {
-        self.populate_all = Some(populate_all);
-        self
-    }
-
-    pub fn primary_icon_activatable(mut self, primary_icon_activatable: bool) -> Self {
-        self.primary_icon_activatable = Some(primary_icon_activatable);
-        self
-    }
-
-    pub fn primary_icon_gicon(mut self, primary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
-        self.primary_icon_gicon = Some(primary_icon_gicon.clone().upcast());
-        self
-    }
-
-    pub fn primary_icon_name(mut self, primary_icon_name: &str) -> Self {
-        self.primary_icon_name = Some(primary_icon_name.to_string());
-        self
-    }
-
-    pub fn primary_icon_pixbuf(mut self, primary_icon_pixbuf: &gdk_pixbuf::Pixbuf) -> Self {
-        self.primary_icon_pixbuf = Some(primary_icon_pixbuf.clone());
-        self
-    }
-
-    pub fn primary_icon_sensitive(mut self, primary_icon_sensitive: bool) -> Self {
-        self.primary_icon_sensitive = Some(primary_icon_sensitive);
-        self
-    }
-
-    pub fn primary_icon_tooltip_markup(mut self, primary_icon_tooltip_markup: &str) -> Self {
-        self.primary_icon_tooltip_markup = Some(primary_icon_tooltip_markup.to_string());
-        self
-    }
-
-    pub fn primary_icon_tooltip_text(mut self, primary_icon_tooltip_text: &str) -> Self {
-        self.primary_icon_tooltip_text = Some(primary_icon_tooltip_text.to_string());
-        self
-    }
-
-    pub fn progress_fraction(mut self, progress_fraction: f64) -> Self {
-        self.progress_fraction = Some(progress_fraction);
-        self
-    }
-
-    pub fn progress_pulse_step(mut self, progress_pulse_step: f64) -> Self {
-        self.progress_pulse_step = Some(progress_pulse_step);
-        self
-    }
-
-    pub fn secondary_icon_activatable(mut self, secondary_icon_activatable: bool) -> Self {
-        self.secondary_icon_activatable = Some(secondary_icon_activatable);
-        self
-    }
-
-    pub fn secondary_icon_gicon(mut self, secondary_icon_gicon: &impl IsA<gio::Icon>) -> Self {
-        self.secondary_icon_gicon = Some(secondary_icon_gicon.clone().upcast());
-        self
-    }
-
-    pub fn secondary_icon_name(mut self, secondary_icon_name: &str) -> Self {
-        self.secondary_icon_name = Some(secondary_icon_name.to_string());
-        self
-    }
-
-    pub fn secondary_icon_pixbuf(mut self, secondary_icon_pixbuf: &gdk_pixbuf::Pixbuf) -> Self {
-        self.secondary_icon_pixbuf = Some(secondary_icon_pixbuf.clone());
-        self
-    }
-
-    pub fn secondary_icon_sensitive(mut self, secondary_icon_sensitive: bool) -> Self {
-        self.secondary_icon_sensitive = Some(secondary_icon_sensitive);
-        self
-    }
-
-    pub fn secondary_icon_tooltip_markup(mut self, secondary_icon_tooltip_markup: &str) -> Self {
-        self.secondary_icon_tooltip_markup = Some(secondary_icon_tooltip_markup.to_string());
-        self
-    }
-
-    pub fn secondary_icon_tooltip_text(mut self, secondary_icon_tooltip_text: &str) -> Self {
-        self.secondary_icon_tooltip_text = Some(secondary_icon_tooltip_text.to_string());
-        self
-    }
-
-    pub fn show_emoji_icon(mut self, show_emoji_icon: bool) -> Self {
-        self.show_emoji_icon = Some(show_emoji_icon);
-        self
-    }
-
-    pub fn tabs(mut self, tabs: &pango::TabArray) -> Self {
-        self.tabs = Some(tabs.clone());
-        self
-    }
-
-    pub fn text(mut self, text: &str) -> Self {
-        self.text = Some(text.to_string());
-        self
-    }
-
-    pub fn truncate_multiline(mut self, truncate_multiline: bool) -> Self {
-        self.truncate_multiline = Some(truncate_multiline);
-        self
-    }
-
-    pub fn visibility(mut self, visibility: bool) -> Self {
-        self.visibility = Some(visibility);
-        self
-    }
-
-    pub fn width_chars(mut self, width_chars: i32) -> Self {
-        self.width_chars = Some(width_chars);
-        self
-    }
-
-    pub fn xalign(mut self, xalign: f32) -> Self {
-        self.xalign = Some(xalign);
-        self
-    }
-
-    pub fn app_paintable(mut self, app_paintable: bool) -> Self {
-        self.app_paintable = Some(app_paintable);
-        self
-    }
-
-    pub fn can_default(mut self, can_default: bool) -> Self {
-        self.can_default = Some(can_default);
-        self
-    }
-
-    pub fn can_focus(mut self, can_focus: bool) -> Self {
-        self.can_focus = Some(can_focus);
-        self
-    }
-
-    pub fn events(mut self, events: gdk::EventMask) -> Self {
-        self.events = Some(events);
-        self
-    }
-
-    pub fn expand(mut self, expand: bool) -> Self {
-        self.expand = Some(expand);
-        self
-    }
-
-    pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
-        self.focus_on_click = Some(focus_on_click);
-        self
-    }
-
-    pub fn halign(mut self, halign: Align) -> Self {
-        self.halign = Some(halign);
-        self
-    }
-
-    pub fn has_default(mut self, has_default: bool) -> Self {
-        self.has_default = Some(has_default);
-        self
-    }
-
-    pub fn has_focus(mut self, has_focus: bool) -> Self {
-        self.has_focus = Some(has_focus);
-        self
-    }
-
-    pub fn has_tooltip(mut self, has_tooltip: bool) -> Self {
-        self.has_tooltip = Some(has_tooltip);
-        self
-    }
-
-    pub fn height_request(mut self, height_request: i32) -> Self {
-        self.height_request = Some(height_request);
-        self
-    }
-
-    pub fn hexpand(mut self, hexpand: bool) -> Self {
-        self.hexpand = Some(hexpand);
-        self
-    }
-
-    pub fn hexpand_set(mut self, hexpand_set: bool) -> Self {
-        self.hexpand_set = Some(hexpand_set);
-        self
-    }
-
-    pub fn is_focus(mut self, is_focus: bool) -> Self {
-        self.is_focus = Some(is_focus);
-        self
-    }
-
-    pub fn margin(mut self, margin: i32) -> Self {
-        self.margin = Some(margin);
-        self
-    }
-
-    pub fn margin_bottom(mut self, margin_bottom: i32) -> Self {
-        self.margin_bottom = Some(margin_bottom);
-        self
-    }
-
-    pub fn margin_end(mut self, margin_end: i32) -> Self {
-        self.margin_end = Some(margin_end);
-        self
-    }
-
-    pub fn margin_start(mut self, margin_start: i32) -> Self {
-        self.margin_start = Some(margin_start);
-        self
-    }
-
-    pub fn margin_top(mut self, margin_top: i32) -> Self {
-        self.margin_top = Some(margin_top);
-        self
-    }
-
-    pub fn name(mut self, name: &str) -> Self {
-        self.name = Some(name.to_string());
-        self
-    }
-
-    pub fn no_show_all(mut self, no_show_all: bool) -> Self {
-        self.no_show_all = Some(no_show_all);
-        self
-    }
-
-    pub fn opacity(mut self, opacity: f64) -> Self {
-        self.opacity = Some(opacity);
-        self
-    }
-
-    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
-        self.parent = Some(parent.clone().upcast());
-        self
-    }
-
-    pub fn receives_default(mut self, receives_default: bool) -> Self {
-        self.receives_default = Some(receives_default);
-        self
-    }
-
-    pub fn sensitive(mut self, sensitive: bool) -> Self {
-        self.sensitive = Some(sensitive);
-        self
-    }
-
-    pub fn tooltip_markup(mut self, tooltip_markup: &str) -> Self {
-        self.tooltip_markup = Some(tooltip_markup.to_string());
-        self
-    }
-
-    pub fn tooltip_text(mut self, tooltip_text: &str) -> Self {
-        self.tooltip_text = Some(tooltip_text.to_string());
-        self
-    }
-
-    pub fn valign(mut self, valign: Align) -> Self {
-        self.valign = Some(valign);
-        self
-    }
-
-    pub fn vexpand(mut self, vexpand: bool) -> Self {
-        self.vexpand = Some(vexpand);
-        self
-    }
-
-    pub fn vexpand_set(mut self, vexpand_set: bool) -> Self {
-        self.vexpand_set = Some(vexpand_set);
-        self
-    }
-
-    pub fn visible(mut self, visible: bool) -> Self {
-        self.visible = Some(visible);
-        self
-    }
-
-    pub fn width_request(mut self, width_request: i32) -> Self {
-        self.width_request = Some(width_request);
-        self
-    }
-
-    pub fn editing_canceled(mut self, editing_canceled: bool) -> Self {
-        self.editing_canceled = Some(editing_canceled);
-        self
-    }
-
-    pub fn orientation(mut self, orientation: Orientation) -> Self {
-        self.orientation = Some(orientation);
-        self
+        self.builder.build()
     }
 }
 

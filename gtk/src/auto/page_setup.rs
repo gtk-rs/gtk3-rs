@@ -2,12 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::PageOrientation;
-use crate::PaperSize;
-use crate::Unit;
+use crate::{PageOrientation, PaperSize, Unit};
 use glib::translate::*;
-use std::fmt;
-use std::ptr;
+use std::{fmt, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GtkPageSetup")]
@@ -149,7 +146,7 @@ impl PageSetup {
                 file_name.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -172,7 +169,7 @@ impl PageSetup {
                 group_name.to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -245,7 +242,7 @@ impl PageSetup {
                 file_name.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

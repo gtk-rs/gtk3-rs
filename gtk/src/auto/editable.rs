@@ -2,10 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::IsA;
-use glib::translate::*;
-use std::fmt;
-use std::mem;
+use glib::{prelude::*, translate::*};
+use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GtkEditable")]

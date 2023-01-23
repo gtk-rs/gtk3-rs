@@ -2,14 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::SelectionData;
-use crate::TextBuffer;
-use glib::object::IsA;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::ptr;
+use crate::{SelectionData, TextBuffer};
+use glib::{prelude::*, translate::*};
+use std::{boxed::Box as Box_, fmt, mem, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GtkClipboard")]

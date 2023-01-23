@@ -3,16 +3,12 @@
 // DO NOT EDIT
 
 use crate::Window;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkMountOperation")]
@@ -42,144 +38,111 @@ impl MountOperation {
     ///
     /// This method returns an instance of [`MountOperationBuilder`](crate::builders::MountOperationBuilder) which can be used to create [`MountOperation`] objects.
     pub fn builder() -> MountOperationBuilder {
-        MountOperationBuilder::default()
+        MountOperationBuilder::new()
     }
 }
 
 impl Default for MountOperation {
     fn default() -> Self {
-        glib::object::Object::new::<Self>(&[])
+        glib::object::Object::new_default::<Self>()
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`MountOperation`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct MountOperationBuilder {
-    parent: Option<Window>,
-    screen: Option<gdk::Screen>,
-    anonymous: Option<bool>,
-    choice: Option<i32>,
-    domain: Option<String>,
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    is_tcrypt_hidden_volume: Option<bool>,
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    is_tcrypt_system_volume: Option<bool>,
-    password: Option<String>,
-    //password-save: /*Unknown type*/,
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    pim: Option<u32>,
-    username: Option<String>,
+    builder: glib::object::ObjectBuilder<'static, MountOperation>,
 }
 
 impl MountOperationBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`MountOperationBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn parent(self, parent: &impl IsA<Window>) -> Self {
+        Self {
+            builder: self.builder.property("parent", parent.clone().upcast()),
+        }
+    }
+
+    pub fn screen(self, screen: &gdk::Screen) -> Self {
+        Self {
+            builder: self.builder.property("screen", screen.clone()),
+        }
+    }
+
+    pub fn anonymous(self, anonymous: bool) -> Self {
+        Self {
+            builder: self.builder.property("anonymous", anonymous),
+        }
+    }
+
+    pub fn choice(self, choice: i32) -> Self {
+        Self {
+            builder: self.builder.property("choice", choice),
+        }
+    }
+
+    pub fn domain(self, domain: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("domain", domain.into()),
+        }
+    }
+
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    pub fn is_tcrypt_hidden_volume(self, is_tcrypt_hidden_volume: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("is-tcrypt-hidden-volume", is_tcrypt_hidden_volume),
+        }
+    }
+
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    pub fn is_tcrypt_system_volume(self, is_tcrypt_system_volume: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("is-tcrypt-system-volume", is_tcrypt_system_volume),
+        }
+    }
+
+    pub fn password(self, password: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("password", password.into()),
+        }
+    }
+
+    //pub fn password_save(self, password_save: /*Ignored*/gio::PasswordSave) -> Self {
+    //    Self { builder: self.builder.property("password-save", password_save), }
+    //}
+
+    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    pub fn pim(self, pim: u32) -> Self {
+        Self {
+            builder: self.builder.property("pim", pim),
+        }
+    }
+
+    pub fn username(self, username: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("username", username.into()),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`MountOperation`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> MountOperation {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref parent) = self.parent {
-            properties.push(("parent", parent));
-        }
-        if let Some(ref screen) = self.screen {
-            properties.push(("screen", screen));
-        }
-        if let Some(ref anonymous) = self.anonymous {
-            properties.push(("anonymous", anonymous));
-        }
-        if let Some(ref choice) = self.choice {
-            properties.push(("choice", choice));
-        }
-        if let Some(ref domain) = self.domain {
-            properties.push(("domain", domain));
-        }
-        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-        if let Some(ref is_tcrypt_hidden_volume) = self.is_tcrypt_hidden_volume {
-            properties.push(("is-tcrypt-hidden-volume", is_tcrypt_hidden_volume));
-        }
-        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-        if let Some(ref is_tcrypt_system_volume) = self.is_tcrypt_system_volume {
-            properties.push(("is-tcrypt-system-volume", is_tcrypt_system_volume));
-        }
-        if let Some(ref password) = self.password {
-            properties.push(("password", password));
-        }
-        #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-        if let Some(ref pim) = self.pim {
-            properties.push(("pim", pim));
-        }
-        if let Some(ref username) = self.username {
-            properties.push(("username", username));
-        }
-        glib::Object::new::<MountOperation>(&properties)
-    }
-
-    pub fn parent(mut self, parent: &impl IsA<Window>) -> Self {
-        self.parent = Some(parent.clone().upcast());
-        self
-    }
-
-    pub fn screen(mut self, screen: &gdk::Screen) -> Self {
-        self.screen = Some(screen.clone());
-        self
-    }
-
-    pub fn anonymous(mut self, anonymous: bool) -> Self {
-        self.anonymous = Some(anonymous);
-        self
-    }
-
-    pub fn choice(mut self, choice: i32) -> Self {
-        self.choice = Some(choice);
-        self
-    }
-
-    pub fn domain(mut self, domain: &str) -> Self {
-        self.domain = Some(domain.to_string());
-        self
-    }
-
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    pub fn is_tcrypt_hidden_volume(mut self, is_tcrypt_hidden_volume: bool) -> Self {
-        self.is_tcrypt_hidden_volume = Some(is_tcrypt_hidden_volume);
-        self
-    }
-
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    pub fn is_tcrypt_system_volume(mut self, is_tcrypt_system_volume: bool) -> Self {
-        self.is_tcrypt_system_volume = Some(is_tcrypt_system_volume);
-        self
-    }
-
-    pub fn password(mut self, password: &str) -> Self {
-        self.password = Some(password.to_string());
-        self
-    }
-
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
-    pub fn pim(mut self, pim: u32) -> Self {
-        self.pim = Some(pim);
-        self
-    }
-
-    pub fn username(mut self, username: &str) -> Self {
-        self.username = Some(username.to_string());
-        self
+        self.builder.build()
     }
 }
 

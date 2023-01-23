@@ -2,11 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
-use crate::Relation;
-use crate::RelationType;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{Object, Relation, RelationType};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

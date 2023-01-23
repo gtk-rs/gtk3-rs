@@ -2,17 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::EventController;
-use crate::PadActionType;
-use crate::PropagationPhase;
-use crate::Widget;
-use crate::Window;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectType as ObjectType_;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
+use crate::{EventController, PadActionType, PropagationPhase, Widget, Window};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {
@@ -46,7 +37,7 @@ impl PadController {
     ///
     /// This method returns an instance of [`PadControllerBuilder`](crate::builders::PadControllerBuilder) which can be used to create [`PadController`] objects.
     pub fn builder() -> PadControllerBuilder {
-        PadControllerBuilder::default()
+        PadControllerBuilder::new()
     }
 
     #[doc(alias = "gtk_pad_controller_set_action")]
@@ -82,68 +73,59 @@ impl PadController {
 
 impl Default for PadController {
     fn default() -> Self {
-        glib::object::Object::new::<Self>(&[])
+        glib::object::Object::new_default::<Self>()
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`PadController`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct PadControllerBuilder {
-    action_group: Option<gio::ActionGroup>,
-    pad: Option<gdk::Device>,
-    propagation_phase: Option<PropagationPhase>,
-    widget: Option<Widget>,
+    builder: glib::object::ObjectBuilder<'static, PadController>,
 }
 
 impl PadControllerBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`PadControllerBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn action_group(self, action_group: &impl IsA<gio::ActionGroup>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("action-group", action_group.clone().upcast()),
+        }
+    }
+
+    pub fn pad(self, pad: &gdk::Device) -> Self {
+        Self {
+            builder: self.builder.property("pad", pad.clone()),
+        }
+    }
+
+    pub fn propagation_phase(self, propagation_phase: PropagationPhase) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagation-phase", propagation_phase),
+        }
+    }
+
+    pub fn widget(self, widget: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("widget", widget.clone().upcast()),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PadController`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PadController {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref action_group) = self.action_group {
-            properties.push(("action-group", action_group));
-        }
-        if let Some(ref pad) = self.pad {
-            properties.push(("pad", pad));
-        }
-        if let Some(ref propagation_phase) = self.propagation_phase {
-            properties.push(("propagation-phase", propagation_phase));
-        }
-        if let Some(ref widget) = self.widget {
-            properties.push(("widget", widget));
-        }
-        glib::Object::new::<PadController>(&properties)
-    }
-
-    pub fn action_group(mut self, action_group: &impl IsA<gio::ActionGroup>) -> Self {
-        self.action_group = Some(action_group.clone().upcast());
-        self
-    }
-
-    pub fn pad(mut self, pad: &gdk::Device) -> Self {
-        self.pad = Some(pad.clone());
-        self
-    }
-
-    pub fn propagation_phase(mut self, propagation_phase: PropagationPhase) -> Self {
-        self.propagation_phase = Some(propagation_phase);
-        self
-    }
-
-    pub fn widget(mut self, widget: &impl IsA<Widget>) -> Self {
-        self.widget = Some(widget.clone().upcast());
-        self
+        self.builder.build()
     }
 }
 

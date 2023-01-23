@@ -2,25 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Clipboard;
-use crate::TargetList;
-use crate::TextChildAnchor;
-use crate::TextIter;
-use crate::TextMark;
-use crate::TextTag;
-use crate::TextTagTable;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
-use std::ptr;
+use crate::{Clipboard, TargetList, TextChildAnchor, TextIter, TextMark, TextTag, TextTagTable};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GtkTextBuffer")]
@@ -49,56 +37,51 @@ impl TextBuffer {
     ///
     /// This method returns an instance of [`TextBufferBuilder`](crate::builders::TextBufferBuilder) which can be used to create [`TextBuffer`] objects.
     pub fn builder() -> TextBufferBuilder {
-        TextBufferBuilder::default()
+        TextBufferBuilder::new()
     }
 }
 
 impl Default for TextBuffer {
     fn default() -> Self {
-        glib::object::Object::new::<Self>(&[])
+        glib::object::Object::new_default::<Self>()
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`TextBuffer`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct TextBufferBuilder {
-    tag_table: Option<TextTagTable>,
-    text: Option<String>,
+    builder: glib::object::ObjectBuilder<'static, TextBuffer>,
 }
 
 impl TextBufferBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`TextBufferBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn tag_table(self, tag_table: &impl IsA<TextTagTable>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("tag-table", tag_table.clone().upcast()),
+        }
+    }
+
+    pub fn text(self, text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("text", text.into()),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`TextBuffer`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> TextBuffer {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref tag_table) = self.tag_table {
-            properties.push(("tag-table", tag_table));
-        }
-        if let Some(ref text) = self.text {
-            properties.push(("text", text));
-        }
-        glib::Object::new::<TextBuffer>(&properties)
-    }
-
-    pub fn tag_table(mut self, tag_table: &impl IsA<TextTagTable>) -> Self {
-        self.tag_table = Some(tag_table.clone().upcast());
-        self
-    }
-
-    pub fn text(mut self, text: &str) -> Self {
-        self.text = Some(text.to_string());
-        self
+        self.builder.build()
     }
 }
 
@@ -595,7 +578,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
                 length,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
