@@ -2,10 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::SelectionData;
-use crate::TreePath;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{SelectionData, TreePath};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

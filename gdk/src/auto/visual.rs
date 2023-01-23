@@ -2,11 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Screen;
-use crate::VisualType;
+use crate::{Screen, VisualType};
 use glib::translate::*;
-use std::fmt;
-use std::mem;
+use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GdkVisual")]

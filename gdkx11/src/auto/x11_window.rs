@@ -3,8 +3,7 @@
 // DO NOT EDIT
 
 use crate::X11Display;
-use glib::object::Cast;
-use glib::translate::*;
+use glib::{prelude::*, translate::*};
 use std::fmt;
 use x11::xlib;
 

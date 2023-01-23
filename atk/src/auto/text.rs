@@ -2,24 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::CoordType;
 #[cfg(any(feature = "v2_32", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 use crate::ScrollType;
-use crate::TextBoundary;
-use crate::TextClipType;
-use crate::TextGranularity;
-use crate::TextRange;
-use crate::TextRectangle;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
+use crate::{CoordType, TextBoundary, TextClipType, TextGranularity, TextRange, TextRectangle};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "AtkText")]

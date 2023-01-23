@@ -2,19 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::RecentData;
-use crate::RecentInfo;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
-use std::ptr;
+use crate::{RecentData, RecentInfo};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GtkRecentManager")]
@@ -39,7 +33,7 @@ impl RecentManager {
     ///
     /// This method returns an instance of [`RecentManagerBuilder`](crate::builders::RecentManagerBuilder) which can be used to create [`RecentManager`] objects.
     pub fn builder() -> RecentManagerBuilder {
-        RecentManagerBuilder::default()
+        RecentManagerBuilder::new()
     }
 
     #[doc(alias = "gtk_recent_manager_get_default")]
@@ -57,37 +51,33 @@ impl Default for RecentManager {
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`RecentManager`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct RecentManagerBuilder {
-    filename: Option<String>,
+    builder: glib::object::ObjectBuilder<'static, RecentManager>,
 }
 
 impl RecentManagerBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`RecentManagerBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn filename(self, filename: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("filename", filename.into()),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`RecentManager`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentManager {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref filename) = self.filename {
-            properties.push(("filename", filename));
-        }
-        glib::Object::new::<RecentManager>(&properties)
-    }
-
-    pub fn filename(mut self, filename: &str) -> Self {
-        self.filename = Some(filename.to_string());
-        self
+        self.builder.build()
     }
 }
 
@@ -190,7 +180,7 @@ impl<O: IsA<RecentManager>> RecentManagerExt for O {
                 new_uri.to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -220,7 +210,7 @@ impl<O: IsA<RecentManager>> RecentManagerExt for O {
                 uri.to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

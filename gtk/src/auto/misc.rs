@@ -2,8 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Buildable;
-use crate::Widget;
+use crate::{Buildable, Widget};
 use std::fmt;
 
 glib::wrapper! {

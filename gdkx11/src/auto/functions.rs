@@ -2,12 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::X11DeviceCore;
-use crate::X11DeviceManagerCore;
-use crate::X11Display;
-use crate::X11Window;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{X11DeviceCore, X11DeviceManagerCore, X11Display, X11Window};
+use glib::{prelude::*, translate::*};
 use x11::xlib;
 
 #[doc(alias = "gdk_x11_atom_to_xatom")]
@@ -59,6 +55,7 @@ pub fn x11_get_default_screen() -> i32 {
 //#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
 //#[cfg(any(feature = "v3_24_2", feature = "dox"))]
 //#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_2")))]
+//#[allow(deprecated)]
 //#[doc(alias = "gdk_x11_get_parent_relative_pattern")]
 //pub fn x11_get_parent_relative_pattern() -> /*Ignored*/Option<cairo::Pattern> {
 //    unsafe { TODO: call ffi:gdk_x11_get_parent_relative_pattern() }

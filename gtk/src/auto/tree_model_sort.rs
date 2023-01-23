@@ -2,13 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::TreeDragSource;
-use crate::TreeIter;
-use crate::TreeModel;
-use crate::TreePath;
-use crate::TreeSortable;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{TreeDragSource, TreeIter, TreeModel, TreePath, TreeSortable};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

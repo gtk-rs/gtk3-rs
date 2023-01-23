@@ -2,22 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Action;
-use crate::Component;
-use crate::Document;
-use crate::EditableText;
-use crate::Hypertext;
-use crate::Image;
-use crate::Object;
-use crate::Selection;
-use crate::Table;
-use crate::TableCell;
-use crate::Text;
-use crate::Value;
-use crate::Window;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::translate::*;
+use crate::{
+    Action, Component, Document, EditableText, Hypertext, Image, Object, Selection, Table,
+    TableCell, Text, Value, Window,
+};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

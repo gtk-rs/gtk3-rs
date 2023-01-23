@@ -2,19 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::FileChooserAction;
-use crate::FileChooserConfirmation;
-use crate::FileFilter;
-use crate::Widget;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
-use std::ptr;
+use crate::{FileChooserAction, FileChooserConfirmation, FileFilter, Widget};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GtkFileChooser")]
@@ -31,7 +25,7 @@ impl FileChooser {
 
 pub trait FileChooserExt: 'static {
     #[doc(alias = "gtk_file_chooser_add_filter")]
-    fn add_filter(&self, filter: &FileFilter);
+    fn add_filter(&self, filter: FileFilter);
 
     #[doc(alias = "gtk_file_chooser_add_shortcut_folder")]
     fn add_shortcut_folder(&self, folder: impl AsRef<std::path::Path>) -> Result<(), glib::Error>;
@@ -301,9 +295,12 @@ pub trait FileChooserExt: 'static {
 }
 
 impl<O: IsA<FileChooser>> FileChooserExt for O {
-    fn add_filter(&self, filter: &FileFilter) {
+    fn add_filter(&self, filter: FileFilter) {
         unsafe {
-            ffi::gtk_file_chooser_add_filter(self.as_ref().to_glib_none().0, filter.to_glib_full());
+            ffi::gtk_file_chooser_add_filter(
+                self.as_ref().to_glib_none().0,
+                filter.into_glib_ptr(),
+            );
         }
     }
 
@@ -315,7 +312,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 folder.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -332,7 +329,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 uri.to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -595,7 +592,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 folder.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -612,7 +609,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 uri.to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -635,7 +632,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -704,7 +701,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {
@@ -757,7 +754,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
                 file.as_ref().to_glib_none().0,
                 &mut error,
             );
-            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

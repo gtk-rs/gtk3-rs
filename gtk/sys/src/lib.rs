@@ -738,337 +738,259 @@ pub const GTK_WRAP_WORD_CHAR: GtkWrapMode = 3;
 
 // Constants
 pub const GTK_INPUT_ERROR: c_int = -1;
-pub const GTK_LEVEL_BAR_OFFSET_FULL: *const c_char = b"full\0" as *const u8 as *const c_char;
-pub const GTK_LEVEL_BAR_OFFSET_HIGH: *const c_char = b"high\0" as *const u8 as *const c_char;
-pub const GTK_LEVEL_BAR_OFFSET_LOW: *const c_char = b"low\0" as *const u8 as *const c_char;
+pub const GTK_LEVEL_BAR_OFFSET_FULL: &[u8] = b"full\0";
+pub const GTK_LEVEL_BAR_OFFSET_HIGH: &[u8] = b"high\0";
+pub const GTK_LEVEL_BAR_OFFSET_LOW: &[u8] = b"low\0";
 pub const GTK_MAX_COMPOSE_LEN: c_int = 7;
-pub const GTK_PAPER_NAME_A3: *const c_char = b"iso_a3\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_A4: *const c_char = b"iso_a4\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_A5: *const c_char = b"iso_a5\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_B5: *const c_char = b"iso_b5\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_EXECUTIVE: *const c_char = b"na_executive\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_LEGAL: *const c_char = b"na_legal\0" as *const u8 as *const c_char;
-pub const GTK_PAPER_NAME_LETTER: *const c_char = b"na_letter\0" as *const u8 as *const c_char;
+pub const GTK_PAPER_NAME_A3: &[u8] = b"iso_a3\0";
+pub const GTK_PAPER_NAME_A4: &[u8] = b"iso_a4\0";
+pub const GTK_PAPER_NAME_A5: &[u8] = b"iso_a5\0";
+pub const GTK_PAPER_NAME_B5: &[u8] = b"iso_b5\0";
+pub const GTK_PAPER_NAME_EXECUTIVE: &[u8] = b"na_executive\0";
+pub const GTK_PAPER_NAME_LEGAL: &[u8] = b"na_legal\0";
+pub const GTK_PAPER_NAME_LETTER: &[u8] = b"na_letter\0";
 pub const GTK_PATH_PRIO_MASK: c_int = 15;
-pub const GTK_PRINT_SETTINGS_COLLATE: *const c_char = b"collate\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_DEFAULT_SOURCE: *const c_char =
-    b"default-source\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_DITHER: *const c_char = b"dither\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_DUPLEX: *const c_char = b"duplex\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_FINISHINGS: *const c_char =
-    b"finishings\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_MEDIA_TYPE: *const c_char =
-    b"media-type\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_NUMBER_UP: *const c_char =
-    b"number-up\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT: *const c_char =
-    b"number-up-layout\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_N_COPIES: *const c_char = b"n-copies\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_ORIENTATION: *const c_char =
-    b"orientation\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_OUTPUT_BASENAME: *const c_char =
-    b"output-basename\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_OUTPUT_BIN: *const c_char =
-    b"output-bin\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_OUTPUT_DIR: *const c_char =
-    b"output-dir\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT: *const c_char =
-    b"output-file-format\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_OUTPUT_URI: *const c_char =
-    b"output-uri\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PAGE_RANGES: *const c_char =
-    b"page-ranges\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PAGE_SET: *const c_char = b"page-set\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PAPER_FORMAT: *const c_char =
-    b"paper-format\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PAPER_HEIGHT: *const c_char =
-    b"paper-height\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PAPER_WIDTH: *const c_char =
-    b"paper-width\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PRINTER: *const c_char = b"printer\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PRINTER_LPI: *const c_char =
-    b"printer-lpi\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_PRINT_PAGES: *const c_char =
-    b"print-pages\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_QUALITY: *const c_char = b"quality\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_RESOLUTION: *const c_char =
-    b"resolution\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_RESOLUTION_X: *const c_char =
-    b"resolution-x\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_RESOLUTION_Y: *const c_char =
-    b"resolution-y\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_REVERSE: *const c_char = b"reverse\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_SCALE: *const c_char = b"scale\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_USE_COLOR: *const c_char =
-    b"use-color\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA: *const c_char =
-    b"win32-driver-extra\0" as *const u8 as *const c_char;
-pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION: *const c_char =
-    b"win32-driver-version\0" as *const u8 as *const c_char;
+pub const GTK_PRINT_SETTINGS_COLLATE: &[u8] = b"collate\0";
+pub const GTK_PRINT_SETTINGS_DEFAULT_SOURCE: &[u8] = b"default-source\0";
+pub const GTK_PRINT_SETTINGS_DITHER: &[u8] = b"dither\0";
+pub const GTK_PRINT_SETTINGS_DUPLEX: &[u8] = b"duplex\0";
+pub const GTK_PRINT_SETTINGS_FINISHINGS: &[u8] = b"finishings\0";
+pub const GTK_PRINT_SETTINGS_MEDIA_TYPE: &[u8] = b"media-type\0";
+pub const GTK_PRINT_SETTINGS_NUMBER_UP: &[u8] = b"number-up\0";
+pub const GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT: &[u8] = b"number-up-layout\0";
+pub const GTK_PRINT_SETTINGS_N_COPIES: &[u8] = b"n-copies\0";
+pub const GTK_PRINT_SETTINGS_ORIENTATION: &[u8] = b"orientation\0";
+pub const GTK_PRINT_SETTINGS_OUTPUT_BASENAME: &[u8] = b"output-basename\0";
+pub const GTK_PRINT_SETTINGS_OUTPUT_BIN: &[u8] = b"output-bin\0";
+pub const GTK_PRINT_SETTINGS_OUTPUT_DIR: &[u8] = b"output-dir\0";
+pub const GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT: &[u8] = b"output-file-format\0";
+pub const GTK_PRINT_SETTINGS_OUTPUT_URI: &[u8] = b"output-uri\0";
+pub const GTK_PRINT_SETTINGS_PAGE_RANGES: &[u8] = b"page-ranges\0";
+pub const GTK_PRINT_SETTINGS_PAGE_SET: &[u8] = b"page-set\0";
+pub const GTK_PRINT_SETTINGS_PAPER_FORMAT: &[u8] = b"paper-format\0";
+pub const GTK_PRINT_SETTINGS_PAPER_HEIGHT: &[u8] = b"paper-height\0";
+pub const GTK_PRINT_SETTINGS_PAPER_WIDTH: &[u8] = b"paper-width\0";
+pub const GTK_PRINT_SETTINGS_PRINTER: &[u8] = b"printer\0";
+pub const GTK_PRINT_SETTINGS_PRINTER_LPI: &[u8] = b"printer-lpi\0";
+pub const GTK_PRINT_SETTINGS_PRINT_PAGES: &[u8] = b"print-pages\0";
+pub const GTK_PRINT_SETTINGS_QUALITY: &[u8] = b"quality\0";
+pub const GTK_PRINT_SETTINGS_RESOLUTION: &[u8] = b"resolution\0";
+pub const GTK_PRINT_SETTINGS_RESOLUTION_X: &[u8] = b"resolution-x\0";
+pub const GTK_PRINT_SETTINGS_RESOLUTION_Y: &[u8] = b"resolution-y\0";
+pub const GTK_PRINT_SETTINGS_REVERSE: &[u8] = b"reverse\0";
+pub const GTK_PRINT_SETTINGS_SCALE: &[u8] = b"scale\0";
+pub const GTK_PRINT_SETTINGS_USE_COLOR: &[u8] = b"use-color\0";
+pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA: &[u8] = b"win32-driver-extra\0";
+pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION: &[u8] = b"win32-driver-version\0";
 pub const GTK_PRIORITY_RESIZE: c_int = 110;
-pub const GTK_STOCK_ABOUT: *const c_char = b"gtk-about\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ADD: *const c_char = b"gtk-add\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_APPLY: *const c_char = b"gtk-apply\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_BOLD: *const c_char = b"gtk-bold\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CANCEL: *const c_char = b"gtk-cancel\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CAPS_LOCK_WARNING: *const c_char =
-    b"gtk-caps-lock-warning\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CDROM: *const c_char = b"gtk-cdrom\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CLEAR: *const c_char = b"gtk-clear\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CLOSE: *const c_char = b"gtk-close\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_COLOR_PICKER: *const c_char =
-    b"gtk-color-picker\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CONNECT: *const c_char = b"gtk-connect\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CONVERT: *const c_char = b"gtk-convert\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_COPY: *const c_char = b"gtk-copy\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_CUT: *const c_char = b"gtk-cut\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DELETE: *const c_char = b"gtk-delete\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIALOG_AUTHENTICATION: *const c_char =
-    b"gtk-dialog-authentication\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIALOG_ERROR: *const c_char =
-    b"gtk-dialog-error\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIALOG_INFO: *const c_char = b"gtk-dialog-info\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIALOG_QUESTION: *const c_char =
-    b"gtk-dialog-question\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIALOG_WARNING: *const c_char =
-    b"gtk-dialog-warning\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DIRECTORY: *const c_char = b"gtk-directory\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DISCARD: *const c_char = b"gtk-discard\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DISCONNECT: *const c_char = b"gtk-disconnect\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DND: *const c_char = b"gtk-dnd\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_DND_MULTIPLE: *const c_char =
-    b"gtk-dnd-multiple\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_EDIT: *const c_char = b"gtk-edit\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_EXECUTE: *const c_char = b"gtk-execute\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_FILE: *const c_char = b"gtk-file\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_FIND: *const c_char = b"gtk-find\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_FIND_AND_REPLACE: *const c_char =
-    b"gtk-find-and-replace\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_FLOPPY: *const c_char = b"gtk-floppy\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_FULLSCREEN: *const c_char = b"gtk-fullscreen\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GOTO_BOTTOM: *const c_char = b"gtk-goto-bottom\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GOTO_FIRST: *const c_char = b"gtk-goto-first\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GOTO_LAST: *const c_char = b"gtk-goto-last\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GOTO_TOP: *const c_char = b"gtk-goto-top\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GO_BACK: *const c_char = b"gtk-go-back\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GO_DOWN: *const c_char = b"gtk-go-down\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GO_FORWARD: *const c_char = b"gtk-go-forward\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_GO_UP: *const c_char = b"gtk-go-up\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_HARDDISK: *const c_char = b"gtk-harddisk\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_HELP: *const c_char = b"gtk-help\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_HOME: *const c_char = b"gtk-home\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_INDENT: *const c_char = b"gtk-indent\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_INDEX: *const c_char = b"gtk-index\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_INFO: *const c_char = b"gtk-info\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ITALIC: *const c_char = b"gtk-italic\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_JUMP_TO: *const c_char = b"gtk-jump-to\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_JUSTIFY_CENTER: *const c_char =
-    b"gtk-justify-center\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_JUSTIFY_FILL: *const c_char =
-    b"gtk-justify-fill\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_JUSTIFY_LEFT: *const c_char =
-    b"gtk-justify-left\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_JUSTIFY_RIGHT: *const c_char =
-    b"gtk-justify-right\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_LEAVE_FULLSCREEN: *const c_char =
-    b"gtk-leave-fullscreen\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_FORWARD: *const c_char =
-    b"gtk-media-forward\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_NEXT: *const c_char = b"gtk-media-next\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_PAUSE: *const c_char = b"gtk-media-pause\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_PLAY: *const c_char = b"gtk-media-play\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_PREVIOUS: *const c_char =
-    b"gtk-media-previous\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_RECORD: *const c_char =
-    b"gtk-media-record\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_REWIND: *const c_char =
-    b"gtk-media-rewind\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MEDIA_STOP: *const c_char = b"gtk-media-stop\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_MISSING_IMAGE: *const c_char =
-    b"gtk-missing-image\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_NETWORK: *const c_char = b"gtk-network\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_NEW: *const c_char = b"gtk-new\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_NO: *const c_char = b"gtk-no\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_OK: *const c_char = b"gtk-ok\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_OPEN: *const c_char = b"gtk-open\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ORIENTATION_LANDSCAPE: *const c_char =
-    b"gtk-orientation-landscape\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ORIENTATION_PORTRAIT: *const c_char =
-    b"gtk-orientation-portrait\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE: *const c_char =
-    b"gtk-orientation-reverse-landscape\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT: *const c_char =
-    b"gtk-orientation-reverse-portrait\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PAGE_SETUP: *const c_char = b"gtk-page-setup\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PASTE: *const c_char = b"gtk-paste\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PREFERENCES: *const c_char = b"gtk-preferences\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT: *const c_char = b"gtk-print\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT_ERROR: *const c_char = b"gtk-print-error\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT_PAUSED: *const c_char =
-    b"gtk-print-paused\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT_PREVIEW: *const c_char =
-    b"gtk-print-preview\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT_REPORT: *const c_char =
-    b"gtk-print-report\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PRINT_WARNING: *const c_char =
-    b"gtk-print-warning\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_PROPERTIES: *const c_char = b"gtk-properties\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_QUIT: *const c_char = b"gtk-quit\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_REDO: *const c_char = b"gtk-redo\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_REFRESH: *const c_char = b"gtk-refresh\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_REMOVE: *const c_char = b"gtk-remove\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_REVERT_TO_SAVED: *const c_char =
-    b"gtk-revert-to-saved\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SAVE: *const c_char = b"gtk-save\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SAVE_AS: *const c_char = b"gtk-save-as\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SELECT_ALL: *const c_char = b"gtk-select-all\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SELECT_COLOR: *const c_char =
-    b"gtk-select-color\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SELECT_FONT: *const c_char = b"gtk-select-font\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SORT_ASCENDING: *const c_char =
-    b"gtk-sort-ascending\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SORT_DESCENDING: *const c_char =
-    b"gtk-sort-descending\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_SPELL_CHECK: *const c_char = b"gtk-spell-check\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_STOP: *const c_char = b"gtk-stop\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_STRIKETHROUGH: *const c_char =
-    b"gtk-strikethrough\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_UNDELETE: *const c_char = b"gtk-undelete\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_UNDERLINE: *const c_char = b"gtk-underline\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_UNDO: *const c_char = b"gtk-undo\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_UNINDENT: *const c_char = b"gtk-unindent\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_YES: *const c_char = b"gtk-yes\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ZOOM_100: *const c_char = b"gtk-zoom-100\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ZOOM_FIT: *const c_char = b"gtk-zoom-fit\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ZOOM_IN: *const c_char = b"gtk-zoom-in\0" as *const u8 as *const c_char;
-pub const GTK_STOCK_ZOOM_OUT: *const c_char = b"gtk-zoom-out\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_ACCELERATOR: *const c_char =
-    b"accelerator\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_ARROW: *const c_char = b"arrow\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_BACKGROUND: *const c_char = b"background\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_BOTTOM: *const c_char = b"bottom\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_BUTTON: *const c_char = b"button\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CALENDAR: *const c_char = b"calendar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CELL: *const c_char = b"cell\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CHECK: *const c_char = b"check\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_COMBOBOX_ENTRY: *const c_char =
-    b"combobox-entry\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CONTEXT_MENU: *const c_char =
-    b"context-menu\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CSD: *const c_char = b"csd\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_CURSOR_HANDLE: *const c_char =
-    b"cursor-handle\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_DEFAULT: *const c_char = b"default\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_DESTRUCTIVE_ACTION: *const c_char =
-    b"destructive-action\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_DIM_LABEL: *const c_char = b"dim-label\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_DND: *const c_char = b"dnd\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_DOCK: *const c_char = b"dock\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_ENTRY: *const c_char = b"entry\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_ERROR: *const c_char = b"error\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_EXPANDER: *const c_char = b"expander\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_FLAT: *const c_char = b"flat\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_FRAME: *const c_char = b"frame\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_GRIP: *const c_char = b"grip\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_HEADER: *const c_char = b"header\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_HIGHLIGHT: *const c_char = b"highlight\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_HORIZONTAL: *const c_char = b"horizontal\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_IMAGE: *const c_char = b"image\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_INFO: *const c_char = b"info\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_INLINE_TOOLBAR: *const c_char =
-    b"inline-toolbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_INSERTION_CURSOR: *const c_char =
-    b"insertion-cursor\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LABEL: *const c_char = b"label\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LEFT: *const c_char = b"left\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LEVEL_BAR: *const c_char = b"level-bar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LINKED: *const c_char = b"linked\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LIST: *const c_char = b"list\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_LIST_ROW: *const c_char = b"list-row\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MARK: *const c_char = b"mark\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MENU: *const c_char = b"menu\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MENUBAR: *const c_char = b"menubar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MENUITEM: *const c_char = b"menuitem\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MESSAGE_DIALOG: *const c_char =
-    b"message-dialog\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_MONOSPACE: *const c_char = b"monospace\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_NEEDS_ATTENTION: *const c_char =
-    b"needs-attention\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_NOTEBOOK: *const c_char = b"notebook\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_OSD: *const c_char = b"osd\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_OVERSHOOT: *const c_char = b"overshoot\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_PANE_SEPARATOR: *const c_char =
-    b"pane-separator\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_PAPER: *const c_char = b"paper\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_POPOVER: *const c_char = b"popover\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_POPUP: *const c_char = b"popup\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_PRIMARY_TOOLBAR: *const c_char =
-    b"primary-toolbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_PROGRESSBAR: *const c_char =
-    b"progressbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_PULSE: *const c_char = b"pulse\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_QUESTION: *const c_char = b"question\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_RADIO: *const c_char = b"radio\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_RAISED: *const c_char = b"raised\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_READ_ONLY: *const c_char = b"read-only\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_RIGHT: *const c_char = b"right\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_RUBBERBAND: *const c_char = b"rubberband\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SCALE: *const c_char = b"scale\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE: *const c_char =
-    b"scale-has-marks-above\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW: *const c_char =
-    b"scale-has-marks-below\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SCROLLBAR: *const c_char = b"scrollbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SCROLLBARS_JUNCTION: *const c_char =
-    b"scrollbars-junction\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SEPARATOR: *const c_char = b"separator\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SIDEBAR: *const c_char = b"sidebar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SLIDER: *const c_char = b"slider\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SPINBUTTON: *const c_char = b"spinbutton\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SPINNER: *const c_char = b"spinner\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_STATUSBAR: *const c_char = b"statusbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SUBTITLE: *const c_char = b"subtitle\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_SUGGESTED_ACTION: *const c_char =
-    b"suggested-action\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TITLE: *const c_char = b"title\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TITLEBAR: *const c_char = b"titlebar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TOOLBAR: *const c_char = b"toolbar\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TOOLTIP: *const c_char = b"tooltip\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TOP: *const c_char = b"top\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TOUCH_SELECTION: *const c_char =
-    b"touch-selection\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_TROUGH: *const c_char = b"trough\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_UNDERSHOOT: *const c_char = b"undershoot\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_VERTICAL: *const c_char = b"vertical\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_VIEW: *const c_char = b"view\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_WARNING: *const c_char = b"warning\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_CLASS_WIDE: *const c_char = b"wide\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BACKGROUND_COLOR: *const c_char =
-    b"background-color\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BACKGROUND_IMAGE: *const c_char =
-    b"background-image\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BORDER_COLOR: *const c_char =
-    b"border-color\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BORDER_RADIUS: *const c_char =
-    b"border-radius\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BORDER_STYLE: *const c_char =
-    b"border-style\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_BORDER_WIDTH: *const c_char =
-    b"border-width\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_COLOR: *const c_char = b"color\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_FONT: *const c_char = b"font\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_MARGIN: *const c_char = b"margin\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_PROPERTY_PADDING: *const c_char = b"padding\0" as *const u8 as *const c_char;
+pub const GTK_STOCK_ABOUT: &[u8] = b"gtk-about\0";
+pub const GTK_STOCK_ADD: &[u8] = b"gtk-add\0";
+pub const GTK_STOCK_APPLY: &[u8] = b"gtk-apply\0";
+pub const GTK_STOCK_BOLD: &[u8] = b"gtk-bold\0";
+pub const GTK_STOCK_CANCEL: &[u8] = b"gtk-cancel\0";
+pub const GTK_STOCK_CAPS_LOCK_WARNING: &[u8] = b"gtk-caps-lock-warning\0";
+pub const GTK_STOCK_CDROM: &[u8] = b"gtk-cdrom\0";
+pub const GTK_STOCK_CLEAR: &[u8] = b"gtk-clear\0";
+pub const GTK_STOCK_CLOSE: &[u8] = b"gtk-close\0";
+pub const GTK_STOCK_COLOR_PICKER: &[u8] = b"gtk-color-picker\0";
+pub const GTK_STOCK_CONNECT: &[u8] = b"gtk-connect\0";
+pub const GTK_STOCK_CONVERT: &[u8] = b"gtk-convert\0";
+pub const GTK_STOCK_COPY: &[u8] = b"gtk-copy\0";
+pub const GTK_STOCK_CUT: &[u8] = b"gtk-cut\0";
+pub const GTK_STOCK_DELETE: &[u8] = b"gtk-delete\0";
+pub const GTK_STOCK_DIALOG_AUTHENTICATION: &[u8] = b"gtk-dialog-authentication\0";
+pub const GTK_STOCK_DIALOG_ERROR: &[u8] = b"gtk-dialog-error\0";
+pub const GTK_STOCK_DIALOG_INFO: &[u8] = b"gtk-dialog-info\0";
+pub const GTK_STOCK_DIALOG_QUESTION: &[u8] = b"gtk-dialog-question\0";
+pub const GTK_STOCK_DIALOG_WARNING: &[u8] = b"gtk-dialog-warning\0";
+pub const GTK_STOCK_DIRECTORY: &[u8] = b"gtk-directory\0";
+pub const GTK_STOCK_DISCARD: &[u8] = b"gtk-discard\0";
+pub const GTK_STOCK_DISCONNECT: &[u8] = b"gtk-disconnect\0";
+pub const GTK_STOCK_DND: &[u8] = b"gtk-dnd\0";
+pub const GTK_STOCK_DND_MULTIPLE: &[u8] = b"gtk-dnd-multiple\0";
+pub const GTK_STOCK_EDIT: &[u8] = b"gtk-edit\0";
+pub const GTK_STOCK_EXECUTE: &[u8] = b"gtk-execute\0";
+pub const GTK_STOCK_FILE: &[u8] = b"gtk-file\0";
+pub const GTK_STOCK_FIND: &[u8] = b"gtk-find\0";
+pub const GTK_STOCK_FIND_AND_REPLACE: &[u8] = b"gtk-find-and-replace\0";
+pub const GTK_STOCK_FLOPPY: &[u8] = b"gtk-floppy\0";
+pub const GTK_STOCK_FULLSCREEN: &[u8] = b"gtk-fullscreen\0";
+pub const GTK_STOCK_GOTO_BOTTOM: &[u8] = b"gtk-goto-bottom\0";
+pub const GTK_STOCK_GOTO_FIRST: &[u8] = b"gtk-goto-first\0";
+pub const GTK_STOCK_GOTO_LAST: &[u8] = b"gtk-goto-last\0";
+pub const GTK_STOCK_GOTO_TOP: &[u8] = b"gtk-goto-top\0";
+pub const GTK_STOCK_GO_BACK: &[u8] = b"gtk-go-back\0";
+pub const GTK_STOCK_GO_DOWN: &[u8] = b"gtk-go-down\0";
+pub const GTK_STOCK_GO_FORWARD: &[u8] = b"gtk-go-forward\0";
+pub const GTK_STOCK_GO_UP: &[u8] = b"gtk-go-up\0";
+pub const GTK_STOCK_HARDDISK: &[u8] = b"gtk-harddisk\0";
+pub const GTK_STOCK_HELP: &[u8] = b"gtk-help\0";
+pub const GTK_STOCK_HOME: &[u8] = b"gtk-home\0";
+pub const GTK_STOCK_INDENT: &[u8] = b"gtk-indent\0";
+pub const GTK_STOCK_INDEX: &[u8] = b"gtk-index\0";
+pub const GTK_STOCK_INFO: &[u8] = b"gtk-info\0";
+pub const GTK_STOCK_ITALIC: &[u8] = b"gtk-italic\0";
+pub const GTK_STOCK_JUMP_TO: &[u8] = b"gtk-jump-to\0";
+pub const GTK_STOCK_JUSTIFY_CENTER: &[u8] = b"gtk-justify-center\0";
+pub const GTK_STOCK_JUSTIFY_FILL: &[u8] = b"gtk-justify-fill\0";
+pub const GTK_STOCK_JUSTIFY_LEFT: &[u8] = b"gtk-justify-left\0";
+pub const GTK_STOCK_JUSTIFY_RIGHT: &[u8] = b"gtk-justify-right\0";
+pub const GTK_STOCK_LEAVE_FULLSCREEN: &[u8] = b"gtk-leave-fullscreen\0";
+pub const GTK_STOCK_MEDIA_FORWARD: &[u8] = b"gtk-media-forward\0";
+pub const GTK_STOCK_MEDIA_NEXT: &[u8] = b"gtk-media-next\0";
+pub const GTK_STOCK_MEDIA_PAUSE: &[u8] = b"gtk-media-pause\0";
+pub const GTK_STOCK_MEDIA_PLAY: &[u8] = b"gtk-media-play\0";
+pub const GTK_STOCK_MEDIA_PREVIOUS: &[u8] = b"gtk-media-previous\0";
+pub const GTK_STOCK_MEDIA_RECORD: &[u8] = b"gtk-media-record\0";
+pub const GTK_STOCK_MEDIA_REWIND: &[u8] = b"gtk-media-rewind\0";
+pub const GTK_STOCK_MEDIA_STOP: &[u8] = b"gtk-media-stop\0";
+pub const GTK_STOCK_MISSING_IMAGE: &[u8] = b"gtk-missing-image\0";
+pub const GTK_STOCK_NETWORK: &[u8] = b"gtk-network\0";
+pub const GTK_STOCK_NEW: &[u8] = b"gtk-new\0";
+pub const GTK_STOCK_NO: &[u8] = b"gtk-no\0";
+pub const GTK_STOCK_OK: &[u8] = b"gtk-ok\0";
+pub const GTK_STOCK_OPEN: &[u8] = b"gtk-open\0";
+pub const GTK_STOCK_ORIENTATION_LANDSCAPE: &[u8] = b"gtk-orientation-landscape\0";
+pub const GTK_STOCK_ORIENTATION_PORTRAIT: &[u8] = b"gtk-orientation-portrait\0";
+pub const GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE: &[u8] = b"gtk-orientation-reverse-landscape\0";
+pub const GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT: &[u8] = b"gtk-orientation-reverse-portrait\0";
+pub const GTK_STOCK_PAGE_SETUP: &[u8] = b"gtk-page-setup\0";
+pub const GTK_STOCK_PASTE: &[u8] = b"gtk-paste\0";
+pub const GTK_STOCK_PREFERENCES: &[u8] = b"gtk-preferences\0";
+pub const GTK_STOCK_PRINT: &[u8] = b"gtk-print\0";
+pub const GTK_STOCK_PRINT_ERROR: &[u8] = b"gtk-print-error\0";
+pub const GTK_STOCK_PRINT_PAUSED: &[u8] = b"gtk-print-paused\0";
+pub const GTK_STOCK_PRINT_PREVIEW: &[u8] = b"gtk-print-preview\0";
+pub const GTK_STOCK_PRINT_REPORT: &[u8] = b"gtk-print-report\0";
+pub const GTK_STOCK_PRINT_WARNING: &[u8] = b"gtk-print-warning\0";
+pub const GTK_STOCK_PROPERTIES: &[u8] = b"gtk-properties\0";
+pub const GTK_STOCK_QUIT: &[u8] = b"gtk-quit\0";
+pub const GTK_STOCK_REDO: &[u8] = b"gtk-redo\0";
+pub const GTK_STOCK_REFRESH: &[u8] = b"gtk-refresh\0";
+pub const GTK_STOCK_REMOVE: &[u8] = b"gtk-remove\0";
+pub const GTK_STOCK_REVERT_TO_SAVED: &[u8] = b"gtk-revert-to-saved\0";
+pub const GTK_STOCK_SAVE: &[u8] = b"gtk-save\0";
+pub const GTK_STOCK_SAVE_AS: &[u8] = b"gtk-save-as\0";
+pub const GTK_STOCK_SELECT_ALL: &[u8] = b"gtk-select-all\0";
+pub const GTK_STOCK_SELECT_COLOR: &[u8] = b"gtk-select-color\0";
+pub const GTK_STOCK_SELECT_FONT: &[u8] = b"gtk-select-font\0";
+pub const GTK_STOCK_SORT_ASCENDING: &[u8] = b"gtk-sort-ascending\0";
+pub const GTK_STOCK_SORT_DESCENDING: &[u8] = b"gtk-sort-descending\0";
+pub const GTK_STOCK_SPELL_CHECK: &[u8] = b"gtk-spell-check\0";
+pub const GTK_STOCK_STOP: &[u8] = b"gtk-stop\0";
+pub const GTK_STOCK_STRIKETHROUGH: &[u8] = b"gtk-strikethrough\0";
+pub const GTK_STOCK_UNDELETE: &[u8] = b"gtk-undelete\0";
+pub const GTK_STOCK_UNDERLINE: &[u8] = b"gtk-underline\0";
+pub const GTK_STOCK_UNDO: &[u8] = b"gtk-undo\0";
+pub const GTK_STOCK_UNINDENT: &[u8] = b"gtk-unindent\0";
+pub const GTK_STOCK_YES: &[u8] = b"gtk-yes\0";
+pub const GTK_STOCK_ZOOM_100: &[u8] = b"gtk-zoom-100\0";
+pub const GTK_STOCK_ZOOM_FIT: &[u8] = b"gtk-zoom-fit\0";
+pub const GTK_STOCK_ZOOM_IN: &[u8] = b"gtk-zoom-in\0";
+pub const GTK_STOCK_ZOOM_OUT: &[u8] = b"gtk-zoom-out\0";
+pub const GTK_STYLE_CLASS_ACCELERATOR: &[u8] = b"accelerator\0";
+pub const GTK_STYLE_CLASS_ARROW: &[u8] = b"arrow\0";
+pub const GTK_STYLE_CLASS_BACKGROUND: &[u8] = b"background\0";
+pub const GTK_STYLE_CLASS_BOTTOM: &[u8] = b"bottom\0";
+pub const GTK_STYLE_CLASS_BUTTON: &[u8] = b"button\0";
+pub const GTK_STYLE_CLASS_CALENDAR: &[u8] = b"calendar\0";
+pub const GTK_STYLE_CLASS_CELL: &[u8] = b"cell\0";
+pub const GTK_STYLE_CLASS_CHECK: &[u8] = b"check\0";
+pub const GTK_STYLE_CLASS_COMBOBOX_ENTRY: &[u8] = b"combobox-entry\0";
+pub const GTK_STYLE_CLASS_CONTEXT_MENU: &[u8] = b"context-menu\0";
+pub const GTK_STYLE_CLASS_CSD: &[u8] = b"csd\0";
+pub const GTK_STYLE_CLASS_CURSOR_HANDLE: &[u8] = b"cursor-handle\0";
+pub const GTK_STYLE_CLASS_DEFAULT: &[u8] = b"default\0";
+pub const GTK_STYLE_CLASS_DESTRUCTIVE_ACTION: &[u8] = b"destructive-action\0";
+pub const GTK_STYLE_CLASS_DIM_LABEL: &[u8] = b"dim-label\0";
+pub const GTK_STYLE_CLASS_DND: &[u8] = b"dnd\0";
+pub const GTK_STYLE_CLASS_DOCK: &[u8] = b"dock\0";
+pub const GTK_STYLE_CLASS_ENTRY: &[u8] = b"entry\0";
+pub const GTK_STYLE_CLASS_ERROR: &[u8] = b"error\0";
+pub const GTK_STYLE_CLASS_EXPANDER: &[u8] = b"expander\0";
+pub const GTK_STYLE_CLASS_FLAT: &[u8] = b"flat\0";
+pub const GTK_STYLE_CLASS_FRAME: &[u8] = b"frame\0";
+pub const GTK_STYLE_CLASS_GRIP: &[u8] = b"grip\0";
+pub const GTK_STYLE_CLASS_HEADER: &[u8] = b"header\0";
+pub const GTK_STYLE_CLASS_HIGHLIGHT: &[u8] = b"highlight\0";
+pub const GTK_STYLE_CLASS_HORIZONTAL: &[u8] = b"horizontal\0";
+pub const GTK_STYLE_CLASS_IMAGE: &[u8] = b"image\0";
+pub const GTK_STYLE_CLASS_INFO: &[u8] = b"info\0";
+pub const GTK_STYLE_CLASS_INLINE_TOOLBAR: &[u8] = b"inline-toolbar\0";
+pub const GTK_STYLE_CLASS_INSERTION_CURSOR: &[u8] = b"insertion-cursor\0";
+pub const GTK_STYLE_CLASS_LABEL: &[u8] = b"label\0";
+pub const GTK_STYLE_CLASS_LEFT: &[u8] = b"left\0";
+pub const GTK_STYLE_CLASS_LEVEL_BAR: &[u8] = b"level-bar\0";
+pub const GTK_STYLE_CLASS_LINKED: &[u8] = b"linked\0";
+pub const GTK_STYLE_CLASS_LIST: &[u8] = b"list\0";
+pub const GTK_STYLE_CLASS_LIST_ROW: &[u8] = b"list-row\0";
+pub const GTK_STYLE_CLASS_MARK: &[u8] = b"mark\0";
+pub const GTK_STYLE_CLASS_MENU: &[u8] = b"menu\0";
+pub const GTK_STYLE_CLASS_MENUBAR: &[u8] = b"menubar\0";
+pub const GTK_STYLE_CLASS_MENUITEM: &[u8] = b"menuitem\0";
+pub const GTK_STYLE_CLASS_MESSAGE_DIALOG: &[u8] = b"message-dialog\0";
+pub const GTK_STYLE_CLASS_MONOSPACE: &[u8] = b"monospace\0";
+pub const GTK_STYLE_CLASS_NEEDS_ATTENTION: &[u8] = b"needs-attention\0";
+pub const GTK_STYLE_CLASS_NOTEBOOK: &[u8] = b"notebook\0";
+pub const GTK_STYLE_CLASS_OSD: &[u8] = b"osd\0";
+pub const GTK_STYLE_CLASS_OVERSHOOT: &[u8] = b"overshoot\0";
+pub const GTK_STYLE_CLASS_PANE_SEPARATOR: &[u8] = b"pane-separator\0";
+pub const GTK_STYLE_CLASS_PAPER: &[u8] = b"paper\0";
+pub const GTK_STYLE_CLASS_POPOVER: &[u8] = b"popover\0";
+pub const GTK_STYLE_CLASS_POPUP: &[u8] = b"popup\0";
+pub const GTK_STYLE_CLASS_PRIMARY_TOOLBAR: &[u8] = b"primary-toolbar\0";
+pub const GTK_STYLE_CLASS_PROGRESSBAR: &[u8] = b"progressbar\0";
+pub const GTK_STYLE_CLASS_PULSE: &[u8] = b"pulse\0";
+pub const GTK_STYLE_CLASS_QUESTION: &[u8] = b"question\0";
+pub const GTK_STYLE_CLASS_RADIO: &[u8] = b"radio\0";
+pub const GTK_STYLE_CLASS_RAISED: &[u8] = b"raised\0";
+pub const GTK_STYLE_CLASS_READ_ONLY: &[u8] = b"read-only\0";
+pub const GTK_STYLE_CLASS_RIGHT: &[u8] = b"right\0";
+pub const GTK_STYLE_CLASS_RUBBERBAND: &[u8] = b"rubberband\0";
+pub const GTK_STYLE_CLASS_SCALE: &[u8] = b"scale\0";
+pub const GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE: &[u8] = b"scale-has-marks-above\0";
+pub const GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW: &[u8] = b"scale-has-marks-below\0";
+pub const GTK_STYLE_CLASS_SCROLLBAR: &[u8] = b"scrollbar\0";
+pub const GTK_STYLE_CLASS_SCROLLBARS_JUNCTION: &[u8] = b"scrollbars-junction\0";
+pub const GTK_STYLE_CLASS_SEPARATOR: &[u8] = b"separator\0";
+pub const GTK_STYLE_CLASS_SIDEBAR: &[u8] = b"sidebar\0";
+pub const GTK_STYLE_CLASS_SLIDER: &[u8] = b"slider\0";
+pub const GTK_STYLE_CLASS_SPINBUTTON: &[u8] = b"spinbutton\0";
+pub const GTK_STYLE_CLASS_SPINNER: &[u8] = b"spinner\0";
+pub const GTK_STYLE_CLASS_STATUSBAR: &[u8] = b"statusbar\0";
+pub const GTK_STYLE_CLASS_SUBTITLE: &[u8] = b"subtitle\0";
+pub const GTK_STYLE_CLASS_SUGGESTED_ACTION: &[u8] = b"suggested-action\0";
+pub const GTK_STYLE_CLASS_TITLE: &[u8] = b"title\0";
+pub const GTK_STYLE_CLASS_TITLEBAR: &[u8] = b"titlebar\0";
+pub const GTK_STYLE_CLASS_TOOLBAR: &[u8] = b"toolbar\0";
+pub const GTK_STYLE_CLASS_TOOLTIP: &[u8] = b"tooltip\0";
+pub const GTK_STYLE_CLASS_TOP: &[u8] = b"top\0";
+pub const GTK_STYLE_CLASS_TOUCH_SELECTION: &[u8] = b"touch-selection\0";
+pub const GTK_STYLE_CLASS_TROUGH: &[u8] = b"trough\0";
+pub const GTK_STYLE_CLASS_UNDERSHOOT: &[u8] = b"undershoot\0";
+pub const GTK_STYLE_CLASS_VERTICAL: &[u8] = b"vertical\0";
+pub const GTK_STYLE_CLASS_VIEW: &[u8] = b"view\0";
+pub const GTK_STYLE_CLASS_WARNING: &[u8] = b"warning\0";
+pub const GTK_STYLE_CLASS_WIDE: &[u8] = b"wide\0";
+pub const GTK_STYLE_PROPERTY_BACKGROUND_COLOR: &[u8] = b"background-color\0";
+pub const GTK_STYLE_PROPERTY_BACKGROUND_IMAGE: &[u8] = b"background-image\0";
+pub const GTK_STYLE_PROPERTY_BORDER_COLOR: &[u8] = b"border-color\0";
+pub const GTK_STYLE_PROPERTY_BORDER_RADIUS: &[u8] = b"border-radius\0";
+pub const GTK_STYLE_PROPERTY_BORDER_STYLE: &[u8] = b"border-style\0";
+pub const GTK_STYLE_PROPERTY_BORDER_WIDTH: &[u8] = b"border-width\0";
+pub const GTK_STYLE_PROPERTY_COLOR: &[u8] = b"color\0";
+pub const GTK_STYLE_PROPERTY_FONT: &[u8] = b"font\0";
+pub const GTK_STYLE_PROPERTY_MARGIN: &[u8] = b"margin\0";
+pub const GTK_STYLE_PROPERTY_PADDING: &[u8] = b"padding\0";
 pub const GTK_STYLE_PROVIDER_PRIORITY_APPLICATION: c_int = 600;
 pub const GTK_STYLE_PROVIDER_PRIORITY_FALLBACK: c_int = 1;
 pub const GTK_STYLE_PROVIDER_PRIORITY_SETTINGS: c_int = 400;
 pub const GTK_STYLE_PROVIDER_PRIORITY_THEME: c_int = 200;
 pub const GTK_STYLE_PROVIDER_PRIORITY_USER: c_int = 800;
-pub const GTK_STYLE_REGION_COLUMN: *const c_char = b"column\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_REGION_COLUMN_HEADER: *const c_char =
-    b"column-header\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_REGION_ROW: *const c_char = b"row\0" as *const u8 as *const c_char;
-pub const GTK_STYLE_REGION_TAB: *const c_char = b"tab\0" as *const u8 as *const c_char;
+pub const GTK_STYLE_REGION_COLUMN: &[u8] = b"column\0";
+pub const GTK_STYLE_REGION_COLUMN_HEADER: &[u8] = b"column-header\0";
+pub const GTK_STYLE_REGION_ROW: &[u8] = b"row\0";
+pub const GTK_STYLE_REGION_TAB: &[u8] = b"tab\0";
 pub const GTK_TEXT_VIEW_PRIORITY_VALIDATE: c_int = 125;
 pub const GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID: c_int = -1;
 pub const GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: c_int = -2;
@@ -19873,12 +19795,12 @@ extern "C" {
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_get_flags(
-        controller: *mut GtkEventControllerScroll,
+        scroll: *mut GtkEventControllerScroll,
     ) -> GtkEventControllerScrollFlags;
     #[cfg(any(feature = "v3_24", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_set_flags(
-        controller: *mut GtkEventControllerScroll,
+        scroll: *mut GtkEventControllerScroll,
         flags: GtkEventControllerScrollFlags,
     );
 

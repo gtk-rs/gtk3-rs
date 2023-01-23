@@ -3,8 +3,7 @@
 // DO NOT EDIT
 
 use crate::Hyperlink;
-use glib::object::IsA;
-use glib::translate::*;
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 glib::wrapper! {

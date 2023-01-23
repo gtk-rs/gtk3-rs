@@ -235,6 +235,7 @@ manual = [
     "Gio.Menu",
     "Gio.MenuModel",
     "Gio.MountOperation",
+    "Gio.PasswordSave",
     "Gio.Permission",
     "GLib.Error",
     "GLib.KeyFile",

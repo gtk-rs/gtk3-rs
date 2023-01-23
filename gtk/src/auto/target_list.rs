@@ -3,8 +3,7 @@
 // DO NOT EDIT
 
 use crate::TextBuffer;
-use glib::object::IsA;
-use glib::translate::*;
+use glib::{prelude::*, translate::*};
 use std::mem;
 
 glib::wrapper! {

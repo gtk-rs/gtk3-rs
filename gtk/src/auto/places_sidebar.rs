@@ -2,29 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Adjustment;
-use crate::Align;
-use crate::Bin;
-use crate::Buildable;
-use crate::Container;
-use crate::CornerType;
-use crate::PlacesOpenFlags;
-use crate::PolicyType;
-use crate::ResizeMode;
-use crate::ScrolledWindow;
-use crate::ShadowType;
-use crate::Widget;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectType as ObjectType_;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use crate::{
+    Adjustment, Align, Bin, Buildable, Container, CornerType, PlacesOpenFlags, PolicyType,
+    ResizeMode, ScrolledWindow, ShadowType, Widget,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkPlacesSidebar")]
@@ -47,7 +34,7 @@ impl PlacesSidebar {
     ///
     /// This method returns an instance of [`PlacesSidebarBuilder`](crate::builders::PlacesSidebarBuilder) which can be used to create [`PlacesSidebar`] objects.
     pub fn builder() -> PlacesSidebarBuilder {
-        PlacesSidebarBuilder::default()
+        PlacesSidebarBuilder::new()
     }
 
     #[doc(alias = "gtk_places_sidebar_add_shortcut")]
@@ -798,568 +785,421 @@ impl Default for PlacesSidebar {
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`PlacesSidebar`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct PlacesSidebarBuilder {
-    local_only: Option<bool>,
-    location: Option<gio::File>,
-    open_flags: Option<PlacesOpenFlags>,
-    populate_all: Option<bool>,
-    show_connect_to_server: Option<bool>,
-    show_desktop: Option<bool>,
-    show_enter_location: Option<bool>,
-    show_other_locations: Option<bool>,
-    show_recent: Option<bool>,
-    show_starred_location: Option<bool>,
-    show_trash: Option<bool>,
-    hadjustment: Option<Adjustment>,
-    hscrollbar_policy: Option<PolicyType>,
-    kinetic_scrolling: Option<bool>,
-    max_content_height: Option<i32>,
-    max_content_width: Option<i32>,
-    min_content_height: Option<i32>,
-    min_content_width: Option<i32>,
-    overlay_scrolling: Option<bool>,
-    propagate_natural_height: Option<bool>,
-    propagate_natural_width: Option<bool>,
-    shadow_type: Option<ShadowType>,
-    vadjustment: Option<Adjustment>,
-    vscrollbar_policy: Option<PolicyType>,
-    window_placement: Option<CornerType>,
-    border_width: Option<u32>,
-    child: Option<Widget>,
-    resize_mode: Option<ResizeMode>,
-    app_paintable: Option<bool>,
-    can_default: Option<bool>,
-    can_focus: Option<bool>,
-    events: Option<gdk::EventMask>,
-    expand: Option<bool>,
-    focus_on_click: Option<bool>,
-    halign: Option<Align>,
-    has_default: Option<bool>,
-    has_focus: Option<bool>,
-    has_tooltip: Option<bool>,
-    height_request: Option<i32>,
-    hexpand: Option<bool>,
-    hexpand_set: Option<bool>,
-    is_focus: Option<bool>,
-    margin: Option<i32>,
-    margin_bottom: Option<i32>,
-    margin_end: Option<i32>,
-    margin_start: Option<i32>,
-    margin_top: Option<i32>,
-    name: Option<String>,
-    no_show_all: Option<bool>,
-    opacity: Option<f64>,
-    parent: Option<Container>,
-    receives_default: Option<bool>,
-    sensitive: Option<bool>,
-    tooltip_markup: Option<String>,
-    tooltip_text: Option<String>,
-    valign: Option<Align>,
-    vexpand: Option<bool>,
-    vexpand_set: Option<bool>,
-    visible: Option<bool>,
-    width_request: Option<i32>,
+    builder: glib::object::ObjectBuilder<'static, PlacesSidebar>,
 }
 
 impl PlacesSidebarBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`PlacesSidebarBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn local_only(self, local_only: bool) -> Self {
+        Self {
+            builder: self.builder.property("local-only", local_only),
+        }
+    }
+
+    pub fn location(self, location: &impl IsA<gio::File>) -> Self {
+        Self {
+            builder: self.builder.property("location", location.clone().upcast()),
+        }
+    }
+
+    pub fn open_flags(self, open_flags: PlacesOpenFlags) -> Self {
+        Self {
+            builder: self.builder.property("open-flags", open_flags),
+        }
+    }
+
+    pub fn populate_all(self, populate_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("populate-all", populate_all),
+        }
+    }
+
+    pub fn show_connect_to_server(self, show_connect_to_server: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("show-connect-to-server", show_connect_to_server),
+        }
+    }
+
+    pub fn show_desktop(self, show_desktop: bool) -> Self {
+        Self {
+            builder: self.builder.property("show-desktop", show_desktop),
+        }
+    }
+
+    pub fn show_enter_location(self, show_enter_location: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("show-enter-location", show_enter_location),
+        }
+    }
+
+    pub fn show_other_locations(self, show_other_locations: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("show-other-locations", show_other_locations),
+        }
+    }
+
+    pub fn show_recent(self, show_recent: bool) -> Self {
+        Self {
+            builder: self.builder.property("show-recent", show_recent),
+        }
+    }
+
+    pub fn show_starred_location(self, show_starred_location: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("show-starred-location", show_starred_location),
+        }
+    }
+
+    pub fn show_trash(self, show_trash: bool) -> Self {
+        Self {
+            builder: self.builder.property("show-trash", show_trash),
+        }
+    }
+
+    pub fn hadjustment(self, hadjustment: &impl IsA<Adjustment>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("hadjustment", hadjustment.clone().upcast()),
+        }
+    }
+
+    pub fn hscrollbar_policy(self, hscrollbar_policy: PolicyType) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("hscrollbar-policy", hscrollbar_policy),
+        }
+    }
+
+    pub fn kinetic_scrolling(self, kinetic_scrolling: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("kinetic-scrolling", kinetic_scrolling),
+        }
+    }
+
+    pub fn max_content_height(self, max_content_height: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("max-content-height", max_content_height),
+        }
+    }
+
+    pub fn max_content_width(self, max_content_width: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("max-content-width", max_content_width),
+        }
+    }
+
+    pub fn min_content_height(self, min_content_height: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("min-content-height", min_content_height),
+        }
+    }
+
+    pub fn min_content_width(self, min_content_width: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("min-content-width", min_content_width),
+        }
+    }
+
+    pub fn overlay_scrolling(self, overlay_scrolling: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("overlay-scrolling", overlay_scrolling),
+        }
+    }
+
+    pub fn propagate_natural_height(self, propagate_natural_height: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagate-natural-height", propagate_natural_height),
+        }
+    }
+
+    pub fn propagate_natural_width(self, propagate_natural_width: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagate-natural-width", propagate_natural_width),
+        }
+    }
+
+    pub fn shadow_type(self, shadow_type: ShadowType) -> Self {
+        Self {
+            builder: self.builder.property("shadow-type", shadow_type),
+        }
+    }
+
+    pub fn vadjustment(self, vadjustment: &impl IsA<Adjustment>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("vadjustment", vadjustment.clone().upcast()),
+        }
+    }
+
+    pub fn vscrollbar_policy(self, vscrollbar_policy: PolicyType) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("vscrollbar-policy", vscrollbar_policy),
+        }
+    }
+
+    pub fn window_placement(self, window_placement: CornerType) -> Self {
+        Self {
+            builder: self.builder.property("window-placement", window_placement),
+        }
+    }
+
+    pub fn border_width(self, border_width: u32) -> Self {
+        Self {
+            builder: self.builder.property("border-width", border_width),
+        }
+    }
+
+    pub fn child(self, child: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("child", child.clone().upcast()),
+        }
+    }
+
+    pub fn resize_mode(self, resize_mode: ResizeMode) -> Self {
+        Self {
+            builder: self.builder.property("resize-mode", resize_mode),
+        }
+    }
+
+    pub fn app_paintable(self, app_paintable: bool) -> Self {
+        Self {
+            builder: self.builder.property("app-paintable", app_paintable),
+        }
+    }
+
+    pub fn can_default(self, can_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-default", can_default),
+        }
+    }
+
+    pub fn can_focus(self, can_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-focus", can_focus),
+        }
+    }
+
+    pub fn events(self, events: gdk::EventMask) -> Self {
+        Self {
+            builder: self.builder.property("events", events),
+        }
+    }
+
+    pub fn expand(self, expand: bool) -> Self {
+        Self {
+            builder: self.builder.property("expand", expand),
+        }
+    }
+
+    pub fn focus_on_click(self, focus_on_click: bool) -> Self {
+        Self {
+            builder: self.builder.property("focus-on-click", focus_on_click),
+        }
+    }
+
+    pub fn halign(self, halign: Align) -> Self {
+        Self {
+            builder: self.builder.property("halign", halign),
+        }
+    }
+
+    pub fn has_default(self, has_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-default", has_default),
+        }
+    }
+
+    pub fn has_focus(self, has_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-focus", has_focus),
+        }
+    }
+
+    pub fn has_tooltip(self, has_tooltip: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-tooltip", has_tooltip),
+        }
+    }
+
+    pub fn height_request(self, height_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("height-request", height_request),
+        }
+    }
+
+    pub fn hexpand(self, hexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand", hexpand),
+        }
+    }
+
+    pub fn hexpand_set(self, hexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand-set", hexpand_set),
+        }
+    }
+
+    pub fn is_focus(self, is_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("is-focus", is_focus),
+        }
+    }
+
+    pub fn margin(self, margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin", margin),
+        }
+    }
+
+    pub fn margin_bottom(self, margin_bottom: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-bottom", margin_bottom),
+        }
+    }
+
+    pub fn margin_end(self, margin_end: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-end", margin_end),
+        }
+    }
+
+    pub fn margin_start(self, margin_start: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-start", margin_start),
+        }
+    }
+
+    pub fn margin_top(self, margin_top: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-top", margin_top),
+        }
+    }
+
+    pub fn name(self, name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("name", name.into()),
+        }
+    }
+
+    pub fn no_show_all(self, no_show_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("no-show-all", no_show_all),
+        }
+    }
+
+    pub fn opacity(self, opacity: f64) -> Self {
+        Self {
+            builder: self.builder.property("opacity", opacity),
+        }
+    }
+
+    pub fn parent(self, parent: &impl IsA<Container>) -> Self {
+        Self {
+            builder: self.builder.property("parent", parent.clone().upcast()),
+        }
+    }
+
+    pub fn receives_default(self, receives_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("receives-default", receives_default),
+        }
+    }
+
+    pub fn sensitive(self, sensitive: bool) -> Self {
+        Self {
+            builder: self.builder.property("sensitive", sensitive),
+        }
+    }
+
+    pub fn tooltip_markup(self, tooltip_markup: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("tooltip-markup", tooltip_markup.into()),
+        }
+    }
+
+    pub fn tooltip_text(self, tooltip_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("tooltip-text", tooltip_text.into()),
+        }
+    }
+
+    pub fn valign(self, valign: Align) -> Self {
+        Self {
+            builder: self.builder.property("valign", valign),
+        }
+    }
+
+    pub fn vexpand(self, vexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand", vexpand),
+        }
+    }
+
+    pub fn vexpand_set(self, vexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand-set", vexpand_set),
+        }
+    }
+
+    pub fn visible(self, visible: bool) -> Self {
+        Self {
+            builder: self.builder.property("visible", visible),
+        }
+    }
+
+    pub fn width_request(self, width_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("width-request", width_request),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`PlacesSidebar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PlacesSidebar {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref local_only) = self.local_only {
-            properties.push(("local-only", local_only));
-        }
-        if let Some(ref location) = self.location {
-            properties.push(("location", location));
-        }
-        if let Some(ref open_flags) = self.open_flags {
-            properties.push(("open-flags", open_flags));
-        }
-        if let Some(ref populate_all) = self.populate_all {
-            properties.push(("populate-all", populate_all));
-        }
-        if let Some(ref show_connect_to_server) = self.show_connect_to_server {
-            properties.push(("show-connect-to-server", show_connect_to_server));
-        }
-        if let Some(ref show_desktop) = self.show_desktop {
-            properties.push(("show-desktop", show_desktop));
-        }
-        if let Some(ref show_enter_location) = self.show_enter_location {
-            properties.push(("show-enter-location", show_enter_location));
-        }
-        if let Some(ref show_other_locations) = self.show_other_locations {
-            properties.push(("show-other-locations", show_other_locations));
-        }
-        if let Some(ref show_recent) = self.show_recent {
-            properties.push(("show-recent", show_recent));
-        }
-        if let Some(ref show_starred_location) = self.show_starred_location {
-            properties.push(("show-starred-location", show_starred_location));
-        }
-        if let Some(ref show_trash) = self.show_trash {
-            properties.push(("show-trash", show_trash));
-        }
-        if let Some(ref hadjustment) = self.hadjustment {
-            properties.push(("hadjustment", hadjustment));
-        }
-        if let Some(ref hscrollbar_policy) = self.hscrollbar_policy {
-            properties.push(("hscrollbar-policy", hscrollbar_policy));
-        }
-        if let Some(ref kinetic_scrolling) = self.kinetic_scrolling {
-            properties.push(("kinetic-scrolling", kinetic_scrolling));
-        }
-        if let Some(ref max_content_height) = self.max_content_height {
-            properties.push(("max-content-height", max_content_height));
-        }
-        if let Some(ref max_content_width) = self.max_content_width {
-            properties.push(("max-content-width", max_content_width));
-        }
-        if let Some(ref min_content_height) = self.min_content_height {
-            properties.push(("min-content-height", min_content_height));
-        }
-        if let Some(ref min_content_width) = self.min_content_width {
-            properties.push(("min-content-width", min_content_width));
-        }
-        if let Some(ref overlay_scrolling) = self.overlay_scrolling {
-            properties.push(("overlay-scrolling", overlay_scrolling));
-        }
-        if let Some(ref propagate_natural_height) = self.propagate_natural_height {
-            properties.push(("propagate-natural-height", propagate_natural_height));
-        }
-        if let Some(ref propagate_natural_width) = self.propagate_natural_width {
-            properties.push(("propagate-natural-width", propagate_natural_width));
-        }
-        if let Some(ref shadow_type) = self.shadow_type {
-            properties.push(("shadow-type", shadow_type));
-        }
-        if let Some(ref vadjustment) = self.vadjustment {
-            properties.push(("vadjustment", vadjustment));
-        }
-        if let Some(ref vscrollbar_policy) = self.vscrollbar_policy {
-            properties.push(("vscrollbar-policy", vscrollbar_policy));
-        }
-        if let Some(ref window_placement) = self.window_placement {
-            properties.push(("window-placement", window_placement));
-        }
-        if let Some(ref border_width) = self.border_width {
-            properties.push(("border-width", border_width));
-        }
-        if let Some(ref child) = self.child {
-            properties.push(("child", child));
-        }
-        if let Some(ref resize_mode) = self.resize_mode {
-            properties.push(("resize-mode", resize_mode));
-        }
-        if let Some(ref app_paintable) = self.app_paintable {
-            properties.push(("app-paintable", app_paintable));
-        }
-        if let Some(ref can_default) = self.can_default {
-            properties.push(("can-default", can_default));
-        }
-        if let Some(ref can_focus) = self.can_focus {
-            properties.push(("can-focus", can_focus));
-        }
-        if let Some(ref events) = self.events {
-            properties.push(("events", events));
-        }
-        if let Some(ref expand) = self.expand {
-            properties.push(("expand", expand));
-        }
-        if let Some(ref focus_on_click) = self.focus_on_click {
-            properties.push(("focus-on-click", focus_on_click));
-        }
-        if let Some(ref halign) = self.halign {
-            properties.push(("halign", halign));
-        }
-        if let Some(ref has_default) = self.has_default {
-            properties.push(("has-default", has_default));
-        }
-        if let Some(ref has_focus) = self.has_focus {
-            properties.push(("has-focus", has_focus));
-        }
-        if let Some(ref has_tooltip) = self.has_tooltip {
-            properties.push(("has-tooltip", has_tooltip));
-        }
-        if let Some(ref height_request) = self.height_request {
-            properties.push(("height-request", height_request));
-        }
-        if let Some(ref hexpand) = self.hexpand {
-            properties.push(("hexpand", hexpand));
-        }
-        if let Some(ref hexpand_set) = self.hexpand_set {
-            properties.push(("hexpand-set", hexpand_set));
-        }
-        if let Some(ref is_focus) = self.is_focus {
-            properties.push(("is-focus", is_focus));
-        }
-        if let Some(ref margin) = self.margin {
-            properties.push(("margin", margin));
-        }
-        if let Some(ref margin_bottom) = self.margin_bottom {
-            properties.push(("margin-bottom", margin_bottom));
-        }
-        if let Some(ref margin_end) = self.margin_end {
-            properties.push(("margin-end", margin_end));
-        }
-        if let Some(ref margin_start) = self.margin_start {
-            properties.push(("margin-start", margin_start));
-        }
-        if let Some(ref margin_top) = self.margin_top {
-            properties.push(("margin-top", margin_top));
-        }
-        if let Some(ref name) = self.name {
-            properties.push(("name", name));
-        }
-        if let Some(ref no_show_all) = self.no_show_all {
-            properties.push(("no-show-all", no_show_all));
-        }
-        if let Some(ref opacity) = self.opacity {
-            properties.push(("opacity", opacity));
-        }
-        if let Some(ref parent) = self.parent {
-            properties.push(("parent", parent));
-        }
-        if let Some(ref receives_default) = self.receives_default {
-            properties.push(("receives-default", receives_default));
-        }
-        if let Some(ref sensitive) = self.sensitive {
-            properties.push(("sensitive", sensitive));
-        }
-        if let Some(ref tooltip_markup) = self.tooltip_markup {
-            properties.push(("tooltip-markup", tooltip_markup));
-        }
-        if let Some(ref tooltip_text) = self.tooltip_text {
-            properties.push(("tooltip-text", tooltip_text));
-        }
-        if let Some(ref valign) = self.valign {
-            properties.push(("valign", valign));
-        }
-        if let Some(ref vexpand) = self.vexpand {
-            properties.push(("vexpand", vexpand));
-        }
-        if let Some(ref vexpand_set) = self.vexpand_set {
-            properties.push(("vexpand-set", vexpand_set));
-        }
-        if let Some(ref visible) = self.visible {
-            properties.push(("visible", visible));
-        }
-        if let Some(ref width_request) = self.width_request {
-            properties.push(("width-request", width_request));
-        }
-        glib::Object::new::<PlacesSidebar>(&properties)
-    }
-
-    pub fn local_only(mut self, local_only: bool) -> Self {
-        self.local_only = Some(local_only);
-        self
-    }
-
-    pub fn location(mut self, location: &impl IsA<gio::File>) -> Self {
-        self.location = Some(location.clone().upcast());
-        self
-    }
-
-    pub fn open_flags(mut self, open_flags: PlacesOpenFlags) -> Self {
-        self.open_flags = Some(open_flags);
-        self
-    }
-
-    pub fn populate_all(mut self, populate_all: bool) -> Self {
-        self.populate_all = Some(populate_all);
-        self
-    }
-
-    pub fn show_connect_to_server(mut self, show_connect_to_server: bool) -> Self {
-        self.show_connect_to_server = Some(show_connect_to_server);
-        self
-    }
-
-    pub fn show_desktop(mut self, show_desktop: bool) -> Self {
-        self.show_desktop = Some(show_desktop);
-        self
-    }
-
-    pub fn show_enter_location(mut self, show_enter_location: bool) -> Self {
-        self.show_enter_location = Some(show_enter_location);
-        self
-    }
-
-    pub fn show_other_locations(mut self, show_other_locations: bool) -> Self {
-        self.show_other_locations = Some(show_other_locations);
-        self
-    }
-
-    pub fn show_recent(mut self, show_recent: bool) -> Self {
-        self.show_recent = Some(show_recent);
-        self
-    }
-
-    pub fn show_starred_location(mut self, show_starred_location: bool) -> Self {
-        self.show_starred_location = Some(show_starred_location);
-        self
-    }
-
-    pub fn show_trash(mut self, show_trash: bool) -> Self {
-        self.show_trash = Some(show_trash);
-        self
-    }
-
-    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
-        self.hadjustment = Some(hadjustment.clone().upcast());
-        self
-    }
-
-    pub fn hscrollbar_policy(mut self, hscrollbar_policy: PolicyType) -> Self {
-        self.hscrollbar_policy = Some(hscrollbar_policy);
-        self
-    }
-
-    pub fn kinetic_scrolling(mut self, kinetic_scrolling: bool) -> Self {
-        self.kinetic_scrolling = Some(kinetic_scrolling);
-        self
-    }
-
-    pub fn max_content_height(mut self, max_content_height: i32) -> Self {
-        self.max_content_height = Some(max_content_height);
-        self
-    }
-
-    pub fn max_content_width(mut self, max_content_width: i32) -> Self {
-        self.max_content_width = Some(max_content_width);
-        self
-    }
-
-    pub fn min_content_height(mut self, min_content_height: i32) -> Self {
-        self.min_content_height = Some(min_content_height);
-        self
-    }
-
-    pub fn min_content_width(mut self, min_content_width: i32) -> Self {
-        self.min_content_width = Some(min_content_width);
-        self
-    }
-
-    pub fn overlay_scrolling(mut self, overlay_scrolling: bool) -> Self {
-        self.overlay_scrolling = Some(overlay_scrolling);
-        self
-    }
-
-    pub fn propagate_natural_height(mut self, propagate_natural_height: bool) -> Self {
-        self.propagate_natural_height = Some(propagate_natural_height);
-        self
-    }
-
-    pub fn propagate_natural_width(mut self, propagate_natural_width: bool) -> Self {
-        self.propagate_natural_width = Some(propagate_natural_width);
-        self
-    }
-
-    pub fn shadow_type(mut self, shadow_type: ShadowType) -> Self {
-        self.shadow_type = Some(shadow_type);
-        self
-    }
-
-    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
-        self.vadjustment = Some(vadjustment.clone().upcast());
-        self
-    }
-
-    pub fn vscrollbar_policy(mut self, vscrollbar_policy: PolicyType) -> Self {
-        self.vscrollbar_policy = Some(vscrollbar_policy);
-        self
-    }
-
-    pub fn window_placement(mut self, window_placement: CornerType) -> Self {
-        self.window_placement = Some(window_placement);
-        self
-    }
-
-    pub fn border_width(mut self, border_width: u32) -> Self {
-        self.border_width = Some(border_width);
-        self
-    }
-
-    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
-        self.child = Some(child.clone().upcast());
-        self
-    }
-
-    pub fn resize_mode(mut self, resize_mode: ResizeMode) -> Self {
-        self.resize_mode = Some(resize_mode);
-        self
-    }
-
-    pub fn app_paintable(mut self, app_paintable: bool) -> Self {
-        self.app_paintable = Some(app_paintable);
-        self
-    }
-
-    pub fn can_default(mut self, can_default: bool) -> Self {
-        self.can_default = Some(can_default);
-        self
-    }
-
-    pub fn can_focus(mut self, can_focus: bool) -> Self {
-        self.can_focus = Some(can_focus);
-        self
-    }
-
-    pub fn events(mut self, events: gdk::EventMask) -> Self {
-        self.events = Some(events);
-        self
-    }
-
-    pub fn expand(mut self, expand: bool) -> Self {
-        self.expand = Some(expand);
-        self
-    }
-
-    pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
-        self.focus_on_click = Some(focus_on_click);
-        self
-    }
-
-    pub fn halign(mut self, halign: Align) -> Self {
-        self.halign = Some(halign);
-        self
-    }
-
-    pub fn has_default(mut self, has_default: bool) -> Self {
-        self.has_default = Some(has_default);
-        self
-    }
-
-    pub fn has_focus(mut self, has_focus: bool) -> Self {
-        self.has_focus = Some(has_focus);
-        self
-    }
-
-    pub fn has_tooltip(mut self, has_tooltip: bool) -> Self {
-        self.has_tooltip = Some(has_tooltip);
-        self
-    }
-
-    pub fn height_request(mut self, height_request: i32) -> Self {
-        self.height_request = Some(height_request);
-        self
-    }
-
-    pub fn hexpand(mut self, hexpand: bool) -> Self {
-        self.hexpand = Some(hexpand);
-        self
-    }
-
-    pub fn hexpand_set(mut self, hexpand_set: bool) -> Self {
-        self.hexpand_set = Some(hexpand_set);
-        self
-    }
-
-    pub fn is_focus(mut self, is_focus: bool) -> Self {
-        self.is_focus = Some(is_focus);
-        self
-    }
-
-    pub fn margin(mut self, margin: i32) -> Self {
-        self.margin = Some(margin);
-        self
-    }
-
-    pub fn margin_bottom(mut self, margin_bottom: i32) -> Self {
-        self.margin_bottom = Some(margin_bottom);
-        self
-    }
-
-    pub fn margin_end(mut self, margin_end: i32) -> Self {
-        self.margin_end = Some(margin_end);
-        self
-    }
-
-    pub fn margin_start(mut self, margin_start: i32) -> Self {
-        self.margin_start = Some(margin_start);
-        self
-    }
-
-    pub fn margin_top(mut self, margin_top: i32) -> Self {
-        self.margin_top = Some(margin_top);
-        self
-    }
-
-    pub fn name(mut self, name: &str) -> Self {
-        self.name = Some(name.to_string());
-        self
-    }
-
-    pub fn no_show_all(mut self, no_show_all: bool) -> Self {
-        self.no_show_all = Some(no_show_all);
-        self
-    }
-
-    pub fn opacity(mut self, opacity: f64) -> Self {
-        self.opacity = Some(opacity);
-        self
-    }
-
-    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
-        self.parent = Some(parent.clone().upcast());
-        self
-    }
-
-    pub fn receives_default(mut self, receives_default: bool) -> Self {
-        self.receives_default = Some(receives_default);
-        self
-    }
-
-    pub fn sensitive(mut self, sensitive: bool) -> Self {
-        self.sensitive = Some(sensitive);
-        self
-    }
-
-    pub fn tooltip_markup(mut self, tooltip_markup: &str) -> Self {
-        self.tooltip_markup = Some(tooltip_markup.to_string());
-        self
-    }
-
-    pub fn tooltip_text(mut self, tooltip_text: &str) -> Self {
-        self.tooltip_text = Some(tooltip_text.to_string());
-        self
-    }
-
-    pub fn valign(mut self, valign: Align) -> Self {
-        self.valign = Some(valign);
-        self
-    }
-
-    pub fn vexpand(mut self, vexpand: bool) -> Self {
-        self.vexpand = Some(vexpand);
-        self
-    }
-
-    pub fn vexpand_set(mut self, vexpand_set: bool) -> Self {
-        self.vexpand_set = Some(vexpand_set);
-        self
-    }
-
-    pub fn visible(mut self, visible: bool) -> Self {
-        self.visible = Some(visible);
-        self
-    }
-
-    pub fn width_request(mut self, width_request: i32) -> Self {
-        self.width_request = Some(width_request);
-        self
+        self.builder.build()
     }
 }
 

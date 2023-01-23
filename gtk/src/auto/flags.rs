@@ -3,11 +3,7 @@
 // DO NOT EDIT
 
 use bitflags::bitflags;
-use glib::translate::*;
-use glib::value::FromValue;
-use glib::value::ToValue;
-use glib::StaticType;
-use glib::Type;
+use glib::{translate::*, value::FromValue, value::ToValue, StaticType, Type};
 use std::fmt;
 
 bitflags! {
@@ -32,6 +28,7 @@ impl fmt::Display for AccelFlags {
 impl IntoGlib for AccelFlags {
     type GlibType = ffi::GtkAccelFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkAccelFlags {
         self.bits()
     }
@@ -39,6 +36,7 @@ impl IntoGlib for AccelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkAccelFlags> for AccelFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkAccelFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -46,6 +44,7 @@ impl FromGlib<ffi::GtkAccelFlags> for AccelFlags {
 }
 
 impl StaticType for AccelFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_accel_flags_get_type()) }
     }
@@ -58,6 +57,7 @@ impl glib::value::ValueType for AccelFlags {
 unsafe impl<'a> FromValue<'a> for AccelFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -65,6 +65,7 @@ unsafe impl<'a> FromValue<'a> for AccelFlags {
 }
 
 impl ToValue for AccelFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -73,6 +74,7 @@ impl ToValue for AccelFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -110,6 +112,7 @@ impl fmt::Display for ApplicationInhibitFlags {
 impl IntoGlib for ApplicationInhibitFlags {
     type GlibType = ffi::GtkApplicationInhibitFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkApplicationInhibitFlags {
         self.bits()
     }
@@ -117,6 +120,7 @@ impl IntoGlib for ApplicationInhibitFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkApplicationInhibitFlags> for ApplicationInhibitFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkApplicationInhibitFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -124,6 +128,7 @@ impl FromGlib<ffi::GtkApplicationInhibitFlags> for ApplicationInhibitFlags {
 }
 
 impl StaticType for ApplicationInhibitFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_application_inhibit_flags_get_type()) }
     }
@@ -136,6 +141,7 @@ impl glib::value::ValueType for ApplicationInhibitFlags {
 unsafe impl<'a> FromValue<'a> for ApplicationInhibitFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -143,6 +149,7 @@ unsafe impl<'a> FromValue<'a> for ApplicationInhibitFlags {
 }
 
 impl ToValue for ApplicationInhibitFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -151,6 +158,7 @@ impl ToValue for ApplicationInhibitFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -190,6 +198,7 @@ impl fmt::Display for CalendarDisplayOptions {
 impl IntoGlib for CalendarDisplayOptions {
     type GlibType = ffi::GtkCalendarDisplayOptions;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkCalendarDisplayOptions {
         self.bits()
     }
@@ -197,6 +206,7 @@ impl IntoGlib for CalendarDisplayOptions {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkCalendarDisplayOptions> for CalendarDisplayOptions {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkCalendarDisplayOptions) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -204,6 +214,7 @@ impl FromGlib<ffi::GtkCalendarDisplayOptions> for CalendarDisplayOptions {
 }
 
 impl StaticType for CalendarDisplayOptions {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_calendar_display_options_get_type()) }
     }
@@ -216,6 +227,7 @@ impl glib::value::ValueType for CalendarDisplayOptions {
 unsafe impl<'a> FromValue<'a> for CalendarDisplayOptions {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -223,6 +235,7 @@ unsafe impl<'a> FromValue<'a> for CalendarDisplayOptions {
 }
 
 impl ToValue for CalendarDisplayOptions {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -231,6 +244,7 @@ impl ToValue for CalendarDisplayOptions {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -274,6 +288,7 @@ impl fmt::Display for CellRendererState {
 impl IntoGlib for CellRendererState {
     type GlibType = ffi::GtkCellRendererState;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkCellRendererState {
         self.bits()
     }
@@ -281,6 +296,7 @@ impl IntoGlib for CellRendererState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkCellRendererState> for CellRendererState {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkCellRendererState) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -288,6 +304,7 @@ impl FromGlib<ffi::GtkCellRendererState> for CellRendererState {
 }
 
 impl StaticType for CellRendererState {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_cell_renderer_state_get_type()) }
     }
@@ -300,6 +317,7 @@ impl glib::value::ValueType for CellRendererState {
 unsafe impl<'a> FromValue<'a> for CellRendererState {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -307,6 +325,7 @@ unsafe impl<'a> FromValue<'a> for CellRendererState {
 }
 
 impl ToValue for CellRendererState {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -315,6 +334,7 @@ impl ToValue for CellRendererState {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -352,6 +372,7 @@ impl fmt::Display for DestDefaults {
 impl IntoGlib for DestDefaults {
     type GlibType = ffi::GtkDestDefaults;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkDestDefaults {
         self.bits()
     }
@@ -359,6 +380,7 @@ impl IntoGlib for DestDefaults {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkDestDefaults> for DestDefaults {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkDestDefaults) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -366,6 +388,7 @@ impl FromGlib<ffi::GtkDestDefaults> for DestDefaults {
 }
 
 impl StaticType for DestDefaults {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_dest_defaults_get_type()) }
     }
@@ -378,6 +401,7 @@ impl glib::value::ValueType for DestDefaults {
 unsafe impl<'a> FromValue<'a> for DestDefaults {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -385,6 +409,7 @@ unsafe impl<'a> FromValue<'a> for DestDefaults {
 }
 
 impl ToValue for DestDefaults {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -393,6 +418,7 @@ impl ToValue for DestDefaults {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -428,6 +454,7 @@ impl fmt::Display for DialogFlags {
 impl IntoGlib for DialogFlags {
     type GlibType = ffi::GtkDialogFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkDialogFlags {
         self.bits()
     }
@@ -435,6 +462,7 @@ impl IntoGlib for DialogFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkDialogFlags> for DialogFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkDialogFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -442,6 +470,7 @@ impl FromGlib<ffi::GtkDialogFlags> for DialogFlags {
 }
 
 impl StaticType for DialogFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_dialog_flags_get_type()) }
     }
@@ -454,6 +483,7 @@ impl glib::value::ValueType for DialogFlags {
 unsafe impl<'a> FromValue<'a> for DialogFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -461,6 +491,7 @@ unsafe impl<'a> FromValue<'a> for DialogFlags {
 }
 
 impl ToValue for DialogFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -469,6 +500,7 @@ impl ToValue for DialogFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -516,6 +548,7 @@ impl fmt::Display for EventControllerScrollFlags {
 impl IntoGlib for EventControllerScrollFlags {
     type GlibType = ffi::GtkEventControllerScrollFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkEventControllerScrollFlags {
         self.bits()
     }
@@ -525,6 +558,7 @@ impl IntoGlib for EventControllerScrollFlags {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkEventControllerScrollFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -534,6 +568,7 @@ impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 impl StaticType for EventControllerScrollFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_event_controller_scroll_flags_get_type()) }
     }
@@ -550,6 +585,7 @@ impl glib::value::ValueType for EventControllerScrollFlags {
 unsafe impl<'a> FromValue<'a> for EventControllerScrollFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -559,6 +595,7 @@ unsafe impl<'a> FromValue<'a> for EventControllerScrollFlags {
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 impl ToValue for EventControllerScrollFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -567,6 +604,7 @@ impl ToValue for EventControllerScrollFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -606,6 +644,7 @@ impl fmt::Display for FileFilterFlags {
 impl IntoGlib for FileFilterFlags {
     type GlibType = ffi::GtkFileFilterFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkFileFilterFlags {
         self.bits()
     }
@@ -613,6 +652,7 @@ impl IntoGlib for FileFilterFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFileFilterFlags> for FileFilterFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkFileFilterFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -620,6 +660,7 @@ impl FromGlib<ffi::GtkFileFilterFlags> for FileFilterFlags {
 }
 
 impl StaticType for FileFilterFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_file_filter_flags_get_type()) }
     }
@@ -632,6 +673,7 @@ impl glib::value::ValueType for FileFilterFlags {
 unsafe impl<'a> FromValue<'a> for FileFilterFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -639,6 +681,7 @@ unsafe impl<'a> FromValue<'a> for FileFilterFlags {
 }
 
 impl ToValue for FileFilterFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -647,6 +690,7 @@ impl ToValue for FileFilterFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -692,6 +736,7 @@ impl fmt::Display for FontChooserLevel {
 impl IntoGlib for FontChooserLevel {
     type GlibType = ffi::GtkFontChooserLevel;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkFontChooserLevel {
         self.bits()
     }
@@ -701,6 +746,7 @@ impl IntoGlib for FontChooserLevel {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkFontChooserLevel) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -710,6 +756,7 @@ impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 impl StaticType for FontChooserLevel {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_font_chooser_level_get_type()) }
     }
@@ -726,6 +773,7 @@ impl glib::value::ValueType for FontChooserLevel {
 unsafe impl<'a> FromValue<'a> for FontChooserLevel {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -735,6 +783,7 @@ unsafe impl<'a> FromValue<'a> for FontChooserLevel {
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 impl ToValue for FontChooserLevel {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -743,6 +792,7 @@ impl ToValue for FontChooserLevel {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -792,6 +842,7 @@ impl fmt::Display for IconLookupFlags {
 impl IntoGlib for IconLookupFlags {
     type GlibType = ffi::GtkIconLookupFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkIconLookupFlags {
         self.bits()
     }
@@ -799,6 +850,7 @@ impl IntoGlib for IconLookupFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkIconLookupFlags> for IconLookupFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkIconLookupFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -806,6 +858,7 @@ impl FromGlib<ffi::GtkIconLookupFlags> for IconLookupFlags {
 }
 
 impl StaticType for IconLookupFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_icon_lookup_flags_get_type()) }
     }
@@ -818,6 +871,7 @@ impl glib::value::ValueType for IconLookupFlags {
 unsafe impl<'a> FromValue<'a> for IconLookupFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -825,6 +879,7 @@ unsafe impl<'a> FromValue<'a> for IconLookupFlags {
 }
 
 impl ToValue for IconLookupFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -833,6 +888,7 @@ impl ToValue for IconLookupFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -886,6 +942,7 @@ impl fmt::Display for InputHints {
 impl IntoGlib for InputHints {
     type GlibType = ffi::GtkInputHints;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkInputHints {
         self.bits()
     }
@@ -893,6 +950,7 @@ impl IntoGlib for InputHints {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkInputHints> for InputHints {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkInputHints) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -900,6 +958,7 @@ impl FromGlib<ffi::GtkInputHints> for InputHints {
 }
 
 impl StaticType for InputHints {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_input_hints_get_type()) }
     }
@@ -912,6 +971,7 @@ impl glib::value::ValueType for InputHints {
 unsafe impl<'a> FromValue<'a> for InputHints {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -919,6 +979,7 @@ unsafe impl<'a> FromValue<'a> for InputHints {
 }
 
 impl ToValue for InputHints {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -927,6 +988,7 @@ impl ToValue for InputHints {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -974,6 +1036,7 @@ impl fmt::Display for JunctionSides {
 impl IntoGlib for JunctionSides {
     type GlibType = ffi::GtkJunctionSides;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkJunctionSides {
         self.bits()
     }
@@ -981,6 +1044,7 @@ impl IntoGlib for JunctionSides {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkJunctionSides> for JunctionSides {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkJunctionSides) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -988,6 +1052,7 @@ impl FromGlib<ffi::GtkJunctionSides> for JunctionSides {
 }
 
 impl StaticType for JunctionSides {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_junction_sides_get_type()) }
     }
@@ -1000,6 +1065,7 @@ impl glib::value::ValueType for JunctionSides {
 unsafe impl<'a> FromValue<'a> for JunctionSides {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1007,6 +1073,7 @@ unsafe impl<'a> FromValue<'a> for JunctionSides {
 }
 
 impl ToValue for JunctionSides {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1015,6 +1082,7 @@ impl ToValue for JunctionSides {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1050,6 +1118,7 @@ impl fmt::Display for PlacesOpenFlags {
 impl IntoGlib for PlacesOpenFlags {
     type GlibType = ffi::GtkPlacesOpenFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkPlacesOpenFlags {
         self.bits()
     }
@@ -1057,6 +1126,7 @@ impl IntoGlib for PlacesOpenFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkPlacesOpenFlags> for PlacesOpenFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkPlacesOpenFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1064,6 +1134,7 @@ impl FromGlib<ffi::GtkPlacesOpenFlags> for PlacesOpenFlags {
 }
 
 impl StaticType for PlacesOpenFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_places_open_flags_get_type()) }
     }
@@ -1076,6 +1147,7 @@ impl glib::value::ValueType for PlacesOpenFlags {
 unsafe impl<'a> FromValue<'a> for PlacesOpenFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1083,6 +1155,7 @@ unsafe impl<'a> FromValue<'a> for PlacesOpenFlags {
 }
 
 impl ToValue for PlacesOpenFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1091,6 +1164,7 @@ impl ToValue for PlacesOpenFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1132,6 +1206,7 @@ impl fmt::Display for RecentFilterFlags {
 impl IntoGlib for RecentFilterFlags {
     type GlibType = ffi::GtkRecentFilterFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkRecentFilterFlags {
         self.bits()
     }
@@ -1139,6 +1214,7 @@ impl IntoGlib for RecentFilterFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkRecentFilterFlags> for RecentFilterFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkRecentFilterFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1146,6 +1222,7 @@ impl FromGlib<ffi::GtkRecentFilterFlags> for RecentFilterFlags {
 }
 
 impl StaticType for RecentFilterFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_recent_filter_flags_get_type()) }
     }
@@ -1158,6 +1235,7 @@ impl glib::value::ValueType for RecentFilterFlags {
 unsafe impl<'a> FromValue<'a> for RecentFilterFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1165,6 +1243,7 @@ unsafe impl<'a> FromValue<'a> for RecentFilterFlags {
 }
 
 impl ToValue for RecentFilterFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1173,6 +1252,7 @@ impl ToValue for RecentFilterFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1214,6 +1294,7 @@ impl fmt::Display for RegionFlags {
 impl IntoGlib for RegionFlags {
     type GlibType = ffi::GtkRegionFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkRegionFlags {
         self.bits()
     }
@@ -1221,6 +1302,7 @@ impl IntoGlib for RegionFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkRegionFlags> for RegionFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkRegionFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1228,6 +1310,7 @@ impl FromGlib<ffi::GtkRegionFlags> for RegionFlags {
 }
 
 impl StaticType for RegionFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_region_flags_get_type()) }
     }
@@ -1240,6 +1323,7 @@ impl glib::value::ValueType for RegionFlags {
 unsafe impl<'a> FromValue<'a> for RegionFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1247,6 +1331,7 @@ unsafe impl<'a> FromValue<'a> for RegionFlags {
 }
 
 impl ToValue for RegionFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1255,6 +1340,7 @@ impl ToValue for RegionFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1312,6 +1398,7 @@ impl fmt::Display for StateFlags {
 impl IntoGlib for StateFlags {
     type GlibType = ffi::GtkStateFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkStateFlags {
         self.bits()
     }
@@ -1319,6 +1406,7 @@ impl IntoGlib for StateFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStateFlags> for StateFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkStateFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1326,6 +1414,7 @@ impl FromGlib<ffi::GtkStateFlags> for StateFlags {
 }
 
 impl StaticType for StateFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_state_flags_get_type()) }
     }
@@ -1338,6 +1427,7 @@ impl glib::value::ValueType for StateFlags {
 unsafe impl<'a> FromValue<'a> for StateFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1345,6 +1435,7 @@ unsafe impl<'a> FromValue<'a> for StateFlags {
 }
 
 impl ToValue for StateFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1353,6 +1444,7 @@ impl ToValue for StateFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1388,6 +1480,7 @@ impl fmt::Display for StyleContextPrintFlags {
 impl IntoGlib for StyleContextPrintFlags {
     type GlibType = ffi::GtkStyleContextPrintFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkStyleContextPrintFlags {
         self.bits()
     }
@@ -1395,6 +1488,7 @@ impl IntoGlib for StyleContextPrintFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkStyleContextPrintFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1402,6 +1496,7 @@ impl FromGlib<ffi::GtkStyleContextPrintFlags> for StyleContextPrintFlags {
 }
 
 impl StaticType for StyleContextPrintFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_style_context_print_flags_get_type()) }
     }
@@ -1414,6 +1509,7 @@ impl glib::value::ValueType for StyleContextPrintFlags {
 unsafe impl<'a> FromValue<'a> for StyleContextPrintFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1421,6 +1517,7 @@ unsafe impl<'a> FromValue<'a> for StyleContextPrintFlags {
 }
 
 impl ToValue for StyleContextPrintFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1429,6 +1526,7 @@ impl ToValue for StyleContextPrintFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1466,6 +1564,7 @@ impl fmt::Display for TargetFlags {
 impl IntoGlib for TargetFlags {
     type GlibType = ffi::GtkTargetFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkTargetFlags {
         self.bits()
     }
@@ -1473,6 +1572,7 @@ impl IntoGlib for TargetFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTargetFlags> for TargetFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkTargetFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1480,6 +1580,7 @@ impl FromGlib<ffi::GtkTargetFlags> for TargetFlags {
 }
 
 impl StaticType for TargetFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_target_flags_get_type()) }
     }
@@ -1492,6 +1593,7 @@ impl glib::value::ValueType for TargetFlags {
 unsafe impl<'a> FromValue<'a> for TargetFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1499,6 +1601,7 @@ unsafe impl<'a> FromValue<'a> for TargetFlags {
 }
 
 impl ToValue for TargetFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1507,6 +1610,7 @@ impl ToValue for TargetFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1542,6 +1646,7 @@ impl fmt::Display for TextSearchFlags {
 impl IntoGlib for TextSearchFlags {
     type GlibType = ffi::GtkTextSearchFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkTextSearchFlags {
         self.bits()
     }
@@ -1549,6 +1654,7 @@ impl IntoGlib for TextSearchFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTextSearchFlags> for TextSearchFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkTextSearchFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1556,6 +1662,7 @@ impl FromGlib<ffi::GtkTextSearchFlags> for TextSearchFlags {
 }
 
 impl StaticType for TextSearchFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_search_flags_get_type()) }
     }
@@ -1568,6 +1675,7 @@ impl glib::value::ValueType for TextSearchFlags {
 unsafe impl<'a> FromValue<'a> for TextSearchFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1575,6 +1683,7 @@ unsafe impl<'a> FromValue<'a> for TextSearchFlags {
 }
 
 impl ToValue for TextSearchFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1583,6 +1692,7 @@ impl ToValue for TextSearchFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1616,6 +1726,7 @@ impl fmt::Display for ToolPaletteDragTargets {
 impl IntoGlib for ToolPaletteDragTargets {
     type GlibType = ffi::GtkToolPaletteDragTargets;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkToolPaletteDragTargets {
         self.bits()
     }
@@ -1623,6 +1734,7 @@ impl IntoGlib for ToolPaletteDragTargets {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkToolPaletteDragTargets> for ToolPaletteDragTargets {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkToolPaletteDragTargets) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1630,6 +1742,7 @@ impl FromGlib<ffi::GtkToolPaletteDragTargets> for ToolPaletteDragTargets {
 }
 
 impl StaticType for ToolPaletteDragTargets {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tool_palette_drag_targets_get_type()) }
     }
@@ -1642,6 +1755,7 @@ impl glib::value::ValueType for ToolPaletteDragTargets {
 unsafe impl<'a> FromValue<'a> for ToolPaletteDragTargets {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1649,6 +1763,7 @@ unsafe impl<'a> FromValue<'a> for ToolPaletteDragTargets {
 }
 
 impl ToValue for ToolPaletteDragTargets {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1657,6 +1772,7 @@ impl ToValue for ToolPaletteDragTargets {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }
@@ -1690,6 +1806,7 @@ impl fmt::Display for TreeModelFlags {
 impl IntoGlib for TreeModelFlags {
     type GlibType = ffi::GtkTreeModelFlags;
 
+    #[inline]
     fn into_glib(self) -> ffi::GtkTreeModelFlags {
         self.bits()
     }
@@ -1697,6 +1814,7 @@ impl IntoGlib for TreeModelFlags {
 
 #[doc(hidden)]
 impl FromGlib<ffi::GtkTreeModelFlags> for TreeModelFlags {
+    #[inline]
     unsafe fn from_glib(value: ffi::GtkTreeModelFlags) -> Self {
         skip_assert_initialized!();
         Self::from_bits_truncate(value)
@@ -1704,6 +1822,7 @@ impl FromGlib<ffi::GtkTreeModelFlags> for TreeModelFlags {
 }
 
 impl StaticType for TreeModelFlags {
+    #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tree_model_flags_get_type()) }
     }
@@ -1716,6 +1835,7 @@ impl glib::value::ValueType for TreeModelFlags {
 unsafe impl<'a> FromValue<'a> for TreeModelFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
         from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
@@ -1723,6 +1843,7 @@ unsafe impl<'a> FromValue<'a> for TreeModelFlags {
 }
 
 impl ToValue for TreeModelFlags {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -1731,6 +1852,7 @@ impl ToValue for TreeModelFlags {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
     }

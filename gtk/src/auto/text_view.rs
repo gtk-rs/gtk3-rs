@@ -2,40 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Adjustment;
-use crate::Align;
-use crate::Buildable;
-use crate::Container;
-use crate::DeleteType;
-use crate::InputHints;
-use crate::InputPurpose;
-use crate::Justification;
-use crate::MovementStep;
-use crate::ResizeMode;
-use crate::ScrollStep;
-use crate::Scrollable;
-use crate::ScrollablePolicy;
-use crate::TextAttributes;
-use crate::TextBuffer;
-use crate::TextChildAnchor;
-use crate::TextExtendSelection;
-use crate::TextIter;
-use crate::TextMark;
-use crate::TextWindowType;
-use crate::Widget;
-use crate::WrapMode;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectExt;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use glib::StaticType;
-use glib::ToValue;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem;
-use std::mem::transmute;
+use crate::{
+    Adjustment, Align, Buildable, Container, DeleteType, InputHints, InputPurpose, Justification,
+    MovementStep, ResizeMode, ScrollStep, Scrollable, ScrollablePolicy, TextAttributes, TextBuffer,
+    TextChildAnchor, TextExtendSelection, TextIter, TextMark, TextWindowType, Widget, WrapMode,
+};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
 
 glib::wrapper! {
     #[doc(alias = "GtkTextView")]
@@ -72,7 +49,7 @@ impl TextView {
     ///
     /// This method returns an instance of [`TextViewBuilder`](crate::builders::TextViewBuilder) which can be used to create [`TextView`] objects.
     pub fn builder() -> TextViewBuilder {
-        TextViewBuilder::default()
+        TextViewBuilder::new()
     }
 }
 
@@ -82,568 +59,399 @@ impl Default for TextView {
     }
 }
 
-#[derive(Clone, Default)]
 // rustdoc-stripper-ignore-next
 /// A [builder-pattern] type to construct [`TextView`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct TextViewBuilder {
-    accepts_tab: Option<bool>,
-    bottom_margin: Option<i32>,
-    buffer: Option<TextBuffer>,
-    cursor_visible: Option<bool>,
-    editable: Option<bool>,
-    im_module: Option<String>,
-    indent: Option<i32>,
-    input_hints: Option<InputHints>,
-    input_purpose: Option<InputPurpose>,
-    justification: Option<Justification>,
-    left_margin: Option<i32>,
-    monospace: Option<bool>,
-    overwrite: Option<bool>,
-    pixels_above_lines: Option<i32>,
-    pixels_below_lines: Option<i32>,
-    pixels_inside_wrap: Option<i32>,
-    populate_all: Option<bool>,
-    right_margin: Option<i32>,
-    tabs: Option<pango::TabArray>,
-    top_margin: Option<i32>,
-    wrap_mode: Option<WrapMode>,
-    border_width: Option<u32>,
-    child: Option<Widget>,
-    resize_mode: Option<ResizeMode>,
-    app_paintable: Option<bool>,
-    can_default: Option<bool>,
-    can_focus: Option<bool>,
-    events: Option<gdk::EventMask>,
-    expand: Option<bool>,
-    focus_on_click: Option<bool>,
-    halign: Option<Align>,
-    has_default: Option<bool>,
-    has_focus: Option<bool>,
-    has_tooltip: Option<bool>,
-    height_request: Option<i32>,
-    hexpand: Option<bool>,
-    hexpand_set: Option<bool>,
-    is_focus: Option<bool>,
-    margin: Option<i32>,
-    margin_bottom: Option<i32>,
-    margin_end: Option<i32>,
-    margin_start: Option<i32>,
-    margin_top: Option<i32>,
-    name: Option<String>,
-    no_show_all: Option<bool>,
-    opacity: Option<f64>,
-    parent: Option<Container>,
-    receives_default: Option<bool>,
-    sensitive: Option<bool>,
-    tooltip_markup: Option<String>,
-    tooltip_text: Option<String>,
-    valign: Option<Align>,
-    vexpand: Option<bool>,
-    vexpand_set: Option<bool>,
-    visible: Option<bool>,
-    width_request: Option<i32>,
-    hadjustment: Option<Adjustment>,
-    hscroll_policy: Option<ScrollablePolicy>,
-    vadjustment: Option<Adjustment>,
-    vscroll_policy: Option<ScrollablePolicy>,
+    builder: glib::object::ObjectBuilder<'static, TextView>,
 }
 
 impl TextViewBuilder {
-    // rustdoc-stripper-ignore-next
-    /// Create a new [`TextViewBuilder`].
-    pub fn new() -> Self {
-        Self::default()
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn accepts_tab(self, accepts_tab: bool) -> Self {
+        Self {
+            builder: self.builder.property("accepts-tab", accepts_tab),
+        }
+    }
+
+    pub fn bottom_margin(self, bottom_margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("bottom-margin", bottom_margin),
+        }
+    }
+
+    pub fn buffer(self, buffer: &impl IsA<TextBuffer>) -> Self {
+        Self {
+            builder: self.builder.property("buffer", buffer.clone().upcast()),
+        }
+    }
+
+    pub fn cursor_visible(self, cursor_visible: bool) -> Self {
+        Self {
+            builder: self.builder.property("cursor-visible", cursor_visible),
+        }
+    }
+
+    pub fn editable(self, editable: bool) -> Self {
+        Self {
+            builder: self.builder.property("editable", editable),
+        }
+    }
+
+    pub fn im_module(self, im_module: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("im-module", im_module.into()),
+        }
+    }
+
+    pub fn indent(self, indent: i32) -> Self {
+        Self {
+            builder: self.builder.property("indent", indent),
+        }
+    }
+
+    pub fn input_hints(self, input_hints: InputHints) -> Self {
+        Self {
+            builder: self.builder.property("input-hints", input_hints),
+        }
+    }
+
+    pub fn input_purpose(self, input_purpose: InputPurpose) -> Self {
+        Self {
+            builder: self.builder.property("input-purpose", input_purpose),
+        }
+    }
+
+    pub fn justification(self, justification: Justification) -> Self {
+        Self {
+            builder: self.builder.property("justification", justification),
+        }
+    }
+
+    pub fn left_margin(self, left_margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("left-margin", left_margin),
+        }
+    }
+
+    pub fn monospace(self, monospace: bool) -> Self {
+        Self {
+            builder: self.builder.property("monospace", monospace),
+        }
+    }
+
+    pub fn overwrite(self, overwrite: bool) -> Self {
+        Self {
+            builder: self.builder.property("overwrite", overwrite),
+        }
+    }
+
+    pub fn pixels_above_lines(self, pixels_above_lines: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("pixels-above-lines", pixels_above_lines),
+        }
+    }
+
+    pub fn pixels_below_lines(self, pixels_below_lines: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("pixels-below-lines", pixels_below_lines),
+        }
+    }
+
+    pub fn pixels_inside_wrap(self, pixels_inside_wrap: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("pixels-inside-wrap", pixels_inside_wrap),
+        }
+    }
+
+    pub fn populate_all(self, populate_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("populate-all", populate_all),
+        }
+    }
+
+    pub fn right_margin(self, right_margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("right-margin", right_margin),
+        }
+    }
+
+    pub fn tabs(self, tabs: &pango::TabArray) -> Self {
+        Self {
+            builder: self.builder.property("tabs", tabs.clone()),
+        }
+    }
+
+    pub fn top_margin(self, top_margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("top-margin", top_margin),
+        }
+    }
+
+    pub fn wrap_mode(self, wrap_mode: WrapMode) -> Self {
+        Self {
+            builder: self.builder.property("wrap-mode", wrap_mode),
+        }
+    }
+
+    pub fn border_width(self, border_width: u32) -> Self {
+        Self {
+            builder: self.builder.property("border-width", border_width),
+        }
+    }
+
+    pub fn child(self, child: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("child", child.clone().upcast()),
+        }
+    }
+
+    pub fn resize_mode(self, resize_mode: ResizeMode) -> Self {
+        Self {
+            builder: self.builder.property("resize-mode", resize_mode),
+        }
+    }
+
+    pub fn app_paintable(self, app_paintable: bool) -> Self {
+        Self {
+            builder: self.builder.property("app-paintable", app_paintable),
+        }
+    }
+
+    pub fn can_default(self, can_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-default", can_default),
+        }
+    }
+
+    pub fn can_focus(self, can_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("can-focus", can_focus),
+        }
+    }
+
+    pub fn events(self, events: gdk::EventMask) -> Self {
+        Self {
+            builder: self.builder.property("events", events),
+        }
+    }
+
+    pub fn expand(self, expand: bool) -> Self {
+        Self {
+            builder: self.builder.property("expand", expand),
+        }
+    }
+
+    pub fn focus_on_click(self, focus_on_click: bool) -> Self {
+        Self {
+            builder: self.builder.property("focus-on-click", focus_on_click),
+        }
+    }
+
+    pub fn halign(self, halign: Align) -> Self {
+        Self {
+            builder: self.builder.property("halign", halign),
+        }
+    }
+
+    pub fn has_default(self, has_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-default", has_default),
+        }
+    }
+
+    pub fn has_focus(self, has_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-focus", has_focus),
+        }
+    }
+
+    pub fn has_tooltip(self, has_tooltip: bool) -> Self {
+        Self {
+            builder: self.builder.property("has-tooltip", has_tooltip),
+        }
+    }
+
+    pub fn height_request(self, height_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("height-request", height_request),
+        }
+    }
+
+    pub fn hexpand(self, hexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand", hexpand),
+        }
+    }
+
+    pub fn hexpand_set(self, hexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("hexpand-set", hexpand_set),
+        }
+    }
+
+    pub fn is_focus(self, is_focus: bool) -> Self {
+        Self {
+            builder: self.builder.property("is-focus", is_focus),
+        }
+    }
+
+    pub fn margin(self, margin: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin", margin),
+        }
+    }
+
+    pub fn margin_bottom(self, margin_bottom: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-bottom", margin_bottom),
+        }
+    }
+
+    pub fn margin_end(self, margin_end: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-end", margin_end),
+        }
+    }
+
+    pub fn margin_start(self, margin_start: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-start", margin_start),
+        }
+    }
+
+    pub fn margin_top(self, margin_top: i32) -> Self {
+        Self {
+            builder: self.builder.property("margin-top", margin_top),
+        }
+    }
+
+    pub fn name(self, name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("name", name.into()),
+        }
+    }
+
+    pub fn no_show_all(self, no_show_all: bool) -> Self {
+        Self {
+            builder: self.builder.property("no-show-all", no_show_all),
+        }
+    }
+
+    pub fn opacity(self, opacity: f64) -> Self {
+        Self {
+            builder: self.builder.property("opacity", opacity),
+        }
+    }
+
+    pub fn parent(self, parent: &impl IsA<Container>) -> Self {
+        Self {
+            builder: self.builder.property("parent", parent.clone().upcast()),
+        }
+    }
+
+    pub fn receives_default(self, receives_default: bool) -> Self {
+        Self {
+            builder: self.builder.property("receives-default", receives_default),
+        }
+    }
+
+    pub fn sensitive(self, sensitive: bool) -> Self {
+        Self {
+            builder: self.builder.property("sensitive", sensitive),
+        }
+    }
+
+    pub fn tooltip_markup(self, tooltip_markup: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("tooltip-markup", tooltip_markup.into()),
+        }
+    }
+
+    pub fn tooltip_text(self, tooltip_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("tooltip-text", tooltip_text.into()),
+        }
+    }
+
+    pub fn valign(self, valign: Align) -> Self {
+        Self {
+            builder: self.builder.property("valign", valign),
+        }
+    }
+
+    pub fn vexpand(self, vexpand: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand", vexpand),
+        }
+    }
+
+    pub fn vexpand_set(self, vexpand_set: bool) -> Self {
+        Self {
+            builder: self.builder.property("vexpand-set", vexpand_set),
+        }
+    }
+
+    pub fn visible(self, visible: bool) -> Self {
+        Self {
+            builder: self.builder.property("visible", visible),
+        }
+    }
+
+    pub fn width_request(self, width_request: i32) -> Self {
+        Self {
+            builder: self.builder.property("width-request", width_request),
+        }
+    }
+
+    pub fn hadjustment(self, hadjustment: &impl IsA<Adjustment>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("hadjustment", hadjustment.clone().upcast()),
+        }
+    }
+
+    pub fn hscroll_policy(self, hscroll_policy: ScrollablePolicy) -> Self {
+        Self {
+            builder: self.builder.property("hscroll-policy", hscroll_policy),
+        }
+    }
+
+    pub fn vadjustment(self, vadjustment: &impl IsA<Adjustment>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("vadjustment", vadjustment.clone().upcast()),
+        }
+    }
+
+    pub fn vscroll_policy(self, vscroll_policy: ScrollablePolicy) -> Self {
+        Self {
+            builder: self.builder.property("vscroll-policy", vscroll_policy),
+        }
     }
 
     // rustdoc-stripper-ignore-next
     /// Build the [`TextView`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> TextView {
-        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
-        if let Some(ref accepts_tab) = self.accepts_tab {
-            properties.push(("accepts-tab", accepts_tab));
-        }
-        if let Some(ref bottom_margin) = self.bottom_margin {
-            properties.push(("bottom-margin", bottom_margin));
-        }
-        if let Some(ref buffer) = self.buffer {
-            properties.push(("buffer", buffer));
-        }
-        if let Some(ref cursor_visible) = self.cursor_visible {
-            properties.push(("cursor-visible", cursor_visible));
-        }
-        if let Some(ref editable) = self.editable {
-            properties.push(("editable", editable));
-        }
-        if let Some(ref im_module) = self.im_module {
-            properties.push(("im-module", im_module));
-        }
-        if let Some(ref indent) = self.indent {
-            properties.push(("indent", indent));
-        }
-        if let Some(ref input_hints) = self.input_hints {
-            properties.push(("input-hints", input_hints));
-        }
-        if let Some(ref input_purpose) = self.input_purpose {
-            properties.push(("input-purpose", input_purpose));
-        }
-        if let Some(ref justification) = self.justification {
-            properties.push(("justification", justification));
-        }
-        if let Some(ref left_margin) = self.left_margin {
-            properties.push(("left-margin", left_margin));
-        }
-        if let Some(ref monospace) = self.monospace {
-            properties.push(("monospace", monospace));
-        }
-        if let Some(ref overwrite) = self.overwrite {
-            properties.push(("overwrite", overwrite));
-        }
-        if let Some(ref pixels_above_lines) = self.pixels_above_lines {
-            properties.push(("pixels-above-lines", pixels_above_lines));
-        }
-        if let Some(ref pixels_below_lines) = self.pixels_below_lines {
-            properties.push(("pixels-below-lines", pixels_below_lines));
-        }
-        if let Some(ref pixels_inside_wrap) = self.pixels_inside_wrap {
-            properties.push(("pixels-inside-wrap", pixels_inside_wrap));
-        }
-        if let Some(ref populate_all) = self.populate_all {
-            properties.push(("populate-all", populate_all));
-        }
-        if let Some(ref right_margin) = self.right_margin {
-            properties.push(("right-margin", right_margin));
-        }
-        if let Some(ref tabs) = self.tabs {
-            properties.push(("tabs", tabs));
-        }
-        if let Some(ref top_margin) = self.top_margin {
-            properties.push(("top-margin", top_margin));
-        }
-        if let Some(ref wrap_mode) = self.wrap_mode {
-            properties.push(("wrap-mode", wrap_mode));
-        }
-        if let Some(ref border_width) = self.border_width {
-            properties.push(("border-width", border_width));
-        }
-        if let Some(ref child) = self.child {
-            properties.push(("child", child));
-        }
-        if let Some(ref resize_mode) = self.resize_mode {
-            properties.push(("resize-mode", resize_mode));
-        }
-        if let Some(ref app_paintable) = self.app_paintable {
-            properties.push(("app-paintable", app_paintable));
-        }
-        if let Some(ref can_default) = self.can_default {
-            properties.push(("can-default", can_default));
-        }
-        if let Some(ref can_focus) = self.can_focus {
-            properties.push(("can-focus", can_focus));
-        }
-        if let Some(ref events) = self.events {
-            properties.push(("events", events));
-        }
-        if let Some(ref expand) = self.expand {
-            properties.push(("expand", expand));
-        }
-        if let Some(ref focus_on_click) = self.focus_on_click {
-            properties.push(("focus-on-click", focus_on_click));
-        }
-        if let Some(ref halign) = self.halign {
-            properties.push(("halign", halign));
-        }
-        if let Some(ref has_default) = self.has_default {
-            properties.push(("has-default", has_default));
-        }
-        if let Some(ref has_focus) = self.has_focus {
-            properties.push(("has-focus", has_focus));
-        }
-        if let Some(ref has_tooltip) = self.has_tooltip {
-            properties.push(("has-tooltip", has_tooltip));
-        }
-        if let Some(ref height_request) = self.height_request {
-            properties.push(("height-request", height_request));
-        }
-        if let Some(ref hexpand) = self.hexpand {
-            properties.push(("hexpand", hexpand));
-        }
-        if let Some(ref hexpand_set) = self.hexpand_set {
-            properties.push(("hexpand-set", hexpand_set));
-        }
-        if let Some(ref is_focus) = self.is_focus {
-            properties.push(("is-focus", is_focus));
-        }
-        if let Some(ref margin) = self.margin {
-            properties.push(("margin", margin));
-        }
-        if let Some(ref margin_bottom) = self.margin_bottom {
-            properties.push(("margin-bottom", margin_bottom));
-        }
-        if let Some(ref margin_end) = self.margin_end {
-            properties.push(("margin-end", margin_end));
-        }
-        if let Some(ref margin_start) = self.margin_start {
-            properties.push(("margin-start", margin_start));
-        }
-        if let Some(ref margin_top) = self.margin_top {
-            properties.push(("margin-top", margin_top));
-        }
-        if let Some(ref name) = self.name {
-            properties.push(("name", name));
-        }
-        if let Some(ref no_show_all) = self.no_show_all {
-            properties.push(("no-show-all", no_show_all));
-        }
-        if let Some(ref opacity) = self.opacity {
-            properties.push(("opacity", opacity));
-        }
-        if let Some(ref parent) = self.parent {
-            properties.push(("parent", parent));
-        }
-        if let Some(ref receives_default) = self.receives_default {
-            properties.push(("receives-default", receives_default));
-        }
-        if let Some(ref sensitive) = self.sensitive {
-            properties.push(("sensitive", sensitive));
-        }
-        if let Some(ref tooltip_markup) = self.tooltip_markup {
-            properties.push(("tooltip-markup", tooltip_markup));
-        }
-        if let Some(ref tooltip_text) = self.tooltip_text {
-            properties.push(("tooltip-text", tooltip_text));
-        }
-        if let Some(ref valign) = self.valign {
-            properties.push(("valign", valign));
-        }
-        if let Some(ref vexpand) = self.vexpand {
-            properties.push(("vexpand", vexpand));
-        }
-        if let Some(ref vexpand_set) = self.vexpand_set {
-            properties.push(("vexpand-set", vexpand_set));
-        }
-        if let Some(ref visible) = self.visible {
-            properties.push(("visible", visible));
-        }
-        if let Some(ref width_request) = self.width_request {
-            properties.push(("width-request", width_request));
-        }
-        if let Some(ref hadjustment) = self.hadjustment {
-            properties.push(("hadjustment", hadjustment));
-        }
-        if let Some(ref hscroll_policy) = self.hscroll_policy {
-            properties.push(("hscroll-policy", hscroll_policy));
-        }
-        if let Some(ref vadjustment) = self.vadjustment {
-            properties.push(("vadjustment", vadjustment));
-        }
-        if let Some(ref vscroll_policy) = self.vscroll_policy {
-            properties.push(("vscroll-policy", vscroll_policy));
-        }
-        glib::Object::new::<TextView>(&properties)
-    }
-
-    pub fn accepts_tab(mut self, accepts_tab: bool) -> Self {
-        self.accepts_tab = Some(accepts_tab);
-        self
-    }
-
-    pub fn bottom_margin(mut self, bottom_margin: i32) -> Self {
-        self.bottom_margin = Some(bottom_margin);
-        self
-    }
-
-    pub fn buffer(mut self, buffer: &impl IsA<TextBuffer>) -> Self {
-        self.buffer = Some(buffer.clone().upcast());
-        self
-    }
-
-    pub fn cursor_visible(mut self, cursor_visible: bool) -> Self {
-        self.cursor_visible = Some(cursor_visible);
-        self
-    }
-
-    pub fn editable(mut self, editable: bool) -> Self {
-        self.editable = Some(editable);
-        self
-    }
-
-    pub fn im_module(mut self, im_module: &str) -> Self {
-        self.im_module = Some(im_module.to_string());
-        self
-    }
-
-    pub fn indent(mut self, indent: i32) -> Self {
-        self.indent = Some(indent);
-        self
-    }
-
-    pub fn input_hints(mut self, input_hints: InputHints) -> Self {
-        self.input_hints = Some(input_hints);
-        self
-    }
-
-    pub fn input_purpose(mut self, input_purpose: InputPurpose) -> Self {
-        self.input_purpose = Some(input_purpose);
-        self
-    }
-
-    pub fn justification(mut self, justification: Justification) -> Self {
-        self.justification = Some(justification);
-        self
-    }
-
-    pub fn left_margin(mut self, left_margin: i32) -> Self {
-        self.left_margin = Some(left_margin);
-        self
-    }
-
-    pub fn monospace(mut self, monospace: bool) -> Self {
-        self.monospace = Some(monospace);
-        self
-    }
-
-    pub fn overwrite(mut self, overwrite: bool) -> Self {
-        self.overwrite = Some(overwrite);
-        self
-    }
-
-    pub fn pixels_above_lines(mut self, pixels_above_lines: i32) -> Self {
-        self.pixels_above_lines = Some(pixels_above_lines);
-        self
-    }
-
-    pub fn pixels_below_lines(mut self, pixels_below_lines: i32) -> Self {
-        self.pixels_below_lines = Some(pixels_below_lines);
-        self
-    }
-
-    pub fn pixels_inside_wrap(mut self, pixels_inside_wrap: i32) -> Self {
-        self.pixels_inside_wrap = Some(pixels_inside_wrap);
-        self
-    }
-
-    pub fn populate_all(mut self, populate_all: bool) -> Self {
-        self.populate_all = Some(populate_all);
-        self
-    }
-
-    pub fn right_margin(mut self, right_margin: i32) -> Self {
-        self.right_margin = Some(right_margin);
-        self
-    }
-
-    pub fn tabs(mut self, tabs: &pango::TabArray) -> Self {
-        self.tabs = Some(tabs.clone());
-        self
-    }
-
-    pub fn top_margin(mut self, top_margin: i32) -> Self {
-        self.top_margin = Some(top_margin);
-        self
-    }
-
-    pub fn wrap_mode(mut self, wrap_mode: WrapMode) -> Self {
-        self.wrap_mode = Some(wrap_mode);
-        self
-    }
-
-    pub fn border_width(mut self, border_width: u32) -> Self {
-        self.border_width = Some(border_width);
-        self
-    }
-
-    pub fn child(mut self, child: &impl IsA<Widget>) -> Self {
-        self.child = Some(child.clone().upcast());
-        self
-    }
-
-    pub fn resize_mode(mut self, resize_mode: ResizeMode) -> Self {
-        self.resize_mode = Some(resize_mode);
-        self
-    }
-
-    pub fn app_paintable(mut self, app_paintable: bool) -> Self {
-        self.app_paintable = Some(app_paintable);
-        self
-    }
-
-    pub fn can_default(mut self, can_default: bool) -> Self {
-        self.can_default = Some(can_default);
-        self
-    }
-
-    pub fn can_focus(mut self, can_focus: bool) -> Self {
-        self.can_focus = Some(can_focus);
-        self
-    }
-
-    pub fn events(mut self, events: gdk::EventMask) -> Self {
-        self.events = Some(events);
-        self
-    }
-
-    pub fn expand(mut self, expand: bool) -> Self {
-        self.expand = Some(expand);
-        self
-    }
-
-    pub fn focus_on_click(mut self, focus_on_click: bool) -> Self {
-        self.focus_on_click = Some(focus_on_click);
-        self
-    }
-
-    pub fn halign(mut self, halign: Align) -> Self {
-        self.halign = Some(halign);
-        self
-    }
-
-    pub fn has_default(mut self, has_default: bool) -> Self {
-        self.has_default = Some(has_default);
-        self
-    }
-
-    pub fn has_focus(mut self, has_focus: bool) -> Self {
-        self.has_focus = Some(has_focus);
-        self
-    }
-
-    pub fn has_tooltip(mut self, has_tooltip: bool) -> Self {
-        self.has_tooltip = Some(has_tooltip);
-        self
-    }
-
-    pub fn height_request(mut self, height_request: i32) -> Self {
-        self.height_request = Some(height_request);
-        self
-    }
-
-    pub fn hexpand(mut self, hexpand: bool) -> Self {
-        self.hexpand = Some(hexpand);
-        self
-    }
-
-    pub fn hexpand_set(mut self, hexpand_set: bool) -> Self {
-        self.hexpand_set = Some(hexpand_set);
-        self
-    }
-
-    pub fn is_focus(mut self, is_focus: bool) -> Self {
-        self.is_focus = Some(is_focus);
-        self
-    }
-
-    pub fn margin(mut self, margin: i32) -> Self {
-        self.margin = Some(margin);
-        self
-    }
-
-    pub fn margin_bottom(mut self, margin_bottom: i32) -> Self {
-        self.margin_bottom = Some(margin_bottom);
-        self
-    }
-
-    pub fn margin_end(mut self, margin_end: i32) -> Self {
-        self.margin_end = Some(margin_end);
-        self
-    }
-
-    pub fn margin_start(mut self, margin_start: i32) -> Self {
-        self.margin_start = Some(margin_start);
-        self
-    }
-
-    pub fn margin_top(mut self, margin_top: i32) -> Self {
-        self.margin_top = Some(margin_top);
-        self
-    }
-
-    pub fn name(mut self, name: &str) -> Self {
-        self.name = Some(name.to_string());
-        self
-    }
-
-    pub fn no_show_all(mut self, no_show_all: bool) -> Self {
-        self.no_show_all = Some(no_show_all);
-        self
-    }
-
-    pub fn opacity(mut self, opacity: f64) -> Self {
-        self.opacity = Some(opacity);
-        self
-    }
-
-    pub fn parent(mut self, parent: &impl IsA<Container>) -> Self {
-        self.parent = Some(parent.clone().upcast());
-        self
-    }
-
-    pub fn receives_default(mut self, receives_default: bool) -> Self {
-        self.receives_default = Some(receives_default);
-        self
-    }
-
-    pub fn sensitive(mut self, sensitive: bool) -> Self {
-        self.sensitive = Some(sensitive);
-        self
-    }
-
-    pub fn tooltip_markup(mut self, tooltip_markup: &str) -> Self {
-        self.tooltip_markup = Some(tooltip_markup.to_string());
-        self
-    }
-
-    pub fn tooltip_text(mut self, tooltip_text: &str) -> Self {
-        self.tooltip_text = Some(tooltip_text.to_string());
-        self
-    }
-
-    pub fn valign(mut self, valign: Align) -> Self {
-        self.valign = Some(valign);
-        self
-    }
-
-    pub fn vexpand(mut self, vexpand: bool) -> Self {
-        self.vexpand = Some(vexpand);
-        self
-    }
-
-    pub fn vexpand_set(mut self, vexpand_set: bool) -> Self {
-        self.vexpand_set = Some(vexpand_set);
-        self
-    }
-
-    pub fn visible(mut self, visible: bool) -> Self {
-        self.visible = Some(visible);
-        self
-    }
-
-    pub fn width_request(mut self, width_request: i32) -> Self {
-        self.width_request = Some(width_request);
-        self
-    }
-
-    pub fn hadjustment(mut self, hadjustment: &impl IsA<Adjustment>) -> Self {
-        self.hadjustment = Some(hadjustment.clone().upcast());
-        self
-    }
-
-    pub fn hscroll_policy(mut self, hscroll_policy: ScrollablePolicy) -> Self {
-        self.hscroll_policy = Some(hscroll_policy);
-        self
-    }
-
-    pub fn vadjustment(mut self, vadjustment: &impl IsA<Adjustment>) -> Self {
-        self.vadjustment = Some(vadjustment.clone().upcast());
-        self
-    }
-
-    pub fn vscroll_policy(mut self, vscroll_policy: ScrollablePolicy) -> Self {
-        self.vscroll_policy = Some(vscroll_policy);
-        self
+        self.builder.build()
     }
 }
 
