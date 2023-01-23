@@ -120,9 +120,11 @@ impl MountOperationBuilder {
         }
     }
 
-    //pub fn password_save(self, password_save: /*Ignored*/gio::PasswordSave) -> Self {
-    //    Self { builder: self.builder.property("password-save", password_save), }
-    //}
+    pub fn password_save(self, password_save: gio::PasswordSave) -> Self {
+        Self {
+            builder: self.builder.property("password-save", password_save),
+        }
+    }
 
     #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]

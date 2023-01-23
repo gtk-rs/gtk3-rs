@@ -71,13 +71,17 @@ impl X11DeviceXI2Builder {
         }
     }
 
-    //pub fn input_mode(self, input_mode: /*Ignored*/gdk::InputMode) -> Self {
-    //    Self { builder: self.builder.property("input-mode", input_mode), }
-    //}
+    pub fn input_mode(self, input_mode: gdk::InputMode) -> Self {
+        Self {
+            builder: self.builder.property("input-mode", input_mode),
+        }
+    }
 
-    //pub fn input_source(self, input_source: /*Ignored*/gdk::InputSource) -> Self {
-    //    Self { builder: self.builder.property("input-source", input_source), }
-    //}
+    pub fn input_source(self, input_source: gdk::InputSource) -> Self {
+        Self {
+            builder: self.builder.property("input-source", input_source),
+        }
+    }
 
     pub fn name(self, name: impl Into<glib::GString>) -> Self {
         Self {
@@ -97,13 +101,17 @@ impl X11DeviceXI2Builder {
         }
     }
 
-    //pub fn seat(self, seat: /*Ignored*/&gdk::Seat) -> Self {
-    //    Self { builder: self.builder.property("seat", seat), }
-    //}
+    pub fn seat(self, seat: &gdk::Seat) -> Self {
+        Self {
+            builder: self.builder.property("seat", seat.clone()),
+        }
+    }
 
-    //pub fn type_(self, type_: /*Ignored*/gdk::DeviceType) -> Self {
-    //    Self { builder: self.builder.property("type", type_), }
-    //}
+    pub fn type_(self, type_: gdk::DeviceType) -> Self {
+        Self {
+            builder: self.builder.property("type", type_),
+        }
+    }
 
     pub fn vendor_id(self, vendor_id: impl Into<glib::GString>) -> Self {
         Self {
