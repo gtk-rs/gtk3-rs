@@ -1,10 +1,15 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::once_cell::sync::Lazy;
 use glib::translate::*;
+use glib::{ObjectExt, Quark};
 
+use wayland_client::backend::ObjectId;
 use wayland_client::protocol::{wl_compositor::WlCompositor, wl_display::WlDisplay};
-use wayland_client::sys::client::wl_proxy;
 use wayland_client::Proxy;
+
+static WAYLAND_DISPLAY_CONNECTION_QUARK: Lazy<Quark> =
+    Lazy::new(|| Quark::from_str("gtk-rs-wayland-display-connection-quark"));
 
 glib::wrapper! {
     #[doc(alias = "GdkWaylandDisplay")]
@@ -18,19 +23,34 @@ glib::wrapper! {
 impl WaylandDisplay {
     #[doc(alias = "gdk_wayland_display_get_wl_compositor")]
     #[doc(alias = "get_wl_compositor")]
-    pub fn wl_compositor(&self) -> WlCompositor {
+    pub fn wl_compositor(&self) -> Option<WlCompositor> {
         unsafe {
-            let ptr = ffi::gdk_wayland_display_get_wl_compositor(self.to_glib_none().0);
-            Proxy::from_c_ptr(ptr as *mut wl_proxy).into()
+            let compositor_ptr = ffi::gdk_wayland_display_get_wl_compositor(self.to_glib_none().0);
+            if compositor_ptr.is_null() {
+                None
+            } else {
+                let cnx = self.connection();
+                let id = ObjectId::from_ptr(WlCompositor::interface(), compositor_ptr as *mut _)
+                    .unwrap();
+
+                WlCompositor::from_id(&cnx, id).ok()
+            }
         }
     }
 
     #[doc(alias = "gdk_wayland_display_get_wl_display")]
     #[doc(alias = "get_wl_display")]
-    pub fn wl_display(&self) -> WlDisplay {
+    pub fn wl_display(&self) -> Option<WlDisplay> {
         unsafe {
-            let ptr = ffi::gdk_wayland_display_get_wl_display(self.to_glib_none().0);
-            Proxy::from_c_ptr(ptr as *mut wl_proxy).into()
+            let display_ptr = ffi::gdk_wayland_display_get_wl_display(self.to_glib_none().0);
+            if display_ptr.is_null() {
+                None
+            } else {
+                let cnx = self.connection();
+                let id = ObjectId::from_ptr(WlDisplay::interface(), display_ptr as *mut _).unwrap();
+
+                WlDisplay::from_id(&cnx, id).ok()
+            }
         }
     }
 
@@ -67,6 +87,27 @@ impl WaylandDisplay {
                 self.to_glib_none().0,
                 global.to_glib_none().0,
             ))
+        }
+    }
+
+    pub(crate) fn connection(&self) -> wayland_client::Connection {
+        unsafe {
+            match self
+                .qdata::<Option<wayland_client::Connection>>(*WAYLAND_DISPLAY_CONNECTION_QUARK)
+            {
+                Some(conn) => conn.as_ref().clone().unwrap(),
+                None => {
+                    let display_ptr =
+                        ffi::gdk_wayland_display_get_wl_display(self.to_glib_none().0);
+                    let backend = wayland_backend::sys::client::Backend::from_foreign_display(
+                        display_ptr as *mut _,
+                    );
+                    let conn = wayland_client::Connection::from_backend(backend);
+                    self.set_qdata(*WAYLAND_DISPLAY_CONNECTION_QUARK, conn.clone());
+
+                    conn
+                }
+            }
         }
     }
 }
