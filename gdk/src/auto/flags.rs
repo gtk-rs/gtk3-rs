@@ -62,6 +62,16 @@ impl StaticType for AnchorHints {
     }
 }
 
+impl glib::HasParamSpec for AnchorHints {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for AnchorHints {
     type Type = Self;
 }
@@ -156,6 +166,16 @@ impl StaticType for AxisFlags {
     }
 }
 
+impl glib::HasParamSpec for AxisFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for AxisFlags {
     type Type = Self;
 }
@@ -241,6 +261,16 @@ impl StaticType for DragAction {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_drag_action_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DragAction {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -372,6 +402,16 @@ impl StaticType for EventMask {
     }
 }
 
+impl glib::HasParamSpec for EventMask {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for EventMask {
     type Type = Self;
 }
@@ -461,6 +501,16 @@ impl StaticType for FrameClockPhase {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_frame_clock_phase_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for FrameClockPhase {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -604,6 +654,16 @@ impl StaticType for ModifierType {
     }
 }
 
+impl glib::HasParamSpec for ModifierType {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for ModifierType {
     type Type = Self;
 }
@@ -691,6 +751,16 @@ impl StaticType for SeatCapabilities {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_seat_capabilities_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SeatCapabilities {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -784,6 +854,16 @@ impl StaticType for WMDecoration {
     }
 }
 
+impl glib::HasParamSpec for WMDecoration {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for WMDecoration {
     type Type = Self;
 }
@@ -869,6 +949,16 @@ impl StaticType for WMFunction {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_wm_function_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WMFunction {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -963,6 +1053,16 @@ impl StaticType for WindowHints {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_window_hints_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WindowHints {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -1073,6 +1173,16 @@ impl StaticType for WindowState {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_window_state_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WindowState {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 

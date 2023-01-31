@@ -57,7 +57,7 @@ impl LinkButton {
 
 impl Default for LinkButton {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

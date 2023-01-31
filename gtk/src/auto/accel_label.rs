@@ -41,7 +41,7 @@ impl AccelLabel {
 
 impl Default for AccelLabel {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

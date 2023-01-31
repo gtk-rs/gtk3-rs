@@ -47,7 +47,7 @@ impl MenuToolButton {
 
 impl Default for MenuToolButton {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

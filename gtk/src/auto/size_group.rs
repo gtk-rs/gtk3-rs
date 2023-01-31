@@ -39,7 +39,7 @@ impl SizeGroup {
 
 impl Default for SizeGroup {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

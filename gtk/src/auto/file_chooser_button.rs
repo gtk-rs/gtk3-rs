@@ -60,7 +60,7 @@ impl FileChooserButton {
 
 impl Default for FileChooserButton {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 
