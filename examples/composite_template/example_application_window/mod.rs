@@ -11,7 +11,7 @@ glib::wrapper! {
 
 impl ExampleApplicationWindow {
     pub fn new<P: glib::IsA<gtk::Application>>(app: &P) -> Self {
-        glib::Object::new(&[("application", app)])
+        glib::Object::builder().property("application", app).build()
     }
 
     fn init_label(&self) {

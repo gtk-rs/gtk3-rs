@@ -11,9 +11,9 @@ glib::wrapper! {
 impl SimpleApplication {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(&[
-            ("application-id", &"org.gtk-rs.SimpleApplication"),
-            ("flags", &ApplicationFlags::empty()),
-        ])
+        glib::Object::builder()
+            .property("application-id", &"org.gtk-rs.SimpleApplication")
+            .property("flags", &ApplicationFlags::empty())
+            .build()
     }
 }
