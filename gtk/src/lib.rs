@@ -8,6 +8,7 @@
 #![allow(clippy::derive_hash_xor_eq)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
+#![allow(clippy::new_without_default)]
 #![cfg_attr(feature = "dox", feature(doc_cfg))]
 
 pub use ffi;
