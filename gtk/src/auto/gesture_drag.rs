@@ -42,7 +42,7 @@ impl GestureDrag {
 
 impl Default for GestureDrag {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

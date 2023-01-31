@@ -50,6 +50,16 @@ impl StaticType for AccelFlags {
     }
 }
 
+impl glib::HasParamSpec for AccelFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for AccelFlags {
     type Type = Self;
 }
@@ -131,6 +141,16 @@ impl StaticType for ApplicationInhibitFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_application_inhibit_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ApplicationInhibitFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -217,6 +237,16 @@ impl StaticType for CalendarDisplayOptions {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_calendar_display_options_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CalendarDisplayOptions {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -310,6 +340,16 @@ impl StaticType for CellRendererState {
     }
 }
 
+impl glib::HasParamSpec for CellRendererState {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for CellRendererState {
     type Type = Self;
 }
@@ -394,6 +434,16 @@ impl StaticType for DestDefaults {
     }
 }
 
+impl glib::HasParamSpec for DestDefaults {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for DestDefaults {
     type Type = Self;
 }
@@ -473,6 +523,16 @@ impl StaticType for DialogFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_dialog_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DialogFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -576,6 +636,18 @@ impl StaticType for EventControllerScrollFlags {
 
 #[cfg(any(feature = "v3_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl glib::HasParamSpec for EventControllerScrollFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
 impl glib::value::ValueType for EventControllerScrollFlags {
     type Type = Self;
 }
@@ -663,6 +735,16 @@ impl StaticType for FileFilterFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_file_filter_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for FileFilterFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -759,6 +841,18 @@ impl StaticType for FontChooserLevel {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_font_chooser_level_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+impl glib::HasParamSpec for FontChooserLevel {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -864,6 +958,16 @@ impl StaticType for IconLookupFlags {
     }
 }
 
+impl glib::HasParamSpec for IconLookupFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for IconLookupFlags {
     type Type = Self;
 }
@@ -964,6 +1068,16 @@ impl StaticType for InputHints {
     }
 }
 
+impl glib::HasParamSpec for InputHints {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for InputHints {
     type Type = Self;
 }
@@ -1058,6 +1172,16 @@ impl StaticType for JunctionSides {
     }
 }
 
+impl glib::HasParamSpec for JunctionSides {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for JunctionSides {
     type Type = Self;
 }
@@ -1137,6 +1261,16 @@ impl StaticType for PlacesOpenFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_places_open_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PlacesOpenFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -1228,6 +1362,16 @@ impl StaticType for RecentFilterFlags {
     }
 }
 
+impl glib::HasParamSpec for RecentFilterFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for RecentFilterFlags {
     type Type = Self;
 }
@@ -1313,6 +1457,16 @@ impl StaticType for RegionFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_region_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RegionFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -1420,6 +1574,16 @@ impl StaticType for StateFlags {
     }
 }
 
+impl glib::HasParamSpec for StateFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for StateFlags {
     type Type = Self;
 }
@@ -1499,6 +1663,16 @@ impl StaticType for StyleContextPrintFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_style_context_print_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for StyleContextPrintFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -1586,6 +1760,16 @@ impl StaticType for TargetFlags {
     }
 }
 
+impl glib::HasParamSpec for TargetFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for TargetFlags {
     type Type = Self;
 }
@@ -1665,6 +1849,16 @@ impl StaticType for TextSearchFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_search_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextSearchFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 
@@ -1748,6 +1942,16 @@ impl StaticType for ToolPaletteDragTargets {
     }
 }
 
+impl glib::HasParamSpec for ToolPaletteDragTargets {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
+    }
+}
+
 impl glib::value::ValueType for ToolPaletteDragTargets {
     type Type = Self;
 }
@@ -1825,6 +2029,16 @@ impl StaticType for TreeModelFlags {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tree_model_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TreeModelFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name| Self::ParamSpec::builder(name)
     }
 }
 

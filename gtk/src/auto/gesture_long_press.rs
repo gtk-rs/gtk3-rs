@@ -121,7 +121,7 @@ impl GestureLongPress {
 
 impl Default for GestureLongPress {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

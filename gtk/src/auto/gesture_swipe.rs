@@ -83,7 +83,7 @@ impl GestureSwipe {
 
 impl Default for GestureSwipe {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

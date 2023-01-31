@@ -73,7 +73,7 @@ impl PadController {
 
 impl Default for PadController {
     fn default() -> Self {
-        glib::object::Object::new_default::<Self>()
+        glib::object::Object::new::<Self>()
     }
 }
 

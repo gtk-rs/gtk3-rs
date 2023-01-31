@@ -75,7 +75,7 @@ use syn::{parse_macro_input, DeriveInput};
 ///
 /// impl MyWidget {
 ///     pub fn new() -> Self {
-///         glib::Object::new(&[])
+///         glib::Object::new()
 ///     }
 /// }
 /// # fn main() {}

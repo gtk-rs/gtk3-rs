@@ -11,6 +11,6 @@ glib::wrapper! {
 
 impl SimpleWindow {
     pub fn new(app: &SimpleApplication) -> Self {
-        glib::Object::new(&[("application", app)])
+        glib::Object::builder().property("application", app).build()
     }
 }

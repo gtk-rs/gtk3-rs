@@ -54,6 +54,7 @@ impl FromGlib<ffi::AtkCoordType> for CoordType {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkCoordType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_XY_SCREEN => Self::Screen,
             ffi::ATK_XY_WINDOW => Self::Window,
@@ -67,6 +68,16 @@ impl StaticType for CoordType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_coord_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CoordType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -177,6 +188,7 @@ impl FromGlib<ffi::AtkLayer> for Layer {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkLayer) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_LAYER_INVALID => Self::Invalid,
             ffi::ATK_LAYER_BACKGROUND => Self::Background,
@@ -195,6 +207,16 @@ impl StaticType for Layer {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_layer_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for Layer {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -374,6 +396,7 @@ impl IntoGlib for RelationType {
 impl FromGlib<ffi::AtkRelationType> for RelationType {
     unsafe fn from_glib(value: ffi::AtkRelationType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_RELATION_NULL => Self::Null,
             ffi::ATK_RELATION_CONTROLLED_BY => Self::ControlledBy,
@@ -406,6 +429,16 @@ impl StaticType for RelationType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_relation_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RelationType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1020,6 +1053,7 @@ impl IntoGlib for Role {
 impl FromGlib<ffi::AtkRole> for Role {
     unsafe fn from_glib(value: ffi::AtkRole) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_ROLE_INVALID => Self::Invalid,
             ffi::ATK_ROLE_ACCEL_LABEL => Self::AcceleratorLabel,
@@ -1162,6 +1196,16 @@ impl StaticType for Role {
     }
 }
 
+impl glib::HasParamSpec for Role {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+    }
+}
+
 impl glib::value::ValueType for Role {
     type Type = Self;
 }
@@ -1273,6 +1317,7 @@ impl FromGlib<ffi::AtkScrollType> for ScrollType {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkScrollType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_SCROLL_TOP_LEFT => Self::TopLeft,
             ffi::ATK_SCROLL_BOTTOM_RIGHT => Self::BottomRight,
@@ -1292,6 +1337,18 @@ impl StaticType for ScrollType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_scroll_type_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+impl glib::HasParamSpec for ScrollType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1571,6 +1628,7 @@ impl IntoGlib for StateType {
 impl FromGlib<ffi::AtkStateType> for StateType {
     unsafe fn from_glib(value: ffi::AtkStateType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_STATE_INVALID => Self::Invalid,
             ffi::ATK_STATE_ACTIVE => Self::Active,
@@ -1626,6 +1684,16 @@ impl StaticType for StateType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_state_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for StateType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1844,6 +1912,7 @@ impl IntoGlib for TextAttribute {
 impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
     unsafe fn from_glib(value: ffi::AtkTextAttribute) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_TEXT_ATTR_INVALID => Self::Invalid,
             ffi::ATK_TEXT_ATTR_LEFT_MARGIN => Self::LeftMargin,
@@ -1884,6 +1953,16 @@ impl StaticType for TextAttribute {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_text_attribute_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextAttribute {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1990,6 +2069,7 @@ impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkTextBoundary) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_TEXT_BOUNDARY_CHAR => Self::Char,
             ffi::ATK_TEXT_BOUNDARY_WORD_START => Self::WordStart,
@@ -2007,6 +2087,16 @@ impl StaticType for TextBoundary {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_text_boundary_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextBoundary {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2101,6 +2191,7 @@ impl FromGlib<ffi::AtkTextClipType> for TextClipType {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkTextClipType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_TEXT_CLIP_NONE => Self::None,
             ffi::ATK_TEXT_CLIP_MIN => Self::Min,
@@ -2115,6 +2206,16 @@ impl StaticType for TextClipType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_text_clip_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextClipType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2213,6 +2314,7 @@ impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
     #[inline]
     unsafe fn from_glib(value: ffi::AtkTextGranularity) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_TEXT_GRANULARITY_CHAR => Self::Char,
             ffi::ATK_TEXT_GRANULARITY_WORD => Self::Word,
@@ -2228,6 +2330,16 @@ impl StaticType for TextGranularity {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_text_granularity_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextGranularity {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2384,6 +2496,7 @@ impl IntoGlib for ValueType {
 impl FromGlib<ffi::AtkValueType> for ValueType {
     unsafe fn from_glib(value: ffi::AtkValueType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::ATK_VALUE_VERY_WEAK => Self::VeryWeak,
             ffi::ATK_VALUE_WEAK => Self::Weak,
@@ -2410,6 +2523,16 @@ impl StaticType for ValueType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::atk_value_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ValueType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 

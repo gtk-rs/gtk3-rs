@@ -64,6 +64,7 @@ impl FromGlib<ffi::GtkAlign> for Align {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkAlign) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ALIGN_FILL => Self::Fill,
             ffi::GTK_ALIGN_START => Self::Start,
@@ -79,6 +80,16 @@ impl StaticType for Align {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_align_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for Align {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -177,6 +188,7 @@ impl FromGlib<ffi::GtkArrowType> for ArrowType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkArrowType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ARROW_UP => Self::Up,
             ffi::GTK_ARROW_DOWN => Self::Down,
@@ -192,6 +204,16 @@ impl StaticType for ArrowType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_arrow_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ArrowType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -294,6 +316,7 @@ impl FromGlib<ffi::GtkAssistantPageType> for AssistantPageType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkAssistantPageType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ASSISTANT_PAGE_CONTENT => Self::Content,
             ffi::GTK_ASSISTANT_PAGE_INTRO => Self::Intro,
@@ -310,6 +333,16 @@ impl StaticType for AssistantPageType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_assistant_page_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AssistantPageType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -400,6 +433,7 @@ impl FromGlib<ffi::GtkBaselinePosition> for BaselinePosition {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkBaselinePosition) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BASELINE_POSITION_TOP => Self::Top,
             ffi::GTK_BASELINE_POSITION_CENTER => Self::Center,
@@ -413,6 +447,16 @@ impl StaticType for BaselinePosition {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_baseline_position_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for BaselinePosition {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -531,6 +575,7 @@ impl FromGlib<ffi::GtkBorderStyle> for BorderStyle {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkBorderStyle) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BORDER_STYLE_NONE => Self::None,
             ffi::GTK_BORDER_STYLE_SOLID => Self::Solid,
@@ -551,6 +596,16 @@ impl StaticType for BorderStyle {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_border_style_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for BorderStyle {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -683,6 +738,7 @@ impl IntoGlib for BuilderError {
 impl FromGlib<ffi::GtkBuilderError> for BuilderError {
     unsafe fn from_glib(value: ffi::GtkBuilderError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION => Self::InvalidTypeFunction,
             ffi::GTK_BUILDER_ERROR_UNHANDLED_TAG => Self::UnhandledTag,
@@ -730,6 +786,16 @@ impl StaticType for BuilderError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_builder_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for BuilderError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -832,6 +898,7 @@ impl FromGlib<ffi::GtkButtonBoxStyle> for ButtonBoxStyle {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkButtonBoxStyle) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BUTTONBOX_SPREAD => Self::Spread,
             ffi::GTK_BUTTONBOX_EDGE => Self::Edge,
@@ -848,6 +915,16 @@ impl StaticType for ButtonBoxStyle {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_button_box_style_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ButtonBoxStyle {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -938,6 +1015,7 @@ impl FromGlib<ffi::GtkButtonRole> for ButtonRole {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkButtonRole) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BUTTON_ROLE_NORMAL => Self::Normal,
             ffi::GTK_BUTTON_ROLE_CHECK => Self::Check,
@@ -951,6 +1029,16 @@ impl StaticType for ButtonRole {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_button_role_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ButtonRole {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1053,6 +1141,7 @@ impl FromGlib<ffi::GtkButtonsType> for ButtonsType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkButtonsType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_BUTTONS_NONE => Self::None,
             ffi::GTK_BUTTONS_OK => Self::Ok,
@@ -1069,6 +1158,16 @@ impl StaticType for ButtonsType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_buttons_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ButtonsType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1155,6 +1254,7 @@ impl FromGlib<ffi::GtkCellRendererAccelMode> for CellRendererAccelMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkCellRendererAccelMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_CELL_RENDERER_ACCEL_MODE_GTK => Self::Gtk,
             ffi::GTK_CELL_RENDERER_ACCEL_MODE_OTHER => Self::Other,
@@ -1167,6 +1267,16 @@ impl StaticType for CellRendererAccelMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_cell_renderer_accel_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CellRendererAccelMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1257,6 +1367,7 @@ impl FromGlib<ffi::GtkCellRendererMode> for CellRendererMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkCellRendererMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_CELL_RENDERER_MODE_INERT => Self::Inert,
             ffi::GTK_CELL_RENDERER_MODE_ACTIVATABLE => Self::Activatable,
@@ -1270,6 +1381,16 @@ impl StaticType for CellRendererMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_cell_renderer_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CellRendererMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1364,6 +1485,7 @@ impl FromGlib<ffi::GtkCornerType> for CornerType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkCornerType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_CORNER_TOP_LEFT => Self::TopLeft,
             ffi::GTK_CORNER_BOTTOM_LEFT => Self::BottomLeft,
@@ -1378,6 +1500,16 @@ impl StaticType for CornerType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_corner_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CornerType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1480,6 +1612,7 @@ impl FromGlib<ffi::GtkCssProviderError> for CssProviderError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkCssProviderError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_CSS_PROVIDER_ERROR_FAILED => Self::Failed,
             ffi::GTK_CSS_PROVIDER_ERROR_SYNTAX => Self::Syntax,
@@ -1520,6 +1653,16 @@ impl StaticType for CssProviderError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_css_provider_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CssProviderError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1634,6 +1777,7 @@ impl FromGlib<ffi::GtkCssSectionType> for CssSectionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkCssSectionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_CSS_SECTION_DOCUMENT => Self::Document,
             ffi::GTK_CSS_SECTION_IMPORT => Self::Import,
@@ -1653,6 +1797,16 @@ impl StaticType for CssSectionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_css_section_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CssSectionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1763,6 +1917,7 @@ impl FromGlib<ffi::GtkDeleteType> for DeleteType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkDeleteType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_DELETE_CHARS => Self::Chars,
             ffi::GTK_DELETE_WORD_ENDS => Self::WordEnds,
@@ -1781,6 +1936,16 @@ impl StaticType for DeleteType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_delete_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DeleteType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -1883,6 +2048,7 @@ impl FromGlib<ffi::GtkDirectionType> for DirectionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkDirectionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_DIR_TAB_FORWARD => Self::TabForward,
             ffi::GTK_DIR_TAB_BACKWARD => Self::TabBackward,
@@ -1899,6 +2065,16 @@ impl StaticType for DirectionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_direction_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DirectionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2001,6 +2177,7 @@ impl FromGlib<ffi::GtkDragResult> for DragResult {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkDragResult) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_DRAG_RESULT_SUCCESS => Self::Success,
             ffi::GTK_DRAG_RESULT_NO_TARGET => Self::NoTarget,
@@ -2017,6 +2194,16 @@ impl StaticType for DragResult {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_drag_result_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DragResult {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2103,6 +2290,7 @@ impl FromGlib<ffi::GtkEntryIconPosition> for EntryIconPosition {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkEntryIconPosition) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ENTRY_ICON_PRIMARY => Self::Primary,
             ffi::GTK_ENTRY_ICON_SECONDARY => Self::Secondary,
@@ -2115,6 +2303,16 @@ impl StaticType for EntryIconPosition {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_entry_icon_position_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for EntryIconPosition {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2205,6 +2403,7 @@ impl FromGlib<ffi::GtkEventSequenceState> for EventSequenceState {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkEventSequenceState) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_EVENT_SEQUENCE_NONE => Self::None,
             ffi::GTK_EVENT_SEQUENCE_CLAIMED => Self::Claimed,
@@ -2218,6 +2417,16 @@ impl StaticType for EventSequenceState {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_event_sequence_state_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for EventSequenceState {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2312,6 +2521,7 @@ impl FromGlib<ffi::GtkFileChooserAction> for FileChooserAction {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkFileChooserAction) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_FILE_CHOOSER_ACTION_OPEN => Self::Open,
             ffi::GTK_FILE_CHOOSER_ACTION_SAVE => Self::Save,
@@ -2326,6 +2536,16 @@ impl StaticType for FileChooserAction {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_file_chooser_action_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for FileChooserAction {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2416,6 +2636,7 @@ impl FromGlib<ffi::GtkFileChooserConfirmation> for FileChooserConfirmation {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkFileChooserConfirmation) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_FILE_CHOOSER_CONFIRMATION_CONFIRM => Self::Confirm,
             ffi::GTK_FILE_CHOOSER_CONFIRMATION_ACCEPT_FILENAME => Self::AcceptFilename,
@@ -2429,6 +2650,16 @@ impl StaticType for FileChooserConfirmation {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_file_chooser_confirmation_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for FileChooserConfirmation {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2523,6 +2754,7 @@ impl FromGlib<ffi::GtkFileChooserError> for FileChooserError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkFileChooserError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_FILE_CHOOSER_ERROR_NONEXISTENT => Self::Nonexistent,
             ffi::GTK_FILE_CHOOSER_ERROR_BAD_FILENAME => Self::BadFilename,
@@ -2560,6 +2792,16 @@ impl StaticType for FileChooserError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_file_chooser_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for FileChooserError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2687,6 +2929,7 @@ impl FromGlib<ffi::GtkIconSize> for IconSize {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkIconSize) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ICON_SIZE_INVALID => Self::Invalid,
             ffi::GTK_ICON_SIZE_MENU => Self::Menu,
@@ -2704,6 +2947,16 @@ impl StaticType for IconSize {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_icon_size_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for IconSize {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2790,6 +3043,7 @@ impl FromGlib<ffi::GtkIconThemeError> for IconThemeError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkIconThemeError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ICON_THEME_NOT_FOUND => Self::NotFound,
             ffi::GTK_ICON_THEME_FAILED => Self::Failed,
@@ -2826,6 +3080,16 @@ impl StaticType for IconThemeError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_icon_theme_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for IconThemeError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -2928,6 +3192,7 @@ impl FromGlib<ffi::GtkIconViewDropPosition> for IconViewDropPosition {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkIconViewDropPosition) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ICON_VIEW_NO_DROP => Self::NoDrop,
             ffi::GTK_ICON_VIEW_DROP_INTO => Self::DropInto,
@@ -2944,6 +3209,16 @@ impl StaticType for IconViewDropPosition {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_icon_view_drop_position_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for IconViewDropPosition {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3054,6 +3329,7 @@ impl FromGlib<ffi::GtkImageType> for ImageType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkImageType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_IMAGE_EMPTY => Self::Empty,
             ffi::GTK_IMAGE_PIXBUF => Self::Pixbuf,
@@ -3072,6 +3348,16 @@ impl StaticType for ImageType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_image_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ImageType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3194,6 +3480,7 @@ impl FromGlib<ffi::GtkInputPurpose> for InputPurpose {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkInputPurpose) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_INPUT_PURPOSE_FREE_FORM => Self::FreeForm,
             ffi::GTK_INPUT_PURPOSE_ALPHA => Self::Alpha,
@@ -3215,6 +3502,16 @@ impl StaticType for InputPurpose {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_input_purpose_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for InputPurpose {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3309,6 +3606,7 @@ impl FromGlib<ffi::GtkJustification> for Justification {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkJustification) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_JUSTIFY_LEFT => Self::Left,
             ffi::GTK_JUSTIFY_RIGHT => Self::Right,
@@ -3323,6 +3621,16 @@ impl StaticType for Justification {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_justification_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for Justification {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3409,6 +3717,7 @@ impl FromGlib<ffi::GtkLevelBarMode> for LevelBarMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkLevelBarMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_LEVEL_BAR_MODE_CONTINUOUS => Self::Continuous,
             ffi::GTK_LEVEL_BAR_MODE_DISCRETE => Self::Discrete,
@@ -3421,6 +3730,16 @@ impl StaticType for LevelBarMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_level_bar_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for LevelBarMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3569,6 +3888,7 @@ impl IntoGlib for License {
 impl FromGlib<ffi::GtkLicense> for License {
     unsafe fn from_glib(value: ffi::GtkLicense) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_LICENSE_UNKNOWN => Self::Unknown,
             ffi::GTK_LICENSE_CUSTOM => Self::Custom,
@@ -3597,6 +3917,16 @@ impl StaticType for License {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_license_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for License {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3691,6 +4021,7 @@ impl FromGlib<ffi::GtkMenuDirectionType> for MenuDirectionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkMenuDirectionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_MENU_DIR_PARENT => Self::Parent,
             ffi::GTK_MENU_DIR_CHILD => Self::Child,
@@ -3705,6 +4036,16 @@ impl StaticType for MenuDirectionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_menu_direction_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for MenuDirectionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3803,6 +4144,7 @@ impl FromGlib<ffi::GtkMessageType> for MessageType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkMessageType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_MESSAGE_INFO => Self::Info,
             ffi::GTK_MESSAGE_WARNING => Self::Warning,
@@ -3818,6 +4160,16 @@ impl StaticType for MessageType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_message_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for MessageType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -3936,6 +4288,7 @@ impl FromGlib<ffi::GtkMovementStep> for MovementStep {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkMovementStep) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_MOVEMENT_LOGICAL_POSITIONS => Self::LogicalPositions,
             ffi::GTK_MOVEMENT_VISUAL_POSITIONS => Self::VisualPositions,
@@ -3956,6 +4309,16 @@ impl StaticType for MovementStep {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_movement_step_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for MovementStep {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4042,6 +4405,7 @@ impl FromGlib<ffi::GtkNotebookTab> for NotebookTab {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkNotebookTab) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_NOTEBOOK_TAB_FIRST => Self::First,
             ffi::GTK_NOTEBOOK_TAB_LAST => Self::Last,
@@ -4054,6 +4418,16 @@ impl StaticType for NotebookTab {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_notebook_tab_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for NotebookTab {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4164,6 +4538,7 @@ impl FromGlib<ffi::GtkNumberUpLayout> for NumberUpLayout {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkNumberUpLayout) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM => Self::Lrtb,
             ffi::GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP => Self::Lrbt,
@@ -4182,6 +4557,16 @@ impl StaticType for NumberUpLayout {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_number_up_layout_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for NumberUpLayout {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4268,6 +4653,7 @@ impl FromGlib<ffi::GtkOrientation> for Orientation {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkOrientation) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_ORIENTATION_HORIZONTAL => Self::Horizontal,
             ffi::GTK_ORIENTATION_VERTICAL => Self::Vertical,
@@ -4280,6 +4666,16 @@ impl StaticType for Orientation {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_orientation_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for Orientation {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4374,6 +4770,7 @@ impl FromGlib<ffi::GtkPackDirection> for PackDirection {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPackDirection) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PACK_DIRECTION_LTR => Self::Ltr,
             ffi::GTK_PACK_DIRECTION_RTL => Self::Rtl,
@@ -4388,6 +4785,16 @@ impl StaticType for PackDirection {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_pack_direction_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PackDirection {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4474,6 +4881,7 @@ impl FromGlib<ffi::GtkPackType> for PackType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPackType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PACK_START => Self::Start,
             ffi::GTK_PACK_END => Self::End,
@@ -4486,6 +4894,16 @@ impl StaticType for PackType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_pack_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PackType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4576,6 +4994,7 @@ impl FromGlib<ffi::GtkPadActionType> for PadActionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPadActionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PAD_ACTION_BUTTON => Self::Button,
             ffi::GTK_PAD_ACTION_RING => Self::Ring,
@@ -4589,6 +5008,16 @@ impl StaticType for PadActionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_pad_action_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PadActionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4683,6 +5112,7 @@ impl FromGlib<ffi::GtkPageOrientation> for PageOrientation {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPageOrientation) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PAGE_ORIENTATION_PORTRAIT => Self::Portrait,
             ffi::GTK_PAGE_ORIENTATION_LANDSCAPE => Self::Landscape,
@@ -4697,6 +5127,16 @@ impl StaticType for PageOrientation {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_page_orientation_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PageOrientation {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4787,6 +5227,7 @@ impl FromGlib<ffi::GtkPageSet> for PageSet {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPageSet) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PAGE_SET_ALL => Self::All,
             ffi::GTK_PAGE_SET_EVEN => Self::Even,
@@ -4800,6 +5241,16 @@ impl StaticType for PageSet {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_page_set_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PageSet {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -4894,6 +5345,7 @@ impl FromGlib<ffi::GtkPanDirection> for PanDirection {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPanDirection) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PAN_DIRECTION_LEFT => Self::Left,
             ffi::GTK_PAN_DIRECTION_RIGHT => Self::Right,
@@ -4908,6 +5360,16 @@ impl StaticType for PanDirection {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_pan_direction_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PanDirection {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5002,6 +5464,7 @@ impl FromGlib<ffi::GtkPolicyType> for PolicyType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPolicyType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_POLICY_ALWAYS => Self::Always,
             ffi::GTK_POLICY_AUTOMATIC => Self::Automatic,
@@ -5016,6 +5479,16 @@ impl StaticType for PolicyType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_policy_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PolicyType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5102,6 +5575,7 @@ impl FromGlib<ffi::GtkPopoverConstraint> for PopoverConstraint {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPopoverConstraint) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_POPOVER_CONSTRAINT_NONE => Self::None,
             ffi::GTK_POPOVER_CONSTRAINT_WINDOW => Self::Window,
@@ -5114,6 +5588,16 @@ impl StaticType for PopoverConstraint {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_popover_constraint_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PopoverConstraint {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5208,6 +5692,7 @@ impl FromGlib<ffi::GtkPositionType> for PositionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPositionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_POS_LEFT => Self::Left,
             ffi::GTK_POS_RIGHT => Self::Right,
@@ -5222,6 +5707,16 @@ impl StaticType for PositionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_position_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PositionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5312,6 +5807,7 @@ impl FromGlib<ffi::GtkPrintDuplex> for PrintDuplex {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintDuplex) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_DUPLEX_SIMPLEX => Self::Simplex,
             ffi::GTK_PRINT_DUPLEX_HORIZONTAL => Self::Horizontal,
@@ -5325,6 +5821,16 @@ impl StaticType for PrintDuplex {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_duplex_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintDuplex {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5419,6 +5925,7 @@ impl FromGlib<ffi::GtkPrintError> for PrintError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_ERROR_GENERAL => Self::General,
             ffi::GTK_PRINT_ERROR_INTERNAL_ERROR => Self::InternalError,
@@ -5456,6 +5963,16 @@ impl StaticType for PrintError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5550,6 +6067,7 @@ impl FromGlib<ffi::GtkPrintOperationAction> for PrintOperationAction {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintOperationAction) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG => Self::PrintDialog,
             ffi::GTK_PRINT_OPERATION_ACTION_PRINT => Self::Print,
@@ -5564,6 +6082,16 @@ impl StaticType for PrintOperationAction {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_operation_action_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintOperationAction {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5658,6 +6186,7 @@ impl FromGlib<ffi::GtkPrintOperationResult> for PrintOperationResult {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintOperationResult) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_OPERATION_RESULT_ERROR => Self::Error,
             ffi::GTK_PRINT_OPERATION_RESULT_APPLY => Self::Apply,
@@ -5672,6 +6201,16 @@ impl StaticType for PrintOperationResult {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_operation_result_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintOperationResult {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5766,6 +6305,7 @@ impl FromGlib<ffi::GtkPrintPages> for PrintPages {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintPages) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_PAGES_ALL => Self::All,
             ffi::GTK_PRINT_PAGES_CURRENT => Self::Current,
@@ -5780,6 +6320,16 @@ impl StaticType for PrintPages {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_pages_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintPages {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -5874,6 +6424,7 @@ impl FromGlib<ffi::GtkPrintQuality> for PrintQuality {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintQuality) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_QUALITY_LOW => Self::Low,
             ffi::GTK_PRINT_QUALITY_NORMAL => Self::Normal,
@@ -5888,6 +6439,16 @@ impl StaticType for PrintQuality {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_quality_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintQuality {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6002,6 +6563,7 @@ impl FromGlib<ffi::GtkPrintStatus> for PrintStatus {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPrintStatus) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PRINT_STATUS_INITIAL => Self::Initial,
             ffi::GTK_PRINT_STATUS_PREPARING => Self::Preparing,
@@ -6021,6 +6583,16 @@ impl StaticType for PrintStatus {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_print_status_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PrintStatus {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6115,6 +6687,7 @@ impl FromGlib<ffi::GtkPropagationPhase> for PropagationPhase {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkPropagationPhase) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_PHASE_NONE => Self::None,
             ffi::GTK_PHASE_CAPTURE => Self::Capture,
@@ -6129,6 +6702,16 @@ impl StaticType for PropagationPhase {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_propagation_phase_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for PropagationPhase {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6215,6 +6798,7 @@ impl FromGlib<ffi::GtkRecentChooserError> for RecentChooserError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkRecentChooserError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_RECENT_CHOOSER_ERROR_NOT_FOUND => Self::NotFound,
             ffi::GTK_RECENT_CHOOSER_ERROR_INVALID_URI => Self::InvalidUri,
@@ -6250,6 +6834,16 @@ impl StaticType for RecentChooserError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_recent_chooser_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RecentChooserError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6356,6 +6950,7 @@ impl FromGlib<ffi::GtkRecentManagerError> for RecentManagerError {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkRecentManagerError) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_RECENT_MANAGER_ERROR_NOT_FOUND => Self::NotFound,
             ffi::GTK_RECENT_MANAGER_ERROR_INVALID_URI => Self::InvalidUri,
@@ -6396,6 +6991,16 @@ impl StaticType for RecentManagerError {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_recent_manager_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RecentManagerError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6490,6 +7095,7 @@ impl FromGlib<ffi::GtkRecentSortType> for RecentSortType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkRecentSortType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_RECENT_SORT_NONE => Self::None,
             ffi::GTK_RECENT_SORT_MRU => Self::Mru,
@@ -6504,6 +7110,16 @@ impl StaticType for RecentSortType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_recent_sort_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RecentSortType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6594,6 +7210,7 @@ impl FromGlib<ffi::GtkReliefStyle> for ReliefStyle {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkReliefStyle) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_RELIEF_NORMAL => Self::Normal,
             ffi::GTK_RELIEF_HALF => Self::Half,
@@ -6607,6 +7224,16 @@ impl StaticType for ReliefStyle {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_relief_style_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ReliefStyle {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6697,6 +7324,7 @@ impl FromGlib<ffi::GtkResizeMode> for ResizeMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkResizeMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_RESIZE_PARENT => Self::Parent,
             ffi::GTK_RESIZE_QUEUE => Self::Queue,
@@ -6710,6 +7338,16 @@ impl StaticType for ResizeMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_resize_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ResizeMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6812,6 +7450,7 @@ impl FromGlib<ffi::GtkRevealerTransitionType> for RevealerTransitionType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkRevealerTransitionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_REVEALER_TRANSITION_TYPE_NONE => Self::None,
             ffi::GTK_REVEALER_TRANSITION_TYPE_CROSSFADE => Self::Crossfade,
@@ -6828,6 +7467,16 @@ impl StaticType for RevealerTransitionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_revealer_transition_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for RevealerTransitionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -6930,6 +7579,7 @@ impl FromGlib<ffi::GtkScrollStep> for ScrollStep {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkScrollStep) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SCROLL_STEPS => Self::Steps,
             ffi::GTK_SCROLL_PAGES => Self::Pages,
@@ -6946,6 +7596,16 @@ impl StaticType for ScrollStep {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_scroll_step_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ScrollStep {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7086,6 +7746,7 @@ impl IntoGlib for ScrollType {
 impl FromGlib<ffi::GtkScrollType> for ScrollType {
     unsafe fn from_glib(value: ffi::GtkScrollType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SCROLL_NONE => Self::None,
             ffi::GTK_SCROLL_JUMP => Self::Jump,
@@ -7112,6 +7773,16 @@ impl StaticType for ScrollType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_scroll_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ScrollType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7198,6 +7869,7 @@ impl FromGlib<ffi::GtkScrollablePolicy> for ScrollablePolicy {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkScrollablePolicy) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SCROLL_MINIMUM => Self::Minimum,
             ffi::GTK_SCROLL_NATURAL => Self::Natural,
@@ -7210,6 +7882,16 @@ impl StaticType for ScrollablePolicy {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_scrollable_policy_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ScrollablePolicy {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7304,6 +7986,7 @@ impl FromGlib<ffi::GtkSelectionMode> for SelectionMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSelectionMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SELECTION_NONE => Self::None,
             ffi::GTK_SELECTION_SINGLE => Self::Single,
@@ -7318,6 +8001,16 @@ impl StaticType for SelectionMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_selection_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SelectionMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7408,6 +8101,7 @@ impl FromGlib<ffi::GtkSensitivityType> for SensitivityType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSensitivityType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SENSITIVITY_AUTO => Self::Auto,
             ffi::GTK_SENSITIVITY_ON => Self::On,
@@ -7421,6 +8115,16 @@ impl StaticType for SensitivityType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_sensitivity_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SensitivityType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7519,6 +8223,7 @@ impl FromGlib<ffi::GtkShadowType> for ShadowType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkShadowType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SHADOW_NONE => Self::None,
             ffi::GTK_SHADOW_IN => Self::In,
@@ -7534,6 +8239,16 @@ impl StaticType for ShadowType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_shadow_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ShadowType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7646,6 +8361,7 @@ impl FromGlib<ffi::GtkShortcutType> for ShortcutType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkShortcutType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SHORTCUT_ACCELERATOR => Self::Accelerator,
             ffi::GTK_SHORTCUT_GESTURE_PINCH => Self::GesturePinch,
@@ -7666,6 +8382,16 @@ impl StaticType for ShortcutType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_shortcut_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ShortcutType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7760,6 +8486,7 @@ impl FromGlib<ffi::GtkSizeGroupMode> for SizeGroupMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSizeGroupMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SIZE_GROUP_NONE => Self::None,
             ffi::GTK_SIZE_GROUP_HORIZONTAL => Self::Horizontal,
@@ -7774,6 +8501,16 @@ impl StaticType for SizeGroupMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_size_group_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SizeGroupMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7864,6 +8601,7 @@ impl FromGlib<ffi::GtkSizeRequestMode> for SizeRequestMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSizeRequestMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH => Self::HeightForWidth,
             ffi::GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT => Self::WidthForHeight,
@@ -7877,6 +8615,16 @@ impl StaticType for SizeRequestMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_size_request_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SizeRequestMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -7963,6 +8711,7 @@ impl FromGlib<ffi::GtkSortType> for SortType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSortType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SORT_ASCENDING => Self::Ascending,
             ffi::GTK_SORT_DESCENDING => Self::Descending,
@@ -7975,6 +8724,16 @@ impl StaticType for SortType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_sort_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SortType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8061,6 +8820,7 @@ impl FromGlib<ffi::GtkSpinButtonUpdatePolicy> for SpinButtonUpdatePolicy {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSpinButtonUpdatePolicy) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_UPDATE_ALWAYS => Self::Always,
             ffi::GTK_UPDATE_IF_VALID => Self::IfValid,
@@ -8073,6 +8833,16 @@ impl StaticType for SpinButtonUpdatePolicy {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_spin_button_update_policy_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SpinButtonUpdatePolicy {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8179,6 +8949,7 @@ impl FromGlib<ffi::GtkSpinType> for SpinType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkSpinType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_SPIN_STEP_FORWARD => Self::StepForward,
             ffi::GTK_SPIN_STEP_BACKWARD => Self::StepBackward,
@@ -8196,6 +8967,16 @@ impl StaticType for SpinType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_spin_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SpinType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8352,6 +9133,7 @@ impl IntoGlib for StackTransitionType {
 impl FromGlib<ffi::GtkStackTransitionType> for StackTransitionType {
     unsafe fn from_glib(value: ffi::GtkStackTransitionType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_STACK_TRANSITION_TYPE_NONE => Self::None,
             ffi::GTK_STACK_TRANSITION_TYPE_CROSSFADE => Self::Crossfade,
@@ -8382,6 +9164,16 @@ impl StaticType for StackTransitionType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_stack_transition_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for StackTransitionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8472,6 +9264,7 @@ impl FromGlib<ffi::GtkTextDirection> for TextDirection {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTextDirection) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TEXT_DIR_NONE => Self::None,
             ffi::GTK_TEXT_DIR_LTR => Self::Ltr,
@@ -8485,6 +9278,16 @@ impl StaticType for TextDirection {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_direction_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextDirection {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8571,6 +9374,7 @@ impl FromGlib<ffi::GtkTextExtendSelection> for TextExtendSelection {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTextExtendSelection) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TEXT_EXTEND_SELECTION_WORD => Self::Word,
             ffi::GTK_TEXT_EXTEND_SELECTION_LINE => Self::Line,
@@ -8583,6 +9387,16 @@ impl StaticType for TextExtendSelection {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_extend_selection_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextExtendSelection {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8677,6 +9491,7 @@ impl FromGlib<ffi::GtkTextViewLayer> for TextViewLayer {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTextViewLayer) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TEXT_VIEW_LAYER_BELOW => Self::Below,
             ffi::GTK_TEXT_VIEW_LAYER_ABOVE => Self::Above,
@@ -8691,6 +9506,16 @@ impl StaticType for TextViewLayer {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_view_layer_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextViewLayer {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8797,6 +9622,7 @@ impl FromGlib<ffi::GtkTextWindowType> for TextWindowType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTextWindowType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TEXT_WINDOW_PRIVATE => Self::Private,
             ffi::GTK_TEXT_WINDOW_WIDGET => Self::Widget,
@@ -8814,6 +9640,16 @@ impl StaticType for TextWindowType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_text_window_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TextWindowType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -8908,6 +9744,7 @@ impl FromGlib<ffi::GtkToolbarStyle> for ToolbarStyle {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkToolbarStyle) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TOOLBAR_ICONS => Self::Icons,
             ffi::GTK_TOOLBAR_TEXT => Self::Text,
@@ -8922,6 +9759,16 @@ impl StaticType for ToolbarStyle {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_toolbar_style_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for ToolbarStyle {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9012,6 +9859,7 @@ impl FromGlib<ffi::GtkTreeViewColumnSizing> for TreeViewColumnSizing {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTreeViewColumnSizing) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TREE_VIEW_COLUMN_GROW_ONLY => Self::GrowOnly,
             ffi::GTK_TREE_VIEW_COLUMN_AUTOSIZE => Self::Autosize,
@@ -9025,6 +9873,16 @@ impl StaticType for TreeViewColumnSizing {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tree_view_column_sizing_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TreeViewColumnSizing {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9119,6 +9977,7 @@ impl FromGlib<ffi::GtkTreeViewDropPosition> for TreeViewDropPosition {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTreeViewDropPosition) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TREE_VIEW_DROP_BEFORE => Self::Before,
             ffi::GTK_TREE_VIEW_DROP_AFTER => Self::After,
@@ -9133,6 +9992,16 @@ impl StaticType for TreeViewDropPosition {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tree_view_drop_position_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TreeViewDropPosition {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9227,6 +10096,7 @@ impl FromGlib<ffi::GtkTreeViewGridLines> for TreeViewGridLines {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkTreeViewGridLines) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_TREE_VIEW_GRID_LINES_NONE => Self::None,
             ffi::GTK_TREE_VIEW_GRID_LINES_HORIZONTAL => Self::Horizontal,
@@ -9241,6 +10111,16 @@ impl StaticType for TreeViewGridLines {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_tree_view_grid_lines_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for TreeViewGridLines {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9335,6 +10215,7 @@ impl FromGlib<ffi::GtkUnit> for Unit {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkUnit) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_UNIT_NONE => Self::None,
             ffi::GTK_UNIT_POINTS => Self::Points,
@@ -9349,6 +10230,16 @@ impl StaticType for Unit {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_unit_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for Unit {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9435,6 +10326,7 @@ impl FromGlib<ffi::GtkWidgetHelpType> for WidgetHelpType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkWidgetHelpType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_WIDGET_HELP_TOOLTIP => Self::Tooltip,
             ffi::GTK_WIDGET_HELP_WHATS_THIS => Self::WhatsThis,
@@ -9447,6 +10339,16 @@ impl StaticType for WidgetHelpType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_widget_help_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WidgetHelpType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9545,6 +10447,7 @@ impl FromGlib<ffi::GtkWindowPosition> for WindowPosition {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkWindowPosition) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_WIN_POS_NONE => Self::None,
             ffi::GTK_WIN_POS_CENTER => Self::Center,
@@ -9560,6 +10463,16 @@ impl StaticType for WindowPosition {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_window_position_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WindowPosition {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9646,6 +10559,7 @@ impl FromGlib<ffi::GtkWindowType> for WindowType {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkWindowType) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_WINDOW_TOPLEVEL => Self::Toplevel,
             ffi::GTK_WINDOW_POPUP => Self::Popup,
@@ -9658,6 +10572,16 @@ impl StaticType for WindowType {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_window_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WindowType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
@@ -9752,6 +10676,7 @@ impl FromGlib<ffi::GtkWrapMode> for WrapMode {
     #[inline]
     unsafe fn from_glib(value: ffi::GtkWrapMode) -> Self {
         skip_assert_initialized!();
+
         match value {
             ffi::GTK_WRAP_NONE => Self::None,
             ffi::GTK_WRAP_CHAR => Self::Char,
@@ -9766,6 +10691,16 @@ impl StaticType for WrapMode {
     #[inline]
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gtk_wrap_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for WrapMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
     }
 }
 
