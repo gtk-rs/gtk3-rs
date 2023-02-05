@@ -35,11 +35,11 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_device_is_grabbed")]
-    pub fn device_is_grabbed(&self, device: &Device) -> bool {
+    pub fn device_is_grabbed(&self, device: &impl IsA<Device>) -> bool {
         unsafe {
             from_glib(ffi::gdk_display_device_is_grabbed(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
             ))
         }
     }

@@ -101,9 +101,12 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_set_device")]
-    pub fn set_device(&self, device: &Device) {
+    pub fn set_device(&self, device: &impl IsA<Device>) {
         unsafe {
-            ffi::gdk_drag_context_set_device(self.to_glib_none().0, device.to_glib_none().0);
+            ffi::gdk_drag_context_set_device(
+                self.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
+            );
         }
     }
 

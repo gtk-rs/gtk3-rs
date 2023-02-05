@@ -65,7 +65,7 @@ impl Window {
     #[doc(alias = "gdk_window_begin_move_drag_for_device")]
     pub fn begin_move_drag_for_device(
         &self,
-        device: &Device,
+        device: &impl IsA<Device>,
         button: i32,
         root_x: i32,
         root_y: i32,
@@ -74,7 +74,7 @@ impl Window {
         unsafe {
             ffi::gdk_window_begin_move_drag_for_device(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 button,
                 root_x,
                 root_y,
@@ -108,7 +108,7 @@ impl Window {
     pub fn begin_resize_drag_for_device(
         &self,
         edge: WindowEdge,
-        device: &Device,
+        device: &impl IsA<Device>,
         button: i32,
         root_x: i32,
         root_y: i32,
@@ -118,7 +118,7 @@ impl Window {
             ffi::gdk_window_begin_resize_drag_for_device(
                 self.to_glib_none().0,
                 edge.into_glib(),
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 button,
                 root_x,
                 root_y,
@@ -300,36 +300,39 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_device_cursor")]
     #[doc(alias = "get_device_cursor")]
-    pub fn device_cursor(&self, device: &Device) -> Option<Cursor> {
+    pub fn device_cursor(&self, device: &impl IsA<Device>) -> Option<Cursor> {
         unsafe {
             from_glib_none(ffi::gdk_window_get_device_cursor(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
             ))
         }
     }
 
     #[doc(alias = "gdk_window_get_device_events")]
     #[doc(alias = "get_device_events")]
-    pub fn device_events(&self, device: &Device) -> EventMask {
+    pub fn device_events(&self, device: &impl IsA<Device>) -> EventMask {
         unsafe {
             from_glib(ffi::gdk_window_get_device_events(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
             ))
         }
     }
 
     #[doc(alias = "gdk_window_get_device_position")]
     #[doc(alias = "get_device_position")]
-    pub fn device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType) {
+    pub fn device_position(
+        &self,
+        device: &impl IsA<Device>,
+    ) -> (Option<Window>, i32, i32, ModifierType) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
             let mut y = mem::MaybeUninit::uninit();
             let mut mask = mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_window_get_device_position(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
@@ -347,7 +350,7 @@ impl Window {
     #[doc(alias = "get_device_position_double")]
     pub fn device_position_double(
         &self,
-        device: &Device,
+        device: &impl IsA<Device>,
     ) -> (Option<Window>, f64, f64, ModifierType) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -355,7 +358,7 @@ impl Window {
             let mut mask = mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_window_get_device_position_double(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
@@ -936,22 +939,22 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_set_device_cursor")]
-    pub fn set_device_cursor(&self, device: &Device, cursor: &Cursor) {
+    pub fn set_device_cursor(&self, device: &impl IsA<Device>, cursor: &Cursor) {
         unsafe {
             ffi::gdk_window_set_device_cursor(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 cursor.to_glib_none().0,
             );
         }
     }
 
     #[doc(alias = "gdk_window_set_device_events")]
-    pub fn set_device_events(&self, device: &Device, event_mask: EventMask) {
+    pub fn set_device_events(&self, device: &impl IsA<Device>, event_mask: EventMask) {
         unsafe {
             ffi::gdk_window_set_device_events(
                 self.to_glib_none().0,
-                device.to_glib_none().0,
+                device.as_ref().to_glib_none().0,
                 event_mask.into_glib(),
             );
         }

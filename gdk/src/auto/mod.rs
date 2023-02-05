@@ -118,5 +118,8 @@ pub mod functions;
 
 #[doc(hidden)]
 pub mod traits {
+    pub use super::device::DeviceExt;
     pub use super::device_pad::DevicePadExt;
+    pub use super::monitor::MonitorExt;
+    pub use super::seat::SeatExt;
 }
