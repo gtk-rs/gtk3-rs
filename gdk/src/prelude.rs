@@ -4,6 +4,7 @@
 
 pub use crate::auto::traits::*;
 pub use crate::cairo_interaction::{GdkContextExt, GdkPixbufExt, GdkSurfaceExt};
+pub use crate::device::DeviceExtManual;
 pub use crate::display::DisplayExtManual;
 pub use crate::window::WindowExtManual;
 
