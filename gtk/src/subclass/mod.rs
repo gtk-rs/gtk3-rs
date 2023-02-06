@@ -24,12 +24,14 @@ pub mod header_bar;
 pub mod icon_view;
 pub mod list_box;
 pub mod list_box_row;
+pub mod menu_button;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 pub mod plug;
 pub mod scrolled_window;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 pub mod socket;
 pub mod stack;
+pub mod toggle_button;
 pub mod tree_view;
 pub mod widget;
 pub mod window;
@@ -64,12 +66,14 @@ pub mod prelude {
     pub use super::icon_view::{IconViewImpl, IconViewImplExt};
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
+    pub use super::menu_button::MenuButtonImpl;
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     pub use super::plug::{PlugImpl, PlugImplExt};
     pub use super::scrolled_window::{ScrolledWindowImpl, ScrolledWindowImplExt};
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
+    pub use super::toggle_button::ToggleButtonImpl;
     pub use super::tree_view::TreeViewImpl;
     pub use super::widget::{
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
