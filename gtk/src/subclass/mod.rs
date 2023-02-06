@@ -30,6 +30,7 @@ pub mod scrolled_window;
 #[cfg(any(gdk_backend = "x11", feature = "dox"))]
 pub mod socket;
 pub mod stack;
+pub mod toggle_button;
 pub mod tree_view;
 pub mod widget;
 pub mod window;
@@ -70,6 +71,7 @@ pub mod prelude {
     #[cfg(any(gdk_backend = "x11", feature = "dox"))]
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
+    pub use super::toggle_button::ToggleButtonImpl;
     pub use super::tree_view::TreeViewImpl;
     pub use super::widget::{
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
