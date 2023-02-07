@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/device.rs`."><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-0ef3deca4ed45ad8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-f501212b8b071243.css"><link rel="stylesheet" disabled href="../../static.files/dark-e92fc12c34ff89d3.css"><link rel="stylesheet" disabled href="../../static.files/ayu-c8c85693c8a4f9db.css"><script id="default-settings" ></script><script src="../../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-364b95f387bc3166.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/device.rs`."><title>device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-0ef3deca4ed45ad8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-f501212b8b071243.css"><link rel="stylesheet" disabled href="../../static.files/dark-e92fc12c34ff89d3.css"><link rel="stylesheet" disabled href="../../static.files/ayu-a0090c8b1ced384f.css"><script id="default-settings" ></script><script src="../../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-364b95f387bc3166.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -145,6 +145,12 @@
 <a href="#72" id="72">72</a>
 <a href="#73" id="73">73</a>
 <a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::AxisUse;
@@ -157,19 +163,10 @@
 <span class="kw">use </span>std::mem;
 <span class="kw">use </span>std::ptr;
 
-<span class="kw">impl </span>Device {
+<span class="kw">pub trait </span>DeviceExtManual: <span class="lifetime">&#39;static </span>{
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_axis&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_axis&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_axis(<span class="kw-2">&amp;</span><span class="self">self</span>, axes: <span class="kw-2">&amp;mut </span>[f64], use_: AxisUse, value: <span class="kw-2">&amp;mut </span>f64) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gdk_device_get_axis(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                axes.as_mut_ptr(),
-                use_.into_glib(),
-                value,
-            ))
-        }
-    }
+    </span><span class="kw">fn </span>is_axis(<span class="kw-2">&amp;</span><span class="self">self</span>, axes: <span class="kw-2">&amp;mut </span>[f64], use_: AxisUse, value: <span class="kw-2">&amp;mut </span>f64) -&gt; bool;
 
     <span class="doccomment">/// Obtains the motion history for a pointer device; given a starting and
     /// ending timestamp, return all events in the motion history for
@@ -199,12 +196,27 @@
     ///  [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_get_history&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_history&quot;</span>)]
-    </span><span class="kw">pub fn </span>history&lt;P: IsA&lt;Window&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>P, start: u32, stop: u32) -&gt; Vec&lt;TimeCoord&gt; {
+    </span><span class="kw">fn </span>history&lt;P: IsA&lt;Window&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>P, start: u32, stop: u32) -&gt; Vec&lt;TimeCoord&gt;;
+}
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Device&gt;&gt; DeviceExtManual <span class="kw">for </span>O {
+    <span class="kw">fn </span>is_axis(<span class="kw-2">&amp;</span><span class="self">self</span>, axes: <span class="kw-2">&amp;mut </span>[f64], use_: AxisUse, value: <span class="kw-2">&amp;mut </span>f64) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gdk_device_get_axis(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                axes.as_mut_ptr(),
+                use_.into_glib(),
+                value,
+            ))
+        }
+    }
+
+    <span class="kw">fn </span>history&lt;P: IsA&lt;Window&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>P, start: u32, stop: u32) -&gt; Vec&lt;TimeCoord&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>events = ptr::null_mut();
             <span class="kw">let </span><span class="kw-2">mut </span>n_events = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret: bool = from_glib(ffi::gdk_device_get_history(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
                 window.as_ref().to_glib_none().<span class="number">0</span>,
                 start,
                 stop,
@@ -220,4 +232,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (75a0be98f 2023-02-05)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (e1eaa2d5d 2023-02-06)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

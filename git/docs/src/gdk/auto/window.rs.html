@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0ef3deca4ed45ad8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-f501212b8b071243.css"><link rel="stylesheet" disabled href="../../../static.files/dark-e92fc12c34ff89d3.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-c8c85693c8a4f9db.css"><script id="default-settings" ></script><script src="../../../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-364b95f387bc3166.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/window.rs`."><title>window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0ef3deca4ed45ad8.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-f501212b8b071243.css"><link rel="stylesheet" disabled href="../../../static.files/dark-e92fc12c34ff89d3.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-a0090c8b1ced384f.css"><script id="default-settings" ></script><script src="../../../static.files/storage-3891ce972e3a2bf8.js"></script><script defer src="../../../static.files/source-script-ea63cb6500f71309.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-364b95f387bc3166.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2970,6 +2970,9 @@
 <a href="#2897" id="2897">2897</a>
 <a href="#2898" id="2898">2898</a>
 <a href="#2899" id="2899">2899</a>
+<a href="#2900" id="2900">2900</a>
+<a href="#2901" id="2901">2901</a>
+<a href="#2902" id="2902">2902</a>
 </pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -3177,7 +3180,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_begin_move_drag_for_device&quot;</span>)]
     </span><span class="kw">pub fn </span>begin_move_drag_for_device(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        device: <span class="kw-2">&amp;</span>Device,
+        device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;,
         button: i32,
         root_x: i32,
         root_y: i32,
@@ -3186,7 +3189,7 @@
         <span class="kw">unsafe </span>{
             ffi::gdk_window_begin_move_drag_for_device(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 button,
                 root_x,
                 root_y,
@@ -3253,7 +3256,7 @@
     </span><span class="kw">pub fn </span>begin_resize_drag_for_device(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         edge: WindowEdge,
-        device: <span class="kw-2">&amp;</span>Device,
+        device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;,
         button: i32,
         root_x: i32,
         root_y: i32,
@@ -3263,7 +3266,7 @@
             ffi::gdk_window_begin_resize_drag_for_device(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
                 edge.into_glib(),
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 button,
                 root_x,
                 root_y,
@@ -3642,11 +3645,11 @@
     ///  cursor of the window
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_cursor&quot;</span>)]
-    </span><span class="kw">pub fn </span>device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; <span class="prelude-ty">Option</span>&lt;Cursor&gt; {
+    </span><span class="kw">pub fn </span>device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Cursor&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_window_get_device_cursor(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
             ))
         }
     }
@@ -3660,11 +3663,11 @@
     /// device event mask for `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_events&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_events&quot;</span>)]
-    </span><span class="kw">pub fn </span>device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; EventMask {
+    </span><span class="kw">pub fn </span>device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;) -&gt; EventMask {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_window_get_device_events(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
             ))
         }
     }
@@ -3680,7 +3683,7 @@
     /// # Returns
     ///
     /// The window underneath `device`
-    /// (as with [`Device::window_at_position()`][crate::Device::window_at_position()]), or [`None`] if the
+    /// (as with [`DeviceExt::window_at_position()`][crate::prelude::DeviceExt::window_at_position()]), or [`None`] if the
     /// window is not known to GDK.
     ///
     /// ## `x`
@@ -3693,14 +3696,17 @@
     /// return location for the modifier mask, or [`None`].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_get_device_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_position&quot;</span>)]
-    </span><span class="kw">pub fn </span>device_position(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, i32, i32, ModifierType) {
+    </span><span class="kw">pub fn </span>device_position(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;,
+    ) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, i32, i32, ModifierType) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>mask = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = from_glib_none(ffi::gdk_window_get_device_position(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
@@ -3723,7 +3729,7 @@
     /// # Returns
     ///
     /// The window underneath `device`
-    /// (as with [`Device::window_at_position()`][crate::Device::window_at_position()]), or [`None`] if the
+    /// (as with [`DeviceExt::window_at_position()`][crate::prelude::DeviceExt::window_at_position()]), or [`None`] if the
     /// window is not known to GDK.
     ///
     /// ## `x`
@@ -3738,7 +3744,7 @@
     #[doc(alias = <span class="string">&quot;get_device_position_double&quot;</span>)]
     </span><span class="kw">pub fn </span>device_position_double(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        device: <span class="kw-2">&amp;</span>Device,
+        device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;,
     ) -&gt; (<span class="prelude-ty">Option</span>&lt;Window&gt;, f64, f64, ModifierType) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
@@ -3746,7 +3752,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>mask = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = from_glib_none(ffi::gdk_window_get_device_position_double(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 x.as_mut_ptr(),
                 y.as_mut_ptr(),
                 mask.as_mut_ptr(),
@@ -4961,11 +4967,11 @@
     /// ## `cursor`
     /// a [`Cursor`][crate::Cursor]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_device_cursor&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device, cursor: <span class="kw-2">&amp;</span>Cursor) {
+    </span><span class="kw">pub fn </span>set_device_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;, cursor: <span class="kw-2">&amp;</span>Cursor) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_device_cursor(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 cursor.to_glib_none().<span class="number">0</span>,
             );
         }
@@ -4983,11 +4989,11 @@
     /// ## `event_mask`
     /// event mask for `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_window_set_device_events&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span>Device, event_mask: EventMask) {
+    </span><span class="kw">pub fn </span>set_device_events(<span class="kw-2">&amp;</span><span class="self">self</span>, device: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Device&gt;, event_mask: EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gdk_window_set_device_events(
                 <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                device.to_glib_none().<span class="number">0</span>,
+                device.as_ref().to_glib_none().<span class="number">0</span>,
                 event_mask.into_glib(),
             );
         }
@@ -5870,4 +5876,4 @@
     }
 }
 </code></pre></div>
-</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (75a0be98f 2023-02-05)" data-search-js="search-98d53477a794af0b.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</section></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (e1eaa2d5d 2023-02-06)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
