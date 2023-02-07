@@ -40,13 +40,11 @@ generate = [
     "Gdk.InputSource",
     "Gdk.ModifierIntent",
     "Gdk.ModifierType",
-    "Gdk.Monitor",
     "Gdk.NotifyType",
     "Gdk.OwnerChange",
     "Gdk.PropertyState",
     "Gdk.PropMode",
     "Gdk.ScrollDirection",
-    "Gdk.Seat",
     "Gdk.SeatCapabilities",
     "Gdk.SettingAction",
     "Gdk.SubpixelLayout",
@@ -240,6 +238,8 @@ status = "generate"
 [[object]]
 name = "Gdk.Device"
 status = "generate"
+final_type = false
+manual_traits = ["DeviceExtManual"]
     [[object.function]]
     name = "get_display"
         [object.function.return]
@@ -369,6 +369,11 @@ status = "generate"
     manual = true
 
 [[object]]
+name = "Gdk.Monitor"
+status = "generate"
+final_type = false
+
+[[object]]
 name = "Gdk.Rectangle"
 status = "generate"
 boxed_inline = true
@@ -420,6 +425,11 @@ status = "generate"
     # This is an associated function which clashes with
     # the actual method getter after auto-renaming.
     rename = "screen_width_mm"
+
+[[object]]
+name = "Gdk.Seat"
+status = "generate"
+final_type = false
 
 [[object]]
 name = "Gdk.Visual"
