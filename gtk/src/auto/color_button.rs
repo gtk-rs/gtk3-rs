@@ -80,7 +80,7 @@ impl ColorButtonBuilder {
 
     pub fn rgba(self, rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self.builder.property("rgba", rgba.clone()),
+            builder: self.builder.property("rgba", rgba),
         }
     }
 

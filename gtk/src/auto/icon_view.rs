@@ -1088,7 +1088,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
             let icon_view = from_glib_borrow(icon_view);
             let path = from_glib_borrow(path);
             let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&icon_view, &path);
+            (*callback)(&icon_view, &path)
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;

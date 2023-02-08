@@ -311,7 +311,7 @@ impl FontChooserWidgetBuilder {
 
     pub fn font_desc(self, font_desc: &pango::FontDescription) -> Self {
         Self {
-            builder: self.builder.property("font-desc", font_desc.clone()),
+            builder: self.builder.property("font-desc", font_desc),
         }
     }
 

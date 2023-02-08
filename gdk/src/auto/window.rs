@@ -688,12 +688,12 @@ impl Window {
             let window = from_glib_borrow(window);
             let callback: *mut Option<&mut dyn (FnMut(&Window) -> bool)> =
                 user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Window) -> bool)>;
-            let res = if let Some(ref mut callback) = *callback {
+            if let Some(ref mut callback) = *callback {
                 callback(&window)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let child_func = if child_func_data.is_some() {
             Some(child_func_func as _)

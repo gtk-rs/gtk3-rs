@@ -725,12 +725,11 @@ impl<O: IsA<Assistant>> AssistantExt for O {
             data: glib::ffi::gpointer,
         ) -> libc::c_int {
             let callback: &Option<Box_<dyn Fn(i32) -> i32 + 'static>> = &*(data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(current_page)
             } else {
                 panic!("cannot get closure...")
-            };
-            res
+            }
         }
         let page_func = if page_func_data.is_some() {
             Some(page_func_func as _)

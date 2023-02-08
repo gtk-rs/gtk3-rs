@@ -46,8 +46,7 @@ impl FileFilter {
         ) -> glib::ffi::gboolean {
             let filter_info = from_glib_borrow(filter_info);
             let callback: &P = &*(data as *mut _);
-            let res = (*callback)(&filter_info);
-            res.into_glib()
+            (*callback)(&filter_info).into_glib()
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn notify_func<P: Fn(&FileFilterInfo) -> bool + 'static>(

@@ -222,7 +222,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
             let path = from_glib_borrow(path);
             let iter = from_glib_borrow(iter);
             let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&model, &path, &iter);
+            (*callback)(&model, &path, &iter)
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
@@ -262,12 +262,12 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
             let callback: &Option<
                 Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>,
             > = &*(data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&selection, &model, &path, path_currently_selected)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let func = if func_data.is_some() {
             Some(func_func as _)

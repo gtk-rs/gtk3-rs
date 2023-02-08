@@ -429,7 +429,7 @@ pub fn print_run_page_setup_dialog_async<P: FnOnce(&PageSetup) + Send + Sync + '
     ) {
         let page_setup = from_glib_borrow(page_setup);
         let callback: Box_<P> = Box_::from_raw(data as *mut _);
-        (*callback)(&page_setup);
+        (*callback)(&page_setup)
     }
     let done_cb = Some(done_cb_func::<P> as _);
     let super_callback0: Box_<P> = done_cb_data;

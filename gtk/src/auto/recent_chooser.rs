@@ -416,8 +416,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
             let a = from_glib_borrow(a);
             let b = from_glib_borrow(b);
             let callback: &P = &*(user_data as *mut _);
-            let res = (*callback)(&a, &b);
-            res
+            (*callback)(&a, &b)
         }
         let sort_func = Some(sort_func_func::<P> as _);
         unsafe extern "C" fn data_destroy_func<P: Fn(&RecentInfo, &RecentInfo) -> i32 + 'static>(
