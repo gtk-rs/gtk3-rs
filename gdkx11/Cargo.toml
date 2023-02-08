@@ -27,9 +27,9 @@ features = ["dox"]
 libc = "0.2"
 x11 = "2.18"
 ffi = { package = "gdkx11-sys", path = "sys" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-gdk = { path = "../gdk" }
-gio = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+glib = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
+gdk = { version = "0.17", path = "../gdk" }
+gio = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
