@@ -116,9 +116,7 @@ impl CellViewBuilder {
 
     pub fn background_rgba(self, background_rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self
-                .builder
-                .property("background-rgba", background_rgba.clone()),
+            builder: self.builder.property("background-rgba", background_rgba),
         }
     }
 

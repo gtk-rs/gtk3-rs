@@ -160,7 +160,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
                 callback(&cell_layout, &cell, &tree_model, &iter)
             } else {
                 panic!("cannot get closure...")
-            };
+            }
         }
         let func = if func_data.is_some() {
             Some(func_func as _)

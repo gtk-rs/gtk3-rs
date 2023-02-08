@@ -1516,7 +1516,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
             let tree_model = from_glib_borrow(tree_model);
             let iter = from_glib_borrow(iter);
             let callback: &P = &*(data as *mut _);
-            (*callback)(&tree_column, &cell, &tree_model, &iter);
+            (*callback)(&tree_column, &cell, &tree_model, &iter)
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn dnotify_func<
@@ -1591,7 +1591,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
             let tree_view = from_glib_borrow(tree_view);
             let path = from_glib_borrow(path);
             let callback: *mut P = user_data as *const _ as usize as *mut P;
-            (*callback)(&tree_view, &path);
+            (*callback)(&tree_view, &path)
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
@@ -1715,12 +1715,12 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                         + 'static,
                 >,
             > = &*(data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&tree_view, &column, &prev_column, &next_column)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let func = if func_data.is_some() {
             Some(func_func as _)
@@ -1917,12 +1917,12 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
             let iter = from_glib_borrow(iter);
             let callback: &Option<Box_<dyn Fn(&TreeModel, &TreeIter) -> bool + 'static>> =
                 &*(data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&model, &iter)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let func = if func_data.is_some() {
             Some(func_func as _)
@@ -1988,8 +1988,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
             let key: Borrowed<glib::GString> = from_glib_borrow(key);
             let iter = from_glib_borrow(iter);
             let callback: &P = &*(search_data as *mut _);
-            let res = (*callback)(&model, column, key.as_str(), &iter);
-            res.into_glib()
+            (*callback)(&model, column, key.as_str(), &iter).into_glib()
         }
         let search_equal_func = Some(search_equal_func_func::<P> as _);
         unsafe extern "C" fn search_destroy_func<
@@ -2026,7 +2025,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
                 callback(&tree_view, &search_dialog)
             } else {
                 panic!("cannot get closure...")
-            };
+            }
         }
         let func = if func_data.is_some() {
             Some(func_func as _)

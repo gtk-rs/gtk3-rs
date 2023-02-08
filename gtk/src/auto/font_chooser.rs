@@ -246,12 +246,12 @@ impl<O: IsA<FontChooser>> FontChooserExt for O {
             let callback: &Option<
                 Box_<dyn Fn(&pango::FontFamily, &pango::FontFace) -> bool + 'static>,
             > = &*(data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&family, &face)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let filter = if filter_data.is_some() {
             Some(filter_func as _)

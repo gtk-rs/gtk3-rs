@@ -107,7 +107,7 @@ impl CellRendererPixbufBuilder {
 
     pub fn surface(self, surface: &cairo::Surface) -> Self {
         Self {
-            builder: self.builder.property("surface", surface.clone()),
+            builder: self.builder.property("surface", surface),
         }
     }
 
@@ -123,7 +123,7 @@ impl CellRendererPixbufBuilder {
         Self {
             builder: self
                 .builder
-                .property("cell-background-rgba", cell_background_rgba.clone()),
+                .property("cell-background-rgba", cell_background_rgba),
         }
     }
 

@@ -521,8 +521,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         ) -> *mut ffi::GtkWidget {
             let item = from_glib_borrow(item);
             let callback: &P = &*(user_data as *mut _);
-            let res = (*callback)(&item);
-            res.to_glib_full()
+            (*callback)(&item).to_glib_full()
         }
         let create_widget_func = Some(create_widget_func_func::<P> as _);
         unsafe extern "C" fn user_data_free_func_func<P: Fn(&glib::Object) -> Widget + 'static>(
@@ -657,7 +656,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
             let box_ = from_glib_borrow(box_);
             let child = from_glib_borrow(child);
             let callback: *mut P = user_data as *const _ as usize as *mut P;
-            (*callback)(&box_, &child);
+            (*callback)(&box_, &child)
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
@@ -695,12 +694,12 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
             let child = from_glib_borrow(child);
             let callback: &Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>> =
                 &*(user_data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&child)
             } else {
                 panic!("cannot get closure...")
-            };
-            res.into_glib()
+            }
+            .into_glib()
         }
         let filter_func = if filter_func_data.is_some() {
             Some(filter_func_func as _)
@@ -782,12 +781,11 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
             let child2 = from_glib_borrow(child2);
             let callback: &Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>> =
                 &*(user_data as *mut _);
-            let res = if let Some(ref callback) = *callback {
+            if let Some(ref callback) = *callback {
                 callback(&child1, &child2)
             } else {
                 panic!("cannot get closure...")
-            };
-            res
+            }
         }
         let sort_func = if sort_func_data.is_some() {
             Some(sort_func_func as _)

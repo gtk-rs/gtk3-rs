@@ -221,7 +221,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         ) {
             let widget = from_glib_borrow(widget);
             let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&widget);
+            (*callback)(&widget)
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: &P = &callback_data;
@@ -242,7 +242,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         ) {
             let widget = from_glib_borrow(widget);
             let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&widget);
+            (*callback)(&widget)
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: &P = &callback_data;

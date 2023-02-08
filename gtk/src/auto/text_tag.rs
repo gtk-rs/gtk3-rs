@@ -91,9 +91,7 @@ impl TextTagBuilder {
 
     pub fn background_rgba(self, background_rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self
-                .builder
-                .property("background-rgba", background_rgba.clone()),
+            builder: self.builder.property("background-rgba", background_rgba),
         }
     }
 
@@ -153,7 +151,7 @@ impl TextTagBuilder {
 
     pub fn font_desc(self, font_desc: &pango::FontDescription) -> Self {
         Self {
-            builder: self.builder.property("font-desc", font_desc.clone()),
+            builder: self.builder.property("font-desc", font_desc),
         }
     }
 
@@ -179,9 +177,7 @@ impl TextTagBuilder {
 
     pub fn foreground_rgba(self, foreground_rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self
-                .builder
-                .property("foreground-rgba", foreground_rgba.clone()),
+            builder: self.builder.property("foreground-rgba", foreground_rgba),
         }
     }
 
@@ -283,10 +279,9 @@ impl TextTagBuilder {
 
     pub fn paragraph_background_rgba(self, paragraph_background_rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self.builder.property(
-                "paragraph-background-rgba",
-                paragraph_background_rgba.clone(),
-            ),
+            builder: self
+                .builder
+                .property("paragraph-background-rgba", paragraph_background_rgba),
         }
     }
 
@@ -422,7 +417,7 @@ impl TextTagBuilder {
         Self {
             builder: self
                 .builder
-                .property("strikethrough-rgba", strikethrough_rgba.clone()),
+                .property("strikethrough-rgba", strikethrough_rgba),
         }
     }
 
@@ -456,7 +451,7 @@ impl TextTagBuilder {
 
     pub fn tabs(self, tabs: &pango::TabArray) -> Self {
         Self {
-            builder: self.builder.property("tabs", tabs.clone()),
+            builder: self.builder.property("tabs", tabs),
         }
     }
 
@@ -474,9 +469,7 @@ impl TextTagBuilder {
 
     pub fn underline_rgba(self, underline_rgba: &gdk::RGBA) -> Self {
         Self {
-            builder: self
-                .builder
-                .property("underline-rgba", underline_rgba.clone()),
+            builder: self.builder.property("underline-rgba", underline_rgba),
         }
     }
 

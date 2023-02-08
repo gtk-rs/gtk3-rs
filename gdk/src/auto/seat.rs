@@ -124,7 +124,7 @@ impl<O: IsA<Seat>> SeatExt for O {
                 callback(&seat, &window)
             } else {
                 panic!("cannot get closure...")
-            };
+            }
         }
         let prepare_func = if prepare_func_data.is_some() {
             Some(prepare_func_func as _)

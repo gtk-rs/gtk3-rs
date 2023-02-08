@@ -550,8 +550,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         ) -> *mut libc::c_char {
             let calendar = from_glib_borrow(calendar);
             let callback: &P = &*(user_data as *mut _);
-            let res = (*callback)(&calendar, year, month, day);
-            res.to_glib_full()
+            (*callback)(&calendar, year, month, day).to_glib_full()
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn destroy_func<
