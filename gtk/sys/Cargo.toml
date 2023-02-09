@@ -63,6 +63,7 @@ git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.atk]
 package = "atk-sys"
+version = "0.17"
 path = "../../atk/sys"
 
 [dependencies.gdk_pixbuf]
@@ -73,6 +74,7 @@ git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gdk]
 package = "gdk-sys"
+version = "0.17"
 path = "../../gdk/sys"
 
 [dependencies.pango]
