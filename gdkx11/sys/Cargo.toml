@@ -37,10 +37,14 @@ path = "../../gdk/sys"
 
 [dependencies.glib]
 package = "glib-sys"
+version = "0.17"
+branch = "0.17"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.cairo]
 package = "cairo-sys-rs"
+version = "0.17"
+branch = "0.17"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 optional = true
 

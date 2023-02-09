@@ -21,9 +21,9 @@ dox = ["ffi/dox", "gdk/dox", "glib/dox"]
 features = ["dox"]
 
 [dependencies]
-ffi = { path = "./sys", package = "gdkwayland-sys" }
-gdk = { path = "../gdk" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+ffi = { version = "0.17", path = "./sys", package = "gdkwayland-sys" }
+gdk = { version = "0.17", path = "../gdk" }
+glib = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 libc = "0.2"
 wayland-client = "0.30"
 wayland-backend = { version = "0.1", features = ["client_system"] }
