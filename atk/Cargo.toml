@@ -30,7 +30,7 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-ffi = { package = "atk-sys", path = "sys" }
+ffi = { package = "atk-sys", version = "0.17", path = "sys" }
 glib = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 
 [dev-dependencies]
