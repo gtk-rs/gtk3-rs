@@ -29,7 +29,7 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-ffi = { package = "gdk-sys", path = "sys" }
+ffi = { package = "gdk-sys", version = "0.17", path = "sys" }
 cairo-rs = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 gdk-pixbuf = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 gio = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }

@@ -26,7 +26,7 @@ features = ["dox"]
 [dependencies]
 libc = "0.2"
 x11 = "2.18"
-ffi = { package = "gdkx11-sys", path = "sys" }
+ffi = { package = "gdkx11-sys", version = "0.17", path = "sys" }
 glib = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
 gdk = { version = "0.17", path = "../gdk" }
 gio = { branch = "0.17", version = "0.17", git = "https://github.com/gtk-rs/gtk-rs-core" }
