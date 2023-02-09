@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -97,18 +97,18 @@
         end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>
     ) -&gt; <a class="struct" href="../struct.TextRectangle.html" title="struct atk::TextRectangle">TextRectangle</a>;
-<span class="item-spacer"></span>    fn <a href="#tymethod.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
 <span class="item-spacer"></span>    fn <a href="#tymethod.string_at_offset" class="fn">string_at_offset</a>(
         &amp;self,
         offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>
-    ) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
-<span class="item-spacer"></span>    fn <a href="#tymethod.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
+    ) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
+<span class="item-spacer"></span>    fn <a href="#tymethod.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;;
 <span class="item-spacer"></span>    fn <a href="#tymethod.text_at_offset" class="fn">text_at_offset</a>(
         &amp;self,
         offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>
-    ) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
+    ) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
 <span class="item-spacer"></span>    fn <a href="#tymethod.remove_selection" class="fn">remove_selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.scroll_substring_to" class="fn">scroll_substring_to</a>(
         &amp;self,
@@ -134,25 +134,25 @@
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
         &amp;self,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
         &amp;self,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_text_insert" class="fn">connect_text_insert</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
         &amp;self,
         detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_text_remove" class="fn">connect_text_remove</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
         &amp;self,
         detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
         &amp;self,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 </details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Text.html" title="Text"><code>Text</code></a> methods.</p>
 <h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
 <p><a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>NoOpObject</code></a>, <a href="../struct.Text.html" title="crate::Text"><code>Text</code></a></p>
@@ -248,7 +248,7 @@ for which boundary information is required.</p>
 <p>Specify whether coordinates are relative to the screen or widget window.</p>
 <h5 id="returns-8"><a href="#returns-8">Returns</a></h5><h6 id="rect-1"><a href="#rect-1"><code>rect</code></a></h6>
 <p>A pointer to a AtkTextRectangle which is filled in by this function.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.selection" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#292">source</a><h4 class="code-header">fn <a href="#tymethod.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the text from the specified selection.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.selection" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#292">source</a><h4 class="code-header">fn <a href="#tymethod.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the text from the specified selection.</p>
 <h6 id="selection_num"><a href="#selection_num"><code>selection_num</code></a></h6>
 <p>The selection number. The selected regions are
 assigned numbers that correspond to how far the region is from the
@@ -267,7 +267,7 @@ of the selected region</p>
     &amp;self,
     offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>
-) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets a portion of the text exposed through an <a href="../struct.Text.html" title="crate::Text"><code>Text</code></a> according to a given <code>offset</code>
+) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets a portion of the text exposed through an <a href="../struct.Text.html" title="crate::Text"><code>Text</code></a> according to a given <code>offset</code>
 and a specific <code>granularity</code>, along with the start and end offsets defining the
 boundaries of such a portion of text.</p>
 <p>If <code>granularity</code> is ATK_TEXT_GRANULARITY_CHAR the character at the
@@ -305,7 +305,7 @@ in the case of error (e.g. invalid offset, not implemented)</p>
 <h6 id="end_offset-3"><a href="#end_offset-3"><code>end_offset</code></a></h6>
 <p>the offset of the first character after the returned string,
 or -1 in the case of error (e.g. invalid offset, not implemented)</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.text" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#364">source</a><h4 class="code-header">fn <a href="#tymethod.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.text" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#364">source</a><h4 class="code-header">fn <a href="#tymethod.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
 <h6 id="start_offset-4"><a href="#start_offset-4"><code>start_offset</code></a></h6>
 <p>a starting character offset within <code>self</code></p>
 <h6 id="end_offset-4"><a href="#end_offset-4"><code>end_offset</code></a></h6>
@@ -318,7 +318,7 @@ string.</p>
     &amp;self,
     offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>
-) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
+) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
 <p>If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character at the
 offset is returned.</p>
 <p>If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
@@ -438,13 +438,13 @@ the selection</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_text_attributes_changed" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#525">source</a><h4 class="code-header">fn <a href="#tymethod.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
     &amp;self,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-attributes-changed” signal is emitted when the text
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-attributes-changed” signal is emitted when the text
 attributes of the text of an object which implements AtkText
 changes.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_text_caret_moved" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#533">source</a><h4 class="code-header">fn <a href="#tymethod.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
     &amp;self,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-caret-moved” signal is emitted when the caret
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-caret-moved” signal is emitted when the caret
 position of the text of an object which implements AtkText
 changes.</p>
 <h6 id="arg1"><a href="#arg1"><code>arg1</code></a></h6>
@@ -453,7 +453,7 @@ changes.</p>
     &amp;self,
     detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-insert” signal is emitted when a new text is
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-insert” signal is emitted when a new text is
 inserted. If the signal was not triggered by the user
 (e.g. typing or pasting text), the “system” detail should be
 included.</p>
@@ -467,7 +467,7 @@ included.</p>
     &amp;self,
     detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-remove” signal is emitted when a new text is
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-remove” signal is emitted when a new text is
 removed. If the signal was not triggered by the user
 (e.g. typing or pasting text), the “system” detail should be
 included.</p>
@@ -480,6 +480,6 @@ included.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_text_selection_changed" class="method"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#572">source</a><h4 class="code-header">fn <a href="#tymethod.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
     &amp;self,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-selection-changed” signal is emitted when the
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-selection-changed” signal is emitted when the
 selected text of an object which implements AtkText changes.</p>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-TextExt-for-O" class="impl"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#575-963">source</a><a href="#impl-TextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt;&gt; <a class="trait" href="trait.TextExt.html" title="trait atk::prelude::TextExt">TextExt</a> for O</h3></section></div><script src="../../implementors/atk/auto/text/trait.TextExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-TextExt-for-O" class="impl"><a class="srclink rightside" href="../../src/atk/auto/text.rs.html#575-963">source</a><a href="#impl-TextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt;&gt; <a class="trait" href="trait.TextExt.html" title="trait atk::prelude::TextExt">TextExt</a> for O</h3></section></div><script src="../../implementors/atk/auto/text/trait.TextExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

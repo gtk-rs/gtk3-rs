@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -72,14 +72,14 @@
 
 
 <nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In gdkx11::functions</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">gdkx11</a>::<wbr><a href="index.html">functions</a>::<wbr><a class="fn" href="#">x11_device_manager_lookup</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gdkx11/auto/functions.rs.html#72-83">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn x11_device_manager_lookup(
-    device_manager: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.X11DeviceManagerCore.html" title="struct gdkx11::X11DeviceManagerCore">X11DeviceManagerCore</a>&gt;,
+    device_manager: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.X11DeviceManagerCore.html" title="struct gdkx11::X11DeviceManagerCore">X11DeviceManagerCore</a>&gt;,
     device_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
-) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.X11DeviceCore.html" title="struct gdkx11::X11DeviceCore">X11DeviceCore</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns the <a href="https://gtk-rs.org/gtk3-rs/stable/0.17/docs/gdk/auto/device/struct.Device.html" title="crate::gdk::Device"><code>gdk::Device</code></a> that wraps the given device ID.</p>
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.X11DeviceCore.html" title="struct gdkx11::X11DeviceCore">X11DeviceCore</a>&gt;</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Returns the <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/struct.Device.html" title="crate::gdk::Device"><code>gdk::Device</code></a> that wraps the given device ID.</p>
 <h3 id="device_manager"><a href="#device_manager"><code>device_manager</code></a></h3>
-<p>a <a href="https://gtk-rs.org/gtk3-rs/stable/0.17/docs/gdk/auto/device_manager/struct.DeviceManager.html" title="crate::gdk::DeviceManager"><code>gdk::DeviceManager</code></a></p>
+<p>a <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device_manager/struct.DeviceManager.html" title="crate::gdk::DeviceManager"><code>gdk::DeviceManager</code></a></p>
 <h3 id="device_id"><a href="#device_id"><code>device_id</code></a></h3>
 <p>a device ID, as understood by the XInput2 protocol</p>
 <h2 id="returns"><a href="#returns">Returns</a></h2>
-<p>The <a href="https://gtk-rs.org/gtk3-rs/stable/0.17/docs/gdk/auto/device/struct.Device.html" title="crate::gdk::Device"><code>gdk::Device</code></a> wrapping the device ID,
+<p>The <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/struct.Device.html" title="crate::gdk::Device"><code>gdk::Device</code></a> wrapping the device ID,
 or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="None"><code>None</code></a> if the given ID doesn’t currently represent a device.</p>
 </div></details></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

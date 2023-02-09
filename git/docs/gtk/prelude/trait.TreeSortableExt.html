@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -78,7 +78,7 @@
 <span class="item-spacer"></span>    fn <a href="#tymethod.connect_sort_column_changed" class="fn">connect_sort_column_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
         &amp;self,
         f: F
-    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.TreeSortable.html" title="TreeSortable"><code>TreeSortable</code></a> methods.</p>
 <h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
 <p><a href="../struct.ListStore.html" title="crate::ListStore"><code>ListStore</code></a>, <a href="../struct.TreeModelSort.html" title="crate::TreeModelSort"><code>TreeModelSort</code></a>, <a href="../struct.TreeSortable.html" title="crate::TreeSortable"><code>TreeSortable</code></a>, <a href="../struct.TreeStore.html" title="crate::TreeStore"><code>TreeStore</code></a></p>
@@ -91,7 +91,7 @@ go back to the default state, or not.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_sort_column_changed" class="method"><a class="srclink rightside" href="../../src/gtk/auto/tree_sortable.rs.html#117">source</a><h4 class="code-header">fn <a href="#tymethod.connect_sort_column_changed" class="fn">connect_sort_column_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
     &amp;self,
     f: F
-) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::sort-column-changed signal is emitted when the sort column
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::sort-column-changed signal is emitted when the sort column
 or sort order of <code>sortable</code> is changed. The signal is emitted before
 the contents of <code>sortable</code> are resorted.</p>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-TreeSortableExt-for-O" class="impl"><a class="srclink rightside" href="../../src/gtk/auto/tree_sortable.rs.html#120-158">source</a><a href="#impl-TreeSortableExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeSortable.html" title="struct gtk::TreeSortable">TreeSortable</a>&gt;&gt; <a class="trait" href="trait.TreeSortableExt.html" title="trait gtk::prelude::TreeSortableExt">TreeSortableExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/tree_sortable/trait.TreeSortableExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-TreeSortableExt-for-O" class="impl"><a class="srclink rightside" href="../../src/gtk/auto/tree_sortable.rs.html#120-158">source</a><a href="#impl-TreeSortableExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeSortable.html" title="struct gtk::TreeSortable">TreeSortable</a>&gt;&gt; <a class="trait" href="trait.TreeSortableExt.html" title="trait gtk::prelude::TreeSortableExt">TreeSortableExt</a> for O</h3></section></div><script src="../../implementors/gtk/auto/tree_sortable/trait.TreeSortableExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

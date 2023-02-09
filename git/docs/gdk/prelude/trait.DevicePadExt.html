@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -104,4 +104,4 @@ buttons/strip/rings that is affected collectively by a same
 current mode.</p>
 <h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
 <p>The number of button/ring/strip groups in the pad.</p>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-DevicePadExt-for-O" class="impl"><a class="srclink rightside" href="../../src/gdk/auto/device_pad.rs.html#98-122">source</a><a href="#impl-DevicePadExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.DevicePad.html" title="struct gdk::DevicePad">DevicePad</a>&gt;&gt; <a class="trait" href="trait.DevicePadExt.html" title="trait gdk::prelude::DevicePadExt">DevicePadExt</a> for O</h3></section></div><script src="../../implementors/gdk/auto/device_pad/trait.DevicePadExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-DevicePadExt-for-O" class="impl"><a class="srclink rightside" href="../../src/gdk/auto/device_pad.rs.html#98-122">source</a><a href="#impl-DevicePadExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.DevicePad.html" title="struct gdk::DevicePad">DevicePad</a>&gt;&gt; <a class="trait" href="trait.DevicePadExt.html" title="trait gdk::prelude::DevicePadExt">DevicePadExt</a> for O</h3></section></div><script src="../../implementors/gdk/auto/device_pad/trait.DevicePadExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
