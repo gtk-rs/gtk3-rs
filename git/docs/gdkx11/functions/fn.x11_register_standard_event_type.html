@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.17" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.17") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,11 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In gdkx11::functions</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">gdkx11</a>::<wbr><a href="index.html">functions</a>::<wbr><a class="fn" href="#">x11_register_standard_event_type</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gdkx11/auto/functions.rs.html#248-253">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn x11_register_standard_event_type(<br>    display: &amp;<a class="struct" href="../struct.X11Display.html" title="struct gdkx11::X11Display">X11Display</a>,<br>    event_base: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,<br>    n_events: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a><br>)</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Registers interest in receiving extension events with type codes
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../gdkx11/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In gdkx11::functions</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Function <a href="../index.html">gdkx11</a>::<wbr><a href="index.html">functions</a>::<wbr><a class="fn" href="#">x11_register_standard_event_type</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/gdkx11/auto/functions.rs.html#248-253">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub fn x11_register_standard_event_type(
+    display: &amp;<a class="struct" href="../struct.X11Display.html" title="struct gdkx11::X11Display">X11Display</a>,
+    event_base: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    n_events: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
+)</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Registers interest in receiving extension events with type codes
 between <code>event_base</code> and <code>event_base + n_events - 1</code>.
 The registered events must have the window field in the same place
 as core X events (this is not the case for e.g. XKB extension events).</p>
@@ -82,9 +86,9 @@ GDK may register the events of some X extensions on its own.</p>
 <p>This function should only be needed in unusual circumstances, e.g.
 when filtering XInput extension events on the root window.</p>
 <h3 id="display"><a href="#display"><code>display</code></a></h3>
-<p>a <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a></p>
+<p>a <a href="https://gtk-rs.org/gtk3-rs/stable/0.17/docs/gdk/auto/display/struct.Display.html" title="crate::gdk::Display"><code>gdk::Display</code></a></p>
 <h3 id="event_base"><a href="#event_base"><code>event_base</code></a></h3>
 <p>first event type code to register</p>
 <h3 id="n_events"><a href="#n_events"><code>n_events</code></a></h3>
 <p>number of event type codes to register</p>
-</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (bd39bbb4b 2023-02-07)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>

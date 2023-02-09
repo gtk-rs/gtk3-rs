@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.17" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.17") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -80,7 +80,10 @@
 <span class="item-spacer"></span>    fn <a href="#tymethod.ref_selection" class="fn">ref_selection</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Object.html" title="struct atk::Object">Object</a>&gt;;
 <span class="item-spacer"></span>    fn <a href="#tymethod.remove_selection" class="fn">remove_selection</a>(&amp;self, i: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
 <span class="item-spacer"></span>    fn <a href="#tymethod.select_all_selection" class="fn">select_all_selection</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>;
-<span class="item-spacer"></span>    fn <a href="#tymethod.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(<br>        &amp;self,<br>        f: F<br>    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
+<span class="item-spacer"></span>    fn <a href="#tymethod.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+        &amp;self,
+        f: F
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a>;
 }</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Selection.html" title="Selection"><code>Selection</code></a> methods.</p>
 <h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
 <p><a href="../struct.NoOpObject.html" title="crate::NoOpObject"><code>NoOpObject</code></a>, <a href="../struct.Selection.html" title="crate::Selection"><code>Selection</code></a></p>
@@ -135,6 +138,9 @@ ith selection as opposed to the ith child).</p>
 supports multiple selections.</p>
 <h5 id="returns-6"><a href="#returns-6">Returns</a></h5>
 <p>TRUE if success, FALSE otherwise.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_selection_changed" class="method"><a class="srclink rightside" href="../../src/atk/auto/selection.rs.html#147">source</a><h4 class="code-header">fn <a href="#tymethod.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(<br>    &amp;self,<br>    f: F<br>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “selection-changed” signal is emitted by an object which
+</div></details><details class="toggle method-toggle" open><summary><section id="tymethod.connect_selection_changed" class="method"><a class="srclink rightside" href="../../src/atk/auto/selection.rs.html#147">source</a><h4 class="code-header">fn <a href="#tymethod.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+    &amp;self,
+    f: F
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “selection-changed” signal is emitted by an object which
 implements AtkSelection interface when the selection changes.</p>
-</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-SelectionExt-for-O" class="impl"><a class="srclink rightside" href="../../src/atk/auto/selection.rs.html#150-230">source</a><a href="#impl-SelectionExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Selection.html" title="struct atk::Selection">Selection</a>&gt;&gt; <a class="trait" href="trait.SelectionExt.html" title="trait atk::prelude::SelectionExt">SelectionExt</a> for O</h3></section></div><script src="../../implementors/atk/auto/selection/trait.SelectionExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (bd39bbb4b 2023-02-07)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-SelectionExt-for-O" class="impl"><a class="srclink rightside" href="../../src/atk/auto/selection.rs.html#150-230">source</a><a href="#impl-SelectionExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.17/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Selection.html" title="struct atk::Selection">Selection</a>&gt;&gt; <a class="trait" href="trait.SelectionExt.html" title="trait atk::prelude::SelectionExt">SelectionExt</a> for O</h3></section></div><script src="../../implementors/atk/auto/selection/trait.SelectionExt.js" async></script></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.69.0-nightly (ef934d9b6 2023-02-08)" data-search-js="search-28136cea55c34037.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" ></div></body></html>
