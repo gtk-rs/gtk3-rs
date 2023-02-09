@@ -35,6 +35,7 @@ git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gdk]
 package = "gdk-sys"
+version = "0.17"
 path = "../../gdk/sys"
 
 [build-dependencies]

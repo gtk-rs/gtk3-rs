@@ -16,6 +16,7 @@ branch = "0.17"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 
 [dependencies.gtk]
+version = "0.17"
 path = "../gtk"
 
 [dependencies.pangocairo]
