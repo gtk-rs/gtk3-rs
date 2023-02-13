@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["BoxImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["BoxImpl"]};

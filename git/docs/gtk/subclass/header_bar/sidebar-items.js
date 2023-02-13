@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["HeaderBarImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["HeaderBarImpl"]};

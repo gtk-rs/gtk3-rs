@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["BinImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["BinImpl"]};

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["DrawingAreaImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["DrawingAreaImpl"]};

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["EntryImpl",""],["EntryImplExt",""]]};
+window.SIDEBAR_ITEMS = {"trait":["EntryImpl","EntryImplExt"]};

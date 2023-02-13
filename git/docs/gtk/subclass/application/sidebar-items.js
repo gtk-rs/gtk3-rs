@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["GtkApplicationImpl",""],["GtkApplicationImplExt",""]]};
+window.SIDEBAR_ITEMS = {"trait":["GtkApplicationImpl","GtkApplicationImplExt"]};

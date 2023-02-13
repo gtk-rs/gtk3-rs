@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["CellRendererComboImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["CellRendererComboImpl"]};

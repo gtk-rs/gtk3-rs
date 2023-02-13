@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["MenuButtonImpl",""],["MenuButtonImplExt",""]]};
+window.SIDEBAR_ITEMS = {"trait":["MenuButtonImpl","MenuButtonImplExt"]};

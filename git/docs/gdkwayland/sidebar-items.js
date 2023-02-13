@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["WaylandDevice",""],["WaylandDisplay",""],["WaylandGLContext",""],["WaylandMonitor",""],["WaylandSeat",""],["WaylandWindow",""]]};
+window.SIDEBAR_ITEMS = {"struct":["WaylandDevice","WaylandDisplay","WaylandGLContext","WaylandMonitor","WaylandSeat","WaylandWindow"]};

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["CellRendererProgressImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["CellRendererProgressImpl"]};

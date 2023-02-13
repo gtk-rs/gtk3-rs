@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["TemplateChild",""]],"trait":[["CompositeTemplate",""],["WidgetClassSubclassExt",""],["WidgetImpl",""],["WidgetImplExt",""]]};
+window.SIDEBAR_ITEMS = {"struct":["TemplateChild"],"trait":["CompositeTemplate","WidgetClassSubclassExt","WidgetImpl","WidgetImplExt"]};

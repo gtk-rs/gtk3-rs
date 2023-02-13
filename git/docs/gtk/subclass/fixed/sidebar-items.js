@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["FixedImpl",""]]};
+window.SIDEBAR_ITEMS = {"trait":["FixedImpl"]};

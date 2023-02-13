@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"trait":[["ListBoxRowImpl",""],["ListBoxRowImplExt",""]]};
+window.SIDEBAR_ITEMS = {"trait":["ListBoxRowImpl","ListBoxRowImplExt"]};
