@@ -5,7 +5,7 @@ use glib::GString;
 use libc::c_uint;
 use std::mem;
 
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Key(u32);
 
 impl ::std::ops::Deref for Key {
