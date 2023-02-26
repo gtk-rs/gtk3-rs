@@ -83,7 +83,7 @@ fn add_actions(
     window: &gtk::ApplicationWindow,
 ) {
     // Thanks to this method, we can say that this item is actually a checkbox.
-    let switch_action = gio::SimpleAction::new_stateful("switch", None, false.to_variant());
+    let switch_action = gio::SimpleAction::new_stateful("switch", None, &false.to_variant());
     switch_action.connect_activate(glib::clone!(@weak switch => move |g, _| {
         let mut is_active = false;
         if let Some(g) = g.state() {
