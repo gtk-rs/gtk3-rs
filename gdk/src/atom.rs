@@ -53,6 +53,8 @@ impl GlibPtrDefault for Atom {
     type GlibType = ffi::GdkAtom;
 }
 
+unsafe impl glib::translate::TransparentPtrType for Atom {}
+
 #[doc(hidden)]
 impl Uninitialized for Atom {
     #[inline]
