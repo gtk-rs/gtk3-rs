@@ -250,7 +250,6 @@ manual = [
     "Gtk.Border",
     "Gtk.FileFilterInfo",
     "Gtk.PadActionEntry",
-    "Gtk.PageRange",
     "Gtk.RecentData",
     "Gtk.Requisition",
     "Gtk.ResponseType",
@@ -1667,6 +1666,11 @@ generate_builder = true
     [[object.function]]
     name = "set_action_entries"
     manual = true
+
+[[object]]
+name = "Gtk.PageRange"
+status = "manual"
+boxed_inline = true
 
 [[object]]
 name = "Gtk.PageSetup"
