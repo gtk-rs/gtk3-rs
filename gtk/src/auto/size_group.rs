@@ -83,7 +83,7 @@ pub trait SizeGroupExt: 'static {
 
     #[doc(alias = "gtk_size_group_get_widgets")]
     #[doc(alias = "get_widgets")]
-    fn widgets(&self) -> Vec<Widget>;
+    fn widgets(&self) -> glib::SList<Widget>;
 
     #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget(&self, widget: &impl IsA<Widget>);
@@ -109,7 +109,7 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         unsafe { from_glib(ffi::gtk_size_group_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
-    fn widgets(&self) -> Vec<Widget> {
+    fn widgets(&self) -> glib::SList<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_size_group_get_widgets(
                 self.as_ref().to_glib_none().0,

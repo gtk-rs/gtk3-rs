@@ -90,7 +90,7 @@ pub trait RecentManagerExt: 'static {
 
     #[doc(alias = "gtk_recent_manager_get_items")]
     #[doc(alias = "get_items")]
-    fn items(&self) -> Vec<RecentInfo>;
+    fn items(&self) -> glib::List<RecentInfo>;
 
     #[doc(alias = "gtk_recent_manager_has_item")]
     fn has_item(&self, uri: &str) -> bool;
@@ -138,7 +138,7 @@ impl<O: IsA<RecentManager>> RecentManagerExt for O {
         }
     }
 
-    fn items(&self) -> Vec<RecentInfo> {
+    fn items(&self) -> glib::List<RecentInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_recent_manager_get_items(
                 self.as_ref().to_glib_none().0,

@@ -542,13 +542,13 @@ pub trait WidgetExt: 'static {
     fn keynav_failed(&self, direction: DirectionType) -> bool;
 
     #[doc(alias = "gtk_widget_list_accel_closures")]
-    fn list_accel_closures(&self) -> Vec<glib::Closure>;
+    fn list_accel_closures(&self) -> glib::List<glib::Closure>;
 
     #[doc(alias = "gtk_widget_list_action_prefixes")]
     fn list_action_prefixes(&self) -> Vec<glib::GString>;
 
     #[doc(alias = "gtk_widget_list_mnemonic_labels")]
-    fn list_mnemonic_labels(&self) -> Vec<Widget>;
+    fn list_mnemonic_labels(&self) -> glib::List<Widget>;
 
     #[doc(alias = "gtk_widget_map")]
     fn map(&self);
@@ -2280,7 +2280,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn list_accel_closures(&self) -> Vec<glib::Closure> {
+    fn list_accel_closures(&self) -> glib::List<glib::Closure> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_accel_closures(
                 self.as_ref().to_glib_none().0,
@@ -2296,7 +2296,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
         }
     }
 
-    fn list_mnemonic_labels(&self) -> Vec<Widget> {
+    fn list_mnemonic_labels(&self) -> glib::List<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_list_mnemonic_labels(
                 self.as_ref().to_glib_none().0,

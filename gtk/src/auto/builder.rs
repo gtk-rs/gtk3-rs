@@ -78,7 +78,7 @@ pub trait BuilderExt: 'static {
 
     #[doc(alias = "gtk_builder_get_objects")]
     #[doc(alias = "get_objects")]
-    fn objects(&self) -> Vec<glib::Object>;
+    fn objects(&self) -> glib::SList<glib::Object>;
 
     #[doc(alias = "gtk_builder_get_translation_domain")]
     #[doc(alias = "get_translation_domain")]
@@ -146,7 +146,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
-    fn objects(&self) -> Vec<glib::Object> {
+    fn objects(&self) -> glib::SList<glib::Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
                 self.as_ref().to_glib_none().0,

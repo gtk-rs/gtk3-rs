@@ -378,7 +378,7 @@ pub trait FlowBoxExt: 'static {
 
     #[doc(alias = "gtk_flow_box_get_selected_children")]
     #[doc(alias = "get_selected_children")]
-    fn selected_children(&self) -> Vec<FlowBoxChild>;
+    fn selected_children(&self) -> glib::List<FlowBoxChild>;
 
     #[doc(alias = "gtk_flow_box_get_selection_mode")]
     #[doc(alias = "get_selection_mode")]
@@ -593,7 +593,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         unsafe { ffi::gtk_flow_box_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn selected_children(&self) -> Vec<FlowBoxChild> {
+    fn selected_children(&self) -> glib::List<FlowBoxChild> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_flow_box_get_selected_children(
                 self.as_ref().to_glib_none().0,

@@ -532,7 +532,7 @@ pub trait IconViewExt: 'static {
 
     #[doc(alias = "gtk_icon_view_get_selected_items")]
     #[doc(alias = "get_selected_items")]
-    fn selected_items(&self) -> Vec<TreePath>;
+    fn selected_items(&self) -> glib::List<TreePath>;
 
     #[doc(alias = "gtk_icon_view_get_selection_mode")]
     #[doc(alias = "get_selection_mode")]
@@ -961,7 +961,7 @@ impl<O: IsA<IconView>> IconViewExt for O {
         unsafe { ffi::gtk_icon_view_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
-    fn selected_items(&self) -> Vec<TreePath> {
+    fn selected_items(&self) -> glib::List<TreePath> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_view_get_selected_items(
                 self.as_ref().to_glib_none().0,

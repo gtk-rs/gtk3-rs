@@ -83,7 +83,7 @@ pub trait FileChooserExt: 'static {
 
     #[doc(alias = "gtk_file_chooser_get_files")]
     #[doc(alias = "get_files")]
-    fn files(&self) -> Vec<gio::File>;
+    fn files(&self) -> glib::SList<gio::File>;
 
     #[doc(alias = "gtk_file_chooser_get_filter")]
     #[doc(alias = "get_filter")]
@@ -127,17 +127,17 @@ pub trait FileChooserExt: 'static {
 
     #[doc(alias = "gtk_file_chooser_get_uris")]
     #[doc(alias = "get_uris")]
-    fn uris(&self) -> Vec<glib::GString>;
+    fn uris(&self) -> glib::SList<glib::GStringPtr>;
 
     #[doc(alias = "gtk_file_chooser_get_use_preview_label")]
     #[doc(alias = "get_use_preview_label")]
     fn uses_preview_label(&self) -> bool;
 
     #[doc(alias = "gtk_file_chooser_list_filters")]
-    fn list_filters(&self) -> Vec<FileFilter>;
+    fn list_filters(&self) -> glib::SList<FileFilter>;
 
     #[doc(alias = "gtk_file_chooser_list_shortcut_folder_uris")]
-    fn list_shortcut_folder_uris(&self) -> Vec<glib::GString>;
+    fn list_shortcut_folder_uris(&self) -> glib::SList<glib::GStringPtr>;
 
     #[doc(alias = "gtk_file_chooser_list_shortcut_folders")]
     fn list_shortcut_folders(&self) -> Vec<std::path::PathBuf>;
@@ -435,7 +435,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn files(&self) -> Vec<gio::File> {
+    fn files(&self) -> glib::SList<gio::File> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_get_files(
                 self.as_ref().to_glib_none().0,
@@ -523,7 +523,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn uris(&self) -> Vec<glib::GString> {
+    fn uris(&self) -> glib::SList<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_get_uris(
                 self.as_ref().to_glib_none().0,
@@ -539,7 +539,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn list_filters(&self) -> Vec<FileFilter> {
+    fn list_filters(&self) -> glib::SList<FileFilter> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_file_chooser_list_filters(
                 self.as_ref().to_glib_none().0,
@@ -547,7 +547,7 @@ impl<O: IsA<FileChooser>> FileChooserExt for O {
         }
     }
 
-    fn list_shortcut_folder_uris(&self) -> Vec<glib::GString> {
+    fn list_shortcut_folder_uris(&self) -> glib::SList<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_file_chooser_list_shortcut_folder_uris(
                 self.as_ref().to_glib_none().0,

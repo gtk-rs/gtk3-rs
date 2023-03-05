@@ -197,7 +197,7 @@ impl WidgetPath {
     }
 
     #[doc(alias = "gtk_widget_path_iter_list_classes")]
-    pub fn iter_list_classes(&self, pos: i32) -> Vec<glib::GString> {
+    pub fn iter_list_classes(&self, pos: i32) -> glib::SList<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_widget_path_iter_list_classes(
                 self.to_glib_none().0,

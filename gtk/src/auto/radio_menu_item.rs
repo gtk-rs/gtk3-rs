@@ -378,7 +378,7 @@ impl RadioMenuItemBuilder {
 pub trait RadioMenuItemExt: 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]
     #[doc(alias = "get_group")]
-    fn group(&self) -> Vec<RadioMenuItem>;
+    fn group(&self) -> glib::SList<RadioMenuItem>;
 
     #[doc(alias = "gtk_radio_menu_item_join_group")]
     fn join_group(&self, group_source: Option<&impl IsA<RadioMenuItem>>);
@@ -388,7 +388,7 @@ pub trait RadioMenuItemExt: 'static {
 }
 
 impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
-    fn group(&self) -> Vec<RadioMenuItem> {
+    fn group(&self) -> glib::SList<RadioMenuItem> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_menu_item_get_group(
                 self.as_ref().to_glib_none().0,

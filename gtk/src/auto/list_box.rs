@@ -332,7 +332,7 @@ pub trait ListBoxExt: 'static {
 
     #[doc(alias = "gtk_list_box_get_selected_rows")]
     #[doc(alias = "get_selected_rows")]
-    fn selected_rows(&self) -> Vec<ListBoxRow>;
+    fn selected_rows(&self) -> glib::List<ListBoxRow>;
 
     #[doc(alias = "gtk_list_box_get_selection_mode")]
     #[doc(alias = "get_selection_mode")]
@@ -536,7 +536,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
-    fn selected_rows(&self) -> Vec<ListBoxRow> {
+    fn selected_rows(&self) -> glib::List<ListBoxRow> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_list_box_get_selected_rows(
                 self.as_ref().to_glib_none().0,

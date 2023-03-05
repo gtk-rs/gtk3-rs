@@ -81,7 +81,7 @@ impl DragContext {
     }
 
     #[doc(alias = "gdk_drag_context_list_targets")]
-    pub fn list_targets(&self) -> Vec<Atom> {
+    pub fn list_targets(&self) -> glib::List<Atom> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gdk_drag_context_list_targets(
                 self.to_glib_none().0,

@@ -121,10 +121,10 @@ pub trait DeviceExt: 'static {
     fn window_at_position_double(&self) -> (Option<Window>, f64, f64);
 
     #[doc(alias = "gdk_device_list_axes")]
-    fn list_axes(&self) -> Vec<Atom>;
+    fn list_axes(&self) -> glib::List<Atom>;
 
     #[doc(alias = "gdk_device_list_slave_devices")]
-    fn list_slave_devices(&self) -> Vec<Device>;
+    fn list_slave_devices(&self) -> glib::List<Device>;
 
     #[doc(alias = "gdk_device_set_axis_use")]
     fn set_axis_use(&self, index_: u32, use_: AxisUse);
@@ -364,7 +364,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
-    fn list_axes(&self) -> Vec<Atom> {
+    fn list_axes(&self) -> glib::List<Atom> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_axes(
                 self.as_ref().to_glib_none().0,
@@ -372,7 +372,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
-    fn list_slave_devices(&self) -> Vec<Device> {
+    fn list_slave_devices(&self) -> glib::List<Device> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_slave_devices(
                 self.as_ref().to_glib_none().0,

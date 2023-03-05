@@ -52,7 +52,7 @@ impl Screen {
 
     #[doc(alias = "gdk_screen_get_toplevel_windows")]
     #[doc(alias = "get_toplevel_windows")]
-    pub fn toplevel_windows(&self) -> Vec<Window> {
+    pub fn toplevel_windows(&self) -> glib::List<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_get_toplevel_windows(
                 self.to_glib_none().0,
@@ -62,7 +62,7 @@ impl Screen {
 
     #[doc(alias = "gdk_screen_get_window_stack")]
     #[doc(alias = "get_window_stack")]
-    pub fn window_stack(&self) -> Vec<Window> {
+    pub fn window_stack(&self) -> glib::List<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_screen_get_window_stack(
                 self.to_glib_none().0,
@@ -76,7 +76,7 @@ impl Screen {
     }
 
     #[doc(alias = "gdk_screen_list_visuals")]
-    pub fn list_visuals(&self) -> Vec<Visual> {
+    pub fn list_visuals(&self) -> glib::List<Visual> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_list_visuals(
                 self.to_glib_none().0,

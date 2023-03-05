@@ -41,7 +41,7 @@ pub trait TreeSelectionExt: 'static {
 
     #[doc(alias = "gtk_tree_selection_get_selected_rows")]
     #[doc(alias = "get_selected_rows")]
-    fn selected_rows(&self) -> (Vec<TreePath>, TreeModel);
+    fn selected_rows(&self) -> (glib::List<TreePath>, TreeModel);
 
     #[doc(alias = "gtk_tree_selection_get_tree_view")]
     #[doc(alias = "get_tree_view")]
@@ -134,7 +134,7 @@ impl<O: IsA<TreeSelection>> TreeSelectionExt for O {
         }
     }
 
-    fn selected_rows(&self) -> (Vec<TreePath>, TreeModel) {
+    fn selected_rows(&self) -> (glib::List<TreePath>, TreeModel) {
         unsafe {
             let mut model = ptr::null_mut();
             let ret =

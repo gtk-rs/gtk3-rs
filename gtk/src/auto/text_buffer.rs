@@ -173,7 +173,7 @@ pub trait TextBufferExt: 'static {
 
     #[doc(alias = "gtk_text_buffer_get_deserialize_formats")]
     #[doc(alias = "get_deserialize_formats")]
-    fn deserialize_formats(&self) -> Vec<gdk::Atom>;
+    fn deserialize_formats(&self) -> glib::PtrSlice<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_get_end_iter")]
     #[doc(alias = "get_end_iter")]
@@ -236,7 +236,7 @@ pub trait TextBufferExt: 'static {
 
     #[doc(alias = "gtk_text_buffer_get_serialize_formats")]
     #[doc(alias = "get_serialize_formats")]
-    fn serialize_formats(&self) -> Vec<gdk::Atom>;
+    fn serialize_formats(&self) -> glib::PtrSlice<gdk::Atom>;
 
     #[doc(alias = "gtk_text_buffer_get_slice")]
     #[doc(alias = "get_slice")]
@@ -637,7 +637,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn deserialize_formats(&self) -> Vec<gdk::Atom> {
+    fn deserialize_formats(&self) -> glib::PtrSlice<gdk::Atom> {
         unsafe {
             let mut n_formats = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(
@@ -806,7 +806,7 @@ impl<O: IsA<TextBuffer>> TextBufferExt for O {
         }
     }
 
-    fn serialize_formats(&self) -> Vec<gdk::Atom> {
+    fn serialize_formats(&self) -> glib::PtrSlice<gdk::Atom> {
         unsafe {
             let mut n_formats = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(

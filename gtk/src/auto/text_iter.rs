@@ -567,7 +567,7 @@ impl TextIter {
 
     #[doc(alias = "gtk_text_iter_get_marks")]
     #[doc(alias = "get_marks")]
-    pub fn marks(&self) -> Vec<TextMark> {
+    pub fn marks(&self) -> glib::SList<TextMark> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_text_iter_get_marks(
                 self.to_glib_none().0,
@@ -600,7 +600,7 @@ impl TextIter {
 
     #[doc(alias = "gtk_text_iter_get_tags")]
     #[doc(alias = "get_tags")]
-    pub fn tags(&self) -> Vec<TextTag> {
+    pub fn tags(&self) -> glib::SList<TextTag> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_text_iter_get_tags(
                 self.to_glib_none().0,
@@ -621,7 +621,7 @@ impl TextIter {
 
     #[doc(alias = "gtk_text_iter_get_toggled_tags")]
     #[doc(alias = "get_toggled_tags")]
-    pub fn toggled_tags(&self, toggled_on: bool) -> Vec<TextTag> {
+    pub fn toggled_tags(&self, toggled_on: bool) -> glib::SList<TextTag> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_text_iter_get_toggled_tags(
                 self.to_glib_none().0,

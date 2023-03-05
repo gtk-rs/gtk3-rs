@@ -169,7 +169,7 @@ impl Display {
     }
 
     #[doc(alias = "gdk_display_list_seats")]
-    pub fn list_seats(&self) -> Vec<Seat> {
+    pub fn list_seats(&self) -> glib::List<Seat> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_display_list_seats(
                 self.to_glib_none().0,
