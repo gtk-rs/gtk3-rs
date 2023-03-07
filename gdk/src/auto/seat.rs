@@ -42,7 +42,7 @@ pub trait SeatExt: 'static {
 
     #[doc(alias = "gdk_seat_get_slaves")]
     #[doc(alias = "get_slaves")]
-    fn slaves(&self, capabilities: SeatCapabilities) -> Vec<Device>;
+    fn slaves(&self, capabilities: SeatCapabilities) -> glib::List<Device>;
 
     #[doc(alias = "gdk_seat_grab")]
     fn grab(
@@ -92,7 +92,7 @@ impl<O: IsA<Seat>> SeatExt for O {
         unsafe { from_glib_none(ffi::gdk_seat_get_pointer(self.as_ref().to_glib_none().0)) }
     }
 
-    fn slaves(&self, capabilities: SeatCapabilities) -> Vec<Device> {
+    fn slaves(&self, capabilities: SeatCapabilities) -> glib::List<Device> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_seat_get_slaves(
                 self.as_ref().to_glib_none().0,

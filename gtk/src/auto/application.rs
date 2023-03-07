@@ -121,11 +121,11 @@ pub trait GtkApplicationExt: 'static {
 
     #[doc(alias = "gtk_application_get_accels_for_action")]
     #[doc(alias = "get_accels_for_action")]
-    fn accels_for_action(&self, detailed_action_name: &str) -> Vec<glib::GString>;
+    fn accels_for_action(&self, detailed_action_name: &str) -> glib::StrV;
 
     #[doc(alias = "gtk_application_get_actions_for_accel")]
     #[doc(alias = "get_actions_for_accel")]
-    fn actions_for_accel(&self, accel: &str) -> Vec<glib::GString>;
+    fn actions_for_accel(&self, accel: &str) -> glib::StrV;
 
     #[doc(alias = "gtk_application_get_active_window")]
     #[doc(alias = "get_active_window")]
@@ -149,7 +149,7 @@ pub trait GtkApplicationExt: 'static {
 
     #[doc(alias = "gtk_application_get_windows")]
     #[doc(alias = "get_windows")]
-    fn windows(&self) -> Vec<Window>;
+    fn windows(&self) -> glib::List<Window>;
 
     #[doc(alias = "gtk_application_inhibit")]
     fn inhibit(
@@ -163,7 +163,7 @@ pub trait GtkApplicationExt: 'static {
     fn is_inhibited(&self, flags: ApplicationInhibitFlags) -> bool;
 
     #[doc(alias = "gtk_application_list_action_descriptions")]
-    fn list_action_descriptions(&self) -> Vec<glib::GString>;
+    fn list_action_descriptions(&self) -> glib::StrV;
 
     #[doc(alias = "gtk_application_prefers_app_menu")]
     fn prefers_app_menu(&self) -> bool;
@@ -233,7 +233,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn accels_for_action(&self, detailed_action_name: &str) -> Vec<glib::GString> {
+    fn accels_for_action(&self, detailed_action_name: &str) -> glib::StrV {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_application_get_accels_for_action(
                 self.as_ref().to_glib_none().0,
@@ -242,7 +242,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn actions_for_accel(&self, accel: &str) -> Vec<glib::GString> {
+    fn actions_for_accel(&self, accel: &str) -> glib::StrV {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_application_get_actions_for_accel(
                 self.as_ref().to_glib_none().0,
@@ -293,7 +293,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn windows(&self) -> Vec<Window> {
+    fn windows(&self) -> glib::List<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_application_get_windows(
                 self.as_ref().to_glib_none().0,
@@ -326,7 +326,7 @@ impl<O: IsA<Application>> GtkApplicationExt for O {
         }
     }
 
-    fn list_action_descriptions(&self) -> Vec<glib::GString> {
+    fn list_action_descriptions(&self) -> glib::StrV {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_application_list_action_descriptions(
                 self.as_ref().to_glib_none().0,

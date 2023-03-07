@@ -145,7 +145,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_list_shortcuts")]
-    pub fn list_shortcuts(&self) -> Vec<gio::File> {
+    pub fn list_shortcuts(&self) -> glib::SList<gio::File> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_places_sidebar_list_shortcuts(
                 self.to_glib_none().0,

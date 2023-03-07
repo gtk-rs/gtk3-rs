@@ -209,7 +209,7 @@ pub trait StyleContextExt: 'static {
     fn has_class(&self, class_name: &str) -> bool;
 
     #[doc(alias = "gtk_style_context_list_classes")]
-    fn list_classes(&self) -> Vec<glib::GString>;
+    fn list_classes(&self) -> glib::List<glib::GStringPtr>;
 
     #[doc(alias = "gtk_style_context_lookup_color")]
     fn lookup_color(&self, color_name: &str) -> Option<gdk::RGBA>;
@@ -451,7 +451,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
         }
     }
 
-    fn list_classes(&self) -> Vec<glib::GString> {
+    fn list_classes(&self) -> glib::List<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_style_context_list_classes(
                 self.as_ref().to_glib_none().0,

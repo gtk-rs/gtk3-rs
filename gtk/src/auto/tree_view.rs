@@ -512,7 +512,7 @@ pub trait TreeViewExt: 'static {
 
     #[doc(alias = "gtk_tree_view_get_columns")]
     #[doc(alias = "get_columns")]
-    fn columns(&self) -> Vec<TreeViewColumn>;
+    fn columns(&self) -> glib::List<TreeViewColumn>;
 
     #[doc(alias = "gtk_tree_view_get_cursor")]
     #[doc(alias = "get_cursor")]
@@ -1190,7 +1190,7 @@ impl<O: IsA<TreeView>> TreeViewExt for O {
         }
     }
 
-    fn columns(&self) -> Vec<TreeViewColumn> {
+    fn columns(&self) -> glib::List<TreeViewColumn> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_tree_view_get_columns(
                 self.as_ref().to_glib_none().0,

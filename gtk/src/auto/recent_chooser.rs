@@ -41,7 +41,7 @@ pub trait RecentChooserExt: 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_items")]
     #[doc(alias = "get_items")]
-    fn items(&self) -> Vec<RecentInfo>;
+    fn items(&self) -> glib::List<RecentInfo>;
 
     #[doc(alias = "gtk_recent_chooser_get_limit")]
     #[doc(alias = "get_limit")]
@@ -77,10 +77,10 @@ pub trait RecentChooserExt: 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_uris")]
     #[doc(alias = "get_uris")]
-    fn uris(&self) -> Vec<glib::GString>;
+    fn uris(&self) -> glib::StrV;
 
     #[doc(alias = "gtk_recent_chooser_list_filters")]
-    fn list_filters(&self) -> Vec<RecentFilter>;
+    fn list_filters(&self) -> glib::SList<RecentFilter>;
 
     #[doc(alias = "gtk_recent_chooser_remove_filter")]
     fn remove_filter(&self, filter: &RecentFilter);
@@ -198,7 +198,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn items(&self) -> Vec<RecentInfo> {
+    fn items(&self) -> glib::List<RecentInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_recent_chooser_get_items(
                 self.as_ref().to_glib_none().0,
@@ -266,7 +266,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn uris(&self) -> Vec<glib::GString> {
+    fn uris(&self) -> glib::StrV {
         unsafe {
             let mut length = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
@@ -280,7 +280,7 @@ impl<O: IsA<RecentChooser>> RecentChooserExt for O {
         }
     }
 
-    fn list_filters(&self) -> Vec<RecentFilter> {
+    fn list_filters(&self) -> glib::SList<RecentFilter> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_recent_chooser_list_filters(
                 self.as_ref().to_glib_none().0,

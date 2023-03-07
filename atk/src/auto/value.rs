@@ -50,7 +50,7 @@ pub trait ValueExt: 'static {
 
     #[doc(alias = "atk_value_get_sub_ranges")]
     #[doc(alias = "get_sub_ranges")]
-    fn sub_ranges(&self) -> Vec<Range>;
+    fn sub_ranges(&self) -> glib::SList<Range>;
 
     #[doc(alias = "atk_value_get_value_and_text")]
     #[doc(alias = "get_value_and_text")]
@@ -119,7 +119,7 @@ impl<O: IsA<Value>> ValueExt for O {
         unsafe { from_glib_full(ffi::atk_value_get_range(self.as_ref().to_glib_none().0)) }
     }
 
-    fn sub_ranges(&self) -> Vec<Range> {
+    fn sub_ranges(&self) -> glib::SList<Range> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(
                 self.as_ref().to_glib_none().0,

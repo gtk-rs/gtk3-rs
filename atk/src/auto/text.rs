@@ -38,7 +38,7 @@ pub trait TextExt: 'static {
         coord_type: CoordType,
         x_clip_type: TextClipType,
         y_clip_type: TextClipType,
-    ) -> Vec<TextRange>;
+    ) -> glib::PtrSlice<TextRange>;
 
     #[doc(alias = "atk_text_get_caret_offset")]
     #[doc(alias = "get_caret_offset")]
@@ -169,7 +169,7 @@ impl<O: IsA<Text>> TextExt for O {
         coord_type: CoordType,
         x_clip_type: TextClipType,
         y_clip_type: TextClipType,
-    ) -> Vec<TextRange> {
+    ) -> glib::PtrSlice<TextRange> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_text_get_bounded_ranges(
                 self.as_ref().to_glib_none().0,

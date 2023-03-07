@@ -67,13 +67,13 @@ pub trait ContainerExt: 'static {
 
     #[doc(alias = "gtk_container_get_children")]
     #[doc(alias = "get_children")]
-    fn children(&self) -> Vec<Widget>;
+    fn children(&self) -> glib::List<Widget>;
 
     //#[cfg_attr(feature = "v3_24", deprecated = "Since 3.24")]
     //#[allow(deprecated)]
     //#[doc(alias = "gtk_container_get_focus_chain")]
     //#[doc(alias = "get_focus_chain")]
-    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool;
+    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/glib::List<Widget>) -> bool;
 
     #[doc(alias = "gtk_container_get_focus_child")]
     #[doc(alias = "get_focus_child")]
@@ -259,7 +259,7 @@ impl<O: IsA<Container>> ContainerExt for O {
         unsafe { ffi::gtk_container_get_border_width(self.as_ref().to_glib_none().0) }
     }
 
-    fn children(&self) -> Vec<Widget> {
+    fn children(&self) -> glib::List<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_container_get_children(
                 self.as_ref().to_glib_none().0,
@@ -268,7 +268,7 @@ impl<O: IsA<Container>> ContainerExt for O {
     }
 
     //#[allow(deprecated)]
-    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/Vec<Widget>) -> bool {
+    //fn focus_chain(&self, focusable_widgets: /*Unimplemented*/glib::List<Widget>) -> bool {
     //    unsafe { TODO: call ffi:gtk_container_get_focus_chain() }
     //}
 

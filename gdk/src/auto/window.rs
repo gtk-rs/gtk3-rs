@@ -255,7 +255,7 @@ impl Window {
 
     #[doc(alias = "gdk_window_get_children")]
     #[doc(alias = "get_children")]
-    pub fn children(&self) -> Vec<Window> {
+    pub fn children(&self) -> glib::List<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_window_get_children(
                 self.to_glib_none().0,
@@ -265,7 +265,7 @@ impl Window {
 
     //#[doc(alias = "gdk_window_get_children_with_user_data")]
     //#[doc(alias = "get_children_with_user_data")]
-    //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>) -> Vec<Window> {
+    //pub fn children_with_user_data(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>) -> glib::List<Window> {
     //    unsafe { TODO: call ffi:gdk_window_get_children_with_user_data() }
     //}
 
@@ -844,7 +844,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_peek_children")]
-    pub fn peek_children(&self) -> Vec<Window> {
+    pub fn peek_children(&self) -> glib::List<Window> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gdk_window_peek_children(
                 self.to_glib_none().0,

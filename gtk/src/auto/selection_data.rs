@@ -62,7 +62,7 @@ impl SelectionData {
 
     #[doc(alias = "gtk_selection_data_get_targets")]
     #[doc(alias = "get_targets")]
-    pub fn targets(&self) -> Option<Vec<gdk::Atom>> {
+    pub fn targets(&self) -> Option<glib::PtrSlice<gdk::Atom>> {
         unsafe {
             let mut targets = ptr::null_mut();
             let mut n_atoms = mem::MaybeUninit::uninit();
@@ -90,7 +90,7 @@ impl SelectionData {
 
     #[doc(alias = "gtk_selection_data_get_uris")]
     #[doc(alias = "get_uris")]
-    pub fn uris(&self) -> Vec<glib::GString> {
+    pub fn uris(&self) -> glib::StrV {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_selection_data_get_uris(
                 self.to_glib_none().0,

@@ -218,7 +218,7 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_wait_for_targets")]
-    pub fn wait_for_targets(&self) -> Option<Vec<gdk::Atom>> {
+    pub fn wait_for_targets(&self) -> Option<glib::PtrSlice<gdk::Atom>> {
         unsafe {
             let mut targets = ptr::null_mut();
             let mut n_targets = mem::MaybeUninit::uninit();
@@ -244,7 +244,7 @@ impl Clipboard {
     }
 
     #[doc(alias = "gtk_clipboard_wait_for_uris")]
-    pub fn wait_for_uris(&self) -> Vec<glib::GString> {
+    pub fn wait_for_uris(&self) -> glib::StrV {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_clipboard_wait_for_uris(
                 self.to_glib_none().0,

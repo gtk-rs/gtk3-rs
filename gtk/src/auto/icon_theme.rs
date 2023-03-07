@@ -65,10 +65,10 @@ pub trait IconThemeExt: 'static {
     fn has_icon(&self, icon_name: &str) -> bool;
 
     #[doc(alias = "gtk_icon_theme_list_contexts")]
-    fn list_contexts(&self) -> Vec<glib::GString>;
+    fn list_contexts(&self) -> glib::List<glib::GStringPtr>;
 
     #[doc(alias = "gtk_icon_theme_list_icons")]
-    fn list_icons(&self, context: Option<&str>) -> Vec<glib::GString>;
+    fn list_icons(&self, context: Option<&str>) -> glib::List<glib::GStringPtr>;
 
     #[doc(alias = "gtk_icon_theme_load_icon")]
     fn load_icon(
@@ -178,7 +178,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
         }
     }
 
-    fn list_contexts(&self) -> Vec<glib::GString> {
+    fn list_contexts(&self) -> glib::List<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_theme_list_contexts(
                 self.as_ref().to_glib_none().0,
@@ -186,7 +186,7 @@ impl<O: IsA<IconTheme>> IconThemeExt for O {
         }
     }
 
-    fn list_icons(&self, context: Option<&str>) -> Vec<glib::GString> {
+    fn list_icons(&self, context: Option<&str>) -> glib::List<glib::GStringPtr> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_theme_list_icons(
                 self.as_ref().to_glib_none().0,

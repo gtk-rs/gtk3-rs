@@ -26,7 +26,7 @@ pub fn accel_groups_activate(
 }
 
 #[doc(alias = "gtk_accel_groups_from_object")]
-pub fn accel_groups_from_object(object: &impl IsA<glib::Object>) -> Vec<AccelGroup> {
+pub fn accel_groups_from_object(object: &impl IsA<glib::Object>) -> glib::SList<AccelGroup> {
     assert_initialized_main_thread!();
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::gtk_accel_groups_from_object(

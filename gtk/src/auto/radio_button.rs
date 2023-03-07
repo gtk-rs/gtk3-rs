@@ -387,7 +387,7 @@ impl RadioButtonBuilder {
 pub trait RadioButtonExt: 'static {
     #[doc(alias = "gtk_radio_button_get_group")]
     #[doc(alias = "get_group")]
-    fn group(&self) -> Vec<RadioButton>;
+    fn group(&self) -> glib::SList<RadioButton>;
 
     #[doc(alias = "gtk_radio_button_join_group")]
     fn join_group(&self, group_source: Option<&impl IsA<RadioButton>>);
@@ -397,7 +397,7 @@ pub trait RadioButtonExt: 'static {
 }
 
 impl<O: IsA<RadioButton>> RadioButtonExt for O {
-    fn group(&self) -> Vec<RadioButton> {
+    fn group(&self) -> glib::SList<RadioButton> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_button_get_group(
                 self.as_ref().to_glib_none().0,

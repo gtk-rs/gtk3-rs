@@ -35,7 +35,7 @@ pub trait CellLayoutExt: 'static {
 
     #[doc(alias = "gtk_cell_layout_get_cells")]
     #[doc(alias = "get_cells")]
-    fn cells(&self) -> Vec<CellRenderer>;
+    fn cells(&self) -> glib::List<CellRenderer>;
 
     #[doc(alias = "gtk_cell_layout_pack_end")]
     fn pack_end(&self, cell: &impl IsA<CellRenderer>, expand: bool);
@@ -92,7 +92,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
-    fn cells(&self) -> Vec<CellRenderer> {
+    fn cells(&self) -> glib::List<CellRenderer> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_cell_layout_get_cells(
                 self.as_ref().to_glib_none().0,
