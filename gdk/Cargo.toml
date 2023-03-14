@@ -28,7 +28,7 @@ features = ["dox"]
 
 [dependencies]
 libc = "0.2"
-bitflags = "2.0"
+bitflags = "1.0"
 ffi = { package = "gdk-sys", path = "sys" }
 cairo-rs = { git = "https://github.com/gtk-rs/gtk-rs-core" }
 gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core" }
