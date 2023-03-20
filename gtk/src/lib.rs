@@ -5,7 +5,7 @@
 #![allow(clippy::wrong_self_convention)]
 #![doc = include_str!("../README.md")]
 #![allow(clippy::type_complexity)]
-#![allow(clippy::derive_hash_xor_eq)]
+#![allow(clippy::derived_hash_with_manual_eq)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::new_without_default)]
