@@ -514,7 +514,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
     }
 
     fn set_accel_key(&self, accel_key: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-key", &accel_key)
+        glib::ObjectExt::set_property(self.as_ref(), "accel-key", accel_key)
     }
 
     fn accel_mode(&self) -> CellRendererAccelMode {
@@ -522,7 +522,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
     }
 
     fn set_accel_mode(&self, accel_mode: CellRendererAccelMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-mode", &accel_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "accel-mode", accel_mode)
     }
 
     fn accel_mods(&self) -> gdk::ModifierType {
@@ -530,7 +530,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
     }
 
     fn set_accel_mods(&self, accel_mods: gdk::ModifierType) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-mods", &accel_mods)
+        glib::ObjectExt::set_property(self.as_ref(), "accel-mods", accel_mods)
     }
 
     fn keycode(&self) -> u32 {
@@ -538,7 +538,7 @@ impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {
     }
 
     fn set_keycode(&self, keycode: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "keycode", &keycode)
+        glib::ObjectExt::set_property(self.as_ref(), "keycode", keycode)
     }
 
     fn connect_accel_cleared<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {

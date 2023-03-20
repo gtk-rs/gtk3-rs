@@ -799,7 +799,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn set_enable_popup(&self, enable_popup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "enable-popup", &enable_popup)
+        glib::ObjectExt::set_property(self.as_ref(), "enable-popup", enable_popup)
     }
 
     fn page(&self) -> i32 {
@@ -807,7 +807,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
     }
 
     fn set_page(&self, page: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "page", &page)
+        glib::ObjectExt::set_property(self.as_ref(), "page", page)
     }
 
     fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {

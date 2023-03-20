@@ -348,11 +348,11 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn set_file(&self, file: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "file", &file)
+        glib::ObjectExt::set_property(self.as_ref(), "file", file)
     }
 
     fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gicon", &gicon)
+        glib::ObjectExt::set_property(self.as_ref(), "gicon", gicon)
     }
 
     fn icon_name(&self) -> Option<glib::GString> {
@@ -360,11 +360,11 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn set_icon_name(&self, icon_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "icon-name", &icon_name)
+        glib::ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
     }
 
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf", &pixbuf)
+        glib::ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
     }
 
     fn pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
@@ -375,7 +375,7 @@ impl<O: IsA<Image>> ImageExt for O {
         &self,
         pixbuf_animation: Option<&P>,
     ) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf-animation", &pixbuf_animation)
+        glib::ObjectExt::set_property(self.as_ref(), "pixbuf-animation", pixbuf_animation)
     }
 
     fn resource(&self) -> Option<glib::GString> {
@@ -383,7 +383,7 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn set_resource(&self, resource: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "resource", &resource)
+        glib::ObjectExt::set_property(self.as_ref(), "resource", resource)
     }
 
     fn surface(&self) -> Option<cairo::Surface> {
@@ -391,7 +391,7 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn set_surface(&self, surface: Option<&cairo::Surface>) {
-        glib::ObjectExt::set_property(self.as_ref(), "surface", &surface)
+        glib::ObjectExt::set_property(self.as_ref(), "surface", surface)
     }
 
     fn uses_fallback(&self) -> bool {
@@ -399,7 +399,7 @@ impl<O: IsA<Image>> ImageExt for O {
     }
 
     fn set_use_fallback(&self, use_fallback: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-fallback", &use_fallback)
+        glib::ObjectExt::set_property(self.as_ref(), "use-fallback", use_fallback)
     }
 
     fn connect_file_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

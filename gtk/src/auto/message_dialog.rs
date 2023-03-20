@@ -607,7 +607,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn set_message_type(&self, message_type: MessageType) {
-        glib::ObjectExt::set_property(self.as_ref(), "message-type", &message_type)
+        glib::ObjectExt::set_property(self.as_ref(), "message-type", message_type)
     }
 
     fn secondary_text(&self) -> Option<glib::GString> {
@@ -615,7 +615,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn set_secondary_text(&self, secondary_text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-text", &secondary_text)
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-text", secondary_text)
     }
 
     fn is_secondary_use_markup(&self) -> bool {
@@ -623,7 +623,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn set_secondary_use_markup(&self, secondary_use_markup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-use-markup", &secondary_use_markup)
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-use-markup", secondary_use_markup)
     }
 
     fn text(&self) -> Option<glib::GString> {
@@ -631,7 +631,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text", &text)
+        glib::ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
     fn uses_markup(&self) -> bool {
@@ -639,7 +639,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     }
 
     fn set_use_markup(&self, use_markup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-markup", &use_markup)
+        glib::ObjectExt::set_property(self.as_ref(), "use-markup", use_markup)
     }
 
     fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

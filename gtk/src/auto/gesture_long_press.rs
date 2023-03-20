@@ -46,7 +46,7 @@ impl GestureLongPress {
 
     #[doc(alias = "delay-factor")]
     pub fn set_delay_factor(&self, delay_factor: f64) {
-        glib::ObjectExt::set_property(self, "delay-factor", &delay_factor)
+        glib::ObjectExt::set_property(self, "delay-factor", delay_factor)
     }
 
     #[doc(alias = "cancelled")]

@@ -434,7 +434,7 @@ impl<O: IsA<Frame>> FrameExt for O {
     }
 
     fn set_label_xalign(&self, label_xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "label-xalign", &label_xalign)
+        glib::ObjectExt::set_property(self.as_ref(), "label-xalign", label_xalign)
     }
 
     fn label_yalign(&self) -> f32 {
@@ -442,7 +442,7 @@ impl<O: IsA<Frame>> FrameExt for O {
     }
 
     fn set_label_yalign(&self, label_yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "label-yalign", &label_yalign)
+        glib::ObjectExt::set_property(self.as_ref(), "label-yalign", label_yalign)
     }
 
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

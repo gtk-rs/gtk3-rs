@@ -500,7 +500,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn set_section_name(&self, section_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "section-name", &section_name)
+        glib::ObjectExt::set_property(self.as_ref(), "section-name", section_name)
     }
 
     fn view_name(&self) -> Option<glib::GString> {
@@ -508,7 +508,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     }
 
     fn set_view_name(&self, view_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "view-name", &view_name)
+        glib::ObjectExt::set_property(self.as_ref(), "view-name", view_name)
     }
 
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

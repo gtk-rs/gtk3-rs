@@ -490,7 +490,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     }
 
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "adjustment", &adjustment)
+        glib::ObjectExt::set_property(self.as_ref(), "adjustment", adjustment)
     }
 
     fn climb_rate(&self) -> f64 {
@@ -498,7 +498,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     }
 
     fn set_climb_rate(&self, climb_rate: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", &climb_rate)
+        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
 
     fn digits(&self) -> u32 {
@@ -506,7 +506,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
     }
 
     fn set_digits(&self, digits: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "digits", &digits)
+        glib::ObjectExt::set_property(self.as_ref(), "digits", digits)
     }
 
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

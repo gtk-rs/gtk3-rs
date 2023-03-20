@@ -939,7 +939,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
     }
 
     fn set_climb_rate(&self, climb_rate: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", &climb_rate)
+        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
 
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

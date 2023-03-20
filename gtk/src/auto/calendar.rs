@@ -604,7 +604,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_day(&self, day: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "day", &day)
+        glib::ObjectExt::set_property(self.as_ref(), "day", day)
     }
 
     fn month(&self) -> i32 {
@@ -612,7 +612,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_month(&self, month: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "month", &month)
+        glib::ObjectExt::set_property(self.as_ref(), "month", month)
     }
 
     fn is_no_month_change(&self) -> bool {
@@ -620,7 +620,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_no_month_change(&self, no_month_change: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "no-month-change", &no_month_change)
+        glib::ObjectExt::set_property(self.as_ref(), "no-month-change", no_month_change)
     }
 
     fn shows_day_names(&self) -> bool {
@@ -628,7 +628,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_show_day_names(&self, show_day_names: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-day-names", &show_day_names)
+        glib::ObjectExt::set_property(self.as_ref(), "show-day-names", show_day_names)
     }
 
     fn shows_details(&self) -> bool {
@@ -636,7 +636,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_show_details(&self, show_details: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-details", &show_details)
+        glib::ObjectExt::set_property(self.as_ref(), "show-details", show_details)
     }
 
     fn shows_heading(&self) -> bool {
@@ -644,7 +644,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_show_heading(&self, show_heading: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-heading", &show_heading)
+        glib::ObjectExt::set_property(self.as_ref(), "show-heading", show_heading)
     }
 
     fn shows_week_numbers(&self) -> bool {
@@ -652,7 +652,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_show_week_numbers(&self, show_week_numbers: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-week-numbers", &show_week_numbers)
+        glib::ObjectExt::set_property(self.as_ref(), "show-week-numbers", show_week_numbers)
     }
 
     fn year(&self) -> i32 {
@@ -660,7 +660,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
     }
 
     fn set_year(&self, year: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "year", &year)
+        glib::ObjectExt::set_property(self.as_ref(), "year", year)
     }
 
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

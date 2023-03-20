@@ -50,7 +50,7 @@ impl PopoverMenu {
 
     #[doc(alias = "visible-submenu")]
     pub fn set_visible_submenu(&self, visible_submenu: Option<&str>) {
-        glib::ObjectExt::set_property(self, "visible-submenu", &visible_submenu)
+        glib::ObjectExt::set_property(self, "visible-submenu", visible_submenu)
     }
 
     pub fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {

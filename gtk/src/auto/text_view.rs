@@ -1522,7 +1522,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn set_im_module(&self, im_module: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "im-module", &im_module)
+        glib::ObjectExt::set_property(self.as_ref(), "im-module", im_module)
     }
 
     fn populates_all(&self) -> bool {
@@ -1530,7 +1530,7 @@ impl<O: IsA<TextView>> TextViewExt for O {
     }
 
     fn set_populate_all(&self, populate_all: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "populate-all", &populate_all)
+        glib::ObjectExt::set_property(self.as_ref(), "populate-all", populate_all)
     }
 
     fn connect_backspace<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

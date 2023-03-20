@@ -2892,15 +2892,15 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn set_expand(&self, expand: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "expand", &expand)
+        glib::ObjectExt::set_property(self.as_ref(), "expand", expand)
     }
 
     fn set_has_default(&self, has_default: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-default", &has_default)
+        glib::ObjectExt::set_property(self.as_ref(), "has-default", has_default)
     }
 
     fn set_has_focus(&self, has_focus: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-focus", &has_focus)
+        glib::ObjectExt::set_property(self.as_ref(), "has-focus", has_focus)
     }
 
     fn height_request(&self) -> i32 {
@@ -2908,11 +2908,11 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn set_height_request(&self, height_request: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "height-request", &height_request)
+        glib::ObjectExt::set_property(self.as_ref(), "height-request", height_request)
     }
 
     fn set_is_focus(&self, is_focus: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "is-focus", &is_focus)
+        glib::ObjectExt::set_property(self.as_ref(), "is-focus", is_focus)
     }
 
     fn margin(&self) -> i32 {
@@ -2920,7 +2920,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn set_margin(&self, margin: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "margin", &margin)
+        glib::ObjectExt::set_property(self.as_ref(), "margin", margin)
     }
 
     fn width_request(&self) -> i32 {
@@ -2928,7 +2928,7 @@ impl<O: IsA<Widget>> WidgetExt for O {
     }
 
     fn set_width_request(&self, width_request: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "width-request", &width_request)
+        glib::ObjectExt::set_property(self.as_ref(), "width-request", width_request)
     }
 
     fn connect_accel_closures_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
