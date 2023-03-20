@@ -50,7 +50,7 @@ async fn dialog<W: IsA<gtk::Window>>(window: W) {
         .modal(true)
         .buttons(gtk::ButtonsType::Close)
         .text("You answered")
-        .secondary_text(&format!("Your answer: {answer:?}"))
+        .secondary_text(format!("Your answer: {answer:?}"))
         .build();
 
     info_dialog.run_future().await;
