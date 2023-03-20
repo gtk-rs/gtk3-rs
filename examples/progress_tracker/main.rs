@@ -57,7 +57,7 @@ impl Application {
 
                 active.set(true);
 
-                let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+                let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
                 thread::spawn(move || {
                     for v in 1..=10 {
                         let _ = tx.send(Some(v));
