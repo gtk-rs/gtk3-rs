@@ -29,7 +29,7 @@ impl<O: IsA<Image>> ImageExtManual for O {
 
     fn set_icon_size(&self, icon_size: IconSize) {
         self.as_ref()
-            .set_property("icon-size", &icon_size.into_glib());
+            .set_property("icon-size", icon_size.into_glib());
     }
 
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
