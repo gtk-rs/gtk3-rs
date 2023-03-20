@@ -573,7 +573,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     }
 
     fn set_direction(&self, direction: TextDirection) {
-        glib::ObjectExt::set_property(self.as_ref(), "direction", &direction)
+        glib::ObjectExt::set_property(self.as_ref(), "direction", direction)
     }
 
     fn paint_clock(&self) -> Option<gdk::FrameClock> {
@@ -581,7 +581,7 @@ impl<O: IsA<StyleContext>> StyleContextExt for O {
     }
 
     fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>) {
-        glib::ObjectExt::set_property(self.as_ref(), "paint-clock", &paint_clock)
+        glib::ObjectExt::set_property(self.as_ref(), "paint-clock", paint_clock)
     }
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

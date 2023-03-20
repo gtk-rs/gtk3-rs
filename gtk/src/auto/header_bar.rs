@@ -556,7 +556,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "decoration-layout-set",
-            &decoration_layout_set,
+            decoration_layout_set,
         )
     }
 
@@ -565,7 +565,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
     }
 
     fn set_spacing(&self, spacing: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "spacing", &spacing)
+        glib::ObjectExt::set_property(self.as_ref(), "spacing", spacing)
     }
 
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {

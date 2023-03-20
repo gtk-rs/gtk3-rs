@@ -409,7 +409,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
     }
 
     fn set_layout_style(&self, layout_style: ButtonBoxStyle) {
-        glib::ObjectExt::set_property(self.as_ref(), "layout-style", &layout_style)
+        glib::ObjectExt::set_property(self.as_ref(), "layout-style", layout_style)
     }
 
     fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

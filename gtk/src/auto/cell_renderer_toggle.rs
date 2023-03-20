@@ -295,7 +295,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
     }
 
     fn set_inconsistent(&self, inconsistent: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "inconsistent", &inconsistent)
+        glib::ObjectExt::set_property(self.as_ref(), "inconsistent", inconsistent)
     }
 
     fn indicator_size(&self) -> i32 {
@@ -303,7 +303,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
     }
 
     fn set_indicator_size(&self, indicator_size: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "indicator-size", &indicator_size)
+        glib::ObjectExt::set_property(self.as_ref(), "indicator-size", indicator_size)
     }
 
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {

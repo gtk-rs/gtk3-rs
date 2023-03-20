@@ -992,7 +992,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn set_wrap(&self, wrap: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap", &wrap)
+        glib::ObjectExt::set_property(self.as_ref(), "wrap", wrap)
     }
 
     fn wrap_mode(&self) -> pango::WrapMode {
@@ -1000,7 +1000,7 @@ impl<O: IsA<Label>> LabelExt for O {
     }
 
     fn set_wrap_mode(&self, wrap_mode: pango::WrapMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", &wrap_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", wrap_mode)
     }
 
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -511,7 +511,7 @@ impl<O: IsA<Paned>> PanedExt for O {
     }
 
     fn set_position_set(&self, position_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "position-set", &position_set)
+        glib::ObjectExt::set_property(self.as_ref(), "position-set", position_set)
     }
 
     fn child_resizes<T: IsA<crate::Widget>>(&self, item: &T) -> bool {

@@ -425,7 +425,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     }
 
     fn set_alpha(&self, alpha: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "alpha", &alpha)
+        glib::ObjectExt::set_property(self.as_ref(), "alpha", alpha)
     }
 
     fn shows_editor(&self) -> bool {
@@ -433,7 +433,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
     }
 
     fn set_show_editor(&self, show_editor: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-editor", &show_editor)
+        glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

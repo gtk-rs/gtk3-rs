@@ -1758,7 +1758,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_caps_lock_warning(&self, caps_lock_warning: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "caps-lock-warning", &caps_lock_warning)
+        glib::ObjectExt::set_property(self.as_ref(), "caps-lock-warning", caps_lock_warning)
     }
 
     fn cursor_position(&self) -> i32 {
@@ -1773,7 +1773,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "enable-emoji-completion",
-            &enable_emoji_completion,
+            enable_emoji_completion,
         )
     }
 
@@ -1782,7 +1782,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_im_module(&self, im_module: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "im-module", &im_module)
+        glib::ObjectExt::set_property(self.as_ref(), "im-module", im_module)
     }
 
     fn is_invisible_char_set(&self) -> bool {
@@ -1790,7 +1790,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_invisible_char_set(&self, invisible_char_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "invisible-char-set", &invisible_char_set)
+        glib::ObjectExt::set_property(self.as_ref(), "invisible-char-set", invisible_char_set)
     }
 
     fn populates_all(&self) -> bool {
@@ -1798,7 +1798,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_populate_all(&self, populate_all: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "populate-all", &populate_all)
+        glib::ObjectExt::set_property(self.as_ref(), "populate-all", populate_all)
     }
 
     fn is_primary_icon_activatable(&self) -> bool {
@@ -1809,7 +1809,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "primary-icon-activatable",
-            &primary_icon_activatable,
+            primary_icon_activatable,
         )
     }
 
@@ -1818,7 +1818,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_primary_icon_gicon<P: IsA<gio::Icon>>(&self, primary_icon_gicon: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-gicon", &primary_icon_gicon)
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-gicon", primary_icon_gicon)
     }
 
     fn primary_icon_name(&self) -> Option<glib::GString> {
@@ -1826,7 +1826,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_primary_icon_name(&self, primary_icon_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-name", &primary_icon_name)
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-name", primary_icon_name)
     }
 
     fn primary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
@@ -1834,7 +1834,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_primary_icon_pixbuf(&self, primary_icon_pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-pixbuf", &primary_icon_pixbuf)
+        glib::ObjectExt::set_property(self.as_ref(), "primary-icon-pixbuf", primary_icon_pixbuf)
     }
 
     fn is_primary_icon_sensitive(&self) -> bool {
@@ -1845,7 +1845,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "primary-icon-sensitive",
-            &primary_icon_sensitive,
+            primary_icon_sensitive,
         )
     }
 
@@ -1861,7 +1861,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "primary-icon-tooltip-markup",
-            &primary_icon_tooltip_markup,
+            primary_icon_tooltip_markup,
         )
     }
 
@@ -1873,7 +1873,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "primary-icon-tooltip-text",
-            &primary_icon_tooltip_text,
+            primary_icon_tooltip_text,
         )
     }
 
@@ -1889,7 +1889,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "secondary-icon-activatable",
-            &secondary_icon_activatable,
+            secondary_icon_activatable,
         )
     }
 
@@ -1898,7 +1898,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_secondary_icon_gicon<P: IsA<gio::Icon>>(&self, secondary_icon_gicon: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-gicon", &secondary_icon_gicon)
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-gicon", secondary_icon_gicon)
     }
 
     fn secondary_icon_name(&self) -> Option<glib::GString> {
@@ -1906,7 +1906,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_secondary_icon_name(&self, secondary_icon_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-name", &secondary_icon_name)
+        glib::ObjectExt::set_property(self.as_ref(), "secondary-icon-name", secondary_icon_name)
     }
 
     fn secondary_icon_pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
@@ -1917,7 +1917,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "secondary-icon-pixbuf",
-            &secondary_icon_pixbuf,
+            secondary_icon_pixbuf,
         )
     }
 
@@ -1929,7 +1929,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "secondary-icon-sensitive",
-            &secondary_icon_sensitive,
+            secondary_icon_sensitive,
         )
     }
 
@@ -1945,7 +1945,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "secondary-icon-tooltip-markup",
-            &secondary_icon_tooltip_markup,
+            secondary_icon_tooltip_markup,
         )
     }
 
@@ -1957,7 +1957,7 @@ impl<O: IsA<Entry>> EntryExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "secondary-icon-tooltip-text",
-            &secondary_icon_tooltip_text,
+            secondary_icon_tooltip_text,
         )
     }
 
@@ -1970,7 +1970,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_show_emoji_icon(&self, show_emoji_icon: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-emoji-icon", &show_emoji_icon)
+        glib::ObjectExt::set_property(self.as_ref(), "show-emoji-icon", show_emoji_icon)
     }
 
     fn must_truncate_multiline(&self) -> bool {
@@ -1978,7 +1978,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_truncate_multiline(&self, truncate_multiline: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "truncate-multiline", &truncate_multiline)
+        glib::ObjectExt::set_property(self.as_ref(), "truncate-multiline", truncate_multiline)
     }
 
     fn xalign(&self) -> f32 {
@@ -1986,7 +1986,7 @@ impl<O: IsA<Entry>> EntryExt for O {
     }
 
     fn set_xalign(&self, xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "xalign", &xalign)
+        glib::ObjectExt::set_property(self.as_ref(), "xalign", xalign)
     }
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

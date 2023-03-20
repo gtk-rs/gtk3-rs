@@ -253,7 +253,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_inverted(&self, inverted: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "inverted", &inverted)
+        glib::ObjectExt::set_property(self.as_ref(), "inverted", inverted)
     }
 
     fn pulse(&self) -> i32 {
@@ -261,7 +261,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_pulse(&self, pulse: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pulse", &pulse)
+        glib::ObjectExt::set_property(self.as_ref(), "pulse", pulse)
     }
 
     fn text(&self) -> Option<glib::GString> {
@@ -269,7 +269,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text", &text)
+        glib::ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
     fn text_xalign(&self) -> f32 {
@@ -277,7 +277,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_text_xalign(&self, text_xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-xalign", &text_xalign)
+        glib::ObjectExt::set_property(self.as_ref(), "text-xalign", text_xalign)
     }
 
     fn text_yalign(&self) -> f32 {
@@ -285,7 +285,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_text_yalign(&self, text_yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-yalign", &text_yalign)
+        glib::ObjectExt::set_property(self.as_ref(), "text-yalign", text_yalign)
     }
 
     fn value(&self) -> i32 {
@@ -293,7 +293,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
     }
 
     fn set_value(&self, value: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "value", &value)
+        glib::ObjectExt::set_property(self.as_ref(), "value", value)
     }
 
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

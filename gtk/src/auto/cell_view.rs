@@ -508,7 +508,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
     }
 
     fn set_background(&self, background: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "background", &background)
+        glib::ObjectExt::set_property(self.as_ref(), "background", background)
     }
 
     fn background_rgba(&self) -> Option<gdk::RGBA> {
@@ -520,7 +520,7 @@ impl<O: IsA<CellView>> CellViewExt for O {
     }
 
     fn set_background_set(&self, background_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "background-set", &background_set)
+        glib::ObjectExt::set_property(self.as_ref(), "background-set", background_set)
     }
 
     fn cell_area(&self) -> Option<CellArea> {

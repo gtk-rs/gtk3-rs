@@ -387,7 +387,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
     }
 
     fn set_search_mode_enabled(&self, search_mode_enabled: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "search-mode-enabled", &search_mode_enabled)
+        glib::ObjectExt::set_property(self.as_ref(), "search-mode-enabled", search_mode_enabled)
     }
 
     fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

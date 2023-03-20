@@ -375,7 +375,7 @@ impl<O: IsA<Container>> ContainerExt for O {
     }
 
     fn set_child<P: IsA<Widget>>(&self, child: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "child", &child)
+        glib::ObjectExt::set_property(self.as_ref(), "child", child)
     }
 
     fn resize_mode(&self) -> ResizeMode {
@@ -383,7 +383,7 @@ impl<O: IsA<Container>> ContainerExt for O {
     }
 
     fn set_resize_mode(&self, resize_mode: ResizeMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "resize-mode", &resize_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "resize-mode", resize_mode)
     }
 
     fn connect_add<F: Fn(&Self, &Widget) + 'static>(&self, f: F) -> SignalHandlerId {

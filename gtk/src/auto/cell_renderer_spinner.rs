@@ -204,7 +204,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
     }
 
     fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "active", &active)
+        glib::ObjectExt::set_property(self.as_ref(), "active", active)
     }
 
     fn pulse(&self) -> u32 {
@@ -212,7 +212,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
     }
 
     fn set_pulse(&self, pulse: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pulse", &pulse)
+        glib::ObjectExt::set_property(self.as_ref(), "pulse", pulse)
     }
 
     fn size(&self) -> IconSize {
@@ -220,7 +220,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
     }
 
     fn set_size(&self, size: IconSize) {
-        glib::ObjectExt::set_property(self.as_ref(), "size", &size)
+        glib::ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

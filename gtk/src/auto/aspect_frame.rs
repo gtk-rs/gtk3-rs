@@ -403,7 +403,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     }
 
     fn set_obey_child(&self, obey_child: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "obey-child", &obey_child)
+        glib::ObjectExt::set_property(self.as_ref(), "obey-child", obey_child)
     }
 
     fn ratio(&self) -> f32 {
@@ -411,7 +411,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     }
 
     fn set_ratio(&self, ratio: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "ratio", &ratio)
+        glib::ObjectExt::set_property(self.as_ref(), "ratio", ratio)
     }
 
     fn xalign(&self) -> f32 {
@@ -419,7 +419,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     }
 
     fn set_xalign(&self, xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "xalign", &xalign)
+        glib::ObjectExt::set_property(self.as_ref(), "xalign", xalign)
     }
 
     fn yalign(&self) -> f32 {
@@ -427,7 +427,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     }
 
     fn set_yalign(&self, yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "yalign", &yalign)
+        glib::ObjectExt::set_property(self.as_ref(), "yalign", yalign)
     }
 
     fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
