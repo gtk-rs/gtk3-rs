@@ -39,7 +39,7 @@ fn build_ui(application: &gtk::Application) {
 
     // This is the channel for sending results from the worker thread to the main thread
     // For every received image, queue the corresponding part of the DrawingArea for redrawing
-    let (ready_tx, ready_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+    let (ready_tx, ready_rx) = glib::MainContext::channel(glib::Priority::default());
 
     let mut images = Vec::new();
     let mut origins = Vec::new();

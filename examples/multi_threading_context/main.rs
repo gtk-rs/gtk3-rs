@@ -28,7 +28,7 @@ fn build_ui(application: &gtk::Application) {
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scroll.add(&text_view);
 
-    let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
 
     thread::spawn(move || {
         for i in 1..100 {
