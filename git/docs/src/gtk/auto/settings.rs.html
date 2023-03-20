@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/settings.rs`."><title>settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (22f247c6f 2023-03-13)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/settings.rs`."><title>settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (da7c50c08 2023-03-19)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -5142,7 +5142,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-alternative-button-order&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_alternative_button_order,
+            gtk_alternative_button_order,
         )
     }
 
@@ -5154,7 +5154,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-alternative-sort-arrows&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_alternative_sort_arrows,
+            gtk_alternative_sort_arrows,
         )
     }
 
@@ -5166,7 +5166,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-application-prefer-dark-theme&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_application_prefer_dark_theme,
+            gtk_application_prefer_dark_theme,
         )
     }
 
@@ -5182,7 +5182,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-cursor-aspect-ratio&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_cursor_aspect_ratio,
+            gtk_cursor_aspect_ratio,
         )
     }
 
@@ -5191,7 +5191,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_cursor_blink: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-cursor-blink&quot;</span>, <span class="kw-2">&amp;</span>gtk_cursor_blink)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-cursor-blink&quot;</span>, gtk_cursor_blink)
     }
 
     <span class="kw">fn </span>gtk_cursor_blink_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
@@ -5202,7 +5202,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-cursor-blink-time&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_cursor_blink_time,
+            gtk_cursor_blink_time,
         )
     }
 
@@ -5214,7 +5214,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-cursor-blink-timeout&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_cursor_blink_timeout,
+            gtk_cursor_blink_timeout,
         )
     }
 
@@ -5226,7 +5226,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-cursor-theme-name&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_cursor_theme_name,
+            gtk_cursor_theme_name,
         )
     }
 
@@ -5238,7 +5238,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-cursor-theme-size&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_cursor_theme_size,
+            gtk_cursor_theme_size,
         )
     }
 
@@ -5250,7 +5250,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-decoration-layout&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_decoration_layout,
+            gtk_decoration_layout,
         )
     }
 
@@ -5262,7 +5262,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-dialogs-use-header&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_dialogs_use_header,
+            gtk_dialogs_use_header,
         )
     }
 
@@ -5274,7 +5274,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-dnd-drag-threshold&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_dnd_drag_threshold,
+            gtk_dnd_drag_threshold,
         )
     }
 
@@ -5286,7 +5286,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-double-click-distance&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_double_click_distance,
+            gtk_double_click_distance,
         )
     }
 
@@ -5298,7 +5298,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-double-click-time&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_double_click_time,
+            gtk_double_click_time,
         )
     }
 
@@ -5307,7 +5307,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_enable_accels(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_enable_accels: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-enable-accels&quot;</span>, <span class="kw-2">&amp;</span>gtk_enable_accels)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-enable-accels&quot;</span>, gtk_enable_accels)
     }
 
     <span class="kw">fn </span>is_gtk_enable_animations(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -5318,7 +5318,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-enable-animations&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_enable_animations,
+            gtk_enable_animations,
         )
     }
 
@@ -5330,7 +5330,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-enable-event-sounds&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_enable_event_sounds,
+            gtk_enable_event_sounds,
         )
     }
 
@@ -5342,7 +5342,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-enable-input-feedback-sounds&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_enable_input_feedback_sounds,
+            gtk_enable_input_feedback_sounds,
         )
     }
 
@@ -5354,7 +5354,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-enable-primary-paste&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_enable_primary_paste,
+            gtk_enable_primary_paste,
         )
     }
 
@@ -5366,7 +5366,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-entry-password-hint-timeout&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_entry_password_hint_timeout,
+            gtk_entry_password_hint_timeout,
         )
     }
 
@@ -5378,7 +5378,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-entry-select-on-focus&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_entry_select_on_focus,
+            gtk_entry_select_on_focus,
         )
     }
 
@@ -5387,7 +5387,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_error_bell(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_error_bell: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-error-bell&quot;</span>, <span class="kw-2">&amp;</span>gtk_error_bell)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-error-bell&quot;</span>, gtk_error_bell)
     }
 
     <span class="kw">fn </span>gtk_font_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5395,7 +5395,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_font_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_font_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-font-name&quot;</span>, <span class="kw-2">&amp;</span>gtk_font_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-font-name&quot;</span>, gtk_font_name)
     }
 
     <span class="kw">fn </span>gtk_fontconfig_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
@@ -5406,7 +5406,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-fontconfig-timestamp&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_fontconfig_timestamp,
+            gtk_fontconfig_timestamp,
         )
     }
 
@@ -5415,7 +5415,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_icon_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_icon_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-icon-theme-name&quot;</span>, <span class="kw-2">&amp;</span>gtk_icon_theme_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-icon-theme-name&quot;</span>, gtk_icon_theme_name)
     }
 
     <span class="kw">fn </span>gtk_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5423,7 +5423,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-im-module&quot;</span>, <span class="kw-2">&amp;</span>gtk_im_module)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-im-module&quot;</span>, gtk_im_module)
     }
 
     <span class="kw">fn </span>gtk_key_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5431,7 +5431,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_key_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_key_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-key-theme-name&quot;</span>, <span class="kw-2">&amp;</span>gtk_key_theme_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-key-theme-name&quot;</span>, gtk_key_theme_name)
     }
 
     <span class="kw">fn </span>is_gtk_keynav_use_caret(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -5439,7 +5439,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_keynav_use_caret(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_keynav_use_caret: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-keynav-use-caret&quot;</span>, <span class="kw-2">&amp;</span>gtk_keynav_use_caret)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-keynav-use-caret&quot;</span>, gtk_keynav_use_caret)
     }
 
     <span class="kw">fn </span>is_gtk_label_select_on_focus(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -5450,7 +5450,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-label-select-on-focus&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_label_select_on_focus,
+            gtk_label_select_on_focus,
         )
     }
 
@@ -5459,7 +5459,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_long_press_time(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_long_press_time: u32) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-long-press-time&quot;</span>, <span class="kw-2">&amp;</span>gtk_long_press_time)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-long-press-time&quot;</span>, gtk_long_press_time)
     }
 
     <span class="kw">fn </span>gtk_modules(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5467,7 +5467,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_modules(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_modules: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-modules&quot;</span>, <span class="kw-2">&amp;</span>gtk_modules)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-modules&quot;</span>, gtk_modules)
     }
 
     <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24_9&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
@@ -5482,7 +5482,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-overlay-scrolling&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_overlay_scrolling,
+            gtk_overlay_scrolling,
         )
     }
 
@@ -5494,7 +5494,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-primary-button-warps-slider&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_primary_button_warps_slider,
+            gtk_primary_button_warps_slider,
         )
     }
 
@@ -5503,7 +5503,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_print_backends(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_print_backends: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-print-backends&quot;</span>, <span class="kw-2">&amp;</span>gtk_print_backends)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-print-backends&quot;</span>, gtk_print_backends)
     }
 
     <span class="kw">fn </span>gtk_print_preview_command(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5514,7 +5514,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-print-preview-command&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_print_preview_command,
+            gtk_print_preview_command,
         )
     }
 
@@ -5526,7 +5526,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-recent-files-enabled&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_recent_files_enabled,
+            gtk_recent_files_enabled,
         )
     }
 
@@ -5538,7 +5538,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-recent-files-max-age&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_recent_files_max_age,
+            gtk_recent_files_max_age,
         )
     }
 
@@ -5550,7 +5550,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-shell-shows-app-menu&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_shell_shows_app_menu,
+            gtk_shell_shows_app_menu,
         )
     }
 
@@ -5562,7 +5562,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-shell-shows-desktop&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_shell_shows_desktop,
+            gtk_shell_shows_desktop,
         )
     }
 
@@ -5574,7 +5574,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-shell-shows-menubar&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_shell_shows_menubar,
+            gtk_shell_shows_menubar,
         )
     }
 
@@ -5583,7 +5583,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_sound_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_sound_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-sound-theme-name&quot;</span>, <span class="kw-2">&amp;</span>gtk_sound_theme_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-sound-theme-name&quot;</span>, gtk_sound_theme_name)
     }
 
     <span class="kw">fn </span>is_gtk_split_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
@@ -5591,7 +5591,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_split_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_split_cursor: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-split-cursor&quot;</span>, <span class="kw-2">&amp;</span>gtk_split_cursor)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-split-cursor&quot;</span>, gtk_split_cursor)
     }
 
     <span class="kw">fn </span>gtk_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5599,7 +5599,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_theme_name(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_theme_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-theme-name&quot;</span>, <span class="kw-2">&amp;</span>gtk_theme_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-theme-name&quot;</span>, gtk_theme_name)
     }
 
     <span class="kw">fn </span>gtk_titlebar_double_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5610,7 +5610,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-titlebar-double-click&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_titlebar_double_click,
+            gtk_titlebar_double_click,
         )
     }
 
@@ -5622,7 +5622,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-titlebar-middle-click&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_titlebar_middle_click,
+            gtk_titlebar_middle_click,
         )
     }
 
@@ -5634,7 +5634,7 @@
         glib::ObjectExt::set_property(
             <span class="self">self</span>.as_ref(),
             <span class="string">&quot;gtk-titlebar-right-click&quot;</span>,
-            <span class="kw-2">&amp;</span>gtk_titlebar_right_click,
+            gtk_titlebar_right_click,
         )
     }
 
@@ -5643,7 +5643,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_xft_antialias(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_antialias: i32) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-antialias&quot;</span>, <span class="kw-2">&amp;</span>gtk_xft_antialias)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-antialias&quot;</span>, gtk_xft_antialias)
     }
 
     <span class="kw">fn </span>gtk_xft_dpi(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
@@ -5651,7 +5651,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_xft_dpi(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_dpi: i32) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-dpi&quot;</span>, <span class="kw-2">&amp;</span>gtk_xft_dpi)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-dpi&quot;</span>, gtk_xft_dpi)
     }
 
     <span class="kw">fn </span>gtk_xft_hinting(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
@@ -5659,7 +5659,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_xft_hinting(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_hinting: i32) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-hinting&quot;</span>, <span class="kw-2">&amp;</span>gtk_xft_hinting)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-hinting&quot;</span>, gtk_xft_hinting)
     }
 
     <span class="kw">fn </span>gtk_xft_hintstyle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5667,7 +5667,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_xft_hintstyle(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_hintstyle: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-hintstyle&quot;</span>, <span class="kw-2">&amp;</span>gtk_xft_hintstyle)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-hintstyle&quot;</span>, gtk_xft_hintstyle)
     }
 
     <span class="kw">fn </span>gtk_xft_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
@@ -5675,7 +5675,7 @@
     }
 
     <span class="kw">fn </span>set_gtk_xft_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, gtk_xft_rgba: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-rgba&quot;</span>, <span class="kw-2">&amp;</span>gtk_xft_rgba)
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gtk-xft-rgba&quot;</span>, gtk_xft_rgba)
     }
 
     <span class="kw">fn </span>connect_gtk_alternative_button_order_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(

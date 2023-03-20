@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/shortcuts_shortcut.rs`."><title>shortcuts_shortcut.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (22f247c6f 2023-03-13)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/shortcuts_shortcut.rs`."><title>shortcuts_shortcut.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (da7c50c08 2023-03-19)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1861,7 +1861,7 @@
     /// This is used internally by GTK+, and must not be modified by applications.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-size-group&quot;</span>)]
     </span><span class="kw">pub fn </span>set_accel_size_group&lt;P: IsA&lt;SizeGroup&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_size_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;accel-size-group&quot;</span>, <span class="kw-2">&amp;</span>accel_size_group)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;accel-size-group&quot;</span>, accel_size_group)
     }
 
     <span class="doccomment">/// The accelerator(s) represented by this object. This property is used
@@ -1913,7 +1913,7 @@
     /// Note that `&lt;`, `&gt;` and `&amp;` need to be escaped as &amp;lt;, &amp;gt; and &amp;amp; when used
     /// in .ui files.
     </span><span class="kw">pub fn </span>set_accelerator(<span class="kw-2">&amp;</span><span class="self">self</span>, accelerator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;accelerator&quot;</span>, <span class="kw-2">&amp;</span>accelerator)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;accelerator&quot;</span>, accelerator)
     }
 
     <span class="doccomment">/// A detailed action name. If this is set for a shortcut
@@ -1933,7 +1933,7 @@
     /// [`accelerator`][struct@crate::ShortcutsShortcut#accelerator] is not necessary.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;action-name&quot;</span>)]
     </span><span class="kw">pub fn </span>set_action_name(<span class="kw-2">&amp;</span><span class="self">self</span>, action_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;action-name&quot;</span>, <span class="kw-2">&amp;</span>action_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;action-name&quot;</span>, action_name)
     }
 
     <span class="doccomment">/// An icon to represent the shortcut or gesture. This property is used if
@@ -1947,7 +1947,7 @@
     /// [`shortcut-type`][struct@crate::ShortcutsShortcut#shortcut-type] is set to [`ShortcutType::Gesture`][crate::ShortcutType::Gesture].
     /// For the other predefined gesture types, GTK+ provides an icon on its own.
     </span><span class="kw">pub fn </span>set_icon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon&quot;</span>, <span class="kw-2">&amp;</span>icon)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon&quot;</span>, icon)
     }
 
     <span class="doccomment">/// [`true`] if an icon has been set.
@@ -1959,7 +1959,7 @@
     <span class="doccomment">/// [`true`] if an icon has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-set&quot;</span>)]
     </span><span class="kw">pub fn </span>set_icon_set(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_set: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon-set&quot;</span>, <span class="kw-2">&amp;</span>icon_set)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon-set&quot;</span>, icon_set)
     }
 
     <span class="doccomment">/// The type of shortcut that is represented.
@@ -1971,7 +1971,7 @@
     <span class="doccomment">/// The type of shortcut that is represented.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;shortcut-type&quot;</span>)]
     </span><span class="kw">pub fn </span>set_shortcut_type(<span class="kw-2">&amp;</span><span class="self">self</span>, shortcut_type: ShortcutType) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;shortcut-type&quot;</span>, <span class="kw-2">&amp;</span>shortcut_type)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;shortcut-type&quot;</span>, shortcut_type)
     }
 
     <span class="doccomment">/// The subtitle for the shortcut or gesture.
@@ -1989,7 +1989,7 @@
     /// text that describes the gesture itself. For the predefined gesture
     /// types, GTK+ provides a subtitle on its own.
     </span><span class="kw">pub fn </span>set_subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>, subtitle: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;subtitle&quot;</span>, <span class="kw-2">&amp;</span>subtitle)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;subtitle&quot;</span>, subtitle)
     }
 
     <span class="doccomment">/// [`true`] if a subtitle has been set.
@@ -2001,7 +2001,7 @@
     <span class="doccomment">/// [`true`] if a subtitle has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;subtitle-set&quot;</span>)]
     </span><span class="kw">pub fn </span>set_subtitle_set(<span class="kw-2">&amp;</span><span class="self">self</span>, subtitle_set: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;subtitle-set&quot;</span>, <span class="kw-2">&amp;</span>subtitle_set)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;subtitle-set&quot;</span>, subtitle_set)
     }
 
     <span class="doccomment">/// The textual description for the shortcut or gesture represented by
@@ -2013,7 +2013,7 @@
     <span class="doccomment">/// The textual description for the shortcut or gesture represented by
     /// this object. This should be a short string that can fit in a single line.
     </span><span class="kw">pub fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;title&quot;</span>, <span class="kw-2">&amp;</span>title)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;title&quot;</span>, title)
     }
 
     <span class="doccomment">/// The size group for the textual portion of this shortcut.
@@ -2021,7 +2021,7 @@
     /// This is used internally by GTK+, and must not be modified by applications.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;title-size-group&quot;</span>)]
     </span><span class="kw">pub fn </span>set_title_size_group&lt;P: IsA&lt;SizeGroup&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, title_size_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;title-size-group&quot;</span>, <span class="kw-2">&amp;</span>title_size_group)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;title-size-group&quot;</span>, title_size_group)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accel-size-group&quot;</span>)]

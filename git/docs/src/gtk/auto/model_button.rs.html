@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/model_button.rs`."><title>model_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (22f247c6f 2023-03-13)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/model_button.rs`."><title>model_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (da7c50c08 2023-03-19)" data-search-js="search-d1bc581867fd0849.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2011,7 +2011,7 @@
     <span class="doccomment">/// The state of the button. This is reflecting the state of the associated
     /// `GAction`.
     </span><span class="kw">pub fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, active: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;active&quot;</span>, <span class="kw-2">&amp;</span>active)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;active&quot;</span>, active)
     }
 
     <span class="doccomment">/// Whether to render the button contents centered instead of left-aligned.
@@ -2023,7 +2023,7 @@
     <span class="doccomment">/// Whether to render the button contents centered instead of left-aligned.
     /// This property should be set for title-like items.
     </span><span class="kw">pub fn </span>set_centered(<span class="kw-2">&amp;</span><span class="self">self</span>, centered: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;centered&quot;</span>, <span class="kw-2">&amp;</span>centered)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;centered&quot;</span>, centered)
     }
 
     <span class="doccomment">/// A [`gio::Icon`][crate::gio::Icon] that will be used if iconic appearance for the button is
@@ -2035,7 +2035,7 @@
     <span class="doccomment">/// A [`gio::Icon`][crate::gio::Icon] that will be used if iconic appearance for the button is
     /// desired.
     </span><span class="kw">pub fn </span>set_icon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon&quot;</span>, <span class="kw-2">&amp;</span>icon)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;icon&quot;</span>, icon)
     }
 
     <span class="doccomment">/// If this property is set, the button will show an icon if one is set.
@@ -2049,7 +2049,7 @@
     /// If no icon is set, the text will be used. This is typically used for
     /// horizontal sections of linked buttons.
     </span><span class="kw">pub fn </span>set_iconic(<span class="kw-2">&amp;</span><span class="self">self</span>, iconic: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;iconic&quot;</span>, <span class="kw-2">&amp;</span>iconic)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;iconic&quot;</span>, iconic)
     }
 
     <span class="doccomment">/// Whether to show the submenu indicator at the opposite side than normal.
@@ -2063,7 +2063,7 @@
     /// This property should be set for model buttons that &#39;go back&#39; to a parent
     /// menu.
     </span><span class="kw">pub fn </span>set_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>, inverted: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;inverted&quot;</span>, <span class="kw-2">&amp;</span>inverted)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;inverted&quot;</span>, inverted)
     }
 
     <span class="doccomment">/// The name of a submenu to open when the button is activated.
@@ -2077,7 +2077,7 @@
     /// If this is set, the button should not have an action associated with it.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;menu-name&quot;</span>)]
     </span><span class="kw">pub fn </span>set_menu_name(<span class="kw-2">&amp;</span><span class="self">self</span>, menu_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;menu-name&quot;</span>, <span class="kw-2">&amp;</span>menu_name)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;menu-name&quot;</span>, menu_name)
     }
 
     <span class="doccomment">/// Specifies whether the button is a plain, check or radio button.
@@ -2091,7 +2091,7 @@
     /// When [`action-name`][struct@crate::Actionable#action-name] is set, the role will be determined
     /// from the action and does not have to be set explicitly.
     </span><span class="kw">pub fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: ButtonRole) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;role&quot;</span>, <span class="kw-2">&amp;</span>role)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;role&quot;</span>, role)
     }
 
     <span class="doccomment">/// The label for the button.
@@ -2101,7 +2101,7 @@
 
     <span class="doccomment">/// The label for the button.
     </span><span class="kw">pub fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;text&quot;</span>, <span class="kw-2">&amp;</span>text)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;text&quot;</span>, text)
     }
 
     <span class="doccomment">/// If [`true`], XML tags in the text of the button are interpreted as by
@@ -2121,7 +2121,7 @@
     #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;use-markup&quot;</span>)]
     </span><span class="kw">pub fn </span>set_use_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, use_markup: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;use-markup&quot;</span>, <span class="kw-2">&amp;</span>use_markup)
+        glib::ObjectExt::set_property(<span class="self">self</span>, <span class="string">&quot;use-markup&quot;</span>, use_markup)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
