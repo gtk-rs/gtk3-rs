@@ -494,7 +494,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
     }
 
     fn set_has_entry(&self, has_entry: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-entry", &has_entry)
+        glib::ObjectExt::set_property(self.as_ref(), "has-entry", has_entry)
     }
 
     fn model(&self) -> Option<TreeModel> {
@@ -502,7 +502,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
     }
 
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "model", &model)
+        glib::ObjectExt::set_property(self.as_ref(), "model", model)
     }
 
     fn text_column(&self) -> i32 {
@@ -510,7 +510,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
     }
 
     fn set_text_column(&self, text_column: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-column", &text_column)
+        glib::ObjectExt::set_property(self.as_ref(), "text-column", text_column)
     }
 
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(

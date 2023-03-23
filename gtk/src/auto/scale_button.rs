@@ -504,7 +504,7 @@ impl<O: IsA<ScaleButton>> ScaleButtonExt for O {
     }
 
     fn set_size(&self, size: IconSize) {
-        glib::ObjectExt::set_property(self.as_ref(), "size", &size)
+        glib::ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
     fn connect_popdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

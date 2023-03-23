@@ -464,7 +464,7 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
     }
 
     fn set_text_lock(&self, text_lock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-lock", &text_lock)
+        glib::ObjectExt::set_property(self.as_ref(), "text-lock", text_lock)
     }
 
     fn text_unlock(&self) -> Option<glib::GString> {
@@ -472,7 +472,7 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
     }
 
     fn set_text_unlock(&self, text_unlock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-unlock", &text_unlock)
+        glib::ObjectExt::set_property(self.as_ref(), "text-unlock", text_unlock)
     }
 
     fn tooltip_lock(&self) -> Option<glib::GString> {
@@ -480,7 +480,7 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
     }
 
     fn set_tooltip_lock(&self, tooltip_lock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "tooltip-lock", &tooltip_lock)
+        glib::ObjectExt::set_property(self.as_ref(), "tooltip-lock", tooltip_lock)
     }
 
     fn tooltip_not_authorized(&self) -> Option<glib::GString> {
@@ -491,7 +491,7 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "tooltip-not-authorized",
-            &tooltip_not_authorized,
+            tooltip_not_authorized,
         )
     }
 
@@ -500,7 +500,7 @@ impl<O: IsA<LockButton>> LockButtonExt for O {
     }
 
     fn set_tooltip_unlock(&self, tooltip_unlock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "tooltip-unlock", &tooltip_unlock)
+        glib::ObjectExt::set_property(self.as_ref(), "tooltip-unlock", tooltip_unlock)
     }
 
     fn connect_permission_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

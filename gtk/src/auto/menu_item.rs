@@ -541,7 +541,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
     }
 
     fn set_right_justified(&self, right_justified: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "right-justified", &right_justified)
+        glib::ObjectExt::set_property(self.as_ref(), "right-justified", right_justified)
     }
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

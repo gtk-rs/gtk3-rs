@@ -426,7 +426,7 @@ impl<O: IsA<Device>> DeviceExt for O {
     }
 
     fn set_input_mode(&self, input_mode: InputMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "input-mode", &input_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "input-mode", input_mode)
     }
 
     fn input_source(&self) -> InputSource {
@@ -438,7 +438,7 @@ impl<O: IsA<Device>> DeviceExt for O {
     }
 
     fn set_seat<P: IsA<Seat>>(&self, seat: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "seat", &seat)
+        glib::ObjectExt::set_property(self.as_ref(), "seat", seat)
     }
 
     fn tool(&self) -> Option<DeviceTool> {

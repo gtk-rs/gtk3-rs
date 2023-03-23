@@ -747,11 +747,11 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
-        glib::ObjectExt::set_property(self.as_ref(), "anchor-hints", &anchor_hints)
+        glib::ObjectExt::set_property(self.as_ref(), "anchor-hints", anchor_hints)
     }
 
     fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "attach-widget", &attach_widget)
+        glib::ObjectExt::set_property(self.as_ref(), "attach-widget", attach_widget)
     }
 
     fn menu_type_hint(&self) -> gdk::WindowTypeHint {
@@ -759,7 +759,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
-        glib::ObjectExt::set_property(self.as_ref(), "menu-type-hint", &menu_type_hint)
+        glib::ObjectExt::set_property(self.as_ref(), "menu-type-hint", menu_type_hint)
     }
 
     fn rect_anchor_dx(&self) -> i32 {
@@ -767,7 +767,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn set_rect_anchor_dx(&self, rect_anchor_dx: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", &rect_anchor_dx)
+        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", rect_anchor_dx)
     }
 
     fn rect_anchor_dy(&self) -> i32 {
@@ -775,7 +775,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
     }
 
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", &rect_anchor_dy)
+        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", rect_anchor_dy)
     }
 
     fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {

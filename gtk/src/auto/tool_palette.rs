@@ -599,7 +599,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
     }
 
     fn set_icon_size_set(&self, icon_size_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "icon-size-set", &icon_size_set)
+        glib::ObjectExt::set_property(self.as_ref(), "icon-size-set", icon_size_set)
     }
 
     fn toolbar_style(&self) -> ToolbarStyle {
@@ -607,7 +607,7 @@ impl<O: IsA<ToolPalette>> ToolPaletteExt for O {
     }
 
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle) {
-        glib::ObjectExt::set_property(self.as_ref(), "toolbar-style", &toolbar_style)
+        glib::ObjectExt::set_property(self.as_ref(), "toolbar-style", toolbar_style)
     }
 
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

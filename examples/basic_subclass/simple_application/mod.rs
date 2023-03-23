@@ -1,6 +1,5 @@
 mod imp;
 
-use gio::ApplicationFlags;
 use gtk::{gio, glib};
 
 glib::wrapper! {
@@ -12,8 +11,7 @@ impl SimpleApplication {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::builder()
-            .property("application-id", &"org.gtk-rs.SimpleApplication")
-            .property("flags", &ApplicationFlags::empty())
+            .property("application-id", "org.gtk-rs.SimpleApplication")
             .build()
     }
 }

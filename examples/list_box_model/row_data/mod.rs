@@ -19,8 +19,8 @@ glib::wrapper! {
 impl RowData {
     pub fn new(name: &str, count: u32) -> RowData {
         glib::Object::builder()
-            .property("name", &name)
-            .property("count", &count)
+            .property("name", name)
+            .property("count", count)
             .build()
     }
 }

@@ -28,7 +28,7 @@ impl RadioToolButton {
     }
 
     pub fn join_group(&self, group: Option<&RadioToolButton>) {
-        self.set_property("group", &group);
+        self.set_property("group", group);
     }
 }
 

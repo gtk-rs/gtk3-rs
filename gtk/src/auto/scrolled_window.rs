@@ -845,7 +845,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType) {
-        glib::ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", &hscrollbar_policy)
+        glib::ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", hscrollbar_policy)
     }
 
     fn vscrollbar_policy(&self) -> PolicyType {
@@ -853,7 +853,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType) {
-        glib::ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", &vscrollbar_policy)
+        glib::ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", vscrollbar_policy)
     }
 
     fn window_placement(&self) -> CornerType {
@@ -861,7 +861,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     }
 
     fn set_window_placement(&self, window_placement: CornerType) {
-        glib::ObjectExt::set_property(self.as_ref(), "window-placement", &window_placement)
+        glib::ObjectExt::set_property(self.as_ref(), "window-placement", window_placement)
     }
 
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {

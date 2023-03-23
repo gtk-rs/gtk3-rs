@@ -489,7 +489,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-description",
-            &accessible_description,
+            accessible_description,
         )
     }
 
@@ -502,7 +502,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     fn set_accessible_name(&self, accessible_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-name", &accessible_name)
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-name", accessible_name)
     }
 
     fn accessible_parent(&self) -> Option<Object> {
@@ -510,7 +510,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-parent", &accessible_parent)
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-parent", accessible_parent)
     }
 
     fn accessible_role(&self) -> Role {
@@ -518,7 +518,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     fn set_accessible_role(&self, accessible_role: Role) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-role", &accessible_role)
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-role", accessible_role)
     }
 
     fn accessible_table_caption(&self) -> Option<glib::GString> {
@@ -529,7 +529,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-caption",
-            &accessible_table_caption,
+            accessible_table_caption,
         )
     }
 
@@ -544,7 +544,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-caption-object",
-            &accessible_table_caption_object,
+            accessible_table_caption_object,
         )
     }
 
@@ -559,7 +559,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-column-description",
-            &accessible_table_column_description,
+            accessible_table_column_description,
         )
     }
 
@@ -574,7 +574,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-column-header",
-            &accessible_table_column_header,
+            accessible_table_column_header,
         )
     }
 
@@ -586,7 +586,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-row-description",
-            &accessible_table_row_description,
+            accessible_table_row_description,
         )
     }
 
@@ -601,7 +601,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-row-header",
-            &accessible_table_row_header,
+            accessible_table_row_header,
         )
     }
 
@@ -613,7 +613,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-summary",
-            &accessible_table_summary,
+            accessible_table_summary,
         )
     }
 
@@ -622,7 +622,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     fn set_accessible_value(&self, accessible_value: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-value", &accessible_value)
+        glib::ObjectExt::set_property(self.as_ref(), "accessible-value", accessible_value)
     }
 
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
