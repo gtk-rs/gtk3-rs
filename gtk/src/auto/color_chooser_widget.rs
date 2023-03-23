@@ -343,7 +343,7 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
     }
 
     fn set_show_editor(&self, show_editor: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-editor", &show_editor)
+        glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

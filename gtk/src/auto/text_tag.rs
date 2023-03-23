@@ -1204,11 +1204,11 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_accumulative_margin(&self, accumulative_margin: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "accumulative-margin", &accumulative_margin)
+        glib::ObjectExt::set_property(self.as_ref(), "accumulative-margin", accumulative_margin)
     }
 
     fn set_background(&self, background: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "background", &background)
+        glib::ObjectExt::set_property(self.as_ref(), "background", background)
     }
 
     fn is_background_full_height(&self) -> bool {
@@ -1219,7 +1219,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "background-full-height",
-            &background_full_height,
+            background_full_height,
         )
     }
 
@@ -1231,7 +1231,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "background-full-height-set",
-            &background_full_height_set,
+            background_full_height_set,
         )
     }
 
@@ -1240,7 +1240,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_background_rgba(&self, background_rgba: Option<&gdk::RGBA>) {
-        glib::ObjectExt::set_property(self.as_ref(), "background-rgba", &background_rgba)
+        glib::ObjectExt::set_property(self.as_ref(), "background-rgba", background_rgba)
     }
 
     fn is_background_set(&self) -> bool {
@@ -1248,7 +1248,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_background_set(&self, background_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "background-set", &background_set)
+        glib::ObjectExt::set_property(self.as_ref(), "background-set", background_set)
     }
 
     fn direction(&self) -> TextDirection {
@@ -1256,7 +1256,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_direction(&self, direction: TextDirection) {
-        glib::ObjectExt::set_property(self.as_ref(), "direction", &direction)
+        glib::ObjectExt::set_property(self.as_ref(), "direction", direction)
     }
 
     fn is_editable(&self) -> bool {
@@ -1264,7 +1264,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_editable(&self, editable: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "editable", &editable)
+        glib::ObjectExt::set_property(self.as_ref(), "editable", editable)
     }
 
     fn is_editable_set(&self) -> bool {
@@ -1272,7 +1272,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_editable_set(&self, editable_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "editable-set", &editable_set)
+        glib::ObjectExt::set_property(self.as_ref(), "editable-set", editable_set)
     }
 
     fn is_fallback(&self) -> bool {
@@ -1280,7 +1280,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_fallback(&self, fallback: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "fallback", &fallback)
+        glib::ObjectExt::set_property(self.as_ref(), "fallback", fallback)
     }
 
     fn is_fallback_set(&self) -> bool {
@@ -1288,7 +1288,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_fallback_set(&self, fallback_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "fallback-set", &fallback_set)
+        glib::ObjectExt::set_property(self.as_ref(), "fallback-set", fallback_set)
     }
 
     fn family(&self) -> Option<glib::GString> {
@@ -1296,7 +1296,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_family(&self, family: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "family", &family)
+        glib::ObjectExt::set_property(self.as_ref(), "family", family)
     }
 
     fn is_family_set(&self) -> bool {
@@ -1304,7 +1304,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_family_set(&self, family_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "family-set", &family_set)
+        glib::ObjectExt::set_property(self.as_ref(), "family-set", family_set)
     }
 
     fn font(&self) -> Option<glib::GString> {
@@ -1312,7 +1312,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_font(&self, font: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "font", &font)
+        glib::ObjectExt::set_property(self.as_ref(), "font", font)
     }
 
     fn font_desc(&self) -> Option<pango::FontDescription> {
@@ -1320,7 +1320,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_font_desc(&self, font_desc: Option<&pango::FontDescription>) {
-        glib::ObjectExt::set_property(self.as_ref(), "font-desc", &font_desc)
+        glib::ObjectExt::set_property(self.as_ref(), "font-desc", font_desc)
     }
 
     fn font_features(&self) -> Option<glib::GString> {
@@ -1328,7 +1328,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_font_features(&self, font_features: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "font-features", &font_features)
+        glib::ObjectExt::set_property(self.as_ref(), "font-features", font_features)
     }
 
     fn is_font_features_set(&self) -> bool {
@@ -1336,11 +1336,11 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_font_features_set(&self, font_features_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "font-features-set", &font_features_set)
+        glib::ObjectExt::set_property(self.as_ref(), "font-features-set", font_features_set)
     }
 
     fn set_foreground(&self, foreground: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "foreground", &foreground)
+        glib::ObjectExt::set_property(self.as_ref(), "foreground", foreground)
     }
 
     fn foreground_rgba(&self) -> Option<gdk::RGBA> {
@@ -1348,7 +1348,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_foreground_rgba(&self, foreground_rgba: Option<&gdk::RGBA>) {
-        glib::ObjectExt::set_property(self.as_ref(), "foreground-rgba", &foreground_rgba)
+        glib::ObjectExt::set_property(self.as_ref(), "foreground-rgba", foreground_rgba)
     }
 
     fn is_foreground_set(&self) -> bool {
@@ -1356,7 +1356,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_foreground_set(&self, foreground_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "foreground-set", &foreground_set)
+        glib::ObjectExt::set_property(self.as_ref(), "foreground-set", foreground_set)
     }
 
     fn indent(&self) -> i32 {
@@ -1364,7 +1364,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_indent(&self, indent: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "indent", &indent)
+        glib::ObjectExt::set_property(self.as_ref(), "indent", indent)
     }
 
     fn is_indent_set(&self) -> bool {
@@ -1372,7 +1372,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_indent_set(&self, indent_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "indent-set", &indent_set)
+        glib::ObjectExt::set_property(self.as_ref(), "indent-set", indent_set)
     }
 
     fn is_invisible(&self) -> bool {
@@ -1380,7 +1380,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_invisible(&self, invisible: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "invisible", &invisible)
+        glib::ObjectExt::set_property(self.as_ref(), "invisible", invisible)
     }
 
     fn is_invisible_set(&self) -> bool {
@@ -1388,7 +1388,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_invisible_set(&self, invisible_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "invisible-set", &invisible_set)
+        glib::ObjectExt::set_property(self.as_ref(), "invisible-set", invisible_set)
     }
 
     fn justification(&self) -> Justification {
@@ -1396,7 +1396,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_justification(&self, justification: Justification) {
-        glib::ObjectExt::set_property(self.as_ref(), "justification", &justification)
+        glib::ObjectExt::set_property(self.as_ref(), "justification", justification)
     }
 
     fn is_justification_set(&self) -> bool {
@@ -1404,7 +1404,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_justification_set(&self, justification_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "justification-set", &justification_set)
+        glib::ObjectExt::set_property(self.as_ref(), "justification-set", justification_set)
     }
 
     fn language(&self) -> Option<glib::GString> {
@@ -1412,7 +1412,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_language(&self, language: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "language", &language)
+        glib::ObjectExt::set_property(self.as_ref(), "language", language)
     }
 
     fn is_language_set(&self) -> bool {
@@ -1420,7 +1420,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_language_set(&self, language_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "language-set", &language_set)
+        glib::ObjectExt::set_property(self.as_ref(), "language-set", language_set)
     }
 
     fn left_margin(&self) -> i32 {
@@ -1428,7 +1428,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_left_margin(&self, left_margin: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "left-margin", &left_margin)
+        glib::ObjectExt::set_property(self.as_ref(), "left-margin", left_margin)
     }
 
     fn is_left_margin_set(&self) -> bool {
@@ -1436,7 +1436,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_left_margin_set(&self, left_margin_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "left-margin-set", &left_margin_set)
+        glib::ObjectExt::set_property(self.as_ref(), "left-margin-set", left_margin_set)
     }
 
     fn letter_spacing(&self) -> i32 {
@@ -1444,7 +1444,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_letter_spacing(&self, letter_spacing: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "letter-spacing", &letter_spacing)
+        glib::ObjectExt::set_property(self.as_ref(), "letter-spacing", letter_spacing)
     }
 
     fn is_letter_spacing_set(&self) -> bool {
@@ -1452,7 +1452,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_letter_spacing_set(&self, letter_spacing_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "letter-spacing-set", &letter_spacing_set)
+        glib::ObjectExt::set_property(self.as_ref(), "letter-spacing-set", letter_spacing_set)
     }
 
     fn name(&self) -> Option<glib::GString> {
@@ -1460,7 +1460,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_paragraph_background(&self, paragraph_background: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "paragraph-background", &paragraph_background)
+        glib::ObjectExt::set_property(self.as_ref(), "paragraph-background", paragraph_background)
     }
 
     fn paragraph_background_rgba(&self) -> Option<gdk::RGBA> {
@@ -1471,7 +1471,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "paragraph-background-rgba",
-            &paragraph_background_rgba,
+            paragraph_background_rgba,
         )
     }
 
@@ -1483,7 +1483,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "paragraph-background-set",
-            &paragraph_background_set,
+            paragraph_background_set,
         )
     }
 
@@ -1492,7 +1492,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_pixels_above_lines(&self, pixels_above_lines: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixels-above-lines", &pixels_above_lines)
+        glib::ObjectExt::set_property(self.as_ref(), "pixels-above-lines", pixels_above_lines)
     }
 
     fn is_pixels_above_lines_set(&self) -> bool {
@@ -1503,7 +1503,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "pixels-above-lines-set",
-            &pixels_above_lines_set,
+            pixels_above_lines_set,
         )
     }
 
@@ -1512,7 +1512,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_pixels_below_lines(&self, pixels_below_lines: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixels-below-lines", &pixels_below_lines)
+        glib::ObjectExt::set_property(self.as_ref(), "pixels-below-lines", pixels_below_lines)
     }
 
     fn is_pixels_below_lines_set(&self) -> bool {
@@ -1523,7 +1523,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "pixels-below-lines-set",
-            &pixels_below_lines_set,
+            pixels_below_lines_set,
         )
     }
 
@@ -1532,7 +1532,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_pixels_inside_wrap(&self, pixels_inside_wrap: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixels-inside-wrap", &pixels_inside_wrap)
+        glib::ObjectExt::set_property(self.as_ref(), "pixels-inside-wrap", pixels_inside_wrap)
     }
 
     fn is_pixels_inside_wrap_set(&self) -> bool {
@@ -1543,7 +1543,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "pixels-inside-wrap-set",
-            &pixels_inside_wrap_set,
+            pixels_inside_wrap_set,
         )
     }
 
@@ -1552,7 +1552,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_right_margin(&self, right_margin: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "right-margin", &right_margin)
+        glib::ObjectExt::set_property(self.as_ref(), "right-margin", right_margin)
     }
 
     fn is_right_margin_set(&self) -> bool {
@@ -1560,7 +1560,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_right_margin_set(&self, right_margin_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "right-margin-set", &right_margin_set)
+        glib::ObjectExt::set_property(self.as_ref(), "right-margin-set", right_margin_set)
     }
 
     fn rise(&self) -> i32 {
@@ -1568,7 +1568,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_rise(&self, rise: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "rise", &rise)
+        glib::ObjectExt::set_property(self.as_ref(), "rise", rise)
     }
 
     fn is_rise_set(&self) -> bool {
@@ -1576,7 +1576,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_rise_set(&self, rise_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "rise-set", &rise_set)
+        glib::ObjectExt::set_property(self.as_ref(), "rise-set", rise_set)
     }
 
     fn scale(&self) -> f64 {
@@ -1584,7 +1584,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_scale(&self, scale: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "scale", &scale)
+        glib::ObjectExt::set_property(self.as_ref(), "scale", scale)
     }
 
     fn is_scale_set(&self) -> bool {
@@ -1592,7 +1592,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_scale_set(&self, scale_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "scale-set", &scale_set)
+        glib::ObjectExt::set_property(self.as_ref(), "scale-set", scale_set)
     }
 
     fn size(&self) -> i32 {
@@ -1600,7 +1600,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_size(&self, size: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "size", &size)
+        glib::ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
     fn size_points(&self) -> f64 {
@@ -1608,7 +1608,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_size_points(&self, size_points: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "size-points", &size_points)
+        glib::ObjectExt::set_property(self.as_ref(), "size-points", size_points)
     }
 
     fn is_size_set(&self) -> bool {
@@ -1616,7 +1616,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_size_set(&self, size_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "size-set", &size_set)
+        glib::ObjectExt::set_property(self.as_ref(), "size-set", size_set)
     }
 
     fn stretch(&self) -> pango::Stretch {
@@ -1624,7 +1624,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_stretch(&self, stretch: pango::Stretch) {
-        glib::ObjectExt::set_property(self.as_ref(), "stretch", &stretch)
+        glib::ObjectExt::set_property(self.as_ref(), "stretch", stretch)
     }
 
     fn is_stretch_set(&self) -> bool {
@@ -1632,7 +1632,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_stretch_set(&self, stretch_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "stretch-set", &stretch_set)
+        glib::ObjectExt::set_property(self.as_ref(), "stretch-set", stretch_set)
     }
 
     fn is_strikethrough(&self) -> bool {
@@ -1640,7 +1640,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_strikethrough(&self, strikethrough: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "strikethrough", &strikethrough)
+        glib::ObjectExt::set_property(self.as_ref(), "strikethrough", strikethrough)
     }
 
     fn strikethrough_rgba(&self) -> Option<gdk::RGBA> {
@@ -1648,7 +1648,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_strikethrough_rgba(&self, strikethrough_rgba: Option<&gdk::RGBA>) {
-        glib::ObjectExt::set_property(self.as_ref(), "strikethrough-rgba", &strikethrough_rgba)
+        glib::ObjectExt::set_property(self.as_ref(), "strikethrough-rgba", strikethrough_rgba)
     }
 
     fn is_strikethrough_rgba_set(&self) -> bool {
@@ -1659,7 +1659,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
         glib::ObjectExt::set_property(
             self.as_ref(),
             "strikethrough-rgba-set",
-            &strikethrough_rgba_set,
+            strikethrough_rgba_set,
         )
     }
 
@@ -1668,7 +1668,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_strikethrough_set(&self, strikethrough_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "strikethrough-set", &strikethrough_set)
+        glib::ObjectExt::set_property(self.as_ref(), "strikethrough-set", strikethrough_set)
     }
 
     fn style(&self) -> pango::Style {
@@ -1676,7 +1676,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_style(&self, style: pango::Style) {
-        glib::ObjectExt::set_property(self.as_ref(), "style", &style)
+        glib::ObjectExt::set_property(self.as_ref(), "style", style)
     }
 
     fn is_style_set(&self) -> bool {
@@ -1684,7 +1684,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_style_set(&self, style_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "style-set", &style_set)
+        glib::ObjectExt::set_property(self.as_ref(), "style-set", style_set)
     }
 
     fn tabs(&self) -> Option<pango::TabArray> {
@@ -1692,7 +1692,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_tabs(&self, tabs: Option<&pango::TabArray>) {
-        glib::ObjectExt::set_property(self.as_ref(), "tabs", &tabs)
+        glib::ObjectExt::set_property(self.as_ref(), "tabs", tabs)
     }
 
     fn is_tabs_set(&self) -> bool {
@@ -1700,7 +1700,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_tabs_set(&self, tabs_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "tabs-set", &tabs_set)
+        glib::ObjectExt::set_property(self.as_ref(), "tabs-set", tabs_set)
     }
 
     fn underline(&self) -> pango::Underline {
@@ -1708,7 +1708,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_underline(&self, underline: pango::Underline) {
-        glib::ObjectExt::set_property(self.as_ref(), "underline", &underline)
+        glib::ObjectExt::set_property(self.as_ref(), "underline", underline)
     }
 
     fn underline_rgba(&self) -> Option<gdk::RGBA> {
@@ -1716,7 +1716,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_underline_rgba(&self, underline_rgba: Option<&gdk::RGBA>) {
-        glib::ObjectExt::set_property(self.as_ref(), "underline-rgba", &underline_rgba)
+        glib::ObjectExt::set_property(self.as_ref(), "underline-rgba", underline_rgba)
     }
 
     fn is_underline_rgba_set(&self) -> bool {
@@ -1724,7 +1724,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_underline_rgba_set(&self, underline_rgba_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "underline-rgba-set", &underline_rgba_set)
+        glib::ObjectExt::set_property(self.as_ref(), "underline-rgba-set", underline_rgba_set)
     }
 
     fn is_underline_set(&self) -> bool {
@@ -1732,7 +1732,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_underline_set(&self, underline_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "underline-set", &underline_set)
+        glib::ObjectExt::set_property(self.as_ref(), "underline-set", underline_set)
     }
 
     fn variant(&self) -> pango::Variant {
@@ -1740,7 +1740,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_variant(&self, variant: pango::Variant) {
-        glib::ObjectExt::set_property(self.as_ref(), "variant", &variant)
+        glib::ObjectExt::set_property(self.as_ref(), "variant", variant)
     }
 
     fn is_variant_set(&self) -> bool {
@@ -1748,7 +1748,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_variant_set(&self, variant_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "variant-set", &variant_set)
+        glib::ObjectExt::set_property(self.as_ref(), "variant-set", variant_set)
     }
 
     fn weight(&self) -> i32 {
@@ -1756,7 +1756,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_weight(&self, weight: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "weight", &weight)
+        glib::ObjectExt::set_property(self.as_ref(), "weight", weight)
     }
 
     fn is_weight_set(&self) -> bool {
@@ -1764,7 +1764,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_weight_set(&self, weight_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "weight-set", &weight_set)
+        glib::ObjectExt::set_property(self.as_ref(), "weight-set", weight_set)
     }
 
     fn wrap_mode(&self) -> WrapMode {
@@ -1772,7 +1772,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_wrap_mode(&self, wrap_mode: WrapMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", &wrap_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", wrap_mode)
     }
 
     fn wraps_mode_set(&self) -> bool {
@@ -1780,7 +1780,7 @@ impl<O: IsA<TextTag>> TextTagExt for O {
     }
 
     fn set_wrap_mode_set(&self, wrap_mode_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode-set", &wrap_mode_set)
+        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode-set", wrap_mode_set)
     }
 
     fn connect_event<

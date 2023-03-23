@@ -300,7 +300,7 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
     }
 
     fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "active", &active)
+        glib::ObjectExt::set_property(self.as_ref(), "active", active)
     }
 
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

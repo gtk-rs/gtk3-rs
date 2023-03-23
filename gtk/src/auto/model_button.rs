@@ -42,7 +42,7 @@ impl ModelButton {
     }
 
     pub fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self, "active", &active)
+        glib::ObjectExt::set_property(self, "active", active)
     }
 
     pub fn is_centered(&self) -> bool {
@@ -50,7 +50,7 @@ impl ModelButton {
     }
 
     pub fn set_centered(&self, centered: bool) {
-        glib::ObjectExt::set_property(self, "centered", &centered)
+        glib::ObjectExt::set_property(self, "centered", centered)
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
@@ -58,7 +58,7 @@ impl ModelButton {
     }
 
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
-        glib::ObjectExt::set_property(self, "icon", &icon)
+        glib::ObjectExt::set_property(self, "icon", icon)
     }
 
     pub fn is_iconic(&self) -> bool {
@@ -66,7 +66,7 @@ impl ModelButton {
     }
 
     pub fn set_iconic(&self, iconic: bool) {
-        glib::ObjectExt::set_property(self, "iconic", &iconic)
+        glib::ObjectExt::set_property(self, "iconic", iconic)
     }
 
     pub fn is_inverted(&self) -> bool {
@@ -74,7 +74,7 @@ impl ModelButton {
     }
 
     pub fn set_inverted(&self, inverted: bool) {
-        glib::ObjectExt::set_property(self, "inverted", &inverted)
+        glib::ObjectExt::set_property(self, "inverted", inverted)
     }
 
     #[doc(alias = "menu-name")]
@@ -84,7 +84,7 @@ impl ModelButton {
 
     #[doc(alias = "menu-name")]
     pub fn set_menu_name(&self, menu_name: Option<&str>) {
-        glib::ObjectExt::set_property(self, "menu-name", &menu_name)
+        glib::ObjectExt::set_property(self, "menu-name", menu_name)
     }
 
     pub fn role(&self) -> ButtonRole {
@@ -92,7 +92,7 @@ impl ModelButton {
     }
 
     pub fn set_role(&self, role: ButtonRole) {
-        glib::ObjectExt::set_property(self, "role", &role)
+        glib::ObjectExt::set_property(self, "role", role)
     }
 
     pub fn text(&self) -> Option<glib::GString> {
@@ -100,7 +100,7 @@ impl ModelButton {
     }
 
     pub fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self, "text", &text)
+        glib::ObjectExt::set_property(self, "text", text)
     }
 
     #[cfg(any(feature = "v3_24", feature = "dox"))]
@@ -114,7 +114,7 @@ impl ModelButton {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
     #[doc(alias = "use-markup")]
     pub fn set_use_markup(&self, use_markup: bool) {
-        glib::ObjectExt::set_property(self, "use-markup", &use_markup)
+        glib::ObjectExt::set_property(self, "use-markup", use_markup)
     }
 
     #[doc(alias = "active")]

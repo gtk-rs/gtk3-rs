@@ -99,11 +99,11 @@ impl<O: IsA<Relation>> RelationExt for O {
     }
 
     fn set_relation_type(&self, relation_type: RelationType) {
-        glib::ObjectExt::set_property(self.as_ref(), "relation-type", &relation_type)
+        glib::ObjectExt::set_property(self.as_ref(), "relation-type", relation_type)
     }
 
     fn set_target(&self, target: Option<&glib::ValueArray>) {
-        glib::ObjectExt::set_property(self.as_ref(), "target", &target)
+        glib::ObjectExt::set_property(self.as_ref(), "target", target)
     }
 
     fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

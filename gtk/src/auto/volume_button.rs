@@ -389,7 +389,7 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
     }
 
     fn set_use_symbolic(&self, use_symbolic: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-symbolic", &use_symbolic)
+        glib::ObjectExt::set_property(self.as_ref(), "use-symbolic", use_symbolic)
     }
 
     fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

@@ -475,7 +475,7 @@ impl<O: IsA<FileChooserWidget>> FileChooserWidgetExt for O {
     }
 
     fn set_search_mode(&self, search_mode: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "search-mode", &search_mode)
+        glib::ObjectExt::set_property(self.as_ref(), "search-mode", search_mode)
     }
 
     fn subtitle(&self) -> Option<glib::GString> {

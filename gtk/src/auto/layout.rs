@@ -427,7 +427,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
     }
 
     fn set_height(&self, height: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "height", &height)
+        glib::ObjectExt::set_property(self.as_ref(), "height", height)
     }
 
     fn width(&self) -> u32 {
@@ -435,7 +435,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
     }
 
     fn set_width(&self, width: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "width", &width)
+        glib::ObjectExt::set_property(self.as_ref(), "width", width)
     }
 
     fn child_x<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {

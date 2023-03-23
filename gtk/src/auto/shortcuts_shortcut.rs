@@ -33,7 +33,7 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "accel-size-group")]
     pub fn set_accel_size_group<P: IsA<SizeGroup>>(&self, accel_size_group: Option<&P>) {
-        glib::ObjectExt::set_property(self, "accel-size-group", &accel_size_group)
+        glib::ObjectExt::set_property(self, "accel-size-group", accel_size_group)
     }
 
     pub fn accelerator(&self) -> Option<glib::GString> {
@@ -41,7 +41,7 @@ impl ShortcutsShortcut {
     }
 
     pub fn set_accelerator(&self, accelerator: Option<&str>) {
-        glib::ObjectExt::set_property(self, "accelerator", &accelerator)
+        glib::ObjectExt::set_property(self, "accelerator", accelerator)
     }
 
     #[doc(alias = "action-name")]
@@ -51,7 +51,7 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "action-name")]
     pub fn set_action_name(&self, action_name: Option<&str>) {
-        glib::ObjectExt::set_property(self, "action-name", &action_name)
+        glib::ObjectExt::set_property(self, "action-name", action_name)
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
@@ -59,7 +59,7 @@ impl ShortcutsShortcut {
     }
 
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
-        glib::ObjectExt::set_property(self, "icon", &icon)
+        glib::ObjectExt::set_property(self, "icon", icon)
     }
 
     #[doc(alias = "icon-set")]
@@ -69,7 +69,7 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "icon-set")]
     pub fn set_icon_set(&self, icon_set: bool) {
-        glib::ObjectExt::set_property(self, "icon-set", &icon_set)
+        glib::ObjectExt::set_property(self, "icon-set", icon_set)
     }
 
     #[doc(alias = "shortcut-type")]
@@ -79,7 +79,7 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "shortcut-type")]
     pub fn set_shortcut_type(&self, shortcut_type: ShortcutType) {
-        glib::ObjectExt::set_property(self, "shortcut-type", &shortcut_type)
+        glib::ObjectExt::set_property(self, "shortcut-type", shortcut_type)
     }
 
     pub fn subtitle(&self) -> Option<glib::GString> {
@@ -87,7 +87,7 @@ impl ShortcutsShortcut {
     }
 
     pub fn set_subtitle(&self, subtitle: Option<&str>) {
-        glib::ObjectExt::set_property(self, "subtitle", &subtitle)
+        glib::ObjectExt::set_property(self, "subtitle", subtitle)
     }
 
     #[doc(alias = "subtitle-set")]
@@ -97,7 +97,7 @@ impl ShortcutsShortcut {
 
     #[doc(alias = "subtitle-set")]
     pub fn set_subtitle_set(&self, subtitle_set: bool) {
-        glib::ObjectExt::set_property(self, "subtitle-set", &subtitle_set)
+        glib::ObjectExt::set_property(self, "subtitle-set", subtitle_set)
     }
 
     pub fn title(&self) -> Option<glib::GString> {
@@ -105,12 +105,12 @@ impl ShortcutsShortcut {
     }
 
     pub fn set_title(&self, title: Option<&str>) {
-        glib::ObjectExt::set_property(self, "title", &title)
+        glib::ObjectExt::set_property(self, "title", title)
     }
 
     #[doc(alias = "title-size-group")]
     pub fn set_title_size_group<P: IsA<SizeGroup>>(&self, title_size_group: Option<&P>) {
-        glib::ObjectExt::set_property(self, "title-size-group", &title_size_group)
+        glib::ObjectExt::set_property(self, "title-size-group", title_size_group)
     }
 
     #[doc(alias = "accel-size-group")]

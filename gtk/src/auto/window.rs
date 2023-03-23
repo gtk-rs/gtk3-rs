@@ -1777,7 +1777,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn set_default_height(&self, default_height: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "default-height", &default_height)
+        glib::ObjectExt::set_property(self.as_ref(), "default-height", default_height)
     }
 
     fn default_width(&self) -> i32 {
@@ -1785,7 +1785,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn set_default_width(&self, default_width: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "default-width", &default_width)
+        glib::ObjectExt::set_property(self.as_ref(), "default-width", default_width)
     }
 
     fn type_(&self) -> WindowType {
@@ -1797,7 +1797,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
     }
 
     fn set_window_position(&self, window_position: WindowPosition) {
-        glib::ObjectExt::set_property(self.as_ref(), "window-position", &window_position)
+        glib::ObjectExt::set_property(self.as_ref(), "window-position", window_position)
     }
 
     fn connect_activate_default<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

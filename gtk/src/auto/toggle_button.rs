@@ -483,7 +483,7 @@ impl<O: IsA<ToggleButton>> ToggleButtonExt for O {
     }
 
     fn set_draw_indicator(&self, draw_indicator: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "draw-indicator", &draw_indicator)
+        glib::ObjectExt::set_property(self.as_ref(), "draw-indicator", draw_indicator)
     }
 
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
