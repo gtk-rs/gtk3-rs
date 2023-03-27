@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["SocketImpl",""],["SocketImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["SocketImpl","SocketImplExt"]};

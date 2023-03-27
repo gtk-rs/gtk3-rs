@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["ButtonImpl",""],["ButtonImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["ButtonImpl","ButtonImplExt"]};

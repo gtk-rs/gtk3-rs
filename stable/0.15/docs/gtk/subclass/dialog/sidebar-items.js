@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["DialogImpl",""],["DialogImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["DialogImpl","DialogImplExt"]};

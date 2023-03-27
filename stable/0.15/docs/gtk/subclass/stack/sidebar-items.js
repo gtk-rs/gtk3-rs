@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["StackImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["StackImpl"]};

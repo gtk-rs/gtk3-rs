@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["BoxImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["BoxImpl"]};

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["constants",""]],"struct":[["Key",""]]});
+window.SIDEBAR_ITEMS = {"mod":["constants"],"struct":["Key"]};

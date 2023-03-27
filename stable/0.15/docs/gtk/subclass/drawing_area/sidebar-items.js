@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["DrawingAreaImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["DrawingAreaImpl"]};

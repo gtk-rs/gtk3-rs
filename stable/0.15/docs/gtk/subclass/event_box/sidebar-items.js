@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["EventBoxImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["EventBoxImpl"]};

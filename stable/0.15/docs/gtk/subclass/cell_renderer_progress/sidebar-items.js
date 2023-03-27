@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererProgressImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererProgressImpl"]};

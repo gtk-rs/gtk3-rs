@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererSpinImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererSpinImpl"]};

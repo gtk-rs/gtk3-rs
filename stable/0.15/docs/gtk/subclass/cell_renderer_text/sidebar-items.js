@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererTextImpl",""],["CellRendererTextImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererTextImpl","CellRendererTextImplExt"]};

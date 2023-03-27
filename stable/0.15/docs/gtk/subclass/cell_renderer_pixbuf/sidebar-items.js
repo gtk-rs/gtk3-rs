@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererPixbufImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererPixbufImpl"]};

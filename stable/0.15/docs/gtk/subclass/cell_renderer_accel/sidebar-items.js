@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererAccelImpl",""],["CellRendererAccelImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererAccelImpl","CellRendererAccelImplExt"]};

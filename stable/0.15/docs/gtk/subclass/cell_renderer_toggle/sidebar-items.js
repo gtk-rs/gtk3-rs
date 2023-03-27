@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["CellRendererToggleImpl",""],["CellRendererToggleImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["CellRendererToggleImpl","CellRendererToggleImplExt"]};

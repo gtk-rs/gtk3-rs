@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["TreeViewImpl",""]]});
+window.SIDEBAR_ITEMS = {"trait":["TreeViewImpl"]};

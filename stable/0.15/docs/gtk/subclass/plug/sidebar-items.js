@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["PlugImpl",""],["PlugImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["PlugImpl","PlugImplExt"]};

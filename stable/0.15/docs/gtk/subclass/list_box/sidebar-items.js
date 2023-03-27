@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["ListBoxImpl",""],["ListBoxImplExt",""]]});
+window.SIDEBAR_ITEMS = {"trait":["ListBoxImpl","ListBoxImplExt"]};

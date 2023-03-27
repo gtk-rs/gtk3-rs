@@ -1,1 +1,1 @@
-initSidebarItems({"type":[["Window",""]]});
+window.SIDEBAR_ITEMS = {"type":["Window"]};

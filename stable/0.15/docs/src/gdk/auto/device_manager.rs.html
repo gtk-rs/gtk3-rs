@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/device_manager.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>device_manager.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/device_manager.rs`."><title>device_manager.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (db0cbc48d 2023-03-26)" data-search-js="search-0db6af764fd5e08b.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -72,620 +71,614 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gdk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"></h2>
-    </nav>
-    <nav class="sidebar"><a class="sidebar-logo" href="../../../gdk/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
-<span id="2">2</span>
-<span id="3">3</span>
-<span id="4">4</span>
-<span id="5">5</span>
-<span id="6">6</span>
-<span id="7">7</span>
-<span id="8">8</span>
-<span id="9">9</span>
-<span id="10">10</span>
-<span id="11">11</span>
-<span id="12">12</span>
-<span id="13">13</span>
-<span id="14">14</span>
-<span id="15">15</span>
-<span id="16">16</span>
-<span id="17">17</span>
-<span id="18">18</span>
-<span id="19">19</span>
-<span id="20">20</span>
-<span id="21">21</span>
-<span id="22">22</span>
-<span id="23">23</span>
-<span id="24">24</span>
-<span id="25">25</span>
-<span id="26">26</span>
-<span id="27">27</span>
-<span id="28">28</span>
-<span id="29">29</span>
-<span id="30">30</span>
-<span id="31">31</span>
-<span id="32">32</span>
-<span id="33">33</span>
-<span id="34">34</span>
-<span id="35">35</span>
-<span id="36">36</span>
-<span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
-<span id="61">61</span>
-<span id="62">62</span>
-<span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
-<span id="66">66</span>
-<span id="67">67</span>
-<span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
-<span id="72">72</span>
-<span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
-<span id="89">89</span>
-<span id="90">90</span>
-<span id="91">91</span>
-<span id="92">92</span>
-<span id="93">93</span>
-<span id="94">94</span>
-<span id="95">95</span>
-<span id="96">96</span>
-<span id="97">97</span>
-<span id="98">98</span>
-<span id="99">99</span>
-<span id="100">100</span>
-<span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
-<span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
-<span id="112">112</span>
-<span id="113">113</span>
-<span id="114">114</span>
-<span id="115">115</span>
-<span id="116">116</span>
-<span id="117">117</span>
-<span id="118">118</span>
-<span id="119">119</span>
-<span id="120">120</span>
-<span id="121">121</span>
-<span id="122">122</span>
-<span id="123">123</span>
-<span id="124">124</span>
-<span id="125">125</span>
-<span id="126">126</span>
-<span id="127">127</span>
-<span id="128">128</span>
-<span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
-<span id="132">132</span>
-<span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
-<span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
-<span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
-<span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
-<span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
-<span id="269">269</span>
-<span id="270">270</span>
-<span id="271">271</span>
-<span id="272">272</span>
-<span id="273">273</span>
-<span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
-<span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
-<span id="287">287</span>
-<span id="288">288</span>
-<span id="289">289</span>
-<span id="290">290</span>
-<span id="291">291</span>
-<span id="292">292</span>
-<span id="293">293</span>
-<span id="294">294</span>
-<span id="295">295</span>
-<span id="296">296</span>
-<span id="297">297</span>
-<span id="298">298</span>
-<span id="299">299</span>
-<span id="300">300</span>
-<span id="301">301</span>
-<span id="302">302</span>
-<span id="303">303</span>
-<span id="304">304</span>
-<span id="305">305</span>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)</span>
-<span class="comment">// from gir-files (https://github.com/gtk-rs/gir-files)</span>
-<span class="comment">// DO NOT EDIT</span>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<a href="#2" id="2">2</a>
+<a href="#3" id="3">3</a>
+<a href="#4" id="4">4</a>
+<a href="#5" id="5">5</a>
+<a href="#6" id="6">6</a>
+<a href="#7" id="7">7</a>
+<a href="#8" id="8">8</a>
+<a href="#9" id="9">9</a>
+<a href="#10" id="10">10</a>
+<a href="#11" id="11">11</a>
+<a href="#12" id="12">12</a>
+<a href="#13" id="13">13</a>
+<a href="#14" id="14">14</a>
+<a href="#15" id="15">15</a>
+<a href="#16" id="16">16</a>
+<a href="#17" id="17">17</a>
+<a href="#18" id="18">18</a>
+<a href="#19" id="19">19</a>
+<a href="#20" id="20">20</a>
+<a href="#21" id="21">21</a>
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a>
+<a href="#48" id="48">48</a>
+<a href="#49" id="49">49</a>
+<a href="#50" id="50">50</a>
+<a href="#51" id="51">51</a>
+<a href="#52" id="52">52</a>
+<a href="#53" id="53">53</a>
+<a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+// from gir-files (https://github.com/gtk-rs/gir-files)
+// DO NOT EDIT
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Device</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::DeviceType</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Display</span>;
-<span class="kw">use</span> <span class="ident">glib::object::ObjectType</span> <span class="kw">as</span> <span class="ident">ObjectType_</span>;
-<span class="kw">use</span> <span class="ident">glib::signal::connect_raw</span>;
-<span class="kw">use</span> <span class="ident">glib::signal::SignalHandlerId</span>;
-<span class="kw">use</span> <span class="ident">glib::translate</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">std::boxed::Box</span> <span class="kw">as</span> <span class="ident">Box_</span>;
-<span class="kw">use</span> <span class="ident">std::fmt</span>;
-<span class="kw">use</span> <span class="ident">std::mem::transmute</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::Device;
+<span class="kw">use </span><span class="kw">crate</span>::DeviceType;
+<span class="kw">use </span><span class="kw">crate</span>::Display;
+<span class="kw">use </span>glib::object::ObjectType <span class="kw">as </span>ObjectType_;
+<span class="kw">use </span>glib::signal::connect_raw;
+<span class="kw">use </span>glib::signal::SignalHandlerId;
+<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+<span class="kw">use </span>std::boxed::Box <span class="kw">as </span>Box_;
+<span class="kw">use </span>std::fmt;
+<span class="kw">use </span>std::mem::transmute;
 
-<span class="macro">glib::wrapper!</span> {
-    <span class="doccomment">/// In addition to a single pointer and keyboard for user interface input,</span>
-    <span class="doccomment">/// GDK contains support for a variety of input devices, including graphics</span>
-    <span class="doccomment">/// tablets, touchscreens and multiple pointers/keyboards interacting</span>
-    <span class="doccomment">/// simultaneously with the user interface. Such input devices often have</span>
-    <span class="doccomment">/// additional features, such as sub-pixel positioning information and</span>
-    <span class="doccomment">/// additional device-dependent information.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// In order to query the device hierarchy and be aware of changes in the</span>
-    <span class="doccomment">/// device hierarchy (such as virtual devices being created or removed, or</span>
-    <span class="doccomment">/// physical devices being plugged or unplugged), GDK provides</span>
-    <span class="doccomment">/// [`DeviceManager`][crate::DeviceManager].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, and if the platform supports it, GDK is aware of multiple</span>
-    <span class="doccomment">/// keyboard/pointer pairs and multitouch devices. This behavior can be</span>
-    <span class="doccomment">/// changed by calling `gdk_disable_multidevice()` before [`Display::open()`][crate::Display::open()].</span>
-    <span class="doccomment">/// There should rarely be a need to do that though, since GDK defaults</span>
-    <span class="doccomment">/// to a compatibility mode in which it will emit just one enter/leave</span>
-    <span class="doccomment">/// event pair for all devices on a window. To enable per-device</span>
-    <span class="doccomment">/// enter/leave events and other multi-pointer interaction features,</span>
-    <span class="doccomment">/// [`Window::set_support_multidevice()`][crate::Window::set_support_multidevice()] must be called on</span>
-    <span class="doccomment">/// `GdkWindows` (or `gtk_widget_set_support_multidevice()` on widgets).</span>
-    <span class="doccomment">/// window. See the [`Window::set_support_multidevice()`][crate::Window::set_support_multidevice()] documentation</span>
-    <span class="doccomment">/// for more information.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// On X11, multi-device support is implemented through XInput 2.</span>
-    <span class="doccomment">/// Unless `gdk_disable_multidevice()` is called, the XInput 2</span>
-    <span class="doccomment">/// [`DeviceManager`][crate::DeviceManager] implementation will be used as the input source.</span>
-    <span class="doccomment">/// Otherwise either the core or XInput 1 implementations will be used.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// For simple applications that don’t have any special interest in</span>
-    <span class="doccomment">/// input devices, the so-called “client pointer”</span>
-    <span class="doccomment">/// provides a reasonable approximation to a simple setup with a single</span>
-    <span class="doccomment">/// pointer and keyboard. The device that has been set as the client</span>
-    <span class="doccomment">/// pointer can be accessed via [`client_pointer()`][Self::client_pointer()].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Conceptually, in multidevice mode there are 2 device types. Virtual</span>
-    <span class="doccomment">/// devices (or master devices) are represented by the pointer cursors</span>
-    <span class="doccomment">/// and keyboard foci that are seen on the screen. Physical devices (or</span>
-    <span class="doccomment">/// slave devices) represent the hardware that is controlling the virtual</span>
-    <span class="doccomment">/// devices, and thus have no visible cursor on the screen.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Virtual devices are always paired, so there is a keyboard device for every</span>
-    <span class="doccomment">/// pointer device. Associations between devices may be inspected through</span>
-    <span class="doccomment">/// [`Device::associated_device()`][crate::Device::associated_device()].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// There may be several virtual devices, and several physical devices could</span>
-    <span class="doccomment">/// be controlling each of these virtual devices. Physical devices may also</span>
-    <span class="doccomment">/// be “floating”, which means they are not attached to any virtual device.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Master and slave devices</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```text</span>
-    <span class="doccomment">/// carlos@sacarino:~$ xinput list</span>
-    <span class="doccomment">/// ⎡ Virtual core pointer                          id=2    [master pointer  (3)]</span>
-    <span class="doccomment">/// ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎜   ↳ Wacom ISDv4 E6 Pen stylus                 id=10   [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎜   ↳ Wacom ISDv4 E6 Finger touch               id=11   [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎜   ↳ SynPS/2 Synaptics TouchPad                id=13   [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎜   ↳ TPPS/2 IBM TrackPoint                     id=14   [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎜   ↳ Wacom ISDv4 E6 Pen eraser                 id=16   [slave  pointer  (2)]</span>
-    <span class="doccomment">/// ⎣ Virtual core keyboard                         id=3    [master keyboard (2)]</span>
-    <span class="doccomment">///     ↳ Virtual core XTEST keyboard               id=5    [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ Power Button                              id=6    [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ Video Bus                                 id=7    [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ Sleep Button                              id=8    [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ Integrated Camera                         id=9    [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ AT Translated Set 2 keyboard              id=12   [slave  keyboard (3)]</span>
-    <span class="doccomment">///     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// By default, GDK will automatically listen for events coming from all</span>
-    <span class="doccomment">/// master devices, setting the [`Device`][crate::Device] for all events coming from input</span>
-    <span class="doccomment">/// devices. Events containing device information are [`EventType::MotionNotify`][crate::EventType::MotionNotify],</span>
-    <span class="doccomment">/// [`EventType::ButtonPress`][crate::EventType::ButtonPress], [`EventType::_2buttonPress`][crate::EventType::_2buttonPress], [`EventType::_3buttonPress`][crate::EventType::_3buttonPress],</span>
-    <span class="doccomment">/// [`EventType::ButtonRelease`][crate::EventType::ButtonRelease], [`EventType::Scroll`][crate::EventType::Scroll], [`EventType::KeyPress`][crate::EventType::KeyPress], [`EventType::KeyRelease`][crate::EventType::KeyRelease],</span>
-    <span class="doccomment">/// [`EventType::EnterNotify`][crate::EventType::EnterNotify], [`EventType::LeaveNotify`][crate::EventType::LeaveNotify], [`EventType::FocusChange`][crate::EventType::FocusChange],</span>
-    <span class="doccomment">/// [`EventType::ProximityIn`][crate::EventType::ProximityIn], [`EventType::ProximityOut`][crate::EventType::ProximityOut], [`EventType::DragEnter`][crate::EventType::DragEnter], [`EventType::DragLeave`][crate::EventType::DragLeave],</span>
-    <span class="doccomment">/// [`EventType::DragMotion`][crate::EventType::DragMotion], [`EventType::DragStatus`][crate::EventType::DragStatus], [`EventType::DropStart`][crate::EventType::DropStart], [`EventType::DropFinished`][crate::EventType::DropFinished]</span>
-    <span class="doccomment">/// and [`EventType::GrabBroken`][crate::EventType::GrabBroken]. When dealing with an event on a master device,</span>
-    <span class="doccomment">/// it is possible to get the source (slave) device that the event originated</span>
-    <span class="doccomment">/// from via `gdk_event_get_source_device()`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// On a standard session, all physical devices are connected by default to</span>
-    <span class="doccomment">/// the &quot;Virtual Core Pointer/Keyboard&quot; master devices, hence routing all events</span>
-    <span class="doccomment">/// through these. This behavior is only modified by device grabs, where the</span>
-    <span class="doccomment">/// slave device is temporarily detached for as long as the grab is held, and</span>
-    <span class="doccomment">/// more permanently by user modifications to the device hierarchy.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// On certain application specific setups, it may make sense</span>
-    <span class="doccomment">/// to detach a physical device from its master pointer, and mapping it to</span>
-    <span class="doccomment">/// an specific window. This can be achieved by the combination of</span>
-    <span class="doccomment">/// [`Device::grab()`][crate::Device::grab()] and [`Device::set_mode()`][crate::Device::set_mode()].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// In order to listen for events coming from devices</span>
-    <span class="doccomment">/// other than a virtual device, [`Window::set_device_events()`][crate::Window::set_device_events()] must be</span>
-    <span class="doccomment">/// called. Generally, this function can be used to modify the event mask</span>
-    <span class="doccomment">/// for any given device.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Input devices may also provide additional information besides X/Y.</span>
-    <span class="doccomment">/// For example, graphics tablets may also provide pressure and X/Y tilt</span>
-    <span class="doccomment">/// information. This information is device-dependent, and may be</span>
-    <span class="doccomment">/// queried through `gdk_device_get_axis()`. In multidevice mode, virtual</span>
-    <span class="doccomment">/// devices will change axes in order to always represent the physical</span>
-    <span class="doccomment">/// device that is routing events through it. Whenever the physical device</span>
-    <span class="doccomment">/// changes, the `property::Device::n-axes` property will be notified, and</span>
-    <span class="doccomment">/// [`Device::list_axes()`][crate::Device::list_axes()] will return the new device axes.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Devices may also have associated “keys” or</span>
-    <span class="doccomment">/// macro buttons. Such keys can be globally set to map into normal X</span>
-    <span class="doccomment">/// keyboard events. The mapping is set using [`Device::set_key()`][crate::Device::set_key()].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// In GTK+ 3.20, a new [`Seat`][crate::Seat] object has been introduced that</span>
-    <span class="doccomment">/// supersedes [`DeviceManager`][crate::DeviceManager] and should be preferred in newly</span>
-    <span class="doccomment">/// written code.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is an Abstract Base Class, you cannot instantiate it.</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;GdkDeviceManager&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceManager</span>(<span class="ident">Object</span><span class="op">&lt;</span><span class="ident">ffi::GdkDeviceManager</span><span class="op">&gt;</span>);
+<span class="macro">glib::wrapper! </span>{
+    <span class="doccomment">/// In addition to a single pointer and keyboard for user interface input,
+    /// GDK contains support for a variety of input devices, including graphics
+    /// tablets, touchscreens and multiple pointers/keyboards interacting
+    /// simultaneously with the user interface. Such input devices often have
+    /// additional features, such as sub-pixel positioning information and
+    /// additional device-dependent information.
+    ///
+    /// In order to query the device hierarchy and be aware of changes in the
+    /// device hierarchy (such as virtual devices being created or removed, or
+    /// physical devices being plugged or unplugged), GDK provides
+    /// [`DeviceManager`][crate::DeviceManager].
+    ///
+    /// By default, and if the platform supports it, GDK is aware of multiple
+    /// keyboard/pointer pairs and multitouch devices. This behavior can be
+    /// changed by calling `gdk_disable_multidevice()` before [`Display::open()`][crate::Display::open()].
+    /// There should rarely be a need to do that though, since GDK defaults
+    /// to a compatibility mode in which it will emit just one enter/leave
+    /// event pair for all devices on a window. To enable per-device
+    /// enter/leave events and other multi-pointer interaction features,
+    /// [`Window::set_support_multidevice()`][crate::Window::set_support_multidevice()] must be called on
+    /// `GdkWindows` (or `gtk_widget_set_support_multidevice()` on widgets).
+    /// window. See the [`Window::set_support_multidevice()`][crate::Window::set_support_multidevice()] documentation
+    /// for more information.
+    ///
+    /// On X11, multi-device support is implemented through XInput 2.
+    /// Unless `gdk_disable_multidevice()` is called, the XInput 2
+    /// [`DeviceManager`][crate::DeviceManager] implementation will be used as the input source.
+    /// Otherwise either the core or XInput 1 implementations will be used.
+    ///
+    /// For simple applications that don’t have any special interest in
+    /// input devices, the so-called “client pointer”
+    /// provides a reasonable approximation to a simple setup with a single
+    /// pointer and keyboard. The device that has been set as the client
+    /// pointer can be accessed via [`client_pointer()`][Self::client_pointer()].
+    ///
+    /// Conceptually, in multidevice mode there are 2 device types. Virtual
+    /// devices (or master devices) are represented by the pointer cursors
+    /// and keyboard foci that are seen on the screen. Physical devices (or
+    /// slave devices) represent the hardware that is controlling the virtual
+    /// devices, and thus have no visible cursor on the screen.
+    ///
+    /// Virtual devices are always paired, so there is a keyboard device for every
+    /// pointer device. Associations between devices may be inspected through
+    /// [`Device::associated_device()`][crate::Device::associated_device()].
+    ///
+    /// There may be several virtual devices, and several physical devices could
+    /// be controlling each of these virtual devices. Physical devices may also
+    /// be “floating”, which means they are not attached to any virtual device.
+    ///
+    /// # Master and slave devices
+    ///
+    ///
+    /// ```text
+    /// carlos@sacarino:~$ xinput list
+    /// ⎡ Virtual core pointer                          id=2    [master pointer  (3)]
+    /// ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
+    /// ⎜   ↳ Wacom ISDv4 E6 Pen stylus                 id=10   [slave  pointer  (2)]
+    /// ⎜   ↳ Wacom ISDv4 E6 Finger touch               id=11   [slave  pointer  (2)]
+    /// ⎜   ↳ SynPS/2 Synaptics TouchPad                id=13   [slave  pointer  (2)]
+    /// ⎜   ↳ TPPS/2 IBM TrackPoint                     id=14   [slave  pointer  (2)]
+    /// ⎜   ↳ Wacom ISDv4 E6 Pen eraser                 id=16   [slave  pointer  (2)]
+    /// ⎣ Virtual core keyboard                         id=3    [master keyboard (2)]
+    ///     ↳ Virtual core XTEST keyboard               id=5    [slave  keyboard (3)]
+    ///     ↳ Power Button                              id=6    [slave  keyboard (3)]
+    ///     ↳ Video Bus                                 id=7    [slave  keyboard (3)]
+    ///     ↳ Sleep Button                              id=8    [slave  keyboard (3)]
+    ///     ↳ Integrated Camera                         id=9    [slave  keyboard (3)]
+    ///     ↳ AT Translated Set 2 keyboard              id=12   [slave  keyboard (3)]
+    ///     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]
+    /// ```
+    ///
+    /// By default, GDK will automatically listen for events coming from all
+    /// master devices, setting the [`Device`][crate::Device] for all events coming from input
+    /// devices. Events containing device information are [`EventType::MotionNotify`][crate::EventType::MotionNotify],
+    /// [`EventType::ButtonPress`][crate::EventType::ButtonPress], [`EventType::_2buttonPress`][crate::EventType::_2buttonPress], [`EventType::_3buttonPress`][crate::EventType::_3buttonPress],
+    /// [`EventType::ButtonRelease`][crate::EventType::ButtonRelease], [`EventType::Scroll`][crate::EventType::Scroll], [`EventType::KeyPress`][crate::EventType::KeyPress], [`EventType::KeyRelease`][crate::EventType::KeyRelease],
+    /// [`EventType::EnterNotify`][crate::EventType::EnterNotify], [`EventType::LeaveNotify`][crate::EventType::LeaveNotify], [`EventType::FocusChange`][crate::EventType::FocusChange],
+    /// [`EventType::ProximityIn`][crate::EventType::ProximityIn], [`EventType::ProximityOut`][crate::EventType::ProximityOut], [`EventType::DragEnter`][crate::EventType::DragEnter], [`EventType::DragLeave`][crate::EventType::DragLeave],
+    /// [`EventType::DragMotion`][crate::EventType::DragMotion], [`EventType::DragStatus`][crate::EventType::DragStatus], [`EventType::DropStart`][crate::EventType::DropStart], [`EventType::DropFinished`][crate::EventType::DropFinished]
+    /// and [`EventType::GrabBroken`][crate::EventType::GrabBroken]. When dealing with an event on a master device,
+    /// it is possible to get the source (slave) device that the event originated
+    /// from via `gdk_event_get_source_device()`.
+    ///
+    /// On a standard session, all physical devices are connected by default to
+    /// the &quot;Virtual Core Pointer/Keyboard&quot; master devices, hence routing all events
+    /// through these. This behavior is only modified by device grabs, where the
+    /// slave device is temporarily detached for as long as the grab is held, and
+    /// more permanently by user modifications to the device hierarchy.
+    ///
+    /// On certain application specific setups, it may make sense
+    /// to detach a physical device from its master pointer, and mapping it to
+    /// an specific window. This can be achieved by the combination of
+    /// [`Device::grab()`][crate::Device::grab()] and [`Device::set_mode()`][crate::Device::set_mode()].
+    ///
+    /// In order to listen for events coming from devices
+    /// other than a virtual device, [`Window::set_device_events()`][crate::Window::set_device_events()] must be
+    /// called. Generally, this function can be used to modify the event mask
+    /// for any given device.
+    ///
+    /// Input devices may also provide additional information besides X/Y.
+    /// For example, graphics tablets may also provide pressure and X/Y tilt
+    /// information. This information is device-dependent, and may be
+    /// queried through `gdk_device_get_axis()`. In multidevice mode, virtual
+    /// devices will change axes in order to always represent the physical
+    /// device that is routing events through it. Whenever the physical device
+    /// changes, the `property::Device::n-axes` property will be notified, and
+    /// [`Device::list_axes()`][crate::Device::list_axes()] will return the new device axes.
+    ///
+    /// Devices may also have associated “keys” or
+    /// macro buttons. Such keys can be globally set to map into normal X
+    /// keyboard events. The mapping is set using [`Device::set_key()`][crate::Device::set_key()].
+    ///
+    /// In GTK+ 3.20, a new [`Seat`][crate::Seat] object has been introduced that
+    /// supersedes [`DeviceManager`][crate::DeviceManager] and should be preferred in newly
+    /// written code.
+    ///
+    /// This is an Abstract Base Class, you cannot instantiate it.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkDeviceManager&quot;</span>)]
+    </span><span class="kw">pub struct </span>DeviceManager(Object&lt;ffi::GdkDeviceManager&gt;);
 
-    <span class="kw">match</span> <span class="kw">fn</span> {
-        <span class="ident">type_</span> =&gt; <span class="op">|</span><span class="op">|</span> <span class="ident">ffi::gdk_device_manager_get_type</span>(),
+    <span class="kw">match fn </span>{
+        type_ =&gt; || ffi::gdk_device_manager_get_type(),
     }
 }
 
-<span class="kw">impl</span> <span class="ident">DeviceManager</span> {
-    <span class="doccomment">/// Returns the client pointer, that is, the master pointer that acts as the core pointer</span>
-    <span class="doccomment">/// for this application. In X11, window managers may change this depending on the interaction</span>
-    <span class="doccomment">/// pattern under the presence of several pointers.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// You should use this function seldomly, only in code that isn’t triggered by a `GdkEvent`</span>
-    <span class="doccomment">/// and there aren’t other means to get a meaningful [`Device`][crate::Device] to operate on.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Deprecated since 3.20</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Use [`Seat::pointer()`][crate::Seat::pointer()] instead.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The client pointer. This memory is</span>
-    <span class="doccomment">///  owned by GDK and must not be freed or unreferenced.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_get_client_pointer&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_client_pointer&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">client_pointer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> {
-            <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_device_manager_get_client_pointer</span>(
-                <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
+<span class="kw">impl </span>DeviceManager {
+    <span class="doccomment">/// Returns the client pointer, that is, the master pointer that acts as the core pointer
+    /// for this application. In X11, window managers may change this depending on the interaction
+    /// pattern under the presence of several pointers.
+    ///
+    /// You should use this function seldomly, only in code that isn’t triggered by a `GdkEvent`
+    /// and there aren’t other means to get a meaningful [`Device`][crate::Device] to operate on.
+    ///
+    /// # Deprecated since 3.20
+    ///
+    /// Use [`Seat::pointer()`][crate::Seat::pointer()] instead.
+    ///
+    /// # Returns
+    ///
+    /// The client pointer. This memory is
+    ///  owned by GDK and must not be freed or unreferenced.
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_20&quot;</span>, deprecated = <span class="string">&quot;Since 3.20&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;gdk_device_manager_get_client_pointer&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_client_pointer&quot;</span>)]
+    </span><span class="kw">pub fn </span>client_pointer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Device&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gdk_device_manager_get_client_pointer(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
             ))
         }
     }
 
-    <span class="doccomment">/// Gets the [`Display`][crate::Display] associated to `self`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// the [`Display`][crate::Display] to which</span>
-    <span class="doccomment">///  `self` is associated to, or [`None`]. This memory is</span>
-    <span class="doccomment">///  owned by GDK and must not be freed or unreferenced.</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_get_display&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;get_display&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">display</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Display</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> { <span class="ident">from_glib_none</span>(<span class="ident">ffi::gdk_device_manager_get_display</span>(<span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>)) }
+    <span class="doccomment">/// Gets the [`Display`][crate::Display] associated to `self`.
+    ///
+    /// # Returns
+    ///
+    /// the [`Display`][crate::Display] to which
+    ///  `self` is associated to, or [`None`]. This memory is
+    ///  owned by GDK and must not be freed or unreferenced.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_device_manager_get_display&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
+    </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Display&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_device_manager_get_display(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
     }
 
-    <span class="doccomment">/// Returns the list of devices of type `type_` currently attached to</span>
-    <span class="doccomment">/// `self`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Deprecated since 3.20</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// , use [`Seat::pointer()`][crate::Seat::pointer()], [`Seat::keyboard()`][crate::Seat::keyboard()]</span>
-    <span class="doccomment">///  and [`Seat::slaves()`][crate::Seat::slaves()] instead.</span>
-    <span class="doccomment">/// ## `type_`</span>
-    <span class="doccomment">/// device type to get.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Returns</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// a list of</span>
-    <span class="doccomment">///  `GdkDevices`. The returned list must be</span>
-    <span class="doccomment">///  freed with g_list_free (). The list elements are owned by</span>
-    <span class="doccomment">///  GTK+ and must not be freed or unreffed.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;v3_20&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;Since 3.20&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;gdk_device_manager_list_devices&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">list_devices</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">type_</span>: <span class="ident">DeviceType</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Device</span><span class="op">&gt;</span> {
-        <span class="kw">unsafe</span> {
-            <span class="ident">FromGlibPtrContainer::from_glib_container</span>(<span class="ident">ffi::gdk_device_manager_list_devices</span>(
-                <span class="self">self</span>.<span class="ident">to_glib_none</span>().<span class="number">0</span>,
-                <span class="ident">type_</span>.<span class="ident">into_glib</span>(),
+    <span class="doccomment">/// Returns the list of devices of type `type_` currently attached to
+    /// `self`.
+    ///
+    /// # Deprecated since 3.20
+    ///
+    /// , use [`Seat::pointer()`][crate::Seat::pointer()], [`Seat::keyboard()`][crate::Seat::keyboard()]
+    ///  and [`Seat::slaves()`][crate::Seat::slaves()] instead.
+    /// ## `type_`
+    /// device type to get.
+    ///
+    /// # Returns
+    ///
+    /// a list of
+    ///  `GdkDevices`. The returned list must be
+    ///  freed with g_list_free (). The list elements are owned by
+    ///  GTK+ and must not be freed or unreffed.
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_20&quot;</span>, deprecated = <span class="string">&quot;Since 3.20&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;gdk_device_manager_list_devices&quot;</span>)]
+    </span><span class="kw">pub fn </span>list_devices(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: DeviceType) -&gt; Vec&lt;Device&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                type_.into_glib(),
             ))
         }
     }
 
-    <span class="doccomment">/// The ::device-added signal is emitted either when a new master</span>
-    <span class="doccomment">/// pointer is created, or when a slave (Hardware) input device</span>
-    <span class="doccomment">/// is plugged in.</span>
-    <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the newly added [`Device`][crate::Device].</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;device-added&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_added</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">SignalHandlerId</span> {
-        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">device_added_trampoline</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDeviceManager</span>,
-            <span class="ident">device</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDevice</span>,
-            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
+    <span class="doccomment">/// The ::device-added signal is emitted either when a new master
+    /// pointer is created, or when a slave (Hardware) input device
+    /// is plugged in.
+    /// ## `device`
+    /// the newly added [`Device`][crate::Device].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;device-added&quot;</span>)]
+    </span><span class="kw">pub fn </span>connect_device_added&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>device_added_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>DeviceManager, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span>ffi::GdkDeviceManager,
+            device: <span class="kw-2">*mut </span>ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">this</span>), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">device</span>))
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
+            f(<span class="kw-2">&amp;</span>from_glib_borrow(this), <span class="kw-2">&amp;</span>from_glib_borrow(device))
         }
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
-            <span class="ident">connect_raw</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="kw">_</span>,
-                <span class="string">b&quot;device-added\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
-                    <span class="ident">device_added_trampoline</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*const</span> (),
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
+            connect_raw(
+                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b&quot;device-added\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
+                    device_added_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
+                Box_::into_raw(f),
             )
         }
     }
 
-    <span class="doccomment">/// The ::device-changed signal is emitted whenever a device</span>
-    <span class="doccomment">/// has changed in the hierarchy, either slave devices being</span>
-    <span class="doccomment">/// disconnected from their master device or connected to</span>
-    <span class="doccomment">/// another one, or master devices being added or removed</span>
-    <span class="doccomment">/// a slave device.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// If a slave device is detached from all master devices</span>
-    <span class="doccomment">/// ([`Device::associated_device()`][crate::Device::associated_device()] returns [`None`]), its</span>
-    <span class="doccomment">/// [`DeviceType`][crate::DeviceType] will change to [`DeviceType::Floating`][crate::DeviceType::Floating],</span>
-    <span class="doccomment">/// if it&#39;s attached, it will change to [`DeviceType::Slave`][crate::DeviceType::Slave].</span>
-    <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the [`Device`][crate::Device] that changed.</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;device-changed&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_changed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">SignalHandlerId</span> {
-        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">device_changed_trampoline</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDeviceManager</span>,
-            <span class="ident">device</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDevice</span>,
-            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
+    <span class="doccomment">/// The ::device-changed signal is emitted whenever a device
+    /// has changed in the hierarchy, either slave devices being
+    /// disconnected from their master device or connected to
+    /// another one, or master devices being added or removed
+    /// a slave device.
+    ///
+    /// If a slave device is detached from all master devices
+    /// ([`Device::associated_device()`][crate::Device::associated_device()] returns [`None`]), its
+    /// [`DeviceType`][crate::DeviceType] will change to [`DeviceType::Floating`][crate::DeviceType::Floating],
+    /// if it&#39;s attached, it will change to [`DeviceType::Slave`][crate::DeviceType::Slave].
+    /// ## `device`
+    /// the [`Device`][crate::Device] that changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;device-changed&quot;</span>)]
+    </span><span class="kw">pub fn </span>connect_device_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>device_changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>DeviceManager, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span>ffi::GdkDeviceManager,
+            device: <span class="kw-2">*mut </span>ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">this</span>), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">device</span>))
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
+            f(<span class="kw-2">&amp;</span>from_glib_borrow(this), <span class="kw-2">&amp;</span>from_glib_borrow(device))
         }
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
-            <span class="ident">connect_raw</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="kw">_</span>,
-                <span class="string">b&quot;device-changed\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
-                    <span class="ident">device_changed_trampoline</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*const</span> (),
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
+            connect_raw(
+                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b&quot;device-changed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
+                    device_changed_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
+                Box_::into_raw(f),
             )
         }
     }
 
-    <span class="doccomment">/// The ::device-removed signal is emitted either when a master</span>
-    <span class="doccomment">/// pointer is removed, or when a slave (Hardware) input device</span>
-    <span class="doccomment">/// is unplugged.</span>
-    <span class="doccomment">/// ## `device`</span>
-    <span class="doccomment">/// the just removed [`Device`][crate::Device].</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;device-removed&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">connect_device_removed</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">SignalHandlerId</span> {
-        <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">device_removed_trampoline</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">DeviceManager</span>, <span class="kw-2">&amp;</span><span class="ident">Device</span>) <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span>(
-            <span class="ident">this</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDeviceManager</span>,
-            <span class="ident">device</span>: <span class="kw-2">*mut</span> <span class="ident">ffi::GdkDevice</span>,
-            <span class="ident">f</span>: <span class="ident">glib::ffi::gpointer</span>,
+    <span class="doccomment">/// The ::device-removed signal is emitted either when a master
+    /// pointer is removed, or when a slave (Hardware) input device
+    /// is unplugged.
+    /// ## `device`
+    /// the just removed [`Device`][crate::Device].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;device-removed&quot;</span>)]
+    </span><span class="kw">pub fn </span>connect_device_removed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>device_removed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>DeviceManager, <span class="kw-2">&amp;</span>Device) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span>ffi::GdkDeviceManager,
+            device: <span class="kw-2">*mut </span>ffi::GdkDevice,
+            f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="ident">F</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span>(<span class="ident">f</span> <span class="kw">as</span> <span class="kw-2">*const</span> <span class="ident">F</span>);
-            <span class="ident">f</span>(<span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">this</span>), <span class="kw-2">&amp;</span><span class="ident">from_glib_borrow</span>(<span class="ident">device</span>))
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
+            f(<span class="kw-2">&amp;</span>from_glib_borrow(this), <span class="kw-2">&amp;</span>from_glib_borrow(device))
         }
-        <span class="kw">unsafe</span> {
-            <span class="kw">let</span> <span class="ident">f</span>: <span class="ident">Box_</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Box_::new</span>(<span class="ident">f</span>);
-            <span class="ident">connect_raw</span>(
-                <span class="self">self</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*mut</span> <span class="kw">_</span>,
-                <span class="string">b&quot;device-removed\0&quot;</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*const</span> <span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">transmute</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="kw">unsafe</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span>()<span class="op">&gt;</span>(
-                    <span class="ident">device_removed_trampoline</span>::<span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="kw">as</span> <span class="kw-2">*const</span> (),
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
+            connect_raw(
+                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b&quot;device-removed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
+                    device_removed_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                <span class="ident">Box_::into_raw</span>(<span class="ident">f</span>),
+                Box_::into_raw(f),
             )
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">DeviceManager</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span>) -&gt; <span class="ident">fmt::Result</span> {
-        <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;DeviceManager&quot;</span>)
+<span class="kw">impl </span>fmt::Display <span class="kw">for </span>DeviceManager {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
+        f.write_str(<span class="string">&quot;DeviceManager&quot;</span>)
     }
 }
-</code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (055bf4ccd 2022-04-25)" ></div>
-</body></html>
+</code></pre></div></section></main></body></html>
