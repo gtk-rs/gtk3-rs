@@ -7,7 +7,7 @@ name = "gtk"
 homepage = "https://gtk-rs.org/"
 authors = ["The gtk-rs Project Developers"]
 readme = "README.md"
-version = "0.15.5"
+version = "0.15.6"
 keywords = ["gtk", "gtk-rs", "gnome", "GUI"]
 repository = "https://github.com/gtk-rs/gtk3-rs"
 build = "build.rs"
@@ -54,7 +54,7 @@ ffi = {package = "gtk-sys", path = "sys", version = "0.15.1"}
 gtk3-macros = {path = "../gtk3-macros", version = "0.15.1"}
 cairo-rs = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 gio = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
-glib = { version = "0.15.5", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
+glib = { version = "0.15.6", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 gdk = {path = "../gdk", version = "0.15.1"}
 gdk-pixbuf = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
 pango = { version = "0.15.1", git = "https://github.com/gtk-rs/gtk-rs-core", branch = "0.15" }
