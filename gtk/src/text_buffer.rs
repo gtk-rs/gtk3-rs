@@ -12,39 +12,7 @@ use std::boxed::Box as Box_;
 use std::mem::transmute;
 use std::{slice, str};
 
-pub trait TextBufferExtManual: 'static {
-    fn connect_apply_tag<F: Fn(&Self, &TextTag, &mut TextIter, &mut TextIter) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_delete_range<F: Fn(&Self, &mut TextIter, &mut TextIter) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_insert_child_anchor<F: Fn(&Self, &mut TextIter, &TextChildAnchor) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_insert_pixbuf<F: Fn(&Self, &mut TextIter, &gdk_pixbuf::Pixbuf) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_insert_text<F: Fn(&Self, &mut TextIter, &str) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn connect_remove_tag<F: Fn(&Self, &TextTag, &mut TextIter, &mut TextIter) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-}
-
-impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
+pub trait TextBufferExtManual: IsA<TextBuffer> + 'static {
     fn connect_apply_tag<F: Fn(&Self, &TextTag, &mut TextIter, &mut TextIter) + 'static>(
         &self,
         f: F,
@@ -293,3 +261,5 @@ impl<O: IsA<TextBuffer>> TextBufferExtManual for O {
         }
     }
 }
+
+impl<O: IsA<TextBuffer>> TextBufferExtManual for O {}

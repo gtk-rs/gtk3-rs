@@ -326,26 +326,18 @@ impl ColorChooserWidgetBuilder {
     }
 }
 
-pub trait ColorChooserWidgetExt: 'static {
+pub trait ColorChooserWidgetExt: IsA<ColorChooserWidget> + 'static {
     #[doc(alias = "show-editor")]
-    fn shows_editor(&self) -> bool;
-
-    #[doc(alias = "show-editor")]
-    fn set_show_editor(&self, show_editor: bool);
-
-    #[doc(alias = "show-editor")]
-    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
     fn shows_editor(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-editor")
     }
 
+    #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
+    #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<
             P: IsA<ColorChooserWidget>,
@@ -371,6 +363,8 @@ impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {
         }
     }
 }
+
+impl<O: IsA<ColorChooserWidget>> ColorChooserWidgetExt for O {}
 
 impl fmt::Display for ColorChooserWidget {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

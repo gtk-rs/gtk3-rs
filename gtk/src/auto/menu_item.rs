@@ -343,103 +343,16 @@ impl MenuItemBuilder {
     }
 }
 
-pub trait GtkMenuItemExt: 'static {
+pub trait GtkMenuItemExt: IsA<MenuItem> + 'static {
     #[doc(alias = "gtk_menu_item_deselect")]
-    fn deselect(&self);
-
-    #[doc(alias = "gtk_menu_item_get_accel_path")]
-    #[doc(alias = "get_accel_path")]
-    fn accel_path(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_menu_item_get_label")]
-    #[doc(alias = "get_label")]
-    fn label(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_menu_item_get_reserve_indicator")]
-    #[doc(alias = "get_reserve_indicator")]
-    fn must_reserve_indicator(&self) -> bool;
-
-    #[doc(alias = "gtk_menu_item_get_submenu")]
-    #[doc(alias = "get_submenu")]
-    fn submenu(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_item_get_use_underline")]
-    #[doc(alias = "get_use_underline")]
-    fn uses_underline(&self) -> bool;
-
-    #[doc(alias = "gtk_menu_item_select")]
-    fn select(&self);
-
-    #[doc(alias = "gtk_menu_item_set_accel_path")]
-    fn set_accel_path(&self, accel_path: Option<&str>);
-
-    #[doc(alias = "gtk_menu_item_set_label")]
-    fn set_label(&self, label: &str);
-
-    #[doc(alias = "gtk_menu_item_set_reserve_indicator")]
-    fn set_reserve_indicator(&self, reserve: bool);
-
-    #[doc(alias = "gtk_menu_item_set_submenu")]
-    fn set_submenu(&self, submenu: Option<&impl IsA<Menu>>);
-
-    #[doc(alias = "gtk_menu_item_set_use_underline")]
-    fn set_use_underline(&self, setting: bool);
-
-    #[doc(alias = "gtk_menu_item_toggle_size_allocate")]
-    fn toggle_size_allocate(&self, allocation: i32);
-
-    #[doc(alias = "gtk_menu_item_toggle_size_request")]
-    fn toggle_size_request(&self, requisition: &mut i32);
-
-    #[doc(alias = "right-justified")]
-    fn is_right_justified(&self) -> bool;
-
-    #[doc(alias = "right-justified")]
-    fn set_right_justified(&self, right_justified: bool);
-
-    #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate(&self);
-
-    #[doc(alias = "activate-item")]
-    fn connect_activate_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "deselect")]
-    fn connect_deselect<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "select")]
-    fn connect_select<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "toggle-size-allocate")]
-    fn connect_toggle_size_allocate<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    //#[doc(alias = "toggle-size-request")]
-    //fn connect_toggle_size_request<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accel-path")]
-    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "right-justified")]
-    fn connect_right_justified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "submenu")]
-    fn connect_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-underline")]
-    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
     fn deselect(&self) {
         unsafe {
             ffi::gtk_menu_item_deselect(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_item_get_accel_path")]
+    #[doc(alias = "get_accel_path")]
     fn accel_path(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_menu_item_get_accel_path(
@@ -448,10 +361,14 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_menu_item_get_label(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_menu_item_get_reserve_indicator")]
+    #[doc(alias = "get_reserve_indicator")]
     fn must_reserve_indicator(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_item_get_reserve_indicator(
@@ -460,6 +377,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_get_submenu")]
+    #[doc(alias = "get_submenu")]
     fn submenu(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_item_get_submenu(
@@ -468,6 +387,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_item_get_use_underline(
@@ -476,12 +397,14 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_select")]
     fn select(&self) {
         unsafe {
             ffi::gtk_menu_item_select(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_item_set_accel_path")]
     fn set_accel_path(&self, accel_path: Option<&str>) {
         unsafe {
             ffi::gtk_menu_item_set_accel_path(
@@ -491,12 +414,14 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_set_label")]
     fn set_label(&self, label: &str) {
         unsafe {
             ffi::gtk_menu_item_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_item_set_reserve_indicator")]
     fn set_reserve_indicator(&self, reserve: bool) {
         unsafe {
             ffi::gtk_menu_item_set_reserve_indicator(
@@ -506,6 +431,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_set_submenu")]
     fn set_submenu(&self, submenu: Option<&impl IsA<Menu>>) {
         unsafe {
             ffi::gtk_menu_item_set_submenu(
@@ -515,6 +441,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_set_use_underline")]
     fn set_use_underline(&self, setting: bool) {
         unsafe {
             ffi::gtk_menu_item_set_use_underline(
@@ -524,26 +451,31 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_item_toggle_size_allocate")]
     fn toggle_size_allocate(&self, allocation: i32) {
         unsafe {
             ffi::gtk_menu_item_toggle_size_allocate(self.as_ref().to_glib_none().0, allocation);
         }
     }
 
+    #[doc(alias = "gtk_menu_item_toggle_size_request")]
     fn toggle_size_request(&self, requisition: &mut i32) {
         unsafe {
             ffi::gtk_menu_item_toggle_size_request(self.as_ref().to_glib_none().0, requisition);
         }
     }
 
+    #[doc(alias = "right-justified")]
     fn is_right_justified(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "right-justified")
     }
 
+    #[doc(alias = "right-justified")]
     fn set_right_justified(&self, right_justified: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "right-justified", right_justified)
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -569,6 +501,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         self.emit_by_name::<()>("activate", &[]);
     }
 
+    #[doc(alias = "activate-item")]
     fn connect_activate_item<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_item_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -590,6 +523,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "deselect")]
     fn connect_deselect<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deselect_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -611,6 +545,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "select")]
     fn connect_select<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -632,6 +567,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "toggle-size-allocate")]
     fn connect_toggle_size_allocate<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_size_allocate_trampoline<
             P: IsA<MenuItem>,
@@ -657,10 +593,12 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    //#[doc(alias = "toggle-size-request")]
     //fn connect_toggle_size_request<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented object: *.Pointer
     //}
 
+    #[doc(alias = "accel-path")]
     fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_path_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -683,6 +621,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -705,6 +644,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "right-justified")]
     fn connect_right_justified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_right_justified_trampoline<
             P: IsA<MenuItem>,
@@ -730,6 +670,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "submenu")]
     fn connect_submenu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_submenu_trampoline<P: IsA<MenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuItem,
@@ -752,6 +693,7 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<
             P: IsA<MenuItem>,
@@ -777,6 +719,8 @@ impl<O: IsA<MenuItem>> GtkMenuItemExt for O {
         }
     }
 }
+
+impl<O: IsA<MenuItem>> GtkMenuItemExt for O {}
 
 impl fmt::Display for MenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -459,32 +459,7 @@ impl CellRendererSpinBuilder {
     }
 }
 
-pub trait CellRendererSpinExt: 'static {
-    fn adjustment(&self) -> Option<Adjustment>;
-
-    fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>);
-
-    #[doc(alias = "climb-rate")]
-    fn climb_rate(&self) -> f64;
-
-    #[doc(alias = "climb-rate")]
-    fn set_climb_rate(&self, climb_rate: f64);
-
-    fn digits(&self) -> u32;
-
-    fn set_digits(&self, digits: u32);
-
-    #[doc(alias = "adjustment")]
-    fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "climb-rate")]
-    fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "digits")]
-    fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
+pub trait CellRendererSpinExt: IsA<CellRendererSpin> + 'static {
     fn adjustment(&self) -> Option<Adjustment> {
         glib::ObjectExt::property(self.as_ref(), "adjustment")
     }
@@ -493,10 +468,12 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "adjustment", adjustment)
     }
 
+    #[doc(alias = "climb-rate")]
     fn climb_rate(&self) -> f64 {
         glib::ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
+    #[doc(alias = "climb-rate")]
     fn set_climb_rate(&self, climb_rate: f64) {
         glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
@@ -509,6 +486,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "digits", digits)
     }
 
+    #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<
             P: IsA<CellRendererSpin>,
@@ -534,6 +512,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
+    #[doc(alias = "climb-rate")]
     fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<
             P: IsA<CellRendererSpin>,
@@ -559,6 +538,7 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 
+    #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<
             P: IsA<CellRendererSpin>,
@@ -584,6 +564,8 @@ impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererSpin>> CellRendererSpinExt for O {}
 
 impl fmt::Display for CellRendererSpin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

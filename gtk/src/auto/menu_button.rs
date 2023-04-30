@@ -392,69 +392,9 @@ impl MenuButtonBuilder {
     }
 }
 
-pub trait MenuButtonExt: 'static {
+pub trait MenuButtonExt: IsA<MenuButton> + 'static {
     #[doc(alias = "gtk_menu_button_get_align_widget")]
     #[doc(alias = "get_align_widget")]
-    fn align_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_button_get_direction")]
-    #[doc(alias = "get_direction")]
-    fn direction(&self) -> ArrowType;
-
-    #[doc(alias = "gtk_menu_button_get_menu_model")]
-    #[doc(alias = "get_menu_model")]
-    fn menu_model(&self) -> Option<gio::MenuModel>;
-
-    #[doc(alias = "gtk_menu_button_get_popover")]
-    #[doc(alias = "get_popover")]
-    fn popover(&self) -> Option<Popover>;
-
-    #[doc(alias = "gtk_menu_button_get_popup")]
-    #[doc(alias = "get_popup")]
-    fn popup(&self) -> Option<Menu>;
-
-    #[doc(alias = "gtk_menu_button_get_use_popover")]
-    #[doc(alias = "get_use_popover")]
-    fn uses_popover(&self) -> bool;
-
-    #[doc(alias = "gtk_menu_button_set_align_widget")]
-    fn set_align_widget(&self, align_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_menu_button_set_direction")]
-    fn set_direction(&self, direction: ArrowType);
-
-    #[doc(alias = "gtk_menu_button_set_menu_model")]
-    fn set_menu_model(&self, menu_model: Option<&impl IsA<gio::MenuModel>>);
-
-    #[doc(alias = "gtk_menu_button_set_popover")]
-    fn set_popover(&self, popover: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_menu_button_set_popup")]
-    fn set_popup(&self, menu: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_menu_button_set_use_popover")]
-    fn set_use_popover(&self, use_popover: bool);
-
-    #[doc(alias = "align-widget")]
-    fn connect_align_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "direction")]
-    fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "menu-model")]
-    fn connect_menu_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "popover")]
-    fn connect_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "popup")]
-    fn connect_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-popover")]
-    fn connect_use_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MenuButton>> MenuButtonExt for O {
     fn align_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_align_widget(
@@ -463,6 +403,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_get_direction")]
+    #[doc(alias = "get_direction")]
     fn direction(&self) -> ArrowType {
         unsafe {
             from_glib(ffi::gtk_menu_button_get_direction(
@@ -471,6 +413,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_get_menu_model")]
+    #[doc(alias = "get_menu_model")]
     fn menu_model(&self) -> Option<gio::MenuModel> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_menu_model(
@@ -479,6 +423,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_get_popover")]
+    #[doc(alias = "get_popover")]
     fn popover(&self) -> Option<Popover> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_popover(
@@ -487,6 +433,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_get_popup")]
+    #[doc(alias = "get_popup")]
     fn popup(&self) -> Option<Menu> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_popup(
@@ -495,6 +443,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_get_use_popover")]
+    #[doc(alias = "get_use_popover")]
     fn uses_popover(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_button_get_use_popover(
@@ -503,6 +453,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_align_widget")]
     fn set_align_widget(&self, align_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_align_widget(
@@ -512,6 +463,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_direction")]
     fn set_direction(&self, direction: ArrowType) {
         unsafe {
             ffi::gtk_menu_button_set_direction(
@@ -521,6 +473,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_menu_model")]
     fn set_menu_model(&self, menu_model: Option<&impl IsA<gio::MenuModel>>) {
         unsafe {
             ffi::gtk_menu_button_set_menu_model(
@@ -530,6 +483,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_popover")]
     fn set_popover(&self, popover: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popover(
@@ -539,6 +493,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_popup")]
     fn set_popup(&self, menu: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popup(
@@ -548,6 +503,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_button_set_use_popover")]
     fn set_use_popover(&self, use_popover: bool) {
         unsafe {
             ffi::gtk_menu_button_set_use_popover(
@@ -557,6 +513,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "align-widget")]
     fn connect_align_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_align_widget_trampoline<
             P: IsA<MenuButton>,
@@ -582,6 +539,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "direction")]
     fn connect_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_direction_trampoline<
             P: IsA<MenuButton>,
@@ -607,6 +565,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "menu-model")]
     fn connect_menu_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_model_trampoline<
             P: IsA<MenuButton>,
@@ -632,6 +591,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "popover")]
     fn connect_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popover_trampoline<P: IsA<MenuButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuButton,
@@ -654,6 +614,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "popup")]
     fn connect_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popup_trampoline<P: IsA<MenuButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuButton,
@@ -676,6 +637,7 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 
+    #[doc(alias = "use-popover")]
     fn connect_use_popover_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_popover_trampoline<
             P: IsA<MenuButton>,
@@ -701,6 +663,8 @@ impl<O: IsA<MenuButton>> MenuButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<MenuButton>> MenuButtonExt for O {}
 
 impl fmt::Display for MenuButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

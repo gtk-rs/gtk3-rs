@@ -23,75 +23,16 @@ impl CellAreaContext {
     pub const NONE: Option<&'static CellAreaContext> = None;
 }
 
-pub trait CellAreaContextExt: 'static {
+pub trait CellAreaContextExt: IsA<CellAreaContext> + 'static {
     #[doc(alias = "gtk_cell_area_context_allocate")]
-    fn allocate(&self, width: i32, height: i32);
-
-    #[doc(alias = "gtk_cell_area_context_get_allocation")]
-    #[doc(alias = "get_allocation")]
-    fn allocation(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_cell_area_context_get_area")]
-    #[doc(alias = "get_area")]
-    fn area(&self) -> Option<CellArea>;
-
-    #[doc(alias = "gtk_cell_area_context_get_preferred_height")]
-    #[doc(alias = "get_preferred_height")]
-    fn preferred_height(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_cell_area_context_get_preferred_height_for_width")]
-    #[doc(alias = "get_preferred_height_for_width")]
-    fn preferred_height_for_width(&self, width: i32) -> (i32, i32);
-
-    #[doc(alias = "gtk_cell_area_context_get_preferred_width")]
-    #[doc(alias = "get_preferred_width")]
-    fn preferred_width(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_cell_area_context_get_preferred_width_for_height")]
-    #[doc(alias = "get_preferred_width_for_height")]
-    fn preferred_width_for_height(&self, height: i32) -> (i32, i32);
-
-    #[doc(alias = "gtk_cell_area_context_push_preferred_height")]
-    fn push_preferred_height(&self, minimum_height: i32, natural_height: i32);
-
-    #[doc(alias = "gtk_cell_area_context_push_preferred_width")]
-    fn push_preferred_width(&self, minimum_width: i32, natural_width: i32);
-
-    #[doc(alias = "gtk_cell_area_context_reset")]
-    fn reset(&self);
-
-    #[doc(alias = "minimum-height")]
-    fn minimum_height(&self) -> i32;
-
-    #[doc(alias = "minimum-width")]
-    fn minimum_width(&self) -> i32;
-
-    #[doc(alias = "natural-height")]
-    fn natural_height(&self) -> i32;
-
-    #[doc(alias = "natural-width")]
-    fn natural_width(&self) -> i32;
-
-    #[doc(alias = "minimum-height")]
-    fn connect_minimum_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "minimum-width")]
-    fn connect_minimum_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "natural-height")]
-    fn connect_natural_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "natural-width")]
-    fn connect_natural_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
     fn allocate(&self, width: i32, height: i32) {
         unsafe {
             ffi::gtk_cell_area_context_allocate(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_allocation")]
+    #[doc(alias = "get_allocation")]
     fn allocation(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -105,6 +46,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_area")]
+    #[doc(alias = "get_area")]
     fn area(&self) -> Option<CellArea> {
         unsafe {
             from_glib_none(ffi::gtk_cell_area_context_get_area(
@@ -113,6 +56,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_preferred_height")]
+    #[doc(alias = "get_preferred_height")]
     fn preferred_height(&self) -> (i32, i32) {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
@@ -126,6 +71,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_preferred_height_for_width")]
+    #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width(&self, width: i32) -> (i32, i32) {
         unsafe {
             let mut minimum_height = mem::MaybeUninit::uninit();
@@ -140,6 +87,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_preferred_width")]
+    #[doc(alias = "get_preferred_width")]
     fn preferred_width(&self) -> (i32, i32) {
         unsafe {
             let mut minimum_width = mem::MaybeUninit::uninit();
@@ -153,6 +102,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_get_preferred_width_for_height")]
+    #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height(&self, height: i32) -> (i32, i32) {
         unsafe {
             let mut minimum_width = mem::MaybeUninit::uninit();
@@ -167,6 +118,7 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_push_preferred_height")]
     fn push_preferred_height(&self, minimum_height: i32, natural_height: i32) {
         unsafe {
             ffi::gtk_cell_area_context_push_preferred_height(
@@ -177,6 +129,7 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_push_preferred_width")]
     fn push_preferred_width(&self, minimum_width: i32, natural_width: i32) {
         unsafe {
             ffi::gtk_cell_area_context_push_preferred_width(
@@ -187,28 +140,34 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_context_reset")]
     fn reset(&self) {
         unsafe {
             ffi::gtk_cell_area_context_reset(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "minimum-height")]
     fn minimum_height(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "minimum-height")
     }
 
+    #[doc(alias = "minimum-width")]
     fn minimum_width(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "minimum-width")
     }
 
+    #[doc(alias = "natural-height")]
     fn natural_height(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "natural-height")
     }
 
+    #[doc(alias = "natural-width")]
     fn natural_width(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "natural-width")
     }
 
+    #[doc(alias = "minimum-height")]
     fn connect_minimum_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_minimum_height_trampoline<
             P: IsA<CellAreaContext>,
@@ -234,6 +193,7 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "minimum-width")]
     fn connect_minimum_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_minimum_width_trampoline<
             P: IsA<CellAreaContext>,
@@ -259,6 +219,7 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "natural-height")]
     fn connect_natural_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_natural_height_trampoline<
             P: IsA<CellAreaContext>,
@@ -284,6 +245,7 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 
+    #[doc(alias = "natural-width")]
     fn connect_natural_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_natural_width_trampoline<
             P: IsA<CellAreaContext>,
@@ -309,6 +271,8 @@ impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {
         }
     }
 }
+
+impl<O: IsA<CellAreaContext>> CellAreaContextExt for O {}
 
 impl fmt::Display for CellAreaContext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

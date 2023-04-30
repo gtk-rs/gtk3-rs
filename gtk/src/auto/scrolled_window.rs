@@ -399,206 +399,9 @@ impl ScrolledWindowBuilder {
     }
 }
 
-pub trait ScrolledWindowExt: 'static {
+pub trait ScrolledWindowExt: IsA<ScrolledWindow> + 'static {
     #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]
     #[doc(alias = "get_capture_button_press")]
-    fn is_capture_button_press(&self) -> bool;
-
-    #[doc(alias = "gtk_scrolled_window_get_hadjustment")]
-    #[doc(alias = "get_hadjustment")]
-    fn hadjustment(&self) -> Adjustment;
-
-    #[doc(alias = "gtk_scrolled_window_get_hscrollbar")]
-    #[doc(alias = "get_hscrollbar")]
-    fn hscrollbar(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_scrolled_window_get_kinetic_scrolling")]
-    #[doc(alias = "get_kinetic_scrolling")]
-    fn is_kinetic_scrolling(&self) -> bool;
-
-    #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
-    #[doc(alias = "get_max_content_height")]
-    fn max_content_height(&self) -> i32;
-
-    #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
-    #[doc(alias = "get_max_content_width")]
-    fn max_content_width(&self) -> i32;
-
-    #[doc(alias = "gtk_scrolled_window_get_min_content_height")]
-    #[doc(alias = "get_min_content_height")]
-    fn min_content_height(&self) -> i32;
-
-    #[doc(alias = "gtk_scrolled_window_get_min_content_width")]
-    #[doc(alias = "get_min_content_width")]
-    fn min_content_width(&self) -> i32;
-
-    #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
-    #[doc(alias = "get_overlay_scrolling")]
-    fn is_overlay_scrolling(&self) -> bool;
-
-    #[doc(alias = "gtk_scrolled_window_get_placement")]
-    #[doc(alias = "get_placement")]
-    fn placement(&self) -> CornerType;
-
-    #[doc(alias = "gtk_scrolled_window_get_policy")]
-    #[doc(alias = "get_policy")]
-    fn policy(&self) -> (PolicyType, PolicyType);
-
-    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
-    #[doc(alias = "get_propagate_natural_height")]
-    fn propagates_natural_height(&self) -> bool;
-
-    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
-    #[doc(alias = "get_propagate_natural_width")]
-    fn propagates_natural_width(&self) -> bool;
-
-    #[doc(alias = "gtk_scrolled_window_get_shadow_type")]
-    #[doc(alias = "get_shadow_type")]
-    fn shadow_type(&self) -> ShadowType;
-
-    #[doc(alias = "gtk_scrolled_window_get_vadjustment")]
-    #[doc(alias = "get_vadjustment")]
-    fn vadjustment(&self) -> Adjustment;
-
-    #[doc(alias = "gtk_scrolled_window_get_vscrollbar")]
-    #[doc(alias = "get_vscrollbar")]
-    fn vscrollbar(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_scrolled_window_set_capture_button_press")]
-    fn set_capture_button_press(&self, capture_button_press: bool);
-
-    #[doc(alias = "gtk_scrolled_window_set_hadjustment")]
-    fn set_hadjustment(&self, hadjustment: Option<&impl IsA<Adjustment>>);
-
-    #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
-    fn set_kinetic_scrolling(&self, kinetic_scrolling: bool);
-
-    #[doc(alias = "gtk_scrolled_window_set_max_content_height")]
-    fn set_max_content_height(&self, height: i32);
-
-    #[doc(alias = "gtk_scrolled_window_set_max_content_width")]
-    fn set_max_content_width(&self, width: i32);
-
-    #[doc(alias = "gtk_scrolled_window_set_min_content_height")]
-    fn set_min_content_height(&self, height: i32);
-
-    #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
-    fn set_min_content_width(&self, width: i32);
-
-    #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
-    fn set_overlay_scrolling(&self, overlay_scrolling: bool);
-
-    #[doc(alias = "gtk_scrolled_window_set_placement")]
-    fn set_placement(&self, window_placement: CornerType);
-
-    #[doc(alias = "gtk_scrolled_window_set_policy")]
-    fn set_policy(&self, hscrollbar_policy: PolicyType, vscrollbar_policy: PolicyType);
-
-    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_height")]
-    fn set_propagate_natural_height(&self, propagate: bool);
-
-    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_width")]
-    fn set_propagate_natural_width(&self, propagate: bool);
-
-    #[doc(alias = "gtk_scrolled_window_set_shadow_type")]
-    fn set_shadow_type(&self, type_: ShadowType);
-
-    #[doc(alias = "gtk_scrolled_window_set_vadjustment")]
-    fn set_vadjustment(&self, vadjustment: Option<&impl IsA<Adjustment>>);
-
-    #[doc(alias = "gtk_scrolled_window_unset_placement")]
-    fn unset_placement(&self);
-
-    #[doc(alias = "hscrollbar-policy")]
-    fn hscrollbar_policy(&self) -> PolicyType;
-
-    #[doc(alias = "hscrollbar-policy")]
-    fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType);
-
-    #[doc(alias = "vscrollbar-policy")]
-    fn vscrollbar_policy(&self) -> PolicyType;
-
-    #[doc(alias = "vscrollbar-policy")]
-    fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType);
-
-    #[doc(alias = "window-placement")]
-    fn window_placement(&self) -> CornerType;
-
-    #[doc(alias = "window-placement")]
-    fn set_window_placement(&self, window_placement: CornerType);
-
-    #[doc(alias = "edge-overshot")]
-    fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "edge-reached")]
-    fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "move-focus-out")]
-    fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_focus_out(&self, direction_type: DirectionType);
-
-    #[doc(alias = "scroll-child")]
-    fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_scroll_child(&self, scroll: ScrollType, horizontal: bool) -> bool;
-
-    #[doc(alias = "hadjustment")]
-    fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "hscrollbar-policy")]
-    fn connect_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "kinetic-scrolling")]
-    fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "max-content-height")]
-    fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "max-content-width")]
-    fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "min-content-height")]
-    fn connect_min_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "min-content-width")]
-    fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "overlay-scrolling")]
-    fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "propagate-natural-height")]
-    fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "propagate-natural-width")]
-    fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "shadow-type")]
-    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "vadjustment")]
-    fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "vscrollbar-policy")]
-    fn connect_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "window-placement")]
-    fn connect_window_placement_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
     fn is_capture_button_press(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_capture_button_press(
@@ -607,6 +410,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_hadjustment")]
+    #[doc(alias = "get_hadjustment")]
     fn hadjustment(&self) -> Adjustment {
         unsafe {
             from_glib_none(ffi::gtk_scrolled_window_get_hadjustment(
@@ -615,6 +420,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_hscrollbar")]
+    #[doc(alias = "get_hscrollbar")]
     fn hscrollbar(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_scrolled_window_get_hscrollbar(
@@ -623,6 +430,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_kinetic_scrolling")]
+    #[doc(alias = "get_kinetic_scrolling")]
     fn is_kinetic_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_kinetic_scrolling(
@@ -631,22 +440,32 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
+    #[doc(alias = "get_max_content_height")]
     fn max_content_height(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_height(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
+    #[doc(alias = "get_max_content_width")]
     fn max_content_width(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_width(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_min_content_height")]
+    #[doc(alias = "get_min_content_height")]
     fn min_content_height(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_min_content_height(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_min_content_width")]
+    #[doc(alias = "get_min_content_width")]
     fn min_content_width(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_min_content_width(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
+    #[doc(alias = "get_overlay_scrolling")]
     fn is_overlay_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_overlay_scrolling(
@@ -655,6 +474,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_placement")]
+    #[doc(alias = "get_placement")]
     fn placement(&self) -> CornerType {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_placement(
@@ -663,6 +484,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_policy")]
+    #[doc(alias = "get_policy")]
     fn policy(&self) -> (PolicyType, PolicyType) {
         unsafe {
             let mut hscrollbar_policy = mem::MaybeUninit::uninit();
@@ -679,6 +502,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
+    #[doc(alias = "get_propagate_natural_height")]
     fn propagates_natural_height(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_height(
@@ -687,6 +512,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
+    #[doc(alias = "get_propagate_natural_width")]
     fn propagates_natural_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_width(
@@ -695,6 +522,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_shadow_type")]
+    #[doc(alias = "get_shadow_type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_shadow_type(
@@ -703,6 +532,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_vadjustment")]
+    #[doc(alias = "get_vadjustment")]
     fn vadjustment(&self) -> Adjustment {
         unsafe {
             from_glib_none(ffi::gtk_scrolled_window_get_vadjustment(
@@ -711,6 +542,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_get_vscrollbar")]
+    #[doc(alias = "get_vscrollbar")]
     fn vscrollbar(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_scrolled_window_get_vscrollbar(
@@ -719,6 +552,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_capture_button_press")]
     fn set_capture_button_press(&self, capture_button_press: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_capture_button_press(
@@ -728,6 +562,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_hadjustment")]
     fn set_hadjustment(&self, hadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_hadjustment(
@@ -737,6 +572,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
     fn set_kinetic_scrolling(&self, kinetic_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_kinetic_scrolling(
@@ -746,30 +582,35 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_max_content_height")]
     fn set_max_content_height(&self, height: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_height(self.as_ref().to_glib_none().0, height);
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_max_content_width")]
     fn set_max_content_width(&self, width: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_width(self.as_ref().to_glib_none().0, width);
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_min_content_height")]
     fn set_min_content_height(&self, height: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_min_content_height(self.as_ref().to_glib_none().0, height);
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
     fn set_min_content_width(&self, width: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_min_content_width(self.as_ref().to_glib_none().0, width);
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_overlay_scrolling(
@@ -779,6 +620,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_placement")]
     fn set_placement(&self, window_placement: CornerType) {
         unsafe {
             ffi::gtk_scrolled_window_set_placement(
@@ -788,6 +630,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_policy")]
     fn set_policy(&self, hscrollbar_policy: PolicyType, vscrollbar_policy: PolicyType) {
         unsafe {
             ffi::gtk_scrolled_window_set_policy(
@@ -798,6 +641,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_height")]
     fn set_propagate_natural_height(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_height(
@@ -807,6 +651,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_propagate_natural_width")]
     fn set_propagate_natural_width(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_width(
@@ -816,6 +661,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_scrolled_window_set_shadow_type(
@@ -825,6 +671,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_set_vadjustment")]
     fn set_vadjustment(&self, vadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_vadjustment(
@@ -834,36 +681,44 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_scrolled_window_unset_placement")]
     fn unset_placement(&self) {
         unsafe {
             ffi::gtk_scrolled_window_unset_placement(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "hscrollbar-policy")]
     fn hscrollbar_policy(&self) -> PolicyType {
         glib::ObjectExt::property(self.as_ref(), "hscrollbar-policy")
     }
 
+    #[doc(alias = "hscrollbar-policy")]
     fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType) {
         glib::ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", hscrollbar_policy)
     }
 
+    #[doc(alias = "vscrollbar-policy")]
     fn vscrollbar_policy(&self) -> PolicyType {
         glib::ObjectExt::property(self.as_ref(), "vscrollbar-policy")
     }
 
+    #[doc(alias = "vscrollbar-policy")]
     fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType) {
         glib::ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", vscrollbar_policy)
     }
 
+    #[doc(alias = "window-placement")]
     fn window_placement(&self) -> CornerType {
         glib::ObjectExt::property(self.as_ref(), "window-placement")
     }
 
+    #[doc(alias = "window-placement")]
     fn set_window_placement(&self, window_placement: CornerType) {
         glib::ObjectExt::set_property(self.as_ref(), "window-placement", window_placement)
     }
 
+    #[doc(alias = "edge-overshot")]
     fn connect_edge_overshot<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_overshot_trampoline<
             P: IsA<ScrolledWindow>,
@@ -892,6 +747,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "edge-reached")]
     fn connect_edge_reached<F: Fn(&Self, PositionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn edge_reached_trampoline<
             P: IsA<ScrolledWindow>,
@@ -920,6 +776,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "move-focus-out")]
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
         &self,
         f: F,
@@ -955,6 +812,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         self.emit_by_name::<()>("move-focus-out", &[&direction_type]);
     }
 
+    #[doc(alias = "scroll-child")]
     fn connect_scroll_child<F: Fn(&Self, ScrollType, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -993,6 +851,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         self.emit_by_name("scroll-child", &[&scroll, &horizontal])
     }
 
+    #[doc(alias = "hadjustment")]
     fn connect_hadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hadjustment_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1018,6 +877,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "hscrollbar-policy")]
     fn connect_hscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hscrollbar_policy_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1043,6 +903,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "kinetic-scrolling")]
     fn connect_kinetic_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_kinetic_scrolling_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1068,6 +929,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "max-content-height")]
     fn connect_max_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_height_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1093,6 +955,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "max-content-width")]
     fn connect_max_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_content_width_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1118,6 +981,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "min-content-height")]
     fn connect_min_content_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_height_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1143,6 +1007,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "min-content-width")]
     fn connect_min_content_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_min_content_width_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1168,6 +1033,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "overlay-scrolling")]
     fn connect_overlay_scrolling_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_overlay_scrolling_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1193,6 +1059,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "propagate-natural-height")]
     fn connect_propagate_natural_height_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1221,6 +1088,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "propagate-natural-width")]
     fn connect_propagate_natural_width_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1249,6 +1117,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1274,6 +1143,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "vadjustment")]
     fn connect_vadjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vadjustment_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1299,6 +1169,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "vscrollbar-policy")]
     fn connect_vscrollbar_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vscrollbar_policy_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1324,6 +1195,7 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 
+    #[doc(alias = "window-placement")]
     fn connect_window_placement_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_placement_trampoline<
             P: IsA<ScrolledWindow>,
@@ -1349,6 +1221,8 @@ impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {
         }
     }
 }
+
+impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {}
 
 impl fmt::Display for ScrolledWindow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

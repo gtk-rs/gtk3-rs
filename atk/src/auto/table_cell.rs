@@ -19,37 +19,9 @@ impl TableCell {
     pub const NONE: Option<&'static TableCell> = None;
 }
 
-pub trait TableCellExt: 'static {
+pub trait TableCellExt: IsA<TableCell> + 'static {
     #[doc(alias = "atk_table_cell_get_column_header_cells")]
     #[doc(alias = "get_column_header_cells")]
-    fn column_header_cells(&self) -> Vec<Object>;
-
-    #[doc(alias = "atk_table_cell_get_column_span")]
-    #[doc(alias = "get_column_span")]
-    fn column_span(&self) -> i32;
-
-    #[doc(alias = "atk_table_cell_get_position")]
-    #[doc(alias = "get_position")]
-    fn position(&self) -> Option<(i32, i32)>;
-
-    #[doc(alias = "atk_table_cell_get_row_column_span")]
-    #[doc(alias = "get_row_column_span")]
-    fn row_column_span(&self) -> Option<(i32, i32, i32, i32)>;
-
-    #[doc(alias = "atk_table_cell_get_row_header_cells")]
-    #[doc(alias = "get_row_header_cells")]
-    fn row_header_cells(&self) -> Vec<Object>;
-
-    #[doc(alias = "atk_table_cell_get_row_span")]
-    #[doc(alias = "get_row_span")]
-    fn row_span(&self) -> i32;
-
-    #[doc(alias = "atk_table_cell_get_table")]
-    #[doc(alias = "get_table")]
-    fn table(&self) -> Option<Object>;
-}
-
-impl<O: IsA<TableCell>> TableCellExt for O {
     fn column_header_cells(&self) -> Vec<Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_table_cell_get_column_header_cells(
@@ -58,10 +30,14 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
+    #[doc(alias = "atk_table_cell_get_column_span")]
+    #[doc(alias = "get_column_span")]
     fn column_span(&self) -> i32 {
         unsafe { ffi::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_table_cell_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut row = mem::MaybeUninit::uninit();
@@ -79,6 +55,8 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
+    #[doc(alias = "atk_table_cell_get_row_column_span")]
+    #[doc(alias = "get_row_column_span")]
     fn row_column_span(&self) -> Option<(i32, i32, i32, i32)> {
         unsafe {
             let mut row = mem::MaybeUninit::uninit();
@@ -105,6 +83,8 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
+    #[doc(alias = "atk_table_cell_get_row_header_cells")]
+    #[doc(alias = "get_row_header_cells")]
     fn row_header_cells(&self) -> Vec<Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_table_cell_get_row_header_cells(
@@ -113,10 +93,14 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
+    #[doc(alias = "atk_table_cell_get_row_span")]
+    #[doc(alias = "get_row_span")]
     fn row_span(&self) -> i32 {
         unsafe { ffi::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_table_cell_get_table")]
+    #[doc(alias = "get_table")]
     fn table(&self) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_table_cell_get_table(
@@ -125,6 +109,8 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 }
+
+impl<O: IsA<TableCell>> TableCellExt for O {}
 
 impl fmt::Display for TableCell {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

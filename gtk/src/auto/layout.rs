@@ -330,49 +330,9 @@ impl LayoutBuilder {
     }
 }
 
-pub trait LayoutExt: 'static {
+pub trait LayoutExt: IsA<Layout> + 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
     #[doc(alias = "get_bin_window")]
-    fn bin_window(&self) -> Option<gdk::Window>;
-
-    #[doc(alias = "gtk_layout_get_size")]
-    #[doc(alias = "get_size")]
-    fn size(&self) -> (u32, u32);
-
-    #[doc(alias = "gtk_layout_move")]
-    #[doc(alias = "move")]
-    fn move_(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32);
-
-    #[doc(alias = "gtk_layout_put")]
-    fn put(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32);
-
-    #[doc(alias = "gtk_layout_set_size")]
-    fn set_size(&self, width: u32, height: u32);
-
-    fn height(&self) -> u32;
-
-    fn set_height(&self, height: u32);
-
-    fn width(&self) -> u32;
-
-    fn set_width(&self, width: u32);
-
-    fn child_x<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_x<T: IsA<crate::Widget>>(&self, item: &T, x: i32);
-
-    fn child_y<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_y<T: IsA<crate::Widget>>(&self, item: &T, y: i32);
-
-    #[doc(alias = "height")]
-    fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "width")]
-    fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Layout>> LayoutExt for O {
     fn bin_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_layout_get_bin_window(
@@ -381,6 +341,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_layout_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> (u32, u32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -394,6 +356,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_layout_move")]
+    #[doc(alias = "move")]
     fn move_(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_layout_move(
@@ -405,6 +369,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_layout_put")]
     fn put(&self, child_widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_layout_put(
@@ -416,6 +381,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_layout_set_size")]
     fn set_size(&self, width: u32, height: u32) {
         unsafe {
             ffi::gtk_layout_set_size(self.as_ref().to_glib_none().0, width, height);
@@ -472,6 +438,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         )
     }
 
+    #[doc(alias = "height")]
     fn connect_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_trampoline<P: IsA<Layout>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
@@ -494,6 +461,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
+    #[doc(alias = "width")]
     fn connect_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_trampoline<P: IsA<Layout>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLayout,
@@ -516,6 +484,8 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 }
+
+impl<O: IsA<Layout>> LayoutExt for O {}
 
 impl fmt::Display for Layout {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

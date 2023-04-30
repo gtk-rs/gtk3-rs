@@ -279,36 +279,22 @@ impl SocketBuilder {
     }
 }
 
-pub trait GtkSocketExt: 'static {
+pub trait GtkSocketExt: IsA<Socket> + 'static {
     #[doc(alias = "gtk_socket_add_id")]
-    fn add_id(&self, window: xlib::Window);
-
-    #[doc(alias = "gtk_socket_get_id")]
-    #[doc(alias = "get_id")]
-    fn id(&self) -> xlib::Window;
-
-    #[doc(alias = "gtk_socket_get_plug_window")]
-    #[doc(alias = "get_plug_window")]
-    fn plug_window(&self) -> Option<gdk::Window>;
-
-    #[doc(alias = "plug-added")]
-    fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "plug-removed")]
-    fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Socket>> GtkSocketExt for O {
     fn add_id(&self, window: xlib::Window) {
         unsafe {
             ffi::gtk_socket_add_id(self.as_ref().to_glib_none().0, window);
         }
     }
 
+    #[doc(alias = "gtk_socket_get_id")]
+    #[doc(alias = "get_id")]
     fn id(&self) -> xlib::Window {
         unsafe { ffi::gtk_socket_get_id(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_socket_get_plug_window")]
+    #[doc(alias = "get_plug_window")]
     fn plug_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_socket_get_plug_window(
@@ -317,6 +303,7 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
+    #[doc(alias = "plug-added")]
     fn connect_plug_added<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_added_trampoline<P: IsA<Socket>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSocket,
@@ -338,6 +325,7 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 
+    #[doc(alias = "plug-removed")]
     fn connect_plug_removed<F: Fn(&Self) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn plug_removed_trampoline<
             P: IsA<Socket>,
@@ -362,6 +350,8 @@ impl<O: IsA<Socket>> GtkSocketExt for O {
         }
     }
 }
+
+impl<O: IsA<Socket>> GtkSocketExt for O {}
 
 impl fmt::Display for Socket {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

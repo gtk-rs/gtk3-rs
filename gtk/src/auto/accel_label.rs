@@ -397,42 +397,9 @@ impl AccelLabelBuilder {
     }
 }
 
-pub trait AccelLabelExt: 'static {
+pub trait AccelLabelExt: IsA<AccelLabel> + 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]
     #[doc(alias = "get_accel")]
-    fn accel(&self) -> (u32, gdk::ModifierType);
-
-    #[doc(alias = "gtk_accel_label_get_accel_widget")]
-    #[doc(alias = "get_accel_widget")]
-    fn accel_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_accel_label_get_accel_width")]
-    #[doc(alias = "get_accel_width")]
-    fn accel_width(&self) -> u32;
-
-    #[doc(alias = "gtk_accel_label_refetch")]
-    fn refetch(&self) -> bool;
-
-    #[doc(alias = "gtk_accel_label_set_accel")]
-    fn set_accel(&self, accelerator_key: u32, accelerator_mods: gdk::ModifierType);
-
-    #[doc(alias = "gtk_accel_label_set_accel_closure")]
-    fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>);
-
-    #[doc(alias = "gtk_accel_label_set_accel_widget")]
-    fn set_accel_widget(&self, accel_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "accel-closure")]
-    fn accel_closure(&self) -> Option<glib::Closure>;
-
-    #[doc(alias = "accel-closure")]
-    fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accel-widget")]
-    fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<AccelLabel>> AccelLabelExt for O {
     fn accel(&self) -> (u32, gdk::ModifierType) {
         unsafe {
             let mut accelerator_key = mem::MaybeUninit::uninit();
@@ -449,6 +416,8 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_accel_label_get_accel_widget")]
+    #[doc(alias = "get_accel_widget")]
     fn accel_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_accel_label_get_accel_widget(
@@ -457,14 +426,18 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_accel_label_get_accel_width")]
+    #[doc(alias = "get_accel_width")]
     fn accel_width(&self) -> u32 {
         unsafe { ffi::gtk_accel_label_get_accel_width(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_accel_label_refetch")]
     fn refetch(&self) -> bool {
         unsafe { from_glib(ffi::gtk_accel_label_refetch(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_accel_label_set_accel")]
     fn set_accel(&self, accelerator_key: u32, accelerator_mods: gdk::ModifierType) {
         unsafe {
             ffi::gtk_accel_label_set_accel(
@@ -475,6 +448,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_accel_label_set_accel_closure")]
     fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>) {
         unsafe {
             ffi::gtk_accel_label_set_accel_closure(
@@ -484,6 +458,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_accel_label_set_accel_widget")]
     fn set_accel_widget(&self, accel_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_accel_label_set_accel_widget(
@@ -493,10 +468,12 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "accel-closure")]
     fn accel_closure(&self) -> Option<glib::Closure> {
         glib::ObjectExt::property(self.as_ref(), "accel-closure")
     }
 
+    #[doc(alias = "accel-closure")]
     fn connect_accel_closure_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_closure_trampoline<
             P: IsA<AccelLabel>,
@@ -522,6 +499,7 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 
+    #[doc(alias = "accel-widget")]
     fn connect_accel_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_widget_trampoline<
             P: IsA<AccelLabel>,
@@ -547,6 +525,8 @@ impl<O: IsA<AccelLabel>> AccelLabelExt for O {
         }
     }
 }
+
+impl<O: IsA<AccelLabel>> AccelLabelExt for O {}
 
 impl fmt::Display for AccelLabel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

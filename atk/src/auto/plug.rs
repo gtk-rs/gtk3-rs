@@ -31,17 +31,15 @@ impl Default for Plug {
     }
 }
 
-pub trait AtkPlugExt: 'static {
+pub trait AtkPlugExt: IsA<Plug> + 'static {
     #[doc(alias = "atk_plug_get_id")]
     #[doc(alias = "get_id")]
-    fn id(&self) -> Option<glib::GString>;
-}
-
-impl<O: IsA<Plug>> AtkPlugExt for O {
     fn id(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::atk_plug_get_id(self.as_ref().to_glib_none().0)) }
     }
 }
+
+impl<O: IsA<Plug>> AtkPlugExt for O {}
 
 impl fmt::Display for Plug {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

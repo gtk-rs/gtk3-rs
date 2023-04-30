@@ -457,42 +457,13 @@ impl CellRendererComboBuilder {
     }
 }
 
-pub trait CellRendererComboExt: 'static {
+pub trait CellRendererComboExt: IsA<CellRendererCombo> + 'static {
     #[doc(alias = "has-entry")]
-    fn has_entry(&self) -> bool;
-
-    #[doc(alias = "has-entry")]
-    fn set_has_entry(&self, has_entry: bool);
-
-    fn model(&self) -> Option<TreeModel>;
-
-    fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>);
-
-    #[doc(alias = "text-column")]
-    fn text_column(&self) -> i32;
-
-    #[doc(alias = "text-column")]
-    fn set_text_column(&self, text_column: i32);
-
-    #[doc(alias = "changed")]
-    fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    #[doc(alias = "has-entry")]
-    fn connect_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "model")]
-    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text-column")]
-    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
     fn has_entry(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "has-entry")
     }
 
+    #[doc(alias = "has-entry")]
     fn set_has_entry(&self, has_entry: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "has-entry", has_entry)
     }
@@ -505,14 +476,17 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "model", model)
     }
 
+    #[doc(alias = "text-column")]
     fn text_column(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "text-column")
     }
 
+    #[doc(alias = "text-column")]
     fn set_text_column(&self, text_column: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "text-column", text_column)
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, TreePath, &TreeIter) + 'static>(
         &self,
         f: F,
@@ -547,6 +521,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
+    #[doc(alias = "has-entry")]
     fn connect_has_entry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_entry_trampoline<
             P: IsA<CellRendererCombo>,
@@ -572,6 +547,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
+    #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<
             P: IsA<CellRendererCombo>,
@@ -597,6 +573,7 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 
+    #[doc(alias = "text-column")]
     fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_column_trampoline<
             P: IsA<CellRendererCombo>,
@@ -622,6 +599,8 @@ impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {}
 
 impl fmt::Display for CellRendererCombo {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

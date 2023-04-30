@@ -352,13 +352,9 @@ impl RadioToolButtonBuilder {
     }
 }
 
-pub trait RadioToolButtonExt: 'static {
+pub trait RadioToolButtonExt: IsA<RadioToolButton> + 'static {
     #[doc(alias = "gtk_radio_tool_button_get_group")]
     #[doc(alias = "get_group")]
-    fn group(&self) -> Vec<RadioButton>;
-}
-
-impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {
     fn group(&self) -> Vec<RadioButton> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_tool_button_get_group(
@@ -367,6 +363,8 @@ impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {}
 
 impl fmt::Display for RadioToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

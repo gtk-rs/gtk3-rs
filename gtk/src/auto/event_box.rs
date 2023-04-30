@@ -291,29 +291,9 @@ impl EventBoxBuilder {
     }
 }
 
-pub trait EventBoxExt: 'static {
+pub trait EventBoxExt: IsA<EventBox> + 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]
     #[doc(alias = "get_above_child")]
-    fn is_above_child(&self) -> bool;
-
-    #[doc(alias = "gtk_event_box_get_visible_window")]
-    #[doc(alias = "get_visible_window")]
-    fn is_visible_window(&self) -> bool;
-
-    #[doc(alias = "gtk_event_box_set_above_child")]
-    fn set_above_child(&self, above_child: bool);
-
-    #[doc(alias = "gtk_event_box_set_visible_window")]
-    fn set_visible_window(&self, visible_window: bool);
-
-    #[doc(alias = "above-child")]
-    fn connect_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visible-window")]
-    fn connect_visible_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<EventBox>> EventBoxExt for O {
     fn is_above_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_above_child(
@@ -322,6 +302,8 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_box_get_visible_window")]
+    #[doc(alias = "get_visible_window")]
     fn is_visible_window(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_visible_window(
@@ -330,6 +312,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_box_set_above_child")]
     fn set_above_child(&self, above_child: bool) {
         unsafe {
             ffi::gtk_event_box_set_above_child(
@@ -339,6 +322,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_box_set_visible_window")]
     fn set_visible_window(&self, visible_window: bool) {
         unsafe {
             ffi::gtk_event_box_set_visible_window(
@@ -348,6 +332,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
+    #[doc(alias = "above-child")]
     fn connect_above_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_above_child_trampoline<
             P: IsA<EventBox>,
@@ -373,6 +358,7 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 
+    #[doc(alias = "visible-window")]
     fn connect_visible_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_window_trampoline<
             P: IsA<EventBox>,
@@ -398,6 +384,8 @@ impl<O: IsA<EventBox>> EventBoxExt for O {
         }
     }
 }
+
+impl<O: IsA<EventBox>> EventBoxExt for O {}
 
 impl fmt::Display for EventBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

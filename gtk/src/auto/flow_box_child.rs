@@ -279,34 +279,21 @@ impl FlowBoxChildBuilder {
     }
 }
 
-pub trait FlowBoxChildExt: 'static {
+pub trait FlowBoxChildExt: IsA<FlowBoxChild> + 'static {
     #[doc(alias = "gtk_flow_box_child_changed")]
-    fn changed(&self);
-
-    #[doc(alias = "gtk_flow_box_child_get_index")]
-    #[doc(alias = "get_index")]
-    fn index(&self) -> i32;
-
-    #[doc(alias = "gtk_flow_box_child_is_selected")]
-    fn is_selected(&self) -> bool;
-
-    #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate(&self);
-}
-
-impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
     fn changed(&self) {
         unsafe {
             ffi::gtk_flow_box_child_changed(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_child_get_index")]
+    #[doc(alias = "get_index")]
     fn index(&self) -> i32 {
         unsafe { ffi::gtk_flow_box_child_get_index(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_flow_box_child_is_selected")]
     fn is_selected(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_child_is_selected(
@@ -315,6 +302,7 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<FlowBoxChild>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBoxChild,
@@ -340,6 +328,8 @@ impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {
         self.emit_by_name::<()>("activate", &[]);
     }
 }
+
+impl<O: IsA<FlowBoxChild>> FlowBoxChildExt for O {}
 
 impl fmt::Display for FlowBoxChild {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

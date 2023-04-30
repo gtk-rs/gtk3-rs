@@ -9,7 +9,7 @@
     clippy::unreadable_literal,
     clippy::upper_case_acronyms
 )]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 #[allow(unused_imports)]
 use libc::{
@@ -253,8 +253,8 @@ pub const ATK_STATE_CHECKABLE: AtkStateType = 39;
 pub const ATK_STATE_HAS_POPUP: AtkStateType = 40;
 pub const ATK_STATE_HAS_TOOLTIP: AtkStateType = 41;
 pub const ATK_STATE_READ_ONLY: AtkStateType = 42;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
+#[cfg(feature = "v2_38")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
 pub const ATK_STATE_COLLAPSED: AtkStateType = 43;
 
 pub type AtkTextAttribute = c_int;
@@ -1839,8 +1839,8 @@ extern "C" {
     //=========================================================================
     // AtkScrollType
     //=========================================================================
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(feature = "v2_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
     pub fn atk_scroll_type_get_type() -> GType;
 
     //=========================================================================
@@ -1977,8 +1977,8 @@ extern "C" {
         accessible: *mut AtkObject,
         handler: *mut AtkPropertyChangeHandler,
     ) -> c_uint;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[cfg(feature = "v2_34")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
     pub fn atk_object_get_accessible_id(accessible: *mut AtkObject) -> *const c_char;
     pub fn atk_object_get_attributes(accessible: *mut AtkObject) -> *mut AtkAttributeSet;
     pub fn atk_object_get_description(accessible: *mut AtkObject) -> *const c_char;
@@ -2009,8 +2009,8 @@ extern "C" {
         relationship: AtkRelationType,
         target: *mut AtkObject,
     ) -> gboolean;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[cfg(feature = "v2_34")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
     pub fn atk_object_set_accessible_id(accessible: *mut AtkObject, name: *const c_char);
     pub fn atk_object_set_description(accessible: *mut AtkObject, description: *const c_char);
     pub fn atk_object_set_name(accessible: *mut AtkObject, name: *const c_char);
@@ -2201,11 +2201,11 @@ extern "C" {
         coord_type: AtkCoordType,
     ) -> *mut AtkObject;
     pub fn atk_component_remove_focus_handler(component: *mut AtkComponent, handler_id: c_uint);
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(feature = "v2_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
     pub fn atk_component_scroll_to(component: *mut AtkComponent, type_: AtkScrollType) -> gboolean;
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(feature = "v2_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
     pub fn atk_component_scroll_to_point(
         component: *mut AtkComponent,
         coords: AtkCoordType,
@@ -2508,16 +2508,16 @@ extern "C" {
         end_offset: *mut c_int,
     ) -> *mut c_char;
     pub fn atk_text_remove_selection(text: *mut AtkText, selection_num: c_int) -> gboolean;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(feature = "v2_32")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_32")))]
     pub fn atk_text_scroll_substring_to(
         text: *mut AtkText,
         start_offset: c_int,
         end_offset: c_int,
         type_: AtkScrollType,
     ) -> gboolean;
-    #[cfg(any(feature = "v2_32", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
+    #[cfg(feature = "v2_32")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_32")))]
     pub fn atk_text_scroll_substring_to_point(
         text: *mut AtkText,
         start_offset: c_int,

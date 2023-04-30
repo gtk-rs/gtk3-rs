@@ -5,11 +5,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
 
-pub trait FlowBoxExtManual: 'static {
-    fn unbind_model(&self);
-}
-
-impl<O: IsA<FlowBox>> FlowBoxExtManual for O {
+pub trait FlowBoxExtManual: IsA<FlowBox> + 'static {
     fn unbind_model(&self) {
         unsafe {
             ffi::gtk_flow_box_bind_model(
@@ -22,3 +18,5 @@ impl<O: IsA<FlowBox>> FlowBoxExtManual for O {
         }
     }
 }
+
+impl<O: IsA<FlowBox>> FlowBoxExtManual for O {}

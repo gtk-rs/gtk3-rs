@@ -299,46 +299,9 @@ impl RevealerBuilder {
     }
 }
 
-pub trait RevealerExt: 'static {
+pub trait RevealerExt: IsA<Revealer> + 'static {
     #[doc(alias = "gtk_revealer_get_child_revealed")]
     #[doc(alias = "get_child_revealed")]
-    fn is_child_revealed(&self) -> bool;
-
-    #[doc(alias = "gtk_revealer_get_reveal_child")]
-    #[doc(alias = "get_reveal_child")]
-    fn reveals_child(&self) -> bool;
-
-    #[doc(alias = "gtk_revealer_get_transition_duration")]
-    #[doc(alias = "get_transition_duration")]
-    fn transition_duration(&self) -> u32;
-
-    #[doc(alias = "gtk_revealer_get_transition_type")]
-    #[doc(alias = "get_transition_type")]
-    fn transition_type(&self) -> RevealerTransitionType;
-
-    #[doc(alias = "gtk_revealer_set_reveal_child")]
-    fn set_reveal_child(&self, reveal_child: bool);
-
-    #[doc(alias = "gtk_revealer_set_transition_duration")]
-    fn set_transition_duration(&self, duration: u32);
-
-    #[doc(alias = "gtk_revealer_set_transition_type")]
-    fn set_transition_type(&self, transition: RevealerTransitionType);
-
-    #[doc(alias = "child-revealed")]
-    fn connect_child_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "reveal-child")]
-    fn connect_reveal_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transition-duration")]
-    fn connect_transition_duration_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transition-type")]
-    fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Revealer>> RevealerExt for O {
     fn is_child_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_child_revealed(
@@ -347,6 +310,8 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_revealer_get_reveal_child")]
+    #[doc(alias = "get_reveal_child")]
     fn reveals_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_reveal_child(
@@ -355,10 +320,14 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_revealer_get_transition_duration")]
+    #[doc(alias = "get_transition_duration")]
     fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_revealer_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_revealer_get_transition_type")]
+    #[doc(alias = "get_transition_type")]
     fn transition_type(&self) -> RevealerTransitionType {
         unsafe {
             from_glib(ffi::gtk_revealer_get_transition_type(
@@ -367,6 +336,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_revealer_set_reveal_child")]
     fn set_reveal_child(&self, reveal_child: bool) {
         unsafe {
             ffi::gtk_revealer_set_reveal_child(
@@ -376,12 +346,14 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_revealer_set_transition_duration")]
     fn set_transition_duration(&self, duration: u32) {
         unsafe {
             ffi::gtk_revealer_set_transition_duration(self.as_ref().to_glib_none().0, duration);
         }
     }
 
+    #[doc(alias = "gtk_revealer_set_transition_type")]
     fn set_transition_type(&self, transition: RevealerTransitionType) {
         unsafe {
             ffi::gtk_revealer_set_transition_type(
@@ -391,6 +363,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "child-revealed")]
     fn connect_child_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_revealed_trampoline<
             P: IsA<Revealer>,
@@ -416,6 +389,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "reveal-child")]
     fn connect_reveal_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_reveal_child_trampoline<
             P: IsA<Revealer>,
@@ -441,6 +415,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "transition-duration")]
     fn connect_transition_duration_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_duration_trampoline<
             P: IsA<Revealer>,
@@ -466,6 +441,7 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 
+    #[doc(alias = "transition-type")]
     fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_type_trampoline<
             P: IsA<Revealer>,
@@ -491,6 +467,8 @@ impl<O: IsA<Revealer>> RevealerExt for O {
         }
     }
 }
+
+impl<O: IsA<Revealer>> RevealerExt for O {}
 
 impl fmt::Display for Revealer {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

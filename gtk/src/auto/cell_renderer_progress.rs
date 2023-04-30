@@ -199,55 +199,7 @@ impl CellRendererProgressBuilder {
     }
 }
 
-pub trait CellRendererProgressExt: 'static {
-    fn is_inverted(&self) -> bool;
-
-    fn set_inverted(&self, inverted: bool);
-
-    fn pulse(&self) -> i32;
-
-    fn set_pulse(&self, pulse: i32);
-
-    fn text(&self) -> Option<glib::GString>;
-
-    fn set_text(&self, text: Option<&str>);
-
-    #[doc(alias = "text-xalign")]
-    fn text_xalign(&self) -> f32;
-
-    #[doc(alias = "text-xalign")]
-    fn set_text_xalign(&self, text_xalign: f32);
-
-    #[doc(alias = "text-yalign")]
-    fn text_yalign(&self) -> f32;
-
-    #[doc(alias = "text-yalign")]
-    fn set_text_yalign(&self, text_yalign: f32);
-
-    fn value(&self) -> i32;
-
-    fn set_value(&self, value: i32);
-
-    #[doc(alias = "inverted")]
-    fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pulse")]
-    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text")]
-    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text-xalign")]
-    fn connect_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text-yalign")]
-    fn connect_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "value")]
-    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
+pub trait CellRendererProgressExt: IsA<CellRendererProgress> + 'static {
     fn is_inverted(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "inverted")
     }
@@ -272,18 +224,22 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
+    #[doc(alias = "text-xalign")]
     fn text_xalign(&self) -> f32 {
         glib::ObjectExt::property(self.as_ref(), "text-xalign")
     }
 
+    #[doc(alias = "text-xalign")]
     fn set_text_xalign(&self, text_xalign: f32) {
         glib::ObjectExt::set_property(self.as_ref(), "text-xalign", text_xalign)
     }
 
+    #[doc(alias = "text-yalign")]
     fn text_yalign(&self) -> f32 {
         glib::ObjectExt::property(self.as_ref(), "text-yalign")
     }
 
+    #[doc(alias = "text-yalign")]
     fn set_text_yalign(&self, text_yalign: f32) {
         glib::ObjectExt::set_property(self.as_ref(), "text-yalign", text_yalign)
     }
@@ -296,6 +252,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "value", value)
     }
 
+    #[doc(alias = "inverted")]
     fn connect_inverted_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inverted_trampoline<
             P: IsA<CellRendererProgress>,
@@ -321,6 +278,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
+    #[doc(alias = "pulse")]
     fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_trampoline<
             P: IsA<CellRendererProgress>,
@@ -346,6 +304,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
+    #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<
             P: IsA<CellRendererProgress>,
@@ -371,6 +330,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
+    #[doc(alias = "text-xalign")]
     fn connect_text_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_xalign_trampoline<
             P: IsA<CellRendererProgress>,
@@ -396,6 +356,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
+    #[doc(alias = "text-yalign")]
     fn connect_text_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_yalign_trampoline<
             P: IsA<CellRendererProgress>,
@@ -421,6 +382,7 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 
+    #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<
             P: IsA<CellRendererProgress>,
@@ -446,6 +408,8 @@ impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererProgress>> CellRendererProgressExt for O {}
 
 impl fmt::Display for CellRendererProgress {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

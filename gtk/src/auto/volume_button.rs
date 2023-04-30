@@ -372,26 +372,18 @@ impl VolumeButtonBuilder {
     }
 }
 
-pub trait VolumeButtonExt: 'static {
+pub trait VolumeButtonExt: IsA<VolumeButton> + 'static {
     #[doc(alias = "use-symbolic")]
-    fn uses_symbolic(&self) -> bool;
-
-    #[doc(alias = "use-symbolic")]
-    fn set_use_symbolic(&self, use_symbolic: bool);
-
-    #[doc(alias = "use-symbolic")]
-    fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
     fn uses_symbolic(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "use-symbolic")
     }
 
+    #[doc(alias = "use-symbolic")]
     fn set_use_symbolic(&self, use_symbolic: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "use-symbolic", use_symbolic)
     }
 
+    #[doc(alias = "use-symbolic")]
     fn connect_use_symbolic_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_symbolic_trampoline<
             P: IsA<VolumeButton>,
@@ -417,6 +409,8 @@ impl<O: IsA<VolumeButton>> VolumeButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<VolumeButton>> VolumeButtonExt for O {}
 
 impl fmt::Display for VolumeButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

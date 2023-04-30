@@ -375,19 +375,9 @@ impl RadioMenuItemBuilder {
     }
 }
 
-pub trait RadioMenuItemExt: 'static {
+pub trait RadioMenuItemExt: IsA<RadioMenuItem> + 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]
     #[doc(alias = "get_group")]
-    fn group(&self) -> Vec<RadioMenuItem>;
-
-    #[doc(alias = "gtk_radio_menu_item_join_group")]
-    fn join_group(&self, group_source: Option<&impl IsA<RadioMenuItem>>);
-
-    #[doc(alias = "group-changed")]
-    fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
     fn group(&self) -> Vec<RadioMenuItem> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_menu_item_get_group(
@@ -396,6 +386,7 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_radio_menu_item_join_group")]
     fn join_group(&self, group_source: Option<&impl IsA<RadioMenuItem>>) {
         unsafe {
             ffi::gtk_radio_menu_item_join_group(
@@ -405,6 +396,7 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn group_changed_trampoline<
             P: IsA<RadioMenuItem>,
@@ -429,6 +421,8 @@ impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {
         }
     }
 }
+
+impl<O: IsA<RadioMenuItem>> RadioMenuItemExt for O {}
 
 impl fmt::Display for RadioMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

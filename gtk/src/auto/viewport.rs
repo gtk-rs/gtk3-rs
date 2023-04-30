@@ -325,27 +325,9 @@ impl ViewportBuilder {
     }
 }
 
-pub trait ViewportExt: 'static {
+pub trait ViewportExt: IsA<Viewport> + 'static {
     #[doc(alias = "gtk_viewport_get_bin_window")]
     #[doc(alias = "get_bin_window")]
-    fn bin_window(&self) -> Option<gdk::Window>;
-
-    #[doc(alias = "gtk_viewport_get_shadow_type")]
-    #[doc(alias = "get_shadow_type")]
-    fn shadow_type(&self) -> ShadowType;
-
-    #[doc(alias = "gtk_viewport_get_view_window")]
-    #[doc(alias = "get_view_window")]
-    fn view_window(&self) -> Option<gdk::Window>;
-
-    #[doc(alias = "gtk_viewport_set_shadow_type")]
-    fn set_shadow_type(&self, type_: ShadowType);
-
-    #[doc(alias = "shadow-type")]
-    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Viewport>> ViewportExt for O {
     fn bin_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_viewport_get_bin_window(
@@ -354,6 +336,8 @@ impl<O: IsA<Viewport>> ViewportExt for O {
         }
     }
 
+    #[doc(alias = "gtk_viewport_get_shadow_type")]
+    #[doc(alias = "get_shadow_type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_viewport_get_shadow_type(
@@ -362,6 +346,8 @@ impl<O: IsA<Viewport>> ViewportExt for O {
         }
     }
 
+    #[doc(alias = "gtk_viewport_get_view_window")]
+    #[doc(alias = "get_view_window")]
     fn view_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_viewport_get_view_window(
@@ -370,12 +356,14 @@ impl<O: IsA<Viewport>> ViewportExt for O {
         }
     }
 
+    #[doc(alias = "gtk_viewport_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
+    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<
             P: IsA<Viewport>,
@@ -401,6 +389,8 @@ impl<O: IsA<Viewport>> ViewportExt for O {
         }
     }
 }
+
+impl<O: IsA<Viewport>> ViewportExt for O {}
 
 impl fmt::Display for Viewport {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

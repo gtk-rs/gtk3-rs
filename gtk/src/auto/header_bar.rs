@@ -335,102 +335,9 @@ impl HeaderBarBuilder {
     }
 }
 
-pub trait HeaderBarExt: 'static {
+pub trait HeaderBarExt: IsA<HeaderBar> + 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]
     #[doc(alias = "get_custom_title")]
-    fn custom_title(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_header_bar_get_decoration_layout")]
-    #[doc(alias = "get_decoration_layout")]
-    fn decoration_layout(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_header_bar_get_has_subtitle")]
-    #[doc(alias = "get_has_subtitle")]
-    fn has_subtitle(&self) -> bool;
-
-    #[doc(alias = "gtk_header_bar_get_show_close_button")]
-    #[doc(alias = "get_show_close_button")]
-    fn shows_close_button(&self) -> bool;
-
-    #[doc(alias = "gtk_header_bar_get_subtitle")]
-    #[doc(alias = "get_subtitle")]
-    fn subtitle(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_header_bar_get_title")]
-    #[doc(alias = "get_title")]
-    fn title(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_header_bar_pack_end")]
-    fn pack_end(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_header_bar_pack_start")]
-    fn pack_start(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_header_bar_set_custom_title")]
-    fn set_custom_title(&self, title_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_header_bar_set_decoration_layout")]
-    fn set_decoration_layout(&self, layout: Option<&str>);
-
-    #[doc(alias = "gtk_header_bar_set_has_subtitle")]
-    fn set_has_subtitle(&self, setting: bool);
-
-    #[doc(alias = "gtk_header_bar_set_show_close_button")]
-    fn set_show_close_button(&self, setting: bool);
-
-    #[doc(alias = "gtk_header_bar_set_subtitle")]
-    fn set_subtitle(&self, subtitle: Option<&str>);
-
-    #[doc(alias = "gtk_header_bar_set_title")]
-    fn set_title(&self, title: Option<&str>);
-
-    #[doc(alias = "decoration-layout-set")]
-    fn is_decoration_layout_set(&self) -> bool;
-
-    #[doc(alias = "decoration-layout-set")]
-    fn set_decoration_layout_set(&self, decoration_layout_set: bool);
-
-    fn spacing(&self) -> i32;
-
-    fn set_spacing(&self, spacing: i32);
-
-    #[doc(alias = "child.pack-type")]
-    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
-
-    #[doc(alias = "child.pack-type")]
-    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
-
-    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
-
-    #[doc(alias = "custom-title")]
-    fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "decoration-layout")]
-    fn connect_decoration_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "decoration-layout-set")]
-    fn connect_decoration_layout_set_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    #[doc(alias = "has-subtitle")]
-    fn connect_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-close-button")]
-    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "spacing")]
-    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "subtitle")]
-    fn connect_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "title")]
-    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<HeaderBar>> HeaderBarExt for O {
     fn custom_title(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_custom_title(
@@ -439,6 +346,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_get_decoration_layout")]
+    #[doc(alias = "get_decoration_layout")]
     fn decoration_layout(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_decoration_layout(
@@ -447,6 +356,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_get_has_subtitle")]
+    #[doc(alias = "get_has_subtitle")]
     fn has_subtitle(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_has_subtitle(
@@ -455,6 +366,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_show_close_button(
@@ -463,6 +376,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_get_subtitle")]
+    #[doc(alias = "get_subtitle")]
     fn subtitle(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_subtitle(
@@ -471,6 +386,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_get_title")]
+    #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_title(
@@ -479,6 +396,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_pack_end")]
     fn pack_end(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_header_bar_pack_end(
@@ -488,6 +406,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_pack_start")]
     fn pack_start(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_header_bar_pack_start(
@@ -497,6 +416,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_custom_title")]
     fn set_custom_title(&self, title_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_header_bar_set_custom_title(
@@ -506,6 +426,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_decoration_layout")]
     fn set_decoration_layout(&self, layout: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_decoration_layout(
@@ -515,6 +436,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_has_subtitle")]
     fn set_has_subtitle(&self, setting: bool) {
         unsafe {
             ffi::gtk_header_bar_set_has_subtitle(
@@ -524,6 +446,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_show_close_button")]
     fn set_show_close_button(&self, setting: bool) {
         unsafe {
             ffi::gtk_header_bar_set_show_close_button(
@@ -533,6 +456,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_subtitle")]
     fn set_subtitle(&self, subtitle: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_subtitle(
@@ -542,16 +466,19 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_header_bar_set_title")]
     fn set_title(&self, title: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "decoration-layout-set")]
     fn is_decoration_layout_set(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "decoration-layout-set")
     }
 
+    #[doc(alias = "decoration-layout-set")]
     fn set_decoration_layout_set(&self, decoration_layout_set: bool) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -568,6 +495,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "spacing", spacing)
     }
 
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -576,6 +504,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         )
     }
 
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -602,6 +531,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         )
     }
 
+    #[doc(alias = "custom-title")]
     fn connect_custom_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_custom_title_trampoline<
             P: IsA<HeaderBar>,
@@ -627,6 +557,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "decoration-layout")]
     fn connect_decoration_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_decoration_layout_trampoline<
             P: IsA<HeaderBar>,
@@ -652,6 +583,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "decoration-layout-set")]
     fn connect_decoration_layout_set_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -680,6 +612,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "has-subtitle")]
     fn connect_has_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_subtitle_trampoline<
             P: IsA<HeaderBar>,
@@ -705,6 +638,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<
             P: IsA<HeaderBar>,
@@ -730,6 +664,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
@@ -752,6 +687,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "subtitle")]
     fn connect_subtitle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_subtitle_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
@@ -774,6 +710,7 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 
+    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<HeaderBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkHeaderBar,
@@ -796,6 +733,8 @@ impl<O: IsA<HeaderBar>> HeaderBarExt for O {
         }
     }
 }
+
+impl<O: IsA<HeaderBar>> HeaderBarExt for O {}
 
 impl fmt::Display for HeaderBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

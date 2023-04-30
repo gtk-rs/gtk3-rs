@@ -23,36 +23,8 @@ impl Window {
     pub const NONE: Option<&'static Window> = None;
 }
 
-pub trait AtkWindowExt: 'static {
+pub trait AtkWindowExt: IsA<Window> + 'static {
     #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "create")]
-    fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "deactivate")]
-    fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "destroy")]
-    fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "maximize")]
-    fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "minimize")]
-    fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "move")]
-    fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "resize")]
-    fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "restore")]
-    fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Window>> AtkWindowExt for O {
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -74,6 +46,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "create")]
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn create_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -95,6 +68,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -116,6 +90,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "destroy")]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn destroy_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -137,6 +112,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "maximize")]
     fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn maximize_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -158,6 +134,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "minimize")]
     fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn minimize_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -179,6 +156,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "move")]
     fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -200,6 +178,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "resize")]
     fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn resize_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -221,6 +200,7 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "restore")]
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn restore_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkWindow,
@@ -242,6 +222,8 @@ impl<O: IsA<Window>> AtkWindowExt for O {
         }
     }
 }
+
+impl<O: IsA<Window>> AtkWindowExt for O {}
 
 impl fmt::Display for Window {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

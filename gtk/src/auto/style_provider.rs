@@ -19,18 +19,9 @@ impl StyleProvider {
     pub const NONE: Option<&'static StyleProvider> = None;
 }
 
-pub trait StyleProviderExt: 'static {
+pub trait StyleProviderExt: IsA<StyleProvider> + 'static {
     #[doc(alias = "gtk_style_provider_get_style_property")]
     #[doc(alias = "get_style_property")]
-    fn style_property(
-        &self,
-        path: &WidgetPath,
-        state: StateFlags,
-        pspec: impl AsRef<glib::ParamSpec>,
-    ) -> Option<glib::Value>;
-}
-
-impl<O: IsA<StyleProvider>> StyleProviderExt for O {
     fn style_property(
         &self,
         path: &WidgetPath,
@@ -54,6 +45,8 @@ impl<O: IsA<StyleProvider>> StyleProviderExt for O {
         }
     }
 }
+
+impl<O: IsA<StyleProvider>> StyleProviderExt for O {}
 
 impl fmt::Display for StyleProvider {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

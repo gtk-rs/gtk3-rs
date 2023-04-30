@@ -355,22 +355,9 @@ impl ToggleToolButtonBuilder {
     }
 }
 
-pub trait ToggleToolButtonExt: 'static {
+pub trait ToggleToolButtonExt: IsA<ToggleToolButton> + 'static {
     #[doc(alias = "gtk_toggle_tool_button_get_active")]
     #[doc(alias = "get_active")]
-    fn is_active(&self) -> bool;
-
-    #[doc(alias = "gtk_toggle_tool_button_set_active")]
-    fn set_active(&self, is_active: bool);
-
-    #[doc(alias = "toggled")]
-    fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
     fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toggle_tool_button_get_active(
@@ -379,6 +366,7 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_toggle_tool_button_set_active")]
     fn set_active(&self, is_active: bool) {
         unsafe {
             ffi::gtk_toggle_tool_button_set_active(
@@ -388,6 +376,7 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P: IsA<ToggleToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToggleToolButton,
@@ -409,6 +398,7 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<ToggleToolButton>,
@@ -434,6 +424,8 @@ impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<ToggleToolButton>> ToggleToolButtonExt for O {}
 
 impl fmt::Display for ToggleToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

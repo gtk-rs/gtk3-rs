@@ -335,84 +335,9 @@ impl ExpanderBuilder {
     }
 }
 
-pub trait ExpanderExt: 'static {
+pub trait ExpanderExt: IsA<Expander> + 'static {
     #[doc(alias = "gtk_expander_get_expanded")]
     #[doc(alias = "get_expanded")]
-    fn is_expanded(&self) -> bool;
-
-    #[doc(alias = "gtk_expander_get_label")]
-    #[doc(alias = "get_label")]
-    fn label(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_expander_get_label_fill")]
-    #[doc(alias = "get_label_fill")]
-    fn is_label_fill(&self) -> bool;
-
-    #[doc(alias = "gtk_expander_get_label_widget")]
-    #[doc(alias = "get_label_widget")]
-    fn label_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_expander_get_resize_toplevel")]
-    #[doc(alias = "get_resize_toplevel")]
-    fn resizes_toplevel(&self) -> bool;
-
-    #[doc(alias = "gtk_expander_get_use_markup")]
-    #[doc(alias = "get_use_markup")]
-    fn uses_markup(&self) -> bool;
-
-    #[doc(alias = "gtk_expander_get_use_underline")]
-    #[doc(alias = "get_use_underline")]
-    fn uses_underline(&self) -> bool;
-
-    #[doc(alias = "gtk_expander_set_expanded")]
-    fn set_expanded(&self, expanded: bool);
-
-    #[doc(alias = "gtk_expander_set_label")]
-    fn set_label(&self, label: Option<&str>);
-
-    #[doc(alias = "gtk_expander_set_label_fill")]
-    fn set_label_fill(&self, label_fill: bool);
-
-    #[doc(alias = "gtk_expander_set_label_widget")]
-    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_expander_set_resize_toplevel")]
-    fn set_resize_toplevel(&self, resize_toplevel: bool);
-
-    #[doc(alias = "gtk_expander_set_use_markup")]
-    fn set_use_markup(&self, use_markup: bool);
-
-    #[doc(alias = "gtk_expander_set_use_underline")]
-    fn set_use_underline(&self, use_underline: bool);
-
-    #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate(&self);
-
-    #[doc(alias = "expanded")]
-    fn connect_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-fill")]
-    fn connect_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-widget")]
-    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "resize-toplevel")]
-    fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-markup")]
-    fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-underline")]
-    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Expander>> ExpanderExt for O {
     fn is_expanded(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_expanded(
@@ -421,10 +346,14 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_expander_get_label(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_expander_get_label_fill")]
+    #[doc(alias = "get_label_fill")]
     fn is_label_fill(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_label_fill(
@@ -433,6 +362,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_get_label_widget")]
+    #[doc(alias = "get_label_widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_expander_get_label_widget(
@@ -441,6 +372,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_get_resize_toplevel")]
+    #[doc(alias = "get_resize_toplevel")]
     fn resizes_toplevel(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_resize_toplevel(
@@ -449,6 +382,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_get_use_markup")]
+    #[doc(alias = "get_use_markup")]
     fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_markup(
@@ -457,6 +392,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_underline(
@@ -465,18 +402,21 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_set_expanded")]
     fn set_expanded(&self, expanded: bool) {
         unsafe {
             ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_expander_set_label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_expander_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_expander_set_label_fill")]
     fn set_label_fill(&self, label_fill: bool) {
         unsafe {
             ffi::gtk_expander_set_label_fill(
@@ -486,6 +426,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_set_label_widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_expander_set_label_widget(
@@ -495,6 +436,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_set_resize_toplevel")]
     fn set_resize_toplevel(&self, resize_toplevel: bool) {
         unsafe {
             ffi::gtk_expander_set_resize_toplevel(
@@ -504,6 +446,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_set_use_markup")]
     fn set_use_markup(&self, use_markup: bool) {
         unsafe {
             ffi::gtk_expander_set_use_markup(
@@ -513,6 +456,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_expander_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
             ffi::gtk_expander_set_use_underline(
@@ -522,6 +466,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -547,6 +492,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         self.emit_by_name::<()>("activate", &[]);
     }
 
+    #[doc(alias = "expanded")]
     fn connect_expanded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_expanded_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -569,6 +515,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -591,6 +538,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "label-fill")]
     fn connect_label_fill_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_fill_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -613,6 +561,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<
             P: IsA<Expander>,
@@ -638,6 +587,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "resize-toplevel")]
     fn connect_resize_toplevel_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resize_toplevel_trampoline<
             P: IsA<Expander>,
@@ -663,6 +613,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P: IsA<Expander>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkExpander,
@@ -685,6 +636,7 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 
+    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<
             P: IsA<Expander>,
@@ -710,6 +662,8 @@ impl<O: IsA<Expander>> ExpanderExt for O {
         }
     }
 }
+
+impl<O: IsA<Expander>> ExpanderExt for O {}
 
 impl fmt::Display for Expander {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

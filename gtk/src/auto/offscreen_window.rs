@@ -460,17 +460,9 @@ impl OffscreenWindowBuilder {
     }
 }
 
-pub trait OffscreenWindowExt: 'static {
+pub trait OffscreenWindowExt: IsA<OffscreenWindow> + 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
     #[doc(alias = "get_pixbuf")]
-    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    #[doc(alias = "gtk_offscreen_window_get_surface")]
-    #[doc(alias = "get_surface")]
-    fn surface(&self) -> Option<cairo::Surface>;
-}
-
-impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe {
             from_glib_full(ffi::gtk_offscreen_window_get_pixbuf(
@@ -479,6 +471,8 @@ impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_offscreen_window_get_surface")]
+    #[doc(alias = "get_surface")]
     fn surface(&self) -> Option<cairo::Surface> {
         unsafe {
             from_glib_none(ffi::gtk_offscreen_window_get_surface(
@@ -487,6 +481,8 @@ impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {
         }
     }
 }
+
+impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {}
 
 impl fmt::Display for OffscreenWindow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

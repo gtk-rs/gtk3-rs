@@ -515,76 +515,19 @@ impl MessageDialogBuilder {
     }
 }
 
-pub trait MessageDialogExt: 'static {
+pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
     //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
-    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
-    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    #[doc(alias = "gtk_message_dialog_get_message_area")]
-    #[doc(alias = "get_message_area")]
-    fn message_area(&self) -> Widget;
-
-    #[doc(alias = "gtk_message_dialog_set_markup")]
-    fn set_markup(&self, str: &str);
-
-    #[doc(alias = "message-type")]
-    fn message_type(&self) -> MessageType;
-
-    #[doc(alias = "message-type")]
-    fn set_message_type(&self, message_type: MessageType);
-
-    #[doc(alias = "secondary-text")]
-    fn secondary_text(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "secondary-text")]
-    fn set_secondary_text(&self, secondary_text: Option<&str>);
-
-    #[doc(alias = "secondary-use-markup")]
-    fn is_secondary_use_markup(&self) -> bool;
-
-    #[doc(alias = "secondary-use-markup")]
-    fn set_secondary_use_markup(&self, secondary_use_markup: bool);
-
-    fn text(&self) -> Option<glib::GString>;
-
-    fn set_text(&self, text: Option<&str>);
-
-    #[doc(alias = "use-markup")]
-    fn uses_markup(&self) -> bool;
-
-    #[doc(alias = "use-markup")]
-    fn set_use_markup(&self, use_markup: bool);
-
-    #[doc(alias = "message-area")]
-    fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "message-type")]
-    fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "secondary-text")]
-    fn connect_secondary_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "secondary-use-markup")]
-    fn connect_secondary_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text")]
-    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-markup")]
-    fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MessageDialog>> MessageDialogExt for O {
     //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
     //}
 
+    //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
     //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_text() }
     //}
 
+    #[doc(alias = "gtk_message_dialog_get_message_area")]
+    #[doc(alias = "get_message_area")]
     fn message_area(&self) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_message_dialog_get_message_area(
@@ -593,6 +536,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_message_dialog_set_markup")]
     fn set_markup(&self, str: &str) {
         unsafe {
             ffi::gtk_message_dialog_set_markup(
@@ -602,26 +546,32 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "message-type")]
     fn message_type(&self) -> MessageType {
         glib::ObjectExt::property(self.as_ref(), "message-type")
     }
 
+    #[doc(alias = "message-type")]
     fn set_message_type(&self, message_type: MessageType) {
         glib::ObjectExt::set_property(self.as_ref(), "message-type", message_type)
     }
 
+    #[doc(alias = "secondary-text")]
     fn secondary_text(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "secondary-text")
     }
 
+    #[doc(alias = "secondary-text")]
     fn set_secondary_text(&self, secondary_text: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "secondary-text", secondary_text)
     }
 
+    #[doc(alias = "secondary-use-markup")]
     fn is_secondary_use_markup(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "secondary-use-markup")
     }
 
+    #[doc(alias = "secondary-use-markup")]
     fn set_secondary_use_markup(&self, secondary_use_markup: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "secondary-use-markup", secondary_use_markup)
     }
@@ -634,14 +584,17 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
+    #[doc(alias = "use-markup")]
     fn uses_markup(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "use-markup")
     }
 
+    #[doc(alias = "use-markup")]
     fn set_use_markup(&self, use_markup: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "use-markup", use_markup)
     }
 
+    #[doc(alias = "message-area")]
     fn connect_message_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_area_trampoline<
             P: IsA<MessageDialog>,
@@ -667,6 +620,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "message-type")]
     fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_type_trampoline<
             P: IsA<MessageDialog>,
@@ -692,6 +646,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "secondary-text")]
     fn connect_secondary_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_text_trampoline<
             P: IsA<MessageDialog>,
@@ -717,6 +672,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "secondary-use-markup")]
     fn connect_secondary_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_secondary_use_markup_trampoline<
             P: IsA<MessageDialog>,
@@ -742,6 +698,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "text")]
     fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_trampoline<P: IsA<MessageDialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMessageDialog,
@@ -764,6 +721,7 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 
+    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<
             P: IsA<MessageDialog>,
@@ -789,6 +747,8 @@ impl<O: IsA<MessageDialog>> MessageDialogExt for O {
         }
     }
 }
+
+impl<O: IsA<MessageDialog>> MessageDialogExt for O {}
 
 impl fmt::Display for MessageDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

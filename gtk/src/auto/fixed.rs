@@ -275,16 +275,9 @@ impl FixedBuilder {
     }
 }
 
-pub trait FixedExt: 'static {
+pub trait FixedExt: IsA<Fixed> + 'static {
     #[doc(alias = "gtk_fixed_move")]
     #[doc(alias = "move")]
-    fn move_(&self, widget: &impl IsA<Widget>, x: i32, y: i32);
-
-    #[doc(alias = "gtk_fixed_put")]
-    fn put(&self, widget: &impl IsA<Widget>, x: i32, y: i32);
-}
-
-impl<O: IsA<Fixed>> FixedExt for O {
     fn move_(&self, widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_fixed_move(
@@ -296,6 +289,7 @@ impl<O: IsA<Fixed>> FixedExt for O {
         }
     }
 
+    #[doc(alias = "gtk_fixed_put")]
     fn put(&self, widget: &impl IsA<Widget>, x: i32, y: i32) {
         unsafe {
             ffi::gtk_fixed_put(
@@ -307,6 +301,8 @@ impl<O: IsA<Fixed>> FixedExt for O {
         }
     }
 }
+
+impl<O: IsA<Fixed>> FixedExt for O {}
 
 impl fmt::Display for Fixed {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

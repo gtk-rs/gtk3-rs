@@ -9,7 +9,7 @@
     clippy::unreadable_literal,
     clippy::upper_case_acronyms
 )]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod manual;
 
@@ -543,8 +543,8 @@ extern "C" {
     pub fn gdk_x11_get_default_root_xwindow() -> xlib::Window;
     pub fn gdk_x11_get_default_screen() -> c_int;
     pub fn gdk_x11_get_default_xdisplay() -> *mut xlib::Display;
-    #[cfg(any(feature = "v3_24_2", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_2")))]
+    #[cfg(feature = "v3_24_2")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_2")))]
     pub fn gdk_x11_get_parent_relative_pattern() -> *mut cairo::cairo_pattern_t;
     pub fn gdk_x11_get_server_time(window: *mut GdkX11Window) -> u32;
     pub fn gdk_x11_get_xatom_by_name(atom_name: *const c_char) -> xlib::Atom;

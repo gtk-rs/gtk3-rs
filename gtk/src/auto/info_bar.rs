@@ -334,73 +334,8 @@ impl InfoBarBuilder {
     }
 }
 
-pub trait InfoBarExt: 'static {
+pub trait InfoBarExt: IsA<InfoBar> + 'static {
     #[doc(alias = "gtk_info_bar_add_action_widget")]
-    fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType);
-
-    #[doc(alias = "gtk_info_bar_add_button")]
-    fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button>;
-
-    //#[doc(alias = "gtk_info_bar_add_buttons")]
-    //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    #[doc(alias = "gtk_info_bar_get_action_area")]
-    #[doc(alias = "get_action_area")]
-    fn action_area(&self) -> Option<Box>;
-
-    #[doc(alias = "gtk_info_bar_get_content_area")]
-    #[doc(alias = "get_content_area")]
-    fn content_area(&self) -> Box;
-
-    #[doc(alias = "gtk_info_bar_get_message_type")]
-    #[doc(alias = "get_message_type")]
-    fn message_type(&self) -> MessageType;
-
-    #[doc(alias = "gtk_info_bar_get_revealed")]
-    #[doc(alias = "get_revealed")]
-    fn is_revealed(&self) -> bool;
-
-    #[doc(alias = "gtk_info_bar_get_show_close_button")]
-    #[doc(alias = "get_show_close_button")]
-    fn shows_close_button(&self) -> bool;
-
-    #[doc(alias = "gtk_info_bar_response")]
-    fn response(&self, response_id: ResponseType);
-
-    #[doc(alias = "gtk_info_bar_set_default_response")]
-    fn set_default_response(&self, response_id: ResponseType);
-
-    #[doc(alias = "gtk_info_bar_set_message_type")]
-    fn set_message_type(&self, message_type: MessageType);
-
-    #[doc(alias = "gtk_info_bar_set_response_sensitive")]
-    fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
-
-    #[doc(alias = "gtk_info_bar_set_revealed")]
-    fn set_revealed(&self, revealed: bool);
-
-    #[doc(alias = "gtk_info_bar_set_show_close_button")]
-    fn set_show_close_button(&self, setting: bool);
-
-    #[doc(alias = "close")]
-    fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_close(&self);
-
-    #[doc(alias = "response")]
-    fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "message-type")]
-    fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "revealed")]
-    fn connect_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-close-button")]
-    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<InfoBar>> InfoBarExt for O {
     fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {
             ffi::gtk_info_bar_add_action_widget(
@@ -411,6 +346,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_add_button")]
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Option<Button> {
         unsafe {
             from_glib_none(ffi::gtk_info_bar_add_button(
@@ -421,10 +357,13 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_info_bar_add_buttons")]
     //fn add_buttons(&self, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_info_bar_add_buttons() }
     //}
 
+    #[doc(alias = "gtk_info_bar_get_action_area")]
+    #[doc(alias = "get_action_area")]
     fn action_area(&self) -> Option<Box> {
         unsafe {
             from_glib_none(ffi::gtk_info_bar_get_action_area(
@@ -433,6 +372,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_get_content_area")]
+    #[doc(alias = "get_content_area")]
     fn content_area(&self) -> Box {
         unsafe {
             from_glib_none(ffi::gtk_info_bar_get_content_area(
@@ -441,6 +382,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_get_message_type")]
+    #[doc(alias = "get_message_type")]
     fn message_type(&self) -> MessageType {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_message_type(
@@ -449,6 +392,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_get_revealed")]
+    #[doc(alias = "get_revealed")]
     fn is_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_revealed(
@@ -457,6 +402,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_show_close_button(
@@ -465,12 +412,14 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_response")]
     fn response(&self, response_id: ResponseType) {
         unsafe {
             ffi::gtk_info_bar_response(self.as_ref().to_glib_none().0, response_id.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_info_bar_set_default_response")]
     fn set_default_response(&self, response_id: ResponseType) {
         unsafe {
             ffi::gtk_info_bar_set_default_response(
@@ -480,6 +429,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_set_message_type")]
     fn set_message_type(&self, message_type: MessageType) {
         unsafe {
             ffi::gtk_info_bar_set_message_type(
@@ -489,6 +439,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_set_response_sensitive")]
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool) {
         unsafe {
             ffi::gtk_info_bar_set_response_sensitive(
@@ -499,12 +450,14 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_info_bar_set_revealed")]
     fn set_revealed(&self, revealed: bool) {
         unsafe {
             ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_info_bar_set_show_close_button")]
     fn set_show_close_button(&self, setting: bool) {
         unsafe {
             ffi::gtk_info_bar_set_show_close_button(
@@ -514,6 +467,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P: IsA<InfoBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
@@ -539,6 +493,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         self.emit_by_name::<()>("close", &[]);
     }
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<
             P: IsA<InfoBar>,
@@ -567,6 +522,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "message-type")]
     fn connect_message_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_message_type_trampoline<
             P: IsA<InfoBar>,
@@ -592,6 +548,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "revealed")]
     fn connect_revealed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_revealed_trampoline<P: IsA<InfoBar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInfoBar,
@@ -614,6 +571,7 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 
+    #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<
             P: IsA<InfoBar>,
@@ -639,6 +597,8 @@ impl<O: IsA<InfoBar>> InfoBarExt for O {
         }
     }
 }
+
+impl<O: IsA<InfoBar>> InfoBarExt for O {}
 
 impl fmt::Display for InfoBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

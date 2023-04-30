@@ -36,34 +36,8 @@ impl Relation {
     }
 }
 
-pub trait RelationExt: 'static {
+pub trait RelationExt: IsA<Relation> + 'static {
     #[doc(alias = "atk_relation_add_target")]
-    fn add_target(&self, target: &impl IsA<Object>);
-
-    #[doc(alias = "atk_relation_get_relation_type")]
-    #[doc(alias = "get_relation_type")]
-    fn relation_type(&self) -> RelationType;
-
-    #[doc(alias = "atk_relation_get_target")]
-    #[doc(alias = "get_target")]
-    fn target(&self) -> Vec<Object>;
-
-    #[doc(alias = "atk_relation_remove_target")]
-    fn remove_target(&self, target: &impl IsA<Object>) -> bool;
-
-    #[doc(alias = "relation-type")]
-    fn set_relation_type(&self, relation_type: RelationType);
-
-    fn set_target(&self, target: Option<&glib::ValueArray>);
-
-    #[doc(alias = "relation-type")]
-    fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "target")]
-    fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Relation>> RelationExt for O {
     fn add_target(&self, target: &impl IsA<Object>) {
         unsafe {
             ffi::atk_relation_add_target(
@@ -73,6 +47,8 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
+    #[doc(alias = "atk_relation_get_relation_type")]
+    #[doc(alias = "get_relation_type")]
     fn relation_type(&self) -> RelationType {
         unsafe {
             from_glib(ffi::atk_relation_get_relation_type(
@@ -81,6 +57,8 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
+    #[doc(alias = "atk_relation_get_target")]
+    #[doc(alias = "get_target")]
     fn target(&self) -> Vec<Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::atk_relation_get_target(
@@ -89,6 +67,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
+    #[doc(alias = "atk_relation_remove_target")]
     fn remove_target(&self, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_relation_remove_target(
@@ -98,6 +77,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
+    #[doc(alias = "relation-type")]
     fn set_relation_type(&self, relation_type: RelationType) {
         glib::ObjectExt::set_property(self.as_ref(), "relation-type", relation_type)
     }
@@ -106,6 +86,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "target", target)
     }
 
+    #[doc(alias = "relation-type")]
     fn connect_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_relation_type_trampoline<
             P: IsA<Relation>,
@@ -131,6 +112,7 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
+    #[doc(alias = "target")]
     fn connect_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_target_trampoline<P: IsA<Relation>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkRelation,
@@ -153,6 +135,8 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 }
+
+impl<O: IsA<Relation>> RelationExt for O {}
 
 impl fmt::Display for Relation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

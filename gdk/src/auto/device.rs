@@ -26,169 +26,10 @@ impl Device {
     pub const NONE: Option<&'static Device> = None;
 }
 
-pub trait DeviceExt: 'static {
+pub trait DeviceExt: IsA<Device> + 'static {
     #[doc(alias = "gdk_device_get_associated_device")]
     #[doc(alias = "get_associated_device")]
     #[must_use]
-    fn associated_device(&self) -> Option<Device>;
-
-    #[doc(alias = "gdk_device_get_axes")]
-    #[doc(alias = "get_axes")]
-    fn axes(&self) -> AxisFlags;
-
-    //#[doc(alias = "gdk_device_get_axis")]
-    //#[doc(alias = "get_axis")]
-    //fn axis(&self, axes: &[f64], use_: AxisUse) -> Option<f64>;
-
-    #[doc(alias = "gdk_device_get_axis_use")]
-    #[doc(alias = "get_axis_use")]
-    fn axis_use(&self, index_: u32) -> AxisUse;
-
-    //#[doc(alias = "gdk_device_get_axis_value")]
-    //#[doc(alias = "get_axis_value")]
-    //fn axis_value(&self, axes: &[f64], axis_label: &Atom) -> Option<f64>;
-
-    #[doc(alias = "gdk_device_get_device_type")]
-    #[doc(alias = "get_device_type")]
-    fn device_type(&self) -> DeviceType;
-
-    #[doc(alias = "gdk_device_get_display")]
-    #[doc(alias = "get_display")]
-    fn display(&self) -> Display;
-
-    #[doc(alias = "gdk_device_get_has_cursor")]
-    #[doc(alias = "get_has_cursor")]
-    fn has_cursor(&self) -> bool;
-
-    #[doc(alias = "gdk_device_get_key")]
-    #[doc(alias = "get_key")]
-    fn key(&self, index_: u32) -> Option<(u32, ModifierType)>;
-
-    #[doc(alias = "gdk_device_get_last_event_window")]
-    #[doc(alias = "get_last_event_window")]
-    fn last_event_window(&self) -> Option<Window>;
-
-    #[doc(alias = "gdk_device_get_mode")]
-    #[doc(alias = "get_mode")]
-    fn mode(&self) -> InputMode;
-
-    #[doc(alias = "gdk_device_get_n_axes")]
-    #[doc(alias = "get_n_axes")]
-    fn n_axes(&self) -> i32;
-
-    #[doc(alias = "gdk_device_get_n_keys")]
-    #[doc(alias = "get_n_keys")]
-    fn n_keys(&self) -> i32;
-
-    #[doc(alias = "gdk_device_get_name")]
-    #[doc(alias = "get_name")]
-    fn name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gdk_device_get_position")]
-    #[doc(alias = "get_position")]
-    fn position(&self) -> (Screen, i32, i32);
-
-    #[doc(alias = "gdk_device_get_position_double")]
-    #[doc(alias = "get_position_double")]
-    fn position_double(&self) -> (Screen, f64, f64);
-
-    #[doc(alias = "gdk_device_get_product_id")]
-    #[doc(alias = "get_product_id")]
-    fn product_id(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gdk_device_get_seat")]
-    #[doc(alias = "get_seat")]
-    fn seat(&self) -> Option<Seat>;
-
-    #[doc(alias = "gdk_device_get_source")]
-    #[doc(alias = "get_source")]
-    fn source(&self) -> InputSource;
-
-    //#[doc(alias = "gdk_device_get_state")]
-    //#[doc(alias = "get_state")]
-    //fn state(&self, window: &Window, axes: &[f64]) -> ModifierType;
-
-    #[doc(alias = "gdk_device_get_vendor_id")]
-    #[doc(alias = "get_vendor_id")]
-    fn vendor_id(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gdk_device_get_window_at_position")]
-    #[doc(alias = "get_window_at_position")]
-    fn window_at_position(&self) -> (Option<Window>, i32, i32);
-
-    #[doc(alias = "gdk_device_get_window_at_position_double")]
-    #[doc(alias = "get_window_at_position_double")]
-    fn window_at_position_double(&self) -> (Option<Window>, f64, f64);
-
-    #[doc(alias = "gdk_device_list_axes")]
-    fn list_axes(&self) -> Vec<Atom>;
-
-    #[doc(alias = "gdk_device_list_slave_devices")]
-    fn list_slave_devices(&self) -> Vec<Device>;
-
-    #[doc(alias = "gdk_device_set_axis_use")]
-    fn set_axis_use(&self, index_: u32, use_: AxisUse);
-
-    #[doc(alias = "gdk_device_set_key")]
-    fn set_key(&self, index_: u32, keyval: u32, modifiers: ModifierType);
-
-    #[doc(alias = "gdk_device_set_mode")]
-    fn set_mode(&self, mode: InputMode) -> bool;
-
-    #[doc(alias = "gdk_device_warp")]
-    fn warp(&self, screen: &Screen, x: i32, y: i32);
-
-    #[doc(alias = "device-manager")]
-    fn device_manager(&self) -> Option<DeviceManager>;
-
-    #[doc(alias = "input-mode")]
-    fn input_mode(&self) -> InputMode;
-
-    #[doc(alias = "input-mode")]
-    fn set_input_mode(&self, input_mode: InputMode);
-
-    #[doc(alias = "input-source")]
-    fn input_source(&self) -> InputSource;
-
-    #[doc(alias = "num-touches")]
-    fn num_touches(&self) -> u32;
-
-    fn set_seat<P: IsA<Seat>>(&self, seat: Option<&P>);
-
-    fn tool(&self) -> Option<DeviceTool>;
-
-    #[doc(alias = "type")]
-    fn type_(&self) -> DeviceType;
-
-    #[doc(alias = "changed")]
-    fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "tool-changed")]
-    fn connect_tool_changed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "associated-device")]
-    fn connect_associated_device_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "axes")]
-    fn connect_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "input-mode")]
-    fn connect_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "n-axes")]
-    fn connect_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "seat")]
-    fn connect_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "tool")]
-    fn connect_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "type")]
-    fn connect_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Device>> DeviceExt for O {
     fn associated_device(&self) -> Option<Device> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_associated_device(
@@ -197,14 +38,20 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_axes")]
+    #[doc(alias = "get_axes")]
     fn axes(&self) -> AxisFlags {
         unsafe { from_glib(ffi::gdk_device_get_axes(self.as_ref().to_glib_none().0)) }
     }
 
+    //#[doc(alias = "gdk_device_get_axis")]
+    //#[doc(alias = "get_axis")]
     //fn axis(&self, axes: &[f64], use_: AxisUse) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis() }
     //}
 
+    #[doc(alias = "gdk_device_get_axis_use")]
+    #[doc(alias = "get_axis_use")]
     fn axis_use(&self, index_: u32) -> AxisUse {
         unsafe {
             from_glib(ffi::gdk_device_get_axis_use(
@@ -214,10 +61,14 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    //#[doc(alias = "gdk_device_get_axis_value")]
+    //#[doc(alias = "get_axis_value")]
     //fn axis_value(&self, axes: &[f64], axis_label: &Atom) -> Option<f64> {
     //    unsafe { TODO: call ffi:gdk_device_get_axis_value() }
     //}
 
+    #[doc(alias = "gdk_device_get_device_type")]
+    #[doc(alias = "get_device_type")]
     fn device_type(&self) -> DeviceType {
         unsafe {
             from_glib(ffi::gdk_device_get_device_type(
@@ -226,10 +77,14 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_display")]
+    #[doc(alias = "get_display")]
     fn display(&self) -> Display {
         unsafe { from_glib_none(ffi::gdk_device_get_display(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_has_cursor")]
+    #[doc(alias = "get_has_cursor")]
     fn has_cursor(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_get_has_cursor(
@@ -238,6 +93,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_key")]
+    #[doc(alias = "get_key")]
     fn key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
             let mut keyval = mem::MaybeUninit::uninit();
@@ -256,6 +113,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_last_event_window")]
+    #[doc(alias = "get_last_event_window")]
     fn last_event_window(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_last_event_window(
@@ -264,22 +123,32 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_mode")]
+    #[doc(alias = "get_mode")]
     fn mode(&self) -> InputMode {
         unsafe { from_glib(ffi::gdk_device_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_n_axes")]
+    #[doc(alias = "get_n_axes")]
     fn n_axes(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_axes(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_device_get_n_keys")]
+    #[doc(alias = "get_n_keys")]
     fn n_keys(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_keys(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_device_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_device_get_name(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> (Screen, i32, i32) {
         unsafe {
             let mut screen = ptr::null_mut();
@@ -295,6 +164,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_position_double")]
+    #[doc(alias = "get_position_double")]
     fn position_double(&self) -> (Screen, f64, f64) {
         unsafe {
             let mut screen = ptr::null_mut();
@@ -310,6 +181,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_product_id")]
+    #[doc(alias = "get_product_id")]
     fn product_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_product_id(
@@ -318,18 +191,26 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_seat")]
+    #[doc(alias = "get_seat")]
     fn seat(&self) -> Option<Seat> {
         unsafe { from_glib_none(ffi::gdk_device_get_seat(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_device_get_source")]
+    #[doc(alias = "get_source")]
     fn source(&self) -> InputSource {
         unsafe { from_glib(ffi::gdk_device_get_source(self.as_ref().to_glib_none().0)) }
     }
 
+    //#[doc(alias = "gdk_device_get_state")]
+    //#[doc(alias = "get_state")]
     //fn state(&self, window: &Window, axes: &[f64]) -> ModifierType {
     //    unsafe { TODO: call ffi:gdk_device_get_state() }
     //}
 
+    #[doc(alias = "gdk_device_get_vendor_id")]
+    #[doc(alias = "get_vendor_id")]
     fn vendor_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(
@@ -338,6 +219,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_window_at_position")]
+    #[doc(alias = "get_window_at_position")]
     fn window_at_position(&self) -> (Option<Window>, i32, i32) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
@@ -351,6 +234,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_window_at_position_double")]
+    #[doc(alias = "get_window_at_position_double")]
     fn window_at_position_double(&self) -> (Option<Window>, f64, f64) {
         unsafe {
             let mut win_x = mem::MaybeUninit::uninit();
@@ -364,6 +249,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_list_axes")]
     fn list_axes(&self) -> Vec<Atom> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_axes(
@@ -372,6 +258,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_list_slave_devices")]
     fn list_slave_devices(&self) -> Vec<Device> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_device_list_slave_devices(
@@ -380,12 +267,14 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_set_axis_use")]
     fn set_axis_use(&self, index_: u32, use_: AxisUse) {
         unsafe {
             ffi::gdk_device_set_axis_use(self.as_ref().to_glib_none().0, index_, use_.into_glib());
         }
     }
 
+    #[doc(alias = "gdk_device_set_key")]
     fn set_key(&self, index_: u32, keyval: u32, modifiers: ModifierType) {
         unsafe {
             ffi::gdk_device_set_key(
@@ -397,6 +286,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_set_mode")]
     fn set_mode(&self, mode: InputMode) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_set_mode(
@@ -406,6 +296,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "gdk_device_warp")]
     fn warp(&self, screen: &Screen, x: i32, y: i32) {
         unsafe {
             ffi::gdk_device_warp(
@@ -417,22 +308,27 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "device-manager")]
     fn device_manager(&self) -> Option<DeviceManager> {
         glib::ObjectExt::property(self.as_ref(), "device-manager")
     }
 
+    #[doc(alias = "input-mode")]
     fn input_mode(&self) -> InputMode {
         glib::ObjectExt::property(self.as_ref(), "input-mode")
     }
 
+    #[doc(alias = "input-mode")]
     fn set_input_mode(&self, input_mode: InputMode) {
         glib::ObjectExt::set_property(self.as_ref(), "input-mode", input_mode)
     }
 
+    #[doc(alias = "input-source")]
     fn input_source(&self) -> InputSource {
         glib::ObjectExt::property(self.as_ref(), "input-source")
     }
 
+    #[doc(alias = "num-touches")]
     fn num_touches(&self) -> u32 {
         glib::ObjectExt::property(self.as_ref(), "num-touches")
     }
@@ -445,10 +341,12 @@ impl<O: IsA<Device>> DeviceExt for O {
         glib::ObjectExt::property(self.as_ref(), "tool")
     }
 
+    #[doc(alias = "type")]
     fn type_(&self) -> DeviceType {
         glib::ObjectExt::property(self.as_ref(), "type")
     }
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -470,6 +368,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "tool-changed")]
     fn connect_tool_changed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tool_changed_trampoline<
             P: IsA<Device>,
@@ -498,6 +397,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "associated-device")]
     fn connect_associated_device_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_associated_device_trampoline<
             P: IsA<Device>,
@@ -523,6 +423,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "axes")]
     fn connect_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_axes_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -545,6 +446,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "input-mode")]
     fn connect_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_input_mode_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -567,6 +469,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "n-axes")]
     fn connect_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_n_axes_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -589,6 +492,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "seat")]
     fn connect_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_seat_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -611,6 +515,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "tool")]
     fn connect_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tool_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -633,6 +538,7 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 
+    #[doc(alias = "type")]
     fn connect_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_type_trampoline<P: IsA<Device>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkDevice,
@@ -655,6 +561,8 @@ impl<O: IsA<Device>> DeviceExt for O {
         }
     }
 }
+
+impl<O: IsA<Device>> DeviceExt for O {}
 
 impl fmt::Display for Device {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

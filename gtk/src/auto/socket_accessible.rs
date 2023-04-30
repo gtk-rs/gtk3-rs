@@ -169,18 +169,16 @@ impl SocketAccessibleBuilder {
     }
 }
 
-pub trait SocketAccessibleExt: 'static {
+pub trait SocketAccessibleExt: IsA<SocketAccessible> + 'static {
     #[doc(alias = "gtk_socket_accessible_embed")]
-    fn embed(&self, path: &str);
-}
-
-impl<O: IsA<SocketAccessible>> SocketAccessibleExt for O {
     fn embed(&self, path: &str) {
         unsafe {
             ffi::gtk_socket_accessible_embed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
         }
     }
 }
+
+impl<O: IsA<SocketAccessible>> SocketAccessibleExt for O {}
 
 impl fmt::Display for SocketAccessible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

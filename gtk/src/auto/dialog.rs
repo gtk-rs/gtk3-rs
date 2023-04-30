@@ -476,54 +476,8 @@ impl DialogBuilder {
     }
 }
 
-pub trait DialogExt: 'static {
+pub trait DialogExt: IsA<Dialog> + 'static {
     #[doc(alias = "gtk_dialog_add_action_widget")]
-    fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType);
-
-    #[doc(alias = "gtk_dialog_add_button")]
-    fn add_button(&self, button_text: &str, response_id: ResponseType) -> Widget;
-
-    #[doc(alias = "gtk_dialog_get_content_area")]
-    #[doc(alias = "get_content_area")]
-    fn content_area(&self) -> Box;
-
-    #[doc(alias = "gtk_dialog_get_header_bar")]
-    #[doc(alias = "get_header_bar")]
-    fn header_bar(&self) -> Option<HeaderBar>;
-
-    #[doc(alias = "gtk_dialog_get_response_for_widget")]
-    #[doc(alias = "get_response_for_widget")]
-    fn response_for_widget(&self, widget: &impl IsA<Widget>) -> ResponseType;
-
-    #[doc(alias = "gtk_dialog_get_widget_for_response")]
-    #[doc(alias = "get_widget_for_response")]
-    fn widget_for_response(&self, response_id: ResponseType) -> Option<Widget>;
-
-    #[doc(alias = "gtk_dialog_response")]
-    fn response(&self, response_id: ResponseType);
-
-    #[doc(alias = "gtk_dialog_run")]
-    fn run(&self) -> ResponseType;
-
-    #[doc(alias = "gtk_dialog_set_default_response")]
-    fn set_default_response(&self, response_id: ResponseType);
-
-    #[doc(alias = "gtk_dialog_set_response_sensitive")]
-    fn set_response_sensitive(&self, response_id: ResponseType, setting: bool);
-
-    #[doc(alias = "use-header-bar")]
-    fn use_header_bar(&self) -> i32;
-
-    #[doc(alias = "close")]
-    fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_close(&self);
-
-    #[doc(alias = "response")]
-    fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Dialog>> DialogExt for O {
     fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {
             ffi::gtk_dialog_add_action_widget(
@@ -534,6 +488,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_add_button")]
     fn add_button(&self, button_text: &str, response_id: ResponseType) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_dialog_add_button(
@@ -544,6 +499,8 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_get_content_area")]
+    #[doc(alias = "get_content_area")]
     fn content_area(&self) -> Box {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_content_area(
@@ -552,6 +509,8 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_get_header_bar")]
+    #[doc(alias = "get_header_bar")]
     fn header_bar(&self) -> Option<HeaderBar> {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_header_bar(
@@ -560,6 +519,8 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_get_response_for_widget")]
+    #[doc(alias = "get_response_for_widget")]
     fn response_for_widget(&self, widget: &impl IsA<Widget>) -> ResponseType {
         unsafe {
             from_glib(ffi::gtk_dialog_get_response_for_widget(
@@ -569,6 +530,8 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_get_widget_for_response")]
+    #[doc(alias = "get_widget_for_response")]
     fn widget_for_response(&self, response_id: ResponseType) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_dialog_get_widget_for_response(
@@ -578,16 +541,19 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_response")]
     fn response(&self, response_id: ResponseType) {
         unsafe {
             ffi::gtk_dialog_response(self.as_ref().to_glib_none().0, response_id.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_dialog_run")]
     fn run(&self) -> ResponseType {
         unsafe { from_glib(ffi::gtk_dialog_run(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_dialog_set_default_response")]
     fn set_default_response(&self, response_id: ResponseType) {
         unsafe {
             ffi::gtk_dialog_set_default_response(
@@ -597,6 +563,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_dialog_set_response_sensitive")]
     fn set_response_sensitive(&self, response_id: ResponseType, setting: bool) {
         unsafe {
             ffi::gtk_dialog_set_response_sensitive(
@@ -607,10 +574,12 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 
+    #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "use-header-bar")
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P: IsA<Dialog>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkDialog,
@@ -636,6 +605,7 @@ impl<O: IsA<Dialog>> DialogExt for O {
         self.emit_by_name::<()>("close", &[]);
     }
 
+    #[doc(alias = "response")]
     fn connect_response<F: Fn(&Self, ResponseType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn response_trampoline<
             P: IsA<Dialog>,
@@ -664,6 +634,8 @@ impl<O: IsA<Dialog>> DialogExt for O {
         }
     }
 }
+
+impl<O: IsA<Dialog>> DialogExt for O {}
 
 impl fmt::Display for Dialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

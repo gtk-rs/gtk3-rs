@@ -517,25 +517,9 @@ impl AppChooserDialogBuilder {
     }
 }
 
-pub trait AppChooserDialogExt: 'static {
+pub trait AppChooserDialogExt: IsA<AppChooserDialog> + 'static {
     #[doc(alias = "gtk_app_chooser_dialog_get_heading")]
     #[doc(alias = "get_heading")]
-    fn heading(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_app_chooser_dialog_get_widget")]
-    #[doc(alias = "get_widget")]
-    fn widget(&self) -> Widget;
-
-    #[doc(alias = "gtk_app_chooser_dialog_set_heading")]
-    fn set_heading(&self, heading: &str);
-
-    fn gfile(&self) -> Option<gio::File>;
-
-    #[doc(alias = "heading")]
-    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
     fn heading(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_dialog_get_heading(
@@ -544,6 +528,8 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_dialog_get_widget")]
+    #[doc(alias = "get_widget")]
     fn widget(&self) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_dialog_get_widget(
@@ -552,6 +538,7 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_dialog_set_heading")]
     fn set_heading(&self, heading: &str) {
         unsafe {
             ffi::gtk_app_chooser_dialog_set_heading(
@@ -565,6 +552,7 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         glib::ObjectExt::property(self.as_ref(), "gfile")
     }
 
+    #[doc(alias = "heading")]
     fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<
             P: IsA<AppChooserDialog>,
@@ -590,6 +578,8 @@ impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {
         }
     }
 }
+
+impl<O: IsA<AppChooserDialog>> AppChooserDialogExt for O {}
 
 impl fmt::Display for AppChooserDialog {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

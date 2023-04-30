@@ -23,24 +23,9 @@ impl Hypertext {
     pub const NONE: Option<&'static Hypertext> = None;
 }
 
-pub trait HypertextExt: 'static {
+pub trait HypertextExt: IsA<Hypertext> + 'static {
     #[doc(alias = "atk_hypertext_get_link")]
     #[doc(alias = "get_link")]
-    fn link(&self, link_index: i32) -> Option<Hyperlink>;
-
-    #[doc(alias = "atk_hypertext_get_link_index")]
-    #[doc(alias = "get_link_index")]
-    fn link_index(&self, char_index: i32) -> i32;
-
-    #[doc(alias = "atk_hypertext_get_n_links")]
-    #[doc(alias = "get_n_links")]
-    fn n_links(&self) -> i32;
-
-    #[doc(alias = "link-selected")]
-    fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Hypertext>> HypertextExt for O {
     fn link(&self, link_index: i32) -> Option<Hyperlink> {
         unsafe {
             from_glib_none(ffi::atk_hypertext_get_link(
@@ -50,14 +35,19 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         }
     }
 
+    #[doc(alias = "atk_hypertext_get_link_index")]
+    #[doc(alias = "get_link_index")]
     fn link_index(&self, char_index: i32) -> i32 {
         unsafe { ffi::atk_hypertext_get_link_index(self.as_ref().to_glib_none().0, char_index) }
     }
 
+    #[doc(alias = "atk_hypertext_get_n_links")]
+    #[doc(alias = "get_n_links")]
     fn n_links(&self) -> i32 {
         unsafe { ffi::atk_hypertext_get_n_links(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "link-selected")]
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn link_selected_trampoline<
             P: IsA<Hypertext>,
@@ -83,6 +73,8 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
         }
     }
 }
+
+impl<O: IsA<Hypertext>> HypertextExt for O {}
 
 impl fmt::Display for Hypertext {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

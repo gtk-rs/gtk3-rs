@@ -311,29 +311,9 @@ impl MenuBarBuilder {
     }
 }
 
-pub trait MenuBarExt: 'static {
+pub trait MenuBarExt: IsA<MenuBar> + 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
     #[doc(alias = "get_child_pack_direction")]
-    fn child_pack_direction(&self) -> PackDirection;
-
-    #[doc(alias = "gtk_menu_bar_get_pack_direction")]
-    #[doc(alias = "get_pack_direction")]
-    fn pack_direction(&self) -> PackDirection;
-
-    #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
-    fn set_child_pack_direction(&self, child_pack_dir: PackDirection);
-
-    #[doc(alias = "gtk_menu_bar_set_pack_direction")]
-    fn set_pack_direction(&self, pack_dir: PackDirection);
-
-    #[doc(alias = "child-pack-direction")]
-    fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pack-direction")]
-    fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MenuBar>> MenuBarExt for O {
     fn child_pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_child_pack_direction(
@@ -342,6 +322,8 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_bar_get_pack_direction")]
+    #[doc(alias = "get_pack_direction")]
     fn pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_pack_direction(
@@ -350,6 +332,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
     fn set_child_pack_direction(&self, child_pack_dir: PackDirection) {
         unsafe {
             ffi::gtk_menu_bar_set_child_pack_direction(
@@ -359,6 +342,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_bar_set_pack_direction")]
     fn set_pack_direction(&self, pack_dir: PackDirection) {
         unsafe {
             ffi::gtk_menu_bar_set_pack_direction(
@@ -368,6 +352,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
+    #[doc(alias = "child-pack-direction")]
     fn connect_child_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_child_pack_direction_trampoline<
             P: IsA<MenuBar>,
@@ -393,6 +378,7 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 
+    #[doc(alias = "pack-direction")]
     fn connect_pack_direction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pack_direction_trampoline<
             P: IsA<MenuBar>,
@@ -418,6 +404,8 @@ impl<O: IsA<MenuBar>> MenuBarExt for O {
         }
     }
 }
+
+impl<O: IsA<MenuBar>> MenuBarExt for O {}
 
 impl fmt::Display for MenuBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

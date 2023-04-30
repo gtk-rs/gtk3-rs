@@ -23,298 +23,8 @@ impl Object {
     pub const NONE: Option<&'static Object> = None;
 }
 
-pub trait AtkObjectExt: 'static {
+pub trait AtkObjectExt: IsA<Object> + 'static {
     #[doc(alias = "atk_object_add_relationship")]
-    fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool;
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-    #[doc(alias = "atk_object_get_accessible_id")]
-    #[doc(alias = "get_accessible_id")]
-    fn accessible_id(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "atk_object_get_description")]
-    #[doc(alias = "get_description")]
-    fn description(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "atk_object_get_index_in_parent")]
-    #[doc(alias = "get_index_in_parent")]
-    fn index_in_parent(&self) -> i32;
-
-    #[doc(alias = "atk_object_get_layer")]
-    #[doc(alias = "get_layer")]
-    fn layer(&self) -> Layer;
-
-    #[doc(alias = "atk_object_get_mdi_zorder")]
-    #[doc(alias = "get_mdi_zorder")]
-    fn mdi_zorder(&self) -> i32;
-
-    #[doc(alias = "atk_object_get_n_accessible_children")]
-    #[doc(alias = "get_n_accessible_children")]
-    fn n_accessible_children(&self) -> i32;
-
-    #[doc(alias = "atk_object_get_name")]
-    #[doc(alias = "get_name")]
-    fn name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "atk_object_get_object_locale")]
-    #[doc(alias = "get_object_locale")]
-    fn object_locale(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "atk_object_get_parent")]
-    #[doc(alias = "get_parent")]
-    #[must_use]
-    fn parent(&self) -> Option<Object>;
-
-    #[doc(alias = "atk_object_get_role")]
-    #[doc(alias = "get_role")]
-    fn role(&self) -> Role;
-
-    //#[doc(alias = "atk_object_initialize")]
-    //fn initialize(&self, data: /*Unimplemented*/Option<Basic: Pointer>);
-
-    #[doc(alias = "atk_object_notify_state_change")]
-    fn notify_state_change(&self, state: State, value: bool);
-
-    #[doc(alias = "atk_object_peek_parent")]
-    #[must_use]
-    fn peek_parent(&self) -> Option<Object>;
-
-    #[doc(alias = "atk_object_ref_accessible_child")]
-    #[must_use]
-    fn ref_accessible_child(&self, i: i32) -> Option<Object>;
-
-    #[doc(alias = "atk_object_ref_relation_set")]
-    fn ref_relation_set(&self) -> Option<RelationSet>;
-
-    #[doc(alias = "atk_object_ref_state_set")]
-    fn ref_state_set(&self) -> Option<StateSet>;
-
-    #[doc(alias = "atk_object_remove_relationship")]
-    fn remove_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool;
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-    #[doc(alias = "atk_object_set_accessible_id")]
-    fn set_accessible_id(&self, name: &str);
-
-    #[doc(alias = "atk_object_set_description")]
-    fn set_description(&self, description: &str);
-
-    #[doc(alias = "atk_object_set_name")]
-    fn set_name(&self, name: &str);
-
-    #[doc(alias = "atk_object_set_parent")]
-    fn set_parent(&self, parent: &impl IsA<Object>);
-
-    #[doc(alias = "atk_object_set_role")]
-    fn set_role(&self, role: Role);
-
-    #[doc(alias = "accessible-component-layer")]
-    fn accessible_component_layer(&self) -> i32;
-
-    #[doc(alias = "accessible-component-mdi-zorder")]
-    fn accessible_component_mdi_zorder(&self) -> i32;
-
-    #[doc(alias = "accessible-description")]
-    fn accessible_description(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "accessible-description")]
-    fn set_accessible_description(&self, accessible_description: Option<&str>);
-
-    #[doc(alias = "accessible-hypertext-nlinks")]
-    fn accessible_hypertext_nlinks(&self) -> i32;
-
-    #[doc(alias = "accessible-name")]
-    fn accessible_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "accessible-name")]
-    fn set_accessible_name(&self, accessible_name: Option<&str>);
-
-    #[doc(alias = "accessible-parent")]
-    fn accessible_parent(&self) -> Option<Object>;
-
-    #[doc(alias = "accessible-parent")]
-    fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>);
-
-    #[doc(alias = "accessible-role")]
-    fn accessible_role(&self) -> Role;
-
-    #[doc(alias = "accessible-role")]
-    fn set_accessible_role(&self, accessible_role: Role);
-
-    #[doc(alias = "accessible-table-caption")]
-    fn accessible_table_caption(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "accessible-table-caption")]
-    fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>);
-
-    #[doc(alias = "accessible-table-caption-object")]
-    fn accessible_table_caption_object(&self) -> Option<Object>;
-
-    #[doc(alias = "accessible-table-caption-object")]
-    fn set_accessible_table_caption_object<P: IsA<Object>>(
-        &self,
-        accessible_table_caption_object: Option<&P>,
-    );
-
-    #[doc(alias = "accessible-table-column-description")]
-    fn accessible_table_column_description(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "accessible-table-column-description")]
-    fn set_accessible_table_column_description(
-        &self,
-        accessible_table_column_description: Option<&str>,
-    );
-
-    #[doc(alias = "accessible-table-column-header")]
-    fn accessible_table_column_header(&self) -> Option<Object>;
-
-    #[doc(alias = "accessible-table-column-header")]
-    fn set_accessible_table_column_header<P: IsA<Object>>(
-        &self,
-        accessible_table_column_header: Option<&P>,
-    );
-
-    #[doc(alias = "accessible-table-row-description")]
-    fn accessible_table_row_description(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "accessible-table-row-description")]
-    fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>);
-
-    #[doc(alias = "accessible-table-row-header")]
-    fn accessible_table_row_header(&self) -> Option<Object>;
-
-    #[doc(alias = "accessible-table-row-header")]
-    fn set_accessible_table_row_header<P: IsA<Object>>(
-        &self,
-        accessible_table_row_header: Option<&P>,
-    );
-
-    #[doc(alias = "accessible-table-summary")]
-    fn accessible_table_summary(&self) -> Option<Object>;
-
-    #[doc(alias = "accessible-table-summary")]
-    fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>);
-
-    #[doc(alias = "accessible-value")]
-    fn accessible_value(&self) -> f64;
-
-    #[doc(alias = "accessible-value")]
-    fn set_accessible_value(&self, accessible_value: f64);
-
-    #[doc(alias = "active-descendant-changed")]
-    fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
-        &self,
-        detail: Option<&str>,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-    #[doc(alias = "announcement")]
-    fn connect_announcement<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "children-changed")]
-    fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
-        &self,
-        detail: Option<&str>,
-        f: F,
-    ) -> SignalHandlerId;
-
-    //#[doc(alias = "property-change")]
-    //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "state-change")]
-    fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
-        &self,
-        detail: Option<&str>,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "visible-data-changed")]
-    fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-component-layer")]
-    fn connect_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-component-mdi-zorder")]
-    fn connect_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-description")]
-    fn connect_accessible_description_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-hypertext-nlinks")]
-    fn connect_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-name")]
-    fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-parent")]
-    fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-role")]
-    fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-caption")]
-    fn connect_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-caption-object")]
-    fn connect_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-column-description")]
-    fn connect_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-column-header")]
-    fn connect_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-row-description")]
-    fn connect_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-row-header")]
-    fn connect_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-table-summary")]
-    fn connect_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "accessible-value")]
-    fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Object>> AtkObjectExt for O {
     fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_object_add_relationship(
@@ -325,8 +35,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[cfg(feature = "v2_34")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
+    #[doc(alias = "atk_object_get_accessible_id")]
+    #[doc(alias = "get_accessible_id")]
     fn accessible_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_accessible_id(
@@ -335,6 +47,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_get_description")]
+    #[doc(alias = "get_description")]
     fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_description(
@@ -343,26 +57,38 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_get_index_in_parent")]
+    #[doc(alias = "get_index_in_parent")]
     fn index_in_parent(&self) -> i32 {
         unsafe { ffi::atk_object_get_index_in_parent(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_object_get_layer")]
+    #[doc(alias = "get_layer")]
     fn layer(&self) -> Layer {
         unsafe { from_glib(ffi::atk_object_get_layer(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_object_get_mdi_zorder")]
+    #[doc(alias = "get_mdi_zorder")]
     fn mdi_zorder(&self) -> i32 {
         unsafe { ffi::atk_object_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_object_get_n_accessible_children")]
+    #[doc(alias = "get_n_accessible_children")]
     fn n_accessible_children(&self) -> i32 {
         unsafe { ffi::atk_object_get_n_accessible_children(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_object_get_name")]
+    #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::atk_object_get_name(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_object_get_object_locale")]
+    #[doc(alias = "get_object_locale")]
     fn object_locale(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_object_locale(
@@ -371,18 +97,25 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_get_parent")]
+    #[doc(alias = "get_parent")]
+    #[must_use]
     fn parent(&self) -> Option<Object> {
         unsafe { from_glib_none(ffi::atk_object_get_parent(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_object_get_role")]
+    #[doc(alias = "get_role")]
     fn role(&self) -> Role {
         unsafe { from_glib(ffi::atk_object_get_role(self.as_ref().to_glib_none().0)) }
     }
 
+    //#[doc(alias = "atk_object_initialize")]
     //fn initialize(&self, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:atk_object_initialize() }
     //}
 
+    #[doc(alias = "atk_object_notify_state_change")]
     fn notify_state_change(&self, state: State, value: bool) {
         unsafe {
             ffi::atk_object_notify_state_change(
@@ -393,10 +126,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_peek_parent")]
+    #[must_use]
     fn peek_parent(&self) -> Option<Object> {
         unsafe { from_glib_none(ffi::atk_object_peek_parent(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_object_ref_accessible_child")]
+    #[must_use]
     fn ref_accessible_child(&self, i: i32) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_object_ref_accessible_child(
@@ -406,6 +143,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_ref_relation_set")]
     fn ref_relation_set(&self) -> Option<RelationSet> {
         unsafe {
             from_glib_full(ffi::atk_object_ref_relation_set(
@@ -414,6 +152,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_ref_state_set")]
     fn ref_state_set(&self) -> Option<StateSet> {
         unsafe {
             from_glib_full(ffi::atk_object_ref_state_set(
@@ -422,6 +161,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_remove_relationship")]
     fn remove_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
             from_glib(ffi::atk_object_remove_relationship(
@@ -432,8 +172,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
+    #[cfg(feature = "v2_34")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
+    #[doc(alias = "atk_object_set_accessible_id")]
     fn set_accessible_id(&self, name: &str) {
         unsafe {
             ffi::atk_object_set_accessible_id(
@@ -443,6 +184,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_set_description")]
     fn set_description(&self, description: &str) {
         unsafe {
             ffi::atk_object_set_description(
@@ -452,12 +194,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_set_name")]
     fn set_name(&self, name: &str) {
         unsafe {
             ffi::atk_object_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "atk_object_set_parent")]
     fn set_parent(&self, parent: &impl IsA<Object>) {
         unsafe {
             ffi::atk_object_set_parent(
@@ -467,24 +211,29 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "atk_object_set_role")]
     fn set_role(&self, role: Role) {
         unsafe {
             ffi::atk_object_set_role(self.as_ref().to_glib_none().0, role.into_glib());
         }
     }
 
+    #[doc(alias = "accessible-component-layer")]
     fn accessible_component_layer(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "accessible-component-layer")
     }
 
+    #[doc(alias = "accessible-component-mdi-zorder")]
     fn accessible_component_mdi_zorder(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "accessible-component-mdi-zorder")
     }
 
+    #[doc(alias = "accessible-description")]
     fn accessible_description(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "accessible-description")
     }
 
+    #[doc(alias = "accessible-description")]
     fn set_accessible_description(&self, accessible_description: Option<&str>) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -493,38 +242,47 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-hypertext-nlinks")]
     fn accessible_hypertext_nlinks(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "accessible-hypertext-nlinks")
     }
 
+    #[doc(alias = "accessible-name")]
     fn accessible_name(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "accessible-name")
     }
 
+    #[doc(alias = "accessible-name")]
     fn set_accessible_name(&self, accessible_name: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "accessible-name", accessible_name)
     }
 
+    #[doc(alias = "accessible-parent")]
     fn accessible_parent(&self) -> Option<Object> {
         glib::ObjectExt::property(self.as_ref(), "accessible-parent")
     }
 
+    #[doc(alias = "accessible-parent")]
     fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
         glib::ObjectExt::set_property(self.as_ref(), "accessible-parent", accessible_parent)
     }
 
+    #[doc(alias = "accessible-role")]
     fn accessible_role(&self) -> Role {
         glib::ObjectExt::property(self.as_ref(), "accessible-role")
     }
 
+    #[doc(alias = "accessible-role")]
     fn set_accessible_role(&self, accessible_role: Role) {
         glib::ObjectExt::set_property(self.as_ref(), "accessible-role", accessible_role)
     }
 
+    #[doc(alias = "accessible-table-caption")]
     fn accessible_table_caption(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-caption")
     }
 
+    #[doc(alias = "accessible-table-caption")]
     fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -533,10 +291,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-caption-object")]
     fn accessible_table_caption_object(&self) -> Option<Object> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-caption-object")
     }
 
+    #[doc(alias = "accessible-table-caption-object")]
     fn set_accessible_table_caption_object<P: IsA<Object>>(
         &self,
         accessible_table_caption_object: Option<&P>,
@@ -548,10 +308,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-column-description")]
     fn accessible_table_column_description(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-column-description")
     }
 
+    #[doc(alias = "accessible-table-column-description")]
     fn set_accessible_table_column_description(
         &self,
         accessible_table_column_description: Option<&str>,
@@ -563,10 +325,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-column-header")]
     fn accessible_table_column_header(&self) -> Option<Object> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-column-header")
     }
 
+    #[doc(alias = "accessible-table-column-header")]
     fn set_accessible_table_column_header<P: IsA<Object>>(
         &self,
         accessible_table_column_header: Option<&P>,
@@ -578,10 +342,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-row-description")]
     fn accessible_table_row_description(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-row-description")
     }
 
+    #[doc(alias = "accessible-table-row-description")]
     fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -590,10 +356,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-row-header")]
     fn accessible_table_row_header(&self) -> Option<Object> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-row-header")
     }
 
+    #[doc(alias = "accessible-table-row-header")]
     fn set_accessible_table_row_header<P: IsA<Object>>(
         &self,
         accessible_table_row_header: Option<&P>,
@@ -605,10 +373,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-table-summary")]
     fn accessible_table_summary(&self) -> Option<Object> {
         glib::ObjectExt::property(self.as_ref(), "accessible-table-summary")
     }
 
+    #[doc(alias = "accessible-table-summary")]
     fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -617,14 +387,17 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         )
     }
 
+    #[doc(alias = "accessible-value")]
     fn accessible_value(&self) -> f64 {
         glib::ObjectExt::property(self.as_ref(), "accessible-value")
     }
 
+    #[doc(alias = "accessible-value")]
     fn set_accessible_value(&self, accessible_value: f64) {
         glib::ObjectExt::set_property(self.as_ref(), "accessible-value", accessible_value)
     }
 
+    #[doc(alias = "active-descendant-changed")]
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -662,8 +435,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_46", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
+    #[cfg(feature = "v2_46")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_46")))]
+    #[doc(alias = "announcement")]
     fn connect_announcement<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn announcement_trampoline<P: IsA<Object>, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::AtkObject,
@@ -689,6 +463,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "children-changed")]
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(
         &self,
         detail: Option<&str>,
@@ -727,10 +502,12 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    //#[doc(alias = "property-change")]
     //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
 
+    #[doc(alias = "state-change")]
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(
         &self,
         detail: Option<&str>,
@@ -769,6 +546,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "visible-data-changed")]
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn visible_data_changed_trampoline<
             P: IsA<Object>,
@@ -793,6 +571,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-component-layer")]
     fn connect_accessible_component_layer_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -821,6 +600,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-component-mdi-zorder")]
     fn connect_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -849,6 +629,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-description")]
     fn connect_accessible_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -877,6 +658,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-hypertext-nlinks")]
     fn connect_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -905,6 +687,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-name")]
     fn connect_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_name_trampoline<
             P: IsA<Object>,
@@ -930,6 +713,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-parent")]
     fn connect_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_parent_trampoline<
             P: IsA<Object>,
@@ -955,6 +739,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-role")]
     fn connect_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_role_trampoline<
             P: IsA<Object>,
@@ -980,6 +765,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-caption")]
     fn connect_accessible_table_caption_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1008,6 +794,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-caption-object")]
     fn connect_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1036,6 +823,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-column-description")]
     fn connect_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1064,6 +852,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-column-header")]
     fn connect_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1092,6 +881,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-row-description")]
     fn connect_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1120,6 +910,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-row-header")]
     fn connect_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1148,6 +939,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-table-summary")]
     fn connect_accessible_table_summary_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1176,6 +968,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
+    #[doc(alias = "accessible-value")]
     fn connect_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accessible_value_trampoline<
             P: IsA<Object>,
@@ -1201,6 +994,8 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 }
+
+impl<O: IsA<Object>> AtkObjectExt for O {}
 
 impl fmt::Display for Object {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

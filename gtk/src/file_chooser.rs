@@ -1,23 +1,17 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::FileChooser;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+#[cfg(any(feature = "v3_22", docsrs))]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
 use glib::translate::*;
 use glib::IsA;
 
 // rustdoc-stripper-ignore-next
 /// Trait containing manually implemented methods of [`FileChooser`](crate::FileChooser).
-pub trait FileChooserExtManual: 'static {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
+pub trait FileChooserExtManual: IsA<FileChooser> + 'static {
+    #[cfg(any(feature = "v3_22", docsrs))]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_add_choice")]
-    fn add_choice(&self, id: &str, label: &str, options: &[(&str, &str)]);
-}
-
-impl<O: IsA<FileChooser>> FileChooserExtManual for O {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_22")))]
     fn add_choice(&self, id: &str, label: &str, options: &[(&str, &str)]) {
         unsafe {
             let stashes_ids = options
@@ -51,3 +45,5 @@ impl<O: IsA<FileChooser>> FileChooserExtManual for O {
         }
     }
 }
+
+impl<O: IsA<FileChooser>> FileChooserExtManual for O {}

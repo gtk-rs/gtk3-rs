@@ -26,26 +26,8 @@ impl ListStore {
     }
 }
 
-pub trait GtkListStoreExtManual: 'static {
+pub trait GtkListStoreExtManual: IsA<ListStore> + 'static {
     #[doc(alias = "gtk_list_store_insert_with_valuesv")]
-    fn insert_with_values(
-        &self,
-        position: Option<u32>,
-        columns_and_values: &[(u32, &dyn ToValue)],
-    ) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_reorder")]
-    fn reorder(&self, new_order: &[u32]);
-
-    #[doc(alias = "gtk_list_store_set")]
-    #[doc(alias = "gtk_list_store_set_valuesv")]
-    fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]);
-
-    #[doc(alias = "gtk_list_store_set_value")]
-    fn set_value(&self, iter: &TreeIter, column: u32, value: &Value);
-}
-
-impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
     fn insert_with_values(
         &self,
         position: Option<u32>,
@@ -106,6 +88,7 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_reorder")]
     fn reorder(&self, new_order: &[u32]) {
         unsafe {
             let count = ffi::gtk_tree_model_iter_n_children(
@@ -137,6 +120,8 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_set")]
+    #[doc(alias = "gtk_list_store_set_valuesv")]
     fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]) {
         unsafe {
             let n_columns = ffi::gtk_tree_model_get_n_columns(
@@ -184,6 +169,7 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_set_value")]
     fn set_value(&self, iter: &TreeIter, column: u32, value: &Value) {
         unsafe {
             let columns = ffi::gtk_tree_model_get_n_columns(
@@ -213,3 +199,5 @@ impl<O: IsA<ListStore>> GtkListStoreExtManual for O {
         }
     }
 }
+
+impl<O: IsA<ListStore>> GtkListStoreExtManual for O {}

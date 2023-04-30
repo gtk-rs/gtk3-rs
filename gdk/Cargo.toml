@@ -20,11 +20,10 @@ name = "gdk"
 
 [features]
 v3_24 = ["ffi/v3_24"]
-dox = ["ffi/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
 unsafe-assume-initialized = []
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 libc = "0.2"

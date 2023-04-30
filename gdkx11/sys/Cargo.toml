@@ -12,7 +12,8 @@ edition = "2021"
 rust-version = "1.64"
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
+features = []
 
 [package.metadata.system-deps.gdk_x11_3_0]
 name = "gdk-x11-3.0"
@@ -54,4 +55,3 @@ tempfile = "3"
 [features]
 v3_24 = []
 v3_24_2 = ["v3_24", "cairo"]
-dox = ["cairo/dox", "gdk/dox", "glib/dox"]

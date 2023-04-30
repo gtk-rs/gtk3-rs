@@ -305,57 +305,16 @@ impl ListBoxRowBuilder {
     }
 }
 
-pub trait ListBoxRowExt: 'static {
+pub trait ListBoxRowExt: IsA<ListBoxRow> + 'static {
     #[doc(alias = "gtk_list_box_row_changed")]
-    fn changed(&self);
-
-    #[doc(alias = "gtk_list_box_row_get_activatable")]
-    #[doc(alias = "get_activatable")]
-    fn is_activatable(&self) -> bool;
-
-    #[doc(alias = "gtk_list_box_row_get_header")]
-    #[doc(alias = "get_header")]
-    fn header(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_list_box_row_get_index")]
-    #[doc(alias = "get_index")]
-    fn index(&self) -> i32;
-
-    #[doc(alias = "gtk_list_box_row_get_selectable")]
-    #[doc(alias = "get_selectable")]
-    fn is_selectable(&self) -> bool;
-
-    #[doc(alias = "gtk_list_box_row_is_selected")]
-    fn is_selected(&self) -> bool;
-
-    #[doc(alias = "gtk_list_box_row_set_activatable")]
-    fn set_activatable(&self, activatable: bool);
-
-    #[doc(alias = "gtk_list_box_row_set_header")]
-    fn set_header(&self, header: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_list_box_row_set_selectable")]
-    fn set_selectable(&self, selectable: bool);
-
-    #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate(&self);
-
-    #[doc(alias = "activatable")]
-    fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "selectable")]
-    fn connect_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
     fn changed(&self) {
         unsafe {
             ffi::gtk_list_box_row_changed(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_get_activatable")]
+    #[doc(alias = "get_activatable")]
     fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_activatable(
@@ -364,6 +323,8 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_get_header")]
+    #[doc(alias = "get_header")]
     fn header(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_row_get_header(
@@ -372,10 +333,14 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_get_index")]
+    #[doc(alias = "get_index")]
     fn index(&self) -> i32 {
         unsafe { ffi::gtk_list_box_row_get_index(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_list_box_row_get_selectable")]
+    #[doc(alias = "get_selectable")]
     fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_selectable(
@@ -384,6 +349,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_is_selected")]
     fn is_selected(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_is_selected(
@@ -392,6 +358,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_set_activatable")]
     fn set_activatable(&self, activatable: bool) {
         unsafe {
             ffi::gtk_list_box_row_set_activatable(
@@ -401,6 +368,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_set_header")]
     fn set_header(&self, header: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_list_box_row_set_header(
@@ -410,6 +378,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_row_set_selectable")]
     fn set_selectable(&self, selectable: bool) {
         unsafe {
             ffi::gtk_list_box_row_set_selectable(
@@ -419,6 +388,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<ListBoxRow>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBoxRow,
@@ -444,6 +414,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         self.emit_by_name::<()>("activate", &[]);
     }
 
+    #[doc(alias = "activatable")]
     fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_activatable_trampoline<
             P: IsA<ListBoxRow>,
@@ -469,6 +440,7 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 
+    #[doc(alias = "selectable")]
     fn connect_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selectable_trampoline<
             P: IsA<ListBoxRow>,
@@ -494,6 +466,8 @@ impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {
         }
     }
 }
+
+impl<O: IsA<ListBoxRow>> ListBoxRowExt for O {}
 
 impl fmt::Display for ListBoxRow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

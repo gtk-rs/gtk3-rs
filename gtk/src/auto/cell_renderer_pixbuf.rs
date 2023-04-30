@@ -209,72 +209,7 @@ impl CellRendererPixbufBuilder {
     }
 }
 
-pub trait CellRendererPixbufExt: 'static {
-    fn gicon(&self) -> Option<gio::Icon>;
-
-    fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>);
-
-    #[doc(alias = "icon-name")]
-    fn icon_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "icon-name")]
-    fn set_icon_name(&self, icon_name: Option<&str>);
-
-    fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>);
-
-    #[doc(alias = "pixbuf-expander-closed")]
-    fn pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    #[doc(alias = "pixbuf-expander-closed")]
-    fn set_pixbuf_expander_closed(&self, pixbuf_expander_closed: Option<&gdk_pixbuf::Pixbuf>);
-
-    #[doc(alias = "pixbuf-expander-open")]
-    fn pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    #[doc(alias = "pixbuf-expander-open")]
-    fn set_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>);
-
-    #[doc(alias = "stock-detail")]
-    fn stock_detail(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "stock-detail")]
-    fn set_stock_detail(&self, stock_detail: Option<&str>);
-
-    fn surface(&self) -> Option<cairo::Surface>;
-
-    fn set_surface(&self, surface: Option<&cairo::Surface>);
-
-    #[doc(alias = "gicon")]
-    fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "icon-name")]
-    fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pixbuf")]
-    fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pixbuf-expander-closed")]
-    fn connect_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "pixbuf-expander-open")]
-    fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "stock-detail")]
-    fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "stock-size")]
-    fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "surface")]
-    fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
+pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + 'static {
     fn gicon(&self) -> Option<gio::Icon> {
         glib::ObjectExt::property(self.as_ref(), "gicon")
     }
@@ -283,10 +218,12 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "gicon", gicon)
     }
 
+    #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "icon-name")
     }
 
+    #[doc(alias = "icon-name")]
     fn set_icon_name(&self, icon_name: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
     }
@@ -299,10 +236,12 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
     }
 
+    #[doc(alias = "pixbuf-expander-closed")]
     fn pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf> {
         glib::ObjectExt::property(self.as_ref(), "pixbuf-expander-closed")
     }
 
+    #[doc(alias = "pixbuf-expander-closed")]
     fn set_pixbuf_expander_closed(&self, pixbuf_expander_closed: Option<&gdk_pixbuf::Pixbuf>) {
         glib::ObjectExt::set_property(
             self.as_ref(),
@@ -311,18 +250,22 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         )
     }
 
+    #[doc(alias = "pixbuf-expander-open")]
     fn pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf> {
         glib::ObjectExt::property(self.as_ref(), "pixbuf-expander-open")
     }
 
+    #[doc(alias = "pixbuf-expander-open")]
     fn set_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>) {
         glib::ObjectExt::set_property(self.as_ref(), "pixbuf-expander-open", pixbuf_expander_open)
     }
 
+    #[doc(alias = "stock-detail")]
     fn stock_detail(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "stock-detail")
     }
 
+    #[doc(alias = "stock-detail")]
     fn set_stock_detail(&self, stock_detail: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "stock-detail", stock_detail)
     }
@@ -335,6 +278,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "surface", surface)
     }
 
+    #[doc(alias = "gicon")]
     fn connect_gicon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gicon_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -360,6 +304,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -385,6 +330,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "pixbuf")]
     fn connect_pixbuf_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -410,6 +356,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "pixbuf-expander-closed")]
     fn connect_pixbuf_expander_closed_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -438,6 +385,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "pixbuf-expander-open")]
     fn connect_pixbuf_expander_open_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pixbuf_expander_open_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -463,6 +411,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "stock-detail")]
     fn connect_stock_detail_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_detail_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -488,6 +437,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "stock-size")]
     fn connect_stock_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stock_size_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -513,6 +463,7 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 
+    #[doc(alias = "surface")]
     fn connect_surface_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_surface_trampoline<
             P: IsA<CellRendererPixbuf>,
@@ -538,6 +489,8 @@ impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {}
 
 impl fmt::Display for CellRendererPixbuf {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

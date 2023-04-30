@@ -275,32 +275,9 @@ impl ActionBarBuilder {
     }
 }
 
-pub trait ActionBarExt: 'static {
+pub trait ActionBarExt: IsA<ActionBar> + 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]
     #[doc(alias = "get_center_widget")]
-    fn center_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_action_bar_pack_end")]
-    fn pack_end(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_action_bar_pack_start")]
-    fn pack_start(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_action_bar_set_center_widget")]
-    fn set_center_widget(&self, center_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "child.pack-type")]
-    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
-
-    #[doc(alias = "child.pack-type")]
-    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
-
-    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
-}
-
-impl<O: IsA<ActionBar>> ActionBarExt for O {
     fn center_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_action_bar_get_center_widget(
@@ -309,6 +286,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_action_bar_pack_end")]
     fn pack_end(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_action_bar_pack_end(
@@ -318,6 +296,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_action_bar_pack_start")]
     fn pack_start(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_action_bar_pack_start(
@@ -327,6 +306,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_action_bar_set_center_widget")]
     fn set_center_widget(&self, center_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_action_bar_set_center_widget(
@@ -336,6 +316,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         }
     }
 
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -344,6 +325,7 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         )
     }
 
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -370,6 +352,8 @@ impl<O: IsA<ActionBar>> ActionBarExt for O {
         )
     }
 }
+
+impl<O: IsA<ActionBar>> ActionBarExt for O {}
 
 impl fmt::Display for ActionBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

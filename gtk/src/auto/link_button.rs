@@ -361,39 +361,15 @@ impl LinkButtonBuilder {
     }
 }
 
-pub trait LinkButtonExt: 'static {
+pub trait LinkButtonExt: IsA<LinkButton> + 'static {
     #[doc(alias = "gtk_link_button_get_uri")]
     #[doc(alias = "get_uri")]
-    fn uri(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_link_button_get_visited")]
-    #[doc(alias = "get_visited")]
-    fn is_visited(&self) -> bool;
-
-    #[doc(alias = "gtk_link_button_set_uri")]
-    fn set_uri(&self, uri: &str);
-
-    #[doc(alias = "gtk_link_button_set_visited")]
-    fn set_visited(&self, visited: bool);
-
-    #[doc(alias = "activate-link")]
-    fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "uri")]
-    fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visited")]
-    fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<LinkButton>> LinkButtonExt for O {
     fn uri(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_link_button_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_link_button_get_visited")]
+    #[doc(alias = "get_visited")]
     fn is_visited(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_link_button_get_visited(
@@ -402,18 +378,21 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_link_button_set_uri")]
     fn set_uri(&self, uri: &str) {
         unsafe {
             ffi::gtk_link_button_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_link_button_set_visited")]
     fn set_visited(&self, visited: bool) {
         unsafe {
             ffi::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.into_glib());
         }
     }
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -441,6 +420,7 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
+    #[doc(alias = "uri")]
     fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_uri_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
@@ -463,6 +443,7 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 
+    #[doc(alias = "visited")]
     fn connect_visited_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visited_trampoline<P: IsA<LinkButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLinkButton,
@@ -485,6 +466,8 @@ impl<O: IsA<LinkButton>> LinkButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<LinkButton>> LinkButtonExt for O {}
 
 impl fmt::Display for LinkButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -420,32 +420,9 @@ impl FileChooserButtonBuilder {
     }
 }
 
-pub trait FileChooserButtonExt: 'static {
+pub trait FileChooserButtonExt: IsA<FileChooserButton> + 'static {
     #[doc(alias = "gtk_file_chooser_button_get_title")]
     #[doc(alias = "get_title")]
-    fn title(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_file_chooser_button_get_width_chars")]
-    #[doc(alias = "get_width_chars")]
-    fn width_chars(&self) -> i32;
-
-    #[doc(alias = "gtk_file_chooser_button_set_title")]
-    fn set_title(&self, title: &str);
-
-    #[doc(alias = "gtk_file_chooser_button_set_width_chars")]
-    fn set_width_chars(&self, n_chars: i32);
-
-    #[doc(alias = "file-set")]
-    fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "title")]
-    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "width-chars")]
-    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
     fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_button_get_title(
@@ -454,10 +431,13 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_file_chooser_button_get_width_chars")]
+    #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32 {
         unsafe { ffi::gtk_file_chooser_button_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_file_chooser_button_set_title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_file_chooser_button_set_title(
@@ -467,12 +447,14 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_file_chooser_button_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32) {
         unsafe {
             ffi::gtk_file_chooser_button_set_width_chars(self.as_ref().to_glib_none().0, n_chars);
         }
     }
 
+    #[doc(alias = "file-set")]
     fn connect_file_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn file_set_trampoline<P: IsA<FileChooserButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFileChooserButton,
@@ -494,6 +476,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<
             P: IsA<FileChooserButton>,
@@ -519,6 +502,7 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<
             P: IsA<FileChooserButton>,
@@ -544,6 +528,8 @@ impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<FileChooserButton>> FileChooserButtonExt for O {}
 
 impl fmt::Display for FileChooserButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

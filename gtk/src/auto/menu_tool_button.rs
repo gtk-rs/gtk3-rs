@@ -361,28 +361,9 @@ impl MenuToolButtonBuilder {
     }
 }
 
-pub trait MenuToolButtonExt: 'static {
+pub trait MenuToolButtonExt: IsA<MenuToolButton> + 'static {
     #[doc(alias = "gtk_menu_tool_button_get_menu")]
     #[doc(alias = "get_menu")]
-    fn menu(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_markup")]
-    fn set_arrow_tooltip_markup(&self, markup: &str);
-
-    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_text")]
-    fn set_arrow_tooltip_text(&self, text: &str);
-
-    #[doc(alias = "gtk_menu_tool_button_set_menu")]
-    fn set_menu(&self, menu: &impl IsA<Widget>);
-
-    #[doc(alias = "show-menu")]
-    fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "menu")]
-    fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
     fn menu(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_tool_button_get_menu(
@@ -391,6 +372,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_markup")]
     fn set_arrow_tooltip_markup(&self, markup: &str) {
         unsafe {
             ffi::gtk_menu_tool_button_set_arrow_tooltip_markup(
@@ -400,6 +382,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_tool_button_set_arrow_tooltip_text")]
     fn set_arrow_tooltip_text(&self, text: &str) {
         unsafe {
             ffi::gtk_menu_tool_button_set_arrow_tooltip_text(
@@ -409,6 +392,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_tool_button_set_menu")]
     fn set_menu(&self, menu: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_tool_button_set_menu(
@@ -418,6 +402,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "show-menu")]
     fn connect_show_menu<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn show_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
@@ -439,6 +424,7 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "menu")]
     fn connect_menu_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_trampoline<P: IsA<MenuToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuToolButton,
@@ -461,6 +447,8 @@ impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {}
 
 impl fmt::Display for MenuToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -9,22 +9,8 @@ use libc::c_int;
 use std::boxed::Box as Box_;
 use std::ptr;
 
-pub trait GtkMenuExtManual: 'static {
+pub trait GtkMenuExtManual: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_popup")]
-    fn popup<T: IsA<Widget>, U: IsA<Widget>, F: Fn(&Self, &mut i32, &mut i32) -> bool + 'static>(
-        &self,
-        parent_menu_shell: Option<&T>,
-        parent_menu_item: Option<&U>,
-        f: F,
-        button: u32,
-        activate_time: u32,
-    );
-
-    #[doc(alias = "gtk_menu_popup_easy")]
-    fn popup_easy(&self, button: u32, activate_time: u32);
-}
-
-impl<O: IsA<Menu>> GtkMenuExtManual for O {
     fn popup<
         T: IsA<Widget>,
         U: IsA<Widget>,
@@ -72,6 +58,7 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_popup_easy")]
     fn popup_easy(&self, button: u32, activate_time: u32) {
         unsafe {
             ffi::gtk_menu_popup(
@@ -86,3 +73,5 @@ impl<O: IsA<Menu>> GtkMenuExtManual for O {
         }
     }
 }
+
+impl<O: IsA<Menu>> GtkMenuExtManual for O {}

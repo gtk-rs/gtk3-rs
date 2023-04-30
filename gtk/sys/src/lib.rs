@@ -9,7 +9,7 @@
     clippy::unreadable_literal,
     clippy::upper_case_acronyms
 )]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 mod manual;
 
@@ -16322,8 +16322,8 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerScrollFlags
     //=========================================================================
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_flags_get_type() -> GType;
 
     //=========================================================================
@@ -16334,8 +16334,8 @@ extern "C" {
     //=========================================================================
     // GtkFontChooserLevel
     //=========================================================================
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_level_get_type() -> GType;
 
     //=========================================================================
@@ -19743,28 +19743,28 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerKey
     //=========================================================================
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_type() -> GType;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_new(widget: *mut GtkWidget) -> *mut GtkEventController;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_forward(
         controller: *mut GtkEventControllerKey,
         widget: *mut GtkWidget,
     ) -> gboolean;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_group(controller: *mut GtkEventControllerKey) -> c_uint;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_get_im_context(
         controller: *mut GtkEventControllerKey,
     ) -> *mut GtkIMContext;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_key_set_im_context(
         controller: *mut GtkEventControllerKey,
         im_context: *mut GtkIMContext,
@@ -19773,32 +19773,32 @@ extern "C" {
     //=========================================================================
     // GtkEventControllerMotion
     //=========================================================================
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_motion_get_type() -> GType;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_motion_new(widget: *mut GtkWidget) -> *mut GtkEventController;
 
     //=========================================================================
     // GtkEventControllerScroll
     //=========================================================================
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_get_type() -> GType;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_new(
         widget: *mut GtkWidget,
         flags: GtkEventControllerScrollFlags,
     ) -> *mut GtkEventController;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_get_flags(
         scroll: *mut GtkEventControllerScroll,
     ) -> GtkEventControllerScrollFlags;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_event_controller_scroll_set_flags(
         scroll: *mut GtkEventControllerScroll,
         flags: GtkEventControllerScrollFlags,
@@ -19906,8 +19906,8 @@ extern "C" {
     //=========================================================================
     // GtkFileChooserWidgetAccessible
     //=========================================================================
-    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_file_chooser_widget_accessible_get_type() -> GType;
 
     //=========================================================================
@@ -20298,25 +20298,25 @@ extern "C" {
     // GtkGestureStylus
     //=========================================================================
     pub fn gtk_gesture_stylus_get_type() -> GType;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_new(widget: *mut GtkWidget) -> *mut GtkGesture;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_axes(
         gesture: *mut GtkGestureStylus,
         axes: *mut gdk::GdkAxisUse,
         values: *mut *mut c_double,
     ) -> gboolean;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_axis(
         gesture: *mut GtkGestureStylus,
         axis: gdk::GdkAxisUse,
         value: *mut c_double,
     ) -> gboolean;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_gesture_stylus_get_device_tool(
         gesture: *mut GtkGestureStylus,
     ) -> *mut gdk::GdkDeviceTool;
@@ -20494,8 +20494,8 @@ extern "C" {
     //=========================================================================
     // GtkHeaderBarAccessible
     //=========================================================================
-    #[cfg(any(feature = "v3_24_11", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_11")))]
+    #[cfg(feature = "v3_24_11")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_11")))]
     pub fn gtk_header_bar_accessible_get_type() -> GType;
 
     //=========================================================================
@@ -22196,11 +22196,11 @@ extern "C" {
     //=========================================================================
     // GtkPlugAccessible
     //=========================================================================
-    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_plug_accessible_get_type() -> GType;
-    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_plug_accessible_get_id(plug: *mut GtkPlugAccessible) -> *mut c_char;
 
     //=========================================================================
@@ -23267,11 +23267,11 @@ extern "C" {
     //=========================================================================
     // GtkSocketAccessible
     //=========================================================================
-    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_socket_accessible_get_type() -> GType;
-    #[cfg(any(feature = "v3_24_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_30")))]
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
     pub fn gtk_socket_accessible_embed(socket: *mut GtkSocketAccessible, path: *mut c_char);
 
     //=========================================================================
@@ -26894,18 +26894,18 @@ extern "C" {
     pub fn gtk_font_chooser_get_font_family(
         fontchooser: *mut GtkFontChooser,
     ) -> *mut pango::PangoFontFamily;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_font_features(fontchooser: *mut GtkFontChooser) -> *mut c_char;
     pub fn gtk_font_chooser_get_font_map(
         fontchooser: *mut GtkFontChooser,
     ) -> *mut pango::PangoFontMap;
     pub fn gtk_font_chooser_get_font_size(fontchooser: *mut GtkFontChooser) -> c_int;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_language(fontchooser: *mut GtkFontChooser) -> *mut c_char;
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_get_level(fontchooser: *mut GtkFontChooser) -> GtkFontChooserLevel;
     pub fn gtk_font_chooser_get_preview_text(fontchooser: *mut GtkFontChooser) -> *mut c_char;
     pub fn gtk_font_chooser_get_show_preview_entry(fontchooser: *mut GtkFontChooser) -> gboolean;
@@ -26924,11 +26924,11 @@ extern "C" {
         fontchooser: *mut GtkFontChooser,
         fontmap: *mut pango::PangoFontMap,
     );
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_set_language(fontchooser: *mut GtkFontChooser, language: *const c_char);
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gtk_font_chooser_set_level(fontchooser: *mut GtkFontChooser, level: GtkFontChooserLevel);
     pub fn gtk_font_chooser_set_preview_text(fontchooser: *mut GtkFontChooser, text: *const c_char);
     pub fn gtk_font_chooser_set_show_preview_entry(

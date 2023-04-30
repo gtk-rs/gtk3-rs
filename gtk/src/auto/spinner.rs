@@ -267,28 +267,15 @@ impl SpinnerBuilder {
     }
 }
 
-pub trait SpinnerExt: 'static {
+pub trait SpinnerExt: IsA<Spinner> + 'static {
     #[doc(alias = "gtk_spinner_start")]
-    fn start(&self);
-
-    #[doc(alias = "gtk_spinner_stop")]
-    fn stop(&self);
-
-    fn is_active(&self) -> bool;
-
-    fn set_active(&self, active: bool);
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Spinner>> SpinnerExt for O {
     fn start(&self) {
         unsafe {
             ffi::gtk_spinner_start(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_spinner_stop")]
     fn stop(&self) {
         unsafe {
             ffi::gtk_spinner_stop(self.as_ref().to_glib_none().0);
@@ -303,6 +290,7 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "active", active)
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P: IsA<Spinner>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinner,
@@ -325,6 +313,8 @@ impl<O: IsA<Spinner>> SpinnerExt for O {
         }
     }
 }
+
+impl<O: IsA<Spinner>> SpinnerExt for O {}
 
 impl fmt::Display for Spinner {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

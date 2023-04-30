@@ -35,7 +35,6 @@ tempfile = "3"
 
 [features]
 v3_24 = []
-dox = ["glib/dox", "gobject/dox", "gio/dox", "gdk_pixbuf/dox", "pango/dox", "cairo/dox"]
 
 [lib]
 name = "gdk_sys"
@@ -55,7 +54,8 @@ edition = "2021"
 rust-version = "1.64"
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
+features = []
 
 [package.metadata.system-deps.gdk_3_0]
 name = "gdk-3.0"

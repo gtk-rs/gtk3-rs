@@ -19,45 +19,8 @@ impl CellLayout {
     pub const NONE: Option<&'static CellLayout> = None;
 }
 
-pub trait CellLayoutExt: 'static {
+pub trait CellLayoutExt: IsA<CellLayout> + 'static {
     #[doc(alias = "gtk_cell_layout_add_attribute")]
-    fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32);
-
-    #[doc(alias = "gtk_cell_layout_clear")]
-    fn clear(&self);
-
-    #[doc(alias = "gtk_cell_layout_clear_attributes")]
-    fn clear_attributes(&self, cell: &impl IsA<CellRenderer>);
-
-    #[doc(alias = "gtk_cell_layout_get_area")]
-    #[doc(alias = "get_area")]
-    fn area(&self) -> Option<CellArea>;
-
-    #[doc(alias = "gtk_cell_layout_get_cells")]
-    #[doc(alias = "get_cells")]
-    fn cells(&self) -> Vec<CellRenderer>;
-
-    #[doc(alias = "gtk_cell_layout_pack_end")]
-    fn pack_end(&self, cell: &impl IsA<CellRenderer>, expand: bool);
-
-    #[doc(alias = "gtk_cell_layout_pack_start")]
-    fn pack_start(&self, cell: &impl IsA<CellRenderer>, expand: bool);
-
-    #[doc(alias = "gtk_cell_layout_reorder")]
-    fn reorder(&self, cell: &impl IsA<CellRenderer>, position: i32);
-
-    //#[doc(alias = "gtk_cell_layout_set_attributes")]
-    //fn set_attributes(&self, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    #[doc(alias = "gtk_cell_layout_set_cell_data_func")]
-    fn set_cell_data_func(
-        &self,
-        cell: &impl IsA<CellRenderer>,
-        func: Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
-    );
-}
-
-impl<O: IsA<CellLayout>> CellLayoutExt for O {
     fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {
             ffi::gtk_cell_layout_add_attribute(
@@ -69,12 +32,14 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_clear")]
     fn clear(&self) {
         unsafe {
             ffi::gtk_cell_layout_clear(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_clear_attributes")]
     fn clear_attributes(&self, cell: &impl IsA<CellRenderer>) {
         unsafe {
             ffi::gtk_cell_layout_clear_attributes(
@@ -84,6 +49,8 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_get_area")]
+    #[doc(alias = "get_area")]
     fn area(&self) -> Option<CellArea> {
         unsafe {
             from_glib_none(ffi::gtk_cell_layout_get_area(
@@ -92,6 +59,8 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_get_cells")]
+    #[doc(alias = "get_cells")]
     fn cells(&self) -> Vec<CellRenderer> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_cell_layout_get_cells(
@@ -100,6 +69,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_pack_end")]
     fn pack_end(&self, cell: &impl IsA<CellRenderer>, expand: bool) {
         unsafe {
             ffi::gtk_cell_layout_pack_end(
@@ -110,6 +80,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_pack_start")]
     fn pack_start(&self, cell: &impl IsA<CellRenderer>, expand: bool) {
         unsafe {
             ffi::gtk_cell_layout_pack_start(
@@ -120,6 +91,7 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_layout_reorder")]
     fn reorder(&self, cell: &impl IsA<CellRenderer>, position: i32) {
         unsafe {
             ffi::gtk_cell_layout_reorder(
@@ -130,10 +102,12 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_cell_layout_set_attributes")]
     //fn set_attributes(&self, cell: &impl IsA<CellRenderer>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_cell_layout_set_attributes() }
     //}
 
+    #[doc(alias = "gtk_cell_layout_set_cell_data_func")]
     fn set_cell_data_func(
         &self,
         cell: &impl IsA<CellRenderer>,
@@ -187,6 +161,8 @@ impl<O: IsA<CellLayout>> CellLayoutExt for O {
         }
     }
 }
+
+impl<O: IsA<CellLayout>> CellLayoutExt for O {}
 
 impl fmt::Display for CellLayout {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -302,123 +302,9 @@ impl ToolItemBuilder {
     }
 }
 
-pub trait ToolItemExt: 'static {
+pub trait ToolItemExt: IsA<ToolItem> + 'static {
     #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]
     #[doc(alias = "get_ellipsize_mode")]
-    fn ellipsize_mode(&self) -> pango::EllipsizeMode;
-
-    #[doc(alias = "gtk_tool_item_get_expand")]
-    #[doc(alias = "get_expand")]
-    fn expands(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_get_homogeneous")]
-    #[doc(alias = "get_homogeneous")]
-    fn is_homogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_get_icon_size")]
-    #[doc(alias = "get_icon_size")]
-    fn icon_size(&self) -> IconSize;
-
-    #[doc(alias = "gtk_tool_item_get_is_important")]
-    #[doc(alias = "get_is_important")]
-    fn is_important(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_get_orientation")]
-    #[doc(alias = "get_orientation")]
-    fn orientation(&self) -> Orientation;
-
-    #[doc(alias = "gtk_tool_item_get_proxy_menu_item")]
-    #[doc(alias = "get_proxy_menu_item")]
-    fn proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget>;
-
-    #[doc(alias = "gtk_tool_item_get_relief_style")]
-    #[doc(alias = "get_relief_style")]
-    fn relief_style(&self) -> ReliefStyle;
-
-    #[doc(alias = "gtk_tool_item_get_text_alignment")]
-    #[doc(alias = "get_text_alignment")]
-    fn text_alignment(&self) -> f32;
-
-    #[doc(alias = "gtk_tool_item_get_text_orientation")]
-    #[doc(alias = "get_text_orientation")]
-    fn text_orientation(&self) -> Orientation;
-
-    #[doc(alias = "gtk_tool_item_get_text_size_group")]
-    #[doc(alias = "get_text_size_group")]
-    fn text_size_group(&self) -> Option<SizeGroup>;
-
-    #[doc(alias = "gtk_tool_item_get_toolbar_style")]
-    #[doc(alias = "get_toolbar_style")]
-    fn toolbar_style(&self) -> ToolbarStyle;
-
-    #[doc(alias = "gtk_tool_item_get_use_drag_window")]
-    #[doc(alias = "get_use_drag_window")]
-    fn uses_drag_window(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_get_visible_horizontal")]
-    #[doc(alias = "get_visible_horizontal")]
-    fn is_visible_horizontal(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_get_visible_vertical")]
-    #[doc(alias = "get_visible_vertical")]
-    fn is_visible_vertical(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_rebuild_menu")]
-    fn rebuild_menu(&self);
-
-    #[doc(alias = "gtk_tool_item_retrieve_proxy_menu_item")]
-    fn retrieve_proxy_menu_item(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_tool_item_set_expand")]
-    fn set_expand(&self, expand: bool);
-
-    #[doc(alias = "gtk_tool_item_set_homogeneous")]
-    fn set_homogeneous(&self, homogeneous: bool);
-
-    #[doc(alias = "gtk_tool_item_set_is_important")]
-    fn set_is_important(&self, is_important: bool);
-
-    #[doc(alias = "gtk_tool_item_set_proxy_menu_item")]
-    fn set_proxy_menu_item(&self, menu_item_id: &str, menu_item: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_tool_item_set_tooltip_markup")]
-    fn set_tooltip_markup(&self, markup: &str);
-
-    #[doc(alias = "gtk_tool_item_set_tooltip_text")]
-    fn set_tooltip_text(&self, text: &str);
-
-    #[doc(alias = "gtk_tool_item_set_use_drag_window")]
-    fn set_use_drag_window(&self, use_drag_window: bool);
-
-    #[doc(alias = "gtk_tool_item_set_visible_horizontal")]
-    fn set_visible_horizontal(&self, visible_horizontal: bool);
-
-    #[doc(alias = "gtk_tool_item_set_visible_vertical")]
-    fn set_visible_vertical(&self, visible_vertical: bool);
-
-    #[doc(alias = "gtk_tool_item_toolbar_reconfigured")]
-    fn toolbar_reconfigured(&self);
-
-    #[doc(alias = "create-menu-proxy")]
-    fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "toolbar-reconfigured")]
-    fn connect_toolbar_reconfigured<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "is-important")]
-    fn connect_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visible-horizontal")]
-    fn connect_visible_horizontal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visible-vertical")]
-    fn connect_visible_vertical_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ToolItem>> ToolItemExt for O {
     fn ellipsize_mode(&self) -> pango::EllipsizeMode {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_ellipsize_mode(
@@ -427,6 +313,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_expand")]
+    #[doc(alias = "get_expand")]
     fn expands(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_expand(
@@ -435,6 +323,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_homogeneous(
@@ -443,6 +333,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_icon_size")]
+    #[doc(alias = "get_icon_size")]
     fn icon_size(&self) -> IconSize {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_icon_size(
@@ -451,6 +343,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_is_important")]
+    #[doc(alias = "get_is_important")]
     fn is_important(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_is_important(
@@ -459,6 +353,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_orientation")]
+    #[doc(alias = "get_orientation")]
     fn orientation(&self) -> Orientation {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_orientation(
@@ -467,6 +363,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_proxy_menu_item")]
+    #[doc(alias = "get_proxy_menu_item")]
     fn proxy_menu_item(&self, menu_item_id: &str) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_get_proxy_menu_item(
@@ -476,6 +374,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_relief_style")]
+    #[doc(alias = "get_relief_style")]
     fn relief_style(&self) -> ReliefStyle {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_relief_style(
@@ -484,10 +384,14 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_text_alignment")]
+    #[doc(alias = "get_text_alignment")]
     fn text_alignment(&self) -> f32 {
         unsafe { ffi::gtk_tool_item_get_text_alignment(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_tool_item_get_text_orientation")]
+    #[doc(alias = "get_text_orientation")]
     fn text_orientation(&self) -> Orientation {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_text_orientation(
@@ -496,6 +400,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_text_size_group")]
+    #[doc(alias = "get_text_size_group")]
     fn text_size_group(&self) -> Option<SizeGroup> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_get_text_size_group(
@@ -504,6 +410,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_toolbar_style")]
+    #[doc(alias = "get_toolbar_style")]
     fn toolbar_style(&self) -> ToolbarStyle {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_toolbar_style(
@@ -512,6 +420,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_use_drag_window")]
+    #[doc(alias = "get_use_drag_window")]
     fn uses_drag_window(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_use_drag_window(
@@ -520,6 +430,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_visible_horizontal")]
+    #[doc(alias = "get_visible_horizontal")]
     fn is_visible_horizontal(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_visible_horizontal(
@@ -528,6 +440,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_get_visible_vertical")]
+    #[doc(alias = "get_visible_vertical")]
     fn is_visible_vertical(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_visible_vertical(
@@ -536,12 +450,14 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_rebuild_menu")]
     fn rebuild_menu(&self) {
         unsafe {
             ffi::gtk_tool_item_rebuild_menu(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_tool_item_retrieve_proxy_menu_item")]
     fn retrieve_proxy_menu_item(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_retrieve_proxy_menu_item(
@@ -550,12 +466,14 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_expand")]
     fn set_expand(&self, expand: bool) {
         unsafe {
             ffi::gtk_tool_item_set_expand(self.as_ref().to_glib_none().0, expand.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_tool_item_set_homogeneous(
@@ -565,6 +483,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_is_important")]
     fn set_is_important(&self, is_important: bool) {
         unsafe {
             ffi::gtk_tool_item_set_is_important(
@@ -574,6 +493,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_proxy_menu_item")]
     fn set_proxy_menu_item(&self, menu_item_id: &str, menu_item: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_item_set_proxy_menu_item(
@@ -584,6 +504,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_tooltip_markup")]
     fn set_tooltip_markup(&self, markup: &str) {
         unsafe {
             ffi::gtk_tool_item_set_tooltip_markup(
@@ -593,6 +514,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_tooltip_text")]
     fn set_tooltip_text(&self, text: &str) {
         unsafe {
             ffi::gtk_tool_item_set_tooltip_text(
@@ -602,6 +524,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_use_drag_window")]
     fn set_use_drag_window(&self, use_drag_window: bool) {
         unsafe {
             ffi::gtk_tool_item_set_use_drag_window(
@@ -611,6 +534,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_visible_horizontal")]
     fn set_visible_horizontal(&self, visible_horizontal: bool) {
         unsafe {
             ffi::gtk_tool_item_set_visible_horizontal(
@@ -620,6 +544,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_set_visible_vertical")]
     fn set_visible_vertical(&self, visible_vertical: bool) {
         unsafe {
             ffi::gtk_tool_item_set_visible_vertical(
@@ -629,12 +554,14 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_toolbar_reconfigured")]
     fn toolbar_reconfigured(&self) {
         unsafe {
             ffi::gtk_tool_item_toolbar_reconfigured(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "create-menu-proxy")]
     fn connect_create_menu_proxy<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -662,6 +589,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "toolbar-reconfigured")]
     fn connect_toolbar_reconfigured<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toolbar_reconfigured_trampoline<
             P: IsA<ToolItem>,
@@ -686,6 +614,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "is-important")]
     fn connect_is_important_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_important_trampoline<
             P: IsA<ToolItem>,
@@ -711,6 +640,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "visible-horizontal")]
     fn connect_visible_horizontal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_horizontal_trampoline<
             P: IsA<ToolItem>,
@@ -736,6 +666,7 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 
+    #[doc(alias = "visible-vertical")]
     fn connect_visible_vertical_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_vertical_trampoline<
             P: IsA<ToolItem>,
@@ -761,6 +692,8 @@ impl<O: IsA<ToolItem>> ToolItemExt for O {
         }
     }
 }
+
+impl<O: IsA<ToolItem>> ToolItemExt for O {}
 
 impl fmt::Display for ToolItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

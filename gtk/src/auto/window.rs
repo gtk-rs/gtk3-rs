@@ -546,488 +546,8 @@ impl WindowBuilder {
     }
 }
 
-pub trait GtkWindowExt: 'static {
+pub trait GtkWindowExt: IsA<Window> + 'static {
     #[doc(alias = "gtk_window_activate_default")]
-    fn activate_default(&self) -> bool;
-
-    #[doc(alias = "gtk_window_activate_focus")]
-    fn activate_focus(&self) -> bool;
-
-    #[doc(alias = "gtk_window_activate_key")]
-    fn activate_key(&self, event: &gdk::EventKey) -> bool;
-
-    #[doc(alias = "gtk_window_add_accel_group")]
-    fn add_accel_group(&self, accel_group: &impl IsA<AccelGroup>);
-
-    #[doc(alias = "gtk_window_add_mnemonic")]
-    fn add_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_window_begin_move_drag")]
-    fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32);
-
-    #[doc(alias = "gtk_window_begin_resize_drag")]
-    fn begin_resize_drag(
-        &self,
-        edge: gdk::WindowEdge,
-        button: i32,
-        root_x: i32,
-        root_y: i32,
-        timestamp: u32,
-    );
-
-    #[doc(alias = "gtk_window_close")]
-    fn close(&self);
-
-    #[doc(alias = "gtk_window_deiconify")]
-    fn deiconify(&self);
-
-    #[doc(alias = "gtk_window_fullscreen")]
-    fn fullscreen(&self);
-
-    #[doc(alias = "gtk_window_fullscreen_on_monitor")]
-    fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32);
-
-    #[doc(alias = "gtk_window_get_accept_focus")]
-    #[doc(alias = "get_accept_focus")]
-    fn accepts_focus(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_application")]
-    #[doc(alias = "get_application")]
-    fn application(&self) -> Option<Application>;
-
-    #[doc(alias = "gtk_window_get_attached_to")]
-    #[doc(alias = "get_attached_to")]
-    fn attached_to(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_window_get_decorated")]
-    #[doc(alias = "get_decorated")]
-    fn is_decorated(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_default_size")]
-    #[doc(alias = "get_default_size")]
-    fn default_size(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_window_get_default_widget")]
-    #[doc(alias = "get_default_widget")]
-    fn default_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_window_get_deletable")]
-    #[doc(alias = "get_deletable")]
-    fn is_deletable(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_destroy_with_parent")]
-    #[doc(alias = "get_destroy_with_parent")]
-    fn must_destroy_with_parent(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_focus")]
-    #[doc(alias = "get_focus")]
-    fn focused_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_window_get_focus_on_map")]
-    #[doc(alias = "get_focus_on_map")]
-    fn gets_focus_on_map(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_focus_visible")]
-    #[doc(alias = "get_focus_visible")]
-    fn gets_focus_visible(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_gravity")]
-    #[doc(alias = "get_gravity")]
-    fn gravity(&self) -> gdk::Gravity;
-
-    #[doc(alias = "gtk_window_get_group")]
-    #[doc(alias = "get_group")]
-    fn group(&self) -> Option<WindowGroup>;
-
-    #[doc(alias = "gtk_window_get_hide_titlebar_when_maximized")]
-    #[doc(alias = "get_hide_titlebar_when_maximized")]
-    fn hides_titlebar_when_maximized(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_icon")]
-    #[doc(alias = "get_icon")]
-    fn icon(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    #[doc(alias = "gtk_window_get_icon_list")]
-    #[doc(alias = "get_icon_list")]
-    fn icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf>;
-
-    #[doc(alias = "gtk_window_get_icon_name")]
-    #[doc(alias = "get_icon_name")]
-    fn icon_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_window_get_mnemonic_modifier")]
-    #[doc(alias = "get_mnemonic_modifier")]
-    fn mnemonic_modifier(&self) -> gdk::ModifierType;
-
-    #[doc(alias = "gtk_window_get_mnemonics_visible")]
-    #[doc(alias = "get_mnemonics_visible")]
-    fn is_mnemonics_visible(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_modal")]
-    #[doc(alias = "get_modal")]
-    fn is_modal(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_position")]
-    #[doc(alias = "get_position")]
-    fn position(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_window_get_resizable")]
-    #[doc(alias = "get_resizable")]
-    fn is_resizable(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_role")]
-    #[doc(alias = "get_role")]
-    fn role(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_window_get_screen")]
-    #[doc(alias = "get_screen")]
-    fn screen(&self) -> Option<gdk::Screen>;
-
-    #[doc(alias = "gtk_window_get_size")]
-    #[doc(alias = "get_size")]
-    fn size(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_window_get_skip_pager_hint")]
-    #[doc(alias = "get_skip_pager_hint")]
-    fn skips_pager_hint(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_skip_taskbar_hint")]
-    #[doc(alias = "get_skip_taskbar_hint")]
-    fn skips_taskbar_hint(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_title")]
-    #[doc(alias = "get_title")]
-    fn title(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_window_get_titlebar")]
-    #[doc(alias = "get_titlebar")]
-    fn titlebar(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_window_get_transient_for")]
-    #[doc(alias = "get_transient_for")]
-    #[must_use]
-    fn transient_for(&self) -> Option<Window>;
-
-    #[doc(alias = "gtk_window_get_type_hint")]
-    #[doc(alias = "get_type_hint")]
-    fn type_hint(&self) -> gdk::WindowTypeHint;
-
-    #[doc(alias = "gtk_window_get_urgency_hint")]
-    #[doc(alias = "get_urgency_hint")]
-    fn is_urgency_hint(&self) -> bool;
-
-    #[doc(alias = "gtk_window_get_window_type")]
-    #[doc(alias = "get_window_type")]
-    fn window_type(&self) -> WindowType;
-
-    #[doc(alias = "gtk_window_has_group")]
-    fn has_group(&self) -> bool;
-
-    #[doc(alias = "gtk_window_has_toplevel_focus")]
-    fn has_toplevel_focus(&self) -> bool;
-
-    #[doc(alias = "gtk_window_iconify")]
-    fn iconify(&self);
-
-    #[doc(alias = "gtk_window_is_active")]
-    fn is_active(&self) -> bool;
-
-    #[doc(alias = "gtk_window_is_maximized")]
-    fn is_maximized(&self) -> bool;
-
-    #[doc(alias = "gtk_window_maximize")]
-    fn maximize(&self);
-
-    #[doc(alias = "gtk_window_mnemonic_activate")]
-    fn mnemonic_activate(&self, keyval: u32, modifier: gdk::ModifierType) -> bool;
-
-    #[doc(alias = "gtk_window_move")]
-    #[doc(alias = "move")]
-    fn move_(&self, x: i32, y: i32);
-
-    #[doc(alias = "gtk_window_present")]
-    fn present(&self);
-
-    #[doc(alias = "gtk_window_present_with_time")]
-    fn present_with_time(&self, timestamp: u32);
-
-    #[doc(alias = "gtk_window_propagate_key_event")]
-    fn propagate_key_event(&self, event: &gdk::EventKey) -> bool;
-
-    #[doc(alias = "gtk_window_remove_accel_group")]
-    fn remove_accel_group(&self, accel_group: &impl IsA<AccelGroup>);
-
-    #[doc(alias = "gtk_window_remove_mnemonic")]
-    fn remove_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_window_resize")]
-    fn resize(&self, width: i32, height: i32);
-
-    #[doc(alias = "gtk_window_set_accept_focus")]
-    fn set_accept_focus(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_application")]
-    fn set_application(&self, application: Option<&impl IsA<Application>>);
-
-    #[doc(alias = "gtk_window_set_attached_to")]
-    fn set_attached_to(&self, attach_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_window_set_decorated")]
-    fn set_decorated(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_default")]
-    fn set_default(&self, default_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_window_set_default_size")]
-    fn set_default_size(&self, width: i32, height: i32);
-
-    #[doc(alias = "gtk_window_set_deletable")]
-    fn set_deletable(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_destroy_with_parent")]
-    fn set_destroy_with_parent(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_focus")]
-    fn set_focus(&self, focus: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_window_set_focus_on_map")]
-    fn set_focus_on_map(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_focus_visible")]
-    fn set_focus_visible(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_geometry_hints")]
-    fn set_geometry_hints(
-        &self,
-        geometry_widget: Option<&impl IsA<Widget>>,
-        geometry: Option<&gdk::Geometry>,
-        geom_mask: gdk::WindowHints,
-    );
-
-    #[doc(alias = "gtk_window_set_gravity")]
-    fn set_gravity(&self, gravity: gdk::Gravity);
-
-    #[doc(alias = "gtk_window_set_has_user_ref_count")]
-    fn set_has_user_ref_count(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_hide_titlebar_when_maximized")]
-    fn set_hide_titlebar_when_maximized(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_icon")]
-    fn set_icon(&self, icon: Option<&gdk_pixbuf::Pixbuf>);
-
-    #[doc(alias = "gtk_window_set_icon_from_file")]
-    fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_window_set_icon_list")]
-    fn set_icon_list(&self, list: &[gdk_pixbuf::Pixbuf]);
-
-    #[doc(alias = "gtk_window_set_icon_name")]
-    fn set_icon_name(&self, name: Option<&str>);
-
-    #[doc(alias = "gtk_window_set_keep_above")]
-    fn set_keep_above(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_keep_below")]
-    fn set_keep_below(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_mnemonic_modifier")]
-    fn set_mnemonic_modifier(&self, modifier: gdk::ModifierType);
-
-    #[doc(alias = "gtk_window_set_mnemonics_visible")]
-    fn set_mnemonics_visible(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_modal")]
-    fn set_modal(&self, modal: bool);
-
-    #[doc(alias = "gtk_window_set_position")]
-    fn set_position(&self, position: WindowPosition);
-
-    #[doc(alias = "gtk_window_set_resizable")]
-    fn set_resizable(&self, resizable: bool);
-
-    #[doc(alias = "gtk_window_set_role")]
-    fn set_role(&self, role: &str);
-
-    #[doc(alias = "gtk_window_set_screen")]
-    fn set_screen(&self, screen: &gdk::Screen);
-
-    #[doc(alias = "gtk_window_set_skip_pager_hint")]
-    fn set_skip_pager_hint(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_skip_taskbar_hint")]
-    fn set_skip_taskbar_hint(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_set_startup_id")]
-    fn set_startup_id(&self, startup_id: &str);
-
-    #[doc(alias = "gtk_window_set_title")]
-    fn set_title(&self, title: &str);
-
-    #[doc(alias = "gtk_window_set_titlebar")]
-    fn set_titlebar(&self, titlebar: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_window_set_transient_for")]
-    fn set_transient_for(&self, parent: Option<&impl IsA<Window>>);
-
-    #[doc(alias = "gtk_window_set_type_hint")]
-    fn set_type_hint(&self, hint: gdk::WindowTypeHint);
-
-    #[doc(alias = "gtk_window_set_urgency_hint")]
-    fn set_urgency_hint(&self, setting: bool);
-
-    #[doc(alias = "gtk_window_stick")]
-    fn stick(&self);
-
-    #[doc(alias = "gtk_window_unfullscreen")]
-    fn unfullscreen(&self);
-
-    #[doc(alias = "gtk_window_unmaximize")]
-    fn unmaximize(&self);
-
-    #[doc(alias = "gtk_window_unstick")]
-    fn unstick(&self);
-
-    #[doc(alias = "default-height")]
-    fn default_height(&self) -> i32;
-
-    #[doc(alias = "default-height")]
-    fn set_default_height(&self, default_height: i32);
-
-    #[doc(alias = "default-width")]
-    fn default_width(&self) -> i32;
-
-    #[doc(alias = "default-width")]
-    fn set_default_width(&self, default_width: i32);
-
-    #[doc(alias = "type")]
-    fn type_(&self) -> WindowType;
-
-    #[doc(alias = "window-position")]
-    fn window_position(&self) -> WindowPosition;
-
-    #[doc(alias = "window-position")]
-    fn set_window_position(&self, window_position: WindowPosition);
-
-    #[doc(alias = "activate-default")]
-    fn connect_activate_default<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_default(&self);
-
-    #[doc(alias = "activate-focus")]
-    fn connect_activate_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_focus(&self);
-
-    #[doc(alias = "enable-debugging")]
-    fn connect_enable_debugging<F: Fn(&Self, bool) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_enable_debugging(&self, toggle: bool) -> bool;
-
-    #[doc(alias = "keys-changed")]
-    fn connect_keys_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "set-focus")]
-    fn connect_set_focus<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accept-focus")]
-    fn connect_accept_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "application")]
-    fn connect_application_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "attached-to")]
-    fn connect_attached_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "decorated")]
-    fn connect_decorated_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "default-height")]
-    fn connect_default_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "default-width")]
-    fn connect_default_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "deletable")]
-    fn connect_deletable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "destroy-with-parent")]
-    fn connect_destroy_with_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "focus-on-map")]
-    fn connect_focus_on_map_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "focus-visible")]
-    fn connect_focus_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "gravity")]
-    fn connect_gravity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "has-toplevel-focus")]
-    fn connect_has_toplevel_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "hide-titlebar-when-maximized")]
-    fn connect_hide_titlebar_when_maximized_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "icon")]
-    fn connect_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "icon-name")]
-    fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "is-active")]
-    fn connect_is_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "is-maximized")]
-    fn connect_is_maximized_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "mnemonics-visible")]
-    fn connect_mnemonics_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "modal")]
-    fn connect_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "resizable")]
-    fn connect_resizable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "role")]
-    fn connect_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "screen")]
-    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "skip-pager-hint")]
-    fn connect_skip_pager_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "skip-taskbar-hint")]
-    fn connect_skip_taskbar_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "startup-id")]
-    fn connect_startup_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "title")]
-    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transient-for")]
-    fn connect_transient_for_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "type-hint")]
-    fn connect_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "urgency-hint")]
-    fn connect_urgency_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "window-position")]
-    fn connect_window_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Window>> GtkWindowExt for O {
     fn activate_default(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_activate_default(
@@ -1036,6 +556,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_activate_focus")]
     fn activate_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_activate_focus(
@@ -1044,6 +565,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_activate_key")]
     fn activate_key(&self, event: &gdk::EventKey) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_activate_key(
@@ -1053,6 +575,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_add_accel_group")]
     fn add_accel_group(&self, accel_group: &impl IsA<AccelGroup>) {
         unsafe {
             ffi::gtk_window_add_accel_group(
@@ -1062,6 +585,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_add_mnemonic")]
     fn add_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_window_add_mnemonic(
@@ -1072,6 +596,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_begin_move_drag")]
     fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         unsafe {
             ffi::gtk_window_begin_move_drag(
@@ -1084,6 +609,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_begin_resize_drag")]
     fn begin_resize_drag(
         &self,
         edge: gdk::WindowEdge,
@@ -1104,24 +630,28 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_close")]
     fn close(&self) {
         unsafe {
             ffi::gtk_window_close(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_deiconify")]
     fn deiconify(&self) {
         unsafe {
             ffi::gtk_window_deiconify(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_fullscreen")]
     fn fullscreen(&self) {
         unsafe {
             ffi::gtk_window_fullscreen(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_fullscreen_on_monitor")]
     fn fullscreen_on_monitor(&self, screen: &gdk::Screen, monitor: i32) {
         unsafe {
             ffi::gtk_window_fullscreen_on_monitor(
@@ -1132,6 +662,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_accept_focus")]
+    #[doc(alias = "get_accept_focus")]
     fn accepts_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_accept_focus(
@@ -1140,6 +672,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_application")]
+    #[doc(alias = "get_application")]
     fn application(&self) -> Option<Application> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_application(
@@ -1148,6 +682,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_attached_to")]
+    #[doc(alias = "get_attached_to")]
     fn attached_to(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_attached_to(
@@ -1156,6 +692,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_decorated")]
+    #[doc(alias = "get_decorated")]
     fn is_decorated(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_decorated(
@@ -1164,6 +702,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_default_size")]
+    #[doc(alias = "get_default_size")]
     fn default_size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -1177,6 +717,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_default_widget")]
+    #[doc(alias = "get_default_widget")]
     fn default_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_default_widget(
@@ -1185,6 +727,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_deletable")]
+    #[doc(alias = "get_deletable")]
     fn is_deletable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_deletable(
@@ -1193,6 +737,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_destroy_with_parent")]
+    #[doc(alias = "get_destroy_with_parent")]
     fn must_destroy_with_parent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_destroy_with_parent(
@@ -1201,10 +747,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_focus")]
+    #[doc(alias = "get_focus")]
     fn focused_widget(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_focus(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_focus_on_map")]
+    #[doc(alias = "get_focus_on_map")]
     fn gets_focus_on_map(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_on_map(
@@ -1213,6 +763,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_focus_visible")]
+    #[doc(alias = "get_focus_visible")]
     fn gets_focus_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_visible(
@@ -1221,14 +773,20 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_gravity")]
+    #[doc(alias = "get_gravity")]
     fn gravity(&self) -> gdk::Gravity {
         unsafe { from_glib(ffi::gtk_window_get_gravity(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_group")]
+    #[doc(alias = "get_group")]
     fn group(&self) -> Option<WindowGroup> {
         unsafe { from_glib_none(ffi::gtk_window_get_group(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_hide_titlebar_when_maximized")]
+    #[doc(alias = "get_hide_titlebar_when_maximized")]
     fn hides_titlebar_when_maximized(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_hide_titlebar_when_maximized(
@@ -1237,10 +795,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_icon")]
+    #[doc(alias = "get_icon")]
     fn icon(&self) -> Option<gdk_pixbuf::Pixbuf> {
         unsafe { from_glib_none(ffi::gtk_window_get_icon(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_icon_list")]
+    #[doc(alias = "get_icon_list")]
     fn icon_list(&self) -> Vec<gdk_pixbuf::Pixbuf> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_window_get_icon_list(
@@ -1249,6 +811,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_icon_name")]
+    #[doc(alias = "get_icon_name")]
     fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_icon_name(
@@ -1257,6 +821,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_mnemonic_modifier")]
+    #[doc(alias = "get_mnemonic_modifier")]
     fn mnemonic_modifier(&self) -> gdk::ModifierType {
         unsafe {
             from_glib(ffi::gtk_window_get_mnemonic_modifier(
@@ -1265,6 +831,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_mnemonics_visible")]
+    #[doc(alias = "get_mnemonics_visible")]
     fn is_mnemonics_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_mnemonics_visible(
@@ -1273,10 +841,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_modal")]
+    #[doc(alias = "get_modal")]
     fn is_modal(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_get_modal(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self) -> (i32, i32) {
         unsafe {
             let mut root_x = mem::MaybeUninit::uninit();
@@ -1290,6 +862,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_resizable")]
+    #[doc(alias = "get_resizable")]
     fn is_resizable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_resizable(
@@ -1298,14 +872,20 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_role")]
+    #[doc(alias = "get_role")]
     fn role(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_window_get_role(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen> {
         unsafe { from_glib_none(ffi::gtk_window_get_screen(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -1319,6 +899,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_skip_pager_hint")]
+    #[doc(alias = "get_skip_pager_hint")]
     fn skips_pager_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_pager_hint(
@@ -1327,6 +909,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_skip_taskbar_hint")]
+    #[doc(alias = "get_skip_taskbar_hint")]
     fn skips_taskbar_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_taskbar_hint(
@@ -1335,14 +919,21 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_title")]
+    #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_window_get_title(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_titlebar")]
+    #[doc(alias = "get_titlebar")]
     fn titlebar(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_window_get_titlebar(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_get_transient_for")]
+    #[doc(alias = "get_transient_for")]
+    #[must_use]
     fn transient_for(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_transient_for(
@@ -1351,6 +942,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_type_hint")]
+    #[doc(alias = "get_type_hint")]
     fn type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
             from_glib(ffi::gtk_window_get_type_hint(
@@ -1359,6 +952,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_urgency_hint")]
+    #[doc(alias = "get_urgency_hint")]
     fn is_urgency_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_urgency_hint(
@@ -1367,6 +962,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_get_window_type")]
+    #[doc(alias = "get_window_type")]
     fn window_type(&self) -> WindowType {
         unsafe {
             from_glib(ffi::gtk_window_get_window_type(
@@ -1375,10 +972,12 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_has_group")]
     fn has_group(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_has_group(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_has_toplevel_focus")]
     fn has_toplevel_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_has_toplevel_focus(
@@ -1387,26 +986,31 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_iconify")]
     fn iconify(&self) {
         unsafe {
             ffi::gtk_window_iconify(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_is_active")]
     fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_is_active(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_is_maximized")]
     fn is_maximized(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_is_maximized(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_window_maximize")]
     fn maximize(&self) {
         unsafe {
             ffi::gtk_window_maximize(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_mnemonic_activate")]
     fn mnemonic_activate(&self, keyval: u32, modifier: gdk::ModifierType) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_mnemonic_activate(
@@ -1417,24 +1021,29 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_move")]
+    #[doc(alias = "move")]
     fn move_(&self, x: i32, y: i32) {
         unsafe {
             ffi::gtk_window_move(self.as_ref().to_glib_none().0, x, y);
         }
     }
 
+    #[doc(alias = "gtk_window_present")]
     fn present(&self) {
         unsafe {
             ffi::gtk_window_present(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_present_with_time")]
     fn present_with_time(&self, timestamp: u32) {
         unsafe {
             ffi::gtk_window_present_with_time(self.as_ref().to_glib_none().0, timestamp);
         }
     }
 
+    #[doc(alias = "gtk_window_propagate_key_event")]
     fn propagate_key_event(&self, event: &gdk::EventKey) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_propagate_key_event(
@@ -1444,6 +1053,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_remove_accel_group")]
     fn remove_accel_group(&self, accel_group: &impl IsA<AccelGroup>) {
         unsafe {
             ffi::gtk_window_remove_accel_group(
@@ -1453,6 +1063,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_remove_mnemonic")]
     fn remove_mnemonic(&self, keyval: u32, target: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_window_remove_mnemonic(
@@ -1463,18 +1074,21 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_resize")]
     fn resize(&self, width: i32, height: i32) {
         unsafe {
             ffi::gtk_window_resize(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
+    #[doc(alias = "gtk_window_set_accept_focus")]
     fn set_accept_focus(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_accept_focus(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_application")]
     fn set_application(&self, application: Option<&impl IsA<Application>>) {
         unsafe {
             ffi::gtk_window_set_application(
@@ -1484,6 +1098,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_attached_to")]
     fn set_attached_to(&self, attach_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_attached_to(
@@ -1493,12 +1108,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_decorated")]
     fn set_decorated(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_decorated(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_default")]
     fn set_default(&self, default_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_default(
@@ -1508,18 +1125,21 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_default_size")]
     fn set_default_size(&self, width: i32, height: i32) {
         unsafe {
             ffi::gtk_window_set_default_size(self.as_ref().to_glib_none().0, width, height);
         }
     }
 
+    #[doc(alias = "gtk_window_set_deletable")]
     fn set_deletable(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_deletable(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_destroy_with_parent")]
     fn set_destroy_with_parent(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_destroy_with_parent(
@@ -1529,6 +1149,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_focus")]
     fn set_focus(&self, focus: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_focus(
@@ -1538,18 +1159,21 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_focus_on_map")]
     fn set_focus_on_map(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_focus_on_map(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_focus_visible")]
     fn set_focus_visible(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_focus_visible(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_geometry_hints")]
     fn set_geometry_hints(
         &self,
         geometry_widget: Option<&impl IsA<Widget>>,
@@ -1566,12 +1190,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_gravity")]
     fn set_gravity(&self, gravity: gdk::Gravity) {
         unsafe {
             ffi::gtk_window_set_gravity(self.as_ref().to_glib_none().0, gravity.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_has_user_ref_count")]
     fn set_has_user_ref_count(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_has_user_ref_count(
@@ -1581,6 +1207,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_hide_titlebar_when_maximized")]
     fn set_hide_titlebar_when_maximized(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_hide_titlebar_when_maximized(
@@ -1590,12 +1217,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_icon")]
     fn set_icon(&self, icon: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
             ffi::gtk_window_set_icon(self.as_ref().to_glib_none().0, icon.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_icon_from_file")]
     fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -1613,30 +1242,35 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_icon_list")]
     fn set_icon_list(&self, list: &[gdk_pixbuf::Pixbuf]) {
         unsafe {
             ffi::gtk_window_set_icon_list(self.as_ref().to_glib_none().0, list.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_icon_name")]
     fn set_icon_name(&self, name: Option<&str>) {
         unsafe {
             ffi::gtk_window_set_icon_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_keep_above")]
     fn set_keep_above(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_keep_above(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_keep_below")]
     fn set_keep_below(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_keep_below(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_mnemonic_modifier")]
     fn set_mnemonic_modifier(&self, modifier: gdk::ModifierType) {
         unsafe {
             ffi::gtk_window_set_mnemonic_modifier(
@@ -1646,6 +1280,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_mnemonics_visible")]
     fn set_mnemonics_visible(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_mnemonics_visible(
@@ -1655,36 +1290,42 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_modal")]
     fn set_modal(&self, modal: bool) {
         unsafe {
             ffi::gtk_window_set_modal(self.as_ref().to_glib_none().0, modal.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_position")]
     fn set_position(&self, position: WindowPosition) {
         unsafe {
             ffi::gtk_window_set_position(self.as_ref().to_glib_none().0, position.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_resizable")]
     fn set_resizable(&self, resizable: bool) {
         unsafe {
             ffi::gtk_window_set_resizable(self.as_ref().to_glib_none().0, resizable.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_role")]
     fn set_role(&self, role: &str) {
         unsafe {
             ffi::gtk_window_set_role(self.as_ref().to_glib_none().0, role.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
             ffi::gtk_window_set_screen(self.as_ref().to_glib_none().0, screen.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_skip_pager_hint")]
     fn set_skip_pager_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_skip_pager_hint(
@@ -1694,6 +1335,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_skip_taskbar_hint")]
     fn set_skip_taskbar_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_skip_taskbar_hint(
@@ -1703,6 +1345,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_startup_id")]
     fn set_startup_id(&self, startup_id: &str) {
         unsafe {
             ffi::gtk_window_set_startup_id(
@@ -1712,12 +1355,14 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_window_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_set_titlebar")]
     fn set_titlebar(&self, titlebar: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_titlebar(
@@ -1727,6 +1372,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_transient_for")]
     fn set_transient_for(&self, parent: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_window_set_transient_for(
@@ -1736,70 +1382,84 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gtk_window_set_type_hint")]
     fn set_type_hint(&self, hint: gdk::WindowTypeHint) {
         unsafe {
             ffi::gtk_window_set_type_hint(self.as_ref().to_glib_none().0, hint.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_set_urgency_hint")]
     fn set_urgency_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_urgency_hint(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_window_stick")]
     fn stick(&self) {
         unsafe {
             ffi::gtk_window_stick(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_unfullscreen")]
     fn unfullscreen(&self) {
         unsafe {
             ffi::gtk_window_unfullscreen(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_unmaximize")]
     fn unmaximize(&self) {
         unsafe {
             ffi::gtk_window_unmaximize(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_window_unstick")]
     fn unstick(&self) {
         unsafe {
             ffi::gtk_window_unstick(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "default-height")]
     fn default_height(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "default-height")
     }
 
+    #[doc(alias = "default-height")]
     fn set_default_height(&self, default_height: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "default-height", default_height)
     }
 
+    #[doc(alias = "default-width")]
     fn default_width(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "default-width")
     }
 
+    #[doc(alias = "default-width")]
     fn set_default_width(&self, default_width: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "default-width", default_width)
     }
 
+    #[doc(alias = "type")]
     fn type_(&self) -> WindowType {
         glib::ObjectExt::property(self.as_ref(), "type")
     }
 
+    #[doc(alias = "window-position")]
     fn window_position(&self) -> WindowPosition {
         glib::ObjectExt::property(self.as_ref(), "window-position")
     }
 
+    #[doc(alias = "window-position")]
     fn set_window_position(&self, window_position: WindowPosition) {
         glib::ObjectExt::set_property(self.as_ref(), "window-position", window_position)
     }
 
+    #[doc(alias = "activate-default")]
     fn connect_activate_default<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_default_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -1825,6 +1485,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         self.emit_by_name::<()>("activate-default", &[]);
     }
 
+    #[doc(alias = "activate-focus")]
     fn connect_activate_focus<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_focus_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -1850,6 +1511,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         self.emit_by_name::<()>("activate-focus", &[]);
     }
 
+    #[doc(alias = "enable-debugging")]
     fn connect_enable_debugging<F: Fn(&Self, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -1886,6 +1548,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         self.emit_by_name("enable-debugging", &[&toggle])
     }
 
+    #[doc(alias = "keys-changed")]
     fn connect_keys_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn keys_changed_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -1907,6 +1570,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "set-focus")]
     fn connect_set_focus<F: Fn(&Self, Option<&Widget>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn set_focus_trampoline<
             P: IsA<Window>,
@@ -1935,6 +1599,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "accept-focus")]
     fn connect_accept_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accept_focus_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -1957,6 +1622,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "application")]
     fn connect_application_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_application_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -1979,6 +1645,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "attached-to")]
     fn connect_attached_to_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attached_to_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2001,6 +1668,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "decorated")]
     fn connect_decorated_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_decorated_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2023,6 +1691,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "default-height")]
     fn connect_default_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_default_height_trampoline<
             P: IsA<Window>,
@@ -2048,6 +1717,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "default-width")]
     fn connect_default_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_default_width_trampoline<
             P: IsA<Window>,
@@ -2073,6 +1743,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "deletable")]
     fn connect_deletable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_deletable_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2095,6 +1766,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "destroy-with-parent")]
     fn connect_destroy_with_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_destroy_with_parent_trampoline<
             P: IsA<Window>,
@@ -2120,6 +1792,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "focus-on-map")]
     fn connect_focus_on_map_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_on_map_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2142,6 +1815,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "focus-visible")]
     fn connect_focus_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_focus_visible_trampoline<
             P: IsA<Window>,
@@ -2167,6 +1841,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "gravity")]
     fn connect_gravity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_gravity_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2189,6 +1864,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "has-toplevel-focus")]
     fn connect_has_toplevel_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_has_toplevel_focus_trampoline<
             P: IsA<Window>,
@@ -2214,6 +1890,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "hide-titlebar-when-maximized")]
     fn connect_hide_titlebar_when_maximized_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -2242,6 +1919,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "icon")]
     fn connect_icon_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2264,6 +1942,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2286,6 +1965,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "is-active")]
     fn connect_is_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_active_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2308,6 +1988,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "is-maximized")]
     fn connect_is_maximized_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_maximized_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2330,6 +2011,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "mnemonics-visible")]
     fn connect_mnemonics_visible_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonics_visible_trampoline<
             P: IsA<Window>,
@@ -2355,6 +2037,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "modal")]
     fn connect_modal_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_modal_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2377,6 +2060,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "resizable")]
     fn connect_resizable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_resizable_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2399,6 +2083,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "role")]
     fn connect_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_role_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2421,6 +2106,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "screen")]
     fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2443,6 +2129,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "skip-pager-hint")]
     fn connect_skip_pager_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_skip_pager_hint_trampoline<
             P: IsA<Window>,
@@ -2468,6 +2155,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "skip-taskbar-hint")]
     fn connect_skip_taskbar_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_skip_taskbar_hint_trampoline<
             P: IsA<Window>,
@@ -2493,6 +2181,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "startup-id")]
     fn connect_startup_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_startup_id_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2515,6 +2204,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2537,6 +2227,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "transient-for")]
     fn connect_transient_for_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transient_for_trampoline<
             P: IsA<Window>,
@@ -2562,6 +2253,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "type-hint")]
     fn connect_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_type_hint_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2584,6 +2276,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "urgency-hint")]
     fn connect_urgency_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_urgency_hint_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkWindow,
@@ -2606,6 +2299,7 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 
+    #[doc(alias = "window-position")]
     fn connect_window_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_window_position_trampoline<
             P: IsA<Window>,
@@ -2631,6 +2325,8 @@ impl<O: IsA<Window>> GtkWindowExt for O {
         }
     }
 }
+
+impl<O: IsA<Window>> GtkWindowExt for O {}
 
 impl fmt::Display for Window {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
