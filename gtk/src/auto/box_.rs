@@ -310,90 +310,9 @@ impl BoxBuilder {
     }
 }
 
-pub trait BoxExt: 'static {
+pub trait BoxExt: IsA<Box> + 'static {
     #[doc(alias = "gtk_box_get_baseline_position")]
     #[doc(alias = "get_baseline_position")]
-    fn baseline_position(&self) -> BaselinePosition;
-
-    #[doc(alias = "gtk_box_get_center_widget")]
-    #[doc(alias = "get_center_widget")]
-    fn center_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_box_get_homogeneous")]
-    #[doc(alias = "get_homogeneous")]
-    fn is_homogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_box_get_spacing")]
-    #[doc(alias = "get_spacing")]
-    fn spacing(&self) -> i32;
-
-    #[doc(alias = "gtk_box_pack_end")]
-    fn pack_end(&self, child: &impl IsA<Widget>, expand: bool, fill: bool, padding: u32);
-
-    #[doc(alias = "gtk_box_pack_start")]
-    fn pack_start(&self, child: &impl IsA<Widget>, expand: bool, fill: bool, padding: u32);
-
-    #[doc(alias = "gtk_box_query_child_packing")]
-    fn query_child_packing(&self, child: &impl IsA<Widget>) -> (bool, bool, u32, PackType);
-
-    #[doc(alias = "gtk_box_reorder_child")]
-    fn reorder_child(&self, child: &impl IsA<Widget>, position: i32);
-
-    #[doc(alias = "gtk_box_set_baseline_position")]
-    fn set_baseline_position(&self, position: BaselinePosition);
-
-    #[doc(alias = "gtk_box_set_center_widget")]
-    fn set_center_widget(&self, widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_box_set_child_packing")]
-    fn set_child_packing(
-        &self,
-        child: &impl IsA<Widget>,
-        expand: bool,
-        fill: bool,
-        padding: u32,
-        pack_type: PackType,
-    );
-
-    #[doc(alias = "gtk_box_set_homogeneous")]
-    fn set_homogeneous(&self, homogeneous: bool);
-
-    #[doc(alias = "gtk_box_set_spacing")]
-    fn set_spacing(&self, spacing: i32);
-
-    fn child_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    fn set_child_expand<T: IsA<crate::Widget>>(&self, item: &T, expand: bool);
-
-    fn child_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    fn set_child_fill<T: IsA<crate::Widget>>(&self, item: &T, fill: bool);
-
-    #[doc(alias = "child.pack-type")]
-    fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType;
-
-    #[doc(alias = "child.pack-type")]
-    fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType);
-
-    fn child_padding<T: IsA<crate::Widget>>(&self, item: &T) -> u32;
-
-    fn set_child_padding<T: IsA<crate::Widget>>(&self, item: &T, padding: u32);
-
-    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
-
-    #[doc(alias = "baseline-position")]
-    fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "homogeneous")]
-    fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "spacing")]
-    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Box>> BoxExt for O {
     fn baseline_position(&self) -> BaselinePosition {
         unsafe {
             from_glib(ffi::gtk_box_get_baseline_position(
@@ -402,6 +321,8 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_get_center_widget")]
+    #[doc(alias = "get_center_widget")]
     fn center_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_box_get_center_widget(
@@ -410,14 +331,19 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe { from_glib(ffi::gtk_box_get_homogeneous(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_box_get_spacing")]
+    #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_box_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_box_pack_end")]
     fn pack_end(&self, child: &impl IsA<Widget>, expand: bool, fill: bool, padding: u32) {
         unsafe {
             ffi::gtk_box_pack_end(
@@ -430,6 +356,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_pack_start")]
     fn pack_start(&self, child: &impl IsA<Widget>, expand: bool, fill: bool, padding: u32) {
         unsafe {
             ffi::gtk_box_pack_start(
@@ -442,6 +369,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_query_child_packing")]
     fn query_child_packing(&self, child: &impl IsA<Widget>) -> (bool, bool, u32, PackType) {
         unsafe {
             let mut expand = mem::MaybeUninit::uninit();
@@ -465,6 +393,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_reorder_child")]
     fn reorder_child(&self, child: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_box_reorder_child(
@@ -475,6 +404,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_set_baseline_position")]
     fn set_baseline_position(&self, position: BaselinePosition) {
         unsafe {
             ffi::gtk_box_set_baseline_position(
@@ -484,6 +414,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_set_center_widget")]
     fn set_center_widget(&self, widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_box_set_center_widget(
@@ -493,6 +424,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_set_child_packing")]
     fn set_child_packing(
         &self,
         child: &impl IsA<Widget>,
@@ -513,12 +445,14 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_box_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_box_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_box_set_spacing")]
     fn set_spacing(&self, spacing: i32) {
         unsafe {
             ffi::gtk_box_set_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -559,6 +493,7 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
+    #[doc(alias = "child.pack-type")]
     fn child_pack_type<T: IsA<crate::Widget>>(&self, item: &T) -> PackType {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -567,6 +502,7 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
+    #[doc(alias = "child.pack-type")]
     fn set_child_pack_type<T: IsA<crate::Widget>>(&self, item: &T, pack_type: PackType) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -610,6 +546,7 @@ impl<O: IsA<Box>> BoxExt for O {
         )
     }
 
+    #[doc(alias = "baseline-position")]
     fn connect_baseline_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_baseline_position_trampoline<
             P: IsA<Box>,
@@ -635,6 +572,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "homogeneous")]
     fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P: IsA<Box>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
@@ -657,6 +595,7 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 
+    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<Box>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkBox,
@@ -679,6 +618,8 @@ impl<O: IsA<Box>> BoxExt for O {
         }
     }
 }
+
+impl<O: IsA<Box>> BoxExt for O {}
 
 impl fmt::Display for Box {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

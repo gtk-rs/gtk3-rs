@@ -574,9 +574,9 @@ impl From<DialogFlags> for glib::Value {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg(feature = "v3_24")]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "GtkEventControllerScrollFlags")]
     pub struct EventControllerScrollFlags: u32 {
         #[doc(alias = "GTK_EVENT_CONTROLLER_SCROLL_NONE")]
@@ -594,16 +594,16 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl fmt::Display for EventControllerScrollFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl IntoGlib for EventControllerScrollFlags {
     type GlibType = ffi::GtkEventControllerScrollFlags;
@@ -614,8 +614,8 @@ impl IntoGlib for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags {
     #[inline]
@@ -625,8 +625,8 @@ impl FromGlib<ffi::GtkEventControllerScrollFlags> for EventControllerScrollFlags
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl StaticType for EventControllerScrollFlags {
     #[inline]
     fn static_type() -> Type {
@@ -634,8 +634,8 @@ impl StaticType for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl glib::HasParamSpec for EventControllerScrollFlags {
     type ParamSpec = glib::ParamSpecFlags;
     type SetValue = Self;
@@ -646,14 +646,14 @@ impl glib::HasParamSpec for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl glib::value::ValueType for EventControllerScrollFlags {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 unsafe impl<'a> FromValue<'a> for EventControllerScrollFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -664,8 +664,8 @@ unsafe impl<'a> FromValue<'a> for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl ToValue for EventControllerScrollFlags {
     #[inline]
     fn to_value(&self) -> glib::Value {
@@ -682,8 +682,8 @@ impl ToValue for EventControllerScrollFlags {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl From<EventControllerScrollFlags> for glib::Value {
     #[inline]
     fn from(v: EventControllerScrollFlags) -> Self {
@@ -786,9 +786,9 @@ impl From<FileFilterFlags> for glib::Value {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg(feature = "v3_24")]
 bitflags! {
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "GtkFontChooserLevel")]
     pub struct FontChooserLevel: u32 {
         #[doc(alias = "GTK_FONT_CHOOSER_LEVEL_FAMILY")]
@@ -804,16 +804,16 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl fmt::Display for FontChooserLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl IntoGlib for FontChooserLevel {
     type GlibType = ffi::GtkFontChooserLevel;
@@ -824,8 +824,8 @@ impl IntoGlib for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 #[doc(hidden)]
 impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
     #[inline]
@@ -835,8 +835,8 @@ impl FromGlib<ffi::GtkFontChooserLevel> for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl StaticType for FontChooserLevel {
     #[inline]
     fn static_type() -> Type {
@@ -844,8 +844,8 @@ impl StaticType for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl glib::HasParamSpec for FontChooserLevel {
     type ParamSpec = glib::ParamSpecFlags;
     type SetValue = Self;
@@ -856,14 +856,14 @@ impl glib::HasParamSpec for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl glib::value::ValueType for FontChooserLevel {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 unsafe impl<'a> FromValue<'a> for FontChooserLevel {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -874,8 +874,8 @@ unsafe impl<'a> FromValue<'a> for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl ToValue for FontChooserLevel {
     #[inline]
     fn to_value(&self) -> glib::Value {
@@ -892,8 +892,8 @@ impl ToValue for FontChooserLevel {
     }
 }
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 impl From<FontChooserLevel> for glib::Value {
     #[inline]
     fn from(v: FontChooserLevel) -> Self {

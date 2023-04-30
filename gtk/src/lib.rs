@@ -9,7 +9,7 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::new_without_default)]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 pub use ffi;
 // Re-export gtk dependencies
@@ -86,7 +86,7 @@ mod file_filter_info;
 mod fixed;
 mod flow_box;
 mod functions;
-#[cfg(any(feature = "v3_24", feature = "dox"))]
+#[cfg(any(feature = "v3_24", docsrs))]
 mod gesture_stylus;
 mod im_context_simple;
 mod image;

@@ -1,14 +1,14 @@
-#[cfg(not(feature = "dox"))]
+#[cfg(not(docsrs))]
 use std::io;
-#[cfg(not(feature = "dox"))]
+#[cfg(not(docsrs))]
 use std::io::prelude::*;
-#[cfg(not(feature = "dox"))]
+#[cfg(not(docsrs))]
 use std::process;
 
-#[cfg(feature = "dox")]
+#[cfg(docsrs)]
 fn main() {} // prevent linking libraries to avoid documentation failure
 
-#[cfg(not(feature = "dox"))]
+#[cfg(not(docsrs))]
 fn main() {
     if let Err(s) = system_deps::Config::new().probe() {
         let _ = writeln!(io::stderr(), "{s}");
@@ -20,7 +20,7 @@ fn main() {
     check_features();
 }
 
-#[cfg(not(feature = "dox"))]
+#[cfg(not(docsrs))]
 fn check_features() {
     const PKG_CONFIG_PACKAGE: &str = "gdk-3.0";
 

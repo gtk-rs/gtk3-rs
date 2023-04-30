@@ -285,19 +285,9 @@ impl StackSidebarBuilder {
     }
 }
 
-pub trait StackSidebarExt: 'static {
+pub trait StackSidebarExt: IsA<StackSidebar> + 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]
     #[doc(alias = "get_stack")]
-    fn stack(&self) -> Option<Stack>;
-
-    #[doc(alias = "gtk_stack_sidebar_set_stack")]
-    fn set_stack(&self, stack: &impl IsA<Stack>);
-
-    #[doc(alias = "stack")]
-    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<StackSidebar>> StackSidebarExt for O {
     fn stack(&self) -> Option<Stack> {
         unsafe {
             from_glib_none(ffi::gtk_stack_sidebar_get_stack(
@@ -306,6 +296,7 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_sidebar_set_stack")]
     fn set_stack(&self, stack: &impl IsA<Stack>) {
         unsafe {
             ffi::gtk_stack_sidebar_set_stack(
@@ -315,6 +306,7 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
         }
     }
 
+    #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSidebar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSidebar,
@@ -337,6 +329,8 @@ impl<O: IsA<StackSidebar>> StackSidebarExt for O {
         }
     }
 }
+
+impl<O: IsA<StackSidebar>> StackSidebarExt for O {}
 
 impl fmt::Display for StackSidebar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

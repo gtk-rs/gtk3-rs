@@ -305,19 +305,9 @@ impl SeparatorToolItemBuilder {
     }
 }
 
-pub trait SeparatorToolItemExt: 'static {
+pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]
     #[doc(alias = "get_draw")]
-    fn draws(&self) -> bool;
-
-    #[doc(alias = "gtk_separator_tool_item_set_draw")]
-    fn set_draw(&self, draw: bool);
-
-    #[doc(alias = "draw")]
-    fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
     fn draws(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_separator_tool_item_get_draw(
@@ -326,12 +316,14 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_separator_tool_item_set_draw")]
     fn set_draw(&self, draw: bool) {
         unsafe {
             ffi::gtk_separator_tool_item_set_draw(self.as_ref().to_glib_none().0, draw.into_glib());
         }
     }
 
+    #[doc(alias = "draw")]
     fn connect_draw_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_trampoline<
             P: IsA<SeparatorToolItem>,
@@ -357,6 +349,8 @@ impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {
         }
     }
 }
+
+impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {}
 
 impl fmt::Display for SeparatorToolItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -434,19 +434,9 @@ impl RecentChooserMenuBuilder {
     }
 }
 
-pub trait RecentChooserMenuExt: 'static {
+pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
     #[doc(alias = "get_show_numbers")]
-    fn shows_numbers(&self) -> bool;
-
-    #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
-    fn set_show_numbers(&self, show_numbers: bool);
-
-    #[doc(alias = "show-numbers")]
-    fn connect_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
     fn shows_numbers(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_menu_get_show_numbers(
@@ -455,6 +445,7 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
     fn set_show_numbers(&self, show_numbers: bool) {
         unsafe {
             ffi::gtk_recent_chooser_menu_set_show_numbers(
@@ -464,6 +455,7 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         }
     }
 
+    #[doc(alias = "show-numbers")]
     fn connect_show_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_numbers_trampoline<
             P: IsA<RecentChooserMenu>,
@@ -489,6 +481,8 @@ impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {
         }
     }
 }
+
+impl<O: IsA<RecentChooserMenu>> RecentChooserMenuExt for O {}
 
 impl fmt::Display for RecentChooserMenu {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

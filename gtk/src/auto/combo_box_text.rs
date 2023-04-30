@@ -379,37 +379,8 @@ impl ComboBoxTextBuilder {
     }
 }
 
-pub trait ComboBoxTextExt: 'static {
+pub trait ComboBoxTextExt: IsA<ComboBoxText> + 'static {
     #[doc(alias = "gtk_combo_box_text_append")]
-    fn append(&self, id: Option<&str>, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_append_text")]
-    fn append_text(&self, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_get_active_text")]
-    #[doc(alias = "get_active_text")]
-    fn active_text(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_combo_box_text_insert")]
-    fn insert(&self, position: i32, id: Option<&str>, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_insert_text")]
-    fn insert_text(&self, position: i32, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_prepend")]
-    fn prepend(&self, id: Option<&str>, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_prepend_text")]
-    fn prepend_text(&self, text: &str);
-
-    #[doc(alias = "gtk_combo_box_text_remove")]
-    fn remove(&self, position: i32);
-
-    #[doc(alias = "gtk_combo_box_text_remove_all")]
-    fn remove_all(&self);
-}
-
-impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
     fn append(&self, id: Option<&str>, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_append(
@@ -420,6 +391,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_append_text")]
     fn append_text(&self, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_append_text(
@@ -429,6 +401,8 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_get_active_text")]
+    #[doc(alias = "get_active_text")]
     fn active_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_combo_box_text_get_active_text(
@@ -437,6 +411,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_insert")]
     fn insert(&self, position: i32, id: Option<&str>, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_insert(
@@ -448,6 +423,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_insert_text")]
     fn insert_text(&self, position: i32, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_insert_text(
@@ -458,6 +434,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_prepend")]
     fn prepend(&self, id: Option<&str>, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_prepend(
@@ -468,6 +445,7 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_prepend_text")]
     fn prepend_text(&self, text: &str) {
         unsafe {
             ffi::gtk_combo_box_text_prepend_text(
@@ -477,18 +455,22 @@ impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_remove")]
     fn remove(&self, position: i32) {
         unsafe {
             ffi::gtk_combo_box_text_remove(self.as_ref().to_glib_none().0, position);
         }
     }
 
+    #[doc(alias = "gtk_combo_box_text_remove_all")]
     fn remove_all(&self) {
         unsafe {
             ffi::gtk_combo_box_text_remove_all(self.as_ref().to_glib_none().0);
         }
     }
 }
+
+impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {}
 
 impl fmt::Display for ComboBoxText {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

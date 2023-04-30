@@ -316,39 +316,9 @@ impl ButtonBoxBuilder {
     }
 }
 
-pub trait ButtonBoxExt: 'static {
+pub trait ButtonBoxExt: IsA<ButtonBox> + 'static {
     #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]
     #[doc(alias = "get_child_non_homogeneous")]
-    fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool;
-
-    #[doc(alias = "gtk_button_box_get_child_secondary")]
-    #[doc(alias = "get_child_secondary")]
-    fn child_is_secondary(&self, child: &impl IsA<Widget>) -> bool;
-
-    #[doc(alias = "gtk_button_box_get_layout")]
-    #[doc(alias = "get_layout")]
-    fn layout(&self) -> ButtonBoxStyle;
-
-    #[doc(alias = "gtk_button_box_set_child_non_homogeneous")]
-    fn set_child_non_homogeneous(&self, child: &impl IsA<Widget>, non_homogeneous: bool);
-
-    #[doc(alias = "gtk_button_box_set_child_secondary")]
-    fn set_child_secondary(&self, child: &impl IsA<Widget>, is_secondary: bool);
-
-    #[doc(alias = "gtk_button_box_set_layout")]
-    fn set_layout(&self, layout_style: ButtonBoxStyle);
-
-    #[doc(alias = "layout-style")]
-    fn layout_style(&self) -> ButtonBoxStyle;
-
-    #[doc(alias = "layout-style")]
-    fn set_layout_style(&self, layout_style: ButtonBoxStyle);
-
-    #[doc(alias = "layout-style")]
-    fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
     fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_box_get_child_non_homogeneous(
@@ -358,6 +328,8 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_button_box_get_child_secondary")]
+    #[doc(alias = "get_child_secondary")]
     fn child_is_secondary(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_box_get_child_secondary(
@@ -367,6 +339,8 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_button_box_get_layout")]
+    #[doc(alias = "get_layout")]
     fn layout(&self) -> ButtonBoxStyle {
         unsafe {
             from_glib(ffi::gtk_button_box_get_layout(
@@ -375,6 +349,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_button_box_set_child_non_homogeneous")]
     fn set_child_non_homogeneous(&self, child: &impl IsA<Widget>, non_homogeneous: bool) {
         unsafe {
             ffi::gtk_button_box_set_child_non_homogeneous(
@@ -385,6 +360,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_button_box_set_child_secondary")]
     fn set_child_secondary(&self, child: &impl IsA<Widget>, is_secondary: bool) {
         unsafe {
             ffi::gtk_button_box_set_child_secondary(
@@ -395,6 +371,7 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_button_box_set_layout")]
     fn set_layout(&self, layout_style: ButtonBoxStyle) {
         unsafe {
             ffi::gtk_button_box_set_layout(
@@ -404,14 +381,17 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 
+    #[doc(alias = "layout-style")]
     fn layout_style(&self) -> ButtonBoxStyle {
         glib::ObjectExt::property(self.as_ref(), "layout-style")
     }
 
+    #[doc(alias = "layout-style")]
     fn set_layout_style(&self, layout_style: ButtonBoxStyle) {
         glib::ObjectExt::set_property(self.as_ref(), "layout-style", layout_style)
     }
 
+    #[doc(alias = "layout-style")]
     fn connect_layout_style_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_layout_style_trampoline<
             P: IsA<ButtonBox>,
@@ -437,6 +417,8 @@ impl<O: IsA<ButtonBox>> ButtonBoxExt for O {
         }
     }
 }
+
+impl<O: IsA<ButtonBox>> ButtonBoxExt for O {}
 
 impl fmt::Display for ButtonBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

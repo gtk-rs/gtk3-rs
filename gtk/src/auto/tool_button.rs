@@ -353,64 +353,9 @@ impl ToolButtonBuilder {
     }
 }
 
-pub trait ToolButtonExt: 'static {
+pub trait ToolButtonExt: IsA<ToolButton> + 'static {
     #[doc(alias = "gtk_tool_button_get_icon_name")]
     #[doc(alias = "get_icon_name")]
-    fn icon_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_tool_button_get_icon_widget")]
-    #[doc(alias = "get_icon_widget")]
-    fn icon_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_tool_button_get_label")]
-    #[doc(alias = "get_label")]
-    fn label(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_tool_button_get_label_widget")]
-    #[doc(alias = "get_label_widget")]
-    fn label_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_tool_button_get_use_underline")]
-    #[doc(alias = "get_use_underline")]
-    fn uses_underline(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_button_set_icon_name")]
-    fn set_icon_name(&self, icon_name: Option<&str>);
-
-    #[doc(alias = "gtk_tool_button_set_icon_widget")]
-    fn set_icon_widget(&self, icon_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_tool_button_set_label")]
-    fn set_label(&self, label: Option<&str>);
-
-    #[doc(alias = "gtk_tool_button_set_label_widget")]
-    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_tool_button_set_use_underline")]
-    fn set_use_underline(&self, use_underline: bool);
-
-    #[doc(alias = "clicked")]
-    fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_clicked(&self);
-
-    #[doc(alias = "icon-name")]
-    fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "icon-widget")]
-    fn connect_icon_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-widget")]
-    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-underline")]
-    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ToolButton>> ToolButtonExt for O {
     fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_name(
@@ -419,6 +364,8 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_get_icon_widget")]
+    #[doc(alias = "get_icon_widget")]
     fn icon_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_widget(
@@ -427,6 +374,8 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_label(
@@ -435,6 +384,8 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_get_label_widget")]
+    #[doc(alias = "get_label_widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_label_widget(
@@ -443,6 +394,8 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_button_get_use_underline(
@@ -451,6 +404,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_set_icon_name")]
     fn set_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             ffi::gtk_tool_button_set_icon_name(
@@ -460,6 +414,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_set_icon_widget")]
     fn set_icon_widget(&self, icon_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_icon_widget(
@@ -469,12 +424,14 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_set_label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_tool_button_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_tool_button_set_label_widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_label_widget(
@@ -484,6 +441,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_button_set_use_underline")]
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
             ffi::gtk_tool_button_set_use_underline(
@@ -493,6 +451,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "clicked")]
     fn connect_clicked<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn clicked_trampoline<P: IsA<ToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolButton,
@@ -518,6 +477,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         self.emit_by_name::<()>("clicked", &[]);
     }
 
+    #[doc(alias = "icon-name")]
     fn connect_icon_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_name_trampoline<
             P: IsA<ToolButton>,
@@ -543,6 +503,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "icon-widget")]
     fn connect_icon_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_widget_trampoline<
             P: IsA<ToolButton>,
@@ -568,6 +529,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<ToolButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolButton,
@@ -590,6 +552,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<
             P: IsA<ToolButton>,
@@ -615,6 +578,7 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 
+    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<
             P: IsA<ToolButton>,
@@ -640,6 +604,8 @@ impl<O: IsA<ToolButton>> ToolButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<ToolButton>> ToolButtonExt for O {}
 
 impl fmt::Display for ToolButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

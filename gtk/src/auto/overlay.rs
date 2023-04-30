@@ -275,29 +275,8 @@ impl OverlayBuilder {
     }
 }
 
-pub trait OverlayExt: 'static {
+pub trait OverlayExt: IsA<Overlay> + 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]
-    fn add_overlay(&self, widget: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
-    #[doc(alias = "get_overlay_pass_through")]
-    fn is_overlay_pass_through(&self, widget: &impl IsA<Widget>) -> bool;
-
-    #[doc(alias = "gtk_overlay_reorder_overlay")]
-    fn reorder_overlay(&self, child: &impl IsA<Widget>, index_: i32);
-
-    #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
-    fn set_overlay_pass_through(&self, widget: &impl IsA<Widget>, pass_through: bool);
-
-    fn child_index<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_index<T: IsA<crate::Widget>>(&self, item: &T, index: i32);
-
-    //#[doc(alias = "get-child-position")]
-    //fn connect_get_child_position<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Overlay>> OverlayExt for O {
     fn add_overlay(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_overlay_add_overlay(
@@ -307,6 +286,8 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
+    #[doc(alias = "gtk_overlay_get_overlay_pass_through")]
+    #[doc(alias = "get_overlay_pass_through")]
     fn is_overlay_pass_through(&self, widget: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_overlay_get_overlay_pass_through(
@@ -316,6 +297,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
+    #[doc(alias = "gtk_overlay_reorder_overlay")]
     fn reorder_overlay(&self, child: &impl IsA<Widget>, index_: i32) {
         unsafe {
             ffi::gtk_overlay_reorder_overlay(
@@ -326,6 +308,7 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         }
     }
 
+    #[doc(alias = "gtk_overlay_set_overlay_pass_through")]
     fn set_overlay_pass_through(&self, widget: &impl IsA<Widget>, pass_through: bool) {
         unsafe {
             ffi::gtk_overlay_set_overlay_pass_through(
@@ -353,10 +336,13 @@ impl<O: IsA<Overlay>> OverlayExt for O {
         )
     }
 
+    //#[doc(alias = "get-child-position")]
     //fn connect_get_child_position<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Out allocation: Gdk.Rectangle
     //}
 }
+
+impl<O: IsA<Overlay>> OverlayExt for O {}
 
 impl fmt::Display for Overlay {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

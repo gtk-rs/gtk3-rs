@@ -327,155 +327,16 @@ impl CalendarBuilder {
     }
 }
 
-pub trait CalendarExt: 'static {
+pub trait CalendarExt: IsA<Calendar> + 'static {
     #[doc(alias = "gtk_calendar_clear_marks")]
-    fn clear_marks(&self);
-
-    #[doc(alias = "gtk_calendar_get_date")]
-    #[doc(alias = "get_date")]
-    fn date(&self) -> (u32, u32, u32);
-
-    #[doc(alias = "gtk_calendar_get_day_is_marked")]
-    #[doc(alias = "get_day_is_marked")]
-    fn day_is_marked(&self, day: u32) -> bool;
-
-    #[doc(alias = "gtk_calendar_get_detail_height_rows")]
-    #[doc(alias = "get_detail_height_rows")]
-    fn detail_height_rows(&self) -> i32;
-
-    #[doc(alias = "gtk_calendar_get_detail_width_chars")]
-    #[doc(alias = "get_detail_width_chars")]
-    fn detail_width_chars(&self) -> i32;
-
-    #[doc(alias = "gtk_calendar_get_display_options")]
-    #[doc(alias = "get_display_options")]
-    fn display_options(&self) -> CalendarDisplayOptions;
-
-    #[doc(alias = "gtk_calendar_mark_day")]
-    fn mark_day(&self, day: u32);
-
-    #[doc(alias = "gtk_calendar_select_day")]
-    fn select_day(&self, day: u32);
-
-    #[doc(alias = "gtk_calendar_select_month")]
-    fn select_month(&self, month: u32, year: u32);
-
-    #[doc(alias = "gtk_calendar_set_detail_func")]
-    fn set_detail_func<P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static>(&self, func: P);
-
-    #[doc(alias = "gtk_calendar_set_detail_height_rows")]
-    fn set_detail_height_rows(&self, rows: i32);
-
-    #[doc(alias = "gtk_calendar_set_detail_width_chars")]
-    fn set_detail_width_chars(&self, chars: i32);
-
-    #[doc(alias = "gtk_calendar_set_display_options")]
-    fn set_display_options(&self, flags: CalendarDisplayOptions);
-
-    #[doc(alias = "gtk_calendar_unmark_day")]
-    fn unmark_day(&self, day: u32);
-
-    fn day(&self) -> i32;
-
-    fn set_day(&self, day: i32);
-
-    fn month(&self) -> i32;
-
-    fn set_month(&self, month: i32);
-
-    #[doc(alias = "no-month-change")]
-    fn is_no_month_change(&self) -> bool;
-
-    #[doc(alias = "no-month-change")]
-    fn set_no_month_change(&self, no_month_change: bool);
-
-    #[doc(alias = "show-day-names")]
-    fn shows_day_names(&self) -> bool;
-
-    #[doc(alias = "show-day-names")]
-    fn set_show_day_names(&self, show_day_names: bool);
-
-    #[doc(alias = "show-details")]
-    fn shows_details(&self) -> bool;
-
-    #[doc(alias = "show-details")]
-    fn set_show_details(&self, show_details: bool);
-
-    #[doc(alias = "show-heading")]
-    fn shows_heading(&self) -> bool;
-
-    #[doc(alias = "show-heading")]
-    fn set_show_heading(&self, show_heading: bool);
-
-    #[doc(alias = "show-week-numbers")]
-    fn shows_week_numbers(&self) -> bool;
-
-    #[doc(alias = "show-week-numbers")]
-    fn set_show_week_numbers(&self, show_week_numbers: bool);
-
-    fn year(&self) -> i32;
-
-    fn set_year(&self, year: i32);
-
-    #[doc(alias = "day-selected")]
-    fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "day-selected-double-click")]
-    fn connect_day_selected_double_click<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "month-changed")]
-    fn connect_month_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "next-month")]
-    fn connect_next_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "next-year")]
-    fn connect_next_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "prev-month")]
-    fn connect_prev_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "prev-year")]
-    fn connect_prev_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "day")]
-    fn connect_day_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "detail-height-rows")]
-    fn connect_detail_height_rows_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "detail-width-chars")]
-    fn connect_detail_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "month")]
-    fn connect_month_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "no-month-change")]
-    fn connect_no_month_change_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-day-names")]
-    fn connect_show_day_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-details")]
-    fn connect_show_details_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-heading")]
-    fn connect_show_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-week-numbers")]
-    fn connect_show_week_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "year")]
-    fn connect_year_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Calendar>> CalendarExt for O {
     fn clear_marks(&self) {
         unsafe {
             ffi::gtk_calendar_clear_marks(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_calendar_get_date")]
+    #[doc(alias = "get_date")]
     fn date(&self) -> (u32, u32, u32) {
         unsafe {
             let mut year = mem::MaybeUninit::uninit();
@@ -491,6 +352,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_calendar_get_day_is_marked")]
+    #[doc(alias = "get_day_is_marked")]
     fn day_is_marked(&self, day: u32) -> bool {
         unsafe {
             from_glib(ffi::gtk_calendar_get_day_is_marked(
@@ -500,14 +363,20 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_calendar_get_detail_height_rows")]
+    #[doc(alias = "get_detail_height_rows")]
     fn detail_height_rows(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_height_rows(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_calendar_get_detail_width_chars")]
+    #[doc(alias = "get_detail_width_chars")]
     fn detail_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_width_chars(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_calendar_get_display_options")]
+    #[doc(alias = "get_display_options")]
     fn display_options(&self) -> CalendarDisplayOptions {
         unsafe {
             from_glib(ffi::gtk_calendar_get_display_options(
@@ -516,24 +385,28 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_calendar_mark_day")]
     fn mark_day(&self, day: u32) {
         unsafe {
             ffi::gtk_calendar_mark_day(self.as_ref().to_glib_none().0, day);
         }
     }
 
+    #[doc(alias = "gtk_calendar_select_day")]
     fn select_day(&self, day: u32) {
         unsafe {
             ffi::gtk_calendar_select_day(self.as_ref().to_glib_none().0, day);
         }
     }
 
+    #[doc(alias = "gtk_calendar_select_month")]
     fn select_month(&self, month: u32, year: u32) {
         unsafe {
             ffi::gtk_calendar_select_month(self.as_ref().to_glib_none().0, month, year);
         }
     }
 
+    #[doc(alias = "gtk_calendar_set_detail_func")]
     fn set_detail_func<P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static>(
         &self,
         func: P,
@@ -572,18 +445,21 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_calendar_set_detail_height_rows")]
     fn set_detail_height_rows(&self, rows: i32) {
         unsafe {
             ffi::gtk_calendar_set_detail_height_rows(self.as_ref().to_glib_none().0, rows);
         }
     }
 
+    #[doc(alias = "gtk_calendar_set_detail_width_chars")]
     fn set_detail_width_chars(&self, chars: i32) {
         unsafe {
             ffi::gtk_calendar_set_detail_width_chars(self.as_ref().to_glib_none().0, chars);
         }
     }
 
+    #[doc(alias = "gtk_calendar_set_display_options")]
     fn set_display_options(&self, flags: CalendarDisplayOptions) {
         unsafe {
             ffi::gtk_calendar_set_display_options(
@@ -593,6 +469,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_calendar_unmark_day")]
     fn unmark_day(&self, day: u32) {
         unsafe {
             ffi::gtk_calendar_unmark_day(self.as_ref().to_glib_none().0, day);
@@ -615,42 +492,52 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "month", month)
     }
 
+    #[doc(alias = "no-month-change")]
     fn is_no_month_change(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "no-month-change")
     }
 
+    #[doc(alias = "no-month-change")]
     fn set_no_month_change(&self, no_month_change: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "no-month-change", no_month_change)
     }
 
+    #[doc(alias = "show-day-names")]
     fn shows_day_names(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-day-names")
     }
 
+    #[doc(alias = "show-day-names")]
     fn set_show_day_names(&self, show_day_names: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-day-names", show_day_names)
     }
 
+    #[doc(alias = "show-details")]
     fn shows_details(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-details")
     }
 
+    #[doc(alias = "show-details")]
     fn set_show_details(&self, show_details: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-details", show_details)
     }
 
+    #[doc(alias = "show-heading")]
     fn shows_heading(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-heading")
     }
 
+    #[doc(alias = "show-heading")]
     fn set_show_heading(&self, show_heading: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-heading", show_heading)
     }
 
+    #[doc(alias = "show-week-numbers")]
     fn shows_week_numbers(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-week-numbers")
     }
 
+    #[doc(alias = "show-week-numbers")]
     fn set_show_week_numbers(&self, show_week_numbers: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-week-numbers", show_week_numbers)
     }
@@ -663,6 +550,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "year", year)
     }
 
+    #[doc(alias = "day-selected")]
     fn connect_day_selected<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -684,6 +572,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "day-selected-double-click")]
     fn connect_day_selected_double_click<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn day_selected_double_click_trampoline<
             P: IsA<Calendar>,
@@ -708,6 +597,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "month-changed")]
     fn connect_month_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn month_changed_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -729,6 +619,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "next-month")]
     fn connect_next_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -750,6 +641,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "next-year")]
     fn connect_next_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn next_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -771,6 +663,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "prev-month")]
     fn connect_prev_month<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -792,6 +685,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "prev-year")]
     fn connect_prev_year<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn prev_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -813,6 +707,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "day")]
     fn connect_day_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_day_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -835,6 +730,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "detail-height-rows")]
     fn connect_detail_height_rows_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_height_rows_trampoline<
             P: IsA<Calendar>,
@@ -860,6 +756,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "detail-width-chars")]
     fn connect_detail_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_detail_width_chars_trampoline<
             P: IsA<Calendar>,
@@ -885,6 +782,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "month")]
     fn connect_month_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_month_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -907,6 +805,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "no-month-change")]
     fn connect_no_month_change_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_no_month_change_trampoline<
             P: IsA<Calendar>,
@@ -932,6 +831,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "show-day-names")]
     fn connect_show_day_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_day_names_trampoline<
             P: IsA<Calendar>,
@@ -957,6 +857,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "show-details")]
     fn connect_show_details_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_details_trampoline<
             P: IsA<Calendar>,
@@ -982,6 +883,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "show-heading")]
     fn connect_show_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_heading_trampoline<
             P: IsA<Calendar>,
@@ -1007,6 +909,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "show-week-numbers")]
     fn connect_show_week_numbers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_week_numbers_trampoline<
             P: IsA<Calendar>,
@@ -1032,6 +935,7 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 
+    #[doc(alias = "year")]
     fn connect_year_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_year_trampoline<P: IsA<Calendar>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCalendar,
@@ -1054,6 +958,8 @@ impl<O: IsA<Calendar>> CalendarExt for O {
         }
     }
 }
+
+impl<O: IsA<Calendar>> CalendarExt for O {}
 
 impl fmt::Display for Calendar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

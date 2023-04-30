@@ -7,13 +7,9 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::Cast;
 
-pub trait EntryCompletionExtManual: 'static {
+pub trait EntryCompletionExtManual: IsA<EntryCompletion> + 'static {
     #[doc(alias = "gtk_entry_completion_get_entry")]
     #[doc(alias = "get_entry")]
-    fn entry(&self) -> Option<Entry>;
-}
-
-impl<O: IsA<EntryCompletion>> EntryCompletionExtManual for O {
     fn entry(&self) -> Option<Entry> {
         unsafe {
             Option::<Widget>::from_glib_none(ffi::gtk_entry_completion_get_entry(
@@ -27,3 +23,5 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExtManual for O {
         }
     }
 }
+
+impl<O: IsA<EntryCompletion>> EntryCompletionExtManual for O {}

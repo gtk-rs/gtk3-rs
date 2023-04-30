@@ -4,30 +4,11 @@ use crate::{Container, Widget};
 use glib::translate::*;
 use glib::{value::FromValue, IsA, ToValue};
 
-pub trait ContainerExtManual: 'static {
+pub trait ContainerExtManual: IsA<Container> + 'static {
     #[doc(alias = "gtk_container_child_get_property")]
-    fn child_property_value(&self, child: &impl IsA<Widget>, property_name: &str) -> glib::Value;
-
-    #[doc(alias = "gtk_container_child_get_property")]
-    fn child_property<V: for<'b> FromValue<'b> + 'static>(
-        &self,
-        child: &impl IsA<Widget>,
-        property_name: &str,
-    ) -> V;
-
-    #[doc(alias = "gtk_container_child_set_property")]
-    fn child_set_property(
-        &self,
-        child: &impl IsA<Widget>,
-        property_name: &str,
-        value: &dyn ToValue,
-    );
-}
-
-impl<O: IsA<Container>> ContainerExtManual for O {
     fn child_property_value(&self, child: &impl IsA<Widget>, property_name: &str) -> glib::Value {
         unsafe {
-            let container_class = glib::Class::<Container>::from_type(O::static_type()).unwrap();
+            let container_class = glib::Class::<Container>::from_type(Self::static_type()).unwrap();
             let pspec: Option<glib::ParamSpec> =
                 from_glib_none(ffi::gtk_container_class_find_child_property(
                     container_class.as_ref() as *const _ as *const glib::gobject_ffi::GObjectClass,
@@ -54,6 +35,7 @@ impl<O: IsA<Container>> ContainerExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_container_child_get_property")]
     fn child_property<V: for<'b> FromValue<'b> + 'static>(
         &self,
         child: &impl IsA<Widget>,
@@ -65,6 +47,7 @@ impl<O: IsA<Container>> ContainerExtManual for O {
             .expect("Failed to get value of container")
     }
 
+    #[doc(alias = "gtk_container_child_set_property")]
     fn child_set_property(
         &self,
         child: &impl IsA<Widget>,
@@ -72,7 +55,7 @@ impl<O: IsA<Container>> ContainerExtManual for O {
         value: &dyn ToValue,
     ) {
         unsafe {
-            let container_class = glib::Class::<Container>::from_type(O::static_type()).unwrap();
+            let container_class = glib::Class::<Container>::from_type(Self::static_type()).unwrap();
             let pspec: Option<glib::ParamSpec> =
                 from_glib_none(ffi::gtk_container_class_find_child_property(
                     container_class.as_ref() as *const _ as *const glib::gobject_ffi::GObjectClass,
@@ -105,3 +88,5 @@ impl<O: IsA<Container>> ContainerExtManual for O {
         }
     }
 }
+
+impl<O: IsA<Container>> ContainerExtManual for O {}

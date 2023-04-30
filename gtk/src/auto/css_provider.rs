@@ -65,31 +65,8 @@ impl fmt::Display for CssProvider {
     }
 }
 
-pub trait CssProviderExt: 'static {
+pub trait CssProviderExt: IsA<CssProvider> + 'static {
     #[doc(alias = "gtk_css_provider_load_from_data")]
-    fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_css_provider_load_from_file")]
-    fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_css_provider_load_from_path")]
-    fn load_from_path(&self, path: &str) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_css_provider_load_from_resource")]
-    fn load_from_resource(&self, resource_path: &str);
-
-    #[doc(alias = "gtk_css_provider_to_string")]
-    #[doc(alias = "to_string")]
-    fn to_str(&self) -> glib::GString;
-
-    #[doc(alias = "parsing-error")]
-    fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-}
-
-impl<O: IsA<CssProvider>> CssProviderExt for O {
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error> {
         let length = data.len() as _;
         unsafe {
@@ -109,6 +86,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_css_provider_load_from_file")]
     fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -126,6 +104,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -143,6 +122,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_css_provider_load_from_resource")]
     fn load_from_resource(&self, resource_path: &str) {
         unsafe {
             ffi::gtk_css_provider_load_from_resource(
@@ -152,6 +132,8 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_css_provider_to_string")]
+    #[doc(alias = "to_string")]
     fn to_str(&self) -> glib::GString {
         unsafe {
             from_glib_full(ffi::gtk_css_provider_to_string(
@@ -160,6 +142,7 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 
+    #[doc(alias = "parsing-error")]
     fn connect_parsing_error<F: Fn(&Self, &CssSection, &glib::Error) + 'static>(
         &self,
         f: F,
@@ -193,3 +176,5 @@ impl<O: IsA<CssProvider>> CssProviderExt for O {
         }
     }
 }
+
+impl<O: IsA<CssProvider>> CssProviderExt for O {}

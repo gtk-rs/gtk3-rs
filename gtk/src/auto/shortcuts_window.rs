@@ -464,53 +464,28 @@ impl ShortcutsWindowBuilder {
     }
 }
 
-pub trait ShortcutsWindowExt: 'static {
+pub trait ShortcutsWindowExt: IsA<ShortcutsWindow> + 'static {
     #[doc(alias = "section-name")]
-    fn section_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "section-name")]
-    fn set_section_name(&self, section_name: Option<&str>);
-
-    #[doc(alias = "view-name")]
-    fn view_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "view-name")]
-    fn set_view_name(&self, view_name: Option<&str>);
-
-    #[doc(alias = "close")]
-    fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_close(&self);
-
-    #[doc(alias = "search")]
-    fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_search(&self);
-
-    #[doc(alias = "section-name")]
-    fn connect_section_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "view-name")]
-    fn connect_view_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
     fn section_name(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "section-name")
     }
 
+    #[doc(alias = "section-name")]
     fn set_section_name(&self, section_name: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "section-name", section_name)
     }
 
+    #[doc(alias = "view-name")]
     fn view_name(&self) -> Option<glib::GString> {
         glib::ObjectExt::property(self.as_ref(), "view-name")
     }
 
+    #[doc(alias = "view-name")]
     fn set_view_name(&self, view_name: Option<&str>) {
         glib::ObjectExt::set_property(self.as_ref(), "view-name", view_name)
     }
 
+    #[doc(alias = "close")]
     fn connect_close<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn close_trampoline<P: IsA<ShortcutsWindow>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkShortcutsWindow,
@@ -536,6 +511,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         self.emit_by_name::<()>("close", &[]);
     }
 
+    #[doc(alias = "search")]
     fn connect_search<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn search_trampoline<P: IsA<ShortcutsWindow>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkShortcutsWindow,
@@ -561,6 +537,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         self.emit_by_name::<()>("search", &[]);
     }
 
+    #[doc(alias = "section-name")]
     fn connect_section_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_section_name_trampoline<
             P: IsA<ShortcutsWindow>,
@@ -586,6 +563,7 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         }
     }
 
+    #[doc(alias = "view-name")]
     fn connect_view_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_view_name_trampoline<
             P: IsA<ShortcutsWindow>,
@@ -611,6 +589,8 @@ impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {
         }
     }
 }
+
+impl<O: IsA<ShortcutsWindow>> ShortcutsWindowExt for O {}
 
 impl fmt::Display for ShortcutsWindow {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

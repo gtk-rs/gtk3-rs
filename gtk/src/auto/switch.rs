@@ -287,60 +287,34 @@ impl SwitchBuilder {
     }
 }
 
-pub trait SwitchExt: 'static {
+pub trait SwitchExt: IsA<Switch> + 'static {
     #[doc(alias = "gtk_switch_get_active")]
     #[doc(alias = "get_active")]
-    fn is_active(&self) -> bool;
-
-    #[doc(alias = "gtk_switch_get_state")]
-    #[doc(alias = "get_state")]
-    fn state(&self) -> bool;
-
-    #[doc(alias = "gtk_switch_set_active")]
-    fn set_active(&self, is_active: bool);
-
-    #[doc(alias = "gtk_switch_set_state")]
-    fn set_state(&self, state: bool);
-
-    #[doc(alias = "activate")]
-    fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate(&self);
-
-    #[doc(alias = "state-set")]
-    fn connect_state_set<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "state")]
-    fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Switch>> SwitchExt for O {
     fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::gtk_switch_get_active(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_switch_get_state")]
+    #[doc(alias = "get_state")]
     fn state(&self) -> bool {
         unsafe { from_glib(ffi::gtk_switch_get_state(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_switch_set_active")]
     fn set_active(&self, is_active: bool) {
         unsafe {
             ffi::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_switch_set_state")]
     fn set_state(&self, state: bool) {
         unsafe {
             ffi::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.into_glib());
         }
     }
 
+    #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
@@ -366,6 +340,7 @@ impl<O: IsA<Switch>> SwitchExt for O {
         self.emit_by_name::<()>("activate", &[]);
     }
 
+    #[doc(alias = "state-set")]
     fn connect_state_set<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -398,6 +373,7 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
@@ -420,6 +396,7 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 
+    #[doc(alias = "state")]
     fn connect_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_state_trampoline<P: IsA<Switch>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSwitch,
@@ -442,6 +419,8 @@ impl<O: IsA<Switch>> SwitchExt for O {
         }
     }
 }
+
+impl<O: IsA<Switch>> SwitchExt for O {}
 
 impl fmt::Display for Switch {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

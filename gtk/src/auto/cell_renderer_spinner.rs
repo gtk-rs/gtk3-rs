@@ -175,30 +175,7 @@ impl CellRendererSpinnerBuilder {
     }
 }
 
-pub trait CellRendererSpinnerExt: 'static {
-    fn is_active(&self) -> bool;
-
-    fn set_active(&self, active: bool);
-
-    fn pulse(&self) -> u32;
-
-    fn set_pulse(&self, pulse: u32);
-
-    fn size(&self) -> IconSize;
-
-    fn set_size(&self, size: IconSize);
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pulse")]
-    fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "size")]
-    fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
+pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + 'static {
     fn is_active(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "active")
     }
@@ -223,6 +200,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<CellRendererSpinner>,
@@ -248,6 +226,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
+    #[doc(alias = "pulse")]
     fn connect_pulse_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pulse_trampoline<
             P: IsA<CellRendererSpinner>,
@@ -273,6 +252,7 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 
+    #[doc(alias = "size")]
     fn connect_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_size_trampoline<
             P: IsA<CellRendererSpinner>,
@@ -298,6 +278,8 @@ impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererSpinner>> CellRendererSpinnerExt for O {}
 
 impl fmt::Display for CellRendererSpinner {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

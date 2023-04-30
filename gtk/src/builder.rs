@@ -20,46 +20,9 @@ impl Builder {
     }
 }
 
-pub trait BuilderExtManual: 'static {
+pub trait BuilderExtManual: IsA<Builder> + 'static {
     #[doc(alias = "gtk_builder_get_object")]
     #[doc(alias = "get_object")]
-    fn object<T: IsA<Object>>(&self, name: &str) -> Option<T>;
-
-    #[doc(alias = "gtk_builder_add_from_file")]
-    fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error>;
-    #[doc(alias = "gtk_builder_add_from_resource")]
-    fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error>;
-    #[doc(alias = "gtk_builder_add_from_string")]
-    fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_builder_add_objects_from_resource")]
-    fn add_objects_from_resource(
-        &self,
-        resource_path: &str,
-        object_ids: &[&str],
-    ) -> Result<(), glib::Error>;
-    #[doc(alias = "gtk_builder_add_objects_from_string")]
-    fn add_objects_from_string(&self, buffer: &str, object_ids: &[&str])
-        -> Result<(), glib::Error>;
-
-    #[doc(alias = "gtk_builder_connect_signals_full")]
-    fn connect_signals<
-        P: FnMut(&Builder, &str) -> Box<dyn Fn(&[glib::Value]) -> Option<glib::Value> + 'static>,
-    >(
-        &self,
-        func: P,
-    );
-
-    #[doc(alias = "gtk_builder_extend_with_template")]
-    fn extend_with_template(
-        &self,
-        widget: &impl IsA<Widget>,
-        template_type: glib::types::Type,
-        buffer: &str,
-    ) -> Result<(), glib::Error>;
-}
-
-impl<O: IsA<Builder>> BuilderExtManual for O {
     fn object<T: IsA<Object>>(&self, name: &str) -> Option<T> {
         unsafe {
             Option::<Object>::from_glib_none(ffi::gtk_builder_get_object(
@@ -70,6 +33,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_add_from_file")]
     fn add_from_file<T: AsRef<Path>>(&self, file_path: T) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ::std::ptr::null_mut();
@@ -86,7 +50,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
             }
         }
     }
-
+    #[doc(alias = "gtk_builder_add_from_resource")]
     fn add_from_resource(&self, resource_path: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -103,7 +67,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
             }
         }
     }
-
+    #[doc(alias = "gtk_builder_add_from_string")]
     fn add_from_string(&self, buffer: &str) -> Result<(), glib::Error> {
         let length = buffer.len();
         unsafe {
@@ -123,6 +87,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_add_objects_from_resource")]
     fn add_objects_from_resource(
         &self,
         resource_path: &str,
@@ -144,7 +109,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
             }
         }
     }
-
+    #[doc(alias = "gtk_builder_add_objects_from_string")]
     fn add_objects_from_string(
         &self,
         buffer: &str,
@@ -169,6 +134,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_connect_signals_full")]
     fn connect_signals<
         P: FnMut(&Builder, &str) -> Box<dyn Fn(&[glib::Value]) -> Option<glib::Value> + 'static>,
     >(
@@ -216,6 +182,7 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_extend_with_template")]
     fn extend_with_template(
         &self,
         widget: &impl IsA<Widget>,
@@ -242,3 +209,5 @@ impl<O: IsA<Builder>> BuilderExtManual for O {
         }
     }
 }
+
+impl<O: IsA<Builder>> BuilderExtManual for O {}

@@ -73,29 +73,8 @@ impl SizeGroupBuilder {
     }
 }
 
-pub trait SizeGroupExt: 'static {
+pub trait SizeGroupExt: IsA<SizeGroup> + 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
-    fn add_widget(&self, widget: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_size_group_get_mode")]
-    #[doc(alias = "get_mode")]
-    fn mode(&self) -> SizeGroupMode;
-
-    #[doc(alias = "gtk_size_group_get_widgets")]
-    #[doc(alias = "get_widgets")]
-    fn widgets(&self) -> Vec<Widget>;
-
-    #[doc(alias = "gtk_size_group_remove_widget")]
-    fn remove_widget(&self, widget: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_size_group_set_mode")]
-    fn set_mode(&self, mode: SizeGroupMode);
-
-    #[doc(alias = "mode")]
-    fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<SizeGroup>> SizeGroupExt for O {
     fn add_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_size_group_add_widget(
@@ -105,10 +84,14 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_size_group_get_mode")]
+    #[doc(alias = "get_mode")]
     fn mode(&self) -> SizeGroupMode {
         unsafe { from_glib(ffi::gtk_size_group_get_mode(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_size_group_get_widgets")]
+    #[doc(alias = "get_widgets")]
     fn widgets(&self) -> Vec<Widget> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_size_group_get_widgets(
@@ -117,6 +100,7 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_size_group_remove_widget")]
     fn remove_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_size_group_remove_widget(
@@ -126,12 +110,14 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_size_group_set_mode")]
     fn set_mode(&self, mode: SizeGroupMode) {
         unsafe {
             ffi::gtk_size_group_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
+    #[doc(alias = "mode")]
     fn connect_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mode_trampoline<P: IsA<SizeGroup>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSizeGroup,
@@ -154,6 +140,8 @@ impl<O: IsA<SizeGroup>> SizeGroupExt for O {
         }
     }
 }
+
+impl<O: IsA<SizeGroup>> SizeGroupExt for O {}
 
 impl fmt::Display for SizeGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -384,19 +384,9 @@ impl RadioButtonBuilder {
     }
 }
 
-pub trait RadioButtonExt: 'static {
+pub trait RadioButtonExt: IsA<RadioButton> + 'static {
     #[doc(alias = "gtk_radio_button_get_group")]
     #[doc(alias = "get_group")]
-    fn group(&self) -> Vec<RadioButton>;
-
-    #[doc(alias = "gtk_radio_button_join_group")]
-    fn join_group(&self, group_source: Option<&impl IsA<RadioButton>>);
-
-    #[doc(alias = "group-changed")]
-    fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<RadioButton>> RadioButtonExt for O {
     fn group(&self) -> Vec<RadioButton> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::gtk_radio_button_get_group(
@@ -405,6 +395,7 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_radio_button_join_group")]
     fn join_group(&self, group_source: Option<&impl IsA<RadioButton>>) {
         unsafe {
             ffi::gtk_radio_button_join_group(
@@ -414,6 +405,7 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
         }
     }
 
+    #[doc(alias = "group-changed")]
     fn connect_group_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn group_changed_trampoline<P: IsA<RadioButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkRadioButton,
@@ -435,6 +427,8 @@ impl<O: IsA<RadioButton>> RadioButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<RadioButton>> RadioButtonExt for O {}
 
 impl fmt::Display for RadioButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -277,21 +277,15 @@ impl InvisibleBuilder {
     }
 }
 
-pub trait InvisibleExt: 'static {
+pub trait InvisibleExt: IsA<Invisible> + 'static {
     #[doc(alias = "gtk_invisible_set_screen")]
-    fn set_screen(&self, screen: &gdk::Screen);
-
-    #[doc(alias = "screen")]
-    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Invisible>> InvisibleExt for O {
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
             ffi::gtk_invisible_set_screen(self.as_ref().to_glib_none().0, screen.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "screen")]
     fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<P: IsA<Invisible>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkInvisible,
@@ -314,6 +308,8 @@ impl<O: IsA<Invisible>> InvisibleExt for O {
         }
     }
 }
+
+impl<O: IsA<Invisible>> InvisibleExt for O {}
 
 impl fmt::Display for Invisible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

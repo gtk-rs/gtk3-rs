@@ -31,25 +31,21 @@ impl Default for Socket {
     }
 }
 
-pub trait AtkSocketExt: 'static {
+pub trait AtkSocketExt: IsA<Socket> + 'static {
     #[doc(alias = "atk_socket_embed")]
-    fn embed(&self, plug_id: &str);
-
-    #[doc(alias = "atk_socket_is_occupied")]
-    fn is_occupied(&self) -> bool;
-}
-
-impl<O: IsA<Socket>> AtkSocketExt for O {
     fn embed(&self, plug_id: &str) {
         unsafe {
             ffi::atk_socket_embed(self.as_ref().to_glib_none().0, plug_id.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "atk_socket_is_occupied")]
     fn is_occupied(&self) -> bool {
         unsafe { from_glib(ffi::atk_socket_is_occupied(self.as_ref().to_glib_none().0)) }
     }
 }
+
+impl<O: IsA<Socket>> AtkSocketExt for O {}
 
 impl fmt::Display for Socket {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

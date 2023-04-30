@@ -169,13 +169,9 @@ impl PlugAccessibleBuilder {
     }
 }
 
-pub trait PlugAccessibleExt: 'static {
+pub trait PlugAccessibleExt: IsA<PlugAccessible> + 'static {
     #[doc(alias = "gtk_plug_accessible_get_id")]
     #[doc(alias = "get_id")]
-    fn id(&self) -> Option<glib::GString>;
-}
-
-impl<O: IsA<PlugAccessible>> PlugAccessibleExt for O {
     fn id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_plug_accessible_get_id(
@@ -184,6 +180,8 @@ impl<O: IsA<PlugAccessible>> PlugAccessibleExt for O {
         }
     }
 }
+
+impl<O: IsA<PlugAccessible>> PlugAccessibleExt for O {}
 
 impl fmt::Display for PlugAccessible {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

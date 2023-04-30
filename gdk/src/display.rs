@@ -50,13 +50,9 @@ impl Backend {
     }
 }
 
-pub trait DisplayExtManual: 'static {
+pub trait DisplayExtManual: IsA<Display> + 'static {
     // rustdoc-stripper-ignore-next
     /// Get the currently used display backend
-    fn backend(&self) -> Backend;
-}
-
-impl<O: IsA<Display>> DisplayExtManual for O {
     fn backend(&self) -> Backend {
         match self.as_ref().type_().name() {
             "GdkWaylandDisplay" => Backend::Wayland,
@@ -68,3 +64,5 @@ impl<O: IsA<Display>> DisplayExtManual for O {
         }
     }
 }
+
+impl<O: IsA<Display>> DisplayExtManual for O {}

@@ -87,29 +87,14 @@ impl CellAreaBoxBuilder {
     }
 }
 
-pub trait CellAreaBoxExt: 'static {
+pub trait CellAreaBoxExt: IsA<CellAreaBox> + 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]
     #[doc(alias = "get_spacing")]
-    fn spacing(&self) -> i32;
-
-    #[doc(alias = "gtk_cell_area_box_pack_end")]
-    fn pack_end(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool);
-
-    #[doc(alias = "gtk_cell_area_box_pack_start")]
-    fn pack_start(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool);
-
-    #[doc(alias = "gtk_cell_area_box_set_spacing")]
-    fn set_spacing(&self, spacing: i32);
-
-    #[doc(alias = "spacing")]
-    fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
     fn spacing(&self) -> i32 {
         unsafe { ffi::gtk_cell_area_box_get_spacing(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_cell_area_box_pack_end")]
     fn pack_end(&self, renderer: &impl IsA<CellRenderer>, expand: bool, align: bool, fixed: bool) {
         unsafe {
             ffi::gtk_cell_area_box_pack_end(
@@ -122,6 +107,7 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_box_pack_start")]
     fn pack_start(
         &self,
         renderer: &impl IsA<CellRenderer>,
@@ -140,12 +126,14 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_area_box_set_spacing")]
     fn set_spacing(&self, spacing: i32) {
         unsafe {
             ffi::gtk_cell_area_box_set_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
+    #[doc(alias = "spacing")]
     fn connect_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_spacing_trampoline<P: IsA<CellAreaBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCellAreaBox,
@@ -168,6 +156,8 @@ impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {
         }
     }
 }
+
+impl<O: IsA<CellAreaBox>> CellAreaBoxExt for O {}
 
 impl fmt::Display for CellAreaBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

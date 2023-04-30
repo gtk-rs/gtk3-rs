@@ -19,17 +19,15 @@ impl Bin {
     pub const NONE: Option<&'static Bin> = None;
 }
 
-pub trait BinExt: 'static {
+pub trait BinExt: IsA<Bin> + 'static {
     #[doc(alias = "gtk_bin_get_child")]
     #[doc(alias = "get_child")]
-    fn child(&self) -> Option<Widget>;
-}
-
-impl<O: IsA<Bin>> BinExt for O {
     fn child(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_bin_get_child(self.as_ref().to_glib_none().0)) }
     }
 }
+
+impl<O: IsA<Bin>> BinExt for O {}
 
 impl fmt::Display for Bin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

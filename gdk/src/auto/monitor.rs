@@ -23,86 +23,15 @@ impl Monitor {
     pub const NONE: Option<&'static Monitor> = None;
 }
 
-pub trait MonitorExt: 'static {
+pub trait MonitorExt: IsA<Monitor> + 'static {
     #[doc(alias = "gdk_monitor_get_display")]
     #[doc(alias = "get_display")]
-    fn display(&self) -> Option<Display>;
-
-    #[doc(alias = "gdk_monitor_get_geometry")]
-    #[doc(alias = "get_geometry")]
-    fn geometry(&self) -> Rectangle;
-
-    #[doc(alias = "gdk_monitor_get_height_mm")]
-    #[doc(alias = "get_height_mm")]
-    fn height_mm(&self) -> i32;
-
-    #[doc(alias = "gdk_monitor_get_manufacturer")]
-    #[doc(alias = "get_manufacturer")]
-    fn manufacturer(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gdk_monitor_get_model")]
-    #[doc(alias = "get_model")]
-    fn model(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gdk_monitor_get_refresh_rate")]
-    #[doc(alias = "get_refresh_rate")]
-    fn refresh_rate(&self) -> i32;
-
-    #[doc(alias = "gdk_monitor_get_scale_factor")]
-    #[doc(alias = "get_scale_factor")]
-    fn scale_factor(&self) -> i32;
-
-    #[doc(alias = "gdk_monitor_get_subpixel_layout")]
-    #[doc(alias = "get_subpixel_layout")]
-    fn subpixel_layout(&self) -> SubpixelLayout;
-
-    #[doc(alias = "gdk_monitor_get_width_mm")]
-    #[doc(alias = "get_width_mm")]
-    fn width_mm(&self) -> i32;
-
-    #[doc(alias = "gdk_monitor_get_workarea")]
-    #[doc(alias = "get_workarea")]
-    fn workarea(&self) -> Rectangle;
-
-    #[doc(alias = "gdk_monitor_is_primary")]
-    fn is_primary(&self) -> bool;
-
-    #[doc(alias = "invalidate")]
-    fn connect_invalidate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "geometry")]
-    fn connect_geometry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "height-mm")]
-    fn connect_height_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "manufacturer")]
-    fn connect_manufacturer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "model")]
-    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "refresh-rate")]
-    fn connect_refresh_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "scale-factor")]
-    fn connect_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "subpixel-layout")]
-    fn connect_subpixel_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "width-mm")]
-    fn connect_width_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "workarea")]
-    fn connect_workarea_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Monitor>> MonitorExt for O {
     fn display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_monitor_get_display(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_monitor_get_geometry")]
+    #[doc(alias = "get_geometry")]
     fn geometry(&self) -> Rectangle {
         unsafe {
             let mut geometry = Rectangle::uninitialized();
@@ -114,10 +43,14 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "gdk_monitor_get_height_mm")]
+    #[doc(alias = "get_height_mm")]
     fn height_mm(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_height_mm(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_monitor_get_manufacturer")]
+    #[doc(alias = "get_manufacturer")]
     fn manufacturer(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_monitor_get_manufacturer(
@@ -126,18 +59,26 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "gdk_monitor_get_model")]
+    #[doc(alias = "get_model")]
     fn model(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gdk_monitor_get_model(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_monitor_get_refresh_rate")]
+    #[doc(alias = "get_refresh_rate")]
     fn refresh_rate(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_refresh_rate(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_monitor_get_scale_factor")]
+    #[doc(alias = "get_scale_factor")]
     fn scale_factor(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_scale_factor(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_monitor_get_subpixel_layout")]
+    #[doc(alias = "get_subpixel_layout")]
     fn subpixel_layout(&self) -> SubpixelLayout {
         unsafe {
             from_glib(ffi::gdk_monitor_get_subpixel_layout(
@@ -146,10 +87,14 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "gdk_monitor_get_width_mm")]
+    #[doc(alias = "get_width_mm")]
     fn width_mm(&self) -> i32 {
         unsafe { ffi::gdk_monitor_get_width_mm(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gdk_monitor_get_workarea")]
+    #[doc(alias = "get_workarea")]
     fn workarea(&self) -> Rectangle {
         unsafe {
             let mut workarea = Rectangle::uninitialized();
@@ -161,10 +106,12 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "gdk_monitor_is_primary")]
     fn is_primary(&self) -> bool {
         unsafe { from_glib(ffi::gdk_monitor_is_primary(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "invalidate")]
     fn connect_invalidate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn invalidate_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -186,6 +133,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "geometry")]
     fn connect_geometry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_geometry_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -208,6 +156,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "height-mm")]
     fn connect_height_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_height_mm_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -230,6 +179,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "manufacturer")]
     fn connect_manufacturer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_manufacturer_trampoline<
             P: IsA<Monitor>,
@@ -255,6 +205,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -277,6 +228,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "refresh-rate")]
     fn connect_refresh_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_refresh_rate_trampoline<
             P: IsA<Monitor>,
@@ -302,6 +254,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "scale-factor")]
     fn connect_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scale_factor_trampoline<
             P: IsA<Monitor>,
@@ -327,6 +280,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "subpixel-layout")]
     fn connect_subpixel_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_subpixel_layout_trampoline<
             P: IsA<Monitor>,
@@ -352,6 +306,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "width-mm")]
     fn connect_width_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_mm_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -374,6 +329,7 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 
+    #[doc(alias = "workarea")]
     fn connect_workarea_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_workarea_trampoline<P: IsA<Monitor>, F: Fn(&P) + 'static>(
             this: *mut ffi::GdkMonitor,
@@ -396,6 +352,8 @@ impl<O: IsA<Monitor>> MonitorExt for O {
         }
     }
 }
+
+impl<O: IsA<Monitor>> MonitorExt for O {}
 
 impl fmt::Display for Monitor {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -29,57 +29,8 @@ impl ListStore {
     //}
 }
 
-pub trait GtkListStoreExt: 'static {
+pub trait GtkListStoreExt: IsA<ListStore> + 'static {
     #[doc(alias = "gtk_list_store_append")]
-    fn append(&self) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_clear")]
-    fn clear(&self);
-
-    #[doc(alias = "gtk_list_store_insert")]
-    fn insert(&self, position: i32) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_insert_after")]
-    fn insert_after(&self, sibling: Option<&TreeIter>) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_insert_before")]
-    fn insert_before(&self, sibling: Option<&TreeIter>) -> TreeIter;
-
-    //#[doc(alias = "gtk_list_store_insert_with_values")]
-    //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter;
-
-    //#[doc(alias = "gtk_list_store_insert_with_valuesv")]
-    //fn insert_with_valuesv(&self, position: i32, columns: &[i32], values: &[&glib::Value]) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_iter_is_valid")]
-    fn iter_is_valid(&self, iter: &TreeIter) -> bool;
-
-    #[doc(alias = "gtk_list_store_move_after")]
-    fn move_after(&self, iter: &TreeIter, position: Option<&TreeIter>);
-
-    #[doc(alias = "gtk_list_store_move_before")]
-    fn move_before(&self, iter: &TreeIter, position: Option<&TreeIter>);
-
-    #[doc(alias = "gtk_list_store_prepend")]
-    fn prepend(&self) -> TreeIter;
-
-    #[doc(alias = "gtk_list_store_remove")]
-    fn remove(&self, iter: &TreeIter) -> bool;
-
-    //#[doc(alias = "gtk_list_store_set_column_types")]
-    //fn set_column_types(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 });
-
-    //#[doc(alias = "gtk_list_store_set_valist")]
-    //fn set_valist(&self, iter: &TreeIter, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported);
-
-    //#[doc(alias = "gtk_list_store_set_valuesv")]
-    //fn set_valuesv(&self, iter: &TreeIter, columns: &[i32], values: &[&glib::Value]);
-
-    #[doc(alias = "gtk_list_store_swap")]
-    fn swap(&self, a: &TreeIter, b: &TreeIter);
-}
-
-impl<O: IsA<ListStore>> GtkListStoreExt for O {
     fn append(&self) -> TreeIter {
         unsafe {
             let mut iter = TreeIter::uninitialized();
@@ -88,12 +39,14 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_clear")]
     fn clear(&self) {
         unsafe {
             ffi::gtk_list_store_clear(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_store_insert")]
     fn insert(&self, position: i32) -> TreeIter {
         unsafe {
             let mut iter = TreeIter::uninitialized();
@@ -106,6 +59,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_insert_after")]
     fn insert_after(&self, sibling: Option<&TreeIter>) -> TreeIter {
         unsafe {
             let mut iter = TreeIter::uninitialized();
@@ -118,6 +72,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_insert_before")]
     fn insert_before(&self, sibling: Option<&TreeIter>) -> TreeIter {
         unsafe {
             let mut iter = TreeIter::uninitialized();
@@ -130,14 +85,17 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_list_store_insert_with_values")]
     //fn insert_with_values(&self, position: i32, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> TreeIter {
     //    unsafe { TODO: call ffi:gtk_list_store_insert_with_values() }
     //}
 
+    //#[doc(alias = "gtk_list_store_insert_with_valuesv")]
     //fn insert_with_valuesv(&self, position: i32, columns: &[i32], values: &[&glib::Value]) -> TreeIter {
     //    unsafe { TODO: call ffi:gtk_list_store_insert_with_valuesv() }
     //}
 
+    #[doc(alias = "gtk_list_store_iter_is_valid")]
     fn iter_is_valid(&self, iter: &TreeIter) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_store_iter_is_valid(
@@ -147,6 +105,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_move_after")]
     fn move_after(&self, iter: &TreeIter, position: Option<&TreeIter>) {
         unsafe {
             ffi::gtk_list_store_move_after(
@@ -157,6 +116,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_move_before")]
     fn move_before(&self, iter: &TreeIter, position: Option<&TreeIter>) {
         unsafe {
             ffi::gtk_list_store_move_before(
@@ -167,6 +127,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_prepend")]
     fn prepend(&self) -> TreeIter {
         unsafe {
             let mut iter = TreeIter::uninitialized();
@@ -175,6 +136,7 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_store_remove")]
     fn remove(&self, iter: &TreeIter) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_store_remove(
@@ -184,18 +146,22 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_list_store_set_column_types")]
     //fn set_column_types(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 30 }) {
     //    unsafe { TODO: call ffi:gtk_list_store_set_column_types() }
     //}
 
+    //#[doc(alias = "gtk_list_store_set_valist")]
     //fn set_valist(&self, iter: &TreeIter, var_args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
     //    unsafe { TODO: call ffi:gtk_list_store_set_valist() }
     //}
 
+    //#[doc(alias = "gtk_list_store_set_valuesv")]
     //fn set_valuesv(&self, iter: &TreeIter, columns: &[i32], values: &[&glib::Value]) {
     //    unsafe { TODO: call ffi:gtk_list_store_set_valuesv() }
     //}
 
+    #[doc(alias = "gtk_list_store_swap")]
     fn swap(&self, a: &TreeIter, b: &TreeIter) {
         unsafe {
             ffi::gtk_list_store_swap(
@@ -206,6 +172,8 @@ impl<O: IsA<ListStore>> GtkListStoreExt for O {
         }
     }
 }
+
+impl<O: IsA<ListStore>> GtkListStoreExt for O {}
 
 impl fmt::Display for ListStore {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

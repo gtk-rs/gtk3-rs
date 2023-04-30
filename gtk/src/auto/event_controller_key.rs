@@ -133,8 +133,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "key-pressed")]
     pub fn connect_key_pressed<F: Fn(&Self, u32, u32, gdk::ModifierType) -> bool + 'static>(
         &self,
@@ -165,8 +165,8 @@ impl EventControllerKey {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "key-released")]
     pub fn connect_key_released<F: Fn(&Self, u32, u32, gdk::ModifierType) + 'static>(
         &self,

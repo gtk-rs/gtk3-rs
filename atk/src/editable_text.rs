@@ -4,12 +4,8 @@ use crate::EditableText;
 use glib::object::IsA;
 use glib::translate::*;
 
-pub trait EditableTextExtManual: 'static {
+pub trait EditableTextExtManual: IsA<EditableText> + 'static {
     #[doc(alias = "atk_editable_text_insert_text")]
-    fn insert_text(&self, string: &str, position: i32) -> i32;
-}
-
-impl<O: IsA<EditableText>> EditableTextExtManual for O {
     fn insert_text(&self, string: &str, mut position: i32) -> i32 {
         let length = string.len() as i32;
         unsafe {
@@ -23,3 +19,5 @@ impl<O: IsA<EditableText>> EditableTextExtManual for O {
         position
     }
 }
+
+impl<O: IsA<EditableText>> EditableTextExtManual for O {}

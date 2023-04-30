@@ -94,8 +94,8 @@ impl MountOperationBuilder {
         }
     }
 
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    #[cfg(feature = "gio_v2_58")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "gio_v2_58")))]
     pub fn is_tcrypt_hidden_volume(self, is_tcrypt_hidden_volume: bool) -> Self {
         Self {
             builder: self
@@ -104,8 +104,8 @@ impl MountOperationBuilder {
         }
     }
 
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    #[cfg(feature = "gio_v2_58")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "gio_v2_58")))]
     pub fn is_tcrypt_system_volume(self, is_tcrypt_system_volume: bool) -> Self {
         Self {
             builder: self
@@ -126,8 +126,8 @@ impl MountOperationBuilder {
         }
     }
 
-    #[cfg(any(feature = "gio_v2_58", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_58")))]
+    #[cfg(feature = "gio_v2_58")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "gio_v2_58")))]
     pub fn pim(self, pim: u32) -> Self {
         Self {
             builder: self.builder.property("pim", pim),
@@ -148,35 +148,9 @@ impl MountOperationBuilder {
     }
 }
 
-pub trait MountOperationExt: 'static {
+pub trait MountOperationExt: IsA<MountOperation> + 'static {
     #[doc(alias = "gtk_mount_operation_get_parent")]
     #[doc(alias = "get_parent")]
-    fn parent(&self) -> Option<Window>;
-
-    #[doc(alias = "gtk_mount_operation_get_screen")]
-    #[doc(alias = "get_screen")]
-    fn screen(&self) -> Option<gdk::Screen>;
-
-    #[doc(alias = "gtk_mount_operation_is_showing")]
-    fn is_showing(&self) -> bool;
-
-    #[doc(alias = "gtk_mount_operation_set_parent")]
-    fn set_parent(&self, parent: Option<&impl IsA<Window>>);
-
-    #[doc(alias = "gtk_mount_operation_set_screen")]
-    fn set_screen(&self, screen: &gdk::Screen);
-
-    #[doc(alias = "is-showing")]
-    fn connect_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "parent")]
-    fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "screen")]
-    fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MountOperation>> MountOperationExt for O {
     fn parent(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gtk_mount_operation_get_parent(
@@ -185,6 +159,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "gtk_mount_operation_get_screen")]
+    #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen> {
         unsafe {
             from_glib_none(ffi::gtk_mount_operation_get_screen(
@@ -193,6 +169,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "gtk_mount_operation_is_showing")]
     fn is_showing(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_mount_operation_is_showing(
@@ -201,6 +178,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "gtk_mount_operation_set_parent")]
     fn set_parent(&self, parent: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_mount_operation_set_parent(
@@ -210,6 +188,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "gtk_mount_operation_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
             ffi::gtk_mount_operation_set_screen(
@@ -219,6 +198,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "is-showing")]
     fn connect_is_showing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_is_showing_trampoline<
             P: IsA<MountOperation>,
@@ -244,6 +224,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "parent")]
     fn connect_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_parent_trampoline<
             P: IsA<MountOperation>,
@@ -269,6 +250,7 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 
+    #[doc(alias = "screen")]
     fn connect_screen_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_screen_trampoline<
             P: IsA<MountOperation>,
@@ -294,6 +276,8 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
         }
     }
 }
+
+impl<O: IsA<MountOperation>> MountOperationExt for O {}
 
 impl fmt::Display for MountOperation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

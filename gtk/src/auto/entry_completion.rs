@@ -140,151 +140,15 @@ impl EntryCompletionBuilder {
     }
 }
 
-pub trait EntryCompletionExt: 'static {
+pub trait EntryCompletionExt: IsA<EntryCompletion> + 'static {
     #[doc(alias = "gtk_entry_completion_complete")]
-    fn complete(&self);
-
-    #[doc(alias = "gtk_entry_completion_compute_prefix")]
-    fn compute_prefix(&self, key: &str) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_entry_completion_delete_action")]
-    fn delete_action(&self, index_: i32);
-
-    #[doc(alias = "gtk_entry_completion_get_completion_prefix")]
-    #[doc(alias = "get_completion_prefix")]
-    fn completion_prefix(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_entry_completion_get_inline_completion")]
-    #[doc(alias = "get_inline_completion")]
-    fn is_inline_completion(&self) -> bool;
-
-    #[doc(alias = "gtk_entry_completion_get_inline_selection")]
-    #[doc(alias = "get_inline_selection")]
-    fn is_inline_selection(&self) -> bool;
-
-    #[doc(alias = "gtk_entry_completion_get_minimum_key_length")]
-    #[doc(alias = "get_minimum_key_length")]
-    fn minimum_key_length(&self) -> i32;
-
-    #[doc(alias = "gtk_entry_completion_get_model")]
-    #[doc(alias = "get_model")]
-    fn model(&self) -> Option<TreeModel>;
-
-    #[doc(alias = "gtk_entry_completion_get_popup_completion")]
-    #[doc(alias = "get_popup_completion")]
-    fn is_popup_completion(&self) -> bool;
-
-    #[doc(alias = "gtk_entry_completion_get_popup_set_width")]
-    #[doc(alias = "get_popup_set_width")]
-    fn is_popup_set_width(&self) -> bool;
-
-    #[doc(alias = "gtk_entry_completion_get_popup_single_match")]
-    #[doc(alias = "get_popup_single_match")]
-    fn is_popup_single_match(&self) -> bool;
-
-    #[doc(alias = "gtk_entry_completion_get_text_column")]
-    #[doc(alias = "get_text_column")]
-    fn text_column(&self) -> i32;
-
-    #[doc(alias = "gtk_entry_completion_insert_action_markup")]
-    fn insert_action_markup(&self, index_: i32, markup: &str);
-
-    #[doc(alias = "gtk_entry_completion_insert_action_text")]
-    fn insert_action_text(&self, index_: i32, text: &str);
-
-    #[doc(alias = "gtk_entry_completion_insert_prefix")]
-    fn insert_prefix(&self);
-
-    #[doc(alias = "gtk_entry_completion_set_inline_completion")]
-    fn set_inline_completion(&self, inline_completion: bool);
-
-    #[doc(alias = "gtk_entry_completion_set_inline_selection")]
-    fn set_inline_selection(&self, inline_selection: bool);
-
-    #[doc(alias = "gtk_entry_completion_set_match_func")]
-    fn set_match_func<P: Fn(&EntryCompletion, &str, &TreeIter) -> bool + 'static>(&self, func: P);
-
-    #[doc(alias = "gtk_entry_completion_set_minimum_key_length")]
-    fn set_minimum_key_length(&self, length: i32);
-
-    #[doc(alias = "gtk_entry_completion_set_model")]
-    fn set_model(&self, model: Option<&impl IsA<TreeModel>>);
-
-    #[doc(alias = "gtk_entry_completion_set_popup_completion")]
-    fn set_popup_completion(&self, popup_completion: bool);
-
-    #[doc(alias = "gtk_entry_completion_set_popup_set_width")]
-    fn set_popup_set_width(&self, popup_set_width: bool);
-
-    #[doc(alias = "gtk_entry_completion_set_popup_single_match")]
-    fn set_popup_single_match(&self, popup_single_match: bool);
-
-    #[doc(alias = "gtk_entry_completion_set_text_column")]
-    fn set_text_column(&self, column: i32);
-
-    #[doc(alias = "cell-area")]
-    fn cell_area(&self) -> Option<CellArea>;
-
-    #[doc(alias = "action-activated")]
-    fn connect_action_activated<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "cursor-on-match")]
-    fn connect_cursor_on_match<
-        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
-    >(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "insert-prefix")]
-    fn connect_insert_prefix<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "match-selected")]
-    fn connect_match_selected<
-        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
-    >(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "no-matches")]
-    fn connect_no_matches<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "inline-completion")]
-    fn connect_inline_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "inline-selection")]
-    fn connect_inline_selection_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "minimum-key-length")]
-    fn connect_minimum_key_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "model")]
-    fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "popup-completion")]
-    fn connect_popup_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "popup-set-width")]
-    fn connect_popup_set_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "popup-single-match")]
-    fn connect_popup_single_match_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "text-column")]
-    fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
     fn complete(&self) {
         unsafe {
             ffi::gtk_entry_completion_complete(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_compute_prefix")]
     fn compute_prefix(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::gtk_entry_completion_compute_prefix(
@@ -294,12 +158,15 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_delete_action")]
     fn delete_action(&self, index_: i32) {
         unsafe {
             ffi::gtk_entry_completion_delete_action(self.as_ref().to_glib_none().0, index_);
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_completion_prefix")]
+    #[doc(alias = "get_completion_prefix")]
     fn completion_prefix(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_entry_completion_get_completion_prefix(
@@ -308,6 +175,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_inline_completion")]
+    #[doc(alias = "get_inline_completion")]
     fn is_inline_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_completion(
@@ -316,6 +185,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_inline_selection")]
+    #[doc(alias = "get_inline_selection")]
     fn is_inline_selection(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_selection(
@@ -324,10 +195,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_minimum_key_length")]
+    #[doc(alias = "get_minimum_key_length")]
     fn minimum_key_length(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_minimum_key_length(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_model")]
+    #[doc(alias = "get_model")]
     fn model(&self) -> Option<TreeModel> {
         unsafe {
             from_glib_none(ffi::gtk_entry_completion_get_model(
@@ -336,6 +211,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_popup_completion")]
+    #[doc(alias = "get_popup_completion")]
     fn is_popup_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_completion(
@@ -344,6 +221,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_popup_set_width")]
+    #[doc(alias = "get_popup_set_width")]
     fn is_popup_set_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_set_width(
@@ -352,6 +231,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_popup_single_match")]
+    #[doc(alias = "get_popup_single_match")]
     fn is_popup_single_match(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_single_match(
@@ -360,10 +241,13 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_get_text_column")]
+    #[doc(alias = "get_text_column")]
     fn text_column(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_text_column(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_entry_completion_insert_action_markup")]
     fn insert_action_markup(&self, index_: i32, markup: &str) {
         unsafe {
             ffi::gtk_entry_completion_insert_action_markup(
@@ -374,6 +258,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_insert_action_text")]
     fn insert_action_text(&self, index_: i32, text: &str) {
         unsafe {
             ffi::gtk_entry_completion_insert_action_text(
@@ -384,12 +269,14 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_insert_prefix")]
     fn insert_prefix(&self) {
         unsafe {
             ffi::gtk_entry_completion_insert_prefix(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_inline_completion")]
     fn set_inline_completion(&self, inline_completion: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_inline_completion(
@@ -399,6 +286,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_inline_selection")]
     fn set_inline_selection(&self, inline_selection: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_inline_selection(
@@ -408,6 +296,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_match_func")]
     fn set_match_func<P: Fn(&EntryCompletion, &str, &TreeIter) -> bool + 'static>(&self, func: P) {
         let func_data: Box_<P> = Box_::new(func);
         unsafe extern "C" fn func_func<
@@ -444,6 +333,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_minimum_key_length")]
     fn set_minimum_key_length(&self, length: i32) {
         unsafe {
             ffi::gtk_entry_completion_set_minimum_key_length(
@@ -453,6 +343,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_model")]
     fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_entry_completion_set_model(
@@ -462,6 +353,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_popup_completion")]
     fn set_popup_completion(&self, popup_completion: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_completion(
@@ -471,6 +363,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_popup_set_width")]
     fn set_popup_set_width(&self, popup_set_width: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_set_width(
@@ -480,6 +373,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_popup_single_match")]
     fn set_popup_single_match(&self, popup_single_match: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_single_match(
@@ -489,16 +383,19 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "gtk_entry_completion_set_text_column")]
     fn set_text_column(&self, column: i32) {
         unsafe {
             ffi::gtk_entry_completion_set_text_column(self.as_ref().to_glib_none().0, column);
         }
     }
 
+    #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
         glib::ObjectExt::property(self.as_ref(), "cell-area")
     }
 
+    #[doc(alias = "action-activated")]
     fn connect_action_activated<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn action_activated_trampoline<
             P: IsA<EntryCompletion>,
@@ -527,6 +424,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "cursor-on-match")]
     fn connect_cursor_on_match<
         F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
     >(
@@ -563,6 +461,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "insert-prefix")]
     fn connect_insert_prefix<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -595,6 +494,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "match-selected")]
     fn connect_match_selected<
         F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
     >(
@@ -631,6 +531,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "no-matches")]
     fn connect_no_matches<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn no_matches_trampoline<P: IsA<EntryCompletion>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkEntryCompletion,
@@ -652,6 +553,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "inline-completion")]
     fn connect_inline_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inline_completion_trampoline<
             P: IsA<EntryCompletion>,
@@ -677,6 +579,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "inline-selection")]
     fn connect_inline_selection_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inline_selection_trampoline<
             P: IsA<EntryCompletion>,
@@ -702,6 +605,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "minimum-key-length")]
     fn connect_minimum_key_length_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_minimum_key_length_trampoline<
             P: IsA<EntryCompletion>,
@@ -727,6 +631,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "model")]
     fn connect_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_model_trampoline<
             P: IsA<EntryCompletion>,
@@ -752,6 +657,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "popup-completion")]
     fn connect_popup_completion_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popup_completion_trampoline<
             P: IsA<EntryCompletion>,
@@ -777,6 +683,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "popup-set-width")]
     fn connect_popup_set_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popup_set_width_trampoline<
             P: IsA<EntryCompletion>,
@@ -802,6 +709,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "popup-single-match")]
     fn connect_popup_single_match_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_popup_single_match_trampoline<
             P: IsA<EntryCompletion>,
@@ -827,6 +735,7 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 
+    #[doc(alias = "text-column")]
     fn connect_text_column_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_text_column_trampoline<
             P: IsA<EntryCompletion>,
@@ -852,6 +761,8 @@ impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {
         }
     }
 }
+
+impl<O: IsA<EntryCompletion>> EntryCompletionExt for O {}
 
 impl fmt::Display for EntryCompletion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

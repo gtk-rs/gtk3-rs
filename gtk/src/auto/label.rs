@@ -389,284 +389,15 @@ impl LabelBuilder {
     }
 }
 
-pub trait LabelExt: 'static {
+pub trait LabelExt: IsA<Label> + 'static {
     #[doc(alias = "gtk_label_get_angle")]
     #[doc(alias = "get_angle")]
-    fn angle(&self) -> f64;
-
-    #[doc(alias = "gtk_label_get_attributes")]
-    #[doc(alias = "get_attributes")]
-    fn attributes(&self) -> Option<pango::AttrList>;
-
-    #[doc(alias = "gtk_label_get_current_uri")]
-    #[doc(alias = "get_current_uri")]
-    fn current_uri(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_label_get_ellipsize")]
-    #[doc(alias = "get_ellipsize")]
-    fn ellipsize(&self) -> pango::EllipsizeMode;
-
-    #[doc(alias = "gtk_label_get_justify")]
-    #[doc(alias = "get_justify")]
-    fn justify(&self) -> Justification;
-
-    #[doc(alias = "gtk_label_get_label")]
-    #[doc(alias = "get_label")]
-    fn label(&self) -> glib::GString;
-
-    #[doc(alias = "gtk_label_get_layout")]
-    #[doc(alias = "get_layout")]
-    fn layout(&self) -> Option<pango::Layout>;
-
-    #[doc(alias = "gtk_label_get_layout_offsets")]
-    #[doc(alias = "get_layout_offsets")]
-    fn layout_offsets(&self) -> (i32, i32);
-
-    #[doc(alias = "gtk_label_get_line_wrap")]
-    #[doc(alias = "get_line_wrap")]
-    fn is_line_wrap(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_line_wrap_mode")]
-    #[doc(alias = "get_line_wrap_mode")]
-    fn line_wrap_mode(&self) -> pango::WrapMode;
-
-    #[doc(alias = "gtk_label_get_lines")]
-    #[doc(alias = "get_lines")]
-    fn lines(&self) -> i32;
-
-    #[doc(alias = "gtk_label_get_max_width_chars")]
-    #[doc(alias = "get_max_width_chars")]
-    fn max_width_chars(&self) -> i32;
-
-    #[doc(alias = "gtk_label_get_mnemonic_keyval")]
-    #[doc(alias = "get_mnemonic_keyval")]
-    fn mnemonic_keyval(&self) -> u32;
-
-    #[doc(alias = "gtk_label_get_mnemonic_widget")]
-    #[doc(alias = "get_mnemonic_widget")]
-    fn mnemonic_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_label_get_selectable")]
-    #[doc(alias = "get_selectable")]
-    fn is_selectable(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_selection_bounds")]
-    #[doc(alias = "get_selection_bounds")]
-    fn selection_bounds(&self) -> Option<(i32, i32)>;
-
-    #[doc(alias = "gtk_label_get_single_line_mode")]
-    #[doc(alias = "get_single_line_mode")]
-    fn is_single_line_mode(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_text")]
-    #[doc(alias = "get_text")]
-    fn text(&self) -> glib::GString;
-
-    #[doc(alias = "gtk_label_get_track_visited_links")]
-    #[doc(alias = "get_track_visited_links")]
-    fn tracks_visited_links(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_use_markup")]
-    #[doc(alias = "get_use_markup")]
-    fn uses_markup(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_use_underline")]
-    #[doc(alias = "get_use_underline")]
-    fn uses_underline(&self) -> bool;
-
-    #[doc(alias = "gtk_label_get_width_chars")]
-    #[doc(alias = "get_width_chars")]
-    fn width_chars(&self) -> i32;
-
-    #[doc(alias = "gtk_label_get_xalign")]
-    #[doc(alias = "get_xalign")]
-    fn xalign(&self) -> f32;
-
-    #[doc(alias = "gtk_label_get_yalign")]
-    #[doc(alias = "get_yalign")]
-    fn yalign(&self) -> f32;
-
-    #[doc(alias = "gtk_label_select_region")]
-    fn select_region(&self, start_offset: i32, end_offset: i32);
-
-    #[doc(alias = "gtk_label_set_angle")]
-    fn set_angle(&self, angle: f64);
-
-    #[doc(alias = "gtk_label_set_attributes")]
-    fn set_attributes(&self, attrs: Option<&pango::AttrList>);
-
-    #[doc(alias = "gtk_label_set_ellipsize")]
-    fn set_ellipsize(&self, mode: pango::EllipsizeMode);
-
-    #[doc(alias = "gtk_label_set_justify")]
-    fn set_justify(&self, jtype: Justification);
-
-    #[doc(alias = "gtk_label_set_label")]
-    fn set_label(&self, str: &str);
-
-    #[doc(alias = "gtk_label_set_line_wrap")]
-    fn set_line_wrap(&self, wrap: bool);
-
-    #[doc(alias = "gtk_label_set_line_wrap_mode")]
-    fn set_line_wrap_mode(&self, wrap_mode: pango::WrapMode);
-
-    #[doc(alias = "gtk_label_set_lines")]
-    fn set_lines(&self, lines: i32);
-
-    #[doc(alias = "gtk_label_set_markup")]
-    fn set_markup(&self, str: &str);
-
-    #[doc(alias = "gtk_label_set_markup_with_mnemonic")]
-    fn set_markup_with_mnemonic(&self, str: &str);
-
-    #[doc(alias = "gtk_label_set_max_width_chars")]
-    fn set_max_width_chars(&self, n_chars: i32);
-
-    #[doc(alias = "gtk_label_set_mnemonic_widget")]
-    fn set_mnemonic_widget(&self, widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_label_set_pattern")]
-    fn set_pattern(&self, pattern: &str);
-
-    #[doc(alias = "gtk_label_set_selectable")]
-    fn set_selectable(&self, setting: bool);
-
-    #[doc(alias = "gtk_label_set_single_line_mode")]
-    fn set_single_line_mode(&self, single_line_mode: bool);
-
-    #[doc(alias = "gtk_label_set_text")]
-    fn set_text(&self, str: &str);
-
-    #[doc(alias = "gtk_label_set_text_with_mnemonic")]
-    fn set_text_with_mnemonic(&self, str: &str);
-
-    #[doc(alias = "gtk_label_set_track_visited_links")]
-    fn set_track_visited_links(&self, track_links: bool);
-
-    #[doc(alias = "gtk_label_set_use_markup")]
-    fn set_use_markup(&self, setting: bool);
-
-    #[doc(alias = "gtk_label_set_use_underline")]
-    fn set_use_underline(&self, setting: bool);
-
-    #[doc(alias = "gtk_label_set_width_chars")]
-    fn set_width_chars(&self, n_chars: i32);
-
-    #[doc(alias = "gtk_label_set_xalign")]
-    fn set_xalign(&self, xalign: f32);
-
-    #[doc(alias = "gtk_label_set_yalign")]
-    fn set_yalign(&self, yalign: f32);
-
-    #[doc(alias = "cursor-position")]
-    fn cursor_position(&self) -> i32;
-
-    #[doc(alias = "selection-bound")]
-    fn selection_bound(&self) -> i32;
-
-    fn wraps(&self) -> bool;
-
-    fn set_wrap(&self, wrap: bool);
-
-    #[doc(alias = "wrap-mode")]
-    fn wrap_mode(&self) -> pango::WrapMode;
-
-    #[doc(alias = "wrap-mode")]
-    fn set_wrap_mode(&self, wrap_mode: pango::WrapMode);
-
-    #[doc(alias = "activate-current-link")]
-    fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_current_link(&self);
-
-    #[doc(alias = "activate-link")]
-    fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "copy-clipboard")]
-    fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_copy_clipboard(&self);
-
-    #[doc(alias = "move-cursor")]
-    fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_cursor(&self, step: MovementStep, count: i32, extend_selection: bool);
-
-    #[doc(alias = "populate-popup")]
-    fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "angle")]
-    fn connect_angle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "attributes")]
-    fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "cursor-position")]
-    fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "ellipsize")]
-    fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "justify")]
-    fn connect_justify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "lines")]
-    fn connect_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "max-width-chars")]
-    fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "mnemonic-keyval")]
-    fn connect_mnemonic_keyval_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "mnemonic-widget")]
-    fn connect_mnemonic_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "pattern")]
-    fn connect_pattern_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "selectable")]
-    fn connect_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "selection-bound")]
-    fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "single-line-mode")]
-    fn connect_single_line_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "track-visited-links")]
-    fn connect_track_visited_links_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-markup")]
-    fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "use-underline")]
-    fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "width-chars")]
-    fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "wrap")]
-    fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "wrap-mode")]
-    fn connect_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Label>> LabelExt for O {
     fn angle(&self) -> f64 {
         unsafe { ffi::gtk_label_get_angle(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_attributes")]
+    #[doc(alias = "get_attributes")]
     fn attributes(&self) -> Option<pango::AttrList> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_attributes(
@@ -675,6 +406,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_current_uri")]
+    #[doc(alias = "get_current_uri")]
     fn current_uri(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_current_uri(
@@ -683,22 +416,32 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_ellipsize")]
+    #[doc(alias = "get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode {
         unsafe { from_glib(ffi::gtk_label_get_ellipsize(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_justify")]
+    #[doc(alias = "get_justify")]
     fn justify(&self) -> Justification {
         unsafe { from_glib(ffi::gtk_label_get_justify(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::gtk_label_get_label(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_layout")]
+    #[doc(alias = "get_layout")]
     fn layout(&self) -> Option<pango::Layout> {
         unsafe { from_glib_none(ffi::gtk_label_get_layout(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_layout_offsets")]
+    #[doc(alias = "get_layout_offsets")]
     fn layout_offsets(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -712,10 +455,14 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_line_wrap")]
+    #[doc(alias = "get_line_wrap")]
     fn is_line_wrap(&self) -> bool {
         unsafe { from_glib(ffi::gtk_label_get_line_wrap(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_line_wrap_mode")]
+    #[doc(alias = "get_line_wrap_mode")]
     fn line_wrap_mode(&self) -> pango::WrapMode {
         unsafe {
             from_glib(ffi::gtk_label_get_line_wrap_mode(
@@ -724,18 +471,26 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_lines")]
+    #[doc(alias = "get_lines")]
     fn lines(&self) -> i32 {
         unsafe { ffi::gtk_label_get_lines(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_max_width_chars")]
+    #[doc(alias = "get_max_width_chars")]
     fn max_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_max_width_chars(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_mnemonic_keyval")]
+    #[doc(alias = "get_mnemonic_keyval")]
     fn mnemonic_keyval(&self) -> u32 {
         unsafe { ffi::gtk_label_get_mnemonic_keyval(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_mnemonic_widget")]
+    #[doc(alias = "get_mnemonic_widget")]
     fn mnemonic_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_mnemonic_widget(
@@ -744,6 +499,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_selectable")]
+    #[doc(alias = "get_selectable")]
     fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_selectable(
@@ -752,6 +509,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_selection_bounds")]
+    #[doc(alias = "get_selection_bounds")]
     fn selection_bounds(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut start = mem::MaybeUninit::uninit();
@@ -769,6 +528,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_single_line_mode")]
+    #[doc(alias = "get_single_line_mode")]
     fn is_single_line_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_single_line_mode(
@@ -777,10 +538,14 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_text")]
+    #[doc(alias = "get_text")]
     fn text(&self) -> glib::GString {
         unsafe { from_glib_none(ffi::gtk_label_get_text(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_label_get_track_visited_links")]
+    #[doc(alias = "get_track_visited_links")]
     fn tracks_visited_links(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_track_visited_links(
@@ -789,6 +554,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_use_markup")]
+    #[doc(alias = "get_use_markup")]
     fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_markup(
@@ -797,6 +564,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_use_underline")]
+    #[doc(alias = "get_use_underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_underline(
@@ -805,60 +574,74 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_get_width_chars")]
+    #[doc(alias = "get_width_chars")]
     fn width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_xalign")]
+    #[doc(alias = "get_xalign")]
     fn xalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_xalign(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_get_yalign")]
+    #[doc(alias = "get_yalign")]
     fn yalign(&self) -> f32 {
         unsafe { ffi::gtk_label_get_yalign(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_label_select_region")]
     fn select_region(&self, start_offset: i32, end_offset: i32) {
         unsafe {
             ffi::gtk_label_select_region(self.as_ref().to_glib_none().0, start_offset, end_offset);
         }
     }
 
+    #[doc(alias = "gtk_label_set_angle")]
     fn set_angle(&self, angle: f64) {
         unsafe {
             ffi::gtk_label_set_angle(self.as_ref().to_glib_none().0, angle);
         }
     }
 
+    #[doc(alias = "gtk_label_set_attributes")]
     fn set_attributes(&self, attrs: Option<&pango::AttrList>) {
         unsafe {
             ffi::gtk_label_set_attributes(self.as_ref().to_glib_none().0, attrs.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_label_set_ellipsize")]
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
             ffi::gtk_label_set_ellipsize(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_justify")]
     fn set_justify(&self, jtype: Justification) {
         unsafe {
             ffi::gtk_label_set_justify(self.as_ref().to_glib_none().0, jtype.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_label")]
     fn set_label(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_label(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_label_set_line_wrap")]
     fn set_line_wrap(&self, wrap: bool) {
         unsafe {
             ffi::gtk_label_set_line_wrap(self.as_ref().to_glib_none().0, wrap.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_line_wrap_mode")]
     fn set_line_wrap_mode(&self, wrap_mode: pango::WrapMode) {
         unsafe {
             ffi::gtk_label_set_line_wrap_mode(
@@ -868,18 +651,21 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_lines")]
     fn set_lines(&self, lines: i32) {
         unsafe {
             ffi::gtk_label_set_lines(self.as_ref().to_glib_none().0, lines);
         }
     }
 
+    #[doc(alias = "gtk_label_set_markup")]
     fn set_markup(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_markup(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_label_set_markup_with_mnemonic")]
     fn set_markup_with_mnemonic(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_markup_with_mnemonic(
@@ -889,12 +675,14 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_max_width_chars")]
     fn set_max_width_chars(&self, n_chars: i32) {
         unsafe {
             ffi::gtk_label_set_max_width_chars(self.as_ref().to_glib_none().0, n_chars);
         }
     }
 
+    #[doc(alias = "gtk_label_set_mnemonic_widget")]
     fn set_mnemonic_widget(&self, widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_label_set_mnemonic_widget(
@@ -904,18 +692,21 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_pattern")]
     fn set_pattern(&self, pattern: &str) {
         unsafe {
             ffi::gtk_label_set_pattern(self.as_ref().to_glib_none().0, pattern.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_label_set_selectable")]
     fn set_selectable(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_selectable(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_single_line_mode")]
     fn set_single_line_mode(&self, single_line_mode: bool) {
         unsafe {
             ffi::gtk_label_set_single_line_mode(
@@ -925,12 +716,14 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_text")]
     fn set_text(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_text(self.as_ref().to_glib_none().0, str.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_label_set_text_with_mnemonic")]
     fn set_text_with_mnemonic(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_text_with_mnemonic(
@@ -940,6 +733,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_track_visited_links")]
     fn set_track_visited_links(&self, track_links: bool) {
         unsafe {
             ffi::gtk_label_set_track_visited_links(
@@ -949,40 +743,47 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "gtk_label_set_use_markup")]
     fn set_use_markup(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_use_markup(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_use_underline")]
     fn set_use_underline(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_use_underline(self.as_ref().to_glib_none().0, setting.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_label_set_width_chars")]
     fn set_width_chars(&self, n_chars: i32) {
         unsafe {
             ffi::gtk_label_set_width_chars(self.as_ref().to_glib_none().0, n_chars);
         }
     }
 
+    #[doc(alias = "gtk_label_set_xalign")]
     fn set_xalign(&self, xalign: f32) {
         unsafe {
             ffi::gtk_label_set_xalign(self.as_ref().to_glib_none().0, xalign);
         }
     }
 
+    #[doc(alias = "gtk_label_set_yalign")]
     fn set_yalign(&self, yalign: f32) {
         unsafe {
             ffi::gtk_label_set_yalign(self.as_ref().to_glib_none().0, yalign);
         }
     }
 
+    #[doc(alias = "cursor-position")]
     fn cursor_position(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
+    #[doc(alias = "selection-bound")]
     fn selection_bound(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "selection-bound")
     }
@@ -995,14 +796,17 @@ impl<O: IsA<Label>> LabelExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "wrap", wrap)
     }
 
+    #[doc(alias = "wrap-mode")]
     fn wrap_mode(&self) -> pango::WrapMode {
         glib::ObjectExt::property(self.as_ref(), "wrap-mode")
     }
 
+    #[doc(alias = "wrap-mode")]
     fn set_wrap_mode(&self, wrap_mode: pango::WrapMode) {
         glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", wrap_mode)
     }
 
+    #[doc(alias = "activate-current-link")]
     fn connect_activate_current_link<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_link_trampoline<
             P: IsA<Label>,
@@ -1031,6 +835,7 @@ impl<O: IsA<Label>> LabelExt for O {
         self.emit_by_name::<()>("activate-current-link", &[]);
     }
 
+    #[doc(alias = "activate-link")]
     fn connect_activate_link<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -1063,6 +868,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "copy-clipboard")]
     fn connect_copy_clipboard<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn copy_clipboard_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1088,6 +894,7 @@ impl<O: IsA<Label>> LabelExt for O {
         self.emit_by_name::<()>("copy-clipboard", &[]);
     }
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32, bool) + 'static>(
         &self,
         f: F,
@@ -1127,6 +934,7 @@ impl<O: IsA<Label>> LabelExt for O {
         self.emit_by_name::<()>("move-cursor", &[&step, &count, &extend_selection]);
     }
 
+    #[doc(alias = "populate-popup")]
     fn connect_populate_popup<F: Fn(&Self, &Menu) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn populate_popup_trampoline<
             P: IsA<Label>,
@@ -1155,6 +963,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "angle")]
     fn connect_angle_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_angle_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1177,6 +986,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "attributes")]
     fn connect_attributes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attributes_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1199,6 +1009,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "cursor-position")]
     fn connect_cursor_position_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_cursor_position_trampoline<
             P: IsA<Label>,
@@ -1224,6 +1035,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "ellipsize")]
     fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1246,6 +1058,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "justify")]
     fn connect_justify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_justify_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1268,6 +1081,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1290,6 +1104,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "lines")]
     fn connect_lines_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_lines_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1312,6 +1127,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "max-width-chars")]
     fn connect_max_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_max_width_chars_trampoline<
             P: IsA<Label>,
@@ -1337,6 +1153,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "mnemonic-keyval")]
     fn connect_mnemonic_keyval_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_keyval_trampoline<
             P: IsA<Label>,
@@ -1362,6 +1179,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "mnemonic-widget")]
     fn connect_mnemonic_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_mnemonic_widget_trampoline<
             P: IsA<Label>,
@@ -1387,6 +1205,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "pattern")]
     fn connect_pattern_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_pattern_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1409,6 +1228,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "selectable")]
     fn connect_selectable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selectable_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1431,6 +1251,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "selection-bound")]
     fn connect_selection_bound_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_bound_trampoline<
             P: IsA<Label>,
@@ -1456,6 +1277,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "single-line-mode")]
     fn connect_single_line_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_single_line_mode_trampoline<
             P: IsA<Label>,
@@ -1481,6 +1303,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "track-visited-links")]
     fn connect_track_visited_links_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_track_visited_links_trampoline<
             P: IsA<Label>,
@@ -1506,6 +1329,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "use-markup")]
     fn connect_use_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_markup_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1528,6 +1352,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "use-underline")]
     fn connect_use_underline_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_use_underline_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1550,6 +1375,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "width-chars")]
     fn connect_width_chars_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_width_chars_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1572,6 +1398,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "wrap")]
     fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1594,6 +1421,7 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 
+    #[doc(alias = "wrap-mode")]
     fn connect_wrap_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_mode_trampoline<P: IsA<Label>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkLabel,
@@ -1616,6 +1444,8 @@ impl<O: IsA<Label>> LabelExt for O {
         }
     }
 }
+
+impl<O: IsA<Label>> LabelExt for O {}
 
 impl fmt::Display for Label {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

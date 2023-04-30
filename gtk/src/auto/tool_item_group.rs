@@ -314,99 +314,9 @@ impl ToolItemGroupBuilder {
     }
 }
 
-pub trait ToolItemGroupExt: 'static {
+pub trait ToolItemGroupExt: IsA<ToolItemGroup> + 'static {
     #[doc(alias = "gtk_tool_item_group_get_collapsed")]
     #[doc(alias = "get_collapsed")]
-    fn is_collapsed(&self) -> bool;
-
-    #[doc(alias = "gtk_tool_item_group_get_drop_item")]
-    #[doc(alias = "get_drop_item")]
-    fn drop_item(&self, x: i32, y: i32) -> Option<ToolItem>;
-
-    #[doc(alias = "gtk_tool_item_group_get_ellipsize")]
-    #[doc(alias = "get_ellipsize")]
-    fn ellipsize(&self) -> pango::EllipsizeMode;
-
-    #[doc(alias = "gtk_tool_item_group_get_header_relief")]
-    #[doc(alias = "get_header_relief")]
-    fn header_relief(&self) -> ReliefStyle;
-
-    #[doc(alias = "gtk_tool_item_group_get_item_position")]
-    #[doc(alias = "get_item_position")]
-    fn item_position(&self, item: &impl IsA<ToolItem>) -> i32;
-
-    #[doc(alias = "gtk_tool_item_group_get_label")]
-    #[doc(alias = "get_label")]
-    fn label(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_tool_item_group_get_label_widget")]
-    #[doc(alias = "get_label_widget")]
-    fn label_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_tool_item_group_get_n_items")]
-    #[doc(alias = "get_n_items")]
-    fn n_items(&self) -> u32;
-
-    #[doc(alias = "gtk_tool_item_group_get_nth_item")]
-    #[doc(alias = "get_nth_item")]
-    fn nth_item(&self, index: u32) -> Option<ToolItem>;
-
-    #[doc(alias = "gtk_tool_item_group_insert")]
-    fn insert(&self, item: &impl IsA<ToolItem>, position: i32);
-
-    #[doc(alias = "gtk_tool_item_group_set_collapsed")]
-    fn set_collapsed(&self, collapsed: bool);
-
-    #[doc(alias = "gtk_tool_item_group_set_ellipsize")]
-    fn set_ellipsize(&self, ellipsize: pango::EllipsizeMode);
-
-    #[doc(alias = "gtk_tool_item_group_set_header_relief")]
-    fn set_header_relief(&self, style: ReliefStyle);
-
-    #[doc(alias = "gtk_tool_item_group_set_item_position")]
-    fn set_item_position(&self, item: &impl IsA<ToolItem>, position: i32);
-
-    #[doc(alias = "gtk_tool_item_group_set_label")]
-    fn set_label(&self, label: &str);
-
-    #[doc(alias = "gtk_tool_item_group_set_label_widget")]
-    fn set_label_widget(&self, label_widget: &impl IsA<Widget>);
-
-    fn item_expands<T: IsA<ToolItem>>(&self, item: &T) -> bool;
-
-    fn set_item_expand<T: IsA<ToolItem>>(&self, item: &T, expand: bool);
-
-    fn item_fills<T: IsA<ToolItem>>(&self, item: &T) -> bool;
-
-    fn set_item_fill<T: IsA<ToolItem>>(&self, item: &T, fill: bool);
-
-    fn item_is_homogeneous<T: IsA<ToolItem>>(&self, item: &T) -> bool;
-
-    fn set_item_homogeneous<T: IsA<ToolItem>>(&self, item: &T, homogeneous: bool);
-
-    #[doc(alias = "item.new-row")]
-    fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool;
-
-    #[doc(alias = "item.new-row")]
-    fn set_item_new_row<T: IsA<ToolItem>>(&self, item: &T, new_row: bool);
-
-    #[doc(alias = "collapsed")]
-    fn connect_collapsed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "ellipsize")]
-    fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "header-relief")]
-    fn connect_header_relief_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-widget")]
-    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
     fn is_collapsed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_collapsed(
@@ -415,6 +325,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_drop_item")]
+    #[doc(alias = "get_drop_item")]
     fn drop_item(&self, x: i32, y: i32) -> Option<ToolItem> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_drop_item(
@@ -425,6 +337,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_ellipsize")]
+    #[doc(alias = "get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_ellipsize(
@@ -433,6 +347,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_header_relief")]
+    #[doc(alias = "get_header_relief")]
     fn header_relief(&self) -> ReliefStyle {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_header_relief(
@@ -441,6 +357,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_item_position")]
+    #[doc(alias = "get_item_position")]
     fn item_position(&self, item: &impl IsA<ToolItem>) -> i32 {
         unsafe {
             ffi::gtk_tool_item_group_get_item_position(
@@ -450,6 +368,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_label")]
+    #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_label(
@@ -458,6 +378,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_label_widget")]
+    #[doc(alias = "get_label_widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_label_widget(
@@ -466,10 +388,14 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_n_items")]
+    #[doc(alias = "get_n_items")]
     fn n_items(&self) -> u32 {
         unsafe { ffi::gtk_tool_item_group_get_n_items(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_tool_item_group_get_nth_item")]
+    #[doc(alias = "get_nth_item")]
     fn nth_item(&self, index: u32) -> Option<ToolItem> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_nth_item(
@@ -479,6 +405,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_insert")]
     fn insert(&self, item: &impl IsA<ToolItem>, position: i32) {
         unsafe {
             ffi::gtk_tool_item_group_insert(
@@ -489,6 +416,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_collapsed")]
     fn set_collapsed(&self, collapsed: bool) {
         unsafe {
             ffi::gtk_tool_item_group_set_collapsed(
@@ -498,6 +426,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_ellipsize")]
     fn set_ellipsize(&self, ellipsize: pango::EllipsizeMode) {
         unsafe {
             ffi::gtk_tool_item_group_set_ellipsize(
@@ -507,6 +436,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_header_relief")]
     fn set_header_relief(&self, style: ReliefStyle) {
         unsafe {
             ffi::gtk_tool_item_group_set_header_relief(
@@ -516,6 +446,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_item_position")]
     fn set_item_position(&self, item: &impl IsA<ToolItem>, position: i32) {
         unsafe {
             ffi::gtk_tool_item_group_set_item_position(
@@ -526,6 +457,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_label")]
     fn set_label(&self, label: &str) {
         unsafe {
             ffi::gtk_tool_item_group_set_label(
@@ -535,6 +467,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tool_item_group_set_label_widget")]
     fn set_label_widget(&self, label_widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_tool_item_group_set_label_widget(
@@ -595,6 +528,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         )
     }
 
+    #[doc(alias = "item.new-row")]
     fn item_is_new_row<T: IsA<ToolItem>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -603,6 +537,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         )
     }
 
+    #[doc(alias = "item.new-row")]
     fn set_item_new_row<T: IsA<ToolItem>>(&self, item: &T, new_row: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -612,6 +547,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         )
     }
 
+    #[doc(alias = "collapsed")]
     fn connect_collapsed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_collapsed_trampoline<
             P: IsA<ToolItemGroup>,
@@ -637,6 +573,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "ellipsize")]
     fn connect_ellipsize_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ellipsize_trampoline<
             P: IsA<ToolItemGroup>,
@@ -662,6 +599,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "header-relief")]
     fn connect_header_relief_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_header_relief_trampoline<
             P: IsA<ToolItemGroup>,
@@ -687,6 +625,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<ToolItemGroup>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkToolItemGroup,
@@ -709,6 +648,7 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 
+    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<
             P: IsA<ToolItemGroup>,
@@ -734,6 +674,8 @@ impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {
         }
     }
 }
+
+impl<O: IsA<ToolItemGroup>> ToolItemGroupExt for O {}
 
 impl fmt::Display for ToolItemGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

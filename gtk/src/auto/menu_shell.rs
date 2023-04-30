@@ -23,100 +23,8 @@ impl MenuShell {
     pub const NONE: Option<&'static MenuShell> = None;
 }
 
-pub trait MenuShellExt: 'static {
+pub trait MenuShellExt: IsA<MenuShell> + 'static {
     #[doc(alias = "gtk_menu_shell_activate_item")]
-    fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool);
-
-    #[doc(alias = "gtk_menu_shell_append")]
-    fn append(&self, child: &impl IsA<MenuItem>);
-
-    #[doc(alias = "gtk_menu_shell_bind_model")]
-    fn bind_model(
-        &self,
-        model: Option<&impl IsA<gio::MenuModel>>,
-        action_namespace: Option<&str>,
-        with_separators: bool,
-    );
-
-    #[doc(alias = "gtk_menu_shell_cancel")]
-    fn cancel(&self);
-
-    #[doc(alias = "gtk_menu_shell_deactivate")]
-    fn deactivate(&self);
-
-    #[doc(alias = "gtk_menu_shell_deselect")]
-    fn deselect(&self);
-
-    #[doc(alias = "gtk_menu_shell_get_parent_shell")]
-    #[doc(alias = "get_parent_shell")]
-    fn parent_shell(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_shell_get_selected_item")]
-    #[doc(alias = "get_selected_item")]
-    fn selected_item(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_shell_get_take_focus")]
-    #[doc(alias = "get_take_focus")]
-    fn takes_focus(&self) -> bool;
-
-    #[doc(alias = "gtk_menu_shell_insert")]
-    fn insert(&self, child: &impl IsA<Widget>, position: i32);
-
-    #[doc(alias = "gtk_menu_shell_prepend")]
-    fn prepend(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_menu_shell_select_first")]
-    fn select_first(&self, search_sensitive: bool);
-
-    #[doc(alias = "gtk_menu_shell_select_item")]
-    fn select_item(&self, menu_item: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_menu_shell_set_take_focus")]
-    fn set_take_focus(&self, take_focus: bool);
-
-    #[doc(alias = "activate-current")]
-    fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_current(&self, force_hide: bool);
-
-    #[doc(alias = "cancel")]
-    fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_cancel(&self);
-
-    #[doc(alias = "cycle-focus")]
-    fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_cycle_focus(&self, direction: DirectionType);
-
-    #[doc(alias = "deactivate")]
-    fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "insert")]
-    fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "move-current")]
-    fn connect_move_current<F: Fn(&Self, MenuDirectionType) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_current(&self, direction: MenuDirectionType);
-
-    #[doc(alias = "move-selected")]
-    fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "selection-done")]
-    fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "take-focus")]
-    fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<MenuShell>> MenuShellExt for O {
     fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool) {
         unsafe {
             ffi::gtk_menu_shell_activate_item(
@@ -127,6 +35,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_append")]
     fn append(&self, child: &impl IsA<MenuItem>) {
         unsafe {
             ffi::gtk_menu_shell_append(
@@ -136,6 +45,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_bind_model")]
     fn bind_model(
         &self,
         model: Option<&impl IsA<gio::MenuModel>>,
@@ -152,24 +62,29 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_cancel")]
     fn cancel(&self) {
         unsafe {
             ffi::gtk_menu_shell_cancel(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_deactivate")]
     fn deactivate(&self) {
         unsafe {
             ffi::gtk_menu_shell_deactivate(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_deselect")]
     fn deselect(&self) {
         unsafe {
             ffi::gtk_menu_shell_deselect(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_get_parent_shell")]
+    #[doc(alias = "get_parent_shell")]
     fn parent_shell(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_shell_get_parent_shell(
@@ -178,6 +93,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_get_selected_item")]
+    #[doc(alias = "get_selected_item")]
     fn selected_item(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_shell_get_selected_item(
@@ -186,6 +103,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_get_take_focus")]
+    #[doc(alias = "get_take_focus")]
     fn takes_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_shell_get_take_focus(
@@ -194,6 +113,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_insert")]
     fn insert(&self, child: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_menu_shell_insert(
@@ -204,6 +124,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_prepend")]
     fn prepend(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_shell_prepend(
@@ -213,6 +134,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_select_first")]
     fn select_first(&self, search_sensitive: bool) {
         unsafe {
             ffi::gtk_menu_shell_select_first(
@@ -222,6 +144,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_select_item")]
     fn select_item(&self, menu_item: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_menu_shell_select_item(
@@ -231,6 +154,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_shell_set_take_focus")]
     fn set_take_focus(&self, take_focus: bool) {
         unsafe {
             ffi::gtk_menu_shell_set_take_focus(
@@ -240,6 +164,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "activate-current")]
     fn connect_activate_current<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_current_trampoline<
             P: IsA<MenuShell>,
@@ -272,6 +197,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         self.emit_by_name::<()>("activate-current", &[&force_hide]);
     }
 
+    #[doc(alias = "cancel")]
     fn connect_cancel<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cancel_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -297,6 +223,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         self.emit_by_name::<()>("cancel", &[]);
     }
 
+    #[doc(alias = "cycle-focus")]
     fn connect_cycle_focus<F: Fn(&Self, DirectionType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn cycle_focus_trampoline<
             P: IsA<MenuShell>,
@@ -329,6 +256,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         self.emit_by_name::<()>("cycle-focus", &[&direction]);
     }
 
+    #[doc(alias = "deactivate")]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn deactivate_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -350,6 +278,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "insert")]
     fn connect_insert<F: Fn(&Self, &Widget, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn insert_trampoline<
             P: IsA<MenuShell>,
@@ -380,6 +309,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "move-current")]
     fn connect_move_current<F: Fn(&Self, MenuDirectionType) + 'static>(
         &self,
         f: F,
@@ -415,6 +345,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         self.emit_by_name::<()>("move-current", &[&direction]);
     }
 
+    #[doc(alias = "move-selected")]
     fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
@@ -447,6 +378,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "selection-done")]
     fn connect_selection_done<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selection_done_trampoline<P: IsA<MenuShell>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenuShell,
@@ -468,6 +400,7 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 
+    #[doc(alias = "take-focus")]
     fn connect_take_focus_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_take_focus_trampoline<
             P: IsA<MenuShell>,
@@ -493,6 +426,8 @@ impl<O: IsA<MenuShell>> MenuShellExt for O {
         }
     }
 }
+
+impl<O: IsA<MenuShell>> MenuShellExt for O {}
 
 impl fmt::Display for MenuShell {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

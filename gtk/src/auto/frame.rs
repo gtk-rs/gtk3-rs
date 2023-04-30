@@ -311,68 +311,15 @@ impl FrameBuilder {
     }
 }
 
-pub trait FrameExt: 'static {
+pub trait FrameExt: IsA<Frame> + 'static {
     #[doc(alias = "gtk_frame_get_label")]
     #[doc(alias = "get_label")]
-    fn label(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_frame_get_label_align")]
-    #[doc(alias = "get_label_align")]
-    fn label_align(&self) -> (f32, f32);
-
-    #[doc(alias = "gtk_frame_get_label_widget")]
-    #[doc(alias = "get_label_widget")]
-    fn label_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_frame_get_shadow_type")]
-    #[doc(alias = "get_shadow_type")]
-    fn shadow_type(&self) -> ShadowType;
-
-    #[doc(alias = "gtk_frame_set_label")]
-    fn set_label(&self, label: Option<&str>);
-
-    #[doc(alias = "gtk_frame_set_label_align")]
-    fn set_label_align(&self, xalign: f32, yalign: f32);
-
-    #[doc(alias = "gtk_frame_set_label_widget")]
-    fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_frame_set_shadow_type")]
-    fn set_shadow_type(&self, type_: ShadowType);
-
-    #[doc(alias = "label-xalign")]
-    fn label_xalign(&self) -> f32;
-
-    #[doc(alias = "label-xalign")]
-    fn set_label_xalign(&self, label_xalign: f32);
-
-    #[doc(alias = "label-yalign")]
-    fn label_yalign(&self) -> f32;
-
-    #[doc(alias = "label-yalign")]
-    fn set_label_yalign(&self, label_yalign: f32);
-
-    #[doc(alias = "label")]
-    fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-widget")]
-    fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-xalign")]
-    fn connect_label_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "label-yalign")]
-    fn connect_label_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "shadow-type")]
-    fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Frame>> FrameExt for O {
     fn label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_frame_get_label(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_frame_get_label_align")]
+    #[doc(alias = "get_label_align")]
     fn label_align(&self) -> (f32, f32) {
         unsafe {
             let mut xalign = mem::MaybeUninit::uninit();
@@ -386,6 +333,8 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "gtk_frame_get_label_widget")]
+    #[doc(alias = "get_label_widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_frame_get_label_widget(
@@ -394,6 +343,8 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "gtk_frame_get_shadow_type")]
+    #[doc(alias = "get_shadow_type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_frame_get_shadow_type(
@@ -402,18 +353,21 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "gtk_frame_set_label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_frame_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_frame_set_label_align")]
     fn set_label_align(&self, xalign: f32, yalign: f32) {
         unsafe {
             ffi::gtk_frame_set_label_align(self.as_ref().to_glib_none().0, xalign, yalign);
         }
     }
 
+    #[doc(alias = "gtk_frame_set_label_widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_frame_set_label_widget(
@@ -423,28 +377,34 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "gtk_frame_set_shadow_type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_frame_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
         }
     }
 
+    #[doc(alias = "label-xalign")]
     fn label_xalign(&self) -> f32 {
         glib::ObjectExt::property(self.as_ref(), "label-xalign")
     }
 
+    #[doc(alias = "label-xalign")]
     fn set_label_xalign(&self, label_xalign: f32) {
         glib::ObjectExt::set_property(self.as_ref(), "label-xalign", label_xalign)
     }
 
+    #[doc(alias = "label-yalign")]
     fn label_yalign(&self) -> f32 {
         glib::ObjectExt::property(self.as_ref(), "label-yalign")
     }
 
+    #[doc(alias = "label-yalign")]
     fn set_label_yalign(&self, label_yalign: f32) {
         glib::ObjectExt::set_property(self.as_ref(), "label-yalign", label_yalign)
     }
 
+    #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -467,6 +427,7 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "label-widget")]
     fn connect_label_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_widget_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -489,6 +450,7 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "label-xalign")]
     fn connect_label_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_xalign_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -511,6 +473,7 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "label-yalign")]
     fn connect_label_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_label_yalign_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -533,6 +496,7 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 
+    #[doc(alias = "shadow-type")]
     fn connect_shadow_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_shadow_type_trampoline<P: IsA<Frame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFrame,
@@ -555,6 +519,8 @@ impl<O: IsA<Frame>> FrameExt for O {
         }
     }
 }
+
+impl<O: IsA<Frame>> FrameExt for O {}
 
 impl fmt::Display for Frame {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

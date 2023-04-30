@@ -2,8 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
     Align, BaselinePosition, Box, Buildable, Container, FontChooser, Orientable, Orientation,
@@ -315,16 +315,16 @@ impl FontChooserWidgetBuilder {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn language(self, language: impl Into<glib::GString>) -> Self {
         Self {
             builder: self.builder.property("language", language.into()),
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn level(self, level: FontChooserLevel) -> Self {
         Self {
             builder: self.builder.property("level", level),
@@ -353,19 +353,13 @@ impl FontChooserWidgetBuilder {
     }
 }
 
-pub trait FontChooserWidgetExt: 'static {
+pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + 'static {
     //#[doc(alias = "tweak-action")]
-    //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action>;
-
-    #[doc(alias = "tweak-action")]
-    fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
     //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
     //    glib::ObjectExt::property(self.as_ref(), "tweak-action")
     //}
 
+    #[doc(alias = "tweak-action")]
     fn connect_tweak_action_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tweak_action_trampoline<
             P: IsA<FontChooserWidget>,
@@ -391,6 +385,8 @@ impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {
         }
     }
 }
+
+impl<O: IsA<FontChooserWidget>> FontChooserWidgetExt for O {}
 
 impl fmt::Display for FontChooserWidget {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

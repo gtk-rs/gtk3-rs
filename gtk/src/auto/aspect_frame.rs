@@ -350,42 +350,8 @@ impl AspectFrameBuilder {
     }
 }
 
-pub trait AspectFrameExt: 'static {
+pub trait AspectFrameExt: IsA<AspectFrame> + 'static {
     #[doc(alias = "gtk_aspect_frame_set")]
-    fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool);
-
-    #[doc(alias = "obey-child")]
-    fn is_obey_child(&self) -> bool;
-
-    #[doc(alias = "obey-child")]
-    fn set_obey_child(&self, obey_child: bool);
-
-    fn ratio(&self) -> f32;
-
-    fn set_ratio(&self, ratio: f32);
-
-    fn xalign(&self) -> f32;
-
-    fn set_xalign(&self, xalign: f32);
-
-    fn yalign(&self) -> f32;
-
-    fn set_yalign(&self, yalign: f32);
-
-    #[doc(alias = "obey-child")]
-    fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "ratio")]
-    fn connect_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "xalign")]
-    fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "yalign")]
-    fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<AspectFrame>> AspectFrameExt for O {
     fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool) {
         unsafe {
             ffi::gtk_aspect_frame_set(
@@ -398,10 +364,12 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
+    #[doc(alias = "obey-child")]
     fn is_obey_child(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "obey-child")
     }
 
+    #[doc(alias = "obey-child")]
     fn set_obey_child(&self, obey_child: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "obey-child", obey_child)
     }
@@ -430,6 +398,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "yalign", yalign)
     }
 
+    #[doc(alias = "obey-child")]
     fn connect_obey_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_obey_child_trampoline<
             P: IsA<AspectFrame>,
@@ -455,6 +424,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
+    #[doc(alias = "ratio")]
     fn connect_ratio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_ratio_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
@@ -477,6 +447,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
+    #[doc(alias = "xalign")]
     fn connect_xalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_xalign_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
@@ -499,6 +470,7 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 
+    #[doc(alias = "yalign")]
     fn connect_yalign_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_yalign_trampoline<P: IsA<AspectFrame>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkAspectFrame,
@@ -521,6 +493,8 @@ impl<O: IsA<AspectFrame>> AspectFrameExt for O {
         }
     }
 }
+
+impl<O: IsA<AspectFrame>> AspectFrameExt for O {}
 
 impl fmt::Display for AspectFrame {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

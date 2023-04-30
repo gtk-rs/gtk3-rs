@@ -376,187 +376,8 @@ impl MenuBuilder {
     }
 }
 
-pub trait GtkMenuExt: 'static {
+pub trait GtkMenuExt: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_attach")]
-    fn attach(
-        &self,
-        child: &impl IsA<Widget>,
-        left_attach: u32,
-        right_attach: u32,
-        top_attach: u32,
-        bottom_attach: u32,
-    );
-
-    #[doc(alias = "gtk_menu_detach")]
-    fn detach(&self);
-
-    #[doc(alias = "gtk_menu_get_accel_group")]
-    #[doc(alias = "get_accel_group")]
-    fn accel_group(&self) -> Option<AccelGroup>;
-
-    #[doc(alias = "gtk_menu_get_accel_path")]
-    #[doc(alias = "get_accel_path")]
-    fn accel_path(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_menu_get_active")]
-    #[doc(alias = "get_active")]
-    fn active(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_get_attach_widget")]
-    #[doc(alias = "get_attach_widget")]
-    fn attach_widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_menu_get_monitor")]
-    #[doc(alias = "get_monitor")]
-    fn monitor(&self) -> i32;
-
-    #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
-    #[doc(alias = "get_reserve_toggle_size")]
-    fn must_reserve_toggle_size(&self) -> bool;
-
-    #[doc(alias = "gtk_menu_place_on_monitor")]
-    fn place_on_monitor(&self, monitor: &gdk::Monitor);
-
-    #[doc(alias = "gtk_menu_popdown")]
-    fn popdown(&self);
-
-    #[doc(alias = "gtk_menu_popup_at_pointer")]
-    fn popup_at_pointer(&self, trigger_event: Option<&gdk::Event>);
-
-    #[doc(alias = "gtk_menu_popup_at_rect")]
-    fn popup_at_rect(
-        &self,
-        rect_window: &gdk::Window,
-        rect: &gdk::Rectangle,
-        rect_anchor: gdk::Gravity,
-        menu_anchor: gdk::Gravity,
-        trigger_event: Option<&gdk::Event>,
-    );
-
-    #[doc(alias = "gtk_menu_popup_at_widget")]
-    fn popup_at_widget(
-        &self,
-        widget: &impl IsA<Widget>,
-        widget_anchor: gdk::Gravity,
-        menu_anchor: gdk::Gravity,
-        trigger_event: Option<&gdk::Event>,
-    );
-
-    #[doc(alias = "gtk_menu_reorder_child")]
-    fn reorder_child(&self, child: &impl IsA<Widget>, position: i32);
-
-    #[doc(alias = "gtk_menu_reposition")]
-    fn reposition(&self);
-
-    #[doc(alias = "gtk_menu_set_accel_group")]
-    fn set_accel_group(&self, accel_group: Option<&impl IsA<AccelGroup>>);
-
-    #[doc(alias = "gtk_menu_set_accel_path")]
-    fn set_accel_path(&self, accel_path: Option<&str>);
-
-    #[doc(alias = "gtk_menu_set_active")]
-    fn set_active(&self, index: u32);
-
-    #[doc(alias = "gtk_menu_set_monitor")]
-    fn set_monitor(&self, monitor_num: i32);
-
-    #[doc(alias = "gtk_menu_set_reserve_toggle_size")]
-    fn set_reserve_toggle_size(&self, reserve_toggle_size: bool);
-
-    #[doc(alias = "gtk_menu_set_screen")]
-    fn set_screen(&self, screen: Option<&gdk::Screen>);
-
-    #[doc(alias = "anchor-hints")]
-    fn anchor_hints(&self) -> gdk::AnchorHints;
-
-    #[doc(alias = "anchor-hints")]
-    fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints);
-
-    #[doc(alias = "attach-widget")]
-    fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>);
-
-    #[doc(alias = "menu-type-hint")]
-    fn menu_type_hint(&self) -> gdk::WindowTypeHint;
-
-    #[doc(alias = "menu-type-hint")]
-    fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint);
-
-    #[doc(alias = "rect-anchor-dx")]
-    fn rect_anchor_dx(&self) -> i32;
-
-    #[doc(alias = "rect-anchor-dx")]
-    fn set_rect_anchor_dx(&self, rect_anchor_dx: i32);
-
-    #[doc(alias = "rect-anchor-dy")]
-    fn rect_anchor_dy(&self) -> i32;
-
-    #[doc(alias = "rect-anchor-dy")]
-    fn set_rect_anchor_dy(&self, rect_anchor_dy: i32);
-
-    #[doc(alias = "item.bottom-attach")]
-    fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
-
-    #[doc(alias = "item.bottom-attach")]
-    fn set_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T, bottom_attach: i32);
-
-    #[doc(alias = "item.left-attach")]
-    fn item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
-
-    #[doc(alias = "item.left-attach")]
-    fn set_item_left_attach<T: IsA<MenuItem>>(&self, item: &T, left_attach: i32);
-
-    #[doc(alias = "item.right-attach")]
-    fn item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
-
-    #[doc(alias = "item.right-attach")]
-    fn set_item_right_attach<T: IsA<MenuItem>>(&self, item: &T, right_attach: i32);
-
-    #[doc(alias = "item.top-attach")]
-    fn item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32;
-
-    #[doc(alias = "item.top-attach")]
-    fn set_item_top_attach<T: IsA<MenuItem>>(&self, item: &T, top_attach: i32);
-
-    #[doc(alias = "move-scroll")]
-    fn connect_move_scroll<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_move_scroll(&self, scroll_type: ScrollType);
-
-    //#[doc(alias = "popped-up")]
-    //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accel-group")]
-    fn connect_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "accel-path")]
-    fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "anchor-hints")]
-    fn connect_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "attach-widget")]
-    fn connect_attach_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "menu-type-hint")]
-    fn connect_menu_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "monitor")]
-    fn connect_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "rect-anchor-dx")]
-    fn connect_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "rect-anchor-dy")]
-    fn connect_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "reserve-toggle-size")]
-    fn connect_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Menu>> GtkMenuExt for O {
     fn attach(
         &self,
         child: &impl IsA<Widget>,
@@ -577,12 +398,15 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_detach")]
     fn detach(&self) {
         unsafe {
             ffi::gtk_menu_detach(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_get_accel_group")]
+    #[doc(alias = "get_accel_group")]
     fn accel_group(&self) -> Option<AccelGroup> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_accel_group(
@@ -591,14 +415,20 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_get_accel_path")]
+    #[doc(alias = "get_accel_path")]
     fn accel_path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_menu_get_accel_path(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_menu_get_active")]
+    #[doc(alias = "get_active")]
     fn active(&self) -> Option<Widget> {
         unsafe { from_glib_none(ffi::gtk_menu_get_active(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_menu_get_attach_widget")]
+    #[doc(alias = "get_attach_widget")]
     fn attach_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_attach_widget(
@@ -607,10 +437,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_get_monitor")]
+    #[doc(alias = "get_monitor")]
     fn monitor(&self) -> i32 {
         unsafe { ffi::gtk_menu_get_monitor(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
+    #[doc(alias = "get_reserve_toggle_size")]
     fn must_reserve_toggle_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_get_reserve_toggle_size(
@@ -619,6 +453,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_place_on_monitor")]
     fn place_on_monitor(&self, monitor: &gdk::Monitor) {
         unsafe {
             ffi::gtk_menu_place_on_monitor(
@@ -628,12 +463,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_popdown")]
     fn popdown(&self) {
         unsafe {
             ffi::gtk_menu_popdown(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_popup_at_pointer")]
     fn popup_at_pointer(&self, trigger_event: Option<&gdk::Event>) {
         unsafe {
             ffi::gtk_menu_popup_at_pointer(
@@ -643,6 +480,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_popup_at_rect")]
     fn popup_at_rect(
         &self,
         rect_window: &gdk::Window,
@@ -663,6 +501,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_popup_at_widget")]
     fn popup_at_widget(
         &self,
         widget: &impl IsA<Widget>,
@@ -681,6 +520,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_reorder_child")]
     fn reorder_child(&self, child: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_menu_reorder_child(
@@ -691,12 +531,14 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_reposition")]
     fn reposition(&self) {
         unsafe {
             ffi::gtk_menu_reposition(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_menu_set_accel_group")]
     fn set_accel_group(&self, accel_group: Option<&impl IsA<AccelGroup>>) {
         unsafe {
             ffi::gtk_menu_set_accel_group(
@@ -706,6 +548,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_set_accel_path")]
     fn set_accel_path(&self, accel_path: Option<&str>) {
         unsafe {
             ffi::gtk_menu_set_accel_path(
@@ -715,18 +558,21 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_set_active")]
     fn set_active(&self, index: u32) {
         unsafe {
             ffi::gtk_menu_set_active(self.as_ref().to_glib_none().0, index);
         }
     }
 
+    #[doc(alias = "gtk_menu_set_monitor")]
     fn set_monitor(&self, monitor_num: i32) {
         unsafe {
             ffi::gtk_menu_set_monitor(self.as_ref().to_glib_none().0, monitor_num);
         }
     }
 
+    #[doc(alias = "gtk_menu_set_reserve_toggle_size")]
     fn set_reserve_toggle_size(&self, reserve_toggle_size: bool) {
         unsafe {
             ffi::gtk_menu_set_reserve_toggle_size(
@@ -736,48 +582,59 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "gtk_menu_set_screen")]
     fn set_screen(&self, screen: Option<&gdk::Screen>) {
         unsafe {
             ffi::gtk_menu_set_screen(self.as_ref().to_glib_none().0, screen.to_glib_none().0);
         }
     }
 
+    #[doc(alias = "anchor-hints")]
     fn anchor_hints(&self) -> gdk::AnchorHints {
         glib::ObjectExt::property(self.as_ref(), "anchor-hints")
     }
 
+    #[doc(alias = "anchor-hints")]
     fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
         glib::ObjectExt::set_property(self.as_ref(), "anchor-hints", anchor_hints)
     }
 
+    #[doc(alias = "attach-widget")]
     fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
         glib::ObjectExt::set_property(self.as_ref(), "attach-widget", attach_widget)
     }
 
+    #[doc(alias = "menu-type-hint")]
     fn menu_type_hint(&self) -> gdk::WindowTypeHint {
         glib::ObjectExt::property(self.as_ref(), "menu-type-hint")
     }
 
+    #[doc(alias = "menu-type-hint")]
     fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
         glib::ObjectExt::set_property(self.as_ref(), "menu-type-hint", menu_type_hint)
     }
 
+    #[doc(alias = "rect-anchor-dx")]
     fn rect_anchor_dx(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "rect-anchor-dx")
     }
 
+    #[doc(alias = "rect-anchor-dx")]
     fn set_rect_anchor_dx(&self, rect_anchor_dx: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", rect_anchor_dx)
     }
 
+    #[doc(alias = "rect-anchor-dy")]
     fn rect_anchor_dy(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "rect-anchor-dy")
     }
 
+    #[doc(alias = "rect-anchor-dy")]
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", rect_anchor_dy)
     }
 
+    #[doc(alias = "item.bottom-attach")]
     fn item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -786,6 +643,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.bottom-attach")]
     fn set_item_bottom_attach<T: IsA<MenuItem>>(&self, item: &T, bottom_attach: i32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -795,6 +653,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.left-attach")]
     fn item_left_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -803,6 +662,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.left-attach")]
     fn set_item_left_attach<T: IsA<MenuItem>>(&self, item: &T, left_attach: i32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -812,6 +672,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.right-attach")]
     fn item_right_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -820,6 +681,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.right-attach")]
     fn set_item_right_attach<T: IsA<MenuItem>>(&self, item: &T, right_attach: i32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -829,6 +691,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.top-attach")]
     fn item_top_attach<T: IsA<MenuItem>>(&self, item: &T) -> i32 {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -837,6 +700,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "item.top-attach")]
     fn set_item_top_attach<T: IsA<MenuItem>>(&self, item: &T, top_attach: i32) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -846,6 +710,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         )
     }
 
+    #[doc(alias = "move-scroll")]
     fn connect_move_scroll<F: Fn(&Self, ScrollType) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn move_scroll_trampoline<
             P: IsA<Menu>,
@@ -878,11 +743,13 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         self.emit_by_name::<()>("move-scroll", &[&scroll_type]);
     }
 
+    //#[doc(alias = "popped-up")]
     //fn connect_popped_up<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Unimplemented flipped_rect: *.Pointer
     //    Unimplemented final_rect: *.Pointer
     //}
 
+    #[doc(alias = "accel-group")]
     fn connect_accel_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_group_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -905,6 +772,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "accel-path")]
     fn connect_accel_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_accel_path_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -927,6 +795,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -949,6 +818,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "anchor-hints")]
     fn connect_anchor_hints_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_anchor_hints_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -971,6 +841,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "attach-widget")]
     fn connect_attach_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_attach_widget_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -993,6 +864,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "menu-type-hint")]
     fn connect_menu_type_hint_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_menu_type_hint_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -1015,6 +887,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "monitor")]
     fn connect_monitor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_monitor_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -1037,6 +910,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "rect-anchor-dx")]
     fn connect_rect_anchor_dx_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rect_anchor_dx_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -1059,6 +933,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "rect-anchor-dy")]
     fn connect_rect_anchor_dy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_rect_anchor_dy_trampoline<P: IsA<Menu>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkMenu,
@@ -1081,6 +956,7 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 
+    #[doc(alias = "reserve-toggle-size")]
     fn connect_reserve_toggle_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_reserve_toggle_size_trampoline<
             P: IsA<Menu>,
@@ -1106,6 +982,8 @@ impl<O: IsA<Menu>> GtkMenuExt for O {
         }
     }
 }
+
+impl<O: IsA<Menu>> GtkMenuExt for O {}
 
 impl fmt::Display for Menu {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

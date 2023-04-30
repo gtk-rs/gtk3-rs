@@ -59,75 +59,23 @@ impl Default for Builder {
     }
 }
 
-pub trait BuilderExt: 'static {
+pub trait BuilderExt: IsA<Builder> + 'static {
     //#[doc(alias = "gtk_builder_add_callback_symbol")]
-    //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P);
-
-    //#[doc(alias = "gtk_builder_add_callback_symbols")]
-    //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    //#[doc(alias = "gtk_builder_connect_signals")]
-    //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>);
-
-    #[doc(alias = "gtk_builder_expose_object")]
-    fn expose_object(&self, name: &str, object: &impl IsA<glib::Object>);
-
-    #[doc(alias = "gtk_builder_get_application")]
-    #[doc(alias = "get_application")]
-    fn application(&self) -> Option<Application>;
-
-    #[doc(alias = "gtk_builder_get_objects")]
-    #[doc(alias = "get_objects")]
-    fn objects(&self) -> Vec<glib::Object>;
-
-    #[doc(alias = "gtk_builder_get_translation_domain")]
-    #[doc(alias = "get_translation_domain")]
-    fn translation_domain(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_builder_get_type_from_name")]
-    #[doc(alias = "get_type_from_name")]
-    fn type_from_name(&self, type_name: &str) -> glib::types::Type;
-
-    //#[doc(alias = "gtk_builder_lookup_callback_symbol")]
-    //fn lookup_callback_symbol(&self, callback_name: &str) -> Option<Box_<dyn Fn() + 'static>>;
-
-    #[doc(alias = "gtk_builder_set_application")]
-    fn set_application(&self, application: &impl IsA<Application>);
-
-    #[doc(alias = "gtk_builder_set_translation_domain")]
-    fn set_translation_domain(&self, domain: Option<&str>);
-
-    #[doc(alias = "gtk_builder_value_from_string")]
-    fn value_from_string(
-        &self,
-        pspec: impl AsRef<glib::ParamSpec>,
-        string: &str,
-    ) -> Result<glib::Value, glib::Error>;
-
-    #[doc(alias = "gtk_builder_value_from_string_type")]
-    fn value_from_string_type(
-        &self,
-        type_: glib::types::Type,
-        string: &str,
-    ) -> Result<glib::Value, glib::Error>;
-
-    #[doc(alias = "translation-domain")]
-    fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Builder>> BuilderExt for O {
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P) {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
     //}
 
+    //#[doc(alias = "gtk_builder_add_callback_symbols")]
     //fn add_callback_symbols<P: FnOnce() + 'static>(&self, first_callback_name: &str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
     //}
 
+    //#[doc(alias = "gtk_builder_connect_signals")]
     //fn connect_signals(&self, user_data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
     //}
 
+    #[doc(alias = "gtk_builder_expose_object")]
     fn expose_object(&self, name: &str, object: &impl IsA<glib::Object>) {
         unsafe {
             ffi::gtk_builder_expose_object(
@@ -138,6 +86,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_get_application")]
+    #[doc(alias = "get_application")]
     fn application(&self) -> Option<Application> {
         unsafe {
             from_glib_none(ffi::gtk_builder_get_application(
@@ -146,6 +96,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_get_objects")]
+    #[doc(alias = "get_objects")]
     fn objects(&self) -> Vec<glib::Object> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
@@ -154,6 +106,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_get_translation_domain")]
+    #[doc(alias = "get_translation_domain")]
     fn translation_domain(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_builder_get_translation_domain(
@@ -162,6 +116,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_get_type_from_name")]
+    #[doc(alias = "get_type_from_name")]
     fn type_from_name(&self, type_name: &str) -> glib::types::Type {
         unsafe {
             from_glib(ffi::gtk_builder_get_type_from_name(
@@ -171,10 +127,12 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_builder_lookup_callback_symbol")]
     //fn lookup_callback_symbol(&self, callback_name: &str) -> Option<Box_<dyn Fn() + 'static>> {
     //    unsafe { TODO: call ffi:gtk_builder_lookup_callback_symbol() }
     //}
 
+    #[doc(alias = "gtk_builder_set_application")]
     fn set_application(&self, application: &impl IsA<Application>) {
         unsafe {
             ffi::gtk_builder_set_application(
@@ -184,6 +142,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_set_translation_domain")]
     fn set_translation_domain(&self, domain: Option<&str>) {
         unsafe {
             ffi::gtk_builder_set_translation_domain(
@@ -193,6 +152,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_value_from_string")]
     fn value_from_string(
         &self,
         pspec: impl AsRef<glib::ParamSpec>,
@@ -217,6 +177,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "gtk_builder_value_from_string_type")]
     fn value_from_string_type(
         &self,
         type_: glib::types::Type,
@@ -241,6 +202,7 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 
+    #[doc(alias = "translation-domain")]
     fn connect_translation_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_translation_domain_trampoline<
             P: IsA<Builder>,
@@ -266,6 +228,8 @@ impl<O: IsA<Builder>> BuilderExt for O {
         }
     }
 }
+
+impl<O: IsA<Builder>> BuilderExt for O {}
 
 impl fmt::Display for Builder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

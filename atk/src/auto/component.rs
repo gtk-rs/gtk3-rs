@@ -2,8 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 use crate::ScrollType;
 use crate::{CoordType, Layer, Object, Rectangle};
 use glib::{
@@ -26,64 +26,8 @@ impl Component {
     pub const NONE: Option<&'static Component> = None;
 }
 
-pub trait ComponentExt: 'static {
+pub trait ComponentExt: IsA<Component> + 'static {
     #[doc(alias = "atk_component_contains")]
-    fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
-
-    #[doc(alias = "atk_component_get_alpha")]
-    #[doc(alias = "get_alpha")]
-    fn alpha(&self) -> f64;
-
-    #[doc(alias = "atk_component_get_extents")]
-    #[doc(alias = "get_extents")]
-    fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32);
-
-    #[doc(alias = "atk_component_get_layer")]
-    #[doc(alias = "get_layer")]
-    fn layer(&self) -> Layer;
-
-    #[doc(alias = "atk_component_get_mdi_zorder")]
-    #[doc(alias = "get_mdi_zorder")]
-    fn mdi_zorder(&self) -> i32;
-
-    #[doc(alias = "atk_component_get_position")]
-    #[doc(alias = "get_position")]
-    fn position(&self, coord_type: CoordType) -> (i32, i32);
-
-    #[doc(alias = "atk_component_get_size")]
-    #[doc(alias = "get_size")]
-    fn size(&self) -> (i32, i32);
-
-    #[doc(alias = "atk_component_grab_focus")]
-    fn grab_focus(&self) -> bool;
-
-    #[doc(alias = "atk_component_ref_accessible_at_point")]
-    fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object>;
-
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-    #[doc(alias = "atk_component_scroll_to")]
-    fn scroll_to(&self, type_: ScrollType) -> bool;
-
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-    #[doc(alias = "atk_component_scroll_to_point")]
-    fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool;
-
-    #[doc(alias = "atk_component_set_extents")]
-    fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool;
-
-    #[doc(alias = "atk_component_set_position")]
-    fn set_position(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
-
-    #[doc(alias = "atk_component_set_size")]
-    fn set_size(&self, width: i32, height: i32) -> bool;
-
-    #[doc(alias = "bounds-changed")]
-    fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Component>> ComponentExt for O {
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_contains(
@@ -95,10 +39,14 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_get_alpha")]
+    #[doc(alias = "get_alpha")]
     fn alpha(&self) -> f64 {
         unsafe { ffi::atk_component_get_alpha(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_component_get_extents")]
+    #[doc(alias = "get_extents")]
     fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -122,14 +70,20 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_get_layer")]
+    #[doc(alias = "get_layer")]
     fn layer(&self) -> Layer {
         unsafe { from_glib(ffi::atk_component_get_layer(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "atk_component_get_mdi_zorder")]
+    #[doc(alias = "get_mdi_zorder")]
     fn mdi_zorder(&self) -> i32 {
         unsafe { ffi::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "atk_component_get_position")]
+    #[doc(alias = "get_position")]
     fn position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
             let mut x = mem::MaybeUninit::uninit();
@@ -144,6 +98,8 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_get_size")]
+    #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32) {
         unsafe {
             let mut width = mem::MaybeUninit::uninit();
@@ -157,6 +113,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_grab_focus")]
     fn grab_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::atk_component_grab_focus(
@@ -165,6 +122,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_ref_accessible_at_point")]
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_component_ref_accessible_at_point(
@@ -176,8 +134,9 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(feature = "v2_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
+    #[doc(alias = "atk_component_scroll_to")]
     fn scroll_to(&self, type_: ScrollType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_scroll_to(
@@ -187,8 +146,9 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+    #[cfg(feature = "v2_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
+    #[doc(alias = "atk_component_scroll_to_point")]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_component_scroll_to_point(
@@ -200,6 +160,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_set_extents")]
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_set_extents(
@@ -213,6 +174,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_set_position")]
     fn set_position(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_set_position(
@@ -224,6 +186,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "atk_component_set_size")]
     fn set_size(&self, width: i32, height: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_component_set_size(
@@ -234,6 +197,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 
+    #[doc(alias = "bounds-changed")]
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn bounds_changed_trampoline<
             P: IsA<Component>,
@@ -262,6 +226,8 @@ impl<O: IsA<Component>> ComponentExt for O {
         }
     }
 }
+
+impl<O: IsA<Component>> ComponentExt for O {}
 
 impl fmt::Display for Component {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

@@ -18,14 +18,13 @@ rust-version = "1.64"
 name = "atk"
 
 [features]
-dox = ["ffi/dox", "glib/dox"]
 v2_30 = ["ffi/v2_30"]
 v2_32 = ["v2_30", "ffi/v2_32"]
 v2_34 = ["v2_32", "ffi/v2_34"]
 v2_38 = ["v2_34", "ffi/v2_38"]
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 libc = "0.2"

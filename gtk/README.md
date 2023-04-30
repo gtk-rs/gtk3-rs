@@ -170,7 +170,7 @@ with the actual Rust API.
 Generate the docs:
 
 ```shell
-> cargo doc --features dox
+> RUSTFLAGS="--cfg docsrs" cargo doc
 ```
 
 (if the installed GTK+ version is lower than 3.16, adjust the feature name accordingly).

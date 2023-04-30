@@ -657,115 +657,8 @@ impl SpinButtonBuilder {
     }
 }
 
-pub trait SpinButtonExt: 'static {
+pub trait SpinButtonExt: IsA<SpinButton> + 'static {
     #[doc(alias = "gtk_spin_button_configure")]
-    fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32);
-
-    #[doc(alias = "gtk_spin_button_get_adjustment")]
-    #[doc(alias = "get_adjustment")]
-    fn adjustment(&self) -> Adjustment;
-
-    #[doc(alias = "gtk_spin_button_get_digits")]
-    #[doc(alias = "get_digits")]
-    fn digits(&self) -> u32;
-
-    #[doc(alias = "gtk_spin_button_get_increments")]
-    #[doc(alias = "get_increments")]
-    fn increments(&self) -> (f64, f64);
-
-    #[doc(alias = "gtk_spin_button_get_numeric")]
-    #[doc(alias = "get_numeric")]
-    fn is_numeric(&self) -> bool;
-
-    #[doc(alias = "gtk_spin_button_get_range")]
-    #[doc(alias = "get_range")]
-    fn range(&self) -> (f64, f64);
-
-    #[doc(alias = "gtk_spin_button_get_snap_to_ticks")]
-    #[doc(alias = "get_snap_to_ticks")]
-    fn snaps_to_ticks(&self) -> bool;
-
-    #[doc(alias = "gtk_spin_button_get_update_policy")]
-    #[doc(alias = "get_update_policy")]
-    fn update_policy(&self) -> SpinButtonUpdatePolicy;
-
-    #[doc(alias = "gtk_spin_button_get_value")]
-    #[doc(alias = "get_value")]
-    fn value(&self) -> f64;
-
-    #[doc(alias = "gtk_spin_button_get_value_as_int")]
-    #[doc(alias = "get_value_as_int")]
-    fn value_as_int(&self) -> i32;
-
-    #[doc(alias = "gtk_spin_button_get_wrap")]
-    #[doc(alias = "get_wrap")]
-    fn wraps(&self) -> bool;
-
-    #[doc(alias = "gtk_spin_button_set_adjustment")]
-    fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>);
-
-    #[doc(alias = "gtk_spin_button_set_digits")]
-    fn set_digits(&self, digits: u32);
-
-    #[doc(alias = "gtk_spin_button_set_increments")]
-    fn set_increments(&self, step: f64, page: f64);
-
-    #[doc(alias = "gtk_spin_button_set_numeric")]
-    fn set_numeric(&self, numeric: bool);
-
-    #[doc(alias = "gtk_spin_button_set_range")]
-    fn set_range(&self, min: f64, max: f64);
-
-    #[doc(alias = "gtk_spin_button_set_snap_to_ticks")]
-    fn set_snap_to_ticks(&self, snap_to_ticks: bool);
-
-    #[doc(alias = "gtk_spin_button_set_update_policy")]
-    fn set_update_policy(&self, policy: SpinButtonUpdatePolicy);
-
-    #[doc(alias = "gtk_spin_button_set_value")]
-    fn set_value(&self, value: f64);
-
-    #[doc(alias = "gtk_spin_button_set_wrap")]
-    fn set_wrap(&self, wrap: bool);
-
-    #[doc(alias = "gtk_spin_button_spin")]
-    fn spin(&self, direction: SpinType, increment: f64);
-
-    #[doc(alias = "gtk_spin_button_update")]
-    fn update(&self);
-
-    #[doc(alias = "climb-rate")]
-    fn climb_rate(&self) -> f64;
-
-    #[doc(alias = "climb-rate")]
-    fn set_climb_rate(&self, climb_rate: f64);
-
-    #[doc(alias = "adjustment")]
-    fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "climb-rate")]
-    fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "digits")]
-    fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "numeric")]
-    fn connect_numeric_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "snap-to-ticks")]
-    fn connect_snap_to_ticks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "update-policy")]
-    fn connect_update_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "value")]
-    fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "wrap")]
-    fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<SpinButton>> SpinButtonExt for O {
     fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32) {
         unsafe {
             ffi::gtk_spin_button_configure(
@@ -777,6 +670,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_adjustment")]
+    #[doc(alias = "get_adjustment")]
     fn adjustment(&self) -> Adjustment {
         unsafe {
             from_glib_none(ffi::gtk_spin_button_get_adjustment(
@@ -785,10 +680,14 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_digits")]
+    #[doc(alias = "get_digits")]
     fn digits(&self) -> u32 {
         unsafe { ffi::gtk_spin_button_get_digits(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_spin_button_get_increments")]
+    #[doc(alias = "get_increments")]
     fn increments(&self) -> (f64, f64) {
         unsafe {
             let mut step = mem::MaybeUninit::uninit();
@@ -802,6 +701,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_numeric")]
+    #[doc(alias = "get_numeric")]
     fn is_numeric(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_numeric(
@@ -810,6 +711,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_range")]
+    #[doc(alias = "get_range")]
     fn range(&self) -> (f64, f64) {
         unsafe {
             let mut min = mem::MaybeUninit::uninit();
@@ -823,6 +726,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_snap_to_ticks")]
+    #[doc(alias = "get_snap_to_ticks")]
     fn snaps_to_ticks(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_snap_to_ticks(
@@ -831,6 +736,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_update_policy")]
+    #[doc(alias = "get_update_policy")]
     fn update_policy(&self) -> SpinButtonUpdatePolicy {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_update_policy(
@@ -839,14 +746,20 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_get_value")]
+    #[doc(alias = "get_value")]
     fn value(&self) -> f64 {
         unsafe { ffi::gtk_spin_button_get_value(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_spin_button_get_value_as_int")]
+    #[doc(alias = "get_value_as_int")]
     fn value_as_int(&self) -> i32 {
         unsafe { ffi::gtk_spin_button_get_value_as_int(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_spin_button_get_wrap")]
+    #[doc(alias = "get_wrap")]
     fn wraps(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_wrap(
@@ -855,6 +768,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_adjustment")]
     fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_spin_button_set_adjustment(
@@ -864,30 +778,35 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_digits")]
     fn set_digits(&self, digits: u32) {
         unsafe {
             ffi::gtk_spin_button_set_digits(self.as_ref().to_glib_none().0, digits);
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_increments")]
     fn set_increments(&self, step: f64, page: f64) {
         unsafe {
             ffi::gtk_spin_button_set_increments(self.as_ref().to_glib_none().0, step, page);
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_numeric")]
     fn set_numeric(&self, numeric: bool) {
         unsafe {
             ffi::gtk_spin_button_set_numeric(self.as_ref().to_glib_none().0, numeric.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_range")]
     fn set_range(&self, min: f64, max: f64) {
         unsafe {
             ffi::gtk_spin_button_set_range(self.as_ref().to_glib_none().0, min, max);
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_snap_to_ticks")]
     fn set_snap_to_ticks(&self, snap_to_ticks: bool) {
         unsafe {
             ffi::gtk_spin_button_set_snap_to_ticks(
@@ -897,6 +816,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_update_policy")]
     fn set_update_policy(&self, policy: SpinButtonUpdatePolicy) {
         unsafe {
             ffi::gtk_spin_button_set_update_policy(
@@ -906,18 +826,21 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_value")]
     fn set_value(&self, value: f64) {
         unsafe {
             ffi::gtk_spin_button_set_value(self.as_ref().to_glib_none().0, value);
         }
     }
 
+    #[doc(alias = "gtk_spin_button_set_wrap")]
     fn set_wrap(&self, wrap: bool) {
         unsafe {
             ffi::gtk_spin_button_set_wrap(self.as_ref().to_glib_none().0, wrap.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_spin_button_spin")]
     fn spin(&self, direction: SpinType, increment: f64) {
         unsafe {
             ffi::gtk_spin_button_spin(
@@ -928,20 +851,24 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_spin_button_update")]
     fn update(&self) {
         unsafe {
             ffi::gtk_spin_button_update(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "climb-rate")]
     fn climb_rate(&self) -> f64 {
         glib::ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
+    #[doc(alias = "climb-rate")]
     fn set_climb_rate(&self, climb_rate: f64) {
         glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
 
+    #[doc(alias = "adjustment")]
     fn connect_adjustment_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_adjustment_trampoline<
             P: IsA<SpinButton>,
@@ -967,6 +894,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "climb-rate")]
     fn connect_climb_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_climb_rate_trampoline<
             P: IsA<SpinButton>,
@@ -992,6 +920,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "digits")]
     fn connect_digits_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_digits_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1014,6 +943,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "numeric")]
     fn connect_numeric_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_numeric_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1036,6 +966,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "snap-to-ticks")]
     fn connect_snap_to_ticks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_snap_to_ticks_trampoline<
             P: IsA<SpinButton>,
@@ -1061,6 +992,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "update-policy")]
     fn connect_update_policy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_update_policy_trampoline<
             P: IsA<SpinButton>,
@@ -1086,6 +1018,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "value")]
     fn connect_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_value_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1108,6 +1041,7 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 
+    #[doc(alias = "wrap")]
     fn connect_wrap_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_wrap_trampoline<P: IsA<SpinButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkSpinButton,
@@ -1130,6 +1064,8 @@ impl<O: IsA<SpinButton>> SpinButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<SpinButton>> SpinButtonExt for O {}
 
 impl fmt::Display for SpinButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

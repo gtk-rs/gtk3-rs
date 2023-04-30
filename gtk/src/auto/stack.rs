@@ -333,133 +333,8 @@ impl StackBuilder {
     }
 }
 
-pub trait StackExt: 'static {
+pub trait StackExt: IsA<Stack> + 'static {
     #[doc(alias = "gtk_stack_add_named")]
-    fn add_named(&self, child: &impl IsA<Widget>, name: &str);
-
-    #[doc(alias = "gtk_stack_add_titled")]
-    fn add_titled(&self, child: &impl IsA<Widget>, name: &str, title: &str);
-
-    #[doc(alias = "gtk_stack_get_child_by_name")]
-    #[doc(alias = "get_child_by_name")]
-    fn child_by_name(&self, name: &str) -> Option<Widget>;
-
-    #[doc(alias = "gtk_stack_get_hhomogeneous")]
-    #[doc(alias = "get_hhomogeneous")]
-    fn is_hhomogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_stack_get_homogeneous")]
-    #[doc(alias = "get_homogeneous")]
-    fn is_homogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_stack_get_interpolate_size")]
-    #[doc(alias = "get_interpolate_size")]
-    fn interpolates_size(&self) -> bool;
-
-    #[doc(alias = "gtk_stack_get_transition_duration")]
-    #[doc(alias = "get_transition_duration")]
-    fn transition_duration(&self) -> u32;
-
-    #[doc(alias = "gtk_stack_get_transition_running")]
-    #[doc(alias = "get_transition_running")]
-    fn is_transition_running(&self) -> bool;
-
-    #[doc(alias = "gtk_stack_get_transition_type")]
-    #[doc(alias = "get_transition_type")]
-    fn transition_type(&self) -> StackTransitionType;
-
-    #[doc(alias = "gtk_stack_get_vhomogeneous")]
-    #[doc(alias = "get_vhomogeneous")]
-    fn is_vhomogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_stack_get_visible_child")]
-    #[doc(alias = "get_visible_child")]
-    fn visible_child(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_stack_get_visible_child_name")]
-    #[doc(alias = "get_visible_child_name")]
-    fn visible_child_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_stack_set_hhomogeneous")]
-    fn set_hhomogeneous(&self, hhomogeneous: bool);
-
-    #[doc(alias = "gtk_stack_set_homogeneous")]
-    fn set_homogeneous(&self, homogeneous: bool);
-
-    #[doc(alias = "gtk_stack_set_interpolate_size")]
-    fn set_interpolate_size(&self, interpolate_size: bool);
-
-    #[doc(alias = "gtk_stack_set_transition_duration")]
-    fn set_transition_duration(&self, duration: u32);
-
-    #[doc(alias = "gtk_stack_set_transition_type")]
-    fn set_transition_type(&self, transition: StackTransitionType);
-
-    #[doc(alias = "gtk_stack_set_vhomogeneous")]
-    fn set_vhomogeneous(&self, vhomogeneous: bool);
-
-    #[doc(alias = "gtk_stack_set_visible_child")]
-    fn set_visible_child(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_stack_set_visible_child_full")]
-    fn set_visible_child_full(&self, name: &str, transition: StackTransitionType);
-
-    #[doc(alias = "gtk_stack_set_visible_child_name")]
-    fn set_visible_child_name(&self, name: &str);
-
-    #[doc(alias = "child.icon-name")]
-    fn child_icon_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
-
-    #[doc(alias = "child.icon-name")]
-    fn set_child_icon_name<T: IsA<crate::Widget>>(&self, item: &T, icon_name: Option<&str>);
-
-    fn child_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
-
-    fn set_child_name<T: IsA<crate::Widget>>(&self, item: &T, name: Option<&str>);
-
-    #[doc(alias = "child.needs-attention")]
-    fn child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    #[doc(alias = "child.needs-attention")]
-    fn set_child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T, needs_attention: bool);
-
-    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
-
-    fn child_title<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
-
-    fn set_child_title<T: IsA<crate::Widget>>(&self, item: &T, title: Option<&str>);
-
-    #[doc(alias = "hhomogeneous")]
-    fn connect_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "homogeneous")]
-    fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "interpolate-size")]
-    fn connect_interpolate_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transition-duration")]
-    fn connect_transition_duration_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transition-running")]
-    fn connect_transition_running_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "transition-type")]
-    fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "vhomogeneous")]
-    fn connect_vhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visible-child")]
-    fn connect_visible_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "visible-child-name")]
-    fn connect_visible_child_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Stack>> StackExt for O {
     fn add_named(&self, child: &impl IsA<Widget>, name: &str) {
         unsafe {
             ffi::gtk_stack_add_named(
@@ -470,6 +345,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_add_titled")]
     fn add_titled(&self, child: &impl IsA<Widget>, name: &str, title: &str) {
         unsafe {
             ffi::gtk_stack_add_titled(
@@ -481,6 +357,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_child_by_name")]
+    #[doc(alias = "get_child_by_name")]
     fn child_by_name(&self, name: &str) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_child_by_name(
@@ -490,6 +368,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_hhomogeneous")]
+    #[doc(alias = "get_hhomogeneous")]
     fn is_hhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_hhomogeneous(
@@ -498,6 +378,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_homogeneous(
@@ -506,6 +388,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_interpolate_size")]
+    #[doc(alias = "get_interpolate_size")]
     fn interpolates_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_interpolate_size(
@@ -514,10 +398,14 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_transition_duration")]
+    #[doc(alias = "get_transition_duration")]
     fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_stack_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_stack_get_transition_running")]
+    #[doc(alias = "get_transition_running")]
     fn is_transition_running(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_running(
@@ -526,6 +414,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_transition_type")]
+    #[doc(alias = "get_transition_type")]
     fn transition_type(&self) -> StackTransitionType {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_type(
@@ -534,6 +424,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_vhomogeneous")]
+    #[doc(alias = "get_vhomogeneous")]
     fn is_vhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_vhomogeneous(
@@ -542,6 +434,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_visible_child")]
+    #[doc(alias = "get_visible_child")]
     fn visible_child(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child(
@@ -550,6 +444,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_get_visible_child_name")]
+    #[doc(alias = "get_visible_child_name")]
     fn visible_child_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child_name(
@@ -558,6 +454,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_hhomogeneous")]
     fn set_hhomogeneous(&self, hhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_hhomogeneous(
@@ -567,12 +464,14 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_stack_set_interpolate_size")]
     fn set_interpolate_size(&self, interpolate_size: bool) {
         unsafe {
             ffi::gtk_stack_set_interpolate_size(
@@ -582,12 +481,14 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_transition_duration")]
     fn set_transition_duration(&self, duration: u32) {
         unsafe {
             ffi::gtk_stack_set_transition_duration(self.as_ref().to_glib_none().0, duration);
         }
     }
 
+    #[doc(alias = "gtk_stack_set_transition_type")]
     fn set_transition_type(&self, transition: StackTransitionType) {
         unsafe {
             ffi::gtk_stack_set_transition_type(
@@ -597,6 +498,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_vhomogeneous")]
     fn set_vhomogeneous(&self, vhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_vhomogeneous(
@@ -606,6 +508,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_visible_child")]
     fn set_visible_child(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_stack_set_visible_child(
@@ -615,6 +518,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_visible_child_full")]
     fn set_visible_child_full(&self, name: &str, transition: StackTransitionType) {
         unsafe {
             ffi::gtk_stack_set_visible_child_full(
@@ -625,6 +529,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_set_visible_child_name")]
     fn set_visible_child_name(&self, name: &str) {
         unsafe {
             ffi::gtk_stack_set_visible_child_name(
@@ -634,6 +539,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "child.icon-name")]
     fn child_icon_name<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -642,6 +548,7 @@ impl<O: IsA<Stack>> StackExt for O {
         )
     }
 
+    #[doc(alias = "child.icon-name")]
     fn set_child_icon_name<T: IsA<crate::Widget>>(&self, item: &T, icon_name: Option<&str>) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -668,6 +575,7 @@ impl<O: IsA<Stack>> StackExt for O {
         )
     }
 
+    #[doc(alias = "child.needs-attention")]
     fn child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -676,6 +584,7 @@ impl<O: IsA<Stack>> StackExt for O {
         )
     }
 
+    #[doc(alias = "child.needs-attention")]
     fn set_child_needs_attention<T: IsA<crate::Widget>>(&self, item: &T, needs_attention: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -719,6 +628,7 @@ impl<O: IsA<Stack>> StackExt for O {
         )
     }
 
+    #[doc(alias = "hhomogeneous")]
     fn connect_hhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_hhomogeneous_trampoline<P: IsA<Stack>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStack,
@@ -741,6 +651,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "homogeneous")]
     fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P: IsA<Stack>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStack,
@@ -763,6 +674,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "interpolate-size")]
     fn connect_interpolate_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_interpolate_size_trampoline<
             P: IsA<Stack>,
@@ -788,6 +700,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "transition-duration")]
     fn connect_transition_duration_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_duration_trampoline<
             P: IsA<Stack>,
@@ -813,6 +726,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "transition-running")]
     fn connect_transition_running_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_running_trampoline<
             P: IsA<Stack>,
@@ -838,6 +752,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "transition-type")]
     fn connect_transition_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_transition_type_trampoline<
             P: IsA<Stack>,
@@ -863,6 +778,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "vhomogeneous")]
     fn connect_vhomogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_vhomogeneous_trampoline<P: IsA<Stack>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStack,
@@ -885,6 +801,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "visible-child")]
     fn connect_visible_child_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_child_trampoline<P: IsA<Stack>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStack,
@@ -907,6 +824,7 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 
+    #[doc(alias = "visible-child-name")]
     fn connect_visible_child_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_visible_child_name_trampoline<
             P: IsA<Stack>,
@@ -932,6 +850,8 @@ impl<O: IsA<Stack>> StackExt for O {
         }
     }
 }
+
+impl<O: IsA<Stack>> StackExt for O {}
 
 impl fmt::Display for Stack {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

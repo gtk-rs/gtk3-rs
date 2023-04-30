@@ -23,55 +23,9 @@ impl Seat {
     pub const NONE: Option<&'static Seat> = None;
 }
 
-pub trait SeatExt: 'static {
+pub trait SeatExt: IsA<Seat> + 'static {
     #[doc(alias = "gdk_seat_get_capabilities")]
     #[doc(alias = "get_capabilities")]
-    fn capabilities(&self) -> SeatCapabilities;
-
-    #[doc(alias = "gdk_seat_get_display")]
-    #[doc(alias = "get_display")]
-    fn display(&self) -> Option<Display>;
-
-    #[doc(alias = "gdk_seat_get_keyboard")]
-    #[doc(alias = "get_keyboard")]
-    fn keyboard(&self) -> Option<Device>;
-
-    #[doc(alias = "gdk_seat_get_pointer")]
-    #[doc(alias = "get_pointer")]
-    fn pointer(&self) -> Option<Device>;
-
-    #[doc(alias = "gdk_seat_get_slaves")]
-    #[doc(alias = "get_slaves")]
-    fn slaves(&self, capabilities: SeatCapabilities) -> Vec<Device>;
-
-    #[doc(alias = "gdk_seat_grab")]
-    fn grab(
-        &self,
-        window: &Window,
-        capabilities: SeatCapabilities,
-        owner_events: bool,
-        cursor: Option<&Cursor>,
-        event: Option<&Event>,
-        prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>,
-    ) -> GrabStatus;
-
-    #[doc(alias = "gdk_seat_ungrab")]
-    fn ungrab(&self);
-
-    #[doc(alias = "device-added")]
-    fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "device-removed")]
-    fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "tool-added")]
-    fn connect_tool_added<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "tool-removed")]
-    fn connect_tool_removed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Seat>> SeatExt for O {
     fn capabilities(&self) -> SeatCapabilities {
         unsafe {
             from_glib(ffi::gdk_seat_get_capabilities(
@@ -80,18 +34,26 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "gdk_seat_get_display")]
+    #[doc(alias = "get_display")]
     fn display(&self) -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_seat_get_display(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_seat_get_keyboard")]
+    #[doc(alias = "get_keyboard")]
     fn keyboard(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_seat_get_keyboard(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_seat_get_pointer")]
+    #[doc(alias = "get_pointer")]
     fn pointer(&self) -> Option<Device> {
         unsafe { from_glib_none(ffi::gdk_seat_get_pointer(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gdk_seat_get_slaves")]
+    #[doc(alias = "get_slaves")]
     fn slaves(&self, capabilities: SeatCapabilities) -> Vec<Device> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gdk_seat_get_slaves(
@@ -101,6 +63,7 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "gdk_seat_grab")]
     fn grab(
         &self,
         window: &Window,
@@ -146,12 +109,14 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "gdk_seat_ungrab")]
     fn ungrab(&self) {
         unsafe {
             ffi::gdk_seat_ungrab(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "device-added")]
     fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_added_trampoline<P: IsA<Seat>, F: Fn(&P, &Device) + 'static>(
             this: *mut ffi::GdkSeat,
@@ -177,6 +142,7 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "device-removed")]
     fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn device_removed_trampoline<
             P: IsA<Seat>,
@@ -205,6 +171,7 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "tool-added")]
     fn connect_tool_added<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tool_added_trampoline<
             P: IsA<Seat>,
@@ -233,6 +200,7 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 
+    #[doc(alias = "tool-removed")]
     fn connect_tool_removed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn tool_removed_trampoline<
             P: IsA<Seat>,
@@ -261,6 +229,8 @@ impl<O: IsA<Seat>> SeatExt for O {
         }
     }
 }
+
+impl<O: IsA<Seat>> SeatExt for O {}
 
 impl fmt::Display for Seat {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

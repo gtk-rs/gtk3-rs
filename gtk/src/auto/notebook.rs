@@ -324,231 +324,8 @@ impl NotebookBuilder {
     }
 }
 
-pub trait NotebookExt: 'static {
+pub trait NotebookExt: IsA<Notebook> + 'static {
     #[doc(alias = "gtk_notebook_detach_tab")]
-    fn detach_tab(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_notebook_get_action_widget")]
-    #[doc(alias = "get_action_widget")]
-    fn action_widget(&self, pack_type: PackType) -> Option<Widget>;
-
-    #[doc(alias = "gtk_notebook_get_group_name")]
-    #[doc(alias = "get_group_name")]
-    fn group_name(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_notebook_get_menu_label")]
-    #[doc(alias = "get_menu_label")]
-    fn menu_label(&self, child: &impl IsA<Widget>) -> Option<Widget>;
-
-    #[doc(alias = "gtk_notebook_get_menu_label_text")]
-    #[doc(alias = "get_menu_label_text")]
-    fn menu_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_notebook_get_scrollable")]
-    #[doc(alias = "get_scrollable")]
-    fn is_scrollable(&self) -> bool;
-
-    #[doc(alias = "gtk_notebook_get_show_border")]
-    #[doc(alias = "get_show_border")]
-    fn shows_border(&self) -> bool;
-
-    #[doc(alias = "gtk_notebook_get_show_tabs")]
-    #[doc(alias = "get_show_tabs")]
-    fn shows_tabs(&self) -> bool;
-
-    #[doc(alias = "gtk_notebook_get_tab_detachable")]
-    #[doc(alias = "get_tab_detachable")]
-    fn tab_is_detachable(&self, child: &impl IsA<Widget>) -> bool;
-
-    #[doc(alias = "gtk_notebook_get_tab_label")]
-    #[doc(alias = "get_tab_label")]
-    fn tab_label(&self, child: &impl IsA<Widget>) -> Option<Widget>;
-
-    #[doc(alias = "gtk_notebook_get_tab_label_text")]
-    #[doc(alias = "get_tab_label_text")]
-    fn tab_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_notebook_get_tab_pos")]
-    #[doc(alias = "get_tab_pos")]
-    fn tab_pos(&self) -> PositionType;
-
-    #[doc(alias = "gtk_notebook_get_tab_reorderable")]
-    #[doc(alias = "get_tab_reorderable")]
-    fn tab_is_reorderable(&self, child: &impl IsA<Widget>) -> bool;
-
-    #[doc(alias = "gtk_notebook_next_page")]
-    fn next_page(&self);
-
-    #[doc(alias = "gtk_notebook_popup_disable")]
-    fn popup_disable(&self);
-
-    #[doc(alias = "gtk_notebook_popup_enable")]
-    fn popup_enable(&self);
-
-    #[doc(alias = "gtk_notebook_prev_page")]
-    fn prev_page(&self);
-
-    #[doc(alias = "gtk_notebook_set_action_widget")]
-    fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType);
-
-    #[doc(alias = "gtk_notebook_set_group_name")]
-    fn set_group_name(&self, group_name: Option<&str>);
-
-    #[doc(alias = "gtk_notebook_set_menu_label")]
-    fn set_menu_label(&self, child: &impl IsA<Widget>, menu_label: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_notebook_set_menu_label_text")]
-    fn set_menu_label_text(&self, child: &impl IsA<Widget>, menu_text: &str);
-
-    #[doc(alias = "gtk_notebook_set_scrollable")]
-    fn set_scrollable(&self, scrollable: bool);
-
-    #[doc(alias = "gtk_notebook_set_show_border")]
-    fn set_show_border(&self, show_border: bool);
-
-    #[doc(alias = "gtk_notebook_set_show_tabs")]
-    fn set_show_tabs(&self, show_tabs: bool);
-
-    #[doc(alias = "gtk_notebook_set_tab_detachable")]
-    fn set_tab_detachable(&self, child: &impl IsA<Widget>, detachable: bool);
-
-    #[doc(alias = "gtk_notebook_set_tab_label")]
-    fn set_tab_label(&self, child: &impl IsA<Widget>, tab_label: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_notebook_set_tab_label_text")]
-    fn set_tab_label_text(&self, child: &impl IsA<Widget>, tab_text: &str);
-
-    #[doc(alias = "gtk_notebook_set_tab_pos")]
-    fn set_tab_pos(&self, pos: PositionType);
-
-    #[doc(alias = "gtk_notebook_set_tab_reorderable")]
-    fn set_tab_reorderable(&self, child: &impl IsA<Widget>, reorderable: bool);
-
-    #[doc(alias = "enable-popup")]
-    fn enables_popup(&self) -> bool;
-
-    #[doc(alias = "enable-popup")]
-    fn set_enable_popup(&self, enable_popup: bool);
-
-    fn page(&self) -> i32;
-
-    fn set_page(&self, page: i32);
-
-    fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    fn set_child_detachable<T: IsA<crate::Widget>>(&self, item: &T, detachable: bool);
-
-    #[doc(alias = "child.menu-label")]
-    fn child_menu_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
-
-    #[doc(alias = "child.menu-label")]
-    fn set_child_menu_label<T: IsA<crate::Widget>>(&self, item: &T, menu_label: Option<&str>);
-
-    fn child_position<T: IsA<crate::Widget>>(&self, item: &T) -> i32;
-
-    fn set_child_position<T: IsA<crate::Widget>>(&self, item: &T, position: i32);
-
-    fn child_is_reorderable<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    fn set_child_reorderable<T: IsA<crate::Widget>>(&self, item: &T, reorderable: bool);
-
-    #[doc(alias = "child.tab-expand")]
-    fn child_tab_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    #[doc(alias = "child.tab-expand")]
-    fn set_child_tab_expand<T: IsA<crate::Widget>>(&self, item: &T, tab_expand: bool);
-
-    #[doc(alias = "child.tab-fill")]
-    fn child_tab_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool;
-
-    #[doc(alias = "child.tab-fill")]
-    fn set_child_tab_fill<T: IsA<crate::Widget>>(&self, item: &T, tab_fill: bool);
-
-    #[doc(alias = "child.tab-label")]
-    fn child_tab_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString>;
-
-    #[doc(alias = "child.tab-label")]
-    fn set_child_tab_label<T: IsA<crate::Widget>>(&self, item: &T, tab_label: Option<&str>);
-
-    #[doc(alias = "change-current-page")]
-    fn connect_change_current_page<F: Fn(&Self, i32) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_change_current_page(&self, object: i32) -> bool;
-
-    #[doc(alias = "create-window")]
-    fn connect_create_window<F: Fn(&Self, &Widget, i32, i32) -> Notebook + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "focus-tab")]
-    fn connect_focus_tab<F: Fn(&Self, NotebookTab) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_focus_tab(&self, object: NotebookTab) -> bool;
-
-    #[doc(alias = "move-focus-out")]
-    fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_focus_out(&self, object: DirectionType);
-
-    #[doc(alias = "page-added")]
-    fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "page-removed")]
-    fn connect_page_removed<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "page-reordered")]
-    fn connect_page_reordered<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    #[doc(alias = "reorder-tab")]
-    fn connect_reorder_tab<F: Fn(&Self, DirectionType, bool) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_reorder_tab(&self, object: DirectionType, p0: bool) -> bool;
-
-    #[doc(alias = "select-page")]
-    fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_select_page(&self, object: bool) -> bool;
-
-    #[doc(alias = "switch-page")]
-    fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "enable-popup")]
-    fn connect_enable_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "group-name")]
-    fn connect_group_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "page")]
-    fn connect_page_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "scrollable")]
-    fn connect_scrollable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-border")]
-    fn connect_show_border_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-tabs")]
-    fn connect_show_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "tab-pos")]
-    fn connect_tab_pos_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Notebook>> NotebookExt for O {
     fn detach_tab(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_notebook_detach_tab(
@@ -558,6 +335,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_action_widget")]
+    #[doc(alias = "get_action_widget")]
     fn action_widget(&self, pack_type: PackType) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_action_widget(
@@ -567,6 +346,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_group_name")]
+    #[doc(alias = "get_group_name")]
     fn group_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_group_name(
@@ -575,6 +356,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_menu_label")]
+    #[doc(alias = "get_menu_label")]
     fn menu_label(&self, child: &impl IsA<Widget>) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_menu_label(
@@ -584,6 +367,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_menu_label_text")]
+    #[doc(alias = "get_menu_label_text")]
     fn menu_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_menu_label_text(
@@ -593,6 +378,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_scrollable")]
+    #[doc(alias = "get_scrollable")]
     fn is_scrollable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_scrollable(
@@ -601,6 +388,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_show_border")]
+    #[doc(alias = "get_show_border")]
     fn shows_border(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_show_border(
@@ -609,6 +398,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_show_tabs")]
+    #[doc(alias = "get_show_tabs")]
     fn shows_tabs(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_show_tabs(
@@ -617,6 +408,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_tab_detachable")]
+    #[doc(alias = "get_tab_detachable")]
     fn tab_is_detachable(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_detachable(
@@ -626,6 +419,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_tab_label")]
+    #[doc(alias = "get_tab_label")]
     fn tab_label(&self, child: &impl IsA<Widget>) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_tab_label(
@@ -635,6 +430,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_tab_label_text")]
+    #[doc(alias = "get_tab_label_text")]
     fn tab_label_text(&self, child: &impl IsA<Widget>) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_notebook_get_tab_label_text(
@@ -644,6 +441,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_tab_pos")]
+    #[doc(alias = "get_tab_pos")]
     fn tab_pos(&self) -> PositionType {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_pos(
@@ -652,6 +451,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_get_tab_reorderable")]
+    #[doc(alias = "get_tab_reorderable")]
     fn tab_is_reorderable(&self, child: &impl IsA<Widget>) -> bool {
         unsafe {
             from_glib(ffi::gtk_notebook_get_tab_reorderable(
@@ -661,30 +462,35 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_next_page")]
     fn next_page(&self) {
         unsafe {
             ffi::gtk_notebook_next_page(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_notebook_popup_disable")]
     fn popup_disable(&self) {
         unsafe {
             ffi::gtk_notebook_popup_disable(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_notebook_popup_enable")]
     fn popup_enable(&self) {
         unsafe {
             ffi::gtk_notebook_popup_enable(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_notebook_prev_page")]
     fn prev_page(&self) {
         unsafe {
             ffi::gtk_notebook_prev_page(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_action_widget")]
     fn set_action_widget(&self, widget: &impl IsA<Widget>, pack_type: PackType) {
         unsafe {
             ffi::gtk_notebook_set_action_widget(
@@ -695,6 +501,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_group_name")]
     fn set_group_name(&self, group_name: Option<&str>) {
         unsafe {
             ffi::gtk_notebook_set_group_name(
@@ -704,6 +511,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_menu_label")]
     fn set_menu_label(&self, child: &impl IsA<Widget>, menu_label: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_notebook_set_menu_label(
@@ -714,6 +522,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_menu_label_text")]
     fn set_menu_label_text(&self, child: &impl IsA<Widget>, menu_text: &str) {
         unsafe {
             ffi::gtk_notebook_set_menu_label_text(
@@ -724,6 +533,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_scrollable")]
     fn set_scrollable(&self, scrollable: bool) {
         unsafe {
             ffi::gtk_notebook_set_scrollable(
@@ -733,6 +543,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_show_border")]
     fn set_show_border(&self, show_border: bool) {
         unsafe {
             ffi::gtk_notebook_set_show_border(
@@ -742,12 +553,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_show_tabs")]
     fn set_show_tabs(&self, show_tabs: bool) {
         unsafe {
             ffi::gtk_notebook_set_show_tabs(self.as_ref().to_glib_none().0, show_tabs.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_tab_detachable")]
     fn set_tab_detachable(&self, child: &impl IsA<Widget>, detachable: bool) {
         unsafe {
             ffi::gtk_notebook_set_tab_detachable(
@@ -758,6 +571,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_tab_label")]
     fn set_tab_label(&self, child: &impl IsA<Widget>, tab_label: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_notebook_set_tab_label(
@@ -768,6 +582,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_tab_label_text")]
     fn set_tab_label_text(&self, child: &impl IsA<Widget>, tab_text: &str) {
         unsafe {
             ffi::gtk_notebook_set_tab_label_text(
@@ -778,12 +593,14 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_tab_pos")]
     fn set_tab_pos(&self, pos: PositionType) {
         unsafe {
             ffi::gtk_notebook_set_tab_pos(self.as_ref().to_glib_none().0, pos.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_notebook_set_tab_reorderable")]
     fn set_tab_reorderable(&self, child: &impl IsA<Widget>, reorderable: bool) {
         unsafe {
             ffi::gtk_notebook_set_tab_reorderable(
@@ -794,10 +611,12 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "enable-popup")]
     fn enables_popup(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "enable-popup")
     }
 
+    #[doc(alias = "enable-popup")]
     fn set_enable_popup(&self, enable_popup: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "enable-popup", enable_popup)
     }
@@ -827,6 +646,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.menu-label")]
     fn child_menu_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -835,6 +655,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.menu-label")]
     fn set_child_menu_label<T: IsA<crate::Widget>>(&self, item: &T, menu_label: Option<&str>) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -878,6 +699,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-expand")]
     fn child_tab_expands<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -886,6 +708,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-expand")]
     fn set_child_tab_expand<T: IsA<crate::Widget>>(&self, item: &T, tab_expand: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -895,6 +718,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-fill")]
     fn child_tab_fills<T: IsA<crate::Widget>>(&self, item: &T) -> bool {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -903,6 +727,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-fill")]
     fn set_child_tab_fill<T: IsA<crate::Widget>>(&self, item: &T, tab_fill: bool) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -912,6 +737,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-label")]
     fn child_tab_label<T: IsA<crate::Widget>>(&self, item: &T) -> Option<glib::GString> {
         crate::prelude::ContainerExtManual::child_property(
             self.as_ref(),
@@ -920,6 +746,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "child.tab-label")]
     fn set_child_tab_label<T: IsA<crate::Widget>>(&self, item: &T, tab_label: Option<&str>) {
         crate::prelude::ContainerExtManual::child_set_property(
             self.as_ref(),
@@ -929,6 +756,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         )
     }
 
+    #[doc(alias = "change-current-page")]
     fn connect_change_current_page<F: Fn(&Self, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -961,6 +789,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         self.emit_by_name("change-current-page", &[&object])
     }
 
+    #[doc(alias = "create-window")]
     fn connect_create_window<F: Fn(&Self, &Widget, i32, i32) -> Notebook + 'static>(
         &self,
         f: F,
@@ -998,6 +827,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "focus-tab")]
     fn connect_focus_tab<F: Fn(&Self, NotebookTab) -> bool + 'static>(
         &self,
         f: F,
@@ -1034,6 +864,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         self.emit_by_name("focus-tab", &[&object])
     }
 
+    #[doc(alias = "move-focus-out")]
     fn connect_move_focus_out<F: Fn(&Self, DirectionType) + 'static>(
         &self,
         f: F,
@@ -1069,6 +900,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         self.emit_by_name::<()>("move-focus-out", &[&object]);
     }
 
+    #[doc(alias = "page-added")]
     fn connect_page_added<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_added_trampoline<
             P: IsA<Notebook>,
@@ -1099,6 +931,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "page-removed")]
     fn connect_page_removed<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_removed_trampoline<
             P: IsA<Notebook>,
@@ -1129,6 +962,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "page-reordered")]
     fn connect_page_reordered<F: Fn(&Self, &Widget, u32) + 'static>(
         &self,
         f: F,
@@ -1162,6 +996,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "reorder-tab")]
     fn connect_reorder_tab<F: Fn(&Self, DirectionType, bool) -> bool + 'static>(
         &self,
         f: F,
@@ -1200,6 +1035,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         self.emit_by_name("reorder-tab", &[&object, &p0])
     }
 
+    #[doc(alias = "select-page")]
     fn connect_select_page<F: Fn(&Self, bool) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_page_trampoline<
             P: IsA<Notebook>,
@@ -1233,6 +1069,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         self.emit_by_name("select-page", &[&object])
     }
 
+    #[doc(alias = "switch-page")]
     fn connect_switch_page<F: Fn(&Self, &Widget, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn switch_page_trampoline<
             P: IsA<Notebook>,
@@ -1263,6 +1100,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "enable-popup")]
     fn connect_enable_popup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_enable_popup_trampoline<
             P: IsA<Notebook>,
@@ -1288,6 +1126,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "group-name")]
     fn connect_group_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_group_name_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
@@ -1310,6 +1149,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "page")]
     fn connect_page_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_page_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
@@ -1332,6 +1172,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "scrollable")]
     fn connect_scrollable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_scrollable_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
@@ -1354,6 +1195,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "show-border")]
     fn connect_show_border_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_border_trampoline<
             P: IsA<Notebook>,
@@ -1379,6 +1221,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "show-tabs")]
     fn connect_show_tabs_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_tabs_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
@@ -1401,6 +1244,7 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 
+    #[doc(alias = "tab-pos")]
     fn connect_tab_pos_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_tab_pos_trampoline<P: IsA<Notebook>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkNotebook,
@@ -1423,6 +1267,8 @@ impl<O: IsA<Notebook>> NotebookExt for O {
         }
     }
 }
+
+impl<O: IsA<Notebook>> NotebookExt for O {}
 
 impl fmt::Display for Notebook {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

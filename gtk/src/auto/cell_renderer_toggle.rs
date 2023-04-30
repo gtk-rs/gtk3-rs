@@ -187,58 +187,9 @@ impl CellRendererToggleBuilder {
     }
 }
 
-pub trait CellRendererToggleExt: 'static {
+pub trait CellRendererToggleExt: IsA<CellRendererToggle> + 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
     #[doc(alias = "get_activatable")]
-    fn is_activatable(&self) -> bool;
-
-    #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
-    #[doc(alias = "get_active")]
-    fn is_active(&self) -> bool;
-
-    #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
-    #[doc(alias = "get_radio")]
-    fn is_radio(&self) -> bool;
-
-    #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
-    fn set_activatable(&self, setting: bool);
-
-    #[doc(alias = "gtk_cell_renderer_toggle_set_active")]
-    fn set_active(&self, setting: bool);
-
-    #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
-    fn set_radio(&self, radio: bool);
-
-    fn is_inconsistent(&self) -> bool;
-
-    fn set_inconsistent(&self, inconsistent: bool);
-
-    #[doc(alias = "indicator-size")]
-    fn indicator_size(&self) -> i32;
-
-    #[doc(alias = "indicator-size")]
-    fn set_indicator_size(&self, indicator_size: i32);
-
-    #[doc(alias = "toggled")]
-    fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "activatable")]
-    fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "inconsistent")]
-    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "indicator-size")]
-    fn connect_indicator_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "radio")]
-    fn connect_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
     fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_activatable(
@@ -247,6 +198,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
+    #[doc(alias = "get_active")]
     fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_active(
@@ -255,6 +208,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
+    #[doc(alias = "get_radio")]
     fn is_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_radio(
@@ -263,6 +218,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
     fn set_activatable(&self, setting: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_activatable(
@@ -272,6 +228,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_active")]
     fn set_active(&self, setting: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_active(
@@ -281,6 +238,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
     fn set_radio(&self, radio: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_radio(
@@ -298,14 +256,17 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "inconsistent", inconsistent)
     }
 
+    #[doc(alias = "indicator-size")]
     fn indicator_size(&self) -> i32 {
         glib::ObjectExt::property(self.as_ref(), "indicator-size")
     }
 
+    #[doc(alias = "indicator-size")]
     fn set_indicator_size(&self, indicator_size: i32) {
         glib::ObjectExt::set_property(self.as_ref(), "indicator-size", indicator_size)
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self, TreePath) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<
             P: IsA<CellRendererToggle>,
@@ -335,6 +296,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "activatable")]
     fn connect_activatable_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_activatable_trampoline<
             P: IsA<CellRendererToggle>,
@@ -360,6 +322,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<CellRendererToggle>,
@@ -385,6 +348,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "inconsistent")]
     fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<
             P: IsA<CellRendererToggle>,
@@ -410,6 +374,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "indicator-size")]
     fn connect_indicator_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_indicator_size_trampoline<
             P: IsA<CellRendererToggle>,
@@ -435,6 +400,7 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 
+    #[doc(alias = "radio")]
     fn connect_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_radio_trampoline<
             P: IsA<CellRendererToggle>,
@@ -460,6 +426,8 @@ impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {
         }
     }
 }
+
+impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {}
 
 impl fmt::Display for CellRendererToggle {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

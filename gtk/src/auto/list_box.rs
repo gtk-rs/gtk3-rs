@@ -296,156 +296,8 @@ impl ListBoxBuilder {
     }
 }
 
-pub trait ListBoxExt: 'static {
+pub trait ListBoxExt: IsA<ListBox> + 'static {
     #[doc(alias = "gtk_list_box_bind_model")]
-    fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
-        &self,
-        model: Option<&impl IsA<gio::ListModel>>,
-        create_widget_func: P,
-    );
-
-    #[doc(alias = "gtk_list_box_drag_highlight_row")]
-    fn drag_highlight_row(&self, row: &impl IsA<ListBoxRow>);
-
-    #[doc(alias = "gtk_list_box_drag_unhighlight_row")]
-    fn drag_unhighlight_row(&self);
-
-    #[doc(alias = "gtk_list_box_get_activate_on_single_click")]
-    #[doc(alias = "get_activate_on_single_click")]
-    fn activates_on_single_click(&self) -> bool;
-
-    #[doc(alias = "gtk_list_box_get_adjustment")]
-    #[doc(alias = "get_adjustment")]
-    fn adjustment(&self) -> Option<Adjustment>;
-
-    #[doc(alias = "gtk_list_box_get_row_at_index")]
-    #[doc(alias = "get_row_at_index")]
-    fn row_at_index(&self, index_: i32) -> Option<ListBoxRow>;
-
-    #[doc(alias = "gtk_list_box_get_row_at_y")]
-    #[doc(alias = "get_row_at_y")]
-    fn row_at_y(&self, y: i32) -> Option<ListBoxRow>;
-
-    #[doc(alias = "gtk_list_box_get_selected_row")]
-    #[doc(alias = "get_selected_row")]
-    fn selected_row(&self) -> Option<ListBoxRow>;
-
-    #[doc(alias = "gtk_list_box_get_selected_rows")]
-    #[doc(alias = "get_selected_rows")]
-    fn selected_rows(&self) -> Vec<ListBoxRow>;
-
-    #[doc(alias = "gtk_list_box_get_selection_mode")]
-    #[doc(alias = "get_selection_mode")]
-    fn selection_mode(&self) -> SelectionMode;
-
-    #[doc(alias = "gtk_list_box_insert")]
-    fn insert(&self, child: &impl IsA<Widget>, position: i32);
-
-    #[doc(alias = "gtk_list_box_invalidate_filter")]
-    fn invalidate_filter(&self);
-
-    #[doc(alias = "gtk_list_box_invalidate_headers")]
-    fn invalidate_headers(&self);
-
-    #[doc(alias = "gtk_list_box_invalidate_sort")]
-    fn invalidate_sort(&self);
-
-    #[doc(alias = "gtk_list_box_prepend")]
-    fn prepend(&self, child: &impl IsA<Widget>);
-
-    #[doc(alias = "gtk_list_box_select_all")]
-    fn select_all(&self);
-
-    #[doc(alias = "gtk_list_box_select_row")]
-    fn select_row(&self, row: Option<&impl IsA<ListBoxRow>>);
-
-    #[doc(alias = "gtk_list_box_selected_foreach")]
-    fn selected_foreach<P: FnMut(&ListBox, &ListBoxRow)>(&self, func: P);
-
-    #[doc(alias = "gtk_list_box_set_activate_on_single_click")]
-    fn set_activate_on_single_click(&self, single: bool);
-
-    #[doc(alias = "gtk_list_box_set_adjustment")]
-    fn set_adjustment(&self, adjustment: Option<&impl IsA<Adjustment>>);
-
-    #[doc(alias = "gtk_list_box_set_filter_func")]
-    fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&ListBoxRow) -> bool + 'static>>);
-
-    #[doc(alias = "gtk_list_box_set_header_func")]
-    fn set_header_func(
-        &self,
-        update_header: Option<Box_<dyn Fn(&ListBoxRow, Option<&ListBoxRow>) + 'static>>,
-    );
-
-    #[doc(alias = "gtk_list_box_set_placeholder")]
-    fn set_placeholder(&self, placeholder: Option<&impl IsA<Widget>>);
-
-    #[doc(alias = "gtk_list_box_set_selection_mode")]
-    fn set_selection_mode(&self, mode: SelectionMode);
-
-    #[doc(alias = "gtk_list_box_set_sort_func")]
-    fn set_sort_func(
-        &self,
-        sort_func: Option<Box_<dyn Fn(&ListBoxRow, &ListBoxRow) -> i32 + 'static>>,
-    );
-
-    #[doc(alias = "gtk_list_box_unselect_all")]
-    fn unselect_all(&self);
-
-    #[doc(alias = "gtk_list_box_unselect_row")]
-    fn unselect_row(&self, row: &impl IsA<ListBoxRow>);
-
-    #[doc(alias = "activate-cursor-row")]
-    fn connect_activate_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_cursor_row(&self);
-
-    #[doc(alias = "move-cursor")]
-    fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_cursor(&self, object: MovementStep, p0: i32);
-
-    #[doc(alias = "row-activated")]
-    fn connect_row_activated<F: Fn(&Self, &ListBoxRow) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "row-selected")]
-    fn connect_row_selected<F: Fn(&Self, Option<&ListBoxRow>) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "select-all")]
-    fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_select_all(&self);
-
-    #[doc(alias = "selected-rows-changed")]
-    fn connect_selected_rows_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "toggle-cursor-row")]
-    fn connect_toggle_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_toggle_cursor_row(&self);
-
-    #[doc(alias = "unselect-all")]
-    fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_unselect_all(&self);
-
-    #[doc(alias = "activate-on-single-click")]
-    fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "selection-mode")]
-    fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ListBox>> ListBoxExt for O {
     fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&impl IsA<gio::ListModel>>,
@@ -479,6 +331,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_drag_highlight_row")]
     fn drag_highlight_row(&self, row: &impl IsA<ListBoxRow>) {
         unsafe {
             ffi::gtk_list_box_drag_highlight_row(
@@ -488,12 +341,15 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_drag_unhighlight_row")]
     fn drag_unhighlight_row(&self) {
         unsafe {
             ffi::gtk_list_box_drag_unhighlight_row(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_activate_on_single_click")]
+    #[doc(alias = "get_activate_on_single_click")]
     fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_get_activate_on_single_click(
@@ -502,6 +358,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_adjustment")]
+    #[doc(alias = "get_adjustment")]
     fn adjustment(&self) -> Option<Adjustment> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_adjustment(
@@ -510,6 +368,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_row_at_index")]
+    #[doc(alias = "get_row_at_index")]
     fn row_at_index(&self, index_: i32) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_row_at_index(
@@ -519,6 +379,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_row_at_y")]
+    #[doc(alias = "get_row_at_y")]
     fn row_at_y(&self, y: i32) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_row_at_y(
@@ -528,6 +390,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_selected_row")]
+    #[doc(alias = "get_selected_row")]
     fn selected_row(&self) -> Option<ListBoxRow> {
         unsafe {
             from_glib_none(ffi::gtk_list_box_get_selected_row(
@@ -536,6 +400,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_selected_rows")]
+    #[doc(alias = "get_selected_rows")]
     fn selected_rows(&self) -> Vec<ListBoxRow> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_list_box_get_selected_rows(
@@ -544,6 +410,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_get_selection_mode")]
+    #[doc(alias = "get_selection_mode")]
     fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_list_box_get_selection_mode(
@@ -552,6 +420,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_insert")]
     fn insert(&self, child: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_list_box_insert(
@@ -562,24 +431,28 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_invalidate_filter")]
     fn invalidate_filter(&self) {
         unsafe {
             ffi::gtk_list_box_invalidate_filter(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_invalidate_headers")]
     fn invalidate_headers(&self) {
         unsafe {
             ffi::gtk_list_box_invalidate_headers(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_invalidate_sort")]
     fn invalidate_sort(&self) {
         unsafe {
             ffi::gtk_list_box_invalidate_sort(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_prepend")]
     fn prepend(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_list_box_prepend(
@@ -589,12 +462,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_select_all")]
     fn select_all(&self) {
         unsafe {
             ffi::gtk_list_box_select_all(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_select_row")]
     fn select_row(&self, row: Option<&impl IsA<ListBoxRow>>) {
         unsafe {
             ffi::gtk_list_box_select_row(
@@ -604,6 +479,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&ListBox, &ListBoxRow)>(&self, func: P) {
         let func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&ListBox, &ListBoxRow)>(
@@ -627,6 +503,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_activate_on_single_click")]
     fn set_activate_on_single_click(&self, single: bool) {
         unsafe {
             ffi::gtk_list_box_set_activate_on_single_click(
@@ -636,6 +513,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_adjustment")]
     fn set_adjustment(&self, adjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_list_box_set_adjustment(
@@ -645,6 +523,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_filter_func")]
     fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&ListBoxRow) -> bool + 'static>>) {
         let filter_func_data: Box_<Option<Box_<dyn Fn(&ListBoxRow) -> bool + 'static>>> =
             Box_::new(filter_func);
@@ -684,6 +563,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_header_func")]
     fn set_header_func(
         &self,
         update_header: Option<Box_<dyn Fn(&ListBoxRow, Option<&ListBoxRow>) + 'static>>,
@@ -729,6 +609,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_placeholder")]
     fn set_placeholder(&self, placeholder: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_list_box_set_placeholder(
@@ -738,12 +619,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_selection_mode")]
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
             ffi::gtk_list_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_list_box_set_sort_func")]
     fn set_sort_func(
         &self,
         sort_func: Option<Box_<dyn Fn(&ListBoxRow, &ListBoxRow) -> i32 + 'static>>,
@@ -787,12 +670,14 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_list_box_unselect_all")]
     fn unselect_all(&self) {
         unsafe {
             ffi::gtk_list_box_unselect_all(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_list_box_unselect_row")]
     fn unselect_row(&self, row: &impl IsA<ListBoxRow>) {
         unsafe {
             ffi::gtk_list_box_unselect_row(
@@ -802,6 +687,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "activate-cursor-row")]
     fn connect_activate_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_cursor_row_trampoline<
             P: IsA<ListBox>,
@@ -830,6 +716,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         self.emit_by_name::<()>("activate-cursor-row", &[]);
     }
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) + 'static>(
         &self,
         f: F,
@@ -867,6 +754,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         self.emit_by_name::<()>("move-cursor", &[&object, &p0]);
     }
 
+    #[doc(alias = "row-activated")]
     fn connect_row_activated<F: Fn(&Self, &ListBoxRow) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn row_activated_trampoline<
             P: IsA<ListBox>,
@@ -895,6 +783,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "row-selected")]
     fn connect_row_selected<F: Fn(&Self, Option<&ListBoxRow>) + 'static>(
         &self,
         f: F,
@@ -928,6 +817,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -953,6 +843,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         self.emit_by_name::<()>("select-all", &[]);
     }
 
+    #[doc(alias = "selected-rows-changed")]
     fn connect_selected_rows_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selected_rows_changed_trampoline<
             P: IsA<ListBox>,
@@ -977,6 +868,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "toggle-cursor-row")]
     fn connect_toggle_cursor_row<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_cursor_row_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -1002,6 +894,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         self.emit_by_name::<()>("toggle-cursor-row", &[]);
     }
 
+    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unselect_all_trampoline<P: IsA<ListBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkListBox,
@@ -1027,6 +920,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         self.emit_by_name::<()>("unselect-all", &[]);
     }
 
+    #[doc(alias = "activate-on-single-click")]
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1055,6 +949,7 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 
+    #[doc(alias = "selection-mode")]
     fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_mode_trampoline<
             P: IsA<ListBox>,
@@ -1080,6 +975,8 @@ impl<O: IsA<ListBox>> ListBoxExt for O {
         }
     }
 }
+
+impl<O: IsA<ListBox>> ListBoxExt for O {}
 
 impl fmt::Display for ListBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

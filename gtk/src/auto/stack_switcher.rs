@@ -35,19 +35,9 @@ impl Default for StackSwitcher {
     }
 }
 
-pub trait StackSwitcherExt: 'static {
+pub trait StackSwitcherExt: IsA<StackSwitcher> + 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]
     #[doc(alias = "get_stack")]
-    fn stack(&self) -> Option<Stack>;
-
-    #[doc(alias = "gtk_stack_switcher_set_stack")]
-    fn set_stack(&self, stack: Option<&impl IsA<Stack>>);
-
-    #[doc(alias = "stack")]
-    fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
     fn stack(&self) -> Option<Stack> {
         unsafe {
             from_glib_none(ffi::gtk_stack_switcher_get_stack(
@@ -56,6 +46,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 
+    #[doc(alias = "gtk_stack_switcher_set_stack")]
     fn set_stack(&self, stack: Option<&impl IsA<Stack>>) {
         unsafe {
             ffi::gtk_stack_switcher_set_stack(
@@ -65,6 +56,7 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 
+    #[doc(alias = "stack")]
     fn connect_stack_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_stack_trampoline<P: IsA<StackSwitcher>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkStackSwitcher,
@@ -87,6 +79,8 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {
         }
     }
 }
+
+impl<O: IsA<StackSwitcher>> StackSwitcherExt for O {}
 
 impl fmt::Display for StackSwitcher {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

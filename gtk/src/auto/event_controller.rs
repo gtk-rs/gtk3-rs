@@ -23,29 +23,9 @@ impl EventController {
     pub const NONE: Option<&'static EventController> = None;
 }
 
-pub trait EventControllerExt: 'static {
+pub trait EventControllerExt: IsA<EventController> + 'static {
     #[doc(alias = "gtk_event_controller_get_propagation_phase")]
     #[doc(alias = "get_propagation_phase")]
-    fn propagation_phase(&self) -> PropagationPhase;
-
-    #[doc(alias = "gtk_event_controller_get_widget")]
-    #[doc(alias = "get_widget")]
-    fn widget(&self) -> Option<Widget>;
-
-    #[doc(alias = "gtk_event_controller_handle_event")]
-    fn handle_event(&self, event: &gdk::Event) -> bool;
-
-    #[doc(alias = "gtk_event_controller_reset")]
-    fn reset(&self);
-
-    #[doc(alias = "gtk_event_controller_set_propagation_phase")]
-    fn set_propagation_phase(&self, phase: PropagationPhase);
-
-    #[doc(alias = "propagation-phase")]
-    fn connect_propagation_phase_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<EventController>> EventControllerExt for O {
     fn propagation_phase(&self) -> PropagationPhase {
         unsafe {
             from_glib(ffi::gtk_event_controller_get_propagation_phase(
@@ -54,6 +34,8 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_controller_get_widget")]
+    #[doc(alias = "get_widget")]
     fn widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_event_controller_get_widget(
@@ -62,6 +44,7 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_controller_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_controller_handle_event(
@@ -71,12 +54,14 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
+    #[doc(alias = "gtk_event_controller_reset")]
     fn reset(&self) {
         unsafe {
             ffi::gtk_event_controller_reset(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_event_controller_set_propagation_phase")]
     fn set_propagation_phase(&self, phase: PropagationPhase) {
         unsafe {
             ffi::gtk_event_controller_set_propagation_phase(
@@ -86,6 +71,7 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 
+    #[doc(alias = "propagation-phase")]
     fn connect_propagation_phase_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_propagation_phase_trampoline<
             P: IsA<EventController>,
@@ -111,6 +97,8 @@ impl<O: IsA<EventController>> EventControllerExt for O {
         }
     }
 }
+
+impl<O: IsA<EventController>> EventControllerExt for O {}
 
 impl fmt::Display for EventController {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

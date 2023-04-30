@@ -25,27 +25,8 @@ impl TreeStore {
     }
 }
 
-pub trait TreeStoreExtManual: 'static {
+pub trait TreeStoreExtManual: IsA<TreeStore> + 'static {
     #[doc(alias = "gtk_tree_store_insert_with_valuesv")]
-    fn insert_with_values(
-        &self,
-        parent: Option<&TreeIter>,
-        position: Option<u32>,
-        columns_and_values: &[(u32, &dyn ToValue)],
-    ) -> TreeIter;
-
-    #[doc(alias = "gtk_tree_store_reorder")]
-    fn reorder(&self, parent: &TreeIter, new_order: &[u32]);
-
-    #[doc(alias = "gtk_tree_store_set")]
-    #[doc(alias = "gtk_tree_store_set_valuesv")]
-    fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]);
-
-    #[doc(alias = "gtk_tree_store_set_value")]
-    fn set_value(&self, iter: &TreeIter, column: u32, value: &Value);
-}
-
-impl<O: IsA<TreeStore>> TreeStoreExtManual for O {
     fn insert_with_values(
         &self,
         parent: Option<&TreeIter>,
@@ -107,6 +88,7 @@ impl<O: IsA<TreeStore>> TreeStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_store_reorder")]
     fn reorder(&self, parent: &TreeIter, new_order: &[u32]) {
         unsafe {
             let count = ffi::gtk_tree_model_iter_n_children(
@@ -139,6 +121,8 @@ impl<O: IsA<TreeStore>> TreeStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_store_set")]
+    #[doc(alias = "gtk_tree_store_set_valuesv")]
     fn set(&self, iter: &TreeIter, columns_and_values: &[(u32, &dyn ToValue)]) {
         unsafe {
             let n_columns = ffi::gtk_tree_model_get_n_columns(
@@ -187,6 +171,7 @@ impl<O: IsA<TreeStore>> TreeStoreExtManual for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_store_set_value")]
     fn set_value(&self, iter: &TreeIter, column: u32, value: &Value) {
         unsafe {
             let columns = ffi::gtk_tree_model_get_n_columns(
@@ -216,3 +201,5 @@ impl<O: IsA<TreeStore>> TreeStoreExtManual for O {
         }
     }
 }
+
+impl<O: IsA<TreeStore>> TreeStoreExtManual for O {}

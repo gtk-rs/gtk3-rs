@@ -336,179 +336,8 @@ impl FlowBoxBuilder {
     }
 }
 
-pub trait FlowBoxExt: 'static {
+pub trait FlowBoxExt: IsA<FlowBox> + 'static {
     #[doc(alias = "gtk_flow_box_bind_model")]
-    fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
-        &self,
-        model: Option<&impl IsA<gio::ListModel>>,
-        create_widget_func: P,
-    );
-
-    #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
-    #[doc(alias = "get_activate_on_single_click")]
-    fn activates_on_single_click(&self) -> bool;
-
-    #[doc(alias = "gtk_flow_box_get_child_at_index")]
-    #[doc(alias = "get_child_at_index")]
-    fn child_at_index(&self, idx: i32) -> Option<FlowBoxChild>;
-
-    #[doc(alias = "gtk_flow_box_get_child_at_pos")]
-    #[doc(alias = "get_child_at_pos")]
-    fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild>;
-
-    #[doc(alias = "gtk_flow_box_get_column_spacing")]
-    #[doc(alias = "get_column_spacing")]
-    fn column_spacing(&self) -> u32;
-
-    #[doc(alias = "gtk_flow_box_get_homogeneous")]
-    #[doc(alias = "get_homogeneous")]
-    fn is_homogeneous(&self) -> bool;
-
-    #[doc(alias = "gtk_flow_box_get_max_children_per_line")]
-    #[doc(alias = "get_max_children_per_line")]
-    fn max_children_per_line(&self) -> u32;
-
-    #[doc(alias = "gtk_flow_box_get_min_children_per_line")]
-    #[doc(alias = "get_min_children_per_line")]
-    fn min_children_per_line(&self) -> u32;
-
-    #[doc(alias = "gtk_flow_box_get_row_spacing")]
-    #[doc(alias = "get_row_spacing")]
-    fn row_spacing(&self) -> u32;
-
-    #[doc(alias = "gtk_flow_box_get_selected_children")]
-    #[doc(alias = "get_selected_children")]
-    fn selected_children(&self) -> Vec<FlowBoxChild>;
-
-    #[doc(alias = "gtk_flow_box_get_selection_mode")]
-    #[doc(alias = "get_selection_mode")]
-    fn selection_mode(&self) -> SelectionMode;
-
-    #[doc(alias = "gtk_flow_box_insert")]
-    fn insert(&self, widget: &impl IsA<Widget>, position: i32);
-
-    #[doc(alias = "gtk_flow_box_invalidate_filter")]
-    fn invalidate_filter(&self);
-
-    #[doc(alias = "gtk_flow_box_invalidate_sort")]
-    fn invalidate_sort(&self);
-
-    #[doc(alias = "gtk_flow_box_select_all")]
-    fn select_all(&self);
-
-    #[doc(alias = "gtk_flow_box_select_child")]
-    fn select_child(&self, child: &impl IsA<FlowBoxChild>);
-
-    #[doc(alias = "gtk_flow_box_selected_foreach")]
-    fn selected_foreach<P: FnMut(&FlowBox, &FlowBoxChild)>(&self, func: P);
-
-    #[doc(alias = "gtk_flow_box_set_activate_on_single_click")]
-    fn set_activate_on_single_click(&self, single: bool);
-
-    #[doc(alias = "gtk_flow_box_set_column_spacing")]
-    fn set_column_spacing(&self, spacing: u32);
-
-    #[doc(alias = "gtk_flow_box_set_filter_func")]
-    fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>);
-
-    #[doc(alias = "gtk_flow_box_set_hadjustment")]
-    fn set_hadjustment(&self, adjustment: &impl IsA<Adjustment>);
-
-    #[doc(alias = "gtk_flow_box_set_homogeneous")]
-    fn set_homogeneous(&self, homogeneous: bool);
-
-    #[doc(alias = "gtk_flow_box_set_max_children_per_line")]
-    fn set_max_children_per_line(&self, n_children: u32);
-
-    #[doc(alias = "gtk_flow_box_set_min_children_per_line")]
-    fn set_min_children_per_line(&self, n_children: u32);
-
-    #[doc(alias = "gtk_flow_box_set_row_spacing")]
-    fn set_row_spacing(&self, spacing: u32);
-
-    #[doc(alias = "gtk_flow_box_set_selection_mode")]
-    fn set_selection_mode(&self, mode: SelectionMode);
-
-    #[doc(alias = "gtk_flow_box_set_sort_func")]
-    fn set_sort_func(
-        &self,
-        sort_func: Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>>,
-    );
-
-    #[doc(alias = "gtk_flow_box_set_vadjustment")]
-    fn set_vadjustment(&self, adjustment: &impl IsA<Adjustment>);
-
-    #[doc(alias = "gtk_flow_box_unselect_all")]
-    fn unselect_all(&self);
-
-    #[doc(alias = "gtk_flow_box_unselect_child")]
-    fn unselect_child(&self, child: &impl IsA<FlowBoxChild>);
-
-    #[doc(alias = "activate-cursor-child")]
-    fn connect_activate_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_activate_cursor_child(&self);
-
-    #[doc(alias = "child-activated")]
-    fn connect_child_activated<F: Fn(&Self, &FlowBoxChild) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "move-cursor")]
-    fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    fn emit_move_cursor(&self, step: MovementStep, count: i32) -> bool;
-
-    #[doc(alias = "select-all")]
-    fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_select_all(&self);
-
-    #[doc(alias = "selected-children-changed")]
-    fn connect_selected_children_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "toggle-cursor-child")]
-    fn connect_toggle_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_toggle_cursor_child(&self);
-
-    #[doc(alias = "unselect-all")]
-    fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_unselect_all(&self);
-
-    #[doc(alias = "activate-on-single-click")]
-    fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "column-spacing")]
-    fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "homogeneous")]
-    fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "max-children-per-line")]
-    fn connect_max_children_per_line_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    #[doc(alias = "min-children-per-line")]
-    fn connect_min_children_per_line_notify<F: Fn(&Self) + 'static>(&self, f: F)
-        -> SignalHandlerId;
-
-    #[doc(alias = "row-spacing")]
-    fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "selection-mode")]
-    fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<FlowBox>> FlowBoxExt for O {
     fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,
         model: Option<&impl IsA<gio::ListModel>>,
@@ -542,6 +371,8 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
+    #[doc(alias = "get_activate_on_single_click")]
     fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_activate_on_single_click(
@@ -550,6 +381,8 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_child_at_index")]
+    #[doc(alias = "get_child_at_index")]
     fn child_at_index(&self, idx: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(ffi::gtk_flow_box_get_child_at_index(
@@ -559,6 +392,8 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_child_at_pos")]
+    #[doc(alias = "get_child_at_pos")]
     fn child_at_pos(&self, x: i32, y: i32) -> Option<FlowBoxChild> {
         unsafe {
             from_glib_none(ffi::gtk_flow_box_get_child_at_pos(
@@ -569,10 +404,14 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_column_spacing")]
+    #[doc(alias = "get_column_spacing")]
     fn column_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_flow_box_get_homogeneous")]
+    #[doc(alias = "get_homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_homogeneous(
@@ -581,18 +420,26 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_max_children_per_line")]
+    #[doc(alias = "get_max_children_per_line")]
     fn max_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_max_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_flow_box_get_min_children_per_line")]
+    #[doc(alias = "get_min_children_per_line")]
     fn min_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_min_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_flow_box_get_row_spacing")]
+    #[doc(alias = "get_row_spacing")]
     fn row_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_flow_box_get_selected_children")]
+    #[doc(alias = "get_selected_children")]
     fn selected_children(&self) -> Vec<FlowBoxChild> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(ffi::gtk_flow_box_get_selected_children(
@@ -601,6 +448,8 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_get_selection_mode")]
+    #[doc(alias = "get_selection_mode")]
     fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_selection_mode(
@@ -609,6 +458,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_insert")]
     fn insert(&self, widget: &impl IsA<Widget>, position: i32) {
         unsafe {
             ffi::gtk_flow_box_insert(
@@ -619,24 +469,28 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_invalidate_filter")]
     fn invalidate_filter(&self) {
         unsafe {
             ffi::gtk_flow_box_invalidate_filter(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_invalidate_sort")]
     fn invalidate_sort(&self) {
         unsafe {
             ffi::gtk_flow_box_invalidate_sort(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_select_all")]
     fn select_all(&self) {
         unsafe {
             ffi::gtk_flow_box_select_all(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_select_child")]
     fn select_child(&self, child: &impl IsA<FlowBoxChild>) {
         unsafe {
             ffi::gtk_flow_box_select_child(
@@ -646,6 +500,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&FlowBox, &FlowBoxChild)>(&self, func: P) {
         let func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&FlowBox, &FlowBoxChild)>(
@@ -669,6 +524,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_activate_on_single_click")]
     fn set_activate_on_single_click(&self, single: bool) {
         unsafe {
             ffi::gtk_flow_box_set_activate_on_single_click(
@@ -678,12 +534,14 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_column_spacing")]
     fn set_column_spacing(&self, spacing: u32) {
         unsafe {
             ffi::gtk_flow_box_set_column_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_filter_func")]
     fn set_filter_func(&self, filter_func: Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>) {
         let filter_func_data: Box_<Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>> =
             Box_::new(filter_func);
@@ -723,6 +581,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_hadjustment")]
     fn set_hadjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_flow_box_set_hadjustment(
@@ -732,6 +591,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_flow_box_set_homogeneous(
@@ -741,30 +601,35 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_max_children_per_line")]
     fn set_max_children_per_line(&self, n_children: u32) {
         unsafe {
             ffi::gtk_flow_box_set_max_children_per_line(self.as_ref().to_glib_none().0, n_children);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_min_children_per_line")]
     fn set_min_children_per_line(&self, n_children: u32) {
         unsafe {
             ffi::gtk_flow_box_set_min_children_per_line(self.as_ref().to_glib_none().0, n_children);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_row_spacing")]
     fn set_row_spacing(&self, spacing: u32) {
         unsafe {
             ffi::gtk_flow_box_set_row_spacing(self.as_ref().to_glib_none().0, spacing);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_selection_mode")]
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
             ffi::gtk_flow_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_sort_func")]
     fn set_sort_func(
         &self,
         sort_func: Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>>,
@@ -811,6 +676,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_set_vadjustment")]
     fn set_vadjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_flow_box_set_vadjustment(
@@ -820,12 +686,14 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "gtk_flow_box_unselect_all")]
     fn unselect_all(&self) {
         unsafe {
             ffi::gtk_flow_box_unselect_all(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_flow_box_unselect_child")]
     fn unselect_child(&self, child: &impl IsA<FlowBoxChild>) {
         unsafe {
             ffi::gtk_flow_box_unselect_child(
@@ -835,6 +703,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "activate-cursor-child")]
     fn connect_activate_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_cursor_child_trampoline<
             P: IsA<FlowBox>,
@@ -863,6 +732,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         self.emit_by_name::<()>("activate-cursor-child", &[]);
     }
 
+    #[doc(alias = "child-activated")]
     fn connect_child_activated<F: Fn(&Self, &FlowBoxChild) + 'static>(
         &self,
         f: F,
@@ -894,6 +764,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "move-cursor")]
     fn connect_move_cursor<F: Fn(&Self, MovementStep, i32) -> bool + 'static>(
         &self,
         f: F,
@@ -932,6 +803,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         self.emit_by_name("move-cursor", &[&step, &count])
     }
 
+    #[doc(alias = "select-all")]
     fn connect_select_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn select_all_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -957,6 +829,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         self.emit_by_name::<()>("select-all", &[]);
     }
 
+    #[doc(alias = "selected-children-changed")]
     fn connect_selected_children_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn selected_children_changed_trampoline<
             P: IsA<FlowBox>,
@@ -981,6 +854,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "toggle-cursor-child")]
     fn connect_toggle_cursor_child<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggle_cursor_child_trampoline<
             P: IsA<FlowBox>,
@@ -1009,6 +883,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         self.emit_by_name::<()>("toggle-cursor-child", &[]);
     }
 
+    #[doc(alias = "unselect-all")]
     fn connect_unselect_all<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn unselect_all_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1034,6 +909,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         self.emit_by_name::<()>("unselect-all", &[]);
     }
 
+    #[doc(alias = "activate-on-single-click")]
     fn connect_activate_on_single_click_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1062,6 +938,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "column-spacing")]
     fn connect_column_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_column_spacing_trampoline<
             P: IsA<FlowBox>,
@@ -1087,6 +964,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "homogeneous")]
     fn connect_homogeneous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_homogeneous_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1109,6 +987,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "max-children-per-line")]
     fn connect_max_children_per_line_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1137,6 +1016,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "min-children-per-line")]
     fn connect_min_children_per_line_notify<F: Fn(&Self) + 'static>(
         &self,
         f: F,
@@ -1165,6 +1045,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "row-spacing")]
     fn connect_row_spacing_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_row_spacing_trampoline<P: IsA<FlowBox>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkFlowBox,
@@ -1187,6 +1068,7 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 
+    #[doc(alias = "selection-mode")]
     fn connect_selection_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_selection_mode_trampoline<
             P: IsA<FlowBox>,
@@ -1212,6 +1094,8 @@ impl<O: IsA<FlowBox>> FlowBoxExt for O {
         }
     }
 }
+
+impl<O: IsA<FlowBox>> FlowBoxExt for O {}
 
 impl fmt::Display for FlowBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

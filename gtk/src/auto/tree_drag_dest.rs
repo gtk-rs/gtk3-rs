@@ -19,19 +19,8 @@ impl TreeDragDest {
     pub const NONE: Option<&'static TreeDragDest> = None;
 }
 
-pub trait TreeDragDestExt: 'static {
+pub trait TreeDragDestExt: IsA<TreeDragDest> + 'static {
     #[doc(alias = "gtk_tree_drag_dest_drag_data_received")]
-    fn drag_data_received(&self, dest: &mut TreePath, selection_data: &mut SelectionData) -> bool;
-
-    #[doc(alias = "gtk_tree_drag_dest_row_drop_possible")]
-    fn row_drop_possible(
-        &self,
-        dest_path: &mut TreePath,
-        selection_data: &mut SelectionData,
-    ) -> bool;
-}
-
-impl<O: IsA<TreeDragDest>> TreeDragDestExt for O {
     fn drag_data_received(&self, dest: &mut TreePath, selection_data: &mut SelectionData) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_drag_dest_drag_data_received(
@@ -42,6 +31,7 @@ impl<O: IsA<TreeDragDest>> TreeDragDestExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_drag_dest_row_drop_possible")]
     fn row_drop_possible(
         &self,
         dest_path: &mut TreePath,
@@ -56,6 +46,8 @@ impl<O: IsA<TreeDragDest>> TreeDragDestExt for O {
         }
     }
 }
+
+impl<O: IsA<TreeDragDest>> TreeDragDestExt for O {}
 
 impl fmt::Display for TreeDragDest {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

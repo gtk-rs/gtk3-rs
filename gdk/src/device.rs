@@ -10,17 +10,9 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-pub trait DeviceExtManual: 'static {
+pub trait DeviceExtManual: IsA<Device> + 'static {
     #[doc(alias = "gdk_device_get_axis")]
     #[doc(alias = "get_axis")]
-    fn is_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool;
-
-    #[doc(alias = "gdk_device_get_history")]
-    #[doc(alias = "get_history")]
-    fn history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord>;
-}
-
-impl<O: IsA<Device>> DeviceExtManual for O {
     fn is_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_get_axis(
@@ -32,6 +24,8 @@ impl<O: IsA<Device>> DeviceExtManual for O {
         }
     }
 
+    #[doc(alias = "gdk_device_get_history")]
+    #[doc(alias = "get_history")]
     fn history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {
         unsafe {
             let mut events = ptr::null_mut();
@@ -52,3 +46,5 @@ impl<O: IsA<Device>> DeviceExtManual for O {
         }
     }
 }
+
+impl<O: IsA<Device>> DeviceExtManual for O {}

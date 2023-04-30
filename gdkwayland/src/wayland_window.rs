@@ -95,8 +95,8 @@ impl WaylandWindow {
         }
     }
 
-    #[cfg(any(feature = "v3_24_22", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24_22")))]
+    #[cfg(any(feature = "v3_24_22", docsrs))]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_22")))]
     #[doc(alias = "gdk_wayland_window_set_application_id")]
     pub fn set_application_id(&self, application_id: &str) -> bool {
         unsafe {
@@ -112,8 +112,8 @@ impl WaylandWindow {
         unsafe { ffi::gdk_wayland_window_announce_csd(self.to_glib_none().0) }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(any(feature = "v3_24", docsrs))]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gdk_wayland_window_announce_ssd")]
     pub fn announce_ssd(&self) {
         unsafe { ffi::gdk_wayland_window_announce_ssd(self.to_glib_none().0) }

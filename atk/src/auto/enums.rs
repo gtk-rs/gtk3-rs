@@ -1244,8 +1244,8 @@ impl From<Role> for glib::Value {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkScrollType")]
@@ -1268,8 +1268,8 @@ pub enum ScrollType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl fmt::Display for ScrollType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -1289,8 +1289,8 @@ impl fmt::Display for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl IntoGlib for ScrollType {
     type GlibType = ffi::AtkScrollType;
@@ -1310,8 +1310,8 @@ impl IntoGlib for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl FromGlib<ffi::AtkScrollType> for ScrollType {
     #[inline]
@@ -1331,8 +1331,8 @@ impl FromGlib<ffi::AtkScrollType> for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl StaticType for ScrollType {
     #[inline]
     fn static_type() -> Type {
@@ -1340,8 +1340,8 @@ impl StaticType for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl glib::HasParamSpec for ScrollType {
     type ParamSpec = glib::ParamSpecEnum;
     type SetValue = Self;
@@ -1352,14 +1352,14 @@ impl glib::HasParamSpec for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl glib::value::ValueType for ScrollType {
     type Type = Self;
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 unsafe impl<'a> FromValue<'a> for ScrollType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
@@ -1370,8 +1370,8 @@ unsafe impl<'a> FromValue<'a> for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl ToValue for ScrollType {
     #[inline]
     fn to_value(&self) -> glib::Value {
@@ -1388,8 +1388,8 @@ impl ToValue for ScrollType {
     }
 }
 
-#[cfg(any(feature = "v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
+#[cfg(feature = "v2_30")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl From<ScrollType> for glib::Value {
     #[inline]
     fn from(v: ScrollType) -> Self {
@@ -1488,8 +1488,8 @@ pub enum StateType {
     HasTooltip,
     #[doc(alias = "ATK_STATE_READ_ONLY")]
     ReadOnly,
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
+    #[cfg(feature = "v2_38")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
     #[doc(alias = "ATK_STATE_COLLAPSED")]
     Collapsed,
     #[doc(hidden)]
@@ -1560,7 +1560,7 @@ impl fmt::Display for StateType {
                 Self::HasPopup => "HasPopup",
                 Self::HasTooltip => "HasTooltip",
                 Self::ReadOnly => "ReadOnly",
-                #[cfg(any(feature = "v2_38", feature = "dox"))]
+                #[cfg(feature = "v2_38")]
                 Self::Collapsed => "Collapsed",
                 _ => "Unknown",
             }
@@ -1617,7 +1617,7 @@ impl IntoGlib for StateType {
             Self::HasPopup => ffi::ATK_STATE_HAS_POPUP,
             Self::HasTooltip => ffi::ATK_STATE_HAS_TOOLTIP,
             Self::ReadOnly => ffi::ATK_STATE_READ_ONLY,
-            #[cfg(any(feature = "v2_38", feature = "dox"))]
+            #[cfg(feature = "v2_38")]
             Self::Collapsed => ffi::ATK_STATE_COLLAPSED,
             Self::__Unknown(value) => value,
         }
@@ -1673,7 +1673,7 @@ impl FromGlib<ffi::AtkStateType> for StateType {
             ffi::ATK_STATE_HAS_POPUP => Self::HasPopup,
             ffi::ATK_STATE_HAS_TOOLTIP => Self::HasTooltip,
             ffi::ATK_STATE_READ_ONLY => Self::ReadOnly,
-            #[cfg(any(feature = "v2_38", feature = "dox"))]
+            #[cfg(feature = "v2_38")]
             ffi::ATK_STATE_COLLAPSED => Self::Collapsed,
             value => Self::__Unknown(value),
         }

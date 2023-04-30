@@ -407,55 +407,8 @@ impl AppChooserButtonBuilder {
     }
 }
 
-pub trait AppChooserButtonExt: 'static {
+pub trait AppChooserButtonExt: IsA<AppChooserButton> + 'static {
     #[doc(alias = "gtk_app_chooser_button_append_custom_item")]
-    fn append_custom_item(&self, name: &str, label: &str, icon: &impl IsA<gio::Icon>);
-
-    #[doc(alias = "gtk_app_chooser_button_append_separator")]
-    fn append_separator(&self);
-
-    #[doc(alias = "gtk_app_chooser_button_get_heading")]
-    #[doc(alias = "get_heading")]
-    fn heading(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
-    #[doc(alias = "get_show_default_item")]
-    fn shows_default_item(&self) -> bool;
-
-    #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
-    #[doc(alias = "get_show_dialog_item")]
-    fn shows_dialog_item(&self) -> bool;
-
-    #[doc(alias = "gtk_app_chooser_button_set_active_custom_item")]
-    fn set_active_custom_item(&self, name: &str);
-
-    #[doc(alias = "gtk_app_chooser_button_set_heading")]
-    fn set_heading(&self, heading: &str);
-
-    #[doc(alias = "gtk_app_chooser_button_set_show_default_item")]
-    fn set_show_default_item(&self, setting: bool);
-
-    #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
-    fn set_show_dialog_item(&self, setting: bool);
-
-    #[doc(alias = "custom-item-activated")]
-    fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
-        &self,
-        detail: Option<&str>,
-        f: F,
-    ) -> SignalHandlerId;
-
-    #[doc(alias = "heading")]
-    fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-default-item")]
-    fn connect_show_default_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-dialog-item")]
-    fn connect_show_dialog_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
     fn append_custom_item(&self, name: &str, label: &str, icon: &impl IsA<gio::Icon>) {
         unsafe {
             ffi::gtk_app_chooser_button_append_custom_item(
@@ -467,12 +420,15 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_append_separator")]
     fn append_separator(&self) {
         unsafe {
             ffi::gtk_app_chooser_button_append_separator(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_get_heading")]
+    #[doc(alias = "get_heading")]
     fn heading(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_button_get_heading(
@@ -481,6 +437,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
+    #[doc(alias = "get_show_default_item")]
     fn shows_default_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_default_item(
@@ -489,6 +447,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
+    #[doc(alias = "get_show_dialog_item")]
     fn shows_dialog_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_dialog_item(
@@ -497,6 +457,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_set_active_custom_item")]
     fn set_active_custom_item(&self, name: &str) {
         unsafe {
             ffi::gtk_app_chooser_button_set_active_custom_item(
@@ -506,6 +467,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_set_heading")]
     fn set_heading(&self, heading: &str) {
         unsafe {
             ffi::gtk_app_chooser_button_set_heading(
@@ -515,6 +477,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_set_show_default_item")]
     fn set_show_default_item(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_default_item(
@@ -524,6 +487,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
     fn set_show_dialog_item(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_dialog_item(
@@ -533,6 +497,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "custom-item-activated")]
     fn connect_custom_item_activated<F: Fn(&Self, &str) + 'static>(
         &self,
         detail: Option<&str>,
@@ -570,6 +535,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "heading")]
     fn connect_heading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_heading_trampoline<
             P: IsA<AppChooserButton>,
@@ -595,6 +561,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "show-default-item")]
     fn connect_show_default_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_default_item_trampoline<
             P: IsA<AppChooserButton>,
@@ -620,6 +587,7 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 
+    #[doc(alias = "show-dialog-item")]
     fn connect_show_dialog_item_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_dialog_item_trampoline<
             P: IsA<AppChooserButton>,
@@ -645,6 +613,8 @@ impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {}
 
 impl fmt::Display for AppChooserButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

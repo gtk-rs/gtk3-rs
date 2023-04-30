@@ -16,7 +16,6 @@ name = "gdk_wayland_sys"
 [features]
 v3_24 = ["gdk/v3_24"]
 v3_24_22 = ["v3_24"]
-dox = ["gdk/dox"]
 
 [dependencies]
 libc = "0.2"
@@ -38,4 +37,4 @@ pkg-config = "0.3.7"
 system-deps = "6"
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]

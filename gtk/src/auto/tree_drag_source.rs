@@ -19,18 +19,8 @@ impl TreeDragSource {
     pub const NONE: Option<&'static TreeDragSource> = None;
 }
 
-pub trait TreeDragSourceExt: 'static {
+pub trait TreeDragSourceExt: IsA<TreeDragSource> + 'static {
     #[doc(alias = "gtk_tree_drag_source_drag_data_delete")]
-    fn drag_data_delete(&self, path: &mut TreePath) -> bool;
-
-    #[doc(alias = "gtk_tree_drag_source_drag_data_get")]
-    fn drag_data_get(&self, path: &mut TreePath, selection_data: &mut SelectionData) -> bool;
-
-    #[doc(alias = "gtk_tree_drag_source_row_draggable")]
-    fn row_draggable(&self, path: &mut TreePath) -> bool;
-}
-
-impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {
     fn drag_data_delete(&self, path: &mut TreePath) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_drag_source_drag_data_delete(
@@ -40,6 +30,7 @@ impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_drag_source_drag_data_get")]
     fn drag_data_get(&self, path: &mut TreePath, selection_data: &mut SelectionData) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_drag_source_drag_data_get(
@@ -50,6 +41,7 @@ impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {
         }
     }
 
+    #[doc(alias = "gtk_tree_drag_source_row_draggable")]
     fn row_draggable(&self, path: &mut TreePath) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_drag_source_row_draggable(
@@ -59,6 +51,8 @@ impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {
         }
     }
 }
+
+impl<O: IsA<TreeDragSource>> TreeDragSourceExt for O {}
 
 impl fmt::Display for TreeDragSource {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

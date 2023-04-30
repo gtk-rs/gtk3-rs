@@ -17,27 +17,19 @@ use glib::Cast;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 
-pub trait StackSwitcherExtManual: 'static {
+pub trait StackSwitcherExtManual: IsA<StackSwitcher> + 'static {
     #[doc(alias = "icon-size")]
-    fn icon_size(&self) -> IconSize;
-
-    #[doc(alias = "icon-size")]
-    fn set_icon_size(&self, icon_size: IconSize);
-
-    #[doc(alias = "icon-size")]
-    fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {
     fn icon_size(&self) -> IconSize {
         unsafe { from_glib(self.as_ref().property::<i32>("icon-size")) }
     }
 
+    #[doc(alias = "icon-size")]
     fn set_icon_size(&self, icon_size: IconSize) {
         self.as_ref()
             .set_property("icon-size", icon_size.into_glib());
     }
 
+    #[doc(alias = "icon-size")]
     fn connect_icon_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_icon_size_trampoline<
             P: IsA<StackSwitcher>,
@@ -63,6 +55,8 @@ impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {
         }
     }
 }
+
+impl<O: IsA<StackSwitcher>> StackSwitcherExtManual for O {}
 
 impl StackSwitcher {
     // rustdoc-stripper-ignore-next

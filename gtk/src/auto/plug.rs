@@ -477,42 +477,15 @@ impl PlugBuilder {
     }
 }
 
-pub trait PlugExt: 'static {
+pub trait PlugExt: IsA<Plug> + 'static {
     #[doc(alias = "gtk_plug_construct")]
-    fn construct(&self, socket_id: xlib::Window);
-
-    #[doc(alias = "gtk_plug_construct_for_display")]
-    fn construct_for_display(&self, display: &gdk::Display, socket_id: xlib::Window);
-
-    #[doc(alias = "gtk_plug_get_embedded")]
-    #[doc(alias = "get_embedded")]
-    fn is_embedded(&self) -> bool;
-
-    #[doc(alias = "gtk_plug_get_id")]
-    #[doc(alias = "get_id")]
-    fn id(&self) -> xlib::Window;
-
-    #[doc(alias = "gtk_plug_get_socket_window")]
-    #[doc(alias = "get_socket_window")]
-    fn socket_window(&self) -> Option<gdk::Window>;
-
-    #[doc(alias = "embedded")]
-    fn connect_embedded<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "embedded")]
-    fn connect_embedded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "socket-window")]
-    fn connect_socket_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Plug>> PlugExt for O {
     fn construct(&self, socket_id: xlib::Window) {
         unsafe {
             ffi::gtk_plug_construct(self.as_ref().to_glib_none().0, socket_id);
         }
     }
 
+    #[doc(alias = "gtk_plug_construct_for_display")]
     fn construct_for_display(&self, display: &gdk::Display, socket_id: xlib::Window) {
         unsafe {
             ffi::gtk_plug_construct_for_display(
@@ -523,14 +496,20 @@ impl<O: IsA<Plug>> PlugExt for O {
         }
     }
 
+    #[doc(alias = "gtk_plug_get_embedded")]
+    #[doc(alias = "get_embedded")]
     fn is_embedded(&self) -> bool {
         unsafe { from_glib(ffi::gtk_plug_get_embedded(self.as_ref().to_glib_none().0)) }
     }
 
+    #[doc(alias = "gtk_plug_get_id")]
+    #[doc(alias = "get_id")]
     fn id(&self) -> xlib::Window {
         unsafe { ffi::gtk_plug_get_id(self.as_ref().to_glib_none().0) }
     }
 
+    #[doc(alias = "gtk_plug_get_socket_window")]
+    #[doc(alias = "get_socket_window")]
     fn socket_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_plug_get_socket_window(
@@ -539,6 +518,7 @@ impl<O: IsA<Plug>> PlugExt for O {
         }
     }
 
+    #[doc(alias = "embedded")]
     fn connect_embedded<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn embedded_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
@@ -560,6 +540,7 @@ impl<O: IsA<Plug>> PlugExt for O {
         }
     }
 
+    #[doc(alias = "embedded")]
     fn connect_embedded_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_embedded_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
@@ -582,6 +563,7 @@ impl<O: IsA<Plug>> PlugExt for O {
         }
     }
 
+    #[doc(alias = "socket-window")]
     fn connect_socket_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_socket_window_trampoline<P: IsA<Plug>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkPlug,
@@ -604,6 +586,8 @@ impl<O: IsA<Plug>> PlugExt for O {
         }
     }
 }
+
+impl<O: IsA<Plug>> PlugExt for O {}
 
 impl fmt::Display for Plug {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

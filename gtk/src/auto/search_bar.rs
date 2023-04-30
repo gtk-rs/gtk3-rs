@@ -295,41 +295,8 @@ impl SearchBarBuilder {
     }
 }
 
-pub trait SearchBarExt: 'static {
+pub trait SearchBarExt: IsA<SearchBar> + 'static {
     #[doc(alias = "gtk_search_bar_connect_entry")]
-    fn connect_entry(&self, entry: &impl IsA<Entry>);
-
-    #[doc(alias = "gtk_search_bar_get_search_mode")]
-    #[doc(alias = "get_search_mode")]
-    fn is_search_mode(&self) -> bool;
-
-    #[doc(alias = "gtk_search_bar_get_show_close_button")]
-    #[doc(alias = "get_show_close_button")]
-    fn shows_close_button(&self) -> bool;
-
-    #[doc(alias = "gtk_search_bar_handle_event")]
-    fn handle_event(&self, event: &gdk::Event) -> bool;
-
-    #[doc(alias = "gtk_search_bar_set_search_mode")]
-    fn set_search_mode(&self, search_mode: bool);
-
-    #[doc(alias = "gtk_search_bar_set_show_close_button")]
-    fn set_show_close_button(&self, visible: bool);
-
-    #[doc(alias = "search-mode-enabled")]
-    fn is_search_mode_enabled(&self) -> bool;
-
-    #[doc(alias = "search-mode-enabled")]
-    fn set_search_mode_enabled(&self, search_mode_enabled: bool);
-
-    #[doc(alias = "search-mode-enabled")]
-    fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-close-button")]
-    fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<SearchBar>> SearchBarExt for O {
     fn connect_entry(&self, entry: &impl IsA<Entry>) {
         unsafe {
             ffi::gtk_search_bar_connect_entry(
@@ -339,6 +306,8 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_search_bar_get_search_mode")]
+    #[doc(alias = "get_search_mode")]
     fn is_search_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_get_search_mode(
@@ -347,6 +316,8 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_search_bar_get_show_close_button")]
+    #[doc(alias = "get_show_close_button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_get_show_close_button(
@@ -355,6 +326,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_search_bar_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_handle_event(
@@ -364,6 +336,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_search_bar_set_search_mode")]
     fn set_search_mode(&self, search_mode: bool) {
         unsafe {
             ffi::gtk_search_bar_set_search_mode(
@@ -373,6 +346,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "gtk_search_bar_set_show_close_button")]
     fn set_show_close_button(&self, visible: bool) {
         unsafe {
             ffi::gtk_search_bar_set_show_close_button(
@@ -382,14 +356,17 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "search-mode-enabled")]
     fn is_search_mode_enabled(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "search-mode-enabled")
     }
 
+    #[doc(alias = "search-mode-enabled")]
     fn set_search_mode_enabled(&self, search_mode_enabled: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "search-mode-enabled", search_mode_enabled)
     }
 
+    #[doc(alias = "search-mode-enabled")]
     fn connect_search_mode_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_search_mode_enabled_trampoline<
             P: IsA<SearchBar>,
@@ -415,6 +392,7 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 
+    #[doc(alias = "show-close-button")]
     fn connect_show_close_button_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_close_button_trampoline<
             P: IsA<SearchBar>,
@@ -440,6 +418,8 @@ impl<O: IsA<SearchBar>> SearchBarExt for O {
         }
     }
 }
+
+impl<O: IsA<SearchBar>> SearchBarExt for O {}
 
 impl fmt::Display for SearchBar {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

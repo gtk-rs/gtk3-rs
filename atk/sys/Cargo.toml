@@ -17,7 +17,6 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-dox = ["glib/dox", "gobject/dox"]
 v2_30 = []
 v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
@@ -42,7 +41,8 @@ edition = "2021"
 rust-version = "1.64"
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
+features = []
 
 [package.metadata.system-deps.atk]
 name = "atk"

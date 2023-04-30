@@ -365,45 +365,9 @@ impl CheckMenuItemBuilder {
     }
 }
 
-pub trait CheckMenuItemExt: 'static {
+pub trait CheckMenuItemExt: IsA<CheckMenuItem> + 'static {
     #[doc(alias = "gtk_check_menu_item_get_active")]
     #[doc(alias = "get_active")]
-    fn is_active(&self) -> bool;
-
-    #[doc(alias = "gtk_check_menu_item_get_draw_as_radio")]
-    #[doc(alias = "get_draw_as_radio")]
-    fn draws_as_radio(&self) -> bool;
-
-    #[doc(alias = "gtk_check_menu_item_get_inconsistent")]
-    #[doc(alias = "get_inconsistent")]
-    fn is_inconsistent(&self) -> bool;
-
-    #[doc(alias = "gtk_check_menu_item_set_active")]
-    fn set_active(&self, is_active: bool);
-
-    #[doc(alias = "gtk_check_menu_item_set_draw_as_radio")]
-    fn set_draw_as_radio(&self, draw_as_radio: bool);
-
-    #[doc(alias = "gtk_check_menu_item_set_inconsistent")]
-    fn set_inconsistent(&self, setting: bool);
-
-    #[doc(alias = "gtk_check_menu_item_toggled")]
-    fn toggled(&self);
-
-    #[doc(alias = "toggled")]
-    fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "active")]
-    fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "draw-as-radio")]
-    fn connect_draw_as_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "inconsistent")]
-    fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
     fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_active(
@@ -412,6 +376,8 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_get_draw_as_radio")]
+    #[doc(alias = "get_draw_as_radio")]
     fn draws_as_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
@@ -420,6 +386,8 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_get_inconsistent")]
+    #[doc(alias = "get_inconsistent")]
     fn is_inconsistent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_inconsistent(
@@ -428,6 +396,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_set_active")]
     fn set_active(&self, is_active: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_active(
@@ -437,6 +406,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_set_draw_as_radio")]
     fn set_draw_as_radio(&self, draw_as_radio: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_draw_as_radio(
@@ -446,6 +416,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_set_inconsistent")]
     fn set_inconsistent(&self, setting: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_inconsistent(
@@ -455,12 +426,14 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "gtk_check_menu_item_toggled")]
     fn toggled(&self) {
         unsafe {
             ffi::gtk_check_menu_item_toggled(self.as_ref().to_glib_none().0);
         }
     }
 
+    #[doc(alias = "toggled")]
     fn connect_toggled<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn toggled_trampoline<P: IsA<CheckMenuItem>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkCheckMenuItem,
@@ -482,6 +455,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "active")]
     fn connect_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_active_trampoline<
             P: IsA<CheckMenuItem>,
@@ -507,6 +481,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "draw-as-radio")]
     fn connect_draw_as_radio_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_draw_as_radio_trampoline<
             P: IsA<CheckMenuItem>,
@@ -532,6 +507,7 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 
+    #[doc(alias = "inconsistent")]
     fn connect_inconsistent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_inconsistent_trampoline<
             P: IsA<CheckMenuItem>,
@@ -557,6 +533,8 @@ impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {
         }
     }
 }
+
+impl<O: IsA<CheckMenuItem>> CheckMenuItemExt for O {}
 
 impl fmt::Display for CheckMenuItem {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

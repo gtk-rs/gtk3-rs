@@ -13,7 +13,8 @@ edition = "2021"
 rust-version = "1.64"
 
 [package.metadata.docs.rs]
-features = ["dox"]
+rustdoc-args = ["--cfg", "docsrs"]
+features = []
 
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
@@ -88,5 +89,4 @@ v3_24_8 = ["v3_24_1"]
 v3_24_9 = ["v3_24_8"]
 v3_24_11 = ["v3_24_9"]
 v3_24_30 = ["v3_24_11"]
-dox = ["glib/dox", "gobject/dox", "gio/dox", "atk/dox", "gdk_pixbuf/dox", "gdk/dox", "pango/dox", "cairo/dox"]
 v3_24_1 = ["v3_24"]

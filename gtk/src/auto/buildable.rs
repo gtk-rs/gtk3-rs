@@ -19,39 +19,8 @@ impl Buildable {
     pub const NONE: Option<&'static Buildable> = None;
 }
 
-pub trait BuildableExt: 'static {
+pub trait BuildableExt: IsA<Buildable> + 'static {
     #[doc(alias = "gtk_buildable_add_child")]
-    fn add_child(
-        &self,
-        builder: &impl IsA<Builder>,
-        child: &impl IsA<glib::Object>,
-        type_: Option<&str>,
-    );
-
-    #[doc(alias = "gtk_buildable_construct_child")]
-    fn construct_child(&self, builder: &impl IsA<Builder>, name: &str) -> Option<glib::Object>;
-
-    //#[doc(alias = "gtk_buildable_custom_finished")]
-    //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>);
-
-    //#[doc(alias = "gtk_buildable_custom_tag_end")]
-    //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>);
-
-    //#[doc(alias = "gtk_buildable_custom_tag_start")]
-    //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Basic: Pointer>) -> bool;
-
-    #[doc(alias = "gtk_buildable_get_internal_child")]
-    #[doc(alias = "get_internal_child")]
-    fn internal_child(&self, builder: &impl IsA<Builder>, childname: &str) -> Option<glib::Object>;
-
-    #[doc(alias = "gtk_buildable_parser_finished")]
-    fn parser_finished(&self, builder: &impl IsA<Builder>);
-
-    #[doc(alias = "gtk_buildable_set_buildable_property")]
-    fn set_buildable_property(&self, builder: &impl IsA<Builder>, name: &str, value: &glib::Value);
-}
-
-impl<O: IsA<Buildable>> BuildableExt for O {
     fn add_child(
         &self,
         builder: &impl IsA<Builder>,
@@ -68,6 +37,7 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 
+    #[doc(alias = "gtk_buildable_construct_child")]
     fn construct_child(&self, builder: &impl IsA<Builder>, name: &str) -> Option<glib::Object> {
         unsafe {
             from_glib_full(ffi::gtk_buildable_construct_child(
@@ -78,18 +48,23 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 
+    //#[doc(alias = "gtk_buildable_custom_finished")]
     //fn custom_finished(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_finished() }
     //}
 
+    //#[doc(alias = "gtk_buildable_custom_tag_end")]
     //fn custom_tag_end(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, data: /*Unimplemented*/Option<Basic: Pointer>) {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_tag_end() }
     //}
 
+    //#[doc(alias = "gtk_buildable_custom_tag_start")]
     //fn custom_tag_start(&self, builder: &impl IsA<Builder>, child: Option<&impl IsA<glib::Object>>, tagname: &str, parser: /*Ignored*/glib::MarkupParser, data: /*Unimplemented*/&mut Option<Basic: Pointer>) -> bool {
     //    unsafe { TODO: call ffi:gtk_buildable_custom_tag_start() }
     //}
 
+    #[doc(alias = "gtk_buildable_get_internal_child")]
+    #[doc(alias = "get_internal_child")]
     fn internal_child(&self, builder: &impl IsA<Builder>, childname: &str) -> Option<glib::Object> {
         unsafe {
             from_glib_none(ffi::gtk_buildable_get_internal_child(
@@ -100,6 +75,7 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 
+    #[doc(alias = "gtk_buildable_parser_finished")]
     fn parser_finished(&self, builder: &impl IsA<Builder>) {
         unsafe {
             ffi::gtk_buildable_parser_finished(
@@ -109,6 +85,7 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 
+    #[doc(alias = "gtk_buildable_set_buildable_property")]
     fn set_buildable_property(&self, builder: &impl IsA<Builder>, name: &str, value: &glib::Value) {
         unsafe {
             ffi::gtk_buildable_set_buildable_property(
@@ -120,6 +97,8 @@ impl<O: IsA<Buildable>> BuildableExt for O {
         }
     }
 }
+
+impl<O: IsA<Buildable>> BuildableExt for O {}
 
 impl fmt::Display for Buildable {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

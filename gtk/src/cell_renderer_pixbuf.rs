@@ -5,14 +5,10 @@ use crate::IconSize;
 use glib::object::{IsA, ObjectExt};
 use glib::translate::*;
 
-pub trait CellRendererPixbufExtManual: 'static {
+pub trait CellRendererPixbufExtManual:
+    IsA<CellRendererPixbuf> + IsA<glib::object::Object> + 'static
+{
     #[doc(alias = "get_property_stock_size")]
-    fn stock_size(&self) -> IconSize;
-
-    fn set_stock_size(&self, stock_size: IconSize);
-}
-
-impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufExtManual for O {
     fn stock_size(&self) -> IconSize {
         unsafe { from_glib(self.property::<u32>("stock-size") as i32) }
     }
@@ -21,3 +17,5 @@ impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufE
         self.set_property("stock-size", stock_size.into_glib() as u32);
     }
 }
+
+impl<O: IsA<CellRendererPixbuf> + IsA<glib::object::Object>> CellRendererPixbufExtManual for O {}

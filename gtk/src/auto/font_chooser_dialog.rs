@@ -2,8 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
     Align, Application, Bin, Buildable, Container, Dialog, FontChooser, ResizeMode, Widget, Window,
@@ -479,16 +479,16 @@ impl FontChooserDialogBuilder {
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn language(self, language: impl Into<glib::GString>) -> Self {
         Self {
             builder: self.builder.property("language", language.into()),
         }
     }
 
-    #[cfg(any(feature = "v3_24", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v3_24")))]
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn level(self, level: FontChooserLevel) -> Self {
         Self {
             builder: self.builder.property("level", level),

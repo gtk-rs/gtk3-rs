@@ -374,38 +374,9 @@ impl ColorButtonBuilder {
     }
 }
 
-pub trait ColorButtonExt: 'static {
+pub trait ColorButtonExt: IsA<ColorButton> + 'static {
     #[doc(alias = "gtk_color_button_get_title")]
     #[doc(alias = "get_title")]
-    fn title(&self) -> Option<glib::GString>;
-
-    #[doc(alias = "gtk_color_button_set_title")]
-    fn set_title(&self, title: &str);
-
-    fn alpha(&self) -> u32;
-
-    fn set_alpha(&self, alpha: u32);
-
-    #[doc(alias = "show-editor")]
-    fn shows_editor(&self) -> bool;
-
-    #[doc(alias = "show-editor")]
-    fn set_show_editor(&self, show_editor: bool);
-
-    #[doc(alias = "color-set")]
-    fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "alpha")]
-    fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "show-editor")]
-    fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[doc(alias = "title")]
-    fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ColorButton>> ColorButtonExt for O {
     fn title(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_color_button_get_title(
@@ -414,6 +385,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
+    #[doc(alias = "gtk_color_button_set_title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_color_button_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
@@ -428,14 +400,17 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         glib::ObjectExt::set_property(self.as_ref(), "alpha", alpha)
     }
 
+    #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool {
         glib::ObjectExt::property(self.as_ref(), "show-editor")
     }
 
+    #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool) {
         glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
+    #[doc(alias = "color-set")]
     fn connect_color_set<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn color_set_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -457,6 +432,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
+    #[doc(alias = "alpha")]
     fn connect_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_alpha_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -479,6 +455,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
+    #[doc(alias = "show-editor")]
     fn connect_show_editor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_show_editor_trampoline<
             P: IsA<ColorButton>,
@@ -504,6 +481,7 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 
+    #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_title_trampoline<P: IsA<ColorButton>, F: Fn(&P) + 'static>(
             this: *mut ffi::GtkColorButton,
@@ -526,6 +504,8 @@ impl<O: IsA<ColorButton>> ColorButtonExt for O {
         }
     }
 }
+
+impl<O: IsA<ColorButton>> ColorButtonExt for O {}
 
 impl fmt::Display for ColorButton {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
