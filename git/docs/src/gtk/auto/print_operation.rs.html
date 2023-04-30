@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_operation.rs`."><title>print_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_operation.rs`."><title>print_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2294,7 +2294,141 @@
 <a href="#2221" id="2221">2221</a>
 <a href="#2222" id="2222">2222</a>
 <a href="#2223" id="2223">2223</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href="#2224" id="2224">2224</a>
+<a href="#2225" id="2225">2225</a>
+<a href="#2226" id="2226">2226</a>
+<a href="#2227" id="2227">2227</a>
+<a href="#2228" id="2228">2228</a>
+<a href="#2229" id="2229">2229</a>
+<a href="#2230" id="2230">2230</a>
+<a href="#2231" id="2231">2231</a>
+<a href="#2232" id="2232">2232</a>
+<a href="#2233" id="2233">2233</a>
+<a href="#2234" id="2234">2234</a>
+<a href="#2235" id="2235">2235</a>
+<a href="#2236" id="2236">2236</a>
+<a href="#2237" id="2237">2237</a>
+<a href="#2238" id="2238">2238</a>
+<a href="#2239" id="2239">2239</a>
+<a href="#2240" id="2240">2240</a>
+<a href="#2241" id="2241">2241</a>
+<a href="#2242" id="2242">2242</a>
+<a href="#2243" id="2243">2243</a>
+<a href="#2244" id="2244">2244</a>
+<a href="#2245" id="2245">2245</a>
+<a href="#2246" id="2246">2246</a>
+<a href="#2247" id="2247">2247</a>
+<a href="#2248" id="2248">2248</a>
+<a href="#2249" id="2249">2249</a>
+<a href="#2250" id="2250">2250</a>
+<a href="#2251" id="2251">2251</a>
+<a href="#2252" id="2252">2252</a>
+<a href="#2253" id="2253">2253</a>
+<a href="#2254" id="2254">2254</a>
+<a href="#2255" id="2255">2255</a>
+<a href="#2256" id="2256">2256</a>
+<a href="#2257" id="2257">2257</a>
+<a href="#2258" id="2258">2258</a>
+<a href="#2259" id="2259">2259</a>
+<a href="#2260" id="2260">2260</a>
+<a href="#2261" id="2261">2261</a>
+<a href="#2262" id="2262">2262</a>
+<a href="#2263" id="2263">2263</a>
+<a href="#2264" id="2264">2264</a>
+<a href="#2265" id="2265">2265</a>
+<a href="#2266" id="2266">2266</a>
+<a href="#2267" id="2267">2267</a>
+<a href="#2268" id="2268">2268</a>
+<a href="#2269" id="2269">2269</a>
+<a href="#2270" id="2270">2270</a>
+<a href="#2271" id="2271">2271</a>
+<a href="#2272" id="2272">2272</a>
+<a href="#2273" id="2273">2273</a>
+<a href="#2274" id="2274">2274</a>
+<a href="#2275" id="2275">2275</a>
+<a href="#2276" id="2276">2276</a>
+<a href="#2277" id="2277">2277</a>
+<a href="#2278" id="2278">2278</a>
+<a href="#2279" id="2279">2279</a>
+<a href="#2280" id="2280">2280</a>
+<a href="#2281" id="2281">2281</a>
+<a href="#2282" id="2282">2282</a>
+<a href="#2283" id="2283">2283</a>
+<a href="#2284" id="2284">2284</a>
+<a href="#2285" id="2285">2285</a>
+<a href="#2286" id="2286">2286</a>
+<a href="#2287" id="2287">2287</a>
+<a href="#2288" id="2288">2288</a>
+<a href="#2289" id="2289">2289</a>
+<a href="#2290" id="2290">2290</a>
+<a href="#2291" id="2291">2291</a>
+<a href="#2292" id="2292">2292</a>
+<a href="#2293" id="2293">2293</a>
+<a href="#2294" id="2294">2294</a>
+<a href="#2295" id="2295">2295</a>
+<a href="#2296" id="2296">2296</a>
+<a href="#2297" id="2297">2297</a>
+<a href="#2298" id="2298">2298</a>
+<a href="#2299" id="2299">2299</a>
+<a href="#2300" id="2300">2300</a>
+<a href="#2301" id="2301">2301</a>
+<a href="#2302" id="2302">2302</a>
+<a href="#2303" id="2303">2303</a>
+<a href="#2304" id="2304">2304</a>
+<a href="#2305" id="2305">2305</a>
+<a href="#2306" id="2306">2306</a>
+<a href="#2307" id="2307">2307</a>
+<a href="#2308" id="2308">2308</a>
+<a href="#2309" id="2309">2309</a>
+<a href="#2310" id="2310">2310</a>
+<a href="#2311" id="2311">2311</a>
+<a href="#2312" id="2312">2312</a>
+<a href="#2313" id="2313">2313</a>
+<a href="#2314" id="2314">2314</a>
+<a href="#2315" id="2315">2315</a>
+<a href="#2316" id="2316">2316</a>
+<a href="#2317" id="2317">2317</a>
+<a href="#2318" id="2318">2318</a>
+<a href="#2319" id="2319">2319</a>
+<a href="#2320" id="2320">2320</a>
+<a href="#2321" id="2321">2321</a>
+<a href="#2322" id="2322">2322</a>
+<a href="#2323" id="2323">2323</a>
+<a href="#2324" id="2324">2324</a>
+<a href="#2325" id="2325">2325</a>
+<a href="#2326" id="2326">2326</a>
+<a href="#2327" id="2327">2327</a>
+<a href="#2328" id="2328">2328</a>
+<a href="#2329" id="2329">2329</a>
+<a href="#2330" id="2330">2330</a>
+<a href="#2331" id="2331">2331</a>
+<a href="#2332" id="2332">2332</a>
+<a href="#2333" id="2333">2333</a>
+<a href="#2334" id="2334">2334</a>
+<a href="#2335" id="2335">2335</a>
+<a href="#2336" id="2336">2336</a>
+<a href="#2337" id="2337">2337</a>
+<a href="#2338" id="2338">2338</a>
+<a href="#2339" id="2339">2339</a>
+<a href="#2340" id="2340">2340</a>
+<a href="#2341" id="2341">2341</a>
+<a href="#2342" id="2342">2342</a>
+<a href="#2343" id="2343">2343</a>
+<a href="#2344" id="2344">2344</a>
+<a href="#2345" id="2345">2345</a>
+<a href="#2346" id="2346">2346</a>
+<a href="#2347" id="2347">2347</a>
+<a href="#2348" id="2348">2348</a>
+<a href="#2349" id="2349">2349</a>
+<a href="#2350" id="2350">2350</a>
+<a href="#2351" id="2351">2351</a>
+<a href="#2352" id="2352">2352</a>
+<a href="#2353" id="2353">2353</a>
+<a href="#2354" id="2354">2354</a>
+<a href="#2355" id="2355">2355</a>
+<a href="#2356" id="2356">2356</a>
+<a href="#2357" id="2357">2357</a>
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -3015,14 +3149,18 @@
 /// # Implementors
 ///
 /// [`PrintOperation`][struct@crate::PrintOperation]
-</span><span class="kw">pub trait </span>PrintOperationExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>PrintOperationExt: IsA&lt;PrintOperation&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Cancels a running print operation. This function may
     /// be called from a [`begin-print`][struct@crate::PrintOperation#begin-print],
     /// [`paginate`][struct@crate::PrintOperation#paginate] or [`draw-page`][struct@crate::PrintOperation#draw-page]
     /// signal handler to stop the currently running print
     /// operation.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_cancel&quot;</span>)]
-    </span><span class="kw">fn </span>cancel(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>cancel(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_print_operation_cancel(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Signalize that drawing of particular page is complete.
     ///
@@ -3032,7 +3170,11 @@
     /// has to be called by application. In another case it is called by the library
     /// itself.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_draw_page_finish&quot;</span>)]
-    </span><span class="kw">fn </span>draw_page_finish(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>draw_page_finish(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_print_operation_draw_page_finish(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Returns the default page setup, see
     /// [`set_default_page_setup()`][Self::set_default_page_setup()].
@@ -3042,7 +3184,13 @@
     /// the default page setup
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_default_page_setup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_page_setup&quot;</span>)]
-    </span><span class="kw">fn </span>default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PageSetup&gt;;
+    </span><span class="kw">fn </span>default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PageSetup&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_print_operation_get_default_page_setup(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the value of [`embed-page-setup`][struct@crate::PrintOperation#embed-page-setup] property.
     ///
@@ -3051,7 +3199,13 @@
     /// whether page setup selection combos are embedded
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_embed_page_setup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_embed_page_setup&quot;</span>)]
-    </span><span class="kw">fn </span>embeds_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>embeds_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_print_operation_get_embed_page_setup(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the value of [`has-selection`][struct@crate::PrintOperation#has-selection] property.
     ///
@@ -3060,7 +3214,13 @@
     /// whether there is a selection
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_has_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_selection&quot;</span>)]
-    </span><span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_print_operation_get_has_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the number of pages that will be printed.
     ///
@@ -3077,7 +3237,9 @@
     /// the number of pages that will be printed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_n_pages_to_print&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_pages_to_print&quot;</span>)]
-    </span><span class="kw">fn </span>n_pages_to_print(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>n_pages_to_print(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_operation_get_n_pages_to_print(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the current print settings.
     ///
@@ -3090,7 +3252,13 @@
     /// the current print settings of `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_print_settings&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_print_settings&quot;</span>)]
-    </span><span class="kw">fn </span>print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt;;
+    </span><span class="kw">fn </span>print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_print_operation_get_print_settings(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the status of the print operation.
     /// Also see [`status_string()`][Self::status_string()].
@@ -3100,7 +3268,13 @@
     /// the status of the print operation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_status&quot;</span>)]
-    </span><span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintStatus;
+    </span><span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintStatus {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_print_operation_get_status(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns a string representation of the status of the
     /// print operation. The string is translated and suitable
@@ -3115,7 +3289,13 @@
     ///  of the print operation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_status_string&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_status_string&quot;</span>)]
-    </span><span class="kw">fn </span>status_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>status_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_print_operation_get_status_string(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the value of [`support-selection`][struct@crate::PrintOperation#support-selection] property.
     ///
@@ -3124,7 +3304,13 @@
     /// whether the application supports print of selection
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_get_support_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_support_selection&quot;</span>)]
-    </span><span class="kw">fn </span>supports_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>supports_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_print_operation_get_support_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// A convenience function to find out if the print operation
     /// is finished, either successfully ([`PrintStatus::Finished`][crate::PrintStatus::Finished])
@@ -3138,7 +3324,13 @@
     ///
     /// [`true`], if the print operation is finished.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_is_finished&quot;</span>)]
-    </span><span class="kw">fn </span>is_finished(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_finished(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_print_operation_is_finished(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Runs the print operation, by first letting the user modify
     /// print settings in the print dialog, and then print the document.
@@ -3219,321 +3411,6 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         action: PrintOperationAction,
         parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;PrintOperationResult, glib::Error&gt;;
-
-    <span class="doccomment">/// Sets whether the [`run()`][Self::run()] may return
-    /// before the print operation is completed. Note that
-    /// some platforms may not allow asynchronous operation.
-    /// ## `allow_async`
-    /// [`true`] to allow asynchronous operation
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_allow_async&quot;</span>)]
-    </span><span class="kw">fn </span>set_allow_async(<span class="kw-2">&amp;</span><span class="self">self</span>, allow_async: bool);
-
-    <span class="doccomment">/// Sets the current page.
-    ///
-    /// If this is called before [`run()`][Self::run()],
-    /// the user will be able to select to print only the current page.
-    ///
-    /// Note that this only makes sense for pre-paginated documents.
-    /// ## `current_page`
-    /// the current page, 0-based
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_current_page&quot;</span>)]
-    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, current_page: i32);
-
-    <span class="doccomment">/// Sets the label for the tab holding custom widgets.
-    /// ## `label`
-    /// the label to use, or [`None`] to use the default label
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_custom_tab_label&quot;</span>)]
-    </span><span class="kw">fn </span>set_custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// Makes `default_page_setup` the default page setup for `self`.
-    ///
-    /// This page setup will be used by [`run()`][Self::run()],
-    /// but it can be overridden on a per-page basis by connecting
-    /// to the [`request-page-setup`][struct@crate::PrintOperation#request-page-setup] signal.
-    /// ## `default_page_setup`
-    /// a [`PageSetup`][crate::PageSetup], or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_default_page_setup&quot;</span>)]
-    </span><span class="kw">fn </span>set_default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, default_page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;);
-
-    <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to wait for calling of
-    /// [`draw_page_finish()`][Self::draw_page_finish()] from application. It can
-    /// be used for drawing page in another thread.
-    ///
-    /// This function must be called in the callback of “draw-page” signal.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_defer_drawing&quot;</span>)]
-    </span><span class="kw">fn </span>set_defer_drawing(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Embed page size combo box and orientation combo box into page setup page.
-    /// Selected page setup is stored as default page setup in [`PrintOperation`][crate::PrintOperation].
-    /// ## `embed`
-    /// [`true`] to embed page setup selection in the `GtkPrintUnixDialog`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_embed_page_setup&quot;</span>)]
-    </span><span class="kw">fn </span>set_embed_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, embed: bool);
-
-    <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to generate a file instead
-    /// of showing the print dialog. The indended use of this function
-    /// is for implementing “Export to PDF” actions. Currently, PDF
-    /// is the only supported format.
-    ///
-    /// “Print to PDF” support is independent of this and is done
-    /// by letting the user pick the “Print to PDF” item from the list
-    /// of printers in the print dialog.
-    /// ## `filename`
-    /// the filename for the exported file
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_export_filename&quot;</span>)]
-    </span><span class="kw">fn </span>set_export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_has_selection&quot;</span>)]
-    </span><span class="kw">fn </span>set_has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, has_selection: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_job_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_job_name(<span class="kw-2">&amp;</span><span class="self">self</span>, job_name: <span class="kw-2">&amp;</span>str);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_n_pages&quot;</span>)]
-    </span><span class="kw">fn </span>set_n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, n_pages: i32);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_print_settings&quot;</span>)]
-    </span><span class="kw">fn </span>set_print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>, print_settings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PrintSettings&gt;);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_show_progress&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_progress(<span class="kw-2">&amp;</span><span class="self">self</span>, show_progress: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_support_selection&quot;</span>)]
-    </span><span class="kw">fn </span>set_support_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, support_selection: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_track_print_status&quot;</span>)]
-    </span><span class="kw">fn </span>set_track_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>, track_status: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_unit&quot;</span>)]
-    </span><span class="kw">fn </span>set_unit(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_use_full_page&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>, full_page: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
-    </span><span class="kw">fn </span>allows_async(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
-    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
-    </span><span class="kw">fn </span>custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
-    </span><span class="kw">fn </span>export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
-    </span><span class="kw">fn </span>job_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
-    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
-    </span><span class="kw">fn </span>shows_progress(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
-    </span><span class="kw">fn </span>tracks_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="kw">fn </span>unit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Unit;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
-    </span><span class="kw">fn </span>uses_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;begin-print&quot;</span>)]
-    </span><span class="kw">fn </span>connect_begin_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;create-custom-widget&quot;</span>)]
-    </span><span class="kw">fn </span>connect_create_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; glib::Object + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;custom-widget-apply&quot;</span>)]
-    </span><span class="kw">fn </span>connect_custom_widget_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;done&quot;</span>)]
-    </span><span class="kw">fn </span>connect_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PrintOperationResult) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-page&quot;</span>)]
-    </span><span class="kw">fn </span>connect_draw_page&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;end-print&quot;</span>)]
-    </span><span class="kw">fn </span>connect_end_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;paginate&quot;</span>)]
-    </span><span class="kw">fn </span>connect_paginate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;preview&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preview&lt;
-        F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintOperationPreview, <span class="kw-2">&amp;</span>PrintContext, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;) -&gt; bool + <span class="lifetime">&#39;static</span>,
-    &gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;request-page-setup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_request_page_setup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32, <span class="kw-2">&amp;</span>PageSetup) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;status-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_status_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;update-custom-widget&quot;</span>)]
-    </span><span class="kw">fn </span>connect_update_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget, <span class="kw-2">&amp;</span>PageSetup, <span class="kw-2">&amp;</span>PrintSettings) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
-    </span><span class="kw">fn </span>connect_allow_async_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
-    </span><span class="kw">fn </span>connect_current_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
-    </span><span class="kw">fn </span>connect_custom_tab_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;default-page-setup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_default_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;embed-page-setup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_embed_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
-    </span><span class="kw">fn </span>connect_export_filename_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_job_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
-    </span><span class="kw">fn </span>connect_n_pages_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages-to-print&quot;</span>)]
-    </span><span class="kw">fn </span>connect_n_pages_to_print_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;print-settings&quot;</span>)]
-    </span><span class="kw">fn </span>connect_print_settings_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_progress_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;status&quot;</span>)]
-    </span><span class="kw">fn </span>connect_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;status-string&quot;</span>)]
-    </span><span class="kw">fn </span>connect_status_string_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;support-selection&quot;</span>)]
-    </span><span class="kw">fn </span>connect_support_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
-    </span><span class="kw">fn </span>connect_track_print_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;unit&quot;</span>)]
-    </span><span class="kw">fn </span>connect_unit_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_full_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;PrintOperation&gt;&gt; PrintOperationExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>cancel(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_print_operation_cancel(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>draw_page_finish(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_print_operation_draw_page_finish(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PageSetup&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_operation_get_default_page_setup(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>embeds_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_operation_get_embed_page_setup(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_operation_get_has_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>n_pages_to_print(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_operation_get_n_pages_to_print(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_operation_get_print_settings(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintStatus {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_operation_get_status(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>status_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_operation_get_status_string(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>supports_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_operation_get_support_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_finished(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_operation_is_finished(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>run(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        action: PrintOperationAction,
-        parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;PrintOperationResult, glib::Error&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
@@ -3551,7 +3428,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_allow_async(<span class="kw-2">&amp;</span><span class="self">self</span>, allow_async: bool) {
+    <span class="doccomment">/// Sets whether the [`run()`][Self::run()] may return
+    /// before the print operation is completed. Note that
+    /// some platforms may not allow asynchronous operation.
+    /// ## `allow_async`
+    /// [`true`] to allow asynchronous operation
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_allow_async&quot;</span>)]
+    </span><span class="kw">fn </span>set_allow_async(<span class="kw-2">&amp;</span><span class="self">self</span>, allow_async: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_allow_async(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3560,13 +3443,26 @@
         }
     }
 
-    <span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, current_page: i32) {
+    <span class="doccomment">/// Sets the current page.
+    ///
+    /// If this is called before [`run()`][Self::run()],
+    /// the user will be able to select to print only the current page.
+    ///
+    /// Note that this only makes sense for pre-paginated documents.
+    /// ## `current_page`
+    /// the current page, 0-based
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_current_page&quot;</span>)]
+    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, current_page: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, current_page);
         }
     }
 
-    <span class="kw">fn </span>set_custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// Sets the label for the tab holding custom widgets.
+    /// ## `label`
+    /// the label to use, or [`None`] to use the default label
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_custom_tab_label&quot;</span>)]
+    </span><span class="kw">fn </span>set_custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_custom_tab_label(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3575,7 +3471,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, default_page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;) {
+    <span class="doccomment">/// Makes `default_page_setup` the default page setup for `self`.
+    ///
+    /// This page setup will be used by [`run()`][Self::run()],
+    /// but it can be overridden on a per-page basis by connecting
+    /// to the [`request-page-setup`][struct@crate::PrintOperation#request-page-setup] signal.
+    /// ## `default_page_setup`
+    /// a [`PageSetup`][crate::PageSetup], or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_default_page_setup&quot;</span>)]
+    </span><span class="kw">fn </span>set_default_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, default_page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_default_page_setup(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3584,13 +3488,24 @@
         }
     }
 
-    <span class="kw">fn </span>set_defer_drawing(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to wait for calling of
+    /// [`draw_page_finish()`][Self::draw_page_finish()] from application. It can
+    /// be used for drawing page in another thread.
+    ///
+    /// This function must be called in the callback of “draw-page” signal.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_defer_drawing&quot;</span>)]
+    </span><span class="kw">fn </span>set_defer_drawing(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_defer_drawing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_embed_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, embed: bool) {
+    <span class="doccomment">/// Embed page size combo box and orientation combo box into page setup page.
+    /// Selected page setup is stored as default page setup in [`PrintOperation`][crate::PrintOperation].
+    /// ## `embed`
+    /// [`true`] to embed page setup selection in the `GtkPrintUnixDialog`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_embed_page_setup&quot;</span>)]
+    </span><span class="kw">fn </span>set_embed_page_setup(<span class="kw-2">&amp;</span><span class="self">self</span>, embed: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_embed_page_setup(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3599,7 +3514,18 @@
         }
     }
 
-    <span class="kw">fn </span>set_export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) {
+    <span class="doccomment">/// Sets up the [`PrintOperation`][crate::PrintOperation] to generate a file instead
+    /// of showing the print dialog. The indended use of this function
+    /// is for implementing “Export to PDF” actions. Currently, PDF
+    /// is the only supported format.
+    ///
+    /// “Print to PDF” support is independent of this and is done
+    /// by letting the user pick the “Print to PDF” item from the list
+    /// of printers in the print dialog.
+    /// ## `filename`
+    /// the filename for the exported file
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_export_filename&quot;</span>)]
+    </span><span class="kw">fn </span>set_export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_export_filename(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3608,7 +3534,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, has_selection: bool) {
+    <span class="doccomment">/// Sets whether there is a selection to print.
+    ///
+    /// Application has to set number of pages to which the selection
+    /// will draw by [`set_n_pages()`][Self::set_n_pages()] in a callback of
+    /// [`begin-print`][struct@crate::PrintOperation#begin-print].
+    /// ## `has_selection`
+    /// [`true`] indicates that a selection exists
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_has_selection&quot;</span>)]
+    </span><span class="kw">fn </span>set_has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, has_selection: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_has_selection(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3617,7 +3551,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_job_name(<span class="kw-2">&amp;</span><span class="self">self</span>, job_name: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets the name of the print job. The name is used to identify
+    /// the job (e.g. in monitoring applications like eggcups).
+    ///
+    /// If you don’t set a job name, GTK+ picks a default one by
+    /// numbering successive print jobs.
+    /// ## `job_name`
+    /// a string that identifies the print job
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_job_name&quot;</span>)]
+    </span><span class="kw">fn </span>set_job_name(<span class="kw-2">&amp;</span><span class="self">self</span>, job_name: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_job_name(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3626,13 +3568,33 @@
         }
     }
 
-    <span class="kw">fn </span>set_n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, n_pages: i32) {
+    <span class="doccomment">/// Sets the number of pages in the document.
+    ///
+    /// This must be set to a positive number
+    /// before the rendering starts. It may be set in a
+    /// [`begin-print`][struct@crate::PrintOperation#begin-print] signal hander.
+    ///
+    /// Note that the page numbers passed to the
+    /// [`request-page-setup`][struct@crate::PrintOperation#request-page-setup]
+    /// and [`draw-page`][struct@crate::PrintOperation#draw-page] signals are 0-based, i.e. if
+    /// the user chooses to print all pages, the last ::draw-page signal
+    /// will be for page `n_pages` - 1.
+    /// ## `n_pages`
+    /// the number of pages
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_n_pages&quot;</span>)]
+    </span><span class="kw">fn </span>set_n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, n_pages: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_n_pages(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, n_pages);
         }
     }
 
-    <span class="kw">fn </span>set_print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>, print_settings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PrintSettings&gt;) {
+    <span class="doccomment">/// Sets the print settings for `self`. This is typically used to
+    /// re-establish print settings from a previous print operation,
+    /// see [`run()`][Self::run()].
+    /// ## `print_settings`
+    /// [`PrintSettings`][crate::PrintSettings]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_print_settings&quot;</span>)]
+    </span><span class="kw">fn </span>set_print_settings(<span class="kw-2">&amp;</span><span class="self">self</span>, print_settings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PrintSettings&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_print_settings(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3641,7 +3603,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_show_progress(<span class="kw-2">&amp;</span><span class="self">self</span>, show_progress: bool) {
+    <span class="doccomment">/// If `show_progress` is [`true`], the print operation will show a
+    /// progress dialog during the print operation.
+    /// ## `show_progress`
+    /// [`true`] to show a progress dialog
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_show_progress&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_progress(<span class="kw-2">&amp;</span><span class="self">self</span>, show_progress: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_show_progress(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3650,7 +3617,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_support_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, support_selection: bool) {
+    <span class="doccomment">/// Sets whether selection is supported by [`PrintOperation`][crate::PrintOperation].
+    /// ## `support_selection`
+    /// [`true`] to support selection
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_support_selection&quot;</span>)]
+    </span><span class="kw">fn </span>set_support_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, support_selection: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_support_selection(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3659,7 +3630,17 @@
         }
     }
 
-    <span class="kw">fn </span>set_track_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>, track_status: bool) {
+    <span class="doccomment">/// If track_status is [`true`], the print operation will try to continue report
+    /// on the status of the print job in the printer queues and printer. This
+    /// can allow your application to show things like “out of paper” issues,
+    /// and when the print job actually reaches the printer.
+    ///
+    /// This function is often implemented using some form of polling, so it should
+    /// not be enabled unless needed.
+    /// ## `track_status`
+    /// [`true`] to track status after printing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_track_print_status&quot;</span>)]
+    </span><span class="kw">fn </span>set_track_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>, track_status: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_track_print_status(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3668,13 +3649,28 @@
         }
     }
 
-    <span class="kw">fn </span>set_unit(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) {
+    <span class="doccomment">/// Sets up the transformation for the cairo context obtained from
+    /// [`PrintContext`][crate::PrintContext] in such a way that distances are measured in
+    /// units of `unit`.
+    /// ## `unit`
+    /// the unit to use
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_unit&quot;</span>)]
+    </span><span class="kw">fn </span>set_unit(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_unit(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, unit.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_use_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>, full_page: bool) {
+    <span class="doccomment">/// If `full_page` is [`true`], the transformation for the cairo context
+    /// obtained from [`PrintContext`][crate::PrintContext] puts the origin at the top left
+    /// corner of the page (which may not be the top left corner of the
+    /// sheet, depending on page orientation and the number of pages per
+    /// sheet). Otherwise, the origin is at the top left corner of the
+    /// imageable area (i.e. inside the margins).
+    /// ## `full_page`
+    /// [`true`] to set up the [`PrintContext`][crate::PrintContext] for the full page
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_operation_set_use_full_page&quot;</span>)]
+    </span><span class="kw">fn </span>set_use_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>, full_page: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_operation_set_use_full_page(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3683,47 +3679,127 @@
         }
     }
 
-    <span class="kw">fn </span>allows_async(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether the print operation may run asynchronously or not.
+    ///
+    /// Some systems don&#39;t support asynchronous printing, but those that do
+    /// will return [`PrintOperationResult::InProgress`][crate::PrintOperationResult::InProgress] as the status, and
+    /// emit the [`done`][struct@crate::PrintOperation#done] signal when the operation is actually
+    /// done.
+    ///
+    /// The Windows port does not support asynchronous operation at all (this
+    /// is unlikely to change). On other platforms, all actions except for
+    /// [`PrintOperationAction::Export`][crate::PrintOperationAction::Export] support asynchronous operation.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
+    </span><span class="kw">fn </span>allows_async(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;allow-async&quot;</span>)
     }
 
-    <span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The current page in the document.
+    ///
+    /// If this is set before [`run()`][Self::run()],
+    /// the user will be able to select to print only the current page.
+    ///
+    /// Note that this only makes sense for pre-paginated documents.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
+    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;current-page&quot;</span>)
     }
 
-    <span class="kw">fn </span>custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// Used as the label of the tab containing custom widgets.
+    /// Note that this property may be ignored on some platforms.
+    ///
+    /// If this is [`None`], GTK+ uses a default label.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
+    </span><span class="kw">fn </span>custom_tab_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;custom-tab-label&quot;</span>)
     }
 
-    <span class="kw">fn </span>export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// The name of a file to generate instead of showing the print dialog.
+    /// Currently, PDF is the only supported format.
+    ///
+    /// The intended use of this property is for implementing
+    /// “Export to PDF” actions.
+    ///
+    /// “Print to PDF” support is independent of this and is done
+    /// by letting the user pick the “Print to PDF” item from the
+    /// list of printers in the print dialog.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
+    </span><span class="kw">fn </span>export_filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;export-filename&quot;</span>)
     }
 
-    <span class="kw">fn </span>job_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// A string used to identify the job (e.g. in monitoring
+    /// applications like eggcups).
+    ///
+    /// If you don&#39;t set a job name, GTK+ picks a default one
+    /// by numbering successive print jobs.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
+    </span><span class="kw">fn </span>job_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;job-name&quot;</span>)
     }
 
-    <span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The number of pages in the document.
+    ///
+    /// This must be set to a positive number
+    /// before the rendering starts. It may be set in a
+    /// [`begin-print`][struct@crate::PrintOperation#begin-print] signal hander.
+    ///
+    /// Note that the page numbers passed to the
+    /// [`request-page-setup`][struct@crate::PrintOperation#request-page-setup] and
+    /// [`draw-page`][struct@crate::PrintOperation#draw-page] signals are 0-based, i.e. if
+    /// the user chooses to print all pages, the last ::draw-page signal
+    /// will be for page `n_pages` - 1.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
+    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;n-pages&quot;</span>)
     }
 
-    <span class="kw">fn </span>shows_progress(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether to show a progress dialog during the
+    /// print operation.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
+    </span><span class="kw">fn </span>shows_progress(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-progress&quot;</span>)
     }
 
-    <span class="kw">fn </span>tracks_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// If [`true`], the print operation will try to continue report on
+    /// the status of the print job in the printer queues and printer.
+    /// This can allow your application to show things like “out of paper”
+    /// issues, and when the print job actually reaches the printer.
+    /// However, this is often implemented using polling, and should
+    /// not be enabled unless needed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
+    </span><span class="kw">fn </span>tracks_print_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;track-print-status&quot;</span>)
     }
 
-    <span class="kw">fn </span>unit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Unit {
+    <span class="doccomment">/// The transformation for the cairo context obtained from
+    /// [`PrintContext`][crate::PrintContext] is set up in such a way that distances
+    /// are measured in units of `unit`.
+    </span><span class="kw">fn </span>unit(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Unit {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;unit&quot;</span>)
     }
 
-    <span class="kw">fn </span>uses_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// If [`true`], the transformation for the cairo context obtained
+    /// from [`PrintContext`][crate::PrintContext] puts the origin at the top left corner
+    /// of the page (which may not be the top left corner of the sheet,
+    /// depending on page orientation and the number of pages per sheet).
+    /// Otherwise, the origin is at the top left corner of the imageable
+    /// area (i.e. inside the margins).
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
+    </span><span class="kw">fn </span>uses_full_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-full-page&quot;</span>)
     }
 
-    <span class="kw">fn </span>connect_begin_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted after the user has finished changing print settings
+    /// in the dialog, before the actual rendering starts.
+    ///
+    /// A typical use for ::begin-print is to use the parameters from the
+    /// [`PrintContext`][crate::PrintContext] and paginate the document accordingly, and then
+    /// set the number of pages with [`set_n_pages()`][Self::set_n_pages()].
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] for the current operation
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;begin-print&quot;</span>)]
+    </span><span class="kw">fn </span>connect_begin_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>begin_print_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>,
@@ -3751,7 +3827,23 @@
         }
     }
 
-    <span class="kw">fn </span>connect_create_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; glib::Object + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted when displaying the print dialog. If you return a
+    /// widget in a handler for this signal it will be added to a custom
+    /// tab in the print dialog. You typically return a container widget
+    /// with multiple widgets in it.
+    ///
+    /// The print dialog owns the returned widget, and its lifetime is not
+    /// controlled by the application. However, the widget is guaranteed
+    /// to stay around until the [`custom-widget-apply`][struct@crate::PrintOperation#custom-widget-apply]
+    /// signal is emitted on the operation. Then you can read out any
+    /// information you need from the widgets.
+    ///
+    /// # Returns
+    ///
+    /// A custom widget that gets embedded in
+    ///  the print dialog, or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;create-custom-widget&quot;</span>)]
+    </span><span class="kw">fn </span>connect_create_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; glib::Object + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3780,7 +3872,15 @@
         }
     }
 
-    <span class="kw">fn </span>connect_custom_widget_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted right before [`begin-print`][struct@crate::PrintOperation#begin-print] if you added
+    /// a custom widget in the [`create-custom-widget`][struct@crate::PrintOperation#create-custom-widget] handler.
+    /// When you get this signal you should read the information from the
+    /// custom widgets, as the widgets are not guaraneed to be around at a
+    /// later time.
+    /// ## `widget`
+    /// the custom widget added in create-custom-widget
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;custom-widget-apply&quot;</span>)]
+    </span><span class="kw">fn </span>connect_custom_widget_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3811,7 +3911,20 @@
         }
     }
 
-    <span class="kw">fn </span>connect_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PrintOperationResult) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the print operation run has finished doing
+    /// everything required for printing.
+    ///
+    /// `result` gives you information about what happened during the run.
+    /// If `result` is [`PrintOperationResult::Error`][crate::PrintOperationResult::Error] then you can call
+    /// `gtk_print_operation_get_error()` for more information.
+    ///
+    /// If you enabled print status tracking then
+    /// [`is_finished()`][Self::is_finished()] may still return [`false`]
+    /// after [`done`][struct@crate::PrintOperation#done] was emitted.
+    /// ## `result`
+    /// the result of the print operation
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;done&quot;</span>)]
+    </span><span class="kw">fn </span>connect_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PrintOperationResult) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>done_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, PrintOperationResult) + <span class="lifetime">&#39;static</span>,
@@ -3839,7 +3952,64 @@
         }
     }
 
-    <span class="kw">fn </span>connect_draw_page&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted for every page that is printed. The signal handler
+    /// must render the `page_nr`&#39;s page onto the cairo context obtained
+    /// from `context` using [`PrintContext::cairo_context()`][crate::PrintContext::cairo_context()].
+    ///
+    ///
+    /// **⚠️ The following code is in C ⚠️**
+    ///
+    /// ```C
+    /// static void
+    /// draw_page (GtkPrintOperation *operation,
+    ///            GtkPrintContext   *context,
+    ///            gint               page_nr,
+    ///            gpointer           user_data)
+    /// {
+    ///   cairo_t *cr;
+    ///   PangoLayout *layout;
+    ///   gdouble width, text_height;
+    ///   gint layout_height;
+    ///   PangoFontDescription *desc;
+    ///
+    ///   cr = gtk_print_context_get_cairo_context (context);
+    ///   width = gtk_print_context_get_width (context);
+    ///
+    ///   cairo_rectangle (cr, 0, 0, width, HEADER_HEIGHT);
+    ///
+    ///   cairo_set_source_rgb (cr, 0.8, 0.8, 0.8);
+    ///   cairo_fill (cr);
+    ///
+    ///   layout = gtk_print_context_create_pango_layout (context);
+    ///
+    ///   desc = pango_font_description_from_string (&quot;sans 14&quot;);
+    ///   pango_layout_set_font_description (layout, desc);
+    ///   pango_font_description_free (desc);
+    ///
+    ///   pango_layout_set_text (layout, &quot;some text&quot;, -1);
+    ///   pango_layout_set_width (layout, width * PANGO_SCALE);
+    ///   pango_layout_set_alignment (layout, PANGO_ALIGN_CENTER);
+    ///
+    ///   pango_layout_get_size (layout, NULL, &amp;layout_height);
+    ///   text_height = (gdouble)layout_height / PANGO_SCALE;
+    ///
+    ///   cairo_move_to (cr, width / 2,  (HEADER_HEIGHT - text_height) / 2);
+    ///   pango_cairo_show_layout (cr, layout);
+    ///
+    ///   g_object_unref (layout);
+    /// }
+    /// ```
+    ///
+    /// Use [`set_use_full_page()`][Self::set_use_full_page()] and
+    /// [`set_unit()`][Self::set_unit()] before starting the print operation
+    /// to set up the transformation of the cairo context according to your
+    /// needs.
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] for the current operation
+    /// ## `page_nr`
+    /// the number of the currently printed page (0-based)
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;draw-page&quot;</span>)]
+    </span><span class="kw">fn </span>connect_draw_page&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3872,7 +4042,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_end_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted after all pages have been rendered.
+    /// A handler for this signal can clean up any resources that have
+    /// been allocated in the [`begin-print`][struct@crate::PrintOperation#begin-print] handler.
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] for the current operation
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;end-print&quot;</span>)]
+    </span><span class="kw">fn </span>connect_end_print&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>end_print_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>PrintContext) + <span class="lifetime">&#39;static</span>,
@@ -3900,7 +4076,27 @@
         }
     }
 
-    <span class="kw">fn </span>connect_paginate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted after the [`begin-print`][struct@crate::PrintOperation#begin-print] signal, but before
+    /// the actual rendering starts. It keeps getting emitted until a connected
+    /// signal handler returns [`true`].
+    ///
+    /// The ::paginate signal is intended to be used for paginating a document
+    /// in small chunks, to avoid blocking the user interface for a long
+    /// time. The signal handler should update the number of pages using
+    /// [`set_n_pages()`][Self::set_n_pages()], and return [`true`] if the document
+    /// has been completely paginated.
+    ///
+    /// If you don&#39;t need to do pagination in chunks, you can simply do
+    /// it all in the ::begin-print handler, and set the number of pages
+    /// from there.
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] for the current operation
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if pagination is complete
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;paginate&quot;</span>)]
+    </span><span class="kw">fn </span>connect_paginate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3932,7 +4128,34 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preview&lt;
+    <span class="doccomment">/// Gets emitted when a preview is requested from the native dialog.
+    ///
+    /// The default handler for this signal uses an external viewer
+    /// application to preview.
+    ///
+    /// To implement a custom print preview, an application must return
+    /// [`true`] from its handler for this signal. In order to use the
+    /// provided `context` for the preview implementation, it must be
+    /// given a suitable cairo context with [`PrintContext::set_cairo_context()`][crate::PrintContext::set_cairo_context()].
+    ///
+    /// The custom preview implementation can use
+    /// [`PrintOperationPreviewExt::is_selected()`][crate::prelude::PrintOperationPreviewExt::is_selected()] and
+    /// [`PrintOperationPreviewExt::render_page()`][crate::prelude::PrintOperationPreviewExt::render_page()] to find pages which
+    /// are selected for print and render them. The preview must be
+    /// finished by calling [`PrintOperationPreviewExt::end_preview()`][crate::prelude::PrintOperationPreviewExt::end_preview()]
+    /// (typically in response to the user clicking a close button).
+    /// ## `preview`
+    /// the [`PrintOperationPreview`][crate::PrintOperationPreview] for the current operation
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] that will be used
+    /// ## `parent`
+    /// the [`Window`][crate::Window] to use as window parent, or [`None`]
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the listener wants to take over control of the preview
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preview&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preview&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintOperationPreview, <span class="kw-2">&amp;</span>PrintContext, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Window&gt;) -&gt; bool + <span class="lifetime">&#39;static</span>,
     &gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -3970,7 +4193,17 @@
         }
     }
 
-    <span class="kw">fn </span>connect_request_page_setup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32, <span class="kw-2">&amp;</span>PageSetup) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted once for every page that is printed, to give
+    /// the application a chance to modify the page setup. Any changes
+    /// done to `setup` will be in force only for printing this page.
+    /// ## `context`
+    /// the [`PrintContext`][crate::PrintContext] for the current operation
+    /// ## `page_nr`
+    /// the number of the currently printed page (0-based)
+    /// ## `setup`
+    /// the [`PageSetup`][crate::PageSetup]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;request-page-setup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_request_page_setup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>PrintContext, i32, <span class="kw-2">&amp;</span>PageSetup) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -4005,7 +4238,12 @@
         }
     }
 
-    <span class="kw">fn </span>connect_status_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted at between the various phases of the print operation.
+    /// See [`PrintStatus`][crate::PrintStatus] for the phases that are being discriminated.
+    /// Use [`status()`][Self::status()] to find out the current
+    /// status.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;status-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_status_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>status_changed_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4029,7 +4267,17 @@
         }
     }
 
-    <span class="kw">fn </span>connect_update_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget, <span class="kw-2">&amp;</span>PageSetup, <span class="kw-2">&amp;</span>PrintSettings) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted after change of selected printer. The actual page setup and
+    /// print settings are passed to the custom widget, which can actualize
+    /// itself according to this change.
+    /// ## `widget`
+    /// the custom widget added in create-custom-widget
+    /// ## `setup`
+    /// actual page setup
+    /// ## `settings`
+    /// actual print settings
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;update-custom-widget&quot;</span>)]
+    </span><span class="kw">fn </span>connect_update_custom_widget&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget, <span class="kw-2">&amp;</span>PageSetup, <span class="kw-2">&amp;</span>PrintSettings) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -4064,7 +4312,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_allow_async_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;allow-async&quot;</span>)]
+    </span><span class="kw">fn </span>connect_allow_async_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_allow_async_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4089,7 +4338,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_current_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;current-page&quot;</span>)]
+    </span><span class="kw">fn </span>connect_current_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_current_page_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4114,7 +4364,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_custom_tab_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;custom-tab-label&quot;</span>)]
+    </span><span class="kw">fn </span>connect_custom_tab_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_custom_tab_label_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4139,7 +4390,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_default_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;default-page-setup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_default_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_default_page_setup_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4164,7 +4416,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_embed_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;embed-page-setup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_embed_page_setup_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_embed_page_setup_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4189,7 +4442,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_export_filename_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;export-filename&quot;</span>)]
+    </span><span class="kw">fn </span>connect_export_filename_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_export_filename_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4214,7 +4468,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_selection_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4239,7 +4494,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_job_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;job-name&quot;</span>)]
+    </span><span class="kw">fn </span>connect_job_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_job_name_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4264,7 +4520,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_n_pages_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages&quot;</span>)]
+    </span><span class="kw">fn </span>connect_n_pages_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_n_pages_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4289,7 +4546,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_n_pages_to_print_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;n-pages-to-print&quot;</span>)]
+    </span><span class="kw">fn </span>connect_n_pages_to_print_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_n_pages_to_print_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4314,7 +4572,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_print_settings_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;print-settings&quot;</span>)]
+    </span><span class="kw">fn </span>connect_print_settings_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_print_settings_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4339,7 +4598,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_progress_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-progress&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_progress_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_progress_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4364,7 +4624,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;status&quot;</span>)]
+    </span><span class="kw">fn </span>connect_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_status_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4389,7 +4650,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_status_string_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;status-string&quot;</span>)]
+    </span><span class="kw">fn </span>connect_status_string_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_status_string_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4414,7 +4676,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_support_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;support-selection&quot;</span>)]
+    </span><span class="kw">fn </span>connect_support_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_support_selection_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4439,7 +4702,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_track_print_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;track-print-status&quot;</span>)]
+    </span><span class="kw">fn </span>connect_track_print_status_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_track_print_status_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4464,7 +4728,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_unit_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;unit&quot;</span>)]
+    </span><span class="kw">fn </span>connect_unit_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_unit_trampoline&lt;P: IsA&lt;PrintOperation&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPrintOperation,
             _param_spec: glib::ffi::gpointer,
@@ -4486,7 +4751,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_full_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-full-page&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_full_page_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_full_page_trampoline&lt;
             P: IsA&lt;PrintOperation&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4511,6 +4777,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;PrintOperation&gt;&gt; PrintOperationExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>PrintOperation {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

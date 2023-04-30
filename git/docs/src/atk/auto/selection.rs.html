@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/selection.rs`."><title>selection.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/selection.rs`."><title>selection.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -291,23 +291,7 @@
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -362,7 +346,7 @@
 /// # Implementors
 ///
 /// [`NoOpObject`][struct@crate::NoOpObject], [`Selection`][struct@crate::Selection]
-</span><span class="kw">pub trait </span>SelectionExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>SelectionExt: IsA&lt;Selection&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds the specified accessible child of the object to the
     /// object&#39;s selection.
     /// ## `i`
@@ -372,7 +356,14 @@
     ///
     /// TRUE if success, FALSE otherwise.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_add_selection&quot;</span>)]
-    </span><span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool;
+    </span><span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::atk_selection_add_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                i,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Clears the selection in the object so that no children in the object
     /// are selected.
@@ -381,7 +372,13 @@
     ///
     /// TRUE if success, FALSE otherwise.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_clear_selection&quot;</span>)]
-    </span><span class="kw">fn </span>clear_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>clear_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::atk_selection_clear_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the number of accessible children currently selected.
     /// Note: callers should not rely on [`None`] or on a zero value for
@@ -395,7 +392,9 @@
     /// if `self` does not implement this interface.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_get_selection_count&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_count&quot;</span>)]
-    </span><span class="kw">fn </span>selection_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>selection_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::atk_selection_get_selection_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Determines if the current child of this object is selected
     /// Note: callers should not rely on [`None`] or on a zero value for
@@ -410,7 +409,14 @@
     /// a gboolean representing the specified child is selected, or 0
     /// if `self` does not implement this interface.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_is_child_selected&quot;</span>)]
-    </span><span class="kw">fn </span>is_child_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool;
+    </span><span class="kw">fn </span>is_child_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::atk_selection_is_child_selected(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                i,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets a reference to the accessible object representing the specified
     /// selected child of the object.
@@ -428,7 +434,14 @@
     /// selected accessible, or [`None`] if `self` does not implement this
     /// interface.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_ref_selection&quot;</span>)]
-    </span><span class="kw">fn </span>ref_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>ref_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::atk_selection_ref_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                i,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Removes the specified child of the object from the object&#39;s selection.
     /// ## `i`
@@ -439,64 +452,7 @@
     ///
     /// TRUE if success, FALSE otherwise.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_remove_selection&quot;</span>)]
-    </span><span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool;
-
-    <span class="doccomment">/// Causes every child of the object to be selected if the object
-    /// supports multiple selections.
-    ///
-    /// # Returns
-    ///
-    /// TRUE if success, FALSE otherwise.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_select_all_selection&quot;</span>)]
-    </span><span class="kw">fn </span>select_all_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// The &quot;selection-changed&quot; signal is emitted by an object which
-    /// implements AtkSelection interface when the selection changes.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Selection&gt;&gt; SelectionExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::atk_selection_add_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                i,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>clear_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::atk_selection_clear_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>selection_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_selection_get_selection_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>is_child_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::atk_selection_is_child_selected(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                i,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>ref_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::atk_selection_ref_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                i,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
+    </span><span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::atk_selection_remove_selection(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -505,7 +461,14 @@
         }
     }
 
-    <span class="kw">fn </span>select_all_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Causes every child of the object to be selected if the object
+    /// supports multiple selections.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if success, FALSE otherwise.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_selection_select_all_selection&quot;</span>)]
+    </span><span class="kw">fn </span>select_all_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::atk_selection_select_all_selection(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -513,7 +476,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The &quot;selection-changed&quot; signal is emitted by an object which
+    /// implements AtkSelection interface when the selection changes.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>selection_changed_trampoline&lt;
             P: IsA&lt;Selection&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -537,6 +503,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Selection&gt;&gt; SelectionExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Selection {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

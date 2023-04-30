@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/font_button.rs`."><title>font_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/font_button.rs`."><title>font_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2255,44 +2255,12 @@
 <a href="#2182" id="2182">2182</a>
 <a href="#2183" id="2183">2183</a>
 <a href="#2184" id="2184">2184</a>
-<a href="#2185" id="2185">2185</a>
-<a href="#2186" id="2186">2186</a>
-<a href="#2187" id="2187">2187</a>
-<a href="#2188" id="2188">2188</a>
-<a href="#2189" id="2189">2189</a>
-<a href="#2190" id="2190">2190</a>
-<a href="#2191" id="2191">2191</a>
-<a href="#2192" id="2192">2192</a>
-<a href="#2193" id="2193">2193</a>
-<a href="#2194" id="2194">2194</a>
-<a href="#2195" id="2195">2195</a>
-<a href="#2196" id="2196">2196</a>
-<a href="#2197" id="2197">2197</a>
-<a href="#2198" id="2198">2198</a>
-<a href="#2199" id="2199">2199</a>
-<a href="#2200" id="2200">2200</a>
-<a href="#2201" id="2201">2201</a>
-<a href="#2202" id="2202">2202</a>
-<a href="#2203" id="2203">2203</a>
-<a href="#2204" id="2204">2204</a>
-<a href="#2205" id="2205">2205</a>
-<a href="#2206" id="2206">2206</a>
-<a href="#2207" id="2207">2207</a>
-<a href="#2208" id="2208">2208</a>
-<a href="#2209" id="2209">2209</a>
-<a href="#2210" id="2210">2210</a>
-<a href="#2211" id="2211">2211</a>
-<a href="#2212" id="2212">2212</a>
-<a href="#2213" id="2213">2213</a>
-<a href="#2214" id="2214">2214</a>
-<a href="#2215" id="2215">2215</a>
-<a href="#2216" id="2216">2216</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::FontChooserLevel;
 <span class="kw">use crate</span>::{
     Actionable, Align, Bin, Buildable, Button, Container, FontChooser, PositionType, ReliefStyle,
@@ -4135,8 +4103,8 @@
     <span class="doccomment">/// The language for which the [`font-features`][struct@crate::FontChooser#font-features] were
     /// selected, in a format that is compatible with CSS and with Pango
     /// attributes.
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self">self</span>.builder.property(<span class="string">&quot;language&quot;</span>, language.into()),
@@ -4144,8 +4112,8 @@
     }
 
     <span class="doccomment">/// The level of granularity to offer for selecting fonts.
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>level(<span class="self">self</span>, level: FontChooserLevel) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self">self</span>.builder.property(<span class="string">&quot;level&quot;</span>, level),
@@ -4181,7 +4149,7 @@
 /// # Implementors
 ///
 /// [`FontButton`][struct@crate::FontButton]
-</span><span class="kw">pub trait </span>FontButtonExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>FontButtonExt: IsA&lt;FontButton&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Returns whether the font size will be shown in the label.
     ///
     /// # Returns
@@ -4189,7 +4157,13 @@
     /// whether the font size will be shown in the label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_get_show_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_size&quot;</span>)]
-    </span><span class="kw">fn </span>shows_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>shows_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_font_button_get_show_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the name of the font style will be shown in the label.
     ///
@@ -4198,7 +4172,13 @@
     /// whether the font style will be shown in the label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_get_show_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_style&quot;</span>)]
-    </span><span class="kw">fn </span>shows_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>shows_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_font_button_get_show_style(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the title of the font chooser dialog.
     ///
@@ -4207,7 +4187,13 @@
     /// an internal copy of the title string which must not be freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_get_title&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_title&quot;</span>)]
-    </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_font_button_get_title(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the selected font is used in the label.
     ///
@@ -4216,7 +4202,13 @@
     /// whether the selected font is used in the label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_get_use_font&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_font&quot;</span>)]
-    </span><span class="kw">fn </span>uses_font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>uses_font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_font_button_get_use_font(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the selected size is used in the label.
     ///
@@ -4225,37 +4217,69 @@
     /// whether the selected size is used in the label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_get_use_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_size&quot;</span>)]
-    </span><span class="kw">fn </span>uses_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>uses_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_font_button_get_use_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// If `show_size` is [`true`], the font size will be displayed along with the name of the selected font.
     /// ## `show_size`
     /// [`true`] if font size should be displayed in dialog.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_set_show_size&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_size(<span class="kw-2">&amp;</span><span class="self">self</span>, show_size: bool);
+    </span><span class="kw">fn </span>set_show_size(<span class="kw-2">&amp;</span><span class="self">self</span>, show_size: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_font_button_set_show_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                show_size.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// If `show_style` is [`true`], the font style will be displayed along with name of the selected font.
     /// ## `show_style`
     /// [`true`] if font style should be displayed in label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_set_show_style&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_style(<span class="kw-2">&amp;</span><span class="self">self</span>, show_style: bool);
+    </span><span class="kw">fn </span>set_show_style(<span class="kw-2">&amp;</span><span class="self">self</span>, show_style: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_font_button_set_show_style(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                show_style.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the title for the font chooser dialog.
     /// ## `title`
     /// a string containing the font chooser dialog title
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_set_title&quot;</span>)]
-    </span><span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_font_button_set_title(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, title.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// If `use_font` is [`true`], the font name will be written using the selected font.
     /// ## `use_font`
     /// If [`true`], font name will be written using font chosen.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_set_use_font&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_font(<span class="kw-2">&amp;</span><span class="self">self</span>, use_font: bool);
+    </span><span class="kw">fn </span>set_use_font(<span class="kw-2">&amp;</span><span class="self">self</span>, use_font: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_font_button_set_use_font(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_font.into_glib());
+        }
+    }
 
     <span class="doccomment">/// If `use_size` is [`true`], the font name will be written using the selected size.
     /// ## `use_size`
     /// If [`true`], font name will be written using the selected size.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_button_set_use_size&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_size(<span class="kw-2">&amp;</span><span class="self">self</span>, use_size: bool);
+    </span><span class="kw">fn </span>set_use_size(<span class="kw-2">&amp;</span><span class="self">self</span>, use_size: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_font_button_set_use_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_size.into_glib());
+        }
+    }
 
     <span class="doccomment">/// The ::font-set signal is emitted when the user selects a font.
     /// When handling this signal, use [`FontChooserExt::font()`][crate::prelude::FontChooserExt::font()]
@@ -4265,102 +4289,7 @@
     /// changes the font. If you need to react to programmatic font changes
     /// as well, use the notify::font signal.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;font-set&quot;</span>)]
-    </span><span class="kw">fn </span>connect_font_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-size&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-style&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;title&quot;</span>)]
-    </span><span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-font&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-size&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;FontButton&gt;&gt; FontButtonExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>shows_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_font_button_get_show_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>shows_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_font_button_get_show_style(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_font_button_get_title(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>uses_font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_font_button_get_use_font(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>uses_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_font_button_get_use_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_show_size(<span class="kw-2">&amp;</span><span class="self">self</span>, show_size: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_font_button_set_show_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                show_size.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_show_style(<span class="kw-2">&amp;</span><span class="self">self</span>, show_style: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_font_button_set_show_style(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                show_style.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_font_button_set_title(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, title.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_use_font(<span class="kw-2">&amp;</span><span class="self">self</span>, use_font: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_font_button_set_use_font(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_font.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_use_size(<span class="kw-2">&amp;</span><span class="self">self</span>, use_size: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_font_button_set_use_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_size.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>connect_font_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_font_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>font_set_trampoline&lt;P: IsA&lt;FontButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontButton,
             f: glib::ffi::gpointer,
@@ -4381,7 +4310,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-size&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_size_trampoline&lt;
             P: IsA&lt;FontButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4406,7 +4336,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-style&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_style_trampoline&lt;
             P: IsA&lt;FontButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4431,7 +4362,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;title&quot;</span>)]
+    </span><span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_title_trampoline&lt;P: IsA&lt;FontButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
@@ -4453,7 +4385,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-font&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_font_trampoline&lt;P: IsA&lt;FontButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
@@ -4475,7 +4408,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-size&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_size_trampoline&lt;P: IsA&lt;FontButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontButton,
             _param_spec: glib::ffi::gpointer,
@@ -4497,6 +4431,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;FontButton&gt;&gt; FontButtonExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>FontButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

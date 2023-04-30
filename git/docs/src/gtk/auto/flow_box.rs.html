@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flow_box.rs`."><title>flow_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flow_box.rs`."><title>flow_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2825,123 +2825,7 @@
 <a href="#2752" id="2752">2752</a>
 <a href="#2753" id="2753">2753</a>
 <a href="#2754" id="2754">2754</a>
-<a href="#2755" id="2755">2755</a>
-<a href="#2756" id="2756">2756</a>
-<a href="#2757" id="2757">2757</a>
-<a href="#2758" id="2758">2758</a>
-<a href="#2759" id="2759">2759</a>
-<a href="#2760" id="2760">2760</a>
-<a href="#2761" id="2761">2761</a>
-<a href="#2762" id="2762">2762</a>
-<a href="#2763" id="2763">2763</a>
-<a href="#2764" id="2764">2764</a>
-<a href="#2765" id="2765">2765</a>
-<a href="#2766" id="2766">2766</a>
-<a href="#2767" id="2767">2767</a>
-<a href="#2768" id="2768">2768</a>
-<a href="#2769" id="2769">2769</a>
-<a href="#2770" id="2770">2770</a>
-<a href="#2771" id="2771">2771</a>
-<a href="#2772" id="2772">2772</a>
-<a href="#2773" id="2773">2773</a>
-<a href="#2774" id="2774">2774</a>
-<a href="#2775" id="2775">2775</a>
-<a href="#2776" id="2776">2776</a>
-<a href="#2777" id="2777">2777</a>
-<a href="#2778" id="2778">2778</a>
-<a href="#2779" id="2779">2779</a>
-<a href="#2780" id="2780">2780</a>
-<a href="#2781" id="2781">2781</a>
-<a href="#2782" id="2782">2782</a>
-<a href="#2783" id="2783">2783</a>
-<a href="#2784" id="2784">2784</a>
-<a href="#2785" id="2785">2785</a>
-<a href="#2786" id="2786">2786</a>
-<a href="#2787" id="2787">2787</a>
-<a href="#2788" id="2788">2788</a>
-<a href="#2789" id="2789">2789</a>
-<a href="#2790" id="2790">2790</a>
-<a href="#2791" id="2791">2791</a>
-<a href="#2792" id="2792">2792</a>
-<a href="#2793" id="2793">2793</a>
-<a href="#2794" id="2794">2794</a>
-<a href="#2795" id="2795">2795</a>
-<a href="#2796" id="2796">2796</a>
-<a href="#2797" id="2797">2797</a>
-<a href="#2798" id="2798">2798</a>
-<a href="#2799" id="2799">2799</a>
-<a href="#2800" id="2800">2800</a>
-<a href="#2801" id="2801">2801</a>
-<a href="#2802" id="2802">2802</a>
-<a href="#2803" id="2803">2803</a>
-<a href="#2804" id="2804">2804</a>
-<a href="#2805" id="2805">2805</a>
-<a href="#2806" id="2806">2806</a>
-<a href="#2807" id="2807">2807</a>
-<a href="#2808" id="2808">2808</a>
-<a href="#2809" id="2809">2809</a>
-<a href="#2810" id="2810">2810</a>
-<a href="#2811" id="2811">2811</a>
-<a href="#2812" id="2812">2812</a>
-<a href="#2813" id="2813">2813</a>
-<a href="#2814" id="2814">2814</a>
-<a href="#2815" id="2815">2815</a>
-<a href="#2816" id="2816">2816</a>
-<a href="#2817" id="2817">2817</a>
-<a href="#2818" id="2818">2818</a>
-<a href="#2819" id="2819">2819</a>
-<a href="#2820" id="2820">2820</a>
-<a href="#2821" id="2821">2821</a>
-<a href="#2822" id="2822">2822</a>
-<a href="#2823" id="2823">2823</a>
-<a href="#2824" id="2824">2824</a>
-<a href="#2825" id="2825">2825</a>
-<a href="#2826" id="2826">2826</a>
-<a href="#2827" id="2827">2827</a>
-<a href="#2828" id="2828">2828</a>
-<a href="#2829" id="2829">2829</a>
-<a href="#2830" id="2830">2830</a>
-<a href="#2831" id="2831">2831</a>
-<a href="#2832" id="2832">2832</a>
-<a href="#2833" id="2833">2833</a>
-<a href="#2834" id="2834">2834</a>
-<a href="#2835" id="2835">2835</a>
-<a href="#2836" id="2836">2836</a>
-<a href="#2837" id="2837">2837</a>
-<a href="#2838" id="2838">2838</a>
-<a href="#2839" id="2839">2839</a>
-<a href="#2840" id="2840">2840</a>
-<a href="#2841" id="2841">2841</a>
-<a href="#2842" id="2842">2842</a>
-<a href="#2843" id="2843">2843</a>
-<a href="#2844" id="2844">2844</a>
-<a href="#2845" id="2845">2845</a>
-<a href="#2846" id="2846">2846</a>
-<a href="#2847" id="2847">2847</a>
-<a href="#2848" id="2848">2848</a>
-<a href="#2849" id="2849">2849</a>
-<a href="#2850" id="2850">2850</a>
-<a href="#2851" id="2851">2851</a>
-<a href="#2852" id="2852">2852</a>
-<a href="#2853" id="2853">2853</a>
-<a href="#2854" id="2854">2854</a>
-<a href="#2855" id="2855">2855</a>
-<a href="#2856" id="2856">2856</a>
-<a href="#2857" id="2857">2857</a>
-<a href="#2858" id="2858">2858</a>
-<a href="#2859" id="2859">2859</a>
-<a href="#2860" id="2860">2860</a>
-<a href="#2861" id="2861">2861</a>
-<a href="#2862" id="2862">2862</a>
-<a href="#2863" id="2863">2863</a>
-<a href="#2864" id="2864">2864</a>
-<a href="#2865" id="2865">2865</a>
-<a href="#2866" id="2866">2866</a>
-<a href="#2867" id="2867">2867</a>
-<a href="#2868" id="2868">2868</a>
-<a href="#2869" id="2869">2869</a>
-<a href="#2870" id="2870">2870</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4663,7 +4547,7 @@
 /// # Implementors
 ///
 /// [`FlowBox`][struct@crate::FlowBox]
-</span><span class="kw">pub trait </span>FlowBoxExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>FlowBoxExt: IsA&lt;FlowBox&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Binds `model` to `self`.
     ///
     /// If `self` was already bound to a model, that previous binding is
@@ -4686,423 +4570,6 @@
     /// a function that creates widgets for items
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_bind_model&quot;</span>)]
     </span><span class="kw">fn </span>bind_model&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::ListModel&gt;&gt;,
-        create_widget_func: P,
-    );
-
-    <span class="doccomment">/// Returns whether children activate on single clicks.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if children are activated on single click,
-    ///  [`false`] otherwise
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_activate_on_single_click&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Gets the nth child in the `self`.
-    /// ## `idx`
-    /// the position of the child
-    ///
-    /// # Returns
-    ///
-    /// the child widget, which will
-    ///  always be a [`FlowBoxChild`][crate::FlowBoxChild] or [`None`] in case no child widget
-    ///  with the given index exists.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_child_at_index&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_child_at_index&quot;</span>)]
-    </span><span class="kw">fn </span>child_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt;;
-
-    <span class="doccomment">/// Gets the child in the (`x`, `y`) position.
-    /// ## `x`
-    /// the x coordinate of the child
-    /// ## `y`
-    /// the y coordinate of the child
-    ///
-    /// # Returns
-    ///
-    /// the child widget, which will
-    ///  always be a [`FlowBoxChild`][crate::FlowBoxChild] or [`None`] in case no child widget
-    ///  exists for the given x and y coordinates.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_child_at_pos&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_child_at_pos&quot;</span>)]
-    </span><span class="kw">fn </span>child_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt;;
-
-    <span class="doccomment">/// Gets the horizontal spacing.
-    ///
-    /// # Returns
-    ///
-    /// the horizontal spacing
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_column_spacing&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_column_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
-
-    <span class="doccomment">/// Returns whether the box is homogeneous (all children are the
-    /// same size). See [`BoxExt::set_homogeneous()`][crate::prelude::BoxExt::set_homogeneous()].
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the box is homogeneous.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_homogeneous&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_homogeneous&quot;</span>)]
-    </span><span class="kw">fn </span>is_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Gets the maximum number of children per line.
-    ///
-    /// # Returns
-    ///
-    /// the maximum number of children per line
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_max_children_per_line&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_max_children_per_line&quot;</span>)]
-    </span><span class="kw">fn </span>max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
-
-    <span class="doccomment">/// Gets the minimum number of children per line.
-    ///
-    /// # Returns
-    ///
-    /// the minimum number of children per line
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_min_children_per_line&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_min_children_per_line&quot;</span>)]
-    </span><span class="kw">fn </span>min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
-
-    <span class="doccomment">/// Gets the vertical spacing.
-    ///
-    /// # Returns
-    ///
-    /// the vertical spacing
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_row_spacing&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_row_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32;
-
-    <span class="doccomment">/// Creates a list of all selected children.
-    ///
-    /// # Returns
-    ///
-    ///
-    ///  A `GList` containing the [`Widget`][crate::Widget] for each selected child.
-    ///  Free with `g_list_free()` when done.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_selected_children&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_selected_children&quot;</span>)]
-    </span><span class="kw">fn </span>selected_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;FlowBoxChild&gt;;
-
-    <span class="doccomment">/// Gets the selection mode of `self`.
-    ///
-    /// # Returns
-    ///
-    /// the [`SelectionMode`][crate::SelectionMode]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_selection_mode&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode;
-
-    <span class="doccomment">/// Inserts the `widget` into `self` at `position`.
-    ///
-    /// If a sort function is set, the widget will actually be inserted
-    /// at the calculated position and this function has the same effect
-    /// as [`ContainerExt::add()`][crate::prelude::ContainerExt::add()].
-    ///
-    /// If `position` is -1, or larger than the total number of children
-    /// in the `self`, then the `widget` will be appended to the end.
-    /// ## `widget`
-    /// the [`Widget`][crate::Widget] to add
-    /// ## `position`
-    /// the position to insert `child` in
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_insert&quot;</span>)]
-    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32);
-
-    <span class="doccomment">/// Updates the filtering for all children.
-    ///
-    /// Call this function when the result of the filter
-    /// function on the `self` is changed due ot an external
-    /// factor. For instance, this would be used if the
-    /// filter function just looked for a specific search
-    /// term, and the entry with the string has changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_invalidate_filter&quot;</span>)]
-    </span><span class="kw">fn </span>invalidate_filter(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Updates the sorting for all children.
-    ///
-    /// Call this when the result of the sort function on
-    /// `self` is changed due to an external factor.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_invalidate_sort&quot;</span>)]
-    </span><span class="kw">fn </span>invalidate_sort(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Select all children of `self`, if the selection
-    /// mode allows it.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_select_all&quot;</span>)]
-    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Selects a single child of `self`, if the selection
-    /// mode allows it.
-    /// ## `child`
-    /// a child of `self`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_select_child&quot;</span>)]
-    </span><span class="kw">fn </span>select_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;);
-
-    <span class="doccomment">/// Calls a function for each selected child.
-    ///
-    /// Note that the selection cannot be modified from within
-    /// this function.
-    /// ## `func`
-    /// the function to call for each selected child
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_selected_foreach&quot;</span>)]
-    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>FlowBox, <span class="kw-2">&amp;</span>FlowBoxChild)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
-
-    <span class="doccomment">/// If `single` is [`true`], children will be activated when you click
-    /// on them, otherwise you need to double-click.
-    /// ## `single`
-    /// [`true`] to emit child-activated on a single click
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool);
-
-    <span class="doccomment">/// Sets the horizontal space to add between children.
-    /// See the [`column-spacing`][struct@crate::FlowBox#column-spacing] property.
-    /// ## `spacing`
-    /// the spacing to use
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_column_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32);
-
-    <span class="doccomment">/// By setting a filter function on the `self` one can decide dynamically
-    /// which of the children to show. For instance, to implement a search
-    /// function that only shows the children matching the search terms.
-    ///
-    /// The `filter_func` will be called for each child after the call, and
-    /// it will continue to be called each time a child changes (via
-    /// [`FlowBoxChildExt::changed()`][crate::prelude::FlowBoxChildExt::changed()]) or when [`invalidate_filter()`][Self::invalidate_filter()]
-    /// is called.
-    ///
-    /// Note that using a filter function is incompatible with using a model
-    /// (see [`bind_model()`][Self::bind_model()]).
-    /// ## `filter_func`
-    /// callback that
-    ///  lets you filter which children to show
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_filter_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;);
-
-    <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.
-    /// The adjustment is also used for autoscrolling during
-    /// rubberband selection. See [`ScrolledWindowExt::hadjustment()`][crate::prelude::ScrolledWindowExt::hadjustment()]
-    /// for a typical way of obtaining the adjustment, and
-    /// [`set_vadjustment()`][Self::set_vadjustment()]for setting the vertical
-    /// adjustment.
-    ///
-    /// The adjustments have to be in pixel units and in the same
-    /// coordinate system as the allocation for immediate children
-    /// of the box.
-    /// ## `adjustment`
-    /// an adjustment which should be adjusted
-    ///  when the focus is moved among the descendents of `container`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_hadjustment&quot;</span>)]
-    </span><span class="kw">fn </span>set_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;);
-
-    <span class="doccomment">/// Sets the [`homogeneous`][struct@crate::FlowBox#homogeneous] property of `self`, controlling
-    /// whether or not all children of `self` are given equal space
-    /// in the box.
-    /// ## `homogeneous`
-    /// [`true`] to create equal allotments,
-    ///  [`false`] for variable allotments
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_homogeneous&quot;</span>)]
-    </span><span class="kw">fn </span>set_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, homogeneous: bool);
-
-    <span class="doccomment">/// Sets the maximum number of children to request and
-    /// allocate space for in `self`’s orientation.
-    ///
-    /// Setting the maximum number of children per line
-    /// limits the overall natural size request to be no more
-    /// than `n_children` children long in the given orientation.
-    /// ## `n_children`
-    /// the maximum number of children per line
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_max_children_per_line&quot;</span>)]
-    </span><span class="kw">fn </span>set_max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32);
-
-    <span class="doccomment">/// Sets the minimum number of children to line up
-    /// in `self`’s orientation before flowing.
-    /// ## `n_children`
-    /// the minimum number of children per line
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_min_children_per_line&quot;</span>)]
-    </span><span class="kw">fn </span>set_min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32);
-
-    <span class="doccomment">/// Sets the vertical space to add between children.
-    /// See the [`row-spacing`][struct@crate::FlowBox#row-spacing] property.
-    /// ## `spacing`
-    /// the spacing to use
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_row_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32);
-
-    <span class="doccomment">/// Sets how selection works in `self`.
-    /// See [`SelectionMode`][crate::SelectionMode] for details.
-    /// ## `mode`
-    /// the new selection mode
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode);
-
-    <span class="doccomment">/// By setting a sort function on the `self`, one can dynamically
-    /// reorder the children of the box, based on the contents of
-    /// the children.
-    ///
-    /// The `sort_func` will be called for each child after the call,
-    /// and will continue to be called each time a child changes (via
-    /// [`FlowBoxChildExt::changed()`][crate::prelude::FlowBoxChildExt::changed()]) and when [`invalidate_sort()`][Self::invalidate_sort()]
-    /// is called.
-    ///
-    /// Note that using a sort function is incompatible with using a model
-    /// (see [`bind_model()`][Self::bind_model()]).
-    /// ## `sort_func`
-    /// the sort function
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_sort_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_sort_func(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        sort_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild, <span class="kw-2">&amp;</span>FlowBoxChild) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    );
-
-    <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.
-    /// The adjustment is also used for autoscrolling during
-    /// rubberband selection. See [`ScrolledWindowExt::vadjustment()`][crate::prelude::ScrolledWindowExt::vadjustment()]
-    /// for a typical way of obtaining the adjustment, and
-    /// [`set_hadjustment()`][Self::set_hadjustment()]for setting the horizontal
-    /// adjustment.
-    ///
-    /// The adjustments have to be in pixel units and in the same
-    /// coordinate system as the allocation for immediate children
-    /// of the box.
-    /// ## `adjustment`
-    /// an adjustment which should be adjusted
-    ///  when the focus is moved among the descendents of `container`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_vadjustment&quot;</span>)]
-    </span><span class="kw">fn </span>set_vadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;);
-
-    <span class="doccomment">/// Unselect all children of `self`, if the selection
-    /// mode allows it.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_unselect_all&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Unselects a single child of `self`, if the selection
-    /// mode allows it.
-    /// ## `child`
-    /// a child of `self`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_unselect_child&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;);
-
-    <span class="doccomment">/// The ::activate-cursor-child signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user activates the `box_`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-child&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_activate_cursor_child(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::child-activated signal is emitted when a child has been
-    /// activated by the user.
-    /// ## `child`
-    /// the child that is activated
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;child-activated&quot;</span>)]
-    </span><span class="kw">fn </span>connect_child_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>FlowBoxChild) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::move-cursor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates a cursor movement.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control the cursor
-    /// programmatically.
-    ///
-    /// The default bindings for this signal come in two variants,
-    /// the variant with the Shift modifier extends the selection,
-    /// the variant without the Shift modifer does not.
-    /// There are too many key combinations to list them all here.
-    /// - Arrow keys move by individual children
-    /// - Home/End keys move to the ends of the box
-    /// - PageUp/PageDown keys move vertically by pages
-    /// ## `step`
-    /// the granularity fo the move, as a [`MovementStep`][crate::MovementStep]
-    /// ## `count`
-    /// the number of `step` units to move
-    ///
-    /// # Returns
-    ///
-    /// [`true`] to stop other handlers from being invoked for the event.
-    /// [`false`] to propagate the event further.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32) -&gt; bool;
-
-    <span class="doccomment">/// The ::select-all signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to select all children of the box, if
-    /// the selection mode permits it.
-    ///
-    /// The default bindings for this signal is Ctrl-a.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::selected-children-changed signal is emitted when the
-    /// set of selected children changes.
-    ///
-    /// Use [`selected_foreach()`][Self::selected_foreach()] or
-    /// [`selected_children()`][Self::selected_children()] to obtain the
-    /// selected children.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;selected-children-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selected_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::toggle-cursor-child signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which toggles the selection of the child that has the focus.
-    ///
-    /// The default binding for this signal is Ctrl-Space.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-child&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggle_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_toggle_cursor_child(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::unselect-all signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to unselect all children of the box, if
-    /// the selection mode permits it.
-    ///
-    /// The default bindings for this signal is Ctrl-Shift-a.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;column-spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;homogeneous&quot;</span>)]
-    </span><span class="kw">fn </span>connect_homogeneous_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;max-children-per-line&quot;</span>)]
-    </span><span class="kw">fn </span>connect_max_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;min-children-per-line&quot;</span>)]
-    </span><span class="kw">fn </span>connect_min_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;row-spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;FlowBox&gt;&gt; FlowBoxExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>bind_model&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::ListModel&gt;&gt;,
         create_widget_func: P,
@@ -5135,7 +4602,15 @@
         }
     }
 
-    <span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns whether children activate on single clicks.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if children are activated on single click,
+    ///  [`false`] otherwise
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_activate_on_single_click&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
+    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_flow_box_get_activate_on_single_click(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5143,7 +4618,18 @@
         }
     }
 
-    <span class="kw">fn </span>child_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt; {
+    <span class="doccomment">/// Gets the nth child in the `self`.
+    /// ## `idx`
+    /// the position of the child
+    ///
+    /// # Returns
+    ///
+    /// the child widget, which will
+    ///  always be a [`FlowBoxChild`][crate::FlowBoxChild] or [`None`] in case no child widget
+    ///  with the given index exists.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_child_at_index&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_child_at_index&quot;</span>)]
+    </span><span class="kw">fn </span>child_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_flow_box_get_child_at_index(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5152,7 +4638,20 @@
         }
     }
 
-    <span class="kw">fn </span>child_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt; {
+    <span class="doccomment">/// Gets the child in the (`x`, `y`) position.
+    /// ## `x`
+    /// the x coordinate of the child
+    /// ## `y`
+    /// the y coordinate of the child
+    ///
+    /// # Returns
+    ///
+    /// the child widget, which will
+    ///  always be a [`FlowBoxChild`][crate::FlowBoxChild] or [`None`] in case no child widget
+    ///  exists for the given x and y coordinates.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_child_at_pos&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_child_at_pos&quot;</span>)]
+    </span><span class="kw">fn </span>child_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;FlowBoxChild&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_flow_box_get_child_at_pos(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5162,11 +4661,26 @@
         }
     }
 
-    <span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+    <span class="doccomment">/// Gets the horizontal spacing.
+    ///
+    /// # Returns
+    ///
+    /// the horizontal spacing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_column_spacing&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_column_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gtk_flow_box_get_column_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>is_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns whether the box is homogeneous (all children are the
+    /// same size). See [`BoxExt::set_homogeneous()`][crate::prelude::BoxExt::set_homogeneous()].
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the box is homogeneous.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_homogeneous&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_homogeneous&quot;</span>)]
+    </span><span class="kw">fn </span>is_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_flow_box_get_homogeneous(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5174,19 +4688,49 @@
         }
     }
 
-    <span class="kw">fn </span>max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+    <span class="doccomment">/// Gets the maximum number of children per line.
+    ///
+    /// # Returns
+    ///
+    /// the maximum number of children per line
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_max_children_per_line&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_max_children_per_line&quot;</span>)]
+    </span><span class="kw">fn </span>max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gtk_flow_box_get_max_children_per_line(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+    <span class="doccomment">/// Gets the minimum number of children per line.
+    ///
+    /// # Returns
+    ///
+    /// the minimum number of children per line
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_min_children_per_line&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_min_children_per_line&quot;</span>)]
+    </span><span class="kw">fn </span>min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gtk_flow_box_get_min_children_per_line(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+    <span class="doccomment">/// Gets the vertical spacing.
+    ///
+    /// # Returns
+    ///
+    /// the vertical spacing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_row_spacing&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_row_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
         <span class="kw">unsafe </span>{ ffi::gtk_flow_box_get_row_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>selected_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;FlowBoxChild&gt; {
+    <span class="doccomment">/// Creates a list of all selected children.
+    ///
+    /// # Returns
+    ///
+    ///
+    ///  A `GList` containing the [`Widget`][crate::Widget] for each selected child.
+    ///  Free with `g_list_free()` when done.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_selected_children&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_selected_children&quot;</span>)]
+    </span><span class="kw">fn </span>selected_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;FlowBoxChild&gt; {
         <span class="kw">unsafe </span>{
             FromGlibPtrContainer::from_glib_container(ffi::gtk_flow_box_get_selected_children(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5194,7 +4738,14 @@
         }
     }
 
-    <span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
+    <span class="doccomment">/// Gets the selection mode of `self`.
+    ///
+    /// # Returns
+    ///
+    /// the [`SelectionMode`][crate::SelectionMode]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_get_selection_mode&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_selection_mode&quot;</span>)]
+    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_flow_box_get_selection_mode(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5202,7 +4753,20 @@
         }
     }
 
-    <span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) {
+    <span class="doccomment">/// Inserts the `widget` into `self` at `position`.
+    ///
+    /// If a sort function is set, the widget will actually be inserted
+    /// at the calculated position and this function has the same effect
+    /// as [`ContainerExt::add()`][crate::prelude::ContainerExt::add()].
+    ///
+    /// If `position` is -1, or larger than the total number of children
+    /// in the `self`, then the `widget` will be appended to the end.
+    /// ## `widget`
+    /// the [`Widget`][crate::Widget] to add
+    /// ## `position`
+    /// the position to insert `child` in
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_insert&quot;</span>)]
+    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_insert(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5212,25 +4776,46 @@
         }
     }
 
-    <span class="kw">fn </span>invalidate_filter(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Updates the filtering for all children.
+    ///
+    /// Call this function when the result of the filter
+    /// function on the `self` is changed due ot an external
+    /// factor. For instance, this would be used if the
+    /// filter function just looked for a specific search
+    /// term, and the entry with the string has changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_invalidate_filter&quot;</span>)]
+    </span><span class="kw">fn </span>invalidate_filter(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_invalidate_filter(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>invalidate_sort(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Updates the sorting for all children.
+    ///
+    /// Call this when the result of the sort function on
+    /// `self` is changed due to an external factor.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_invalidate_sort&quot;</span>)]
+    </span><span class="kw">fn </span>invalidate_sort(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_invalidate_sort(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Select all children of `self`, if the selection
+    /// mode allows it.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_select_all&quot;</span>)]
+    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_select_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>select_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;) {
+    <span class="doccomment">/// Selects a single child of `self`, if the selection
+    /// mode allows it.
+    /// ## `child`
+    /// a child of `self`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_select_child&quot;</span>)]
+    </span><span class="kw">fn </span>select_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_select_child(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5239,7 +4824,14 @@
         }
     }
 
-    <span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>FlowBox, <span class="kw-2">&amp;</span>FlowBoxChild)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
+    <span class="doccomment">/// Calls a function for each selected child.
+    ///
+    /// Note that the selection cannot be modified from within
+    /// this function.
+    /// ## `func`
+    /// the function to call for each selected child
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_selected_foreach&quot;</span>)]
+    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>FlowBox, <span class="kw-2">&amp;</span>FlowBoxChild)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
         <span class="kw">let </span>func_data: P = func;
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>FlowBox, <span class="kw-2">&amp;</span>FlowBoxChild)&gt;(
             box_: <span class="kw-2">*mut </span>ffi::GtkFlowBox,
@@ -5262,7 +4854,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool) {
+    <span class="doccomment">/// If `single` is [`true`], children will be activated when you click
+    /// on them, otherwise you need to double-click.
+    /// ## `single`
+    /// [`true`] to emit child-activated on a single click
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_activate_on_single_click&quot;</span>)]
+    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_activate_on_single_click(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5271,13 +4868,33 @@
         }
     }
 
-    <span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32) {
+    <span class="doccomment">/// Sets the horizontal space to add between children.
+    /// See the [`column-spacing`][struct@crate::FlowBox#column-spacing] property.
+    /// ## `spacing`
+    /// the spacing to use
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_column_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_column_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, spacing);
         }
     }
 
-    <span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;) {
+    <span class="doccomment">/// By setting a filter function on the `self` one can decide dynamically
+    /// which of the children to show. For instance, to implement a search
+    /// function that only shows the children matching the search terms.
+    ///
+    /// The `filter_func` will be called for each child after the call, and
+    /// it will continue to be called each time a child changes (via
+    /// [`FlowBoxChildExt::changed()`][crate::prelude::FlowBoxChildExt::changed()]) or when [`invalidate_filter()`][Self::invalidate_filter()]
+    /// is called.
+    ///
+    /// Note that using a filter function is incompatible with using a model
+    /// (see [`bind_model()`][Self::bind_model()]).
+    /// ## `filter_func`
+    /// callback that
+    ///  lets you filter which children to show
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_filter_func&quot;</span>)]
+    </span><span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;) {
         <span class="kw">let </span>filter_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
             Box_::new(filter_func);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>filter_func_func(
@@ -5316,7 +4933,21 @@
         }
     }
 
-    <span class="kw">fn </span>set_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
+    <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.
+    /// The adjustment is also used for autoscrolling during
+    /// rubberband selection. See [`ScrolledWindowExt::hadjustment()`][crate::prelude::ScrolledWindowExt::hadjustment()]
+    /// for a typical way of obtaining the adjustment, and
+    /// [`set_vadjustment()`][Self::set_vadjustment()]for setting the vertical
+    /// adjustment.
+    ///
+    /// The adjustments have to be in pixel units and in the same
+    /// coordinate system as the allocation for immediate children
+    /// of the box.
+    /// ## `adjustment`
+    /// an adjustment which should be adjusted
+    ///  when the focus is moved among the descendents of `container`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_hadjustment&quot;</span>)]
+    </span><span class="kw">fn </span>set_hadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_hadjustment(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5325,7 +4956,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, homogeneous: bool) {
+    <span class="doccomment">/// Sets the [`homogeneous`][struct@crate::FlowBox#homogeneous] property of `self`, controlling
+    /// whether or not all children of `self` are given equal space
+    /// in the box.
+    /// ## `homogeneous`
+    /// [`true`] to create equal allotments,
+    ///  [`false`] for variable allotments
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_homogeneous&quot;</span>)]
+    </span><span class="kw">fn </span>set_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, homogeneous: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_homogeneous(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5334,31 +4972,69 @@
         }
     }
 
-    <span class="kw">fn </span>set_max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32) {
+    <span class="doccomment">/// Sets the maximum number of children to request and
+    /// allocate space for in `self`’s orientation.
+    ///
+    /// Setting the maximum number of children per line
+    /// limits the overall natural size request to be no more
+    /// than `n_children` children long in the given orientation.
+    /// ## `n_children`
+    /// the maximum number of children per line
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_max_children_per_line&quot;</span>)]
+    </span><span class="kw">fn </span>set_max_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_max_children_per_line(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, n_children);
         }
     }
 
-    <span class="kw">fn </span>set_min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32) {
+    <span class="doccomment">/// Sets the minimum number of children to line up
+    /// in `self`’s orientation before flowing.
+    /// ## `n_children`
+    /// the minimum number of children per line
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_min_children_per_line&quot;</span>)]
+    </span><span class="kw">fn </span>set_min_children_per_line(<span class="kw-2">&amp;</span><span class="self">self</span>, n_children: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_min_children_per_line(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, n_children);
         }
     }
 
-    <span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32) {
+    <span class="doccomment">/// Sets the vertical space to add between children.
+    /// See the [`row-spacing`][struct@crate::FlowBox#row-spacing] property.
+    /// ## `spacing`
+    /// the spacing to use
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_row_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_row_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, spacing);
         }
     }
 
-    <span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode) {
+    <span class="doccomment">/// Sets how selection works in `self`.
+    /// See [`SelectionMode`][crate::SelectionMode] for details.
+    /// ## `mode`
+    /// the new selection mode
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_selection_mode&quot;</span>)]
+    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_selection_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, mode.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_sort_func(
+    <span class="doccomment">/// By setting a sort function on the `self`, one can dynamically
+    /// reorder the children of the box, based on the contents of
+    /// the children.
+    ///
+    /// The `sort_func` will be called for each child after the call,
+    /// and will continue to be called each time a child changes (via
+    /// [`FlowBoxChildExt::changed()`][crate::prelude::FlowBoxChildExt::changed()]) and when [`invalidate_sort()`][Self::invalidate_sort()]
+    /// is called.
+    ///
+    /// Note that using a sort function is incompatible with using a model
+    /// (see [`bind_model()`][Self::bind_model()]).
+    /// ## `sort_func`
+    /// the sort function
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_sort_func&quot;</span>)]
+    </span><span class="kw">fn </span>set_sort_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         sort_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>FlowBoxChild, <span class="kw-2">&amp;</span>FlowBoxChild) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
@@ -5404,7 +5080,21 @@
         }
     }
 
-    <span class="kw">fn </span>set_vadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
+    <span class="doccomment">/// Hooks up an adjustment to focus handling in `self`.
+    /// The adjustment is also used for autoscrolling during
+    /// rubberband selection. See [`ScrolledWindowExt::vadjustment()`][crate::prelude::ScrolledWindowExt::vadjustment()]
+    /// for a typical way of obtaining the adjustment, and
+    /// [`set_hadjustment()`][Self::set_hadjustment()]for setting the horizontal
+    /// adjustment.
+    ///
+    /// The adjustments have to be in pixel units and in the same
+    /// coordinate system as the allocation for immediate children
+    /// of the box.
+    /// ## `adjustment`
+    /// an adjustment which should be adjusted
+    ///  when the focus is moved among the descendents of `container`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_set_vadjustment&quot;</span>)]
+    </span><span class="kw">fn </span>set_vadjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_set_vadjustment(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5413,13 +5103,21 @@
         }
     }
 
-    <span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unselect all children of `self`, if the selection
+    /// mode allows it.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_unselect_all&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_unselect_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>unselect_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;) {
+    <span class="doccomment">/// Unselects a single child of `self`, if the selection
+    /// mode allows it.
+    /// ## `child`
+    /// a child of `self`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_flow_box_unselect_child&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;FlowBoxChild&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_flow_box_unselect_child(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5428,7 +5126,11 @@
         }
     }
 
-    <span class="kw">fn </span>connect_activate_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::activate-cursor-child signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user activates the `box_`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-child&quot;</span>)]
+    </span><span class="kw">fn </span>connect_activate_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>activate_cursor_child_trampoline&lt;
             P: IsA&lt;FlowBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5456,7 +5158,12 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;activate-cursor-child&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_child_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>FlowBoxChild) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::child-activated signal is emitted when a child has been
+    /// activated by the user.
+    /// ## `child`
+    /// the child that is activated
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;child-activated&quot;</span>)]
+    </span><span class="kw">fn </span>connect_child_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>FlowBoxChild) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -5487,7 +5194,32 @@
         }
     }
 
-    <span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::move-cursor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates a cursor movement.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control the cursor
+    /// programmatically.
+    ///
+    /// The default bindings for this signal come in two variants,
+    /// the variant with the Shift modifier extends the selection,
+    /// the variant without the Shift modifer does not.
+    /// There are too many key combinations to list them all here.
+    /// - Arrow keys move by individual children
+    /// - Home/End keys move to the ends of the box
+    /// - PageUp/PageDown keys move vertically by pages
+    /// ## `step`
+    /// the granularity fo the move, as a [`MovementStep`][crate::MovementStep]
+    /// ## `count`
+    /// the number of `step` units to move
+    ///
+    /// # Returns
+    ///
+    /// [`true`] to stop other handlers from being invoked for the event.
+    /// [`false`] to propagate the event further.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -5525,7 +5257,14 @@
         <span class="self">self</span>.emit_by_name(<span class="string">&quot;move-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>step, <span class="kw-2">&amp;</span>count])
     }
 
-    <span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::select-all signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to select all children of the box, if
+    /// the selection mode permits it.
+    ///
+    /// The default bindings for this signal is Ctrl-a.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_all_trampoline&lt;P: IsA&lt;FlowBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
@@ -5550,7 +5289,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;select-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_selected_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::selected-children-changed signal is emitted when the
+    /// set of selected children changes.
+    ///
+    /// Use [`selected_foreach()`][Self::selected_foreach()] or
+    /// [`selected_children()`][Self::selected_children()] to obtain the
+    /// selected children.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selected-children-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_selected_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>selected_children_changed_trampoline&lt;
             P: IsA&lt;FlowBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5574,7 +5320,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_toggle_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::toggle-cursor-child signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which toggles the selection of the child that has the focus.
+    ///
+    /// The default binding for this signal is Ctrl-Space.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-child&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggle_cursor_child&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_cursor_child_trampoline&lt;
             P: IsA&lt;FlowBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5602,7 +5354,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;toggle-cursor-child&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::unselect-all signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to unselect all children of the box, if
+    /// the selection mode permits it.
+    ///
+    /// The default bindings for this signal is Ctrl-Shift-a.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>unselect_all_trampoline&lt;P: IsA&lt;FlowBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
@@ -5627,7 +5386,8 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;unselect-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
+    </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -5655,7 +5415,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;column-spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_column_spacing_trampoline&lt;
             P: IsA&lt;FlowBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5680,7 +5441,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_homogeneous_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;homogeneous&quot;</span>)]
+    </span><span class="kw">fn </span>connect_homogeneous_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_homogeneous_trampoline&lt;P: IsA&lt;FlowBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFlowBox,
             _param_spec: glib::ffi::gpointer,
@@ -5702,7 +5464,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_max_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-children-per-line&quot;</span>)]
+    </span><span class="kw">fn </span>connect_max_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -5730,7 +5493,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_min_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;min-children-per-line&quot;</span>)]
+    </span><span class="kw">fn </span>connect_min_children_per_line_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -5758,7 +5522,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;row-spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_row_spacing_trampoline&lt;P: IsA&lt;FlowBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFlowBox,
             _param_spec: glib::ffi::gpointer,
@@ -5780,7 +5545,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_selection_mode_trampoline&lt;
             P: IsA&lt;FlowBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5805,6 +5571,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;FlowBox&gt;&gt; FlowBoxExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>FlowBox {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

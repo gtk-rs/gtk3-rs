@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/about_dialog.rs`."><title>about_dialog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/about_dialog.rs`."><title>about_dialog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -3279,104 +3279,7 @@
 <a href="#3206" id="3206">3206</a>
 <a href="#3207" id="3207">3207</a>
 <a href="#3208" id="3208">3208</a>
-<a href="#3209" id="3209">3209</a>
-<a href="#3210" id="3210">3210</a>
-<a href="#3211" id="3211">3211</a>
-<a href="#3212" id="3212">3212</a>
-<a href="#3213" id="3213">3213</a>
-<a href="#3214" id="3214">3214</a>
-<a href="#3215" id="3215">3215</a>
-<a href="#3216" id="3216">3216</a>
-<a href="#3217" id="3217">3217</a>
-<a href="#3218" id="3218">3218</a>
-<a href="#3219" id="3219">3219</a>
-<a href="#3220" id="3220">3220</a>
-<a href="#3221" id="3221">3221</a>
-<a href="#3222" id="3222">3222</a>
-<a href="#3223" id="3223">3223</a>
-<a href="#3224" id="3224">3224</a>
-<a href="#3225" id="3225">3225</a>
-<a href="#3226" id="3226">3226</a>
-<a href="#3227" id="3227">3227</a>
-<a href="#3228" id="3228">3228</a>
-<a href="#3229" id="3229">3229</a>
-<a href="#3230" id="3230">3230</a>
-<a href="#3231" id="3231">3231</a>
-<a href="#3232" id="3232">3232</a>
-<a href="#3233" id="3233">3233</a>
-<a href="#3234" id="3234">3234</a>
-<a href="#3235" id="3235">3235</a>
-<a href="#3236" id="3236">3236</a>
-<a href="#3237" id="3237">3237</a>
-<a href="#3238" id="3238">3238</a>
-<a href="#3239" id="3239">3239</a>
-<a href="#3240" id="3240">3240</a>
-<a href="#3241" id="3241">3241</a>
-<a href="#3242" id="3242">3242</a>
-<a href="#3243" id="3243">3243</a>
-<a href="#3244" id="3244">3244</a>
-<a href="#3245" id="3245">3245</a>
-<a href="#3246" id="3246">3246</a>
-<a href="#3247" id="3247">3247</a>
-<a href="#3248" id="3248">3248</a>
-<a href="#3249" id="3249">3249</a>
-<a href="#3250" id="3250">3250</a>
-<a href="#3251" id="3251">3251</a>
-<a href="#3252" id="3252">3252</a>
-<a href="#3253" id="3253">3253</a>
-<a href="#3254" id="3254">3254</a>
-<a href="#3255" id="3255">3255</a>
-<a href="#3256" id="3256">3256</a>
-<a href="#3257" id="3257">3257</a>
-<a href="#3258" id="3258">3258</a>
-<a href="#3259" id="3259">3259</a>
-<a href="#3260" id="3260">3260</a>
-<a href="#3261" id="3261">3261</a>
-<a href="#3262" id="3262">3262</a>
-<a href="#3263" id="3263">3263</a>
-<a href="#3264" id="3264">3264</a>
-<a href="#3265" id="3265">3265</a>
-<a href="#3266" id="3266">3266</a>
-<a href="#3267" id="3267">3267</a>
-<a href="#3268" id="3268">3268</a>
-<a href="#3269" id="3269">3269</a>
-<a href="#3270" id="3270">3270</a>
-<a href="#3271" id="3271">3271</a>
-<a href="#3272" id="3272">3272</a>
-<a href="#3273" id="3273">3273</a>
-<a href="#3274" id="3274">3274</a>
-<a href="#3275" id="3275">3275</a>
-<a href="#3276" id="3276">3276</a>
-<a href="#3277" id="3277">3277</a>
-<a href="#3278" id="3278">3278</a>
-<a href="#3279" id="3279">3279</a>
-<a href="#3280" id="3280">3280</a>
-<a href="#3281" id="3281">3281</a>
-<a href="#3282" id="3282">3282</a>
-<a href="#3283" id="3283">3283</a>
-<a href="#3284" id="3284">3284</a>
-<a href="#3285" id="3285">3285</a>
-<a href="#3286" id="3286">3286</a>
-<a href="#3287" id="3287">3287</a>
-<a href="#3288" id="3288">3288</a>
-<a href="#3289" id="3289">3289</a>
-<a href="#3290" id="3290">3290</a>
-<a href="#3291" id="3291">3291</a>
-<a href="#3292" id="3292">3292</a>
-<a href="#3293" id="3293">3293</a>
-<a href="#3294" id="3294">3294</a>
-<a href="#3295" id="3295">3295</a>
-<a href="#3296" id="3296">3296</a>
-<a href="#3297" id="3297">3297</a>
-<a href="#3298" id="3298">3298</a>
-<a href="#3299" id="3299">3299</a>
-<a href="#3300" id="3300">3300</a>
-<a href="#3301" id="3301">3301</a>
-<a href="#3302" id="3302">3302</a>
-<a href="#3303" id="3303">3303</a>
-<a href="#3304" id="3304">3304</a>
-<a href="#3305" id="3305">3305</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -5669,14 +5572,22 @@
 /// # Implementors
 ///
 /// [`AboutDialog`][struct@crate::AboutDialog]
-</span><span class="kw">pub trait </span>AboutDialogExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>AboutDialogExt: IsA&lt;AboutDialog&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Creates a new section in the Credits page.
     /// ## `section_name`
     /// The name of the section
     /// ## `people`
     /// The people who belong to that section
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_add_credit_section&quot;</span>)]
-    </span><span class="kw">fn </span>add_credit_section(<span class="kw-2">&amp;</span><span class="self">self</span>, section_name: <span class="kw-2">&amp;</span>str, people: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]);
+    </span><span class="kw">fn </span>add_credit_section(<span class="kw-2">&amp;</span><span class="self">self</span>, section_name: <span class="kw-2">&amp;</span>str, people: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_add_credit_section(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                section_name.to_glib_none().<span class="number">0</span>,
+                people.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Returns the string which are displayed in the artists tab
     /// of the secondary credits dialog.
@@ -5688,7 +5599,13 @@
     ///  owned by the about dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_artists&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_artists&quot;</span>)]
-    </span><span class="kw">fn </span>artists(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>artists(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_artists(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the string which are displayed in the authors tab
     /// of the secondary credits dialog.
@@ -5700,7 +5617,13 @@
     ///  owned by the about dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_authors&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_authors&quot;</span>)]
-    </span><span class="kw">fn </span>authors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>authors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_authors(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the comments string.
     ///
@@ -5710,7 +5633,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_comments&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_comments&quot;</span>)]
-    </span><span class="kw">fn </span>comments(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>comments(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_comments(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the copyright string.
     ///
@@ -5720,7 +5649,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_copyright&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_copyright&quot;</span>)]
-    </span><span class="kw">fn </span>copyright(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>copyright(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_copyright(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the string which are displayed in the documenters
     /// tab of the secondary credits dialog.
@@ -5732,7 +5667,13 @@
     ///  array is owned by the about dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_documenters&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_documenters&quot;</span>)]
-    </span><span class="kw">fn </span>documenters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>documenters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_documenters(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the license information.
     ///
@@ -5742,7 +5683,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_license&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_license&quot;</span>)]
-    </span><span class="kw">fn </span>license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_license(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the license set using [`set_license_type()`][Self::set_license_type()]
     ///
@@ -5751,7 +5698,13 @@
     /// a [`License`][crate::License] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_license_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_license_type&quot;</span>)]
-    </span><span class="kw">fn </span>license_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; License;
+    </span><span class="kw">fn </span>license_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; License {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_about_dialog_get_license_type(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the pixbuf displayed as logo in the about dialog.
     ///
@@ -5762,7 +5715,13 @@
     ///  reference to it, you have to call `g_object_ref()` on it.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_logo&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_logo&quot;</span>)]
-    </span><span class="kw">fn </span>logo(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt;;
+    </span><span class="kw">fn </span>logo(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_logo(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the icon name displayed as logo in the about dialog.
     ///
@@ -5773,7 +5732,13 @@
     ///  to it, you have to call `g_strdup()` on it.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_logo_icon_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_logo_icon_name&quot;</span>)]
-    </span><span class="kw">fn </span>logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_logo_icon_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the program name displayed in the about dialog.
     ///
@@ -5783,7 +5748,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_program_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_program_name&quot;</span>)]
-    </span><span class="kw">fn </span>program_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>program_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_program_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the translator credits string which is displayed
     /// in the translators tab of the secondary credits dialog.
@@ -5794,7 +5765,13 @@
     ///  owned by the about dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_translator_credits&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_translator_credits&quot;</span>)]
-    </span><span class="kw">fn </span>translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_translator_credits(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the version string.
     ///
@@ -5804,7 +5781,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_version&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_version&quot;</span>)]
-    </span><span class="kw">fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_version(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the website URL.
     ///
@@ -5814,7 +5797,13 @@
     ///  dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_website&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_website&quot;</span>)]
-    </span><span class="kw">fn </span>website(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>website(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_website(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the label used for the website link.
     ///
@@ -5824,7 +5813,13 @@
     ///  owned by the about dialog and must not be modified.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_website_label&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_website_label&quot;</span>)]
-    </span><span class="kw">fn </span>website_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>website_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_about_dialog_get_website_label(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the license text in `self` is
     /// automatically wrapped.
@@ -5834,42 +5829,83 @@
     /// [`true`] if the license text is wrapped
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_get_wrap_license&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wrap_license&quot;</span>)]
-    </span><span class="kw">fn </span>wraps_license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>wraps_license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_about_dialog_get_wrap_license(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets the strings which are displayed in the artists tab
     /// of the secondary credits dialog.
     /// ## `artists`
     /// a [`None`]-terminated array of strings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_artists&quot;</span>)]
-    </span><span class="kw">fn </span>set_artists(<span class="kw-2">&amp;</span><span class="self">self</span>, artists: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]);
+    </span><span class="kw">fn </span>set_artists(<span class="kw-2">&amp;</span><span class="self">self</span>, artists: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_artists(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                artists.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the strings which are displayed in the authors tab
     /// of the secondary credits dialog.
     /// ## `authors`
     /// a [`None`]-terminated array of strings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_authors&quot;</span>)]
-    </span><span class="kw">fn </span>set_authors(<span class="kw-2">&amp;</span><span class="self">self</span>, authors: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]);
+    </span><span class="kw">fn </span>set_authors(<span class="kw-2">&amp;</span><span class="self">self</span>, authors: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_authors(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                authors.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the comments string to display in the about dialog.
     /// This should be a short string of one or two lines.
     /// ## `comments`
     /// a comments string
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_comments&quot;</span>)]
-    </span><span class="kw">fn </span>set_comments(<span class="kw-2">&amp;</span><span class="self">self</span>, comments: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_comments(<span class="kw-2">&amp;</span><span class="self">self</span>, comments: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_comments(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                comments.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the copyright string to display in the about dialog.
     /// This should be a short string of one or two lines.
     /// ## `copyright`
     /// the copyright string
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_copyright&quot;</span>)]
-    </span><span class="kw">fn </span>set_copyright(<span class="kw-2">&amp;</span><span class="self">self</span>, copyright: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_copyright(<span class="kw-2">&amp;</span><span class="self">self</span>, copyright: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_copyright(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                copyright.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the strings which are displayed in the documenters tab
     /// of the secondary credits dialog.
     /// ## `documenters`
     /// a [`None`]-terminated array of strings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_documenters&quot;</span>)]
-    </span><span class="kw">fn </span>set_documenters(<span class="kw-2">&amp;</span><span class="self">self</span>, documenters: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]);
+    </span><span class="kw">fn </span>set_documenters(<span class="kw-2">&amp;</span><span class="self">self</span>, documenters: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_documenters(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                documenters.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the license information to be displayed in the secondary
     /// license dialog. If `license` is [`None`], the license button is
@@ -5877,7 +5913,14 @@
     /// ## `license`
     /// the license information or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_license&quot;</span>)]
-    </span><span class="kw">fn </span>set_license(<span class="kw-2">&amp;</span><span class="self">self</span>, license: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_license(<span class="kw-2">&amp;</span><span class="self">self</span>, license: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_license(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                license.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the license of the application showing the `self` dialog from a
     /// list of known licenses.
@@ -5887,7 +5930,14 @@
     /// ## `license_type`
     /// the type of license
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_license_type&quot;</span>)]
-    </span><span class="kw">fn </span>set_license_type(<span class="kw-2">&amp;</span><span class="self">self</span>, license_type: License);
+    </span><span class="kw">fn </span>set_license_type(<span class="kw-2">&amp;</span><span class="self">self</span>, license_type: License) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_license_type(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                license_type.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the pixbuf to be displayed as logo in the about dialog.
     /// If it is [`None`], the default window icon set with
@@ -5895,7 +5945,11 @@
     /// ## `logo`
     /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_logo&quot;</span>)]
-    </span><span class="kw">fn </span>set_logo(<span class="kw-2">&amp;</span><span class="self">self</span>, logo: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;);
+    </span><span class="kw">fn </span>set_logo(<span class="kw-2">&amp;</span><span class="self">self</span>, logo: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_logo(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, logo.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the pixbuf to be displayed as logo in the about dialog.
     /// If it is [`None`], the default window icon set with
@@ -5903,14 +5957,28 @@
     /// ## `icon_name`
     /// an icon name, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_logo_icon_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_logo_icon_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                icon_name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the name to display in the about dialog.
     /// If this is not set, it defaults to `g_get_application_name()`.
     /// ## `name`
     /// the program name
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_program_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_program_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_program_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_program_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the translator credits string which is displayed in
     /// the translators tab of the secondary credits dialog.
@@ -5935,32 +6003,67 @@
     /// ## `translator_credits`
     /// the translator credits
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_translator_credits&quot;</span>)]
-    </span><span class="kw">fn </span>set_translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>, translator_credits: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>, translator_credits: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_translator_credits(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                translator_credits.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the version string to display in the about dialog.
     /// ## `version`
     /// the version string
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_version&quot;</span>)]
-    </span><span class="kw">fn </span>set_version(<span class="kw-2">&amp;</span><span class="self">self</span>, version: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_version(<span class="kw-2">&amp;</span><span class="self">self</span>, version: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_version(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                version.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the URL to use for the website link.
     /// ## `website`
     /// a URL string starting with &quot;http://&quot;
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_website&quot;</span>)]
-    </span><span class="kw">fn </span>set_website(<span class="kw-2">&amp;</span><span class="self">self</span>, website: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_website(<span class="kw-2">&amp;</span><span class="self">self</span>, website: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_website(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                website.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the label to be used for the website link.
     /// ## `website_label`
     /// the label used for the website link
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_website_label&quot;</span>)]
-    </span><span class="kw">fn </span>set_website_label(<span class="kw-2">&amp;</span><span class="self">self</span>, website_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_website_label(<span class="kw-2">&amp;</span><span class="self">self</span>, website_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_website_label(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                website_label.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets whether the license text in `self` is
     /// automatically wrapped.
     /// ## `wrap_license`
     /// whether to wrap the license
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_about_dialog_set_wrap_license&quot;</span>)]
-    </span><span class="kw">fn </span>set_wrap_license(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_license: bool);
+    </span><span class="kw">fn </span>set_wrap_license(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_license: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_about_dialog_set_wrap_license(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                wrap_license.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// The signal which gets emitted to activate a URI.
     /// Applications may connect to it to override the default behaviour,
@@ -5973,320 +6076,6 @@
     /// [`true`] if the link has been activated
     </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-link&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_link&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;artists&quot;</span>)]
-    </span><span class="kw">fn </span>connect_artists_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;authors&quot;</span>)]
-    </span><span class="kw">fn </span>connect_authors_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;comments&quot;</span>)]
-    </span><span class="kw">fn </span>connect_comments_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;copyright&quot;</span>)]
-    </span><span class="kw">fn </span>connect_copyright_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;documenters&quot;</span>)]
-    </span><span class="kw">fn </span>connect_documenters_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;license&quot;</span>)]
-    </span><span class="kw">fn </span>connect_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;license-type&quot;</span>)]
-    </span><span class="kw">fn </span>connect_license_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;logo&quot;</span>)]
-    </span><span class="kw">fn </span>connect_logo_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;logo-icon-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_logo_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;program-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_program_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;translator-credits&quot;</span>)]
-    </span><span class="kw">fn </span>connect_translator_credits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;version&quot;</span>)]
-    </span><span class="kw">fn </span>connect_version_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;website&quot;</span>)]
-    </span><span class="kw">fn </span>connect_website_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;website-label&quot;</span>)]
-    </span><span class="kw">fn </span>connect_website_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-license&quot;</span>)]
-    </span><span class="kw">fn </span>connect_wrap_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;AboutDialog&gt;&gt; AboutDialogExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_credit_section(<span class="kw-2">&amp;</span><span class="self">self</span>, section_name: <span class="kw-2">&amp;</span>str, people: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_add_credit_section(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                section_name.to_glib_none().<span class="number">0</span>,
-                people.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>artists(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_artists(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>authors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_authors(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>comments(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_comments(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>copyright(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_copyright(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>documenters(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_none(ffi::gtk_about_dialog_get_documenters(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_license(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>license_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; License {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_about_dialog_get_license_type(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>logo(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_logo(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_logo_icon_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>program_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_program_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_translator_credits(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_version(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>website(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_website(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>website_label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_about_dialog_get_website_label(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>wraps_license(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_about_dialog_get_wrap_license(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_artists(<span class="kw-2">&amp;</span><span class="self">self</span>, artists: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_artists(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                artists.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_authors(<span class="kw-2">&amp;</span><span class="self">self</span>, authors: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_authors(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                authors.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_comments(<span class="kw-2">&amp;</span><span class="self">self</span>, comments: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_comments(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                comments.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_copyright(<span class="kw-2">&amp;</span><span class="self">self</span>, copyright: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_copyright(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                copyright.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_documenters(<span class="kw-2">&amp;</span><span class="self">self</span>, documenters: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_documenters(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                documenters.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_license(<span class="kw-2">&amp;</span><span class="self">self</span>, license: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_license(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                license.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_license_type(<span class="kw-2">&amp;</span><span class="self">self</span>, license_type: License) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_license_type(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                license_type.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_logo(<span class="kw-2">&amp;</span><span class="self">self</span>, logo: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_logo(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, logo.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_logo_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_logo_icon_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                icon_name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_program_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_program_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_translator_credits(<span class="kw-2">&amp;</span><span class="self">self</span>, translator_credits: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_translator_credits(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                translator_credits.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_version(<span class="kw-2">&amp;</span><span class="self">self</span>, version: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_version(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                version.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_website(<span class="kw-2">&amp;</span><span class="self">self</span>, website: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_website(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                website.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_website_label(<span class="kw-2">&amp;</span><span class="self">self</span>, website_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_website_label(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                website_label.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_wrap_license(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_license: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_about_dialog_set_wrap_license(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                wrap_license.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>connect_activate_link&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -6318,7 +6107,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_artists_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;artists&quot;</span>)]
+    </span><span class="kw">fn </span>connect_artists_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_artists_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6340,7 +6130,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_authors_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;authors&quot;</span>)]
+    </span><span class="kw">fn </span>connect_authors_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_authors_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6362,7 +6153,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_comments_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;comments&quot;</span>)]
+    </span><span class="kw">fn </span>connect_comments_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_comments_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6387,7 +6179,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_copyright_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;copyright&quot;</span>)]
+    </span><span class="kw">fn </span>connect_copyright_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_copyright_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6412,7 +6205,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_documenters_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;documenters&quot;</span>)]
+    </span><span class="kw">fn </span>connect_documenters_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_documenters_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6437,7 +6231,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;license&quot;</span>)]
+    </span><span class="kw">fn </span>connect_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_license_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6459,7 +6254,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_license_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;license-type&quot;</span>)]
+    </span><span class="kw">fn </span>connect_license_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_license_type_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6484,7 +6280,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_logo_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;logo&quot;</span>)]
+    </span><span class="kw">fn </span>connect_logo_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_logo_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6506,7 +6303,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_logo_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;logo-icon-name&quot;</span>)]
+    </span><span class="kw">fn </span>connect_logo_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_logo_icon_name_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6531,7 +6329,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_program_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;program-name&quot;</span>)]
+    </span><span class="kw">fn </span>connect_program_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_program_name_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6556,7 +6355,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_translator_credits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;translator-credits&quot;</span>)]
+    </span><span class="kw">fn </span>connect_translator_credits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_translator_credits_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6581,7 +6381,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_version_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;version&quot;</span>)]
+    </span><span class="kw">fn </span>connect_version_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_version_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6603,7 +6404,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_website_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;website&quot;</span>)]
+    </span><span class="kw">fn </span>connect_website_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_website_trampoline&lt;P: IsA&lt;AboutDialog&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAboutDialog,
             _param_spec: glib::ffi::gpointer,
@@ -6625,7 +6427,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_website_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;website-label&quot;</span>)]
+    </span><span class="kw">fn </span>connect_website_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_website_label_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6650,7 +6453,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_wrap_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-license&quot;</span>)]
+    </span><span class="kw">fn </span>connect_wrap_license_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_wrap_license_trampoline&lt;
             P: IsA&lt;AboutDialog&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -6675,6 +6479,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;AboutDialog&gt;&gt; AboutDialogExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>AboutDialog {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

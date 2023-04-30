@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/object.rs`."><title>object.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/object.rs`."><title>object.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../atk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1510,212 +1510,7 @@
 <a href="#1437" id="1437">1437</a>
 <a href="#1438" id="1438">1438</a>
 <a href="#1439" id="1439">1439</a>
-<a href="#1440" id="1440">1440</a>
-<a href="#1441" id="1441">1441</a>
-<a href="#1442" id="1442">1442</a>
-<a href="#1443" id="1443">1443</a>
-<a href="#1444" id="1444">1444</a>
-<a href="#1445" id="1445">1445</a>
-<a href="#1446" id="1446">1446</a>
-<a href="#1447" id="1447">1447</a>
-<a href="#1448" id="1448">1448</a>
-<a href="#1449" id="1449">1449</a>
-<a href="#1450" id="1450">1450</a>
-<a href="#1451" id="1451">1451</a>
-<a href="#1452" id="1452">1452</a>
-<a href="#1453" id="1453">1453</a>
-<a href="#1454" id="1454">1454</a>
-<a href="#1455" id="1455">1455</a>
-<a href="#1456" id="1456">1456</a>
-<a href="#1457" id="1457">1457</a>
-<a href="#1458" id="1458">1458</a>
-<a href="#1459" id="1459">1459</a>
-<a href="#1460" id="1460">1460</a>
-<a href="#1461" id="1461">1461</a>
-<a href="#1462" id="1462">1462</a>
-<a href="#1463" id="1463">1463</a>
-<a href="#1464" id="1464">1464</a>
-<a href="#1465" id="1465">1465</a>
-<a href="#1466" id="1466">1466</a>
-<a href="#1467" id="1467">1467</a>
-<a href="#1468" id="1468">1468</a>
-<a href="#1469" id="1469">1469</a>
-<a href="#1470" id="1470">1470</a>
-<a href="#1471" id="1471">1471</a>
-<a href="#1472" id="1472">1472</a>
-<a href="#1473" id="1473">1473</a>
-<a href="#1474" id="1474">1474</a>
-<a href="#1475" id="1475">1475</a>
-<a href="#1476" id="1476">1476</a>
-<a href="#1477" id="1477">1477</a>
-<a href="#1478" id="1478">1478</a>
-<a href="#1479" id="1479">1479</a>
-<a href="#1480" id="1480">1480</a>
-<a href="#1481" id="1481">1481</a>
-<a href="#1482" id="1482">1482</a>
-<a href="#1483" id="1483">1483</a>
-<a href="#1484" id="1484">1484</a>
-<a href="#1485" id="1485">1485</a>
-<a href="#1486" id="1486">1486</a>
-<a href="#1487" id="1487">1487</a>
-<a href="#1488" id="1488">1488</a>
-<a href="#1489" id="1489">1489</a>
-<a href="#1490" id="1490">1490</a>
-<a href="#1491" id="1491">1491</a>
-<a href="#1492" id="1492">1492</a>
-<a href="#1493" id="1493">1493</a>
-<a href="#1494" id="1494">1494</a>
-<a href="#1495" id="1495">1495</a>
-<a href="#1496" id="1496">1496</a>
-<a href="#1497" id="1497">1497</a>
-<a href="#1498" id="1498">1498</a>
-<a href="#1499" id="1499">1499</a>
-<a href="#1500" id="1500">1500</a>
-<a href="#1501" id="1501">1501</a>
-<a href="#1502" id="1502">1502</a>
-<a href="#1503" id="1503">1503</a>
-<a href="#1504" id="1504">1504</a>
-<a href="#1505" id="1505">1505</a>
-<a href="#1506" id="1506">1506</a>
-<a href="#1507" id="1507">1507</a>
-<a href="#1508" id="1508">1508</a>
-<a href="#1509" id="1509">1509</a>
-<a href="#1510" id="1510">1510</a>
-<a href="#1511" id="1511">1511</a>
-<a href="#1512" id="1512">1512</a>
-<a href="#1513" id="1513">1513</a>
-<a href="#1514" id="1514">1514</a>
-<a href="#1515" id="1515">1515</a>
-<a href="#1516" id="1516">1516</a>
-<a href="#1517" id="1517">1517</a>
-<a href="#1518" id="1518">1518</a>
-<a href="#1519" id="1519">1519</a>
-<a href="#1520" id="1520">1520</a>
-<a href="#1521" id="1521">1521</a>
-<a href="#1522" id="1522">1522</a>
-<a href="#1523" id="1523">1523</a>
-<a href="#1524" id="1524">1524</a>
-<a href="#1525" id="1525">1525</a>
-<a href="#1526" id="1526">1526</a>
-<a href="#1527" id="1527">1527</a>
-<a href="#1528" id="1528">1528</a>
-<a href="#1529" id="1529">1529</a>
-<a href="#1530" id="1530">1530</a>
-<a href="#1531" id="1531">1531</a>
-<a href="#1532" id="1532">1532</a>
-<a href="#1533" id="1533">1533</a>
-<a href="#1534" id="1534">1534</a>
-<a href="#1535" id="1535">1535</a>
-<a href="#1536" id="1536">1536</a>
-<a href="#1537" id="1537">1537</a>
-<a href="#1538" id="1538">1538</a>
-<a href="#1539" id="1539">1539</a>
-<a href="#1540" id="1540">1540</a>
-<a href="#1541" id="1541">1541</a>
-<a href="#1542" id="1542">1542</a>
-<a href="#1543" id="1543">1543</a>
-<a href="#1544" id="1544">1544</a>
-<a href="#1545" id="1545">1545</a>
-<a href="#1546" id="1546">1546</a>
-<a href="#1547" id="1547">1547</a>
-<a href="#1548" id="1548">1548</a>
-<a href="#1549" id="1549">1549</a>
-<a href="#1550" id="1550">1550</a>
-<a href="#1551" id="1551">1551</a>
-<a href="#1552" id="1552">1552</a>
-<a href="#1553" id="1553">1553</a>
-<a href="#1554" id="1554">1554</a>
-<a href="#1555" id="1555">1555</a>
-<a href="#1556" id="1556">1556</a>
-<a href="#1557" id="1557">1557</a>
-<a href="#1558" id="1558">1558</a>
-<a href="#1559" id="1559">1559</a>
-<a href="#1560" id="1560">1560</a>
-<a href="#1561" id="1561">1561</a>
-<a href="#1562" id="1562">1562</a>
-<a href="#1563" id="1563">1563</a>
-<a href="#1564" id="1564">1564</a>
-<a href="#1565" id="1565">1565</a>
-<a href="#1566" id="1566">1566</a>
-<a href="#1567" id="1567">1567</a>
-<a href="#1568" id="1568">1568</a>
-<a href="#1569" id="1569">1569</a>
-<a href="#1570" id="1570">1570</a>
-<a href="#1571" id="1571">1571</a>
-<a href="#1572" id="1572">1572</a>
-<a href="#1573" id="1573">1573</a>
-<a href="#1574" id="1574">1574</a>
-<a href="#1575" id="1575">1575</a>
-<a href="#1576" id="1576">1576</a>
-<a href="#1577" id="1577">1577</a>
-<a href="#1578" id="1578">1578</a>
-<a href="#1579" id="1579">1579</a>
-<a href="#1580" id="1580">1580</a>
-<a href="#1581" id="1581">1581</a>
-<a href="#1582" id="1582">1582</a>
-<a href="#1583" id="1583">1583</a>
-<a href="#1584" id="1584">1584</a>
-<a href="#1585" id="1585">1585</a>
-<a href="#1586" id="1586">1586</a>
-<a href="#1587" id="1587">1587</a>
-<a href="#1588" id="1588">1588</a>
-<a href="#1589" id="1589">1589</a>
-<a href="#1590" id="1590">1590</a>
-<a href="#1591" id="1591">1591</a>
-<a href="#1592" id="1592">1592</a>
-<a href="#1593" id="1593">1593</a>
-<a href="#1594" id="1594">1594</a>
-<a href="#1595" id="1595">1595</a>
-<a href="#1596" id="1596">1596</a>
-<a href="#1597" id="1597">1597</a>
-<a href="#1598" id="1598">1598</a>
-<a href="#1599" id="1599">1599</a>
-<a href="#1600" id="1600">1600</a>
-<a href="#1601" id="1601">1601</a>
-<a href="#1602" id="1602">1602</a>
-<a href="#1603" id="1603">1603</a>
-<a href="#1604" id="1604">1604</a>
-<a href="#1605" id="1605">1605</a>
-<a href="#1606" id="1606">1606</a>
-<a href="#1607" id="1607">1607</a>
-<a href="#1608" id="1608">1608</a>
-<a href="#1609" id="1609">1609</a>
-<a href="#1610" id="1610">1610</a>
-<a href="#1611" id="1611">1611</a>
-<a href="#1612" id="1612">1612</a>
-<a href="#1613" id="1613">1613</a>
-<a href="#1614" id="1614">1614</a>
-<a href="#1615" id="1615">1615</a>
-<a href="#1616" id="1616">1616</a>
-<a href="#1617" id="1617">1617</a>
-<a href="#1618" id="1618">1618</a>
-<a href="#1619" id="1619">1619</a>
-<a href="#1620" id="1620">1620</a>
-<a href="#1621" id="1621">1621</a>
-<a href="#1622" id="1622">1622</a>
-<a href="#1623" id="1623">1623</a>
-<a href="#1624" id="1624">1624</a>
-<a href="#1625" id="1625">1625</a>
-<a href="#1626" id="1626">1626</a>
-<a href="#1627" id="1627">1627</a>
-<a href="#1628" id="1628">1628</a>
-<a href="#1629" id="1629">1629</a>
-<a href="#1630" id="1630">1630</a>
-<a href="#1631" id="1631">1631</a>
-<a href="#1632" id="1632">1632</a>
-<a href="#1633" id="1633">1633</a>
-<a href="#1634" id="1634">1634</a>
-<a href="#1635" id="1635">1635</a>
-<a href="#1636" id="1636">1636</a>
-<a href="#1637" id="1637">1637</a>
-<a href="#1638" id="1638">1638</a>
-<a href="#1639" id="1639">1639</a>
-<a href="#1640" id="1640">1640</a>
-<a href="#1641" id="1641">1641</a>
-<a href="#1642" id="1642">1642</a>
-<a href="#1643" id="1643">1643</a>
-<a href="#1644" id="1644">1644</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -1911,7 +1706,7 @@
 /// # Implementors
 ///
 /// [`GObjectAccessible`][struct@crate::GObjectAccessible], [`NoOpObject`][struct@crate::NoOpObject], [`Object`][struct@crate::Object], [`Plug`][struct@crate::Plug], [`Socket`][struct@crate::Socket], [`TableCell`][struct@crate::TableCell], [`Window`][struct@crate::Window]
-</span><span class="kw">pub trait </span>AtkObjectExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>AtkObjectExt: IsA&lt;Object&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a relationship of the specified type with the specified target.
     /// ## `relationship`
     /// The [`RelationType`][crate::RelationType] of the relation
@@ -1922,7 +1717,15 @@
     ///
     /// TRUE if the relationship is added.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_add_relationship&quot;</span>)]
-    </span><span class="kw">fn </span>add_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>add_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::atk_object_add_relationship(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                relationship.into_glib(),
+                target.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the accessible id of the accessible.
     ///
@@ -1930,11 +1733,17 @@
     ///
     /// a character string representing the accessible id of the object, or
     /// NULL if no such string was set.
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v2_34&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;atk_object_get_accessible_id&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accessible_id&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::atk_object_get_accessible_id(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the accessible description of the accessible.
     ///
@@ -1944,7 +1753,13 @@
     /// of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_description&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_description&quot;</span>)]
-    </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::atk_object_get_description(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the 0-based index of this accessible in its parent; returns -1 if the
     /// accessible does not have an accessible parent.
@@ -1954,7 +1769,9 @@
     /// an integer which is the index of the accessible in its parent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_index_in_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_index_in_parent&quot;</span>)]
-    </span><span class="kw">fn </span>index_in_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>index_in_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_index_in_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the layer of the accessible.
     ///
@@ -1967,7 +1784,9 @@
     /// an [`Layer`][crate::Layer] which is the layer of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_layer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layer&quot;</span>)]
-    </span><span class="kw">fn </span>layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Layer;
+    </span><span class="kw">fn </span>layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Layer {
+        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_layer(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the zorder of the accessible. The value G_MININT will be returned
     /// if the layer of the accessible is not ATK_LAYER_MDI.
@@ -1983,7 +1802,9 @@
     /// container.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_mdi_zorder&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mdi_zorder&quot;</span>)]
-    </span><span class="kw">fn </span>mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_mdi_zorder(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the number of accessible children of the accessible.
     ///
@@ -1993,7 +1814,9 @@
     /// of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_n_accessible_children&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_accessible_children&quot;</span>)]
-    </span><span class="kw">fn </span>n_accessible_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>n_accessible_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_n_accessible_children(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the accessible name of the accessible.
     ///
@@ -2002,7 +1825,9 @@
     /// a character string representing the accessible name of the object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_name&quot;</span>)]
-    </span><span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
     /// of `self`.
@@ -2013,7 +1838,13 @@
     ///  locale of `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_object_locale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_object_locale&quot;</span>)]
-    </span><span class="kw">fn </span>object_locale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>object_locale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::atk_object_get_object_locale(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the accessible parent of the accessible. By default this is
     /// the one assigned with [`set_parent()`][Self::set_parent()], but it is assumed
@@ -2031,7 +1862,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the role of the accessible.
     ///
@@ -2040,10 +1873,14 @@
     /// an [`Role`][crate::Role] which is the role of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_role&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_role&quot;</span>)]
-    </span><span class="kw">fn </span>role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role;
+    </span><span class="kw">fn </span>role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
+        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="comment">//#[doc(alias = &quot;atk_object_initialize&quot;)]
-    //fn initialize(&amp;self, data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;);
+    //fn initialize(&amp;self, data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;) {
+    //    unsafe { TODO: call ffi:atk_object_initialize() }
+    //}
 
     </span><span class="doccomment">/// Emits a state-change signal for the specified state.
     ///
@@ -2054,7 +1891,15 @@
     /// ## `value`
     /// a gboolean which indicates whether the state is being set on or off
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_notify_state_change&quot;</span>)]
-    </span><span class="kw">fn </span>notify_state_change(<span class="kw-2">&amp;</span><span class="self">self</span>, state: State, value: bool);
+    </span><span class="kw">fn </span>notify_state_change(<span class="kw-2">&amp;</span><span class="self">self</span>, state: State, value: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_notify_state_change(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                state,
+                value.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Gets the accessible parent of the accessible, if it has been
     /// manually assigned with atk_object_set_parent. Otherwise, this
@@ -2070,7 +1915,9 @@
     /// parent of the accessible if assigned
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_peek_parent&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>peek_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>peek_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_peek_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets a reference to the specified accessible child of the object.
     /// The accessible children are 0-based so the first accessible child is
@@ -2084,7 +1931,14 @@
     /// accessible child of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_accessible_child&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>ref_accessible_child(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>ref_accessible_child(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::atk_object_ref_accessible_child(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                i,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the [`RelationSet`][crate::RelationSet] associated with the object.
     ///
@@ -2093,7 +1947,13 @@
     /// an [`RelationSet`][crate::RelationSet] representing the relation set
     /// of the object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_relation_set&quot;</span>)]
-    </span><span class="kw">fn </span>ref_relation_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;RelationSet&gt;;
+    </span><span class="kw">fn </span>ref_relation_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;RelationSet&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::atk_object_ref_relation_set(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets a reference to the state set of the accessible; the caller must
     /// unreference it when it is no longer needed.
@@ -2103,7 +1963,13 @@
     /// a reference to an [`StateSet`][crate::StateSet] which is the state
     /// set of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_state_set&quot;</span>)]
-    </span><span class="kw">fn </span>ref_state_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StateSet&gt;;
+    </span><span class="kw">fn </span>ref_state_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StateSet&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::atk_object_ref_state_set(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Removes a relationship of the specified type with the specified target.
     /// ## `relationship`
@@ -2115,7 +1981,15 @@
     ///
     /// TRUE if the relationship is removed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_remove_relationship&quot;</span>)]
-    </span><span class="kw">fn </span>remove_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>remove_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::atk_object_remove_relationship(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                relationship.into_glib(),
+                target.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets the accessible ID of the accessible. This is not meant to be presented
     /// to the user, but to be an ID which is stable over application development.
@@ -2124,10 +1998,17 @@
     /// reading, or for automatic regression testing.
     /// ## `name`
     /// a character string to be set as the accessible id
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v2_34&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;atk_object_set_accessible_id&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_set_accessible_id(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the accessible description of the accessible. You can&#39;t set
     /// the description to NULL. This is reserved for the initial value. In
@@ -2136,7 +2017,14 @@
     /// ## `description`
     /// a character string to be set as the accessible description
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_description&quot;</span>)]
-    </span><span class="kw">fn </span>set_description(<span class="kw-2">&amp;</span><span class="self">self</span>, description: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_description(<span class="kw-2">&amp;</span><span class="self">self</span>, description: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_set_description(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                description.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the accessible name of the accessible. You can&#39;t set the name
     /// to NULL. This is reserved for the initial value. In this aspect
@@ -2145,52 +2033,93 @@
     /// ## `name`
     /// a character string to be set as the accessible name
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_set_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, name.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the accessible parent of the accessible. `parent` can be NULL.
     /// ## `parent`
     /// an [`Object`][crate::Object] to be set as the accessible parent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_parent&quot;</span>)]
-    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;);
+    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_set_parent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                parent.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the role of the accessible.
     /// ## `role`
     /// an [`Role`][crate::Role] to be set as the role
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_role&quot;</span>)]
-    </span><span class="kw">fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: Role);
+    </span><span class="kw">fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: Role) {
+        <span class="kw">unsafe </span>{
+            ffi::atk_object_set_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, role.into_glib());
+        }
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-layer&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_component_layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>accessible_component_layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-layer&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_component_mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>accessible_component_mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-description&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-description&quot;</span>,
+            accessible_description,
+        )
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_hypertext_nlinks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>accessible_hypertext_nlinks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>, accessible_name)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>accessible_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_parent&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
+    </span><span class="kw">fn </span>set_accessible_parent&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>, accessible_parent)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role;
+    </span><span class="kw">fn </span>accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_role: Role);
+    </span><span class="kw">fn </span>set_accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_role: Role) {
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>, accessible_role)
+    }
 
     <span class="doccomment">/// Table caption.
     ///
@@ -2198,7 +2127,9 @@
     ///
     /// Since 1.3. Use table-caption-object instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption&quot;</span>)
+    }
 
     <span class="doccomment">/// Table caption.
     ///
@@ -2206,16 +2137,30 @@
     ///
     /// Since 1.3. Use table-caption-object instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_caption: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_caption: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-caption&quot;</span>,
+            accessible_table_caption,
+        )
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_caption_object(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>accessible_table_caption_object(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption-object&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
     </span><span class="kw">fn </span>set_accessible_table_caption_object&lt;P: IsA&lt;Object&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_caption_object: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    );
+    ) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-caption-object&quot;</span>,
+            accessible_table_caption_object,
+        )
+    }
 
     <span class="doccomment">/// Accessible table column description.
     ///
@@ -2224,7 +2169,9 @@
     /// Since 2.12. Use [`TableExt::column_description()`][crate::prelude::TableExt::column_description()]
     /// and [`TableExt::set_column_description()`][crate::prelude::TableExt::set_column_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_column_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_table_column_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-description&quot;</span>)
+    }
 
     <span class="doccomment">/// Accessible table column description.
     ///
@@ -2236,7 +2183,13 @@
     </span><span class="kw">fn </span>set_accessible_table_column_description(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_column_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-    );
+    ) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-column-description&quot;</span>,
+            accessible_table_column_description,
+        )
+    }
 
     <span class="doccomment">/// Accessible table column header.
     ///
@@ -2245,7 +2198,9 @@
     /// Since 2.12. Use [`TableExt::column_header()`][crate::prelude::TableExt::column_header()] and
     /// [`TableExt::set_column_header()`][crate::prelude::TableExt::set_column_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-header&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_column_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>accessible_table_column_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-header&quot;</span>)
+    }
 
     <span class="doccomment">/// Accessible table column header.
     ///
@@ -2257,7 +2212,13 @@
     </span><span class="kw">fn </span>set_accessible_table_column_header&lt;P: IsA&lt;Object&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_column_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    );
+    ) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-column-header&quot;</span>,
+            accessible_table_column_header,
+        )
+    }
 
     <span class="doccomment">/// Accessible table row description.
     ///
@@ -2266,7 +2227,9 @@
     /// Since 2.12. Use [`TableExt::row_description()`][crate::prelude::TableExt::row_description()] and
     /// [`TableExt::set_row_description()`][crate::prelude::TableExt::set_row_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-description&quot;</span>)
+    }
 
     <span class="doccomment">/// Accessible table row description.
     ///
@@ -2275,7 +2238,13 @@
     /// Since 2.12. Use [`TableExt::row_description()`][crate::prelude::TableExt::row_description()] and
     /// [`TableExt::set_row_description()`][crate::prelude::TableExt::set_row_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-row-description&quot;</span>,
+            accessible_table_row_description,
+        )
+    }
 
     <span class="doccomment">/// Accessible table row header.
     ///
@@ -2284,7 +2253,9 @@
     /// Since 2.12. Use [`TableExt::row_header()`][crate::prelude::TableExt::row_header()] and
     /// [`TableExt::set_row_header()`][crate::prelude::TableExt::set_row_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-header&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_row_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>accessible_table_row_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-header&quot;</span>)
+    }
 
     <span class="doccomment">/// Accessible table row header.
     ///
@@ -2296,13 +2267,27 @@
     </span><span class="kw">fn </span>set_accessible_table_row_header&lt;P: IsA&lt;Object&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_row_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    );
+    ) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-row-header&quot;</span>,
+            accessible_table_row_header,
+        )
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_summary(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt;;
+    </span><span class="kw">fn </span>accessible_table_summary(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-summary&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_summary&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_summary: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
+    </span><span class="kw">fn </span>set_accessible_table_summary&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_summary: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+        glib::ObjectExt::set_property(
+            <span class="self">self</span>.as_ref(),
+            <span class="string">&quot;accessible-table-summary&quot;</span>,
+            accessible_table_summary,
+        )
+    }
 
     <span class="doccomment">/// Numeric value of this object, in case being and AtkValue.
     ///
@@ -2312,7 +2297,9 @@
     /// the value, and value-changed signal to be notified on their value
     /// changes.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
+    </span><span class="kw">fn </span>accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>)
+    }
 
     <span class="doccomment">/// Numeric value of this object, in case being and AtkValue.
     ///
@@ -2322,7 +2309,9 @@
     /// the value, and value-changed signal to be notified on their value
     /// changes.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_value: f64);
+    </span><span class="kw">fn </span>set_accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_value: f64) {
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>, accessible_value)
+    }
 
     <span class="doccomment">/// The &quot;active-descendant-changed&quot; signal is emitted by an object
     /// which has the state ATK_STATE_MANAGES_DESCENDANTS when the focus
@@ -2332,452 +2321,6 @@
     /// the newly focused object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;active-descendant-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_active_descendant_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The &quot;announcement&quot; signal can be emitted to pass an announcement on to
-    /// be read by a screen reader.
-    /// ## `arg1`
-    /// the text to be announced.
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_46&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_46&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;announcement&quot;</span>)]
-    </span><span class="kw">fn </span>connect_announcement&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The signal &quot;children-changed&quot; is emitted when a child is added or
-    /// removed form an object. It supports two details: &quot;add&quot; and
-    /// &quot;remove&quot;
-    /// ## `arg1`
-    /// The index of the added or removed child. The value can be
-    /// -1. This is used if the value is not known by the implementor
-    /// when the child is added/removed or irrelevant.
-    /// ## `arg2`
-    /// A gpointer to the child AtkObject which was added or
-    /// removed. If the child was removed, it is possible that it is not
-    /// available for the implementor. In that case this pointer can be
-    /// NULL.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;children-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, u32, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="comment">//#[doc(alias = &quot;property-change&quot;)]
-    //fn connect_property_change&lt;Unsupported or ignored types&gt;(&amp;self, detail: Option&lt;&amp;str&gt;, f: F) -&gt; SignalHandlerId;
-
-    </span><span class="doccomment">/// The &quot;state-change&quot; signal is emitted when an object&#39;s state
-    /// changes. The detail value identifies the state type which has
-    /// changed.
-    /// ## `arg1`
-    /// The name of the state which has changed
-    /// ## `arg2`
-    /// A boolean which indicates whether the state has been set or unset.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;state-change&quot;</span>)]
-    </span><span class="kw">fn </span>connect_state_change&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str, bool) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The &quot;visible-data-changed&quot; signal is emitted when the visual
-    /// appearance of the object changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;visible-data-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_visible_data_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-layer&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_component_layer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_component_mdi_zorder_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_hypertext_nlinks_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_role_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_caption_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_caption_object_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-description&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_column_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-header&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_column_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_row_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-header&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_row_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_table_summary_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Object&gt;&gt; AtkObjectExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::atk_object_add_relationship(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                relationship.into_glib(),
-                target.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
-    </span><span class="kw">fn </span>accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::atk_object_get_accessible_id(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::atk_object_get_description(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>index_in_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_index_in_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Layer {
-        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_layer(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_mdi_zorder(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>n_accessible_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_n_accessible_children(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>object_locale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::atk_object_get_object_locale(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
-        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="comment">//fn initialize(&amp;self, data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;) {
-    //    unsafe { TODO: call ffi:atk_object_initialize() }
-    //}
-
-    </span><span class="kw">fn </span>notify_state_change(<span class="kw-2">&amp;</span><span class="self">self</span>, state: State, value: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_notify_state_change(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state,
-                value.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>peek_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_peek_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>ref_accessible_child(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::atk_object_ref_accessible_child(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                i,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>ref_relation_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;RelationSet&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::atk_object_ref_relation_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>ref_state_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StateSet&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::atk_object_ref_state_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>remove_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::atk_object_remove_relationship(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                relationship.into_glib(),
-                target.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_34&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
-    </span><span class="kw">fn </span>set_accessible_id(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_set_accessible_id(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_description(<span class="kw-2">&amp;</span><span class="self">self</span>, description: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_set_description(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                description.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_set_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, name.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_set_parent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                parent.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: Role) {
-        <span class="kw">unsafe </span>{
-            ffi::atk_object_set_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, role.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>accessible_component_layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-layer&quot;</span>)
-    }
-
-    <span class="kw">fn </span>accessible_component_mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)
-    }
-
-    <span class="kw">fn </span>accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-description&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-description&quot;</span>,
-            accessible_description,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_hypertext_nlinks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)
-    }
-
-    <span class="kw">fn </span>accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>, accessible_name)
-    }
-
-    <span class="kw">fn </span>accessible_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_parent&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>, accessible_parent)
-    }
-
-    <span class="kw">fn </span>accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_role: Role) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>, accessible_role)
-    }
-
-    <span class="kw">fn </span>accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_caption: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-caption&quot;</span>,
-            accessible_table_caption,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_caption_object(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption-object&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_caption_object&lt;P: IsA&lt;Object&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        accessible_table_caption_object: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    ) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-caption-object&quot;</span>,
-            accessible_table_caption_object,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_column_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-description&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_column_description(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        accessible_table_column_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-    ) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-column-description&quot;</span>,
-            accessible_table_column_description,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_column_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-header&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_column_header&lt;P: IsA&lt;Object&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        accessible_table_column_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    ) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-column-header&quot;</span>,
-            accessible_table_column_header,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-description&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-row-description&quot;</span>,
-            accessible_table_row_description,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_row_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-header&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_row_header&lt;P: IsA&lt;Object&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        accessible_table_row_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    ) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-row-header&quot;</span>,
-            accessible_table_row_header,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_table_summary(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-summary&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_table_summary&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_summary: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
-            <span class="string">&quot;accessible-table-summary&quot;</span>,
-            accessible_table_summary,
-        )
-    }
-
-    <span class="kw">fn </span>accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_value: f64) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>, accessible_value)
-    }
-
-    <span class="kw">fn </span>connect_active_descendant_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
         f: F,
@@ -2814,8 +2357,13 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v2_46&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v2_46&quot;</span>)))]
+    <span class="doccomment">/// The &quot;announcement&quot; signal can be emitted to pass an announcement on to
+    /// be read by a screen reader.
+    /// ## `arg1`
+    /// the text to be announced.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v2_46&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_46&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;announcement&quot;</span>)]
     </span><span class="kw">fn </span>connect_announcement&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>announcement_trampoline&lt;P: IsA&lt;Object&gt;, F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
@@ -2841,7 +2389,20 @@
         }
     }
 
-    <span class="kw">fn </span>connect_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, u32, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The signal &quot;children-changed&quot; is emitted when a child is added or
+    /// removed form an object. It supports two details: &quot;add&quot; and
+    /// &quot;remove&quot;
+    /// ## `arg1`
+    /// The index of the added or removed child. The value can be
+    /// -1. This is used if the value is not known by the implementor
+    /// when the child is added/removed or irrelevant.
+    /// ## `arg2`
+    /// A gpointer to the child AtkObject which was added or
+    /// removed. If the child was removed, it is possible that it is not
+    /// available for the implementor. In that case this pointer can be
+    /// NULL.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;children-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, u32, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
         f: F,
@@ -2879,10 +2440,19 @@
         }
     }
 
-    <span class="comment">//fn connect_property_change&lt;Unsupported or ignored types&gt;(&amp;self, detail: Option&lt;&amp;str&gt;, f: F) -&gt; SignalHandlerId {
+    <span class="comment">//#[doc(alias = &quot;property-change&quot;)]
+    //fn connect_property_change&lt;Unsupported or ignored types&gt;(&amp;self, detail: Option&lt;&amp;str&gt;, f: F) -&gt; SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
 
+    </span><span class="doccomment">/// The &quot;state-change&quot; signal is emitted when an object&#39;s state
+    /// changes. The detail value identifies the state type which has
+    /// changed.
+    /// ## `arg1`
+    /// The name of the state which has changed
+    /// ## `arg2`
+    /// A boolean which indicates whether the state has been set or unset.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;state-change&quot;</span>)]
     </span><span class="kw">fn </span>connect_state_change&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str, bool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
@@ -2921,7 +2491,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_visible_data_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The &quot;visible-data-changed&quot; signal is emitted when the visual
+    /// appearance of the object changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;visible-data-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_visible_data_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>visible_data_changed_trampoline&lt;
             P: IsA&lt;Object&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2945,7 +2518,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_component_layer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-layer&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_component_layer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -2973,7 +2547,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_component_mdi_zorder_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_component_mdi_zorder_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3001,7 +2576,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3029,7 +2605,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_hypertext_nlinks_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_hypertext_nlinks_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3057,7 +2634,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_name_trampoline&lt;
             P: IsA&lt;Object&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3082,7 +2660,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_parent_trampoline&lt;
             P: IsA&lt;Object&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3107,7 +2686,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_role_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_role_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_role_trampoline&lt;
             P: IsA&lt;Object&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3132,7 +2712,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_caption_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_caption_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3160,7 +2741,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_caption_object_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_caption_object_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3188,7 +2770,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_column_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-description&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_column_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3216,7 +2799,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_column_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-header&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_column_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3244,7 +2828,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_row_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_row_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3272,7 +2857,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_row_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-header&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_row_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3300,7 +2886,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_table_summary_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_table_summary_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -3328,7 +2915,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_accessible_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accessible_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_value_trampoline&lt;
             P: IsA&lt;Object&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3353,6 +2941,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Object&gt;&gt; AtkObjectExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Object {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

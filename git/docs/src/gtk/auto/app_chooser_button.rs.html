@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/app_chooser_button.rs`."><title>app_chooser_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/app_chooser_button.rs`."><title>app_chooser_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2299,37 +2299,7 @@
 <a href="#2226" id="2226">2226</a>
 <a href="#2227" id="2227">2227</a>
 <a href="#2228" id="2228">2228</a>
-<a href="#2229" id="2229">2229</a>
-<a href="#2230" id="2230">2230</a>
-<a href="#2231" id="2231">2231</a>
-<a href="#2232" id="2232">2232</a>
-<a href="#2233" id="2233">2233</a>
-<a href="#2234" id="2234">2234</a>
-<a href="#2235" id="2235">2235</a>
-<a href="#2236" id="2236">2236</a>
-<a href="#2237" id="2237">2237</a>
-<a href="#2238" id="2238">2238</a>
-<a href="#2239" id="2239">2239</a>
-<a href="#2240" id="2240">2240</a>
-<a href="#2241" id="2241">2241</a>
-<a href="#2242" id="2242">2242</a>
-<a href="#2243" id="2243">2243</a>
-<a href="#2244" id="2244">2244</a>
-<a href="#2245" id="2245">2245</a>
-<a href="#2246" id="2246">2246</a>
-<a href="#2247" id="2247">2247</a>
-<a href="#2248" id="2248">2248</a>
-<a href="#2249" id="2249">2249</a>
-<a href="#2250" id="2250">2250</a>
-<a href="#2251" id="2251">2251</a>
-<a href="#2252" id="2252">2252</a>
-<a href="#2253" id="2253">2253</a>
-<a href="#2254" id="2254">2254</a>
-<a href="#2255" id="2255">2255</a>
-<a href="#2256" id="2256">2256</a>
-<a href="#2257" id="2257">2257</a>
-<a href="#2258" id="2258">2258</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4287,7 +4257,7 @@
 /// # Implementors
 ///
 /// [`AppChooserButton`][struct@crate::AppChooserButton]
-</span><span class="kw">pub trait </span>AppChooserButtonExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>AppChooserButtonExt: IsA&lt;AppChooserButton&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Appends a custom item to the list of applications that is shown
     /// in the popup; the item name must be unique per-widget.
     /// Clients can use the provided name as a detail for the
@@ -4301,98 +4271,7 @@
     /// ## `icon`
     /// the icon for the custom item
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_append_custom_item&quot;</span>)]
-    </span><span class="kw">fn </span>append_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, label: <span class="kw-2">&amp;</span>str, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;);
-
-    <span class="doccomment">/// Appends a separator to the list of applications that is shown
-    /// in the popup.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_append_separator&quot;</span>)]
-    </span><span class="kw">fn </span>append_separator(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Returns the text to display at the top of the dialog.
-    ///
-    /// # Returns
-    ///
-    /// the text to display at the top of the dialog,
-    ///  or [`None`], in which case a default text is displayed
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_heading&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_heading&quot;</span>)]
-    </span><span class="kw">fn </span>heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="doccomment">/// Returns the current value of the [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
-    /// property.
-    ///
-    /// # Returns
-    ///
-    /// the value of [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_show_default_item&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_show_default_item&quot;</span>)]
-    </span><span class="kw">fn </span>shows_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Returns the current value of the [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
-    /// property.
-    ///
-    /// # Returns
-    ///
-    /// the value of [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_show_dialog_item&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_show_dialog_item&quot;</span>)]
-    </span><span class="kw">fn </span>shows_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Selects a custom item previously added with
-    /// [`append_custom_item()`][Self::append_custom_item()].
-    ///
-    /// Use [`AppChooserExtManual::refresh()`][crate::prelude::AppChooserExtManual::refresh()] to bring the selection
-    /// to its initial state.
-    /// ## `name`
-    /// the name of the custom item
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_active_custom_item&quot;</span>)]
-    </span><span class="kw">fn </span>set_active_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets the text to display at the top of the dialog.
-    /// If the heading is not set, the dialog displays a default text.
-    /// ## `heading`
-    /// a string containing Pango markup
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_heading&quot;</span>)]
-    </span><span class="kw">fn </span>set_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, heading: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets whether the dropdown menu of this button should show the
-    /// default application for the given content type at top.
-    /// ## `setting`
-    /// the new value for [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_show_default_item&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
-
-    <span class="doccomment">/// Sets whether the dropdown menu of this button should show an
-    /// entry to trigger a [`AppChooserDialog`][crate::AppChooserDialog].
-    /// ## `setting`
-    /// the new value for [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_show_dialog_item&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
-
-    <span class="doccomment">/// Emitted when a custom item, previously added with
-    /// [`append_custom_item()`][Self::append_custom_item()], is activated from the
-    /// dropdown menu.
-    /// ## `item_name`
-    /// the name of the activated item
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;custom-item-activated&quot;</span>)]
-    </span><span class="kw">fn </span>connect_custom_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;heading&quot;</span>)]
-    </span><span class="kw">fn </span>connect_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-default-item&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_default_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-dialog-item&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_dialog_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;AppChooserButton&gt;&gt; AppChooserButtonExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>append_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, label: <span class="kw-2">&amp;</span>str, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;) {
+    </span><span class="kw">fn </span>append_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, label: <span class="kw-2">&amp;</span>str, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_append_custom_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4403,13 +4282,24 @@
         }
     }
 
-    <span class="kw">fn </span>append_separator(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Appends a separator to the list of applications that is shown
+    /// in the popup.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_append_separator&quot;</span>)]
+    </span><span class="kw">fn </span>append_separator(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_append_separator(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// Returns the text to display at the top of the dialog.
+    ///
+    /// # Returns
+    ///
+    /// the text to display at the top of the dialog,
+    ///  or [`None`], in which case a default text is displayed
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_heading&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_heading&quot;</span>)]
+    </span><span class="kw">fn </span>heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_app_chooser_button_get_heading(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4417,7 +4307,15 @@
         }
     }
 
-    <span class="kw">fn </span>shows_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns the current value of the [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
+    /// property.
+    ///
+    /// # Returns
+    ///
+    /// the value of [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_show_default_item&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_show_default_item&quot;</span>)]
+    </span><span class="kw">fn </span>shows_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_app_chooser_button_get_show_default_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4425,7 +4323,15 @@
         }
     }
 
-    <span class="kw">fn </span>shows_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns the current value of the [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
+    /// property.
+    ///
+    /// # Returns
+    ///
+    /// the value of [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_get_show_dialog_item&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_show_dialog_item&quot;</span>)]
+    </span><span class="kw">fn </span>shows_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_app_chooser_button_get_show_dialog_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4433,7 +4339,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_active_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Selects a custom item previously added with
+    /// [`append_custom_item()`][Self::append_custom_item()].
+    ///
+    /// Use [`AppChooserExtManual::refresh()`][crate::prelude::AppChooserExtManual::refresh()] to bring the selection
+    /// to its initial state.
+    /// ## `name`
+    /// the name of the custom item
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_active_custom_item&quot;</span>)]
+    </span><span class="kw">fn </span>set_active_custom_item(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_set_active_custom_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4442,7 +4356,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, heading: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets the text to display at the top of the dialog.
+    /// If the heading is not set, the dialog displays a default text.
+    /// ## `heading`
+    /// a string containing Pango markup
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_heading&quot;</span>)]
+    </span><span class="kw">fn </span>set_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, heading: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_set_heading(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4451,7 +4370,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_show_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+    <span class="doccomment">/// Sets whether the dropdown menu of this button should show the
+    /// default application for the given content type at top.
+    /// ## `setting`
+    /// the new value for [`show-default-item`][struct@crate::AppChooserButton#show-default-item]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_show_default_item&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_default_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_set_show_default_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4460,7 +4384,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_show_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+    <span class="doccomment">/// Sets whether the dropdown menu of this button should show an
+    /// entry to trigger a [`AppChooserDialog`][crate::AppChooserDialog].
+    /// ## `setting`
+    /// the new value for [`show-dialog-item`][struct@crate::AppChooserButton#show-dialog-item]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_app_chooser_button_set_show_dialog_item&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_dialog_item(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_app_chooser_button_set_show_dialog_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4469,7 +4398,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_custom_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted when a custom item, previously added with
+    /// [`append_custom_item()`][Self::append_custom_item()], is activated from the
+    /// dropdown menu.
+    /// ## `item_name`
+    /// the name of the activated item
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;custom-item-activated&quot;</span>)]
+    </span><span class="kw">fn </span>connect_custom_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
         f: F,
@@ -4506,7 +4441,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;heading&quot;</span>)]
+    </span><span class="kw">fn </span>connect_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_heading_trampoline&lt;
             P: IsA&lt;AppChooserButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4531,7 +4467,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_default_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-default-item&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_default_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_default_item_trampoline&lt;
             P: IsA&lt;AppChooserButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4556,7 +4493,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_dialog_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-dialog-item&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_dialog_item_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_dialog_item_trampoline&lt;
             P: IsA&lt;AppChooserButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4581,6 +4519,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;AppChooserButton&gt;&gt; AppChooserButtonExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>AppChooserButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

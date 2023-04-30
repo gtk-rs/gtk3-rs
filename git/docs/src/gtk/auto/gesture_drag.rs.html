@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_drag.rs`."><title>gesture_drag.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_drag.rs`."><title>gesture_drag.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -473,17 +473,7 @@
 <a href="#400" id="400">400</a>
 <a href="#401" id="401">401</a>
 <a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
-<a href="#405" id="405">405</a>
-<a href="#406" id="406">406</a>
-<a href="#407" id="407">407</a>
-<a href="#408" id="408">408</a>
-<a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-<a href="#412" id="412">412</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -704,7 +694,7 @@
 /// # Implementors
 ///
 /// [`GestureDrag`][struct@crate::GestureDrag], [`GesturePan`][struct@crate::GesturePan]
-</span><span class="kw">pub trait </span>GestureDragExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>GestureDragExt: IsA&lt;GestureDrag&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// If the `self` is active, this function returns [`true`] and
     /// fills in `x` and `y` with the coordinates of the current point,
     /// as an offset to the starting drag point.
@@ -720,52 +710,7 @@
     /// Y offset for the current point
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_drag_get_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_offset&quot;</span>)]
-    </span><span class="kw">fn </span>offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt;;
-
-    <span class="doccomment">/// If the `self` is active, this function returns [`true`]
-    /// and fills in `x` and `y` with the drag start coordinates,
-    /// in window-relative coordinates.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the gesture is active
-    ///
-    /// ## `x`
-    /// X coordinate for the drag start point
-    ///
-    /// ## `y`
-    /// Y coordinate for the drag start point
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_drag_get_start_point&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_start_point&quot;</span>)]
-    </span><span class="kw">fn </span>start_point(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt;;
-
-    <span class="doccomment">/// This signal is emitted whenever dragging starts.
-    /// ## `start_x`
-    /// X coordinate, relative to the widget allocation
-    /// ## `start_y`
-    /// Y coordinate, relative to the widget allocation
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-begin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_drag_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// This signal is emitted whenever the dragging is finished.
-    /// ## `offset_x`
-    /// X offset, relative to the start point
-    /// ## `offset_y`
-    /// Y offset, relative to the start point
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-end&quot;</span>)]
-    </span><span class="kw">fn </span>connect_drag_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// This signal is emitted whenever the dragging point moves.
-    /// ## `offset_x`
-    /// X offset, relative to the start point
-    /// ## `offset_y`
-    /// Y offset, relative to the start point
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-update&quot;</span>)]
-    </span><span class="kw">fn </span>connect_drag_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;GestureDrag&gt;&gt; GestureDragExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
+    </span><span class="kw">fn </span>offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
@@ -782,7 +727,22 @@
         }
     }
 
-    <span class="kw">fn </span>start_point(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
+    <span class="doccomment">/// If the `self` is active, this function returns [`true`]
+    /// and fills in `x` and `y` with the drag start coordinates,
+    /// in window-relative coordinates.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the gesture is active
+    ///
+    /// ## `x`
+    /// X coordinate for the drag start point
+    ///
+    /// ## `y`
+    /// Y coordinate for the drag start point
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_drag_get_start_point&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_start_point&quot;</span>)]
+    </span><span class="kw">fn </span>start_point(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
@@ -799,7 +759,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_drag_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// This signal is emitted whenever dragging starts.
+    /// ## `start_x`
+    /// X coordinate, relative to the widget allocation
+    /// ## `start_y`
+    /// Y coordinate, relative to the widget allocation
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-begin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_drag_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>drag_begin_trampoline&lt;
             P: IsA&lt;GestureDrag&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, f64, f64) + <span class="lifetime">&#39;static</span>,
@@ -829,7 +795,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_drag_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// This signal is emitted whenever the dragging is finished.
+    /// ## `offset_x`
+    /// X offset, relative to the start point
+    /// ## `offset_y`
+    /// Y offset, relative to the start point
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-end&quot;</span>)]
+    </span><span class="kw">fn </span>connect_drag_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>drag_end_trampoline&lt;
             P: IsA&lt;GestureDrag&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, f64, f64) + <span class="lifetime">&#39;static</span>,
@@ -859,7 +831,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_drag_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// This signal is emitted whenever the dragging point moves.
+    /// ## `offset_x`
+    /// X offset, relative to the start point
+    /// ## `offset_y`
+    /// Y offset, relative to the start point
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;drag-update&quot;</span>)]
+    </span><span class="kw">fn </span>connect_drag_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>drag_update_trampoline&lt;
             P: IsA&lt;GestureDrag&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, f64, f64) + <span class="lifetime">&#39;static</span>,
@@ -889,6 +867,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;GestureDrag&gt;&gt; GestureDragExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>GestureDrag {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

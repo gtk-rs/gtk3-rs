@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scale_button.rs`."><title>scale_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scale_button.rs`."><title>scale_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2216,47 +2216,7 @@
 <a href="#2143" id="2143">2143</a>
 <a href="#2144" id="2144">2144</a>
 <a href="#2145" id="2145">2145</a>
-<a href="#2146" id="2146">2146</a>
-<a href="#2147" id="2147">2147</a>
-<a href="#2148" id="2148">2148</a>
-<a href="#2149" id="2149">2149</a>
-<a href="#2150" id="2150">2150</a>
-<a href="#2151" id="2151">2151</a>
-<a href="#2152" id="2152">2152</a>
-<a href="#2153" id="2153">2153</a>
-<a href="#2154" id="2154">2154</a>
-<a href="#2155" id="2155">2155</a>
-<a href="#2156" id="2156">2156</a>
-<a href="#2157" id="2157">2157</a>
-<a href="#2158" id="2158">2158</a>
-<a href="#2159" id="2159">2159</a>
-<a href="#2160" id="2160">2160</a>
-<a href="#2161" id="2161">2161</a>
-<a href="#2162" id="2162">2162</a>
-<a href="#2163" id="2163">2163</a>
-<a href="#2164" id="2164">2164</a>
-<a href="#2165" id="2165">2165</a>
-<a href="#2166" id="2166">2166</a>
-<a href="#2167" id="2167">2167</a>
-<a href="#2168" id="2168">2168</a>
-<a href="#2169" id="2169">2169</a>
-<a href="#2170" id="2170">2170</a>
-<a href="#2171" id="2171">2171</a>
-<a href="#2172" id="2172">2172</a>
-<a href="#2173" id="2173">2173</a>
-<a href="#2174" id="2174">2174</a>
-<a href="#2175" id="2175">2175</a>
-<a href="#2176" id="2176">2176</a>
-<a href="#2177" id="2177">2177</a>
-<a href="#2178" id="2178">2178</a>
-<a href="#2179" id="2179">2179</a>
-<a href="#2180" id="2180">2180</a>
-<a href="#2181" id="2181">2181</a>
-<a href="#2182" id="2182">2182</a>
-<a href="#2183" id="2183">2183</a>
-<a href="#2184" id="2184">2184</a>
-<a href="#2185" id="2185">2185</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4067,7 +4027,7 @@
 /// # Implementors
 ///
 /// [`ScaleButton`][struct@crate::ScaleButton], [`VolumeButton`][struct@crate::VolumeButton]
-</span><span class="kw">pub trait </span>ScaleButtonExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ScaleButtonExt: IsA&lt;ScaleButton&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Gets the [`Adjustment`][crate::Adjustment] associated with the [`ScaleButton`][crate::ScaleButton]’s scale.
     /// See [`RangeExt::adjustment()`][crate::prelude::RangeExt::adjustment()] for details.
     ///
@@ -4076,7 +4036,13 @@
     /// the adjustment associated with the scale
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_get_adjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Adjustment;
+    </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Adjustment {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_scale_button_get_adjustment(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the minus button of the [`ScaleButton`][crate::ScaleButton].
     ///
@@ -4085,7 +4051,13 @@
     /// the minus button of the [`ScaleButton`][crate::ScaleButton] as a [`Button`][crate::Button]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_get_minus_button&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_minus_button&quot;</span>)]
-    </span><span class="kw">fn </span>minus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt;;
+    </span><span class="kw">fn </span>minus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_scale_button_get_minus_button(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the plus button of the [`ScaleButton`][crate::ScaleButton].
     ///
@@ -4094,7 +4066,13 @@
     /// the plus button of the [`ScaleButton`][crate::ScaleButton] as a [`Button`][crate::Button]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_get_plus_button&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_plus_button&quot;</span>)]
-    </span><span class="kw">fn </span>plus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt;;
+    </span><span class="kw">fn </span>plus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_scale_button_get_plus_button(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the popup of the [`ScaleButton`][crate::ScaleButton].
     ///
@@ -4103,7 +4081,13 @@
     /// the popup of the [`ScaleButton`][crate::ScaleButton]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_get_popup&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_popup&quot;</span>)]
-    </span><span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_scale_button_get_popup(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the current value of the scale button.
     ///
@@ -4112,7 +4096,9 @@
     /// current value of the scale button
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_get_value&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_value&quot;</span>)]
-    </span><span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
+    </span><span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+        <span class="kw">unsafe </span>{ ffi::gtk_scale_button_get_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Sets the [`Adjustment`][crate::Adjustment] to be used as a model
     /// for the [`ScaleButton`][crate::ScaleButton]’s scale.
@@ -4120,14 +4106,25 @@
     /// ## `adjustment`
     /// a [`Adjustment`][crate::Adjustment]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_set_adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;);
+    </span><span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_button_set_adjustment(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                adjustment.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the icons to be used by the scale button.
     /// For details, see the [`icons`][struct@crate::ScaleButton#icons] property.
     /// ## `icons`
     /// a [`None`]-terminated array of icon names
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_set_icons&quot;</span>)]
-    </span><span class="kw">fn </span>set_icons(<span class="kw-2">&amp;</span><span class="self">self</span>, icons: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]);
+    </span><span class="kw">fn </span>set_icons(<span class="kw-2">&amp;</span><span class="self">self</span>, icons: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_button_set_icons(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, icons.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the current value of the scale; if the value is outside
     /// the minimum or maximum range values, it will be clamped to fit
@@ -4136,7 +4133,11 @@
     /// ## `value`
     /// new value of the scale button
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_button_set_value&quot;</span>)]
-    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64);
+    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_button_set_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, value);
+        }
+    }
 
     <span class="doccomment">/// The names of the icons to be used by the scale button.
     /// The first item in the array will be used in the button
@@ -4153,111 +4154,7 @@
     /// It is recommended to use at least 3 icons so that the
     /// [`ScaleButton`][crate::ScaleButton] reflects the current value of the scale
     /// better for the users.
-    </span><span class="kw">fn </span>icons(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
-
-    <span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize;
-
-    <span class="kw">fn </span>set_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: IconSize);
-
-    <span class="doccomment">/// The ::popdown signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to popdown the scale widget.
-    ///
-    /// The default binding for this signal is Escape.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;popdown&quot;</span>)]
-    </span><span class="kw">fn </span>connect_popdown&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_popdown(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::popup signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to popup the scale widget.
-    ///
-    /// The default bindings for this signal are Space, Enter and Return.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;popup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_popup(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::value-changed signal is emitted when the value field has
-    /// changed.
-    /// ## `value`
-    /// the new value
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;value-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_value_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>connect_adjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;icons&quot;</span>)]
-    </span><span class="kw">fn </span>connect_icons_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;size&quot;</span>)]
-    </span><span class="kw">fn </span>connect_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;ScaleButton&gt;&gt; ScaleButtonExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Adjustment {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_scale_button_get_adjustment(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>minus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_scale_button_get_minus_button(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>plus_button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Button&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_scale_button_get_plus_button(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_scale_button_get_popup(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_scale_button_get_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_button_set_adjustment(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                adjustment.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_icons(<span class="kw-2">&amp;</span><span class="self">self</span>, icons: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>str]) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_button_set_icons(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, icons.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_button_set_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, value);
-        }
-    }
-
-    <span class="kw">fn </span>icons(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
+    </span><span class="kw">fn </span>icons(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icons&quot;</span>)
     }
 
@@ -4269,7 +4166,13 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;size&quot;</span>, size)
     }
 
-    <span class="kw">fn </span>connect_popdown&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::popdown signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to popdown the scale widget.
+    ///
+    /// The default binding for this signal is Escape.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popdown&quot;</span>)]
+    </span><span class="kw">fn </span>connect_popdown&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>popdown_trampoline&lt;P: IsA&lt;ScaleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScaleButton,
             f: glib::ffi::gpointer,
@@ -4294,7 +4197,13 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;popdown&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::popup signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to popup the scale widget.
+    ///
+    /// The default bindings for this signal are Space, Enter and Return.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;popup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>popup_trampoline&lt;P: IsA&lt;ScaleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScaleButton,
             f: glib::ffi::gpointer,
@@ -4319,7 +4228,12 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;popup&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_value_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::value-changed signal is emitted when the value field has
+    /// changed.
+    /// ## `value`
+    /// the new value
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;value-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_value_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>value_changed_trampoline&lt;
             P: IsA&lt;ScaleButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, f64) + <span class="lifetime">&#39;static</span>,
@@ -4344,7 +4258,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_adjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;adjustment&quot;</span>)]
+    </span><span class="kw">fn </span>connect_adjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_adjustment_trampoline&lt;
             P: IsA&lt;ScaleButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4369,7 +4284,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_icons_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;icons&quot;</span>)]
+    </span><span class="kw">fn </span>connect_icons_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icons_trampoline&lt;P: IsA&lt;ScaleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScaleButton,
             _param_spec: glib::ffi::gpointer,
@@ -4391,7 +4307,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;size&quot;</span>)]
+    </span><span class="kw">fn </span>connect_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_size_trampoline&lt;P: IsA&lt;ScaleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScaleButton,
             _param_spec: glib::ffi::gpointer,
@@ -4413,7 +4330,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_value_trampoline&lt;P: IsA&lt;ScaleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScaleButton,
             _param_spec: glib::ffi::gpointer,
@@ -4435,6 +4353,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;ScaleButton&gt;&gt; ScaleButtonExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ScaleButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

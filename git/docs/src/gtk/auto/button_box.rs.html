@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/button_box.rs`."><title>button_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/button_box.rs`."><title>button_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -943,25 +943,7 @@
 <a href="#870" id="870">870</a>
 <a href="#871" id="871">871</a>
 <a href="#872" id="872">872</a>
-<a href="#873" id="873">873</a>
-<a href="#874" id="874">874</a>
-<a href="#875" id="875">875</a>
-<a href="#876" id="876">876</a>
-<a href="#877" id="877">877</a>
-<a href="#878" id="878">878</a>
-<a href="#879" id="879">879</a>
-<a href="#880" id="880">880</a>
-<a href="#881" id="881">881</a>
-<a href="#882" id="882">882</a>
-<a href="#883" id="883">883</a>
-<a href="#884" id="884">884</a>
-<a href="#885" id="885">885</a>
-<a href="#886" id="886">886</a>
-<a href="#887" id="887">887</a>
-<a href="#888" id="888">888</a>
-<a href="#889" id="889">889</a>
-<a href="#890" id="890">890</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -1679,7 +1661,7 @@
 /// # Implementors
 ///
 /// [`ButtonBox`][struct@crate::ButtonBox]
-</span><span class="kw">pub trait </span>ButtonBoxExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ButtonBoxExt: IsA&lt;ButtonBox&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Returns whether the child is exempted from homogenous
     /// sizing.
     /// ## `child`
@@ -1690,7 +1672,14 @@
     /// [`true`] if the child is not subject to homogenous sizing
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_get_child_non_homogeneous&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_child_non_homogeneous&quot;</span>)]
-    </span><span class="kw">fn </span>child_is_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>child_is_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_box_get_child_non_homogeneous(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether `child` should appear in a secondary group of children.
     /// ## `child`
@@ -1701,7 +1690,14 @@
     /// whether `child` should appear in a secondary group of children.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_get_child_secondary&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_child_secondary&quot;</span>)]
-    </span><span class="kw">fn </span>child_is_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>child_is_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_box_get_child_secondary(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the method being used to arrange the buttons in a button box.
     ///
@@ -1710,7 +1706,13 @@
     /// the method used to lay out buttons in `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_get_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout&quot;</span>)]
-    </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle;
+    </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_box_get_layout(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets whether the child is exempted from homogeous sizing.
     /// ## `child`
@@ -1718,7 +1720,15 @@
     /// ## `non_homogeneous`
     /// the new value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_set_child_non_homogeneous&quot;</span>)]
-    </span><span class="kw">fn </span>set_child_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, non_homogeneous: bool);
+    </span><span class="kw">fn </span>set_child_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, non_homogeneous: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_box_set_child_non_homogeneous(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+                non_homogeneous.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets whether `child` should appear in a secondary group of children.
     /// A typical use of a secondary child is the help button in a dialog.
@@ -1738,62 +1748,7 @@
     /// if [`true`], the `child` appears in a secondary group of the
     ///  button box.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_set_child_secondary&quot;</span>)]
-    </span><span class="kw">fn </span>set_child_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, is_secondary: bool);
-
-    <span class="doccomment">/// Changes the way buttons are arranged in their container.
-    /// ## `layout_style`
-    /// the new layout style
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_set_layout&quot;</span>)]
-    </span><span class="kw">fn </span>set_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
-    </span><span class="kw">fn </span>layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
-    </span><span class="kw">fn </span>set_layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
-    </span><span class="kw">fn </span>connect_layout_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;ButtonBox&gt;&gt; ButtonBoxExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>child_is_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_box_get_child_non_homogeneous(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>child_is_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_box_get_child_secondary(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_box_get_layout(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_child_non_homogeneous(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, non_homogeneous: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_box_set_child_non_homogeneous(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                non_homogeneous.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_child_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, is_secondary: bool) {
+    </span><span class="kw">fn </span>set_child_secondary(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, is_secondary: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_button_box_set_child_secondary(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1803,7 +1758,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle) {
+    <span class="doccomment">/// Changes the way buttons are arranged in their container.
+    /// ## `layout_style`
+    /// the new layout style
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_box_set_layout&quot;</span>)]
+    </span><span class="kw">fn </span>set_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle) {
         <span class="kw">unsafe </span>{
             ffi::gtk_button_box_set_layout(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1812,15 +1771,18 @@
         }
     }
 
-    <span class="kw">fn </span>layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle {
+    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
+    </span><span class="kw">fn </span>layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ButtonBoxStyle {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;layout-style&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
+    </span><span class="kw">fn </span>set_layout_style(<span class="kw-2">&amp;</span><span class="self">self</span>, layout_style: ButtonBoxStyle) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;layout-style&quot;</span>, layout_style)
     }
 
-    <span class="kw">fn </span>connect_layout_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;layout-style&quot;</span>)]
+    </span><span class="kw">fn </span>connect_layout_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_layout_style_trampoline&lt;
             P: IsA&lt;ButtonBox&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1845,6 +1807,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;ButtonBox&gt;&gt; ButtonBoxExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ButtonBox {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

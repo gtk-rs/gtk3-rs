@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/button.rs`."><title>button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/button.rs`."><title>button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2238,55 +2238,7 @@
 <a href="#2165" id="2165">2165</a>
 <a href="#2166" id="2166">2166</a>
 <a href="#2167" id="2167">2167</a>
-<a href="#2168" id="2168">2168</a>
-<a href="#2169" id="2169">2169</a>
-<a href="#2170" id="2170">2170</a>
-<a href="#2171" id="2171">2171</a>
-<a href="#2172" id="2172">2172</a>
-<a href="#2173" id="2173">2173</a>
-<a href="#2174" id="2174">2174</a>
-<a href="#2175" id="2175">2175</a>
-<a href="#2176" id="2176">2176</a>
-<a href="#2177" id="2177">2177</a>
-<a href="#2178" id="2178">2178</a>
-<a href="#2179" id="2179">2179</a>
-<a href="#2180" id="2180">2180</a>
-<a href="#2181" id="2181">2181</a>
-<a href="#2182" id="2182">2182</a>
-<a href="#2183" id="2183">2183</a>
-<a href="#2184" id="2184">2184</a>
-<a href="#2185" id="2185">2185</a>
-<a href="#2186" id="2186">2186</a>
-<a href="#2187" id="2187">2187</a>
-<a href="#2188" id="2188">2188</a>
-<a href="#2189" id="2189">2189</a>
-<a href="#2190" id="2190">2190</a>
-<a href="#2191" id="2191">2191</a>
-<a href="#2192" id="2192">2192</a>
-<a href="#2193" id="2193">2193</a>
-<a href="#2194" id="2194">2194</a>
-<a href="#2195" id="2195">2195</a>
-<a href="#2196" id="2196">2196</a>
-<a href="#2197" id="2197">2197</a>
-<a href="#2198" id="2198">2198</a>
-<a href="#2199" id="2199">2199</a>
-<a href="#2200" id="2200">2200</a>
-<a href="#2201" id="2201">2201</a>
-<a href="#2202" id="2202">2202</a>
-<a href="#2203" id="2203">2203</a>
-<a href="#2204" id="2204">2204</a>
-<a href="#2205" id="2205">2205</a>
-<a href="#2206" id="2206">2206</a>
-<a href="#2207" id="2207">2207</a>
-<a href="#2208" id="2208">2208</a>
-<a href="#2209" id="2209">2209</a>
-<a href="#2210" id="2210">2210</a>
-<a href="#2211" id="2211">2211</a>
-<a href="#2212" id="2212">2212</a>
-<a href="#2213" id="2213">2213</a>
-<a href="#2214" id="2214">2214</a>
-<a href="#2215" id="2215">2215</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4037,10 +3989,14 @@
 /// # Implementors
 ///
 /// [`Button`][struct@crate::Button], [`ColorButton`][struct@crate::ColorButton], [`FontButton`][struct@crate::FontButton], [`LinkButton`][struct@crate::LinkButton], [`LockButton`][struct@crate::LockButton], [`ModelButton`][struct@crate::ModelButton], [`ScaleButton`][struct@crate::ScaleButton], [`ToggleButton`][struct@crate::ToggleButton]
-</span><span class="kw">pub trait </span>ButtonExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ButtonExt: IsA&lt;Button&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Emits a [`clicked`][struct@crate::Button#clicked] signal to the given [`Button`][crate::Button].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_clicked&quot;</span>)]
-    </span><span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_clicked(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Returns whether the button will ignore the [`gtk-button-images`][struct@crate::Settings#gtk-button-images]
     /// setting and always show the image, if available.
@@ -4050,7 +4006,13 @@
     /// [`true`] if the button will always show the image
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_always_show_image&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_always_show_image&quot;</span>)]
-    </span><span class="kw">fn </span>must_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>must_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_get_always_show_image(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the button’s event window if it is realized, [`None`] otherwise.
     /// This function should be rarely needed.
@@ -4060,7 +4022,13 @@
     /// `self`’s event window.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_event_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_event_window&quot;</span>)]
-    </span><span class="kw">fn </span>event_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
+    </span><span class="kw">fn </span>event_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_button_get_event_window(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the widget that is currenty set as the image of `self`.
     /// This may have been explicitly set by [`set_image()`][Self::set_image()]
@@ -4072,7 +4040,9 @@
     ///  there is no image
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_image&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_image&quot;</span>)]
-    </span><span class="kw">fn </span>image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_button_get_image(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the position of the image relative to the text
     /// inside the button.
@@ -4082,7 +4052,13 @@
     /// the position
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_image_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_image_position&quot;</span>)]
-    </span><span class="kw">fn </span>image_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType;
+    </span><span class="kw">fn </span>image_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_get_image_position(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Fetches the text from the label of the button, as set by
     /// [`set_label()`][Self::set_label()]. If the label text has not
@@ -4096,7 +4072,9 @@
     /// by the widget and must not be modified or freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_label&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_label&quot;</span>)]
-    </span><span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_button_get_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Returns the current relief style of the given [`Button`][crate::Button].
     ///
@@ -4105,7 +4083,9 @@
     /// The current [`ReliefStyle`][crate::ReliefStyle]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_relief&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_relief&quot;</span>)]
-    </span><span class="kw">fn </span>relief(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle;
+    </span><span class="kw">fn </span>relief(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle {
+        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_button_get_relief(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Returns whether an embedded underline in the button label indicates a
     /// mnemonic. See gtk_button_set_use_underline ().
@@ -4116,7 +4096,13 @@
     ///  indicates the mnemonic accelerator keys.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_get_use_underline&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_underline&quot;</span>)]
-    </span><span class="kw">fn </span>uses_underline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>uses_underline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_button_get_use_underline(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// If [`true`], the button will ignore the [`gtk-button-images`][struct@crate::Settings#gtk-button-images]
     /// setting and always show the image, if available.
@@ -4126,7 +4112,14 @@
     /// ## `always_show`
     /// [`true`] if the menuitem should always show the image
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_always_show_image&quot;</span>)]
-    </span><span class="kw">fn </span>set_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>, always_show: bool);
+    </span><span class="kw">fn </span>set_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>, always_show: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_set_always_show_image(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                always_show.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Set the image of `self` to the given widget. The image will be
     /// displayed if the label text is [`None`] or if
@@ -4135,14 +4128,28 @@
     /// ## `image`
     /// a widget to set as the image for the button, or [`None`] to unset
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_image&quot;</span>)]
-    </span><span class="kw">fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, image: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
+    </span><span class="kw">fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, image: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_set_image(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                image.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the position of the image relative to the text
     /// inside the button.
     /// ## `position`
     /// the position
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_image_position&quot;</span>)]
-    </span><span class="kw">fn </span>set_image_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType);
+    </span><span class="kw">fn </span>set_image_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_set_image_position(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                position.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the text of the label of the button to `str`. This text is
     /// also used to select the stock item if `gtk_button_set_use_stock()`
@@ -4152,7 +4159,11 @@
     /// ## `label`
     /// a string
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_label&quot;</span>)]
-    </span><span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_set_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, label.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the relief style of the edges of the given [`Button`][crate::Button] widget.
     /// Two styles exist, [`ReliefStyle::Normal`][crate::ReliefStyle::Normal] and [`ReliefStyle::None`][crate::ReliefStyle::None].
@@ -4162,140 +4173,18 @@
     /// ## `relief`
     /// The GtkReliefStyle as described above
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_relief&quot;</span>)]
-    </span><span class="kw">fn </span>set_relief(<span class="kw-2">&amp;</span><span class="self">self</span>, relief: ReliefStyle);
+    </span><span class="kw">fn </span>set_relief(<span class="kw-2">&amp;</span><span class="self">self</span>, relief: ReliefStyle) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_button_set_relief(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, relief.into_glib());
+        }
+    }
 
     <span class="doccomment">/// If true, an underline in the text of the button label indicates
     /// the next character should be used for the mnemonic accelerator key.
     /// ## `use_underline`
     /// [`true`] if underlines in the text indicate mnemonics
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_button_set_use_underline&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_underline(<span class="kw-2">&amp;</span><span class="self">self</span>, use_underline: bool);
-
-    <span class="doccomment">/// The ::activate signal on GtkButton is an action signal and
-    /// emitting it causes the button to animate press then release.
-    /// Applications should never connect to this signal, but use the
-    /// [`clicked`][struct@crate::Button#clicked] signal.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_activate(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Emitted when the button has been activated (pressed and released).
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;clicked&quot;</span>)]
-    </span><span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_clicked(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;always-show-image&quot;</span>)]
-    </span><span class="kw">fn </span>connect_always_show_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;image&quot;</span>)]
-    </span><span class="kw">fn </span>connect_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;image-position&quot;</span>)]
-    </span><span class="kw">fn </span>connect_image_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
-    </span><span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;relief&quot;</span>)]
-    </span><span class="kw">fn </span>connect_relief_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-underline&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_underline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Button&gt;&gt; ButtonExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_clicked(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>must_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_get_always_show_image(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>event_window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_button_get_event_window(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_button_get_image(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>image_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_get_image_position(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_button_get_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>relief(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_button_get_relief(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>uses_underline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_button_get_use_underline(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_always_show_image(<span class="kw-2">&amp;</span><span class="self">self</span>, always_show: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_set_always_show_image(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                always_show.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, image: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_set_image(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                image.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_image_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_set_image_position(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                position.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_set_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, label.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_relief(<span class="kw-2">&amp;</span><span class="self">self</span>, relief: ReliefStyle) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_button_set_relief(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, relief.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_use_underline(<span class="kw-2">&amp;</span><span class="self">self</span>, use_underline: bool) {
+    </span><span class="kw">fn </span>set_use_underline(<span class="kw-2">&amp;</span><span class="self">self</span>, use_underline: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_button_set_use_underline(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4304,7 +4193,12 @@
         }
     }
 
-    <span class="kw">fn </span>connect_activate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::activate signal on GtkButton is an action signal and
+    /// emitting it causes the button to animate press then release.
+    /// Applications should never connect to this signal, but use the
+    /// [`clicked`][struct@crate::Button#clicked] signal.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate&quot;</span>)]
+    </span><span class="kw">fn </span>connect_activate&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>activate_trampoline&lt;P: IsA&lt;Button&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkButton,
             f: glib::ffi::gpointer,
@@ -4329,7 +4223,9 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;activate&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the button has been activated (pressed and released).
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;clicked&quot;</span>)]
+    </span><span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>clicked_trampoline&lt;P: IsA&lt;Button&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkButton,
             f: glib::ffi::gpointer,
@@ -4354,7 +4250,8 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;clicked&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_always_show_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;always-show-image&quot;</span>)]
+    </span><span class="kw">fn </span>connect_always_show_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_always_show_image_trampoline&lt;
             P: IsA&lt;Button&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4379,7 +4276,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;image&quot;</span>)]
+    </span><span class="kw">fn </span>connect_image_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_image_trampoline&lt;P: IsA&lt;Button&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
@@ -4401,7 +4299,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_image_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;image-position&quot;</span>)]
+    </span><span class="kw">fn </span>connect_image_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_image_position_trampoline&lt;
             P: IsA&lt;Button&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4426,7 +4325,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
+    </span><span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_label_trampoline&lt;P: IsA&lt;Button&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
@@ -4448,7 +4348,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_relief_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;relief&quot;</span>)]
+    </span><span class="kw">fn </span>connect_relief_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_relief_trampoline&lt;P: IsA&lt;Button&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkButton,
             _param_spec: glib::ffi::gpointer,
@@ -4470,7 +4371,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_underline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-underline&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_underline_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_underline_trampoline&lt;
             P: IsA&lt;Button&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4495,6 +4397,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Button&gt;&gt; ButtonExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Button {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

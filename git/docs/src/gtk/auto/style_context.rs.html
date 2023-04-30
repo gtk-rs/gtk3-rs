@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><title>style_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1139,93 +1139,7 @@
 <a href="#1066" id="1066">1066</a>
 <a href="#1067" id="1067">1067</a>
 <a href="#1068" id="1068">1068</a>
-<a href="#1069" id="1069">1069</a>
-<a href="#1070" id="1070">1070</a>
-<a href="#1071" id="1071">1071</a>
-<a href="#1072" id="1072">1072</a>
-<a href="#1073" id="1073">1073</a>
-<a href="#1074" id="1074">1074</a>
-<a href="#1075" id="1075">1075</a>
-<a href="#1076" id="1076">1076</a>
-<a href="#1077" id="1077">1077</a>
-<a href="#1078" id="1078">1078</a>
-<a href="#1079" id="1079">1079</a>
-<a href="#1080" id="1080">1080</a>
-<a href="#1081" id="1081">1081</a>
-<a href="#1082" id="1082">1082</a>
-<a href="#1083" id="1083">1083</a>
-<a href="#1084" id="1084">1084</a>
-<a href="#1085" id="1085">1085</a>
-<a href="#1086" id="1086">1086</a>
-<a href="#1087" id="1087">1087</a>
-<a href="#1088" id="1088">1088</a>
-<a href="#1089" id="1089">1089</a>
-<a href="#1090" id="1090">1090</a>
-<a href="#1091" id="1091">1091</a>
-<a href="#1092" id="1092">1092</a>
-<a href="#1093" id="1093">1093</a>
-<a href="#1094" id="1094">1094</a>
-<a href="#1095" id="1095">1095</a>
-<a href="#1096" id="1096">1096</a>
-<a href="#1097" id="1097">1097</a>
-<a href="#1098" id="1098">1098</a>
-<a href="#1099" id="1099">1099</a>
-<a href="#1100" id="1100">1100</a>
-<a href="#1101" id="1101">1101</a>
-<a href="#1102" id="1102">1102</a>
-<a href="#1103" id="1103">1103</a>
-<a href="#1104" id="1104">1104</a>
-<a href="#1105" id="1105">1105</a>
-<a href="#1106" id="1106">1106</a>
-<a href="#1107" id="1107">1107</a>
-<a href="#1108" id="1108">1108</a>
-<a href="#1109" id="1109">1109</a>
-<a href="#1110" id="1110">1110</a>
-<a href="#1111" id="1111">1111</a>
-<a href="#1112" id="1112">1112</a>
-<a href="#1113" id="1113">1113</a>
-<a href="#1114" id="1114">1114</a>
-<a href="#1115" id="1115">1115</a>
-<a href="#1116" id="1116">1116</a>
-<a href="#1117" id="1117">1117</a>
-<a href="#1118" id="1118">1118</a>
-<a href="#1119" id="1119">1119</a>
-<a href="#1120" id="1120">1120</a>
-<a href="#1121" id="1121">1121</a>
-<a href="#1122" id="1122">1122</a>
-<a href="#1123" id="1123">1123</a>
-<a href="#1124" id="1124">1124</a>
-<a href="#1125" id="1125">1125</a>
-<a href="#1126" id="1126">1126</a>
-<a href="#1127" id="1127">1127</a>
-<a href="#1128" id="1128">1128</a>
-<a href="#1129" id="1129">1129</a>
-<a href="#1130" id="1130">1130</a>
-<a href="#1131" id="1131">1131</a>
-<a href="#1132" id="1132">1132</a>
-<a href="#1133" id="1133">1133</a>
-<a href="#1134" id="1134">1134</a>
-<a href="#1135" id="1135">1135</a>
-<a href="#1136" id="1136">1136</a>
-<a href="#1137" id="1137">1137</a>
-<a href="#1138" id="1138">1138</a>
-<a href="#1139" id="1139">1139</a>
-<a href="#1140" id="1140">1140</a>
-<a href="#1141" id="1141">1141</a>
-<a href="#1142" id="1142">1142</a>
-<a href="#1143" id="1143">1143</a>
-<a href="#1144" id="1144">1144</a>
-<a href="#1145" id="1145">1145</a>
-<a href="#1146" id="1146">1146</a>
-<a href="#1147" id="1147">1147</a>
-<a href="#1148" id="1148">1148</a>
-<a href="#1149" id="1149">1149</a>
-<a href="#1150" id="1150">1150</a>
-<a href="#1151" id="1151">1151</a>
-<a href="#1152" id="1152">1152</a>
-<a href="#1153" id="1153">1153</a>
-<a href="#1154" id="1154">1154</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -1499,7 +1413,7 @@
 /// # Implementors
 ///
 /// [`StyleContext`][struct@crate::StyleContext]
-</span><span class="kw">pub trait </span>StyleContextExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>StyleContextExt: IsA&lt;StyleContext&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a style class to `self`, so posterior calls to
     /// `gtk_style_context_get()` or any of the gtk_render_*()
     /// functions will make use of this new class for styling.
@@ -1527,7 +1441,14 @@
     /// ## `class_name`
     /// class name to use in styling
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_add_class&quot;</span>)]
-    </span><span class="kw">fn </span>add_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>add_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_add_class(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                class_name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Adds a style provider to `self`, to be used in style construction.
     /// Note that a style provider added by this function only affects
@@ -1547,7 +1468,15 @@
     ///  between `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK` and
     ///  `GTK_STYLE_PROVIDER_PRIORITY_USER`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_add_provider&quot;</span>)]
-    </span><span class="kw">fn </span>add_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;, priority: u32);
+    </span><span class="kw">fn </span>add_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;, priority: u32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_add_provider(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                provider.as_ref().to_glib_none().<span class="number">0</span>,
+                priority,
+            );
+        }
+    }
 
     <span class="doccomment">/// Gets the border for a given state as a [`Border`][crate::Border].
     ///
@@ -1563,7 +1492,17 @@
     /// return value for the border settings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_border&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_border&quot;</span>)]
-    </span><span class="kw">fn </span>border(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
+    </span><span class="kw">fn </span>border(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>border = Border::uninitialized();
+            ffi::gtk_style_context_get_border(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                state.into_glib(),
+                border.to_glib_none_mut().<span class="number">0</span>,
+            );
+            border
+        }
+    }
 
     <span class="doccomment">/// Gets the foreground color for a given state.
     ///
@@ -1579,7 +1518,17 @@
     /// return value for the foreground color
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_color&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_color&quot;</span>)]
-    </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; gdk::RGBA;
+    </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; gdk::RGBA {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::RGBA::uninitialized();
+            ffi::gtk_style_context_get_color(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                state.into_glib(),
+                color.to_glib_none_mut().<span class="number">0</span>,
+            );
+            color
+        }
+    }
 
     <span class="doccomment">/// Returns the [`gdk::FrameClock`][crate::gdk::FrameClock] to which `self` is attached.
     ///
@@ -1589,7 +1538,13 @@
     ///  if `self` does not have an attached frame clock.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_frame_clock&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_frame_clock&quot;</span>)]
-    </span><span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;;
+    </span><span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_style_context_get_frame_clock(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the sides where rendered elements connect visually with others.
     ///
@@ -1598,7 +1553,13 @@
     /// the junction sides
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_junction_sides&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_junction_sides&quot;</span>)]
-    </span><span class="kw">fn </span>junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; JunctionSides;
+    </span><span class="kw">fn </span>junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; JunctionSides {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_style_context_get_junction_sides(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the margin for a given state as a [`Border`][crate::Border].
     /// See `gtk_style_property_get()` and [`STYLE_PROPERTY_MARGIN`][crate::STYLE_PROPERTY_MARGIN]
@@ -1613,7 +1574,17 @@
     /// return value for the margin settings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin&quot;</span>)]
-    </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
+    </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>margin = Border::uninitialized();
+            ffi::gtk_style_context_get_margin(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                state.into_glib(),
+                margin.to_glib_none_mut().<span class="number">0</span>,
+            );
+            margin
+        }
+    }
 
     <span class="doccomment">/// Gets the padding for a given state as a [`Border`][crate::Border].
     /// See `gtk_style_context_get()` and [`STYLE_PROPERTY_PADDING`][crate::STYLE_PROPERTY_PADDING]
@@ -1628,7 +1599,17 @@
     /// return value for the padding settings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_padding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_padding&quot;</span>)]
-    </span><span class="kw">fn </span>padding(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border;
+    </span><span class="kw">fn </span>padding(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>padding = Border::uninitialized();
+            ffi::gtk_style_context_get_padding(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                state.into_glib(),
+                padding.to_glib_none_mut().<span class="number">0</span>,
+            );
+            padding
+        }
+    }
 
     <span class="doccomment">/// Gets the parent context set via [`set_parent()`][Self::set_parent()].
     /// See that function for details.
@@ -1639,7 +1620,13 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StyleContext&gt;;
+    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StyleContext&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_style_context_get_parent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the widget path used for style matching.
     ///
@@ -1648,7 +1635,13 @@
     /// A [`WidgetPath`][crate::WidgetPath]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_path&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_path&quot;</span>)]
-    </span><span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WidgetPath&gt;;
+    </span><span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WidgetPath&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_style_context_get_path(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets a style property from `self` for the given state.
     ///
@@ -1675,7 +1668,18 @@
     /// return location for the style property value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_property&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_property&quot;</span>)]
-    </span><span class="kw">fn </span>style_property_for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str, state: StateFlags) -&gt; glib::Value;
+    </span><span class="kw">fn </span>style_property_for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str, state: StateFlags) -&gt; glib::Value {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
+            ffi::gtk_style_context_get_property(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                property.to_glib_none().<span class="number">0</span>,
+                state.into_glib(),
+                value.to_glib_none_mut().<span class="number">0</span>,
+            );
+            value
+        }
+    }
 
     <span class="doccomment">/// Returns the scale used for assets.
     ///
@@ -1684,7 +1688,9 @@
     /// the scale
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_scale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale&quot;</span>)]
-    </span><span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_style_context_get_scale(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the [`gdk::Screen`][crate::gdk::Screen] to which `self` is attached.
     ///
@@ -1693,7 +1699,13 @@
     /// a [`gdk::Screen`][crate::gdk::Screen].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
-    </span><span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt;;
+    </span><span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_style_context_get_screen(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Queries the location in the CSS where `property` was defined for the
     /// current `self`. Note that the state to be queried is taken from
@@ -1716,7 +1728,14 @@
     /// for `property` was defined
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_section&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_section&quot;</span>)]
-    </span><span class="kw">fn </span>section(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;CssSection&gt;;
+    </span><span class="kw">fn </span>section(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;CssSection&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_style_context_get_section(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                property.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the state used for style matching.
     ///
@@ -1730,11 +1749,19 @@
     /// the state flags
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_state&quot;</span>)]
-    </span><span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StateFlags;
+    </span><span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StateFlags {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_style_context_get_state(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="comment">//#[doc(alias = &quot;gtk_style_context_get_style&quot;)]
     //#[doc(alias = &quot;get_style&quot;)]
-    //fn style(&amp;self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
+    //fn style(&amp;self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
+    //    unsafe { TODO: call ffi:gtk_style_context_get_style() }
+    //}
 
     </span><span class="doccomment">/// Gets the value for a widget style property.
     ///
@@ -1750,15 +1777,29 @@
     /// Return location for the property value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_get_style_property&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_style_property&quot;</span>)]
-    </span><span class="kw">fn </span>style_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span>str) -&gt; glib::Value;
+    </span><span class="kw">fn </span>style_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span>str) -&gt; glib::Value {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
+            ffi::gtk_style_context_get_style_property(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                property_name.to_glib_none().<span class="number">0</span>,
+                value.to_glib_none_mut().<span class="number">0</span>,
+            );
+            value
+        }
+    }
 
     <span class="comment">//#[doc(alias = &quot;gtk_style_context_get_style_valist&quot;)]
     //#[doc(alias = &quot;get_style_valist&quot;)]
-    //fn style_valist(&amp;self, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
+    //fn style_valist(&amp;self, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+    //    unsafe { TODO: call ffi:gtk_style_context_get_style_valist() }
+    //}
 
     //#[doc(alias = &quot;gtk_style_context_get_valist&quot;)]
     //#[doc(alias = &quot;get_valist&quot;)]
-    //fn valist(&amp;self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported);
+    //fn valist(&amp;self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+    //    unsafe { TODO: call ffi:gtk_style_context_get_valist() }
+    //}
 
     </span><span class="doccomment">/// Returns [`true`] if `self` currently has defined the
     /// given class name.
@@ -1769,7 +1810,14 @@
     ///
     /// [`true`] if `self` has `class_name` defined
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_has_class&quot;</span>)]
-    </span><span class="kw">fn </span>has_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) -&gt; bool;
+    </span><span class="kw">fn </span>has_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_style_context_has_class(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                class_name.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the list of classes currently defined in `self`.
     ///
@@ -1780,7 +1828,13 @@
     ///  of the list are owned by GTK+, but you must free the list
     ///  itself with `g_list_free()` when you are done with it.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_list_classes&quot;</span>)]
-    </span><span class="kw">fn </span>list_classes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>list_classes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_style_context_list_classes(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Looks up and resolves a color name in the `self` color map.
     /// ## `color_name`
@@ -1793,24 +1847,56 @@
     /// ## `color`
     /// Return location for the looked up color
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_lookup_color&quot;</span>)]
-    </span><span class="kw">fn </span>lookup_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt;;
+    </span><span class="kw">fn </span>lookup_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::RGBA::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_style_context_lookup_color(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                color_name.to_glib_none().<span class="number">0</span>,
+                color.to_glib_none_mut().<span class="number">0</span>,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>(color)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Removes `class_name` from `self`.
     /// ## `class_name`
     /// class name to remove
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_class&quot;</span>)]
-    </span><span class="kw">fn </span>remove_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>remove_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_remove_class(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                class_name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Removes `provider` from the style providers list in `self`.
     /// ## `provider`
     /// a [`StyleProvider`][crate::StyleProvider]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_remove_provider&quot;</span>)]
-    </span><span class="kw">fn </span>remove_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;);
+    </span><span class="kw">fn </span>remove_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_remove_provider(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                provider.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Restores `self` state to a previous stage.
     /// See [`save()`][Self::save()].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_restore&quot;</span>)]
-    </span><span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_restore(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Saves the `self` state, so temporary modifications done through
     /// [`add_class()`][Self::add_class()], [`remove_class()`][Self::remove_class()],
@@ -1820,7 +1906,11 @@
     /// The matching call to [`restore()`][Self::restore()] must be done
     /// before GTK returns to the main loop.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_save&quot;</span>)]
-    </span><span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_save(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Attaches `self` to the given frame clock.
     ///
@@ -1832,7 +1922,14 @@
     /// ## `frame_clock`
     /// a [`gdk::FrameClock`][crate::gdk::FrameClock]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_frame_clock&quot;</span>)]
-    </span><span class="kw">fn </span>set_frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_clock: <span class="kw-2">&amp;</span>gdk::FrameClock);
+    </span><span class="kw">fn </span>set_frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_clock: <span class="kw-2">&amp;</span>gdk::FrameClock) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_frame_clock(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                frame_clock.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the sides where rendered elements (mostly through
     /// [`render_frame()`][crate::render_frame()]) will visually connect with other visual elements.
@@ -1847,7 +1944,14 @@
     /// sides where rendered elements are visually connected to
     ///  other elements
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_junction_sides&quot;</span>)]
-    </span><span class="kw">fn </span>set_junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>, sides: JunctionSides);
+    </span><span class="kw">fn </span>set_junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>, sides: JunctionSides) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_junction_sides(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                sides.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the parent style context for `self`. The parent style
     /// context is used to implement
@@ -1859,7 +1963,14 @@
     /// ## `parent`
     /// the new parent or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_parent&quot;</span>)]
-    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;&gt;);
+    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_parent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                parent.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the [`WidgetPath`][crate::WidgetPath] used for style matching. As a
     /// consequence, the style will be regenerated to match
@@ -1871,13 +1982,21 @@
     /// ## `path`
     /// a [`WidgetPath`][crate::WidgetPath]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_path&quot;</span>)]
-    </span><span class="kw">fn </span>set_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>WidgetPath);
+    </span><span class="kw">fn </span>set_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>WidgetPath) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_path(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, path.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the scale to use when getting image assets for the style.
     /// ## `scale`
     /// scale
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_scale&quot;</span>)]
-    </span><span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: i32);
+    </span><span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_scale(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, scale);
+        }
+    }
 
     <span class="doccomment">/// Attaches `self` to the given screen.
     ///
@@ -1890,13 +2009,24 @@
     /// ## `screen`
     /// a [`gdk::Screen`][crate::gdk::Screen]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_screen&quot;</span>)]
-    </span><span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen);
+    </span><span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_screen(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                screen.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the state to be used for style matching.
     /// ## `flags`
     /// state to represent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_set_state&quot;</span>)]
-    </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags);
+    </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_style_context_set_state(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, flags.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Converts the style context into a string representation.
     ///
@@ -1915,325 +2045,7 @@
     ///
     /// a newly allocated string representing `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_style_context_to_string&quot;</span>)]
-    </span><span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StyleContextPrintFlags) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="kw">fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextDirection;
-
-    <span class="kw">fn </span>set_direction(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: TextDirection);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
-    </span><span class="kw">fn </span>paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
-    </span><span class="kw">fn </span>set_paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, paint_clock: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::FrameClock&gt;);
-
-    <span class="doccomment">/// The ::changed signal is emitted when there is a change in the
-    /// [`StyleContext`][crate::StyleContext].
-    ///
-    /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
-    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
-    ///
-    /// This signal is useful when using the theming layer standalone.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;direction&quot;</span>)]
-    </span><span class="kw">fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
-    </span><span class="kw">fn </span>connect_paint_clock_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;screen&quot;</span>)]
-    </span><span class="kw">fn </span>connect_screen_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;StyleContext&gt;&gt; StyleContextExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_add_class(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                class_name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>add_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;, priority: u32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_add_provider(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                provider.as_ref().to_glib_none().<span class="number">0</span>,
-                priority,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>border(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>border = Border::uninitialized();
-            ffi::gtk_style_context_get_border(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
-                border.to_glib_none_mut().<span class="number">0</span>,
-            );
-            border
-        }
-    }
-
-    <span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; gdk::RGBA {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::RGBA::uninitialized();
-            ffi::gtk_style_context_get_color(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
-                color.to_glib_none_mut().<span class="number">0</span>,
-            );
-            color
-        }
-    }
-
-    <span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_style_context_get_frame_clock(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; JunctionSides {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_style_context_get_junction_sides(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>margin = Border::uninitialized();
-            ffi::gtk_style_context_get_margin(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
-                margin.to_glib_none_mut().<span class="number">0</span>,
-            );
-            margin
-        }
-    }
-
-    <span class="kw">fn </span>padding(<span class="kw-2">&amp;</span><span class="self">self</span>, state: StateFlags) -&gt; Border {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>padding = Border::uninitialized();
-            ffi::gtk_style_context_get_padding(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
-                padding.to_glib_none_mut().<span class="number">0</span>,
-            );
-            padding
-        }
-    }
-
-    <span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StyleContext&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_style_context_get_parent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WidgetPath&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_style_context_get_path(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>style_property_for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str, state: StateFlags) -&gt; glib::Value {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
-            ffi::gtk_style_context_get_property(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                property.to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
-                value.to_glib_none_mut().<span class="number">0</span>,
-            );
-            value
-        }
-    }
-
-    <span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_style_context_get_scale(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Screen&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_style_context_get_screen(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>section(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;CssSection&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_style_context_get_section(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                property.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; StateFlags {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_style_context_get_state(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="comment">//fn style(&amp;self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_style_context_get_style() }
-    //}
-
-    </span><span class="kw">fn </span>style_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span>str) -&gt; glib::Value {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
-            ffi::gtk_style_context_get_style_property(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                property_name.to_glib_none().<span class="number">0</span>,
-                value.to_glib_none_mut().<span class="number">0</span>,
-            );
-            value
-        }
-    }
-
-    <span class="comment">//fn style_valist(&amp;self, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
-    //    unsafe { TODO: call ffi:gtk_style_context_get_style_valist() }
-    //}
-
-    //fn valist(&amp;self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
-    //    unsafe { TODO: call ffi:gtk_style_context_get_valist() }
-    //}
-
-    </span><span class="kw">fn </span>has_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_style_context_has_class(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                class_name.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>list_classes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_style_context_list_classes(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>lookup_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color_name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::RGBA&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::RGBA::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_style_context_lookup_color(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                color_name.to_glib_none().<span class="number">0</span>,
-                color.to_glib_none_mut().<span class="number">0</span>,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>(color)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>remove_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_remove_class(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                class_name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>remove_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleProvider&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_remove_provider(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                provider.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_restore(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_save(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_clock: <span class="kw-2">&amp;</span>gdk::FrameClock) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_frame_clock(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                frame_clock.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>, sides: JunctionSides) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_junction_sides(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                sides.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_parent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                parent.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>WidgetPath) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_path(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, path.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_scale(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, scale);
-        }
-    }
-
-    <span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::Screen) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_screen(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                screen.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StateFlags) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_style_context_set_state(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, flags.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StyleContextPrintFlags) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: StyleContextPrintFlags) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_style_context_to_string(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2250,15 +2062,25 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;direction&quot;</span>, direction)
     }
 
-    <span class="kw">fn </span>paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt; {
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    </span><span class="kw">fn </span>paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::FrameClock&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;paint-clock&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, paint_clock: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::FrameClock&gt;) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    </span><span class="kw">fn </span>set_paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, paint_clock: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::FrameClock&gt;) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;paint-clock&quot;</span>, paint_clock)
     }
 
-    <span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::changed signal is emitted when there is a change in the
+    /// [`StyleContext`][crate::StyleContext].
+    ///
+    /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
+    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
+    ///
+    /// This signal is useful when using the theming layer standalone.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>changed_trampoline&lt;P: IsA&lt;StyleContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkStyleContext,
             f: glib::ffi::gpointer,
@@ -2279,7 +2101,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;direction&quot;</span>)]
+    </span><span class="kw">fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_direction_trampoline&lt;
             P: IsA&lt;StyleContext&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2304,7 +2127,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_paint_clock_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;paint-clock&quot;</span>)]
+    </span><span class="kw">fn </span>connect_paint_clock_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_paint_clock_trampoline&lt;
             P: IsA&lt;StyleContext&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2329,7 +2153,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;parent&quot;</span>)]
+    </span><span class="kw">fn </span>connect_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_parent_trampoline&lt;P: IsA&lt;StyleContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
@@ -2351,7 +2176,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_screen_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;screen&quot;</span>)]
+    </span><span class="kw">fn </span>connect_screen_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_screen_trampoline&lt;P: IsA&lt;StyleContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkStyleContext,
             _param_spec: glib::ffi::gpointer,
@@ -2373,6 +2199,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;StyleContext&gt;&gt; StyleContextExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>StyleContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

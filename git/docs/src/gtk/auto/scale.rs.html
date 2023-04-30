@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scale.rs`."><title>scale.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/scale.rs`."><title>scale.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2192,41 +2192,7 @@
 <a href="#2119" id="2119">2119</a>
 <a href="#2120" id="2120">2120</a>
 <a href="#2121" id="2121">2121</a>
-<a href="#2122" id="2122">2122</a>
-<a href="#2123" id="2123">2123</a>
-<a href="#2124" id="2124">2124</a>
-<a href="#2125" id="2125">2125</a>
-<a href="#2126" id="2126">2126</a>
-<a href="#2127" id="2127">2127</a>
-<a href="#2128" id="2128">2128</a>
-<a href="#2129" id="2129">2129</a>
-<a href="#2130" id="2130">2130</a>
-<a href="#2131" id="2131">2131</a>
-<a href="#2132" id="2132">2132</a>
-<a href="#2133" id="2133">2133</a>
-<a href="#2134" id="2134">2134</a>
-<a href="#2135" id="2135">2135</a>
-<a href="#2136" id="2136">2136</a>
-<a href="#2137" id="2137">2137</a>
-<a href="#2138" id="2138">2138</a>
-<a href="#2139" id="2139">2139</a>
-<a href="#2140" id="2140">2140</a>
-<a href="#2141" id="2141">2141</a>
-<a href="#2142" id="2142">2142</a>
-<a href="#2143" id="2143">2143</a>
-<a href="#2144" id="2144">2144</a>
-<a href="#2145" id="2145">2145</a>
-<a href="#2146" id="2146">2146</a>
-<a href="#2147" id="2147">2147</a>
-<a href="#2148" id="2148">2148</a>
-<a href="#2149" id="2149">2149</a>
-<a href="#2150" id="2150">2150</a>
-<a href="#2151" id="2151">2151</a>
-<a href="#2152" id="2152">2152</a>
-<a href="#2153" id="2153">2153</a>
-<a href="#2154" id="2154">2154</a>
-<a href="#2155" id="2155">2155</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4002,7 +3968,7 @@
 /// # Implementors
 ///
 /// [`Scale`][struct@crate::Scale]
-</span><span class="kw">pub trait </span>ScaleExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ScaleExt: IsA&lt;Scale&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a mark at `value`.
     ///
     /// A mark is indicated visually by drawing a tick mark next to the scale,
@@ -4023,11 +3989,24 @@
     /// ## `markup`
     /// Text to be shown at the mark, using [Pango markup][PangoMarkupFormat], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_add_mark&quot;</span>)]
-    </span><span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64, position: PositionType, markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64, position: PositionType, markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_add_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                value,
+                position.into_glib(),
+                markup.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Removes any marks that have been added with [`add_mark()`][Self::add_mark()].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_clear_marks&quot;</span>)]
-    </span><span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_clear_marks(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Gets the number of decimal places that are displayed in the value.
     ///
@@ -4036,7 +4015,9 @@
     /// the number of decimal places that are displayed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_digits&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_digits&quot;</span>)]
-    </span><span class="kw">fn </span>digits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>digits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_scale_get_digits(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns whether the current value is displayed as a string
     /// next to the slider.
@@ -4046,7 +4027,13 @@
     /// whether the current value is displayed as a string
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_draw_value&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_draw_value&quot;</span>)]
-    </span><span class="kw">fn </span>draws_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>draws_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_scale_get_draw_value(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the scale has an origin.
     ///
@@ -4055,7 +4042,13 @@
     /// [`true`] if the scale has an origin.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_has_origin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_origin&quot;</span>)]
-    </span><span class="kw">fn </span>has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_scale_get_has_origin(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the [`pango::Layout`][crate::pango::Layout] used to display the scale. The returned
     /// object is owned by the scale so does not need to be freed by
@@ -4067,7 +4060,9 @@
     ///  or [`None`] if the [`draw-value`][struct@crate::Scale#draw-value] property is [`false`].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout&quot;</span>)]
-    </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Layout&gt;;
+    </span><span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Layout&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_scale_get_layout(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Obtains the coordinates where the scale will draw the
     /// [`pango::Layout`][crate::pango::Layout] representing the text in the scale. Remember
@@ -4087,7 +4082,18 @@
     /// location to store Y offset of layout, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_layout_offsets&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layout_offsets&quot;</span>)]
-    </span><span class="kw">fn </span>layout_offsets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
+    </span><span class="kw">fn </span>layout_offsets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
+            ffi::gtk_scale_get_layout_offsets(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
+            );
+            (x.assume_init(), y.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Gets the position in which the current value is displayed.
     ///
@@ -4096,7 +4102,9 @@
     /// the position in which the current value is displayed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_get_value_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_value_pos&quot;</span>)]
-    </span><span class="kw">fn </span>value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType;
+    </span><span class="kw">fn </span>value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
+        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_scale_get_value_pos(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Sets the number of decimal places that are displayed in the value. Also
     /// causes the value of the adjustment to be rounded to this number of digits,
@@ -4112,14 +4120,22 @@
     /// the number of decimal places to display,
     ///  e.g. use 1 to display 1.0, 2 to display 1.00, etc
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_set_digits&quot;</span>)]
-    </span><span class="kw">fn </span>set_digits(<span class="kw-2">&amp;</span><span class="self">self</span>, digits: i32);
+    </span><span class="kw">fn </span>set_digits(<span class="kw-2">&amp;</span><span class="self">self</span>, digits: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_set_digits(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, digits);
+        }
+    }
 
     <span class="doccomment">/// Specifies whether the current value is displayed as a string next
     /// to the slider.
     /// ## `draw_value`
     /// [`true`] to draw the value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_set_draw_value&quot;</span>)]
-    </span><span class="kw">fn </span>set_draw_value(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_value: bool);
+    </span><span class="kw">fn </span>set_draw_value(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_value: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_set_draw_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, draw_value.into_glib());
+        }
+    }
 
     <span class="doccomment">/// If [`has-origin`][struct@crate::Scale#has-origin] is set to [`true`] (the default), the scale will
     /// highlight the part of the trough between the origin (bottom or left side)
@@ -4127,13 +4143,21 @@
     /// ## `has_origin`
     /// [`true`] if the scale has an origin
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_set_has_origin&quot;</span>)]
-    </span><span class="kw">fn </span>set_has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>, has_origin: bool);
+    </span><span class="kw">fn </span>set_has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>, has_origin: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_set_has_origin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, has_origin.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Sets the position in which the current value is displayed.
     /// ## `pos`
     /// the position in which the current value is displayed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_scale_set_value_pos&quot;</span>)]
-    </span><span class="kw">fn </span>set_value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, pos: PositionType);
+    </span><span class="kw">fn </span>set_value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, pos: PositionType) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_scale_set_value_pos(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, pos.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Signal which allows you to change how the scale value is displayed.
     /// Connect a signal handler which returns an allocated string representing
@@ -4164,105 +4188,7 @@
     ///
     /// allocated string representing `value`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;format-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_format_value&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) -&gt; String + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;digits&quot;</span>)]
-    </span><span class="kw">fn </span>connect_digits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_draw_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-origin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_origin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;value-pos&quot;</span>)]
-    </span><span class="kw">fn </span>connect_value_pos_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Scale&gt;&gt; ScaleExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64, position: PositionType, markup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_add_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                value,
-                position.into_glib(),
-                markup.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_clear_marks(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>digits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_scale_get_digits(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>draws_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_scale_get_draw_value(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_scale_get_has_origin(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::Layout&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_scale_get_layout(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>layout_offsets(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
-            ffi::gtk_scale_get_layout_offsets(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x.as_mut_ptr(),
-                y.as_mut_ptr(),
-            );
-            (x.assume_init(), y.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_scale_get_value_pos(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>set_digits(<span class="kw-2">&amp;</span><span class="self">self</span>, digits: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_set_digits(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, digits);
-        }
-    }
-
-    <span class="kw">fn </span>set_draw_value(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_value: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_set_draw_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, draw_value.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_has_origin(<span class="kw-2">&amp;</span><span class="self">self</span>, has_origin: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_set_has_origin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, has_origin.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_value_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, pos: PositionType) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_scale_set_value_pos(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, pos.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>connect_format_value&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) -&gt; String + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_format_value&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, f64) -&gt; String + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>format_value_trampoline&lt;
             P: IsA&lt;Scale&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, f64) -&gt; String + <span class="lifetime">&#39;static</span>,
@@ -4287,7 +4213,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_digits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;digits&quot;</span>)]
+    </span><span class="kw">fn </span>connect_digits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_digits_trampoline&lt;P: IsA&lt;Scale&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScale,
             _param_spec: glib::ffi::gpointer,
@@ -4309,7 +4236,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_draw_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_draw_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_draw_value_trampoline&lt;P: IsA&lt;Scale&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScale,
             _param_spec: glib::ffi::gpointer,
@@ -4331,7 +4259,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_origin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-origin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_origin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_origin_trampoline&lt;P: IsA&lt;Scale&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScale,
             _param_spec: glib::ffi::gpointer,
@@ -4353,7 +4282,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_value_pos_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;value-pos&quot;</span>)]
+    </span><span class="kw">fn </span>connect_value_pos_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_value_pos_trampoline&lt;P: IsA&lt;Scale&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkScale,
             _param_spec: glib::ffi::gpointer,
@@ -4375,6 +4305,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Scale&gt;&gt; ScaleExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Scale {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

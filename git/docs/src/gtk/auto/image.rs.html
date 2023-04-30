@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/image.rs`."><title>image.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/image.rs`."><title>image.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1306,86 +1306,7 @@
 <a href="#1233" id="1233">1233</a>
 <a href="#1234" id="1234">1234</a>
 <a href="#1235" id="1235">1235</a>
-<a href="#1236" id="1236">1236</a>
-<a href="#1237" id="1237">1237</a>
-<a href="#1238" id="1238">1238</a>
-<a href="#1239" id="1239">1239</a>
-<a href="#1240" id="1240">1240</a>
-<a href="#1241" id="1241">1241</a>
-<a href="#1242" id="1242">1242</a>
-<a href="#1243" id="1243">1243</a>
-<a href="#1244" id="1244">1244</a>
-<a href="#1245" id="1245">1245</a>
-<a href="#1246" id="1246">1246</a>
-<a href="#1247" id="1247">1247</a>
-<a href="#1248" id="1248">1248</a>
-<a href="#1249" id="1249">1249</a>
-<a href="#1250" id="1250">1250</a>
-<a href="#1251" id="1251">1251</a>
-<a href="#1252" id="1252">1252</a>
-<a href="#1253" id="1253">1253</a>
-<a href="#1254" id="1254">1254</a>
-<a href="#1255" id="1255">1255</a>
-<a href="#1256" id="1256">1256</a>
-<a href="#1257" id="1257">1257</a>
-<a href="#1258" id="1258">1258</a>
-<a href="#1259" id="1259">1259</a>
-<a href="#1260" id="1260">1260</a>
-<a href="#1261" id="1261">1261</a>
-<a href="#1262" id="1262">1262</a>
-<a href="#1263" id="1263">1263</a>
-<a href="#1264" id="1264">1264</a>
-<a href="#1265" id="1265">1265</a>
-<a href="#1266" id="1266">1266</a>
-<a href="#1267" id="1267">1267</a>
-<a href="#1268" id="1268">1268</a>
-<a href="#1269" id="1269">1269</a>
-<a href="#1270" id="1270">1270</a>
-<a href="#1271" id="1271">1271</a>
-<a href="#1272" id="1272">1272</a>
-<a href="#1273" id="1273">1273</a>
-<a href="#1274" id="1274">1274</a>
-<a href="#1275" id="1275">1275</a>
-<a href="#1276" id="1276">1276</a>
-<a href="#1277" id="1277">1277</a>
-<a href="#1278" id="1278">1278</a>
-<a href="#1279" id="1279">1279</a>
-<a href="#1280" id="1280">1280</a>
-<a href="#1281" id="1281">1281</a>
-<a href="#1282" id="1282">1282</a>
-<a href="#1283" id="1283">1283</a>
-<a href="#1284" id="1284">1284</a>
-<a href="#1285" id="1285">1285</a>
-<a href="#1286" id="1286">1286</a>
-<a href="#1287" id="1287">1287</a>
-<a href="#1288" id="1288">1288</a>
-<a href="#1289" id="1289">1289</a>
-<a href="#1290" id="1290">1290</a>
-<a href="#1291" id="1291">1291</a>
-<a href="#1292" id="1292">1292</a>
-<a href="#1293" id="1293">1293</a>
-<a href="#1294" id="1294">1294</a>
-<a href="#1295" id="1295">1295</a>
-<a href="#1296" id="1296">1296</a>
-<a href="#1297" id="1297">1297</a>
-<a href="#1298" id="1298">1298</a>
-<a href="#1299" id="1299">1299</a>
-<a href="#1300" id="1300">1300</a>
-<a href="#1301" id="1301">1301</a>
-<a href="#1302" id="1302">1302</a>
-<a href="#1303" id="1303">1303</a>
-<a href="#1304" id="1304">1304</a>
-<a href="#1305" id="1305">1305</a>
-<a href="#1306" id="1306">1306</a>
-<a href="#1307" id="1307">1307</a>
-<a href="#1308" id="1308">1308</a>
-<a href="#1309" id="1309">1309</a>
-<a href="#1310" id="1310">1310</a>
-<a href="#1311" id="1311">1311</a>
-<a href="#1312" id="1312">1312</a>
-<a href="#1313" id="1313">1313</a>
-<a href="#1314" id="1314">1314</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -2090,10 +2011,14 @@
 /// # Implementors
 ///
 /// [`Image`][struct@crate::Image]
-</span><span class="kw">pub trait </span>ImageExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ImageExt: IsA&lt;Image&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Resets the image to be empty.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_clear&quot;</span>)]
-    </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_image_clear(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Gets the [`gdk_pixbuf::PixbufAnimation`][crate::gdk_pixbuf::PixbufAnimation] being displayed by the [`Image`][crate::Image].
     /// The storage type of the image must be [`ImageType::Empty`][crate::ImageType::Empty] or
@@ -2107,7 +2032,9 @@
     /// the image is empty
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_get_animation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_animation&quot;</span>)]
-    </span><span class="kw">fn </span>animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt;;
+    </span><span class="kw">fn </span>animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_image_get_animation(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the [`gio::Icon`][crate::gio::Icon] and size being displayed by the [`Image`][crate::Image].
     /// The storage type of the image must be [`ImageType::Empty`][crate::ImageType::Empty] or
@@ -2127,7 +2054,18 @@
     ///  ([`IconSize`][crate::IconSize]), or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_get_gicon&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_gicon&quot;</span>)]
-    </span><span class="kw">fn </span>gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (gio::Icon, IconSize);
+    </span><span class="kw">fn </span>gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (gio::Icon, IconSize) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>gicon = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>size = mem::MaybeUninit::uninit();
+            ffi::gtk_image_get_gicon(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>gicon,
+                size.as_mut_ptr(),
+            );
+            (from_glib_none(gicon), from_glib(size.assume_init()))
+        }
+    }
 
     <span class="doccomment">/// Gets the [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] being displayed by the [`Image`][crate::Image].
     /// The storage type of the image must be [`ImageType::Empty`][crate::ImageType::Empty] or
@@ -2141,7 +2079,9 @@
     /// the image is empty
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_get_pixbuf&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixbuf&quot;</span>)]
-    </span><span class="kw">fn </span>pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt;;
+    </span><span class="kw">fn </span>pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_image_get_pixbuf(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the pixel size used for named icons.
     ///
@@ -2150,7 +2090,9 @@
     /// the pixel size used for named icons.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_get_pixel_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixel_size&quot;</span>)]
-    </span><span class="kw">fn </span>pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_image_get_pixel_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the type of representation being used by the [`Image`][crate::Image]
     /// to store image data. If the [`Image`][crate::Image] has no image data,
@@ -2161,181 +2103,7 @@
     /// image representation being used
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_get_storage_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_storage_type&quot;</span>)]
-    </span><span class="kw">fn </span>storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageType;
-
-    <span class="doccomment">/// Causes the [`Image`][crate::Image] to display the given animation (or display
-    /// nothing, if you set the animation to [`None`]).
-    /// ## `animation`
-    /// the [`gdk_pixbuf::PixbufAnimation`][crate::gdk_pixbuf::PixbufAnimation]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_animation&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_animation(<span class="kw-2">&amp;</span><span class="self">self</span>, animation: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gdk_pixbuf::PixbufAnimation&gt;);
-
-    <span class="doccomment">/// See [`Image::from_file()`][crate::Image::from_file()] for details.
-    /// ## `filename`
-    /// a filename or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_file&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_file(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="prelude-ty">Option</span>&lt;<span class="kw">impl </span>AsRef&lt;std::path::Path&gt;&gt;);
-
-    <span class="doccomment">/// See [`Image::from_gicon()`][crate::Image::from_gicon()] for details.
-    /// ## `icon`
-    /// an icon
-    /// ## `size`
-    /// an icon size ([`IconSize`][crate::IconSize])
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_gicon&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;, size: IconSize);
-
-    <span class="doccomment">/// See [`Image::from_icon_name()`][crate::Image::from_icon_name()] for details.
-    /// ## `icon_name`
-    /// an icon name or [`None`]
-    /// ## `size`
-    /// an icon size ([`IconSize`][crate::IconSize])
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_icon_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, size: IconSize);
-
-    <span class="doccomment">/// See [`Image::from_pixbuf()`][crate::Image::from_pixbuf()] for details.
-    /// ## `pixbuf`
-    /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_pixbuf&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;);
-
-    <span class="doccomment">/// See [`Image::from_resource()`][crate::Image::from_resource()] for details.
-    /// ## `resource_path`
-    /// a resource path or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_resource&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource_path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// See [`Image::from_surface()`][crate::Image::from_surface()] for details.
-    /// ## `surface`
-    /// a cairo_surface_t or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_surface&quot;</span>)]
-    </span><span class="kw">fn </span>set_from_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Surface&gt;);
-
-    <span class="doccomment">/// Sets the pixel size to use for named icons. If the pixel size is set
-    /// to a value != -1, it is used instead of the icon size set by
-    /// [`set_from_icon_name()`][Self::set_from_icon_name()].
-    /// ## `pixel_size`
-    /// the new pixel size
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_pixel_size&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>, pixel_size: i32);
-
-    <span class="kw">fn </span>file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="kw">fn </span>set_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// The GIcon displayed in the GtkImage. For themed icons,
-    /// If the icon theme is changed, the image will be updated
-    /// automatically.
-    </span><span class="kw">fn </span>set_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;);
-
-    <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
-    /// changed, the image will be updated automatically.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
-    </span><span class="kw">fn </span>icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
-    /// changed, the image will be updated automatically.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
-    </span><span class="kw">fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="kw">fn </span>set_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
-    </span><span class="kw">fn </span>pixbuf_animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixbuf_animation&lt;P: IsA&lt;gdk_pixbuf::PixbufAnimation&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        pixbuf_animation: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
-    );
-
-    <span class="doccomment">/// A path to a resource file to display.
-    </span><span class="kw">fn </span>resource(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="doccomment">/// A path to a resource file to display.
-    </span><span class="kw">fn </span>set_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="kw">fn </span>surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt;;
-
-    <span class="kw">fn </span>set_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Surface&gt;);
-
-    <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
-    /// standard icon names fallback. The value of this property
-    /// is only relevant for images of type [`ImageType::IconName`][crate::ImageType::IconName]
-    /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
-    </span><span class="kw">fn </span>uses_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
-    /// standard icon names fallback. The value of this property
-    /// is only relevant for images of type [`ImageType::IconName`][crate::ImageType::IconName]
-    /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>, use_fallback: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;file&quot;</span>)]
-    </span><span class="kw">fn </span>connect_file_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gicon&quot;</span>)]
-    </span><span class="kw">fn </span>connect_gicon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixbuf_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixbuf_animation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixel-size&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixel_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;resource&quot;</span>)]
-    </span><span class="kw">fn </span>connect_resource_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;storage-type&quot;</span>)]
-    </span><span class="kw">fn </span>connect_storage_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;surface&quot;</span>)]
-    </span><span class="kw">fn </span>connect_surface_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_fallback_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Image&gt;&gt; ImageExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_image_clear(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_image_get_animation(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>gicon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (gio::Icon, IconSize) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>gicon = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>size = mem::MaybeUninit::uninit();
-            ffi::gtk_image_get_gicon(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>gicon,
-                size.as_mut_ptr(),
-            );
-            (from_glib_none(gicon), from_glib(size.assume_init()))
-        }
-    }
-
-    <span class="kw">fn </span>pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::Pixbuf&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_image_get_pixbuf(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_image_get_pixel_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageType {
+    </span><span class="kw">fn </span>storage_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ImageType {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_image_get_storage_type(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2343,7 +2111,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_animation(<span class="kw-2">&amp;</span><span class="self">self</span>, animation: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gdk_pixbuf::PixbufAnimation&gt;) {
+    <span class="doccomment">/// Causes the [`Image`][crate::Image] to display the given animation (or display
+    /// nothing, if you set the animation to [`None`]).
+    /// ## `animation`
+    /// the [`gdk_pixbuf::PixbufAnimation`][crate::gdk_pixbuf::PixbufAnimation]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_animation&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_animation(<span class="kw-2">&amp;</span><span class="self">self</span>, animation: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gdk_pixbuf::PixbufAnimation&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_animation(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2352,7 +2125,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_file(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="prelude-ty">Option</span>&lt;<span class="kw">impl </span>AsRef&lt;std::path::Path&gt;&gt;) {
+    <span class="doccomment">/// See [`Image::from_file()`][crate::Image::from_file()] for details.
+    /// ## `filename`
+    /// a filename or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_file&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_file(<span class="kw-2">&amp;</span><span class="self">self</span>, filename: <span class="prelude-ty">Option</span>&lt;<span class="kw">impl </span>AsRef&lt;std::path::Path&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_file(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2361,7 +2138,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;, size: IconSize) {
+    <span class="doccomment">/// See [`Image::from_gicon()`][crate::Image::from_gicon()] for details.
+    /// ## `icon`
+    /// an icon
+    /// ## `size`
+    /// an icon size ([`IconSize`][crate::IconSize])
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_gicon&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_gicon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::Icon&gt;, size: IconSize) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_gicon(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2371,7 +2154,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, size: IconSize) {
+    <span class="doccomment">/// See [`Image::from_icon_name()`][crate::Image::from_icon_name()] for details.
+    /// ## `icon_name`
+    /// an icon name or [`None`]
+    /// ## `size`
+    /// an icon size ([`IconSize`][crate::IconSize])
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_icon_name&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, size: IconSize) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_icon_name(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2381,13 +2170,21 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) {
+    <span class="doccomment">/// See [`Image::from_pixbuf()`][crate::Image::from_pixbuf()] for details.
+    /// ## `pixbuf`
+    /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_pixbuf&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_pixbuf(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, pixbuf.to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_from_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource_path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// See [`Image::from_resource()`][crate::Image::from_resource()] for details.
+    /// ## `resource_path`
+    /// a resource path or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_resource&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource_path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_resource(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2396,7 +2193,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_from_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Surface&gt;) {
+    <span class="doccomment">/// See [`Image::from_surface()`][crate::Image::from_surface()] for details.
+    /// ## `surface`
+    /// a cairo_surface_t or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_from_surface&quot;</span>)]
+    </span><span class="kw">fn </span>set_from_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Surface&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_from_surface(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2405,7 +2206,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>, pixel_size: i32) {
+    <span class="doccomment">/// Sets the pixel size to use for named icons. If the pixel size is set
+    /// to a value != -1, it is used instead of the icon size set by
+    /// [`set_from_icon_name()`][Self::set_from_icon_name()].
+    /// ## `pixel_size`
+    /// the new pixel size
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_set_pixel_size&quot;</span>)]
+    </span><span class="kw">fn </span>set_pixel_size(<span class="kw-2">&amp;</span><span class="self">self</span>, pixel_size: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_image_set_pixel_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, pixel_size);
         }
@@ -2419,15 +2226,24 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;file&quot;</span>, file)
     }
 
-    <span class="kw">fn </span>set_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+    <span class="doccomment">/// The GIcon displayed in the GtkImage. For themed icons,
+    /// If the icon theme is changed, the image will be updated
+    /// automatically.
+    </span><span class="kw">fn </span>set_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gicon&quot;</span>, gicon)
     }
 
-    <span class="kw">fn </span>icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
+    /// changed, the image will be updated automatically.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
+    </span><span class="kw">fn </span>icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
+    /// changed, the image will be updated automatically.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
+    </span><span class="kw">fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>, icon_name)
     }
 
@@ -2435,22 +2251,26 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf&quot;</span>, pixbuf)
     }
 
-    <span class="kw">fn </span>pixbuf_animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt; {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
+    </span><span class="kw">fn </span>pixbuf_animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_pixbuf_animation&lt;P: IsA&lt;gdk_pixbuf::PixbufAnimation&gt;&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
+    </span><span class="kw">fn </span>set_pixbuf_animation&lt;P: IsA&lt;gdk_pixbuf::PixbufAnimation&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         pixbuf_animation: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
     ) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>, pixbuf_animation)
     }
 
-    <span class="kw">fn </span>resource(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// A path to a resource file to display.
+    </span><span class="kw">fn </span>resource(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// A path to a resource file to display.
+    </span><span class="kw">fn </span>set_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>, resource)
     }
 
@@ -2462,15 +2282,26 @@
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;surface&quot;</span>, surface)
     }
 
-    <span class="kw">fn </span>uses_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
+    /// standard icon names fallback. The value of this property
+    /// is only relevant for images of type [`ImageType::IconName`][crate::ImageType::IconName]
+    /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
+    </span><span class="kw">fn </span>uses_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_use_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>, use_fallback: bool) {
+    <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
+    /// standard icon names fallback. The value of this property
+    /// is only relevant for images of type [`ImageType::IconName`][crate::ImageType::IconName]
+    /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
+    </span><span class="kw">fn </span>set_use_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>, use_fallback: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>, use_fallback)
     }
 
-    <span class="kw">fn </span>connect_file_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;file&quot;</span>)]
+    </span><span class="kw">fn </span>connect_file_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_file_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2492,7 +2323,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_gicon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;gicon&quot;</span>)]
+    </span><span class="kw">fn </span>connect_gicon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_gicon_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2514,7 +2346,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
+    </span><span class="kw">fn </span>connect_icon_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icon_name_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2536,7 +2369,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixbuf_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixbuf_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixbuf_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2558,7 +2392,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixbuf_animation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixbuf_animation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixbuf_animation_trampoline&lt;
             P: IsA&lt;Image&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2583,7 +2418,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixel_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixel-size&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixel_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixel_size_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2605,7 +2441,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_resource_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;resource&quot;</span>)]
+    </span><span class="kw">fn </span>connect_resource_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_resource_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2627,7 +2464,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_storage_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;storage-type&quot;</span>)]
+    </span><span class="kw">fn </span>connect_storage_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_storage_type_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2649,7 +2487,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_surface_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;surface&quot;</span>)]
+    </span><span class="kw">fn </span>connect_surface_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_surface_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2671,7 +2510,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_fallback_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_fallback_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_fallback_trampoline&lt;P: IsA&lt;Image&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkImage,
             _param_spec: glib::ffi::gpointer,
@@ -2693,6 +2533,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Image&gt;&gt; ImageExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Image {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

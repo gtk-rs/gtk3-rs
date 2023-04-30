@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/assistant.rs`."><title>assistant.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/assistant.rs`."><title>assistant.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2728,83 +2728,7 @@
 <a href="#2655" id="2655">2655</a>
 <a href="#2656" id="2656">2656</a>
 <a href="#2657" id="2657">2657</a>
-<a href="#2658" id="2658">2658</a>
-<a href="#2659" id="2659">2659</a>
-<a href="#2660" id="2660">2660</a>
-<a href="#2661" id="2661">2661</a>
-<a href="#2662" id="2662">2662</a>
-<a href="#2663" id="2663">2663</a>
-<a href="#2664" id="2664">2664</a>
-<a href="#2665" id="2665">2665</a>
-<a href="#2666" id="2666">2666</a>
-<a href="#2667" id="2667">2667</a>
-<a href="#2668" id="2668">2668</a>
-<a href="#2669" id="2669">2669</a>
-<a href="#2670" id="2670">2670</a>
-<a href="#2671" id="2671">2671</a>
-<a href="#2672" id="2672">2672</a>
-<a href="#2673" id="2673">2673</a>
-<a href="#2674" id="2674">2674</a>
-<a href="#2675" id="2675">2675</a>
-<a href="#2676" id="2676">2676</a>
-<a href="#2677" id="2677">2677</a>
-<a href="#2678" id="2678">2678</a>
-<a href="#2679" id="2679">2679</a>
-<a href="#2680" id="2680">2680</a>
-<a href="#2681" id="2681">2681</a>
-<a href="#2682" id="2682">2682</a>
-<a href="#2683" id="2683">2683</a>
-<a href="#2684" id="2684">2684</a>
-<a href="#2685" id="2685">2685</a>
-<a href="#2686" id="2686">2686</a>
-<a href="#2687" id="2687">2687</a>
-<a href="#2688" id="2688">2688</a>
-<a href="#2689" id="2689">2689</a>
-<a href="#2690" id="2690">2690</a>
-<a href="#2691" id="2691">2691</a>
-<a href="#2692" id="2692">2692</a>
-<a href="#2693" id="2693">2693</a>
-<a href="#2694" id="2694">2694</a>
-<a href="#2695" id="2695">2695</a>
-<a href="#2696" id="2696">2696</a>
-<a href="#2697" id="2697">2697</a>
-<a href="#2698" id="2698">2698</a>
-<a href="#2699" id="2699">2699</a>
-<a href="#2700" id="2700">2700</a>
-<a href="#2701" id="2701">2701</a>
-<a href="#2702" id="2702">2702</a>
-<a href="#2703" id="2703">2703</a>
-<a href="#2704" id="2704">2704</a>
-<a href="#2705" id="2705">2705</a>
-<a href="#2706" id="2706">2706</a>
-<a href="#2707" id="2707">2707</a>
-<a href="#2708" id="2708">2708</a>
-<a href="#2709" id="2709">2709</a>
-<a href="#2710" id="2710">2710</a>
-<a href="#2711" id="2711">2711</a>
-<a href="#2712" id="2712">2712</a>
-<a href="#2713" id="2713">2713</a>
-<a href="#2714" id="2714">2714</a>
-<a href="#2715" id="2715">2715</a>
-<a href="#2716" id="2716">2716</a>
-<a href="#2717" id="2717">2717</a>
-<a href="#2718" id="2718">2718</a>
-<a href="#2719" id="2719">2719</a>
-<a href="#2720" id="2720">2720</a>
-<a href="#2721" id="2721">2721</a>
-<a href="#2722" id="2722">2722</a>
-<a href="#2723" id="2723">2723</a>
-<a href="#2724" id="2724">2724</a>
-<a href="#2725" id="2725">2725</a>
-<a href="#2726" id="2726">2726</a>
-<a href="#2727" id="2727">2727</a>
-<a href="#2728" id="2728">2728</a>
-<a href="#2729" id="2729">2729</a>
-<a href="#2730" id="2730">2730</a>
-<a href="#2731" id="2731">2731</a>
-<a href="#2732" id="2732">2732</a>
-<a href="#2733" id="2733">2733</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4827,12 +4751,19 @@
 /// # Implementors
 ///
 /// [`Assistant`][struct@crate::Assistant]
-</span><span class="kw">pub trait </span>AssistantExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>AssistantExt: IsA&lt;Assistant&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a widget to the action area of a [`Assistant`][crate::Assistant].
     /// ## `child`
     /// a [`Widget`][crate::Widget]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_add_action_widget&quot;</span>)]
-    </span><span class="kw">fn </span>add_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
+    </span><span class="kw">fn </span>add_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_add_action_widget(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Appends a page to the `self`.
     /// ## `page`
@@ -4842,7 +4773,14 @@
     ///
     /// the index (starting at 0) of the inserted page
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_append_page&quot;</span>)]
-    </span><span class="kw">fn </span>append_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32;
+    </span><span class="kw">fn </span>append_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_append_page(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            )
+        }
+    }
 
     <span class="doccomment">/// Erases the visited page history so the back button is not
     /// shown on the current page, and removes the cancel button
@@ -4854,7 +4792,11 @@
     /// a long-running, unreversible operation after the user has
     /// clicked apply on a confirmation page.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_commit&quot;</span>)]
-    </span><span class="kw">fn </span>commit(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>commit(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_commit(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Returns the page number of the current page.
     ///
@@ -4865,7 +4807,9 @@
     ///  or no current page.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_current_page&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_page&quot;</span>)]
-    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_assistant_get_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the number of pages in the `self`
     ///
@@ -4874,7 +4818,9 @@
     /// the number of pages in the `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_n_pages&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_pages&quot;</span>)]
-    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_assistant_get_n_pages(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the child widget contained in page number `page_num`.
     /// ## `page_num`
@@ -4887,7 +4833,14 @@
     ///  if `page_num` is out of bounds
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_nth_page&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_nth_page&quot;</span>)]
-    </span><span class="kw">fn </span>nth_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>nth_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_assistant_get_nth_page(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page_num,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets whether `page` is complete.
     /// ## `page`
@@ -4898,7 +4851,14 @@
     /// [`true`] if `page` is complete.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_page_complete&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_complete&quot;</span>)]
-    </span><span class="kw">fn </span>page_is_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>page_is_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_assistant_get_page_complete(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets whether page has padding.
     /// ## `page`
@@ -4909,7 +4869,14 @@
     /// [`true`] if `page` has padding
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_page_has_padding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_has_padding&quot;</span>)]
-    </span><span class="kw">fn </span>page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_assistant_get_page_has_padding(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the title for `page`.
     /// ## `page`
@@ -4920,7 +4887,14 @@
     /// the title for `page`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_page_title&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_title&quot;</span>)]
-    </span><span class="kw">fn </span>page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_assistant_get_page_title(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the page type of `page`.
     /// ## `page`
@@ -4931,7 +4905,14 @@
     /// the page type of `page`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_get_page_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_type&quot;</span>)]
-    </span><span class="kw">fn </span>page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; AssistantPageType;
+    </span><span class="kw">fn </span>page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; AssistantPageType {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_assistant_get_page_type(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Inserts a page in the `self` at a given position.
     /// ## `page`
@@ -4944,7 +4925,15 @@
     ///
     /// the index (starting from 0) of the inserted page
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_insert_page&quot;</span>)]
-    </span><span class="kw">fn </span>insert_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) -&gt; i32;
+    </span><span class="kw">fn </span>insert_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_insert_page(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+                position,
+            )
+        }
+    }
 
     <span class="doccomment">/// Navigate to the next page.
     ///
@@ -4954,7 +4943,11 @@
     /// This function is for use when creating pages of the
     /// [`AssistantPageType::Custom`][crate::AssistantPageType::Custom] type.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_next_page&quot;</span>)]
-    </span><span class="kw">fn </span>next_page(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>next_page(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_next_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Prepends a page to the `self`.
     /// ## `page`
@@ -4964,7 +4957,14 @@
     ///
     /// the index (starting at 0) of the inserted page
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_prepend_page&quot;</span>)]
-    </span><span class="kw">fn </span>prepend_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32;
+    </span><span class="kw">fn </span>prepend_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_prepend_page(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                page.as_ref().to_glib_none().<span class="number">0</span>,
+            )
+        }
+    }
 
     <span class="doccomment">/// Navigate to the previous visited page.
     ///
@@ -4974,20 +4974,35 @@
     /// This function is for use when creating pages of the
     /// [`AssistantPageType::Custom`][crate::AssistantPageType::Custom] type.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_previous_page&quot;</span>)]
-    </span><span class="kw">fn </span>previous_page(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>previous_page(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_previous_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Removes a widget from the action area of a [`Assistant`][crate::Assistant].
     /// ## `child`
     /// a [`Widget`][crate::Widget]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_remove_action_widget&quot;</span>)]
-    </span><span class="kw">fn </span>remove_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;);
+    </span><span class="kw">fn </span>remove_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_remove_action_widget(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Removes the `page_num`’s page from `self`.
     /// ## `page_num`
     /// the index of a page in the `self`,
     ///  or -1 to remove the last page
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_remove_page&quot;</span>)]
-    </span><span class="kw">fn </span>remove_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32);
+    </span><span class="kw">fn </span>remove_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_remove_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, page_num);
+        }
+    }
 
     <span class="doccomment">/// Switches the page to `page_num`.
     ///
@@ -5000,7 +5015,11 @@
     ///  than the number of pages in the `self`, nothing
     ///  will be done.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_current_page&quot;</span>)]
-    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32);
+    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_assistant_set_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, page_num);
+        }
+    }
 
     <span class="doccomment">/// Sets the page forwarding function to be `page_func`.
     ///
@@ -5013,260 +5032,7 @@
     /// the `GtkAssistantPageFunc`, or [`None`]
     ///  to use the default one
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_forward_page_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_forward_page_func(<span class="kw-2">&amp;</span><span class="self">self</span>, page_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(i32) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;);
-
-    <span class="doccomment">/// Sets whether `page` contents are complete.
-    ///
-    /// This will make `self` update the buttons state
-    /// to be able to continue the task.
-    /// ## `page`
-    /// a page of `self`
-    /// ## `complete`
-    /// the completeness status of the page
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_complete&quot;</span>)]
-    </span><span class="kw">fn </span>set_page_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, complete: bool);
-
-    <span class="doccomment">/// Sets whether the assistant is adding padding around
-    /// the page.
-    /// ## `page`
-    /// a page of `self`
-    /// ## `has_padding`
-    /// whether this page has padding
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_has_padding&quot;</span>)]
-    </span><span class="kw">fn </span>set_page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, has_padding: bool);
-
-    <span class="doccomment">/// Sets a title for `page`.
-    ///
-    /// The title is displayed in the header area of the assistant
-    /// when `page` is the current page.
-    /// ## `page`
-    /// a page of `self`
-    /// ## `title`
-    /// the new title for `page`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_title&quot;</span>)]
-    </span><span class="kw">fn </span>set_page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, title: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets the page type for `page`.
-    ///
-    /// The page type determines the page behavior in the `self`.
-    /// ## `page`
-    /// a page of `self`
-    /// ## `type_`
-    /// the new type for `page`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_type&quot;</span>)]
-    </span><span class="kw">fn </span>set_page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, type_: AssistantPageType);
-
-    <span class="doccomment">/// Forces `self` to recompute the buttons state.
-    ///
-    /// GTK+ automatically takes care of this in most situations,
-    /// e.g. when the user goes to a different page, or when the
-    /// visibility or completeness of a page changes.
-    ///
-    /// One situation where it can be necessary to call this
-    /// function is when changing a value on the current page
-    /// affects the future page flow of the assistant.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_update_buttons_state&quot;</span>)]
-    </span><span class="kw">fn </span>update_buttons_state(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// [`true`] if the assistant uses a [`HeaderBar`][crate::HeaderBar] for action buttons
-    /// instead of the action-area.
-    ///
-    /// For technical reasons, this property is declared as an integer
-    /// property, but you should only set it to [`true`] or [`false`].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-header-bar&quot;</span>)]
-    </span><span class="kw">fn </span>use_header_bar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="kw">fn </span>child_is_complete&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; bool;
-
-    <span class="kw">fn </span>set_child_complete&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, complete: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;child.has-padding&quot;</span>)]
-    </span><span class="kw">fn </span>child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; bool;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;child.has-padding&quot;</span>)]
-    </span><span class="kw">fn </span>set_child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, has_padding: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;child.page-type&quot;</span>)]
-    </span><span class="kw">fn </span>child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; AssistantPageType;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;child.page-type&quot;</span>)]
-    </span><span class="kw">fn </span>set_child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, page_type: AssistantPageType);
-
-    <span class="kw">fn </span>child_title&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="kw">fn </span>set_child_title&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, title: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// The ::apply signal is emitted when the apply button is clicked.
-    ///
-    /// The default behavior of the [`Assistant`][crate::Assistant] is to switch to the page
-    /// after the current page, unless the current page is the last one.
-    ///
-    /// A handler for the ::apply signal should carry out the actions for
-    /// which the wizard has collected data. If the action takes a long time
-    /// to complete, you might consider putting a page of type
-    /// [`AssistantPageType::Progress`][crate::AssistantPageType::Progress] after the confirmation page and handle
-    /// this operation within the [`prepare`][struct@crate::Assistant#prepare] signal of the progress
-    /// page.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;apply&quot;</span>)]
-    </span><span class="kw">fn </span>connect_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::cancel signal is emitted when then the cancel button is clicked.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;cancel&quot;</span>)]
-    </span><span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::close signal is emitted either when the close button of
-    /// a summary page is clicked, or when the apply button in the last
-    /// page in the flow (of type [`AssistantPageType::Confirm`][crate::AssistantPageType::Confirm]) is clicked.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;close&quot;</span>)]
-    </span><span class="kw">fn </span>connect_close&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;escape&quot;</span>)]
-    </span><span class="kw">fn </span>connect_escape&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_escape(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::prepare signal is emitted when a new page is set as the
-    /// assistant&#39;s current page, before making the new page visible.
-    ///
-    /// A handler for this signal can do any preparations which are
-    /// necessary before showing `page`.
-    /// ## `page`
-    /// the current page
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;prepare&quot;</span>)]
-    </span><span class="kw">fn </span>connect_prepare&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Assistant&gt;&gt; AssistantExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_add_action_widget(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>append_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_append_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            )
-        }
-    }
-
-    <span class="kw">fn </span>commit(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_commit(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_assistant_get_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_assistant_get_n_pages(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>nth_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_assistant_get_nth_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page_num,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>page_is_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_assistant_get_page_complete(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_assistant_get_page_has_padding(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_assistant_get_page_title(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; AssistantPageType {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_assistant_get_page_type(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>insert_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_insert_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-                position,
-            )
-        }
-    }
-
-    <span class="kw">fn </span>next_page(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_next_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>prepend_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_prepend_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page.as_ref().to_glib_none().<span class="number">0</span>,
-            )
-        }
-    }
-
-    <span class="kw">fn </span>previous_page(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_previous_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>remove_action_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_remove_action_widget(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>remove_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_remove_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, page_num);
-        }
-    }
-
-    <span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_assistant_set_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, page_num);
-        }
-    }
-
-    <span class="kw">fn </span>set_forward_page_func(<span class="kw-2">&amp;</span><span class="self">self</span>, page_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(i32) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;) {
+    </span><span class="kw">fn </span>set_forward_page_func(<span class="kw-2">&amp;</span><span class="self">self</span>, page_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(i32) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;) {
         <span class="kw">let </span>page_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(i32) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; = Box_::new(page_func);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>page_func_func(
             current_page: libc::c_int,
@@ -5300,7 +5066,16 @@
         }
     }
 
-    <span class="kw">fn </span>set_page_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, complete: bool) {
+    <span class="doccomment">/// Sets whether `page` contents are complete.
+    ///
+    /// This will make `self` update the buttons state
+    /// to be able to continue the task.
+    /// ## `page`
+    /// a page of `self`
+    /// ## `complete`
+    /// the completeness status of the page
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_complete&quot;</span>)]
+    </span><span class="kw">fn </span>set_page_complete(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, complete: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_assistant_set_page_complete(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5310,7 +5085,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, has_padding: bool) {
+    <span class="doccomment">/// Sets whether the assistant is adding padding around
+    /// the page.
+    /// ## `page`
+    /// a page of `self`
+    /// ## `has_padding`
+    /// whether this page has padding
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_has_padding&quot;</span>)]
+    </span><span class="kw">fn </span>set_page_has_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, has_padding: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_assistant_set_page_has_padding(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5320,7 +5102,16 @@
         }
     }
 
-    <span class="kw">fn </span>set_page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, title: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets a title for `page`.
+    ///
+    /// The title is displayed in the header area of the assistant
+    /// when `page` is the current page.
+    /// ## `page`
+    /// a page of `self`
+    /// ## `title`
+    /// the new title for `page`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_title&quot;</span>)]
+    </span><span class="kw">fn </span>set_page_title(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, title: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_assistant_set_page_title(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5330,7 +5121,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, type_: AssistantPageType) {
+    <span class="doccomment">/// Sets the page type for `page`.
+    ///
+    /// The page type determines the page behavior in the `self`.
+    /// ## `page`
+    /// a page of `self`
+    /// ## `type_`
+    /// the new type for `page`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_set_page_type&quot;</span>)]
+    </span><span class="kw">fn </span>set_page_type(<span class="kw-2">&amp;</span><span class="self">self</span>, page: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, type_: AssistantPageType) {
         <span class="kw">unsafe </span>{
             ffi::gtk_assistant_set_page_type(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -5340,13 +5139,29 @@
         }
     }
 
-    <span class="kw">fn </span>update_buttons_state(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Forces `self` to recompute the buttons state.
+    ///
+    /// GTK+ automatically takes care of this in most situations,
+    /// e.g. when the user goes to a different page, or when the
+    /// visibility or completeness of a page changes.
+    ///
+    /// One situation where it can be necessary to call this
+    /// function is when changing a value on the current page
+    /// affects the future page flow of the assistant.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_assistant_update_buttons_state&quot;</span>)]
+    </span><span class="kw">fn </span>update_buttons_state(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_assistant_update_buttons_state(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>use_header_bar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// [`true`] if the assistant uses a [`HeaderBar`][crate::HeaderBar] for action buttons
+    /// instead of the action-area.
+    ///
+    /// For technical reasons, this property is declared as an integer
+    /// property, but you should only set it to [`true`] or [`false`].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;use-header-bar&quot;</span>)]
+    </span><span class="kw">fn </span>use_header_bar(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-header-bar&quot;</span>)
     }
 
@@ -5367,7 +5182,8 @@
         )
     }
 
-    <span class="kw">fn </span>child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; bool {
+    <span class="attr">#[doc(alias = <span class="string">&quot;child.has-padding&quot;</span>)]
+    </span><span class="kw">fn </span>child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; bool {
         <span class="kw">crate</span>::prelude::ContainerExtManual::child_property(
             <span class="self">self</span>.as_ref(),
             <span class="kw-2">&amp;</span>item.clone().upcast(),
@@ -5375,7 +5191,8 @@
         )
     }
 
-    <span class="kw">fn </span>set_child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, has_padding: bool) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;child.has-padding&quot;</span>)]
+    </span><span class="kw">fn </span>set_child_has_padding&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, has_padding: bool) {
         <span class="kw">crate</span>::prelude::ContainerExtManual::child_set_property(
             <span class="self">self</span>.as_ref(),
             <span class="kw-2">&amp;</span>item.clone().upcast(),
@@ -5384,7 +5201,8 @@
         )
     }
 
-    <span class="kw">fn </span>child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; AssistantPageType {
+    <span class="attr">#[doc(alias = <span class="string">&quot;child.page-type&quot;</span>)]
+    </span><span class="kw">fn </span>child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; AssistantPageType {
         <span class="kw">crate</span>::prelude::ContainerExtManual::child_property(
             <span class="self">self</span>.as_ref(),
             <span class="kw-2">&amp;</span>item.clone().upcast(),
@@ -5392,7 +5210,8 @@
         )
     }
 
-    <span class="kw">fn </span>set_child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, page_type: AssistantPageType) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;child.page-type&quot;</span>)]
+    </span><span class="kw">fn </span>set_child_page_type&lt;T: IsA&lt;<span class="kw">crate</span>::Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, page_type: AssistantPageType) {
         <span class="kw">crate</span>::prelude::ContainerExtManual::child_set_property(
             <span class="self">self</span>.as_ref(),
             <span class="kw-2">&amp;</span>item.clone().upcast(),
@@ -5418,7 +5237,19 @@
         )
     }
 
-    <span class="kw">fn </span>connect_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::apply signal is emitted when the apply button is clicked.
+    ///
+    /// The default behavior of the [`Assistant`][crate::Assistant] is to switch to the page
+    /// after the current page, unless the current page is the last one.
+    ///
+    /// A handler for the ::apply signal should carry out the actions for
+    /// which the wizard has collected data. If the action takes a long time
+    /// to complete, you might consider putting a page of type
+    /// [`AssistantPageType::Progress`][crate::AssistantPageType::Progress] after the confirmation page and handle
+    /// this operation within the [`prepare`][struct@crate::Assistant#prepare] signal of the progress
+    /// page.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;apply&quot;</span>)]
+    </span><span class="kw">fn </span>connect_apply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>apply_trampoline&lt;P: IsA&lt;Assistant&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAssistant,
             f: glib::ffi::gpointer,
@@ -5439,7 +5270,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::cancel signal is emitted when then the cancel button is clicked.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cancel&quot;</span>)]
+    </span><span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cancel_trampoline&lt;P: IsA&lt;Assistant&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAssistant,
             f: glib::ffi::gpointer,
@@ -5460,7 +5293,11 @@
         }
     }
 
-    <span class="kw">fn </span>connect_close&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::close signal is emitted either when the close button of
+    /// a summary page is clicked, or when the apply button in the last
+    /// page in the flow (of type [`AssistantPageType::Confirm`][crate::AssistantPageType::Confirm]) is clicked.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;close&quot;</span>)]
+    </span><span class="kw">fn </span>connect_close&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>close_trampoline&lt;P: IsA&lt;Assistant&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAssistant,
             f: glib::ffi::gpointer,
@@ -5481,7 +5318,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_escape&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;escape&quot;</span>)]
+    </span><span class="kw">fn </span>connect_escape&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>escape_trampoline&lt;P: IsA&lt;Assistant&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAssistant,
             f: glib::ffi::gpointer,
@@ -5506,7 +5344,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;escape&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_prepare&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::prepare signal is emitted when a new page is set as the
+    /// assistant&#39;s current page, before making the new page visible.
+    ///
+    /// A handler for this signal can do any preparations which are
+    /// necessary before showing `page`.
+    /// ## `page`
+    /// the current page
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;prepare&quot;</span>)]
+    </span><span class="kw">fn </span>connect_prepare&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>prepare_trampoline&lt;P: IsA&lt;Assistant&gt;, F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkAssistant,
             page: <span class="kw-2">*mut </span>ffi::GtkWidget,
@@ -5531,6 +5377,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Assistant&gt;&gt; AssistantExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Assistant {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

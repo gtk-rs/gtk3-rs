@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/level_bar.rs`."><title>level_bar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/level_bar.rs`."><title>level_bar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2072,49 +2072,7 @@
 <a href="#1999" id="1999">1999</a>
 <a href="#2000" id="2000">2000</a>
 <a href="#2001" id="2001">2001</a>
-<a href="#2002" id="2002">2002</a>
-<a href="#2003" id="2003">2003</a>
-<a href="#2004" id="2004">2004</a>
-<a href="#2005" id="2005">2005</a>
-<a href="#2006" id="2006">2006</a>
-<a href="#2007" id="2007">2007</a>
-<a href="#2008" id="2008">2008</a>
-<a href="#2009" id="2009">2009</a>
-<a href="#2010" id="2010">2010</a>
-<a href="#2011" id="2011">2011</a>
-<a href="#2012" id="2012">2012</a>
-<a href="#2013" id="2013">2013</a>
-<a href="#2014" id="2014">2014</a>
-<a href="#2015" id="2015">2015</a>
-<a href="#2016" id="2016">2016</a>
-<a href="#2017" id="2017">2017</a>
-<a href="#2018" id="2018">2018</a>
-<a href="#2019" id="2019">2019</a>
-<a href="#2020" id="2020">2020</a>
-<a href="#2021" id="2021">2021</a>
-<a href="#2022" id="2022">2022</a>
-<a href="#2023" id="2023">2023</a>
-<a href="#2024" id="2024">2024</a>
-<a href="#2025" id="2025">2025</a>
-<a href="#2026" id="2026">2026</a>
-<a href="#2027" id="2027">2027</a>
-<a href="#2028" id="2028">2028</a>
-<a href="#2029" id="2029">2029</a>
-<a href="#2030" id="2030">2030</a>
-<a href="#2031" id="2031">2031</a>
-<a href="#2032" id="2032">2032</a>
-<a href="#2033" id="2033">2033</a>
-<a href="#2034" id="2034">2034</a>
-<a href="#2035" id="2035">2035</a>
-<a href="#2036" id="2036">2036</a>
-<a href="#2037" id="2037">2037</a>
-<a href="#2038" id="2038">2038</a>
-<a href="#2039" id="2039">2039</a>
-<a href="#2040" id="2040">2040</a>
-<a href="#2041" id="2041">2041</a>
-<a href="#2042" id="2042">2042</a>
-<a href="#2043" id="2043">2043</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -3764,7 +3722,7 @@
 /// # Implementors
 ///
 /// [`LevelBar`][struct@crate::LevelBar]
-</span><span class="kw">pub trait </span>LevelBarExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>LevelBarExt: IsA&lt;LevelBar&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a new offset marker on `self` at the position specified by `value`.
     /// When the bar value is in the interval topped by `value` (or between `value`
     /// and [`max-value`][struct@crate::LevelBar#max-value] in case the offset is the last one on the bar)
@@ -3777,7 +3735,15 @@
     /// ## `value`
     /// the value for the new offset
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_add_offset_value&quot;</span>)]
-    </span><span class="kw">fn </span>add_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, value: f64);
+    </span><span class="kw">fn </span>add_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, value: f64) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_level_bar_add_offset_value(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+                value,
+            );
+        }
+    }
 
     <span class="doccomment">/// Return the value of the [`inverted`][struct@crate::LevelBar#inverted] property.
     ///
@@ -3786,7 +3752,13 @@
     /// [`true`] if the level bar is inverted
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_inverted&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_inverted&quot;</span>)]
-    </span><span class="kw">fn </span>is_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_level_bar_get_inverted(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the [`max-value`][struct@crate::LevelBar#max-value] property.
     ///
@@ -3795,7 +3767,9 @@
     /// a positive value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_max_value&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_max_value&quot;</span>)]
-    </span><span class="kw">fn </span>max_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
+    </span><span class="kw">fn </span>max_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+        <span class="kw">unsafe </span>{ ffi::gtk_level_bar_get_max_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the value of the [`min-value`][struct@crate::LevelBar#min-value] property.
     ///
@@ -3804,7 +3778,9 @@
     /// a positive value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_min_value&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_min_value&quot;</span>)]
-    </span><span class="kw">fn </span>min_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
+    </span><span class="kw">fn </span>min_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+        <span class="kw">unsafe </span>{ ffi::gtk_level_bar_get_min_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the value of the [`mode`][struct@crate::LevelBar#mode] property.
     ///
@@ -3813,7 +3789,9 @@
     /// a [`LevelBarMode`][crate::LevelBarMode]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mode&quot;</span>)]
-    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LevelBarMode;
+    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LevelBarMode {
+        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_level_bar_get_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Fetches the value specified for the offset marker `name` in `self`,
     /// returning [`true`] in case an offset named `name` was found.
@@ -3828,125 +3806,7 @@
     /// location where to store the value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_offset_value&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_offset_value&quot;</span>)]
-    </span><span class="kw">fn </span>offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt;;
-
-    <span class="doccomment">/// Returns the value of the [`value`][struct@crate::LevelBar#value] property.
-    ///
-    /// # Returns
-    ///
-    /// a value in the interval between
-    ///  [`min-value`][struct@crate::LevelBar#min-value] and [`max-value`][struct@crate::LevelBar#max-value]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_value&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_value&quot;</span>)]
-    </span><span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64;
-
-    <span class="doccomment">/// Removes an offset marker previously added with
-    /// [`add_offset_value()`][Self::add_offset_value()].
-    /// ## `name`
-    /// the name of an offset in the bar
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_remove_offset_value&quot;</span>)]
-    </span><span class="kw">fn </span>remove_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// Sets the value of the [`inverted`][struct@crate::LevelBar#inverted] property.
-    /// ## `inverted`
-    /// [`true`] to invert the level bar
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_inverted&quot;</span>)]
-    </span><span class="kw">fn </span>set_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>, inverted: bool);
-
-    <span class="doccomment">/// Sets the value of the [`max-value`][struct@crate::LevelBar#max-value] property.
-    ///
-    /// You probably want to update preexisting level offsets after calling
-    /// this function.
-    /// ## `value`
-    /// a positive value
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_max_value&quot;</span>)]
-    </span><span class="kw">fn </span>set_max_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64);
-
-    <span class="doccomment">/// Sets the value of the [`min-value`][struct@crate::LevelBar#min-value] property.
-    ///
-    /// You probably want to update preexisting level offsets after calling
-    /// this function.
-    /// ## `value`
-    /// a positive value
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_min_value&quot;</span>)]
-    </span><span class="kw">fn </span>set_min_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64);
-
-    <span class="doccomment">/// Sets the value of the [`mode`][struct@crate::LevelBar#mode] property.
-    /// ## `mode`
-    /// a [`LevelBarMode`][crate::LevelBarMode]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: LevelBarMode);
-
-    <span class="doccomment">/// Sets the value of the [`value`][struct@crate::LevelBar#value] property.
-    /// ## `value`
-    /// a value in the interval between
-    ///  [`min-value`][struct@crate::LevelBar#min-value] and [`max-value`][struct@crate::LevelBar#max-value]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_value&quot;</span>)]
-    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64);
-
-    <span class="doccomment">/// Emitted when an offset specified on the bar changes value as an
-    /// effect to [`add_offset_value()`][Self::add_offset_value()] being called.
-    ///
-    /// The signal supports detailed connections; you can connect to the
-    /// detailed signal &quot;changed::x&quot; in order to only receive callbacks when
-    /// the value of offset &quot;x&quot; changes.
-    /// ## `name`
-    /// the name of the offset that changed value
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;offset-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_offset_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;inverted&quot;</span>)]
-    </span><span class="kw">fn </span>connect_inverted_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;max-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_max_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;min-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_min_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;LevelBar&gt;&gt; LevelBarExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, value: f64) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_level_bar_add_offset_value(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-                value,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>is_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_level_bar_get_inverted(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>max_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_level_bar_get_max_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>min_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_level_bar_get_min_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; LevelBarMode {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_level_bar_get_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
+    </span><span class="kw">fn </span>offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;f64&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>value = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = from_glib(ffi::gtk_level_bar_get_offset_value(
@@ -3962,11 +3822,24 @@
         }
     }
 
-    <span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+    <span class="doccomment">/// Returns the value of the [`value`][struct@crate::LevelBar#value] property.
+    ///
+    /// # Returns
+    ///
+    /// a value in the interval between
+    ///  [`min-value`][struct@crate::LevelBar#min-value] and [`max-value`][struct@crate::LevelBar#max-value]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_get_value&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_value&quot;</span>)]
+    </span><span class="kw">fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
         <span class="kw">unsafe </span>{ ffi::gtk_level_bar_get_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>remove_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// Removes an offset marker previously added with
+    /// [`add_offset_value()`][Self::add_offset_value()].
+    /// ## `name`
+    /// the name of an offset in the bar
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_remove_offset_value&quot;</span>)]
+    </span><span class="kw">fn </span>remove_offset_value(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_remove_offset_value(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3975,37 +3848,73 @@
         }
     }
 
-    <span class="kw">fn </span>set_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>, inverted: bool) {
+    <span class="doccomment">/// Sets the value of the [`inverted`][struct@crate::LevelBar#inverted] property.
+    /// ## `inverted`
+    /// [`true`] to invert the level bar
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_inverted&quot;</span>)]
+    </span><span class="kw">fn </span>set_inverted(<span class="kw-2">&amp;</span><span class="self">self</span>, inverted: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_set_inverted(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, inverted.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_max_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
+    <span class="doccomment">/// Sets the value of the [`max-value`][struct@crate::LevelBar#max-value] property.
+    ///
+    /// You probably want to update preexisting level offsets after calling
+    /// this function.
+    /// ## `value`
+    /// a positive value
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_max_value&quot;</span>)]
+    </span><span class="kw">fn </span>set_max_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_set_max_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, value);
         }
     }
 
-    <span class="kw">fn </span>set_min_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
+    <span class="doccomment">/// Sets the value of the [`min-value`][struct@crate::LevelBar#min-value] property.
+    ///
+    /// You probably want to update preexisting level offsets after calling
+    /// this function.
+    /// ## `value`
+    /// a positive value
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_min_value&quot;</span>)]
+    </span><span class="kw">fn </span>set_min_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_set_min_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, value);
         }
     }
 
-    <span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: LevelBarMode) {
+    <span class="doccomment">/// Sets the value of the [`mode`][struct@crate::LevelBar#mode] property.
+    /// ## `mode`
+    /// a [`LevelBarMode`][crate::LevelBarMode]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_mode&quot;</span>)]
+    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: LevelBarMode) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_set_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, mode.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
+    <span class="doccomment">/// Sets the value of the [`value`][struct@crate::LevelBar#value] property.
+    /// ## `value`
+    /// a value in the interval between
+    ///  [`min-value`][struct@crate::LevelBar#min-value] and [`max-value`][struct@crate::LevelBar#max-value]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_level_bar_set_value&quot;</span>)]
+    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: f64) {
         <span class="kw">unsafe </span>{
             ffi::gtk_level_bar_set_value(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, value);
         }
     }
 
-    <span class="kw">fn </span>connect_offset_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Emitted when an offset specified on the bar changes value as an
+    /// effect to [`add_offset_value()`][Self::add_offset_value()] being called.
+    ///
+    /// The signal supports detailed connections; you can connect to the
+    /// detailed signal &quot;changed::x&quot; in order to only receive callbacks when
+    /// the value of offset &quot;x&quot; changes.
+    /// ## `name`
+    /// the name of the offset that changed value
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;offset-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_offset_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
         f: F,
@@ -4041,7 +3950,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_inverted_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;inverted&quot;</span>)]
+    </span><span class="kw">fn </span>connect_inverted_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_inverted_trampoline&lt;P: IsA&lt;LevelBar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -4063,7 +3973,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_max_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_max_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_max_value_trampoline&lt;P: IsA&lt;LevelBar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -4085,7 +3996,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_min_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;min-value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_min_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_min_value_trampoline&lt;P: IsA&lt;LevelBar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -4107,7 +4019,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_mode_trampoline&lt;P: IsA&lt;LevelBar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -4129,7 +4042,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;value&quot;</span>)]
+    </span><span class="kw">fn </span>connect_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_value_trampoline&lt;P: IsA&lt;LevelBar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkLevelBar,
             _param_spec: glib::ffi::gpointer,
@@ -4151,6 +4065,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;LevelBar&gt;&gt; LevelBarExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>LevelBar {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

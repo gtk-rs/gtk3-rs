@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/builder.rs`."><title>builder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -650,25 +650,7 @@
 <a href="#577" id="577">577</a>
 <a href="#578" id="578">578</a>
 <a href="#579" id="579">579</a>
-<a href="#580" id="580">580</a>
-<a href="#581" id="581">581</a>
-<a href="#582" id="582">582</a>
-<a href="#583" id="583">583</a>
-<a href="#584" id="584">584</a>
-<a href="#585" id="585">585</a>
-<a href="#586" id="586">586</a>
-<a href="#587" id="587">587</a>
-<a href="#588" id="588">588</a>
-<a href="#589" id="589">589</a>
-<a href="#590" id="590">590</a>
-<a href="#591" id="591">591</a>
-<a href="#592" id="592">592</a>
-<a href="#593" id="593">593</a>
-<a href="#594" id="594">594</a>
-<a href="#595" id="595">595</a>
-<a href="#596" id="596">596</a>
-<a href="#597" id="597">597</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -976,15 +958,21 @@
 /// # Implementors
 ///
 /// [`Builder`][struct@crate::Builder]
-</span><span class="kw">pub trait </span>BuilderExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>BuilderExt: IsA&lt;Builder&gt; + <span class="lifetime">&#39;static </span>{
     <span class="comment">//#[doc(alias = &quot;gtk_builder_add_callback_symbol&quot;)]
-    //fn add_callback_symbol&lt;P: FnOnce() + &#39;static&gt;(&amp;self, callback_name: &amp;str, callback_symbol: P);
+    //fn add_callback_symbol&lt;P: FnOnce() + &#39;static&gt;(&amp;self, callback_name: &amp;str, callback_symbol: P) {
+    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
+    //}
 
     //#[doc(alias = &quot;gtk_builder_add_callback_symbols&quot;)]
-    //fn add_callback_symbols&lt;P: FnOnce() + &#39;static&gt;(&amp;self, first_callback_name: &amp;str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
+    //fn add_callback_symbols&lt;P: FnOnce() + &#39;static&gt;(&amp;self, first_callback_name: &amp;str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
+    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
+    //}
 
     //#[doc(alias = &quot;gtk_builder_connect_signals&quot;)]
-    //fn connect_signals(&amp;self, user_data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;);
+    //fn connect_signals(&amp;self, user_data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;) {
+    //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
+    //}
 
     </span><span class="doccomment">/// Add `object` to the `self` object pool so it can be referenced just like any
     /// other object built by builder.
@@ -993,7 +981,15 @@
     /// ## `object`
     /// the object to expose
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_expose_object&quot;</span>)]
-    </span><span class="kw">fn </span>expose_object(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;);
+    </span><span class="kw">fn </span>expose_object(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_builder_expose_object(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+                object.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Gets the [`Application`][crate::Application] associated with the builder.
     ///
@@ -1010,7 +1006,13 @@
     ///  or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_get_application&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_application&quot;</span>)]
-    </span><span class="kw">fn </span>application(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Application&gt;;
+    </span><span class="kw">fn </span>application(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Application&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_builder_get_application(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets all objects that have been constructed by `self`. Note that
     /// this function does not increment the reference counts of the returned
@@ -1023,7 +1025,13 @@
     ///  `g_slist_free()`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_get_objects&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_objects&quot;</span>)]
-    </span><span class="kw">fn </span>objects(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::Object&gt;;
+    </span><span class="kw">fn </span>objects(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::Object&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the translation domain of `self`.
     ///
@@ -1033,7 +1041,13 @@
     /// by the builder object and must not be modified or freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_get_translation_domain&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_translation_domain&quot;</span>)]
-    </span><span class="kw">fn </span>translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_builder_get_translation_domain(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Looks up a type by name, using the virtual function that
     /// [`Builder`][crate::Builder] has for that purpose. This is mainly used when
@@ -1047,10 +1061,19 @@
     ///  if no type was found
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_get_type_from_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_type_from_name&quot;</span>)]
-    </span><span class="kw">fn </span>type_from_name(<span class="kw-2">&amp;</span><span class="self">self</span>, type_name: <span class="kw-2">&amp;</span>str) -&gt; glib::types::Type;
+    </span><span class="kw">fn </span>type_from_name(<span class="kw-2">&amp;</span><span class="self">self</span>, type_name: <span class="kw-2">&amp;</span>str) -&gt; glib::types::Type {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_builder_get_type_from_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                type_name.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="comment">//#[doc(alias = &quot;gtk_builder_lookup_callback_symbol&quot;)]
-    //fn lookup_callback_symbol(&amp;self, callback_name: &amp;str) -&gt; Option&lt;Box_&lt;dyn Fn() + &#39;static&gt;&gt;;
+    //fn lookup_callback_symbol(&amp;self, callback_name: &amp;str) -&gt; Option&lt;Box_&lt;dyn Fn() + &#39;static&gt;&gt; {
+    //    unsafe { TODO: call ffi:gtk_builder_lookup_callback_symbol() }
+    //}
 
     </span><span class="doccomment">/// Sets the application associated with `self`.
     ///
@@ -1059,14 +1082,28 @@
     /// ## `application`
     /// a [`Application`][crate::Application]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_set_application&quot;</span>)]
-    </span><span class="kw">fn </span>set_application(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Application&gt;);
+    </span><span class="kw">fn </span>set_application(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Application&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_builder_set_application(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                application.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the translation domain of `self`.
     /// See [`translation-domain`][struct@crate::Builder#translation-domain].
     /// ## `domain`
     /// the translation domain or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_set_translation_domain&quot;</span>)]
-    </span><span class="kw">fn </span>set_translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, domain: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, domain: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_builder_set_translation_domain(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                domain.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// This function demarshals a value from a string. This function
     /// calls [`glib::Value::init()`][crate::glib::Value::init()] on the `value` argument, so it need not be
@@ -1095,101 +1132,6 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         pspec: <span class="kw">impl </span>AsRef&lt;glib::ParamSpec&gt;,
         string: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;glib::Value, glib::Error&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_value_from_string_type&quot;</span>)]
-    </span><span class="kw">fn </span>value_from_string_type(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        type_: glib::types::Type,
-        string: <span class="kw-2">&amp;</span>str,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;glib::Value, glib::Error&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;translation-domain&quot;</span>)]
-    </span><span class="kw">fn </span>connect_translation_domain_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Builder&gt;&gt; BuilderExt <span class="kw">for </span>O {
-    <span class="comment">//fn add_callback_symbol&lt;P: FnOnce() + &#39;static&gt;(&amp;self, callback_name: &amp;str, callback_symbol: P) {
-    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
-    //}
-
-    //fn add_callback_symbols&lt;P: FnOnce() + &#39;static&gt;(&amp;self, first_callback_name: &amp;str, first_callback_symbol: P, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbols() }
-    //}
-
-    //fn connect_signals(&amp;self, user_data: /*Unimplemented*/Option&lt;Basic: Pointer&gt;) {
-    //    unsafe { TODO: call ffi:gtk_builder_connect_signals() }
-    //}
-
-    </span><span class="kw">fn </span>expose_object(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_builder_expose_object(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-                object.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>application(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Application&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_builder_get_application(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>objects(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;glib::Object&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_builder_get_objects(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_builder_get_translation_domain(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>type_from_name(<span class="kw-2">&amp;</span><span class="self">self</span>, type_name: <span class="kw-2">&amp;</span>str) -&gt; glib::types::Type {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_builder_get_type_from_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                type_name.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="comment">//fn lookup_callback_symbol(&amp;self, callback_name: &amp;str) -&gt; Option&lt;Box_&lt;dyn Fn() + &#39;static&gt;&gt; {
-    //    unsafe { TODO: call ffi:gtk_builder_lookup_callback_symbol() }
-    //}
-
-    </span><span class="kw">fn </span>set_application(<span class="kw-2">&amp;</span><span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Application&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_builder_set_application(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                application.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_translation_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, domain: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_builder_set_translation_domain(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                domain.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>value_from_string(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        pspec: <span class="kw">impl </span>AsRef&lt;glib::ParamSpec&gt;,
-        string: <span class="kw-2">&amp;</span>str,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;glib::Value, glib::Error&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
@@ -1210,7 +1152,26 @@
         }
     }
 
-    <span class="kw">fn </span>value_from_string_type(
+    <span class="doccomment">/// Like [`value_from_string()`][Self::value_from_string()], this function demarshals
+    /// a value from a string, but takes a `GType` instead of [`glib::ParamSpec`][crate::glib::ParamSpec].
+    /// This function calls [`glib::Value::init()`][crate::glib::Value::init()] on the `value` argument, so it
+    /// need not be initialised beforehand.
+    ///
+    /// Upon errors [`false`] will be returned and `error` will be assigned a
+    /// [`glib::Error`][crate::glib::Error] from the `GTK_BUILDER_ERROR` domain.
+    /// ## `type_`
+    /// the `GType` of the value
+    /// ## `string`
+    /// the string representation of the value
+    ///
+    /// # Returns
+    ///
+    /// [`true`] on success
+    ///
+    /// ## `value`
+    /// the [`glib::Value`][crate::glib::Value] to store the result in
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_builder_value_from_string_type&quot;</span>)]
+    </span><span class="kw">fn </span>value_from_string_type(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         type_: glib::types::Type,
         string: <span class="kw-2">&amp;</span>str,
@@ -1234,7 +1195,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_translation_domain_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;translation-domain&quot;</span>)]
+    </span><span class="kw">fn </span>connect_translation_domain_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_translation_domain_trampoline&lt;
             P: IsA&lt;Builder&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1259,6 +1221,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Builder&gt;&gt; BuilderExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Builder {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

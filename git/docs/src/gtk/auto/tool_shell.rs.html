@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_shell.rs`."><title>tool_shell.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_shell.rs`."><title>tool_shell.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -255,25 +255,7 @@
 <a href="#182" id="182">182</a>
 <a href="#183" id="183">183</a>
 <a href="#184" id="184">184</a>
-<a href="#185" id="185">185</a>
-<a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -305,7 +287,7 @@
 /// # Implementors
 ///
 /// [`ToolItemGroup`][struct@crate::ToolItemGroup], [`ToolShell`][struct@crate::ToolShell], [`Toolbar`][struct@crate::Toolbar]
-</span><span class="kw">pub trait </span>ToolShellExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ToolShellExt: IsA&lt;ToolShell&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Retrieves the current ellipsize mode for the tool shell. Tool items must not
     /// call this function directly, but rely on [`ToolItemExt::ellipsize_mode()`][crate::prelude::ToolItemExt::ellipsize_mode()]
     /// instead.
@@ -315,7 +297,13 @@
     /// the current ellipsize mode of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_ellipsize_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_ellipsize_mode&quot;</span>)]
-    </span><span class="kw">fn </span>ellipsize_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::EllipsizeMode;
+    </span><span class="kw">fn </span>ellipsize_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::EllipsizeMode {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_ellipsize_mode(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the icon size for the tool shell. Tool items must not call this
     /// function directly, but rely on [`ToolItemExt::icon_size()`][crate::prelude::ToolItemExt::icon_size()] instead.
@@ -325,7 +313,13 @@
     /// the current size ([`IconSize`][crate::IconSize]) for icons of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_icon_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_size&quot;</span>)]
-    </span><span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize;
+    </span><span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_icon_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the current orientation for the tool shell. Tool items must not
     /// call this function directly, but rely on [`ToolItemExt::orientation()`][crate::prelude::ToolItemExt::orientation()]
@@ -336,7 +330,13 @@
     /// the current orientation of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_orientation&quot;</span>)]
-    </span><span class="kw">fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation;
+    </span><span class="kw">fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_orientation(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the relief style of buttons on `self`. Tool items must not call this
     /// function directly, but rely on [`ToolItemExt::relief_style()`][crate::prelude::ToolItemExt::relief_style()] instead.
@@ -346,7 +346,13 @@
     /// The relief style of buttons on `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_relief_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_relief_style&quot;</span>)]
-    </span><span class="kw">fn </span>relief_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle;
+    </span><span class="kw">fn </span>relief_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_relief_style(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves whether the tool shell has text, icons, or both. Tool items must
     /// not call this function directly, but rely on [`ToolItemExt::toolbar_style()`][crate::prelude::ToolItemExt::toolbar_style()]
@@ -357,7 +363,13 @@
     /// the current style of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_style&quot;</span>)]
-    </span><span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle;
+    </span><span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_style(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the current text alignment for the tool shell. Tool items must not
     /// call this function directly, but rely on [`ToolItemExt::text_alignment()`][crate::prelude::ToolItemExt::text_alignment()]
@@ -368,7 +380,9 @@
     /// the current text alignment of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_text_alignment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_alignment&quot;</span>)]
-    </span><span class="kw">fn </span>text_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
+    </span><span class="kw">fn </span>text_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_tool_shell_get_text_alignment(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Retrieves the current text orientation for the tool shell. Tool items must not
     /// call this function directly, but rely on [`ToolItemExt::text_orientation()`][crate::prelude::ToolItemExt::text_orientation()]
@@ -379,7 +393,13 @@
     /// the current text orientation of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_text_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_orientation&quot;</span>)]
-    </span><span class="kw">fn </span>text_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation;
+    </span><span class="kw">fn </span>text_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_shell_get_text_orientation(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the current text size group for the tool shell. Tool items must not
     /// call this function directly, but rely on [`ToolItemExt::text_size_group()`][crate::prelude::ToolItemExt::text_size_group()]
@@ -390,7 +410,13 @@
     /// the current text size group of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_get_text_size_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_size_group&quot;</span>)]
-    </span><span class="kw">fn </span>text_size_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SizeGroup&gt;;
+    </span><span class="kw">fn </span>text_size_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SizeGroup&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_tool_shell_get_text_size_group(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Calling this function signals the tool shell that the overflow menu item for
     /// tool items have changed. If there is an overflow menu and if it is visible
@@ -399,76 +425,14 @@
     /// Tool items must not call this function directly, but rely on
     /// [`ToolItemExt::rebuild_menu()`][crate::prelude::ToolItemExt::rebuild_menu()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_shell_rebuild_menu&quot;</span>)]
-    </span><span class="kw">fn </span>rebuild_menu(<span class="kw-2">&amp;</span><span class="self">self</span>);
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;ToolShell&gt;&gt; ToolShellExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>ellipsize_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; pango::EllipsizeMode {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_ellipsize_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_icon_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_orientation(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>relief_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ReliefStyle {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_relief_style(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_style(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>text_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_tool_shell_get_text_alignment(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>text_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_shell_get_text_orientation(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>text_size_group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;SizeGroup&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_tool_shell_get_text_size_group(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>rebuild_menu(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    </span><span class="kw">fn </span>rebuild_menu(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_shell_rebuild_menu(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;ToolShell&gt;&gt; ToolShellExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ToolShell {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

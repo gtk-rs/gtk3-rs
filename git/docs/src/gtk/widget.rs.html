@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/widget.rs`."><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/widget.rs`."><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../gtk/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../gtk/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -494,41 +494,7 @@
 <a href="#421" id="421">421</a>
 <a href="#422" id="422">422</a>
 <a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-<a href="#448" id="448">448</a>
-<a href="#449" id="449">449</a>
-<a href="#450" id="450">450</a>
-<a href="#451" id="451">451</a>
-<a href="#452" id="452">452</a>
-<a href="#453" id="453">453</a>
-<a href="#454" id="454">454</a>
-<a href="#455" id="455">455</a>
-<a href="#456" id="456">456</a>
-<a href="#457" id="457">457</a>
-</pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>gdk::{DragAction, Event, ModifierType};
 <span class="kw">use </span>glib::ffi::gboolean;
@@ -557,7 +523,7 @@
     }
 }
 
-<span class="kw">pub trait </span>WidgetExtManual: <span class="lifetime">&#39;static </span>{
+<span class="kw">pub trait </span>WidgetExtManual: IsA&lt;Widget&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Sets a widget as a potential drop destination, and adds default behaviors.
     ///
     /// The default behaviors listed in `flags` have an effect similar
@@ -611,7 +577,24 @@
     /// ## `actions`
     /// a bitmask of possible actions for a drop onto this `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_drag_dest_set&quot;</span>)]
-    </span><span class="kw">fn </span>drag_dest_set(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: DestDefaults, targets: <span class="kw-2">&amp;</span>[TargetEntry], actions: DragAction);
+    </span><span class="kw">fn </span>drag_dest_set(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: DestDefaults, targets: <span class="kw-2">&amp;</span>[TargetEntry], actions: DragAction) {
+        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = targets.iter().map(|e| e.to_glib_none()).collect();
+        <span class="kw">let </span>t: Vec&lt;<span class="kw">_</span>&gt; = stashes.iter().map(|stash| <span class="kw">unsafe </span>{ <span class="kw-2">*</span>stash.<span class="number">0 </span>}).collect();
+        <span class="kw">let </span>t_ptr: <span class="kw-2">*mut </span>ffi::GtkTargetEntry = <span class="kw">if </span>!t.is_empty() {
+            t.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
+        </span>} <span class="kw">else </span>{
+            ptr::null_mut()
+        };
+        <span class="kw">unsafe </span>{
+            ffi::gtk_drag_dest_set(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                flags.into_glib(),
+                t_ptr,
+                t.len() <span class="kw">as </span>i32,
+                actions.into_glib(),
+            )
+        };
+    }
 
     <span class="doccomment">/// Sets up a widget so that GTK+ will start a drag operation when the user
     /// clicks and drags on the widget. The widget must have a window.
@@ -628,7 +611,24 @@
         start_button_mask: ModifierType,
         targets: <span class="kw-2">&amp;</span>[TargetEntry],
         actions: DragAction,
-    );
+    ) {
+        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = targets.iter().map(|e| e.to_glib_none()).collect();
+        <span class="kw">let </span>t: Vec&lt;<span class="kw">_</span>&gt; = stashes.iter().map(|stash| <span class="kw">unsafe </span>{ <span class="kw-2">*</span>stash.<span class="number">0 </span>}).collect();
+        <span class="kw">let </span>t_ptr: <span class="kw-2">*mut </span>ffi::GtkTargetEntry = <span class="kw">if </span>!t.is_empty() {
+            t.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
+        </span>} <span class="kw">else </span>{
+            ptr::null_mut()
+        };
+        <span class="kw">unsafe </span>{
+            ffi::gtk_drag_source_set(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start_button_mask.into_glib(),
+                t_ptr,
+                t.len() <span class="kw">as </span>i32,
+                actions.into_glib(),
+            )
+        };
+    }
 
     <span class="doccomment">/// Computes the intersection of a `self`’s area and `area`, storing
     /// the intersection in `intersection`, and returns [`true`] if there was
@@ -645,7 +645,15 @@
     /// rectangle to store
     ///  intersection of `self` and `area`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_intersect&quot;</span>)]
-    </span><span class="kw">fn </span>intersect(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>Rectangle, intersection: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Rectangle&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>intersect(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>Rectangle, <span class="kw-2">mut </span>intersection: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Rectangle&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_widget_intersect(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                area.to_glib_none().<span class="number">0</span>,
+                intersection.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// The ::map-event signal will be emitted when the `widget`&#39;s window is
     /// mapped. A window is mapped when it becomes visible on the screen.
@@ -660,8 +668,36 @@
     ///
     /// [`true`] to stop other handlers from being invoked for the event.
     ///  [`false`] to propagate the event further.
-    </span><span class="kw">fn </span>connect_map_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
+    </span><span class="kw">fn </span>connect_map_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        f: F,
+    ) -&gt; SignalHandlerId {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>event_any_trampoline&lt;T, F: Fn(<span class="kw-2">&amp;</span>T, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span>ffi::GtkWidget,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventAny,
+            f: <span class="kw-2">&amp;</span>F,
+        ) -&gt; gboolean
+        <span class="kw">where
+            </span>T: IsA&lt;Widget&gt;,
+        {
+            f(
+                Widget::from_glib_borrow(this).unsafe_cast_ref(),
+                <span class="kw-2">&amp;</span>from_glib_borrow(event),
+            )
+            .into_glib()
+        }
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>f: Box&lt;F&gt; = Box::new(f);
+            connect_raw(
+                <span class="self">self</span>.to_glib_none().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b&quot;map-event\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
+                    event_any_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+                )),
+                Box::into_raw(f),
+            )
+        }
+    }
 
     <span class="doccomment">/// The ::unmap-event signal will be emitted when the `widget`&#39;s window is
     /// unmapped. A window is unmapped when it becomes invisible on the screen.
@@ -679,7 +715,33 @@
     </span><span class="kw">fn </span>connect_unmap_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId;
+    ) -&gt; SignalHandlerId {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>event_any_trampoline&lt;T, F: Fn(<span class="kw-2">&amp;</span>T, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span>ffi::GtkWidget,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventAny,
+            f: <span class="kw-2">&amp;</span>F,
+        ) -&gt; gboolean
+        <span class="kw">where
+            </span>T: IsA&lt;Widget&gt;,
+        {
+            f(
+                Widget::from_glib_borrow(this).unsafe_cast_ref(),
+                <span class="kw-2">&amp;</span>from_glib_borrow(event),
+            )
+            .into_glib()
+        }
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>f: Box&lt;F&gt; = Box::new(f);
+            connect_raw(
+                <span class="self">self</span>.to_glib_none().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b&quot;unmap-event\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
+                    event_any_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+                )),
+                Box::into_raw(f),
+            )
+        }
+    }
 
     <span class="doccomment">/// Queues an animation frame update and adds a callback to be called
     /// before each frame. Until the tick callback is removed, it will be
@@ -712,192 +774,6 @@
     ///  by passing it to `gtk_widget_remove_tick_callback()`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_tick_callback&quot;</span>)]
     </span><span class="kw">fn </span>add_tick_callback&lt;P: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::FrameClock) -&gt; Continue + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        callback: P,
-    ) -&gt; TickCallbackId;
-
-    <span class="doccomment">/// Adds the events in the bitfield `events` to the event mask for
-    /// `self`. See [`WidgetExtManual::set_events()`][crate::prelude::WidgetExtManual::set_events()] and the
-    /// [input handling overview][event-masks] for details.
-    /// ## `events`
-    /// an event mask, see [`gdk::EventMask`][crate::gdk::EventMask]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_events&quot;</span>)]
-    </span><span class="kw">fn </span>add_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask);
-
-    <span class="doccomment">/// Returns the event mask (see [`gdk::EventMask`][crate::gdk::EventMask]) for the widget. These are the
-    /// events that the widget will receive.
-    ///
-    /// Note: Internally, the widget event mask will be the logical OR of the event
-    /// mask set through [`WidgetExtManual::set_events()`][crate::prelude::WidgetExtManual::set_events()] or [`WidgetExtManual::add_events()`][crate::prelude::WidgetExtManual::add_events()], and the
-    /// event mask necessary to cater for every [`EventController`][crate::EventController] created for the
-    /// widget.
-    ///
-    /// # Returns
-    ///
-    /// event mask for `self`
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_events&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_events&quot;</span>)]
-    </span><span class="kw">fn </span>events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::EventMask;
-
-    <span class="doccomment">/// Sets the event mask (see [`gdk::EventMask`][crate::gdk::EventMask]) for a widget. The event
-    /// mask determines which events a widget will receive. Keep in mind
-    /// that different widgets have different default event masks, and by
-    /// changing the event mask you may disrupt a widget’s functionality,
-    /// so be careful. This function must be called while a widget is
-    /// unrealized. Consider [`WidgetExtManual::add_events()`][crate::prelude::WidgetExtManual::add_events()] for widgets that are
-    /// already realized, or if you want to preserve the existing event
-    /// mask. This function can’t be used with widgets that have no window.
-    /// (See [`WidgetExt::has_window()`][crate::prelude::WidgetExt::has_window()]). To get events on those widgets,
-    /// place them inside a [`EventBox`][crate::EventBox] and receive events on the event
-    /// box.
-    /// ## `events`
-    /// event mask
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_events&quot;</span>)]
-    </span><span class="kw">fn </span>set_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask);
-
-    <span class="comment">// rustdoc-stripper-ignore-next
-    </span><span class="doccomment">/// Calls `gtk_widget_destroy()` on this widget.
-    ///
-    /// # Safety
-    ///
-    /// This will not necessarily entirely remove the widget from existence but
-    /// you must *NOT* query the widget&#39;s state subsequently.  Do not call this
-    /// yourself unless you really mean to.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_destroy&quot;</span>)]
-    </span><span class="kw">unsafe fn </span>destroy(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Utility function; intended to be connected to the [`delete-event`][struct@crate::Widget#delete-event]
-    /// signal on a [`Window`][crate::Window]. The function calls [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] on its
-    /// argument, then returns [`true`]. If connected to ::delete-event, the
-    /// result is that clicking the close button for a window (on the
-    /// window frame, top right corner usually) will hide but not destroy
-    /// the window. By default, GTK+ destroys windows when ::delete-event
-    /// is received.
-    ///
-    /// # Returns
-    ///
-    /// [`true`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_hide_on_delete&quot;</span>)]
-    </span><span class="kw">fn </span>hide_on_delete(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Inhibit;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Widget&gt;&gt; WidgetExtManual <span class="kw">for </span>O {
-    <span class="kw">fn </span>drag_dest_set(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: DestDefaults, targets: <span class="kw-2">&amp;</span>[TargetEntry], actions: DragAction) {
-        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = targets.iter().map(|e| e.to_glib_none()).collect();
-        <span class="kw">let </span>t: Vec&lt;<span class="kw">_</span>&gt; = stashes.iter().map(|stash| <span class="kw">unsafe </span>{ <span class="kw-2">*</span>stash.<span class="number">0 </span>}).collect();
-        <span class="kw">let </span>t_ptr: <span class="kw-2">*mut </span>ffi::GtkTargetEntry = <span class="kw">if </span>!t.is_empty() {
-            t.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
-        </span>} <span class="kw">else </span>{
-            ptr::null_mut()
-        };
-        <span class="kw">unsafe </span>{
-            ffi::gtk_drag_dest_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                flags.into_glib(),
-                t_ptr,
-                t.len() <span class="kw">as </span>i32,
-                actions.into_glib(),
-            )
-        };
-    }
-
-    <span class="kw">fn </span>drag_source_set(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        start_button_mask: ModifierType,
-        targets: <span class="kw-2">&amp;</span>[TargetEntry],
-        actions: DragAction,
-    ) {
-        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = targets.iter().map(|e| e.to_glib_none()).collect();
-        <span class="kw">let </span>t: Vec&lt;<span class="kw">_</span>&gt; = stashes.iter().map(|stash| <span class="kw">unsafe </span>{ <span class="kw-2">*</span>stash.<span class="number">0 </span>}).collect();
-        <span class="kw">let </span>t_ptr: <span class="kw-2">*mut </span>ffi::GtkTargetEntry = <span class="kw">if </span>!t.is_empty() {
-            t.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
-        </span>} <span class="kw">else </span>{
-            ptr::null_mut()
-        };
-        <span class="kw">unsafe </span>{
-            ffi::gtk_drag_source_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start_button_mask.into_glib(),
-                t_ptr,
-                t.len() <span class="kw">as </span>i32,
-                actions.into_glib(),
-            )
-        };
-    }
-
-    <span class="kw">fn </span>intersect(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>Rectangle, <span class="kw-2">mut </span>intersection: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span>Rectangle&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_widget_intersect(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                area.to_glib_none().<span class="number">0</span>,
-                intersection.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>connect_map_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>event_any_trampoline&lt;T, F: Fn(<span class="kw-2">&amp;</span>T, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkWidget,
-            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventAny,
-            f: <span class="kw-2">&amp;</span>F,
-        ) -&gt; gboolean
-        <span class="kw">where
-            </span>T: IsA&lt;Widget&gt;,
-        {
-            f(
-                Widget::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="kw-2">&amp;</span>from_glib_borrow(event),
-            )
-            .into_glib()
-        }
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box&lt;F&gt; = Box::new(f);
-            connect_raw(
-                <span class="self">self</span>.to_glib_none().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b&quot;map-event\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
-                    event_any_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
-                )),
-                Box::into_raw(f),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>connect_unmap_event&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>event_any_trampoline&lt;T, F: Fn(<span class="kw-2">&amp;</span>T, <span class="kw-2">&amp;</span>Event) -&gt; Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkWidget,
-            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventAny,
-            f: <span class="kw-2">&amp;</span>F,
-        ) -&gt; gboolean
-        <span class="kw">where
-            </span>T: IsA&lt;Widget&gt;,
-        {
-            f(
-                Widget::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="kw-2">&amp;</span>from_glib_borrow(event),
-            )
-            .into_glib()
-        }
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box&lt;F&gt; = Box::new(f);
-            connect_raw(
-                <span class="self">self</span>.to_glib_none().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b&quot;unmap-event\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
-                    event_any_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
-                )),
-                Box::into_raw(f),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>add_tick_callback&lt;P: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::FrameClock) -&gt; Continue + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         callback: P,
     ) -&gt; TickCallbackId {
@@ -943,27 +819,81 @@
         }
     }
 
-    <span class="kw">fn </span>add_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask) {
+    <span class="doccomment">/// Adds the events in the bitfield `events` to the event mask for
+    /// `self`. See [`WidgetExtManual::set_events()`][crate::prelude::WidgetExtManual::set_events()] and the
+    /// [input handling overview][event-masks] for details.
+    /// ## `events`
+    /// an event mask, see [`gdk::EventMask`][crate::gdk::EventMask]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_add_events&quot;</span>)]
+    </span><span class="kw">fn </span>add_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gtk_widget_add_events(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, events.into_glib() <span class="kw">as </span>i32);
         }
     }
 
-    <span class="kw">fn </span>events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::EventMask {
+    <span class="doccomment">/// Returns the event mask (see [`gdk::EventMask`][crate::gdk::EventMask]) for the widget. These are the
+    /// events that the widget will receive.
+    ///
+    /// Note: Internally, the widget event mask will be the logical OR of the event
+    /// mask set through [`WidgetExtManual::set_events()`][crate::prelude::WidgetExtManual::set_events()] or [`WidgetExtManual::add_events()`][crate::prelude::WidgetExtManual::add_events()], and the
+    /// event mask necessary to cater for every [`EventController`][crate::EventController] created for the
+    /// widget.
+    ///
+    /// # Returns
+    ///
+    /// event mask for `self`
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_get_events&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_events&quot;</span>)]
+    </span><span class="kw">fn </span>events(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::EventMask {
         <span class="kw">unsafe </span>{ from_glib(ffi::gtk_widget_get_events(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) <span class="kw">as </span>u32) }
     }
 
-    <span class="kw">fn </span>set_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask) {
+    <span class="doccomment">/// Sets the event mask (see [`gdk::EventMask`][crate::gdk::EventMask]) for a widget. The event
+    /// mask determines which events a widget will receive. Keep in mind
+    /// that different widgets have different default event masks, and by
+    /// changing the event mask you may disrupt a widget’s functionality,
+    /// so be careful. This function must be called while a widget is
+    /// unrealized. Consider [`WidgetExtManual::add_events()`][crate::prelude::WidgetExtManual::add_events()] for widgets that are
+    /// already realized, or if you want to preserve the existing event
+    /// mask. This function can’t be used with widgets that have no window.
+    /// (See [`WidgetExt::has_window()`][crate::prelude::WidgetExt::has_window()]). To get events on those widgets,
+    /// place them inside a [`EventBox`][crate::EventBox] and receive events on the event
+    /// box.
+    /// ## `events`
+    /// event mask
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_set_events&quot;</span>)]
+    </span><span class="kw">fn </span>set_events(<span class="kw-2">&amp;</span><span class="self">self</span>, events: gdk::EventMask) {
         <span class="kw">unsafe </span>{
             ffi::gtk_widget_set_events(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, events.into_glib() <span class="kw">as </span>i32);
         }
     }
 
-    <span class="kw">unsafe fn </span>destroy(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Calls `gtk_widget_destroy()` on this widget.
+    ///
+    /// # Safety
+    ///
+    /// This will not necessarily entirely remove the widget from existence but
+    /// you must *NOT* query the widget&#39;s state subsequently.  Do not call this
+    /// yourself unless you really mean to.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_destroy&quot;</span>)]
+    </span><span class="kw">unsafe fn </span>destroy(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         ffi::gtk_widget_destroy(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
     }
 
-    <span class="kw">fn </span>hide_on_delete(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Inhibit {
+    <span class="doccomment">/// Utility function; intended to be connected to the [`delete-event`][struct@crate::Widget#delete-event]
+    /// signal on a [`Window`][crate::Window]. The function calls [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] on its
+    /// argument, then returns [`true`]. If connected to ::delete-event, the
+    /// result is that clicking the close button for a window (on the
+    /// window frame, top right corner usually) will hide but not destroy
+    /// the window. By default, GTK+ destroys windows when ::delete-event
+    /// is received.
+    ///
+    /// # Returns
+    ///
+    /// [`true`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_widget_hide_on_delete&quot;</span>)]
+    </span><span class="kw">fn </span>hide_on_delete(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Inhibit {
         <span class="kw">unsafe </span>{
             Inhibit(from_glib(ffi::gtk_widget_hide_on_delete(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -971,6 +901,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Widget&gt;&gt; WidgetExtManual <span class="kw">for </span>O {}
 
 <span class="kw">pub trait </span>InitializingWidgetExt {
     <span class="kw">fn </span>init_template(<span class="kw-2">&amp;</span><span class="self">self</span>);

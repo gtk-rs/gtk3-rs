@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser_widget.rs`."><title>file_chooser_widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser_widget.rs`."><title>file_chooser_widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2580,65 +2580,7 @@
 <a href="#2507" id="2507">2507</a>
 <a href="#2508" id="2508">2508</a>
 <a href="#2509" id="2509">2509</a>
-<a href="#2510" id="2510">2510</a>
-<a href="#2511" id="2511">2511</a>
-<a href="#2512" id="2512">2512</a>
-<a href="#2513" id="2513">2513</a>
-<a href="#2514" id="2514">2514</a>
-<a href="#2515" id="2515">2515</a>
-<a href="#2516" id="2516">2516</a>
-<a href="#2517" id="2517">2517</a>
-<a href="#2518" id="2518">2518</a>
-<a href="#2519" id="2519">2519</a>
-<a href="#2520" id="2520">2520</a>
-<a href="#2521" id="2521">2521</a>
-<a href="#2522" id="2522">2522</a>
-<a href="#2523" id="2523">2523</a>
-<a href="#2524" id="2524">2524</a>
-<a href="#2525" id="2525">2525</a>
-<a href="#2526" id="2526">2526</a>
-<a href="#2527" id="2527">2527</a>
-<a href="#2528" id="2528">2528</a>
-<a href="#2529" id="2529">2529</a>
-<a href="#2530" id="2530">2530</a>
-<a href="#2531" id="2531">2531</a>
-<a href="#2532" id="2532">2532</a>
-<a href="#2533" id="2533">2533</a>
-<a href="#2534" id="2534">2534</a>
-<a href="#2535" id="2535">2535</a>
-<a href="#2536" id="2536">2536</a>
-<a href="#2537" id="2537">2537</a>
-<a href="#2538" id="2538">2538</a>
-<a href="#2539" id="2539">2539</a>
-<a href="#2540" id="2540">2540</a>
-<a href="#2541" id="2541">2541</a>
-<a href="#2542" id="2542">2542</a>
-<a href="#2543" id="2543">2543</a>
-<a href="#2544" id="2544">2544</a>
-<a href="#2545" id="2545">2545</a>
-<a href="#2546" id="2546">2546</a>
-<a href="#2547" id="2547">2547</a>
-<a href="#2548" id="2548">2548</a>
-<a href="#2549" id="2549">2549</a>
-<a href="#2550" id="2550">2550</a>
-<a href="#2551" id="2551">2551</a>
-<a href="#2552" id="2552">2552</a>
-<a href="#2553" id="2553">2553</a>
-<a href="#2554" id="2554">2554</a>
-<a href="#2555" id="2555">2555</a>
-<a href="#2556" id="2556">2556</a>
-<a href="#2557" id="2557">2557</a>
-<a href="#2558" id="2558">2558</a>
-<a href="#2559" id="2559">2559</a>
-<a href="#2560" id="2560">2560</a>
-<a href="#2561" id="2561">2561</a>
-<a href="#2562" id="2562">2562</a>
-<a href="#2563" id="2563">2563</a>
-<a href="#2564" id="2564">2564</a>
-<a href="#2565" id="2565">2565</a>
-<a href="#2566" id="2566">2566</a>
-<a href="#2567" id="2567">2567</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4620,14 +4562,20 @@
 /// # Implementors
 ///
 /// [`FileChooserWidget`][struct@crate::FileChooserWidget]
-</span><span class="kw">pub trait </span>FileChooserWidgetExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>FileChooserWidgetExt: IsA&lt;FileChooserWidget&gt; + <span class="lifetime">&#39;static </span>{
     <span class="attr">#[doc(alias = <span class="string">&quot;search-mode&quot;</span>)]
-    </span><span class="kw">fn </span>is_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;search-mode&quot;</span>)
+    }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;search-mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, search_mode: bool);
+    </span><span class="kw">fn </span>set_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, search_mode: bool) {
+        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;search-mode&quot;</span>, search_mode)
+    }
 
-    <span class="kw">fn </span>subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    <span class="kw">fn </span>subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;subtitle&quot;</span>)
+    }
 
     <span class="doccomment">/// The ::desktop-folder signal is a [keybinding signal][GtkBindingSignal]
     /// which gets emitted when the user asks for it.
@@ -4637,175 +4585,7 @@
     ///
     /// The default binding for this signal is `Alt + D`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;desktop-folder&quot;</span>)]
-    </span><span class="kw">fn </span>connect_desktop_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_desktop_folder(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::down-folder signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser go to a child of the current folder
-    /// in the file hierarchy. The subfolder that will be used is displayed in the
-    /// path bar widget of the file chooser. For example, if the path bar is showing
-    /// &quot;/foo/bar/baz&quot;, with bar currently displayed, then this will cause the file
-    /// chooser to switch to the &quot;baz&quot; subfolder.
-    ///
-    /// The default binding for this signal is `Alt + Down`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;down-folder&quot;</span>)]
-    </span><span class="kw">fn </span>connect_down_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_down_folder(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::home-folder signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser show the user&#39;s home
-    /// folder in the file list.
-    ///
-    /// The default binding for this signal is `Alt + Home`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;home-folder&quot;</span>)]
-    </span><span class="kw">fn </span>connect_home_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_home_folder(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::location-popup signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser show a &quot;Location&quot; prompt which
-    /// the user can use to manually type the name of the file he wishes to select.
-    ///
-    /// The default bindings for this signal are `Control + L` with a `path` string
-    /// of &quot;&quot; (the empty string). It is also bound to `/` with a `path` string of
-    /// &quot;`/`&quot; (a slash): this lets you type `/` and immediately type a path name.
-    /// On Unix systems, this is bound to `~` (tilde) with a `path` string of &quot;~&quot;
-    /// itself for access to home directories.
-    /// ## `path`
-    /// a string that gets put in the text entry for the file name
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-popup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_location_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_location_popup(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// The ::location-popup-on-paste signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser show a &quot;Location&quot; prompt when the user
-    /// pastes into a [`FileChooserWidget`][crate::FileChooserWidget].
-    ///
-    /// The default binding for this signal is `Control + V`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-popup-on-paste&quot;</span>)]
-    </span><span class="kw">fn </span>connect_location_popup_on_paste&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_location_popup_on_paste(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::location-toggle-popup signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to toggle the visibility of a &quot;Location&quot; prompt which the user
-    /// can use to manually type the name of the file he wishes to select.
-    ///
-    /// The default binding for this signal is `Control + L`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-toggle-popup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_location_toggle_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_location_toggle_popup(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::places-shortcut signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to move the focus to the places sidebar.
-    ///
-    /// The default binding for this signal is `Alt + P`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;places-shortcut&quot;</span>)]
-    </span><span class="kw">fn </span>connect_places_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_places_shortcut(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::quick-bookmark signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser switch to the bookmark specified
-    /// in the `bookmark_index` parameter. For example, if you have three bookmarks,
-    /// you can pass 0, 1, 2 to this signal to switch to each of them, respectively.
-    ///
-    /// The default binding for this signal is `Alt + 1`, `Alt + 2`,
-    /// etc. until `Alt + 0`. Note that in the default binding, that
-    /// `Alt + 1` is actually defined to switch to the bookmark at index
-    /// 0, and so on successively; `Alt + 0` is defined to switch to the
-    /// bookmark at index 10.
-    /// ## `bookmark_index`
-    /// the number of the bookmark to switch to
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;quick-bookmark&quot;</span>)]
-    </span><span class="kw">fn </span>connect_quick_bookmark&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_quick_bookmark(<span class="kw-2">&amp;</span><span class="self">self</span>, bookmark_index: i32);
-
-    <span class="doccomment">/// The ::recent-shortcut signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser show the Recent location.
-    ///
-    /// The default binding for this signal is `Alt + R`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;recent-shortcut&quot;</span>)]
-    </span><span class="kw">fn </span>connect_recent_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_recent_shortcut(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::search-shortcut signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser show the search entry.
-    ///
-    /// The default binding for this signal is `Alt + S`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;search-shortcut&quot;</span>)]
-    </span><span class="kw">fn </span>connect_search_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_search_shortcut(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::show-hidden signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser display hidden files.
-    ///
-    /// The default binding for this signal is `Control + H`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-hidden&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_hidden&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_show_hidden(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::up-folder signal is a [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// This is used to make the file chooser go to the parent of the current folder
-    /// in the file hierarchy.
-    ///
-    /// The default binding for this signal is `Alt + Up`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;up-folder&quot;</span>)]
-    </span><span class="kw">fn </span>connect_up_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_up_folder(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;search-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_search_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;subtitle&quot;</span>)]
-    </span><span class="kw">fn </span>connect_subtitle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;FileChooserWidget&gt;&gt; FileChooserWidgetExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>is_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;search-mode&quot;</span>)
-    }
-
-    <span class="kw">fn </span>set_search_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, search_mode: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;search-mode&quot;</span>, search_mode)
-    }
-
-    <span class="kw">fn </span>subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;subtitle&quot;</span>)
-    }
-
-    <span class="kw">fn </span>connect_desktop_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_desktop_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>desktop_folder_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4833,7 +4613,18 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;desktop-folder&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_down_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::down-folder signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser go to a child of the current folder
+    /// in the file hierarchy. The subfolder that will be used is displayed in the
+    /// path bar widget of the file chooser. For example, if the path bar is showing
+    /// &quot;/foo/bar/baz&quot;, with bar currently displayed, then this will cause the file
+    /// chooser to switch to the &quot;baz&quot; subfolder.
+    ///
+    /// The default binding for this signal is `Alt + Down`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;down-folder&quot;</span>)]
+    </span><span class="kw">fn </span>connect_down_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>down_folder_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4861,7 +4652,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;down-folder&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_home_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::home-folder signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser show the user&#39;s home
+    /// folder in the file list.
+    ///
+    /// The default binding for this signal is `Alt + Home`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;home-folder&quot;</span>)]
+    </span><span class="kw">fn </span>connect_home_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>home_folder_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4889,7 +4688,21 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;home-folder&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_location_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::location-popup signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser show a &quot;Location&quot; prompt which
+    /// the user can use to manually type the name of the file he wishes to select.
+    ///
+    /// The default bindings for this signal are `Control + L` with a `path` string
+    /// of &quot;&quot; (the empty string). It is also bound to `/` with a `path` string of
+    /// &quot;`/`&quot; (a slash): this lets you type `/` and immediately type a path name.
+    /// On Unix systems, this is bound to `~` (tilde) with a `path` string of &quot;~&quot;
+    /// itself for access to home directories.
+    /// ## `path`
+    /// a string that gets put in the text entry for the file name
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-popup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_location_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>location_popup_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>,
@@ -4921,7 +4734,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;location-popup&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>path]);
     }
 
-    <span class="kw">fn </span>connect_location_popup_on_paste&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::location-popup-on-paste signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser show a &quot;Location&quot; prompt when the user
+    /// pastes into a [`FileChooserWidget`][crate::FileChooserWidget].
+    ///
+    /// The default binding for this signal is `Control + V`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-popup-on-paste&quot;</span>)]
+    </span><span class="kw">fn </span>connect_location_popup_on_paste&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>location_popup_on_paste_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4949,7 +4770,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;location-popup-on-paste&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_location_toggle_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::location-toggle-popup signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to toggle the visibility of a &quot;Location&quot; prompt which the user
+    /// can use to manually type the name of the file he wishes to select.
+    ///
+    /// The default binding for this signal is `Control + L`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;location-toggle-popup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_location_toggle_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>location_toggle_popup_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4977,7 +4806,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;location-toggle-popup&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_places_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::places-shortcut signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to move the focus to the places sidebar.
+    ///
+    /// The default binding for this signal is `Alt + P`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;places-shortcut&quot;</span>)]
+    </span><span class="kw">fn </span>connect_places_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>places_shortcut_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5005,7 +4841,22 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;places-shortcut&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_quick_bookmark&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::quick-bookmark signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser switch to the bookmark specified
+    /// in the `bookmark_index` parameter. For example, if you have three bookmarks,
+    /// you can pass 0, 1, 2 to this signal to switch to each of them, respectively.
+    ///
+    /// The default binding for this signal is `Alt + 1`, `Alt + 2`,
+    /// etc. until `Alt + 0`. Note that in the default binding, that
+    /// `Alt + 1` is actually defined to switch to the bookmark at index
+    /// 0, and so on successively; `Alt + 0` is defined to switch to the
+    /// bookmark at index 10.
+    /// ## `bookmark_index`
+    /// the number of the bookmark to switch to
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;quick-bookmark&quot;</span>)]
+    </span><span class="kw">fn </span>connect_quick_bookmark&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>quick_bookmark_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, i32) + <span class="lifetime">&#39;static</span>,
@@ -5037,7 +4888,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;quick-bookmark&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>bookmark_index]);
     }
 
-    <span class="kw">fn </span>connect_recent_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::recent-shortcut signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser show the Recent location.
+    ///
+    /// The default binding for this signal is `Alt + R`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;recent-shortcut&quot;</span>)]
+    </span><span class="kw">fn </span>connect_recent_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>recent_shortcut_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5065,7 +4923,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;recent-shortcut&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_search_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::search-shortcut signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser show the search entry.
+    ///
+    /// The default binding for this signal is `Alt + S`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;search-shortcut&quot;</span>)]
+    </span><span class="kw">fn </span>connect_search_shortcut&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>search_shortcut_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5093,7 +4958,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;search-shortcut&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_show_hidden&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::show-hidden signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser display hidden files.
+    ///
+    /// The default binding for this signal is `Control + H`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-hidden&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_hidden&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>show_hidden_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5121,7 +4993,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;show-hidden&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_up_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::up-folder signal is a [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// This is used to make the file chooser go to the parent of the current folder
+    /// in the file hierarchy.
+    ///
+    /// The default binding for this signal is `Alt + Up`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;up-folder&quot;</span>)]
+    </span><span class="kw">fn </span>connect_up_folder&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>up_folder_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5149,7 +5029,8 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;up-folder&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_search_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;search-mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_search_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_search_mode_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5174,7 +5055,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_subtitle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;subtitle&quot;</span>)]
+    </span><span class="kw">fn </span>connect_subtitle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_subtitle_trampoline&lt;
             P: IsA&lt;FileChooserWidget&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5199,6 +5081,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;FileChooserWidget&gt;&gt; FileChooserWidgetExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>FileChooserWidget {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

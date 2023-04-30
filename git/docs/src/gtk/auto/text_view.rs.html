@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_view.rs`."><title>text_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_view.rs`."><title>text_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -4780,300 +4780,7 @@
 <a href="#4707" id="4707">4707</a>
 <a href="#4708" id="4708">4708</a>
 <a href="#4709" id="4709">4709</a>
-<a href="#4710" id="4710">4710</a>
-<a href="#4711" id="4711">4711</a>
-<a href="#4712" id="4712">4712</a>
-<a href="#4713" id="4713">4713</a>
-<a href="#4714" id="4714">4714</a>
-<a href="#4715" id="4715">4715</a>
-<a href="#4716" id="4716">4716</a>
-<a href="#4717" id="4717">4717</a>
-<a href="#4718" id="4718">4718</a>
-<a href="#4719" id="4719">4719</a>
-<a href="#4720" id="4720">4720</a>
-<a href="#4721" id="4721">4721</a>
-<a href="#4722" id="4722">4722</a>
-<a href="#4723" id="4723">4723</a>
-<a href="#4724" id="4724">4724</a>
-<a href="#4725" id="4725">4725</a>
-<a href="#4726" id="4726">4726</a>
-<a href="#4727" id="4727">4727</a>
-<a href="#4728" id="4728">4728</a>
-<a href="#4729" id="4729">4729</a>
-<a href="#4730" id="4730">4730</a>
-<a href="#4731" id="4731">4731</a>
-<a href="#4732" id="4732">4732</a>
-<a href="#4733" id="4733">4733</a>
-<a href="#4734" id="4734">4734</a>
-<a href="#4735" id="4735">4735</a>
-<a href="#4736" id="4736">4736</a>
-<a href="#4737" id="4737">4737</a>
-<a href="#4738" id="4738">4738</a>
-<a href="#4739" id="4739">4739</a>
-<a href="#4740" id="4740">4740</a>
-<a href="#4741" id="4741">4741</a>
-<a href="#4742" id="4742">4742</a>
-<a href="#4743" id="4743">4743</a>
-<a href="#4744" id="4744">4744</a>
-<a href="#4745" id="4745">4745</a>
-<a href="#4746" id="4746">4746</a>
-<a href="#4747" id="4747">4747</a>
-<a href="#4748" id="4748">4748</a>
-<a href="#4749" id="4749">4749</a>
-<a href="#4750" id="4750">4750</a>
-<a href="#4751" id="4751">4751</a>
-<a href="#4752" id="4752">4752</a>
-<a href="#4753" id="4753">4753</a>
-<a href="#4754" id="4754">4754</a>
-<a href="#4755" id="4755">4755</a>
-<a href="#4756" id="4756">4756</a>
-<a href="#4757" id="4757">4757</a>
-<a href="#4758" id="4758">4758</a>
-<a href="#4759" id="4759">4759</a>
-<a href="#4760" id="4760">4760</a>
-<a href="#4761" id="4761">4761</a>
-<a href="#4762" id="4762">4762</a>
-<a href="#4763" id="4763">4763</a>
-<a href="#4764" id="4764">4764</a>
-<a href="#4765" id="4765">4765</a>
-<a href="#4766" id="4766">4766</a>
-<a href="#4767" id="4767">4767</a>
-<a href="#4768" id="4768">4768</a>
-<a href="#4769" id="4769">4769</a>
-<a href="#4770" id="4770">4770</a>
-<a href="#4771" id="4771">4771</a>
-<a href="#4772" id="4772">4772</a>
-<a href="#4773" id="4773">4773</a>
-<a href="#4774" id="4774">4774</a>
-<a href="#4775" id="4775">4775</a>
-<a href="#4776" id="4776">4776</a>
-<a href="#4777" id="4777">4777</a>
-<a href="#4778" id="4778">4778</a>
-<a href="#4779" id="4779">4779</a>
-<a href="#4780" id="4780">4780</a>
-<a href="#4781" id="4781">4781</a>
-<a href="#4782" id="4782">4782</a>
-<a href="#4783" id="4783">4783</a>
-<a href="#4784" id="4784">4784</a>
-<a href="#4785" id="4785">4785</a>
-<a href="#4786" id="4786">4786</a>
-<a href="#4787" id="4787">4787</a>
-<a href="#4788" id="4788">4788</a>
-<a href="#4789" id="4789">4789</a>
-<a href="#4790" id="4790">4790</a>
-<a href="#4791" id="4791">4791</a>
-<a href="#4792" id="4792">4792</a>
-<a href="#4793" id="4793">4793</a>
-<a href="#4794" id="4794">4794</a>
-<a href="#4795" id="4795">4795</a>
-<a href="#4796" id="4796">4796</a>
-<a href="#4797" id="4797">4797</a>
-<a href="#4798" id="4798">4798</a>
-<a href="#4799" id="4799">4799</a>
-<a href="#4800" id="4800">4800</a>
-<a href="#4801" id="4801">4801</a>
-<a href="#4802" id="4802">4802</a>
-<a href="#4803" id="4803">4803</a>
-<a href="#4804" id="4804">4804</a>
-<a href="#4805" id="4805">4805</a>
-<a href="#4806" id="4806">4806</a>
-<a href="#4807" id="4807">4807</a>
-<a href="#4808" id="4808">4808</a>
-<a href="#4809" id="4809">4809</a>
-<a href="#4810" id="4810">4810</a>
-<a href="#4811" id="4811">4811</a>
-<a href="#4812" id="4812">4812</a>
-<a href="#4813" id="4813">4813</a>
-<a href="#4814" id="4814">4814</a>
-<a href="#4815" id="4815">4815</a>
-<a href="#4816" id="4816">4816</a>
-<a href="#4817" id="4817">4817</a>
-<a href="#4818" id="4818">4818</a>
-<a href="#4819" id="4819">4819</a>
-<a href="#4820" id="4820">4820</a>
-<a href="#4821" id="4821">4821</a>
-<a href="#4822" id="4822">4822</a>
-<a href="#4823" id="4823">4823</a>
-<a href="#4824" id="4824">4824</a>
-<a href="#4825" id="4825">4825</a>
-<a href="#4826" id="4826">4826</a>
-<a href="#4827" id="4827">4827</a>
-<a href="#4828" id="4828">4828</a>
-<a href="#4829" id="4829">4829</a>
-<a href="#4830" id="4830">4830</a>
-<a href="#4831" id="4831">4831</a>
-<a href="#4832" id="4832">4832</a>
-<a href="#4833" id="4833">4833</a>
-<a href="#4834" id="4834">4834</a>
-<a href="#4835" id="4835">4835</a>
-<a href="#4836" id="4836">4836</a>
-<a href="#4837" id="4837">4837</a>
-<a href="#4838" id="4838">4838</a>
-<a href="#4839" id="4839">4839</a>
-<a href="#4840" id="4840">4840</a>
-<a href="#4841" id="4841">4841</a>
-<a href="#4842" id="4842">4842</a>
-<a href="#4843" id="4843">4843</a>
-<a href="#4844" id="4844">4844</a>
-<a href="#4845" id="4845">4845</a>
-<a href="#4846" id="4846">4846</a>
-<a href="#4847" id="4847">4847</a>
-<a href="#4848" id="4848">4848</a>
-<a href="#4849" id="4849">4849</a>
-<a href="#4850" id="4850">4850</a>
-<a href="#4851" id="4851">4851</a>
-<a href="#4852" id="4852">4852</a>
-<a href="#4853" id="4853">4853</a>
-<a href="#4854" id="4854">4854</a>
-<a href="#4855" id="4855">4855</a>
-<a href="#4856" id="4856">4856</a>
-<a href="#4857" id="4857">4857</a>
-<a href="#4858" id="4858">4858</a>
-<a href="#4859" id="4859">4859</a>
-<a href="#4860" id="4860">4860</a>
-<a href="#4861" id="4861">4861</a>
-<a href="#4862" id="4862">4862</a>
-<a href="#4863" id="4863">4863</a>
-<a href="#4864" id="4864">4864</a>
-<a href="#4865" id="4865">4865</a>
-<a href="#4866" id="4866">4866</a>
-<a href="#4867" id="4867">4867</a>
-<a href="#4868" id="4868">4868</a>
-<a href="#4869" id="4869">4869</a>
-<a href="#4870" id="4870">4870</a>
-<a href="#4871" id="4871">4871</a>
-<a href="#4872" id="4872">4872</a>
-<a href="#4873" id="4873">4873</a>
-<a href="#4874" id="4874">4874</a>
-<a href="#4875" id="4875">4875</a>
-<a href="#4876" id="4876">4876</a>
-<a href="#4877" id="4877">4877</a>
-<a href="#4878" id="4878">4878</a>
-<a href="#4879" id="4879">4879</a>
-<a href="#4880" id="4880">4880</a>
-<a href="#4881" id="4881">4881</a>
-<a href="#4882" id="4882">4882</a>
-<a href="#4883" id="4883">4883</a>
-<a href="#4884" id="4884">4884</a>
-<a href="#4885" id="4885">4885</a>
-<a href="#4886" id="4886">4886</a>
-<a href="#4887" id="4887">4887</a>
-<a href="#4888" id="4888">4888</a>
-<a href="#4889" id="4889">4889</a>
-<a href="#4890" id="4890">4890</a>
-<a href="#4891" id="4891">4891</a>
-<a href="#4892" id="4892">4892</a>
-<a href="#4893" id="4893">4893</a>
-<a href="#4894" id="4894">4894</a>
-<a href="#4895" id="4895">4895</a>
-<a href="#4896" id="4896">4896</a>
-<a href="#4897" id="4897">4897</a>
-<a href="#4898" id="4898">4898</a>
-<a href="#4899" id="4899">4899</a>
-<a href="#4900" id="4900">4900</a>
-<a href="#4901" id="4901">4901</a>
-<a href="#4902" id="4902">4902</a>
-<a href="#4903" id="4903">4903</a>
-<a href="#4904" id="4904">4904</a>
-<a href="#4905" id="4905">4905</a>
-<a href="#4906" id="4906">4906</a>
-<a href="#4907" id="4907">4907</a>
-<a href="#4908" id="4908">4908</a>
-<a href="#4909" id="4909">4909</a>
-<a href="#4910" id="4910">4910</a>
-<a href="#4911" id="4911">4911</a>
-<a href="#4912" id="4912">4912</a>
-<a href="#4913" id="4913">4913</a>
-<a href="#4914" id="4914">4914</a>
-<a href="#4915" id="4915">4915</a>
-<a href="#4916" id="4916">4916</a>
-<a href="#4917" id="4917">4917</a>
-<a href="#4918" id="4918">4918</a>
-<a href="#4919" id="4919">4919</a>
-<a href="#4920" id="4920">4920</a>
-<a href="#4921" id="4921">4921</a>
-<a href="#4922" id="4922">4922</a>
-<a href="#4923" id="4923">4923</a>
-<a href="#4924" id="4924">4924</a>
-<a href="#4925" id="4925">4925</a>
-<a href="#4926" id="4926">4926</a>
-<a href="#4927" id="4927">4927</a>
-<a href="#4928" id="4928">4928</a>
-<a href="#4929" id="4929">4929</a>
-<a href="#4930" id="4930">4930</a>
-<a href="#4931" id="4931">4931</a>
-<a href="#4932" id="4932">4932</a>
-<a href="#4933" id="4933">4933</a>
-<a href="#4934" id="4934">4934</a>
-<a href="#4935" id="4935">4935</a>
-<a href="#4936" id="4936">4936</a>
-<a href="#4937" id="4937">4937</a>
-<a href="#4938" id="4938">4938</a>
-<a href="#4939" id="4939">4939</a>
-<a href="#4940" id="4940">4940</a>
-<a href="#4941" id="4941">4941</a>
-<a href="#4942" id="4942">4942</a>
-<a href="#4943" id="4943">4943</a>
-<a href="#4944" id="4944">4944</a>
-<a href="#4945" id="4945">4945</a>
-<a href="#4946" id="4946">4946</a>
-<a href="#4947" id="4947">4947</a>
-<a href="#4948" id="4948">4948</a>
-<a href="#4949" id="4949">4949</a>
-<a href="#4950" id="4950">4950</a>
-<a href="#4951" id="4951">4951</a>
-<a href="#4952" id="4952">4952</a>
-<a href="#4953" id="4953">4953</a>
-<a href="#4954" id="4954">4954</a>
-<a href="#4955" id="4955">4955</a>
-<a href="#4956" id="4956">4956</a>
-<a href="#4957" id="4957">4957</a>
-<a href="#4958" id="4958">4958</a>
-<a href="#4959" id="4959">4959</a>
-<a href="#4960" id="4960">4960</a>
-<a href="#4961" id="4961">4961</a>
-<a href="#4962" id="4962">4962</a>
-<a href="#4963" id="4963">4963</a>
-<a href="#4964" id="4964">4964</a>
-<a href="#4965" id="4965">4965</a>
-<a href="#4966" id="4966">4966</a>
-<a href="#4967" id="4967">4967</a>
-<a href="#4968" id="4968">4968</a>
-<a href="#4969" id="4969">4969</a>
-<a href="#4970" id="4970">4970</a>
-<a href="#4971" id="4971">4971</a>
-<a href="#4972" id="4972">4972</a>
-<a href="#4973" id="4973">4973</a>
-<a href="#4974" id="4974">4974</a>
-<a href="#4975" id="4975">4975</a>
-<a href="#4976" id="4976">4976</a>
-<a href="#4977" id="4977">4977</a>
-<a href="#4978" id="4978">4978</a>
-<a href="#4979" id="4979">4979</a>
-<a href="#4980" id="4980">4980</a>
-<a href="#4981" id="4981">4981</a>
-<a href="#4982" id="4982">4982</a>
-<a href="#4983" id="4983">4983</a>
-<a href="#4984" id="4984">4984</a>
-<a href="#4985" id="4985">4985</a>
-<a href="#4986" id="4986">4986</a>
-<a href="#4987" id="4987">4987</a>
-<a href="#4988" id="4988">4988</a>
-<a href="#4989" id="4989">4989</a>
-<a href="#4990" id="4990">4990</a>
-<a href="#4991" id="4991">4991</a>
-<a href="#4992" id="4992">4992</a>
-<a href="#4993" id="4993">4993</a>
-<a href="#4994" id="4994">4994</a>
-<a href="#4995" id="4995">4995</a>
-<a href="#4996" id="4996">4996</a>
-<a href="#4997" id="4997">4997</a>
-<a href="#4998" id="4998">4998</a>
-<a href="#4999" id="4999">4999</a>
-<a href="#5000" id="5000">5000</a>
-<a href="#5001" id="5001">5001</a>
-<a href="#5002" id="5002">5002</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -5091,7 +4798,7 @@
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// You may wish to begin by reading the
-    /// [text widget conceptual overview][TextWidget]
+    /// [text widget conceptual overview](TextWidget.html)
     /// which gives an overview of all the objects and data
     /// types related to the text widget and how they work together.
     ///
@@ -7180,14 +6887,22 @@
 /// # Implementors
 ///
 /// [`TextView`][struct@crate::TextView]
-</span><span class="kw">pub trait </span>TextViewExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>TextViewExt: IsA&lt;TextView&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a child widget in the text buffer, at the given `anchor`.
     /// ## `child`
     /// a [`Widget`][crate::Widget]
     /// ## `anchor`
     /// a [`TextChildAnchor`][crate::TextChildAnchor] in the [`TextBuffer`][crate::TextBuffer] for `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_add_child_at_anchor&quot;</span>)]
-    </span><span class="kw">fn </span>add_child_at_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;);
+    </span><span class="kw">fn </span>add_child_at_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_add_child_at_anchor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+                anchor.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Adds a child at fixed coordinates in one of the text widget&#39;s
     /// windows.
@@ -7214,7 +6929,17 @@
         which_window: TextWindowType,
         xpos: i32,
         ypos: i32,
-    );
+    ) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_add_child_in_window(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+                which_window.into_glib(),
+                xpos,
+                ypos,
+            );
+        }
+    }
 
     <span class="doccomment">/// Moves the given `iter` backward by one display (wrapped) line.
     /// A display line is different from a paragraph. Paragraphs are
@@ -7231,7 +6956,14 @@
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line&quot;</span>)]
-    </span><span class="kw">fn </span>backward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
+    </span><span class="kw">fn </span>backward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_backward_display_line(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Moves the given `iter` backward to the next display line start.
     /// A display line is different from a paragraph. Paragraphs are
@@ -7248,7 +6980,14 @@
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_backward_display_line_start&quot;</span>)]
-    </span><span class="kw">fn </span>backward_display_line_start(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
+    </span><span class="kw">fn </span>backward_display_line_start(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_backward_display_line_start(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Converts coordinate (`buffer_x`, `buffer_y`) to coordinates for the window
     /// `win`, and stores the result in (`window_x`, `window_y`).
@@ -7276,7 +7015,21 @@
         win: TextWindowType,
         buffer_x: i32,
         buffer_y: i32,
-    ) -&gt; (i32, i32);
+    ) -&gt; (i32, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>window_x = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>window_y = mem::MaybeUninit::uninit();
+            ffi::gtk_text_view_buffer_to_window_coords(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                win.into_glib(),
+                buffer_x,
+                buffer_y,
+                window_x.as_mut_ptr(),
+                window_y.as_mut_ptr(),
+            );
+            (window_x.assume_init(), window_y.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Moves the given `iter` forward by one display (wrapped) line.
     /// A display line is different from a paragraph. Paragraphs are
@@ -7293,7 +7046,14 @@
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line&quot;</span>)]
-    </span><span class="kw">fn </span>forward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
+    </span><span class="kw">fn </span>forward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_forward_display_line(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Moves the given `iter` forward to the next display line end.
     /// A display line is different from a paragraph. Paragraphs are
@@ -7310,7 +7070,14 @@
     ///
     /// [`true`] if `iter` was moved and is not on the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_forward_display_line_end&quot;</span>)]
-    </span><span class="kw">fn </span>forward_display_line_end(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool;
+    </span><span class="kw">fn </span>forward_display_line_end(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_forward_display_line_end(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether pressing the Tab key inserts a tab characters.
     /// [`set_accepts_tab()`][Self::set_accepts_tab()].
@@ -7321,7 +7088,13 @@
     ///  [`false`] if pressing the Tab key moves the keyboard focus.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_accepts_tab&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_accepts_tab&quot;</span>)]
-    </span><span class="kw">fn </span>accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_accepts_tab(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the width of the specified border window. See
     /// [`set_border_window_size()`][Self::set_border_window_size()].
@@ -7333,7 +7106,14 @@
     /// width of window
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_border_window_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_border_window_size&quot;</span>)]
-    </span><span class="kw">fn </span>border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType) -&gt; i32;
+    </span><span class="kw">fn </span>border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_get_border_window_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                type_.into_glib(),
+            )
+        }
+    }
 
     <span class="doccomment">/// Gets the bottom margin for text in the `self`.
     ///
@@ -7342,7 +7122,9 @@
     /// bottom margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_bottom_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bottom_margin&quot;</span>)]
-    </span><span class="kw">fn </span>bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_bottom_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the [`TextBuffer`][crate::TextBuffer] being displayed by this text view.
     /// The reference count on the buffer is not incremented; the caller
@@ -7353,7 +7135,13 @@
     /// a [`TextBuffer`][crate::TextBuffer]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextBuffer&gt;;
+    </span><span class="kw">fn </span>buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextBuffer&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_view_get_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Given an `iter` within a text layout, determine the positions of the
     /// strong and weak cursors if the insertion point is at that
@@ -7389,7 +7177,19 @@
     ///  cursor position (may be [`None`])
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_locations&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor_locations&quot;</span>)]
-    </span><span class="kw">fn </span>cursor_locations(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;) -&gt; (gdk::Rectangle, gdk::Rectangle);
+    </span><span class="kw">fn </span>cursor_locations(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;) -&gt; (gdk::Rectangle, gdk::Rectangle) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>strong = gdk::Rectangle::uninitialized();
+            <span class="kw">let </span><span class="kw-2">mut </span>weak = gdk::Rectangle::uninitialized();
+            ffi::gtk_text_view_get_cursor_locations(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none().<span class="number">0</span>,
+                strong.to_glib_none_mut().<span class="number">0</span>,
+                weak.to_glib_none_mut().<span class="number">0</span>,
+            );
+            (strong, weak)
+        }
+    }
 
     <span class="doccomment">/// Find out whether the cursor should be displayed.
     ///
@@ -7398,7 +7198,13 @@
     /// whether the insertion mark is visible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_cursor_visible&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor_visible&quot;</span>)]
-    </span><span class="kw">fn </span>is_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_cursor_visible(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Obtains a copy of the default text attributes. These are the
     /// attributes used for text unless a tag overrides them.
@@ -7414,7 +7220,13 @@
     /// a new [`TextAttributes`][crate::TextAttributes]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_default_attributes&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_attributes&quot;</span>)]
-    </span><span class="kw">fn </span>default_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextAttributes;
+    </span><span class="kw">fn </span>default_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextAttributes {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_text_view_get_default_attributes(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the default editability of the [`TextView`][crate::TextView]. Tags in the
     /// buffer may override this setting for some ranges of text.
@@ -7424,7 +7236,13 @@
     /// whether text is editable by default
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_editable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_editable&quot;</span>)]
-    </span><span class="kw">fn </span>is_editable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_editable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_editable(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the default indentation of paragraphs in `self`.
     /// Tags in the view’s buffer may override the default.
@@ -7435,17 +7253,31 @@
     /// number of pixels of indentation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_indent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_indent&quot;</span>)]
-    </span><span class="kw">fn </span>indent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>indent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_indent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the value of the [`input-hints`][struct@crate::TextView#input-hints] property.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_hints&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_hints&quot;</span>)]
-    </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints;
+    </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_input_hints(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the value of the [`input-purpose`][struct@crate::TextView#input-purpose] property.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_input_purpose&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_input_purpose&quot;</span>)]
-    </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose;
+    </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_input_purpose(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the iterator at buffer coordinates `x` and `y`. Buffer
     /// coordinates are coordinates for the entire buffer, not just the
@@ -7465,7 +7297,22 @@
     /// a [`TextIter`][crate::TextIter]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_location&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_location(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TextIter&gt;;
+    </span><span class="kw">fn </span>iter_at_location(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TextIter&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_view_get_iter_at_location(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                x,
+                y,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>(iter)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Retrieves the iterator pointing to the character at buffer
     /// coordinates `x` and `y`. Buffer coordinates are coordinates for
@@ -7496,7 +7343,24 @@
     ///  0 represents the trailing edge of the grapheme.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_at_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_position&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_position(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, i32)&gt;;
+    </span><span class="kw">fn </span>iter_at_position(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, i32)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            <span class="kw">let </span><span class="kw-2">mut </span>trailing = mem::MaybeUninit::uninit();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_view_get_iter_at_position(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                trailing.as_mut_ptr(),
+                x,
+                y,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((iter, trailing.assume_init()))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Gets a rectangle which roughly contains the character at `iter`.
     /// The rectangle position is in buffer coordinates; use
@@ -7512,7 +7376,17 @@
     /// bounds of the character at `iter`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_iter_location&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_location&quot;</span>)]
-    </span><span class="kw">fn </span>iter_location(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; gdk::Rectangle;
+    </span><span class="kw">fn </span>iter_location(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; gdk::Rectangle {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>location = gdk::Rectangle::uninitialized();
+            ffi::gtk_text_view_get_iter_location(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none().<span class="number">0</span>,
+                location.to_glib_none_mut().<span class="number">0</span>,
+            );
+            location
+        }
+    }
 
     <span class="doccomment">/// Gets the default justification of paragraphs in `self`.
     /// Tags in the buffer may override the default.
@@ -7522,7 +7396,13 @@
     /// default justification
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_justification&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_justification&quot;</span>)]
-    </span><span class="kw">fn </span>justification(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Justification;
+    </span><span class="kw">fn </span>justification(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Justification {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_justification(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the default left margin size of paragraphs in the `self`.
     /// Tags in the buffer may override the default.
@@ -7532,7 +7412,9 @@
     /// left margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_left_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_left_margin&quot;</span>)]
-    </span><span class="kw">fn </span>left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_left_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the [`TextIter`][crate::TextIter] at the start of the line containing
     /// the coordinate `y`. `y` is in buffer coordinates, convert from
@@ -7552,7 +7434,19 @@
     /// return location for top coordinate of the line
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_at_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_at_y&quot;</span>)]
-    </span><span class="kw">fn </span>line_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; (TextIter, i32);
+    </span><span class="kw">fn </span>line_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; (TextIter, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>target_iter = TextIter::uninitialized();
+            <span class="kw">let </span><span class="kw-2">mut </span>line_top = mem::MaybeUninit::uninit();
+            ffi::gtk_text_view_get_line_at_y(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                target_iter.to_glib_none_mut().<span class="number">0</span>,
+                y,
+                line_top.as_mut_ptr(),
+            );
+            (target_iter, line_top.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Gets the y coordinate of the top of the line containing `iter`,
     /// and the height of the line. The coordinate is a buffer coordinate;
@@ -7570,7 +7464,19 @@
     /// return location for a height
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_line_yrange&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_yrange&quot;</span>)]
-    </span><span class="kw">fn </span>line_yrange(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; (i32, i32);
+    </span><span class="kw">fn </span>line_yrange(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; (i32, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>height = mem::MaybeUninit::uninit();
+            ffi::gtk_text_view_get_line_yrange(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none().<span class="number">0</span>,
+                y.as_mut_ptr(),
+                height.as_mut_ptr(),
+            );
+            (y.assume_init(), height.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Gets the value of the [`monospace`][struct@crate::TextView#monospace] property.
     ///
@@ -7579,7 +7485,13 @@
     /// [`true`] if monospace fonts are desired
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_monospace&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monospace&quot;</span>)]
-    </span><span class="kw">fn </span>is_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_monospace(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the [`TextView`][crate::TextView] is in overwrite mode or not.
     ///
@@ -7588,7 +7500,13 @@
     /// whether `self` is in overwrite mode or not.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_overwrite&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_overwrite&quot;</span>)]
-    </span><span class="kw">fn </span>overwrites(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>overwrites(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_overwrite(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the default number of pixels to put above paragraphs.
     /// Adding this function with [`pixels_below_lines()`][Self::pixels_below_lines()]
@@ -7599,7 +7517,9 @@
     /// default number of pixels above paragraphs
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_above_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_above_lines&quot;</span>)]
-    </span><span class="kw">fn </span>pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_above_lines(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the value set by [`set_pixels_below_lines()`][Self::set_pixels_below_lines()].
     ///
@@ -7611,7 +7531,9 @@
     /// default number of blank pixels below paragraphs
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_below_lines&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_below_lines&quot;</span>)]
-    </span><span class="kw">fn </span>pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_below_lines(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the value set by [`set_pixels_inside_wrap()`][Self::set_pixels_inside_wrap()].
     ///
@@ -7620,7 +7542,9 @@
     /// default number of pixels of blank space between wrapped lines
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_pixels_inside_wrap&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixels_inside_wrap&quot;</span>)]
-    </span><span class="kw">fn </span>pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_inside_wrap(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the default right margin for text in `self`. Tags
     /// in the buffer may override the default.
@@ -7630,7 +7554,9 @@
     /// right margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_right_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_right_margin&quot;</span>)]
-    </span><span class="kw">fn </span>right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_right_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the default tabs for `self`. Tags in the buffer may
     /// override the defaults. The returned array will be [`None`] if
@@ -7643,7 +7569,9 @@
     ///  “standard&quot; tabs are used; must be freed with `pango_tab_array_free()`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_tabs&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tabs&quot;</span>)]
-    </span><span class="kw">fn </span>tabs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt;;
+    </span><span class="kw">fn </span>tabs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt; {
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_text_view_get_tabs(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the top margin for text in the `self`.
     ///
@@ -7652,7 +7580,9 @@
     /// top margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_top_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_top_margin&quot;</span>)]
-    </span><span class="kw">fn </span>top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_top_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Fills `visible_rect` with the currently-visible
     /// region of the buffer, in buffer coordinates. Convert to window coordinates
@@ -7665,7 +7595,16 @@
     /// rectangle to fill
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_visible_rect&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_rect&quot;</span>)]
-    </span><span class="kw">fn </span>visible_rect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle;
+    </span><span class="kw">fn </span>visible_rect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>visible_rect = gdk::Rectangle::uninitialized();
+            ffi::gtk_text_view_get_visible_rect(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                visible_rect.to_glib_none_mut().<span class="number">0</span>,
+            );
+            visible_rect
+        }
+    }
 
     <span class="doccomment">/// Retrieves the [`gdk::Window`][crate::gdk::Window] corresponding to an area of the text view;
     /// possible windows include the overall widget window, child windows
@@ -7681,7 +7620,14 @@
     /// a [`gdk::Window`][crate::gdk::Window], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
-    </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>, win: TextWindowType) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt;;
+    </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>, win: TextWindowType) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_view_get_window(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                win.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Usually used to find out which window an event corresponds to.
     ///
@@ -7695,7 +7641,14 @@
     /// the window type.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_window_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_type&quot;</span>)]
-    </span><span class="kw">fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; TextWindowType;
+    </span><span class="kw">fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; TextWindowType {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_window_type(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                window.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the line wrapping for the view.
     ///
@@ -7704,7 +7657,13 @@
     /// the line wrap setting
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_get_wrap_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wrap_mode&quot;</span>)]
-    </span><span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WrapMode;
+    </span><span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WrapMode {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_get_wrap_mode(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Allow the [`TextView`][crate::TextView] input method to internally handle key press
     /// and release events. If this function returns [`true`], then no further
@@ -7747,7 +7706,14 @@
     ///
     /// [`true`] if the input method handled the key event.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_im_context_filter_keypress&quot;</span>)]
-    </span><span class="kw">fn </span>im_context_filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool;
+    </span><span class="kw">fn </span>im_context_filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_im_context_filter_keypress(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(event.to_glib_none().<span class="number">0</span>),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Updates the position of a child, as for [`add_child_in_window()`][Self::add_child_in_window()].
     /// ## `child`
@@ -7757,7 +7723,16 @@
     /// ## `ypos`
     /// new Y position in window coordinates
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_child&quot;</span>)]
-    </span><span class="kw">fn </span>move_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, xpos: i32, ypos: i32);
+    </span><span class="kw">fn </span>move_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, xpos: i32, ypos: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_move_child(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                child.as_ref().to_glib_none().<span class="number">0</span>,
+                xpos,
+                ypos,
+            );
+        }
+    }
 
     <span class="doccomment">/// Moves a mark within the buffer so that it&#39;s
     /// located within the currently-visible text area.
@@ -7768,7 +7743,14 @@
     ///
     /// [`true`] if the mark moved (wasn’t already onscreen)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_mark_onscreen&quot;</span>)]
-    </span><span class="kw">fn </span>move_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>move_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_move_mark_onscreen(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Move the iterator a given number of characters visually, treating
     /// it as the strong cursor position. If `count` is positive, then the
@@ -7791,7 +7773,15 @@
     ///
     /// [`true`] if `iter` moved and is not on the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_move_visually&quot;</span>)]
-    </span><span class="kw">fn </span>move_visually(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, count: i32) -&gt; bool;
+    </span><span class="kw">fn </span>move_visually(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, count: i32) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_move_visually(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                count,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Moves the cursor to the currently visible region of the
     /// buffer, it it isn’t there already.
@@ -7800,7 +7790,13 @@
     ///
     /// [`true`] if the cursor had to be moved.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_place_cursor_onscreen&quot;</span>)]
-    </span><span class="kw">fn </span>place_cursor_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>place_cursor_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_place_cursor_onscreen(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Ensures that the cursor is shown (i.e. not in an &#39;off&#39; blink
     /// interval) and resets the time that it will stay blinking (or
@@ -7810,21 +7806,36 @@
     /// (e.g. from derived classes that override the textview&#39;s
     /// [`key-press-event`][struct@crate::Widget#key-press-event] handler).
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_cursor_blink&quot;</span>)]
-    </span><span class="kw">fn </span>reset_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>reset_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_reset_cursor_blink(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Reset the input method context of the text view if needed.
     ///
     /// This can be necessary in the case where modifying the buffer
     /// would confuse on-going input method behavior.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_reset_im_context&quot;</span>)]
-    </span><span class="kw">fn </span>reset_im_context(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>reset_im_context(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_reset_im_context(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Scrolls `self` the minimum distance such that `mark` is contained
     /// within the visible area of the widget.
     /// ## `mark`
     /// a mark in the buffer for `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_scroll_mark_onscreen&quot;</span>)]
-    </span><span class="kw">fn </span>scroll_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;);
+    </span><span class="kw">fn </span>scroll_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_scroll_mark_onscreen(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Scrolls `self` so that `iter` is on the screen in the position
     /// indicated by `xalign` and `yalign`. An alignment of 0.0 indicates
@@ -7863,7 +7874,18 @@
         use_align: bool,
         xalign: f64,
         yalign: f64,
-    ) -&gt; bool;
+    ) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_scroll_to_iter(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                within_margin,
+                use_align.into_glib(),
+                xalign,
+                yalign,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Scrolls `self` so that `mark` is on the screen in the position
     /// indicated by `xalign` and `yalign`. An alignment of 0.0 indicates
@@ -7891,7 +7913,18 @@
         use_align: bool,
         xalign: f64,
         yalign: f64,
-    );
+    ) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_scroll_to_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+                within_margin,
+                use_align.into_glib(),
+                xalign,
+                yalign,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the behavior of the text widget when the Tab key is pressed.
     /// If `accepts_tab` is [`true`], a tab character is inserted. If `accepts_tab`
@@ -7902,7 +7935,14 @@
     ///  character, [`false`], if pressing the Tab key should move the
     ///  keyboard focus.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_accepts_tab&quot;</span>)]
-    </span><span class="kw">fn </span>set_accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>, accepts_tab: bool);
+    </span><span class="kw">fn </span>set_accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>, accepts_tab: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_accepts_tab(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                accepts_tab.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the width of [`TextWindowType::Left`][crate::TextWindowType::Left] or [`TextWindowType::Right`][crate::TextWindowType::Right],
     /// or the height of [`TextWindowType::Top`][crate::TextWindowType::Top] or [`TextWindowType::Bottom`][crate::TextWindowType::Bottom].
@@ -7916,7 +7956,15 @@
     /// ## `size`
     /// width or height of the window
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_border_window_size&quot;</span>)]
-    </span><span class="kw">fn </span>set_border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType, size: i32);
+    </span><span class="kw">fn </span>set_border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType, size: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_border_window_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                type_.into_glib(),
+                size,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the bottom margin for text in `self`.
     ///
@@ -7925,7 +7973,11 @@
     /// ## `bottom_margin`
     /// bottom margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_bottom_margin&quot;</span>)]
-    </span><span class="kw">fn </span>set_bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, bottom_margin: i32);
+    </span><span class="kw">fn </span>set_bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, bottom_margin: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_bottom_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, bottom_margin);
+        }
+    }
 
     <span class="doccomment">/// Sets `buffer` as the buffer being displayed by `self`. The previous
     /// buffer displayed by the text view is unreferenced, and a reference is
@@ -7935,7 +7987,14 @@
     /// ## `buffer`
     /// a [`TextBuffer`][crate::TextBuffer]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>set_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;&gt;);
+    </span><span class="kw">fn </span>set_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                buffer.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Toggles whether the insertion point should be displayed. A buffer with
     /// no editable text probably shouldn’t have a visible cursor, so you may
@@ -7946,7 +8005,14 @@
     /// ## `setting`
     /// whether to show the insertion cursor
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_cursor_visible&quot;</span>)]
-    </span><span class="kw">fn </span>set_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
+    </span><span class="kw">fn </span>set_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_cursor_visible(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                setting.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default editability of the [`TextView`][crate::TextView]. You can override
     /// this default setting with tags in the buffer, using the “editable”
@@ -7954,21 +8020,33 @@
     /// ## `setting`
     /// whether it’s editable
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_editable&quot;</span>)]
-    </span><span class="kw">fn </span>set_editable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
+    </span><span class="kw">fn </span>set_editable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_editable(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, setting.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Sets the default indentation for paragraphs in `self`.
     /// Tags in the buffer may override the default.
     /// ## `indent`
     /// indentation in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_indent&quot;</span>)]
-    </span><span class="kw">fn </span>set_indent(<span class="kw-2">&amp;</span><span class="self">self</span>, indent: i32);
+    </span><span class="kw">fn </span>set_indent(<span class="kw-2">&amp;</span><span class="self">self</span>, indent: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_indent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, indent);
+        }
+    }
 
     <span class="doccomment">/// Sets the [`input-hints`][struct@crate::TextView#input-hints] property, which
     /// allows input methods to fine-tune their behaviour.
     /// ## `hints`
     /// the hints
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_hints&quot;</span>)]
-    </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, hints: InputHints);
+    </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, hints: InputHints) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_input_hints(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, hints.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Sets the [`input-purpose`][struct@crate::TextView#input-purpose] property which
     /// can be used by on-screen keyboards and other input
@@ -7976,14 +8054,28 @@
     /// ## `purpose`
     /// the purpose
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_input_purpose&quot;</span>)]
-    </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: InputPurpose);
+    </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: InputPurpose) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_input_purpose(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                purpose.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default justification of text in `self`.
     /// Tags in the view’s buffer may override the default.
     /// ## `justification`
     /// justification
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_justification&quot;</span>)]
-    </span><span class="kw">fn </span>set_justification(<span class="kw-2">&amp;</span><span class="self">self</span>, justification: Justification);
+    </span><span class="kw">fn </span>set_justification(<span class="kw-2">&amp;</span><span class="self">self</span>, justification: Justification) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_justification(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                justification.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default left margin for text in `self`.
     /// Tags in the buffer may override the default.
@@ -7993,7 +8085,11 @@
     /// ## `left_margin`
     /// left margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_left_margin&quot;</span>)]
-    </span><span class="kw">fn </span>set_left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, left_margin: i32);
+    </span><span class="kw">fn </span>set_left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, left_margin: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_left_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, left_margin);
+        }
+    }
 
     <span class="doccomment">/// Sets the [`monospace`][struct@crate::TextView#monospace] property, which
     /// indicates that the text view should use monospace
@@ -8001,20 +8097,35 @@
     /// ## `monospace`
     /// [`true`] to request monospace styling
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_monospace&quot;</span>)]
-    </span><span class="kw">fn </span>set_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>, monospace: bool);
+    </span><span class="kw">fn </span>set_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>, monospace: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_monospace(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, monospace.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Changes the [`TextView`][crate::TextView] overwrite mode.
     /// ## `overwrite`
     /// [`true`] to turn on overwrite mode, [`false`] to turn it off
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_overwrite&quot;</span>)]
-    </span><span class="kw">fn </span>set_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>, overwrite: bool);
+    </span><span class="kw">fn </span>set_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>, overwrite: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_overwrite(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, overwrite.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Sets the default number of blank pixels above paragraphs in `self`.
     /// Tags in the buffer for `self` may override the defaults.
     /// ## `pixels_above_lines`
     /// pixels above paragraphs
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_above_lines&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_above_lines: i32);
+    </span><span class="kw">fn </span>set_pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_above_lines: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_pixels_above_lines(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                pixels_above_lines,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default number of pixels of blank space
     /// to put below paragraphs in `self`. May be overridden
@@ -8022,7 +8133,14 @@
     /// ## `pixels_below_lines`
     /// pixels below paragraphs
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_below_lines&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_below_lines: i32);
+    </span><span class="kw">fn </span>set_pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_below_lines: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_pixels_below_lines(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                pixels_below_lines,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default number of pixels of blank space to leave between
     /// display/wrapped lines within a paragraph. May be overridden by
@@ -8030,7 +8148,14 @@
     /// ## `pixels_inside_wrap`
     /// default number of pixels between wrapped lines
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_pixels_inside_wrap&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_inside_wrap: i32);
+    </span><span class="kw">fn </span>set_pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_inside_wrap: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_pixels_inside_wrap(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                pixels_inside_wrap,
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the default right margin for text in the text view.
     /// Tags in the buffer may override the default.
@@ -8040,14 +8165,25 @@
     /// ## `right_margin`
     /// right margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_right_margin&quot;</span>)]
-    </span><span class="kw">fn </span>set_right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, right_margin: i32);
+    </span><span class="kw">fn </span>set_right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, right_margin: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_right_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, right_margin);
+        }
+    }
 
     <span class="doccomment">/// Sets the default tab stops for paragraphs in `self`.
     /// Tags in the buffer may override the default.
     /// ## `tabs`
     /// tabs as a [`pango::TabArray`][crate::pango::TabArray]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_tabs&quot;</span>)]
-    </span><span class="kw">fn </span>set_tabs(<span class="kw-2">&amp;</span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray);
+    </span><span class="kw">fn </span>set_tabs(<span class="kw-2">&amp;</span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_tabs(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(tabs.to_glib_none().<span class="number">0</span>),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the top margin for text in `self`.
     ///
@@ -8056,13 +8192,21 @@
     /// ## `top_margin`
     /// top margin in pixels
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_top_margin&quot;</span>)]
-    </span><span class="kw">fn </span>set_top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, top_margin: i32);
+    </span><span class="kw">fn </span>set_top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, top_margin: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_top_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, top_margin);
+        }
+    }
 
     <span class="doccomment">/// Sets the line wrapping for the view.
     /// ## `wrap_mode`
     /// a [`WrapMode`][crate::WrapMode]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_set_wrap_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: WrapMode);
+    </span><span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: WrapMode) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_view_set_wrap_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, wrap_mode.into_glib());
+        }
+    }
 
     <span class="doccomment">/// Determines whether `iter` is at the start of a display line.
     /// See [`forward_display_line()`][Self::forward_display_line()] for an explanation of
@@ -8074,7 +8218,14 @@
     ///
     /// [`true`] if `iter` begins a wrapped line
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_view_starts_display_line&quot;</span>)]
-    </span><span class="kw">fn </span>starts_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; bool;
+    </span><span class="kw">fn </span>starts_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_view_starts_display_line(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Converts coordinates on the window identified by `win` to buffer
     /// coordinates, storing the result in (`buffer_x`,`buffer_y`).
@@ -8102,958 +8253,6 @@
         win: TextWindowType,
         window_x: i32,
         window_y: i32,
-    ) -&gt; (i32, i32);
-
-    <span class="doccomment">/// Which IM (input method) module should be used for this text_view.
-    /// See [`IMContext`][crate::IMContext].
-    ///
-    /// Setting this to a non-[`None`] value overrides the
-    /// system-wide IM module setting. See the GtkSettings
-    /// [`gtk-im-module`][struct@crate::Settings#gtk-im-module] property.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
-    </span><span class="kw">fn </span>im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="doccomment">/// Which IM (input method) module should be used for this text_view.
-    /// See [`IMContext`][crate::IMContext].
-    ///
-    /// Setting this to a non-[`None`] value overrides the
-    /// system-wide IM module setting. See the GtkSettings
-    /// [`gtk-im-module`][struct@crate::Settings#gtk-im-module] property.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
-    </span><span class="kw">fn </span>set_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
-
-    <span class="doccomment">/// If :populate-all is [`true`], the [`populate-popup`][struct@crate::TextView#populate-popup]
-    /// signal is also emitted for touch popups.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
-    </span><span class="kw">fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// If :populate-all is [`true`], the [`populate-popup`][struct@crate::TextView#populate-popup]
-    /// signal is also emitted for touch popups.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
-    </span><span class="kw">fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool);
-
-    <span class="doccomment">/// The ::backspace signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user asks for it.
-    ///
-    /// The default bindings for this signal are
-    /// Backspace and Shift-Backspace.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
-    </span><span class="kw">fn </span>connect_backspace&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_backspace(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::copy-clipboard signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to copy the selection to the clipboard.
-    ///
-    /// The default bindings for this signal are
-    /// Ctrl-c and Ctrl-Insert.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::cut-clipboard signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to cut the selection to the clipboard.
-    ///
-    /// The default bindings for this signal are
-    /// Ctrl-x and Shift-Delete.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>connect_cut_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::delete-from-cursor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates a text deletion.
-    ///
-    /// If the `type_` is [`DeleteType::Chars`][crate::DeleteType::Chars], GTK+ deletes the selection
-    /// if there is one, otherwise it deletes the requested number
-    /// of characters.
-    ///
-    /// The default bindings for this signal are
-    /// Delete for deleting a character, Ctrl-Delete for
-    /// deleting a word and Ctrl-Backspace for deleting a word
-    /// backwords.
-    /// ## `type_`
-    /// the granularity of the deletion, as a [`DeleteType`][crate::DeleteType]
-    /// ## `count`
-    /// the number of `type_` units to delete
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_delete_from_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DeleteType, i32) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_delete_from_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: DeleteType, count: i32);
-
-    <span class="doccomment">/// The ::extend-selection signal is emitted when the selection needs to be
-    /// extended at `location`.
-    /// ## `granularity`
-    /// the granularity type
-    /// ## `location`
-    /// the location where to extend the selection
-    /// ## `start`
-    /// where the selection should start
-    /// ## `end`
-    /// where the selection should end
-    ///
-    /// # Returns
-    ///
-    /// `GDK_EVENT_STOP` to stop other handlers from being invoked for the
-    ///  event. `GDK_EVENT_PROPAGATE` to propagate the event further.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;extend-selection&quot;</span>)]
-    </span><span class="kw">fn </span>connect_extend_selection&lt;
-        F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TextExtendSelection, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter) -&gt; glib::signal::Inhibit
-            + <span class="lifetime">&#39;static</span>,
-    &gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::insert-at-cursor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates the insertion of a
-    /// fixed string at the cursor.
-    ///
-    /// This signal has no default bindings.
-    /// ## `string`
-    /// the string to insert
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_insert_at_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, string: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// The ::insert-emoji signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to present the Emoji chooser for the `text_view`.
-    ///
-    /// The default bindings for this signal are Ctrl-. and Ctrl-;
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
-    </span><span class="kw">fn </span>connect_insert_emoji&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_insert_emoji(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::move-cursor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates a cursor movement.
-    /// If the cursor is not visible in `text_view`, this signal causes
-    /// the viewport to be moved instead.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control the cursor
-    /// programmatically.
-    ///
-    /// The default bindings for this signal come in two variants,
-    /// the variant with the Shift modifier extends the selection,
-    /// the variant without the Shift modifer does not.
-    /// There are too many key combinations to list them all here.
-    /// - Arrow keys move by individual characters/lines
-    /// - Ctrl-arrow key combinations move by words/paragraphs
-    /// - Home/End keys move to the ends of the buffer
-    /// - PageUp/PageDown keys move vertically by pages
-    /// - Ctrl-PageUp/PageDown keys move horizontally by pages
-    /// ## `step`
-    /// the granularity of the move, as a [`MovementStep`][crate::MovementStep]
-    /// ## `count`
-    /// the number of `step` units to move
-    /// ## `extend_selection`
-    /// [`true`] if the move should extend the selection
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32, extend_selection: bool);
-
-    <span class="doccomment">/// The ::move-viewport signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which can be bound to key combinations to allow the user
-    /// to move the viewport, i.e. change what part of the text view
-    /// is visible in a containing scrolled window.
-    ///
-    /// There are no default bindings for this signal.
-    /// ## `step`
-    /// the granularity of the movement, as a [`ScrollStep`][crate::ScrollStep]
-    /// ## `count`
-    /// the number of `step` units to move
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-viewport&quot;</span>)]
-    </span><span class="kw">fn </span>connect_move_viewport&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_move_viewport(<span class="kw-2">&amp;</span><span class="self">self</span>, step: ScrollStep, count: i32);
-
-    <span class="doccomment">/// The ::paste-clipboard signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to paste the contents of the clipboard
-    /// into the text view.
-    ///
-    /// The default bindings for this signal are
-    /// Ctrl-v and Shift-Insert.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>connect_paste_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_paste_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::populate-popup signal gets emitted before showing the
-    /// context menu of the text view.
-    ///
-    /// If you need to add items to the context menu, connect
-    /// to this signal and append your items to the `popup`, which
-    /// will be a [`Menu`][crate::Menu] in this case.
-    ///
-    /// If [`populate-all`][struct@crate::TextView#populate-all] is [`true`], this signal will
-    /// also be emitted to populate touch popups. In this case,
-    /// `popup` will be a different container, e.g. a [`Toolbar`][crate::Toolbar].
-    ///
-    /// The signal handler should not make assumptions about the
-    /// type of `widget`, but check whether `popup` is a [`Menu`][crate::Menu]
-    /// or [`Toolbar`][crate::Toolbar] or another kind of container.
-    /// ## `popup`
-    /// the container that is being populated
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
-    </span><span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// If an input method is used, the typed text will not immediately
-    /// be committed to the buffer. So if you are interested in the text,
-    /// connect to this signal.
-    ///
-    /// This signal is only emitted if the text at the given position
-    /// is actually editable.
-    /// ## `preedit`
-    /// the current preedit string
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_preedit_changed(<span class="kw-2">&amp;</span><span class="self">self</span>, preedit: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// The ::select-all signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to select or unselect the complete
-    /// contents of the text view.
-    ///
-    /// The default bindings for this signal are Ctrl-a and Ctrl-/
-    /// for selecting and Shift-Ctrl-a and Ctrl-\ for unselecting.
-    /// ## `select`
-    /// [`true`] to select, [`false`] to unselect
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>, select: bool);
-
-    <span class="doccomment">/// The ::set-anchor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates setting the &quot;anchor&quot;
-    /// mark. The &quot;anchor&quot; mark gets placed at the same position as the
-    /// &quot;insert&quot; mark.
-    ///
-    /// This signal has no default bindings.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;set-anchor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_set_anchor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_set_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::toggle-cursor-visible signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to toggle the [`cursor-visible`][struct@crate::TextView#cursor-visible]
-    /// property.
-    ///
-    /// The default binding for this signal is F7.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-visible&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggle_cursor_visible&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_toggle_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::toggle-overwrite signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted to toggle the overwrite mode of the text view.
-    ///
-    /// The default bindings for this signal is Insert.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggle_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_toggle_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;accepts-tab&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accepts_tab_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;bottom-margin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_bottom_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
-    </span><span class="kw">fn </span>connect_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-visible&quot;</span>)]
-    </span><span class="kw">fn </span>connect_cursor_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
-    </span><span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
-    </span><span class="kw">fn </span>connect_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;indent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_indent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
-    </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
-    </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;justification&quot;</span>)]
-    </span><span class="kw">fn </span>connect_justification_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;left-margin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_left_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;monospace&quot;</span>)]
-    </span><span class="kw">fn </span>connect_monospace_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;overwrite&quot;</span>)]
-    </span><span class="kw">fn </span>connect_overwrite_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-above-lines&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixels_above_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-below-lines&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixels_below_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-inside-wrap&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixels_inside_wrap_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;right-margin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_right_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
-    </span><span class="kw">fn </span>connect_tabs_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;top-margin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_top_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;TextView&gt;&gt; TextViewExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_child_at_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_add_child_at_anchor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                anchor.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>add_child_in_window(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-        which_window: TextWindowType,
-        xpos: i32,
-        ypos: i32,
-    ) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_add_child_in_window(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                which_window.into_glib(),
-                xpos,
-                ypos,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>backward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_backward_display_line(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>backward_display_line_start(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_backward_display_line_start(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>buffer_to_window_coords(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        win: TextWindowType,
-        buffer_x: i32,
-        buffer_y: i32,
-    ) -&gt; (i32, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>window_x = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>window_y = mem::MaybeUninit::uninit();
-            ffi::gtk_text_view_buffer_to_window_coords(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                win.into_glib(),
-                buffer_x,
-                buffer_y,
-                window_x.as_mut_ptr(),
-                window_y.as_mut_ptr(),
-            );
-            (window_x.assume_init(), window_y.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>forward_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_forward_display_line(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>forward_display_line_end(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_forward_display_line_end(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_accepts_tab(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_get_border_window_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                type_.into_glib(),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_bottom_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextBuffer&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_view_get_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>cursor_locations(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;) -&gt; (gdk::Rectangle, gdk::Rectangle) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>strong = gdk::Rectangle::uninitialized();
-            <span class="kw">let </span><span class="kw-2">mut </span>weak = gdk::Rectangle::uninitialized();
-            ffi::gtk_text_view_get_cursor_locations(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none().<span class="number">0</span>,
-                strong.to_glib_none_mut().<span class="number">0</span>,
-                weak.to_glib_none_mut().<span class="number">0</span>,
-            );
-            (strong, weak)
-        }
-    }
-
-    <span class="kw">fn </span>is_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_cursor_visible(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>default_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextAttributes {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_text_view_get_default_attributes(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_editable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_editable(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>indent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_indent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_input_hints(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_input_purpose(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_location(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TextIter&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_view_get_iter_at_location(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                x,
-                y,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>(iter)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_position(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, i32)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            <span class="kw">let </span><span class="kw-2">mut </span>trailing = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_view_get_iter_at_position(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                trailing.as_mut_ptr(),
-                x,
-                y,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((iter, trailing.assume_init()))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>iter_location(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; gdk::Rectangle {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>location = gdk::Rectangle::uninitialized();
-            ffi::gtk_text_view_get_iter_location(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none().<span class="number">0</span>,
-                location.to_glib_none_mut().<span class="number">0</span>,
-            );
-            location
-        }
-    }
-
-    <span class="kw">fn </span>justification(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Justification {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_justification(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_left_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>line_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; (TextIter, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>target_iter = TextIter::uninitialized();
-            <span class="kw">let </span><span class="kw-2">mut </span>line_top = mem::MaybeUninit::uninit();
-            ffi::gtk_text_view_get_line_at_y(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                target_iter.to_glib_none_mut().<span class="number">0</span>,
-                y,
-                line_top.as_mut_ptr(),
-            );
-            (target_iter, line_top.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>line_yrange(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; (i32, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>height = mem::MaybeUninit::uninit();
-            ffi::gtk_text_view_get_line_yrange(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none().<span class="number">0</span>,
-                y.as_mut_ptr(),
-                height.as_mut_ptr(),
-            );
-            (y.assume_init(), height.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>is_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_monospace(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>overwrites(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_overwrite(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_above_lines(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_below_lines(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_pixels_inside_wrap(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_right_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>tabs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::TabArray&gt; {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_text_view_get_tabs(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_view_get_top_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>visible_rect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Rectangle {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>visible_rect = gdk::Rectangle::uninitialized();
-            ffi::gtk_text_view_get_visible_rect(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                visible_rect.to_glib_none_mut().<span class="number">0</span>,
-            );
-            visible_rect
-        }
-    }
-
-    <span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>, win: TextWindowType) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_view_get_window(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                win.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; TextWindowType {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_window_type(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                window.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; WrapMode {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_get_wrap_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>im_context_filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_im_context_filter_keypress(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(event.to_glib_none().<span class="number">0</span>),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>move_child(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, xpos: i32, ypos: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_move_child(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                xpos,
-                ypos,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>move_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_move_mark_onscreen(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>move_visually(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, count: i32) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_move_visually(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                count,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>place_cursor_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_place_cursor_onscreen(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>reset_cursor_blink(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_reset_cursor_blink(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>reset_im_context(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_reset_im_context(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>scroll_mark_onscreen(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_scroll_mark_onscreen(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>scroll_to_iter(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        iter: <span class="kw-2">&amp;mut </span>TextIter,
-        within_margin: f64,
-        use_align: bool,
-        xalign: f64,
-        yalign: f64,
-    ) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_scroll_to_iter(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                within_margin,
-                use_align.into_glib(),
-                xalign,
-                yalign,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>scroll_to_mark(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;,
-        within_margin: f64,
-        use_align: bool,
-        xalign: f64,
-        yalign: f64,
-    ) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_scroll_to_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-                within_margin,
-                use_align.into_glib(),
-                xalign,
-                yalign,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_accepts_tab(<span class="kw-2">&amp;</span><span class="self">self</span>, accepts_tab: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_accepts_tab(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                accepts_tab.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_border_window_size(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TextWindowType, size: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_border_window_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                type_.into_glib(),
-                size,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_bottom_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, bottom_margin: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_bottom_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, bottom_margin);
-        }
-    }
-
-    <span class="kw">fn </span>set_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                buffer.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_cursor_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_cursor_visible(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                setting.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_editable(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_editable(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, setting.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_indent(<span class="kw-2">&amp;</span><span class="self">self</span>, indent: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_indent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, indent);
-        }
-    }
-
-    <span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, hints: InputHints) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_input_hints(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, hints.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, purpose: InputPurpose) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_input_purpose(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                purpose.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_justification(<span class="kw-2">&amp;</span><span class="self">self</span>, justification: Justification) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_justification(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                justification.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_left_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, left_margin: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_left_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, left_margin);
-        }
-    }
-
-    <span class="kw">fn </span>set_monospace(<span class="kw-2">&amp;</span><span class="self">self</span>, monospace: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_monospace(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, monospace.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_overwrite(<span class="kw-2">&amp;</span><span class="self">self</span>, overwrite: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_overwrite(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, overwrite.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_pixels_above_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_above_lines: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_pixels_above_lines(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                pixels_above_lines,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_pixels_below_lines(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_below_lines: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_pixels_below_lines(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                pixels_below_lines,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_pixels_inside_wrap(<span class="kw-2">&amp;</span><span class="self">self</span>, pixels_inside_wrap: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_pixels_inside_wrap(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                pixels_inside_wrap,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_right_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, right_margin: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_right_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, right_margin);
-        }
-    }
-
-    <span class="kw">fn </span>set_tabs(<span class="kw-2">&amp;</span><span class="self">self</span>, tabs: <span class="kw-2">&amp;</span>pango::TabArray) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_tabs(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(tabs.to_glib_none().<span class="number">0</span>),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_top_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, top_margin: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_top_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, top_margin);
-        }
-    }
-
-    <span class="kw">fn </span>set_wrap_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, wrap_mode: WrapMode) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_view_set_wrap_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, wrap_mode.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>starts_display_line(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TextIter) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_view_starts_display_line(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>window_to_buffer_coords(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        win: TextWindowType,
-        window_x: i32,
-        window_y: i32,
     ) -&gt; (i32, i32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>buffer_x = mem::MaybeUninit::uninit();
@@ -9070,23 +8269,50 @@
         }
     }
 
-    <span class="kw">fn </span>im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// Which IM (input method) module should be used for this text_view.
+    /// See [`IMContext`][crate::IMContext].
+    ///
+    /// Setting this to a non-[`None`] value overrides the
+    /// system-wide IM module setting. See the GtkSettings
+    /// [`gtk-im-module`][struct@crate::Settings#gtk-im-module] property.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="kw">fn </span>im_module(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;im-module&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    <span class="doccomment">/// Which IM (input method) module should be used for this text_view.
+    /// See [`IMContext`][crate::IMContext].
+    ///
+    /// Setting this to a non-[`None`] value overrides the
+    /// system-wide IM module setting. See the GtkSettings
+    /// [`gtk-im-module`][struct@crate::Settings#gtk-im-module] property.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="kw">fn </span>set_im_module(<span class="kw-2">&amp;</span><span class="self">self</span>, im_module: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;im-module&quot;</span>, im_module)
     }
 
-    <span class="kw">fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// If :populate-all is [`true`], the [`populate-popup`][struct@crate::TextView#populate-popup]
+    /// signal is also emitted for touch popups.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="kw">fn </span>populates_all(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;populate-all&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool) {
+    <span class="doccomment">/// If :populate-all is [`true`], the [`populate-popup`][struct@crate::TextView#populate-popup]
+    /// signal is also emitted for touch popups.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="kw">fn </span>set_populate_all(<span class="kw-2">&amp;</span><span class="self">self</span>, populate_all: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;populate-all&quot;</span>, populate_all)
     }
 
-    <span class="kw">fn </span>connect_backspace&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::backspace signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user asks for it.
+    ///
+    /// The default bindings for this signal are
+    /// Backspace and Shift-Backspace.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;backspace&quot;</span>)]
+    </span><span class="kw">fn </span>connect_backspace&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>backspace_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9111,7 +8337,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;backspace&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::copy-clipboard signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to copy the selection to the clipboard.
+    ///
+    /// The default bindings for this signal are
+    /// Ctrl-c and Ctrl-Insert.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;copy-clipboard&quot;</span>)]
+    </span><span class="kw">fn </span>connect_copy_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>copy_clipboard_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9136,7 +8369,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;copy-clipboard&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_cut_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::cut-clipboard signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to cut the selection to the clipboard.
+    ///
+    /// The default bindings for this signal are
+    /// Ctrl-x and Shift-Delete.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cut-clipboard&quot;</span>)]
+    </span><span class="kw">fn </span>connect_cut_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cut_clipboard_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9161,7 +8401,24 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;cut-clipboard&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_delete_from_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DeleteType, i32) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::delete-from-cursor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates a text deletion.
+    ///
+    /// If the `type_` is [`DeleteType::Chars`][crate::DeleteType::Chars], GTK+ deletes the selection
+    /// if there is one, otherwise it deletes the requested number
+    /// of characters.
+    ///
+    /// The default bindings for this signal are
+    /// Delete for deleting a character, Ctrl-Delete for
+    /// deleting a word and Ctrl-Backspace for deleting a word
+    /// backwords.
+    /// ## `type_`
+    /// the granularity of the deletion, as a [`DeleteType`][crate::DeleteType]
+    /// ## `count`
+    /// the number of `type_` units to delete
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-from-cursor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_delete_from_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, DeleteType, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -9198,7 +8455,23 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;delete-from-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>type_, <span class="kw-2">&amp;</span>count]);
     }
 
-    <span class="kw">fn </span>connect_extend_selection&lt;
+    <span class="doccomment">/// The ::extend-selection signal is emitted when the selection needs to be
+    /// extended at `location`.
+    /// ## `granularity`
+    /// the granularity type
+    /// ## `location`
+    /// the location where to extend the selection
+    /// ## `start`
+    /// where the selection should start
+    /// ## `end`
+    /// where the selection should end
+    ///
+    /// # Returns
+    ///
+    /// `GDK_EVENT_STOP` to stop other handlers from being invoked for the
+    ///  event. `GDK_EVENT_PROPAGATE` to propagate the event further.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;extend-selection&quot;</span>)]
+    </span><span class="kw">fn </span>connect_extend_selection&lt;
         F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TextExtendSelection, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextIter) -&gt; glib::signal::Inhibit
             + <span class="lifetime">&#39;static</span>,
     &gt;(
@@ -9246,7 +8519,16 @@
         }
     }
 
-    <span class="kw">fn </span>connect_insert_at_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::insert-at-cursor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates the insertion of a
+    /// fixed string at the cursor.
+    ///
+    /// This signal has no default bindings.
+    /// ## `string`
+    /// the string to insert
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-at-cursor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_insert_at_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>insert_at_cursor_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>,
@@ -9278,7 +8560,13 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;insert-at-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>string]);
     }
 
-    <span class="kw">fn </span>connect_insert_emoji&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::insert-emoji signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to present the Emoji chooser for the `text_view`.
+    ///
+    /// The default bindings for this signal are Ctrl-. and Ctrl-;
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;insert-emoji&quot;</span>)]
+    </span><span class="kw">fn </span>connect_insert_emoji&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>insert_emoji_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9303,7 +8591,33 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;insert-emoji&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::move-cursor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates a cursor movement.
+    /// If the cursor is not visible in `text_view`, this signal causes
+    /// the viewport to be moved instead.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control the cursor
+    /// programmatically.
+    ///
+    /// The default bindings for this signal come in two variants,
+    /// the variant with the Shift modifier extends the selection,
+    /// the variant without the Shift modifer does not.
+    /// There are too many key combinations to list them all here.
+    /// - Arrow keys move by individual characters/lines
+    /// - Ctrl-arrow key combinations move by words/paragraphs
+    /// - Home/End keys move to the ends of the buffer
+    /// - PageUp/PageDown keys move vertically by pages
+    /// - Ctrl-PageUp/PageDown keys move horizontally by pages
+    /// ## `step`
+    /// the granularity of the move, as a [`MovementStep`][crate::MovementStep]
+    /// ## `count`
+    /// the number of `step` units to move
+    /// ## `extend_selection`
+    /// [`true`] if the move should extend the selection
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32, bool) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -9342,7 +8656,19 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;move-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>step, <span class="kw-2">&amp;</span>count, <span class="kw-2">&amp;</span>extend_selection]);
     }
 
-    <span class="kw">fn </span>connect_move_viewport&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::move-viewport signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which can be bound to key combinations to allow the user
+    /// to move the viewport, i.e. change what part of the text view
+    /// is visible in a containing scrolled window.
+    ///
+    /// There are no default bindings for this signal.
+    /// ## `step`
+    /// the granularity of the movement, as a [`ScrollStep`][crate::ScrollStep]
+    /// ## `count`
+    /// the number of `step` units to move
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-viewport&quot;</span>)]
+    </span><span class="kw">fn </span>connect_move_viewport&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, ScrollStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -9379,7 +8705,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;move-viewport&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>step, <span class="kw-2">&amp;</span>count]);
     }
 
-    <span class="kw">fn </span>connect_paste_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::paste-clipboard signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to paste the contents of the clipboard
+    /// into the text view.
+    ///
+    /// The default bindings for this signal are
+    /// Ctrl-v and Shift-Insert.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-clipboard&quot;</span>)]
+    </span><span class="kw">fn </span>connect_paste_clipboard&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>paste_clipboard_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9404,7 +8738,24 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;paste-clipboard&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::populate-popup signal gets emitted before showing the
+    /// context menu of the text view.
+    ///
+    /// If you need to add items to the context menu, connect
+    /// to this signal and append your items to the `popup`, which
+    /// will be a [`Menu`][crate::Menu] in this case.
+    ///
+    /// If [`populate-all`][struct@crate::TextView#populate-all] is [`true`], this signal will
+    /// also be emitted to populate touch popups. In this case,
+    /// `popup` will be a different container, e.g. a [`Toolbar`][crate::Toolbar].
+    ///
+    /// The signal handler should not make assumptions about the
+    /// type of `widget`, but check whether `popup` is a [`Menu`][crate::Menu]
+    /// or [`Toolbar`][crate::Toolbar] or another kind of container.
+    /// ## `popup`
+    /// the container that is being populated
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;populate-popup&quot;</span>)]
+    </span><span class="kw">fn </span>connect_populate_popup&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>populate_popup_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>Widget) + <span class="lifetime">&#39;static</span>,
@@ -9432,7 +8783,16 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// If an input method is used, the typed text will not immediately
+    /// be committed to the buffer. So if you are interested in the text,
+    /// connect to this signal.
+    ///
+    /// This signal is only emitted if the text at the given position
+    /// is actually editable.
+    /// ## `preedit`
+    /// the current preedit string
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>preedit_changed_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>,
@@ -9464,7 +8824,17 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;preedit-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>preedit]);
     }
 
-    <span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::select-all signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to select or unselect the complete
+    /// contents of the text view.
+    ///
+    /// The default bindings for this signal are Ctrl-a and Ctrl-/
+    /// for selecting and Shift-Ctrl-a and Ctrl-\ for unselecting.
+    /// ## `select`
+    /// [`true`] to select, [`false`] to unselect
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, bool) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_all_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P, bool) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             select: glib::ffi::gboolean,
@@ -9493,7 +8863,15 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;select-all&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>select]);
     }
 
-    <span class="kw">fn </span>connect_set_anchor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::set-anchor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates setting the &quot;anchor&quot;
+    /// mark. The &quot;anchor&quot; mark gets placed at the same position as the
+    /// &quot;insert&quot; mark.
+    ///
+    /// This signal has no default bindings.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;set-anchor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_set_anchor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>set_anchor_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9518,7 +8896,14 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;set-anchor&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_toggle_cursor_visible&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::toggle-cursor-visible signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to toggle the [`cursor-visible`][struct@crate::TextView#cursor-visible]
+    /// property.
+    ///
+    /// The default binding for this signal is F7.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-visible&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggle_cursor_visible&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_cursor_visible_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9546,7 +8931,13 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;toggle-cursor-visible&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_toggle_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::toggle-overwrite signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted to toggle the overwrite mode of the text view.
+    ///
+    /// The default bindings for this signal is Insert.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-overwrite&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggle_overwrite&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_overwrite_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             f: glib::ffi::gpointer,
@@ -9571,7 +8962,8 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;toggle-overwrite&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_accepts_tab_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;accepts-tab&quot;</span>)]
+    </span><span class="kw">fn </span>connect_accepts_tab_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accepts_tab_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9596,7 +8988,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_bottom_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;bottom-margin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_bottom_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_bottom_margin_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9621,7 +9014,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;buffer&quot;</span>)]
+    </span><span class="kw">fn </span>connect_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_buffer_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9643,7 +9037,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_cursor_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-visible&quot;</span>)]
+    </span><span class="kw">fn </span>connect_cursor_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_cursor_visible_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9668,7 +9063,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;editable&quot;</span>)]
+    </span><span class="kw">fn </span>connect_editable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_editable_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9690,7 +9086,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;im-module&quot;</span>)]
+    </span><span class="kw">fn </span>connect_im_module_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_im_module_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9712,7 +9109,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_indent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;indent&quot;</span>)]
+    </span><span class="kw">fn </span>connect_indent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_indent_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9734,7 +9132,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_input_hints_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9759,7 +9158,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_input_purpose_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9784,7 +9184,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_justification_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;justification&quot;</span>)]
+    </span><span class="kw">fn </span>connect_justification_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_justification_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9809,7 +9210,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_left_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;left-margin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_left_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_left_margin_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9834,7 +9236,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_monospace_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;monospace&quot;</span>)]
+    </span><span class="kw">fn </span>connect_monospace_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_monospace_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9856,7 +9259,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_overwrite_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;overwrite&quot;</span>)]
+    </span><span class="kw">fn </span>connect_overwrite_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_overwrite_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -9878,7 +9282,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixels_above_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-above-lines&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixels_above_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixels_above_lines_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9903,7 +9308,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixels_below_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-below-lines&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixels_below_lines_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixels_below_lines_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9928,7 +9334,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixels_inside_wrap_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixels-inside-wrap&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixels_inside_wrap_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixels_inside_wrap_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9953,7 +9360,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;populate-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_populate_all_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_populate_all_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -9978,7 +9386,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_right_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;right-margin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_right_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_right_margin_trampoline&lt;
             P: IsA&lt;TextView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -10003,7 +9412,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_tabs_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;tabs&quot;</span>)]
+    </span><span class="kw">fn </span>connect_tabs_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_tabs_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -10025,7 +9435,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_top_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;top-margin&quot;</span>)]
+    </span><span class="kw">fn </span>connect_top_margin_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_top_margin_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -10047,7 +9458,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;wrap-mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_wrap_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_wrap_mode_trampoline&lt;P: IsA&lt;TextView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextView,
             _param_spec: glib::ffi::gpointer,
@@ -10069,6 +9481,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;TextView&gt;&gt; TextViewExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TextView {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

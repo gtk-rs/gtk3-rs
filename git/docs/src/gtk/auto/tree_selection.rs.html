@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_selection.rs`."><title>tree_selection.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_selection.rs`."><title>tree_selection.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -578,54 +578,7 @@
 <a href="#505" id="505">505</a>
 <a href="#506" id="506">506</a>
 <a href="#507" id="507">507</a>
-<a href="#508" id="508">508</a>
-<a href="#509" id="509">509</a>
-<a href="#510" id="510">510</a>
-<a href="#511" id="511">511</a>
-<a href="#512" id="512">512</a>
-<a href="#513" id="513">513</a>
-<a href="#514" id="514">514</a>
-<a href="#515" id="515">515</a>
-<a href="#516" id="516">516</a>
-<a href="#517" id="517">517</a>
-<a href="#518" id="518">518</a>
-<a href="#519" id="519">519</a>
-<a href="#520" id="520">520</a>
-<a href="#521" id="521">521</a>
-<a href="#522" id="522">522</a>
-<a href="#523" id="523">523</a>
-<a href="#524" id="524">524</a>
-<a href="#525" id="525">525</a>
-<a href="#526" id="526">526</a>
-<a href="#527" id="527">527</a>
-<a href="#528" id="528">528</a>
-<a href="#529" id="529">529</a>
-<a href="#530" id="530">530</a>
-<a href="#531" id="531">531</a>
-<a href="#532" id="532">532</a>
-<a href="#533" id="533">533</a>
-<a href="#534" id="534">534</a>
-<a href="#535" id="535">535</a>
-<a href="#536" id="536">536</a>
-<a href="#537" id="537">537</a>
-<a href="#538" id="538">538</a>
-<a href="#539" id="539">539</a>
-<a href="#540" id="540">540</a>
-<a href="#541" id="541">541</a>
-<a href="#542" id="542">542</a>
-<a href="#543" id="543">543</a>
-<a href="#544" id="544">544</a>
-<a href="#545" id="545">545</a>
-<a href="#546" id="546">546</a>
-<a href="#547" id="547">547</a>
-<a href="#548" id="548">548</a>
-<a href="#549" id="549">549</a>
-<a href="#550" id="550">550</a>
-<a href="#551" id="551">551</a>
-<a href="#552" id="552">552</a>
-<a href="#553" id="553">553</a>
-<a href="#554" id="554">554</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -702,14 +655,16 @@
 /// # Implementors
 ///
 /// [`TreeSelection`][struct@crate::TreeSelection]
-</span><span class="kw">pub trait </span>TreeSelectionExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>TreeSelectionExt: IsA&lt;TreeSelection&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Returns the number of rows that have been selected in `tree`.
     ///
     /// # Returns
     ///
     /// The number of rows selected.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_count_selected_rows&quot;</span>)]
-    </span><span class="kw">fn </span>count_selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>count_selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_tree_selection_count_selected_rows(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the selection mode for `self`. See
     /// [`set_mode()`][Self::set_mode()].
@@ -719,11 +674,19 @@
     /// the current selection mode
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_get_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mode&quot;</span>)]
-    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode;
+    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tree_selection_get_mode(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="comment">//#[doc(alias = &quot;gtk_tree_selection_get_select_function&quot;)]
     //#[doc(alias = &quot;get_select_function&quot;)]
-    //fn select_function(&amp;self) -&gt; Option&lt;Box_&lt;dyn Fn(&amp;TreeSelection, &amp;TreeModel, &amp;TreePath, bool) -&gt; bool + &#39;static&gt;&gt;;
+    //fn select_function(&amp;self) -&gt; Option&lt;Box_&lt;dyn Fn(&amp;TreeSelection, &amp;TreeModel, &amp;TreePath, bool) -&gt; bool + &#39;static&gt;&gt; {
+    //    unsafe { TODO: call ffi:gtk_tree_selection_get_select_function() }
+    //}
 
     </span><span class="doccomment">/// Sets `iter` to the currently selected node, if `self` is set to
     /// [`SelectionMode::Single`][crate::SelectionMode::Single] or [`SelectionMode::Browse`][crate::SelectionMode::Browse].
@@ -747,7 +710,22 @@
     /// the iterator for the selected row
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_get_selected&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected&quot;</span>)]
-    </span><span class="kw">fn </span>selected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreeIter)&gt;;
+    </span><span class="kw">fn </span>selected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreeIter)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>model = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TreeIter::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_tree_selection_get_selected(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>model,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_none(model), iter))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Creates a list of path of all selected rows.
     ///
@@ -775,169 +753,7 @@
     /// A pointer to set to the [`TreeModel`][crate::TreeModel], or [`None`].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_get_selected_rows&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_rows&quot;</span>)]
-    </span><span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Vec&lt;TreePath&gt;, TreeModel);
-
-    <span class="doccomment">/// Returns the tree view associated with `self`.
-    ///
-    /// # Returns
-    ///
-    /// A [`TreeView`][crate::TreeView]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_get_tree_view&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_tree_view&quot;</span>)]
-    </span><span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeView&gt;;
-
-    <span class="comment">//#[doc(alias = &quot;gtk_tree_selection_get_user_data&quot;)]
-    //#[doc(alias = &quot;get_user_data&quot;)]
-    //fn user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Basic: Pointer&gt;;
-
-    </span><span class="doccomment">/// Returns [`true`] if the row at `iter` is currently selected.
-    /// ## `iter`
-    /// A valid [`TreeIter`][crate::TreeIter]
-    ///
-    /// # Returns
-    ///
-    /// [`true`], if `iter` is selected
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_iter_is_selected&quot;</span>)]
-    </span><span class="kw">fn </span>iter_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) -&gt; bool;
-
-    <span class="doccomment">/// Returns [`true`] if the row pointed to by `path` is currently selected. If `path`
-    /// does not point to a valid location, [`false`] is returned
-    /// ## `path`
-    /// A [`TreePath`][crate::TreePath] to check selection on.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if `path` is selected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_path_is_selected&quot;</span>)]
-    </span><span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool;
-
-    <span class="doccomment">/// Selects all the nodes. `self` must be set to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple]
-    /// mode.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_all&quot;</span>)]
-    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Selects the specified iterator.
-    /// ## `iter`
-    /// The [`TreeIter`][crate::TreeIter] to be selected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_iter&quot;</span>)]
-    </span><span class="kw">fn </span>select_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter);
-
-    <span class="doccomment">/// Select the row at `path`.
-    /// ## `path`
-    /// The [`TreePath`][crate::TreePath] to be selected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_path&quot;</span>)]
-    </span><span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Selects a range of nodes, determined by `start_path` and `end_path` inclusive.
-    /// `self` must be set to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple] mode.
-    /// ## `start_path`
-    /// The initial node of the range.
-    /// ## `end_path`
-    /// The final node of the range.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_range&quot;</span>)]
-    </span><span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Calls a function for each selected node. Note that you cannot modify
-    /// the tree or selection from within this function. As a result,
-    /// [`selected_rows()`][Self::selected_rows()] might be more useful.
-    /// ## `func`
-    /// The function to call for each selected node.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_selected_foreach&quot;</span>)]
-    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, <span class="kw-2">&amp;</span>TreeIter)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
-
-    <span class="doccomment">/// Sets the selection mode of the `self`. If the previous type was
-    /// [`SelectionMode::Multiple`][crate::SelectionMode::Multiple], then the anchor is kept selected, if it was
-    /// previously selected.
-    /// ## `type_`
-    /// The selection mode
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_set_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: SelectionMode);
-
-    <span class="doccomment">/// Sets the selection function.
-    ///
-    /// If set, this function is called before any node is selected or unselected,
-    /// giving some control over which nodes are selected. The select function
-    /// should return [`true`] if the state of the node may be toggled, and [`false`]
-    /// if the state of the node should be left unchanged.
-    /// ## `func`
-    /// The selection function. May be [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_set_select_function&quot;</span>)]
-    </span><span class="kw">fn </span>set_select_function(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>TreeSelection, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, bool) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    );
-
-    <span class="doccomment">/// Unselects all the nodes.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_all&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Unselects the specified iterator.
-    /// ## `iter`
-    /// The [`TreeIter`][crate::TreeIter] to be unselected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_iter&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter);
-
-    <span class="doccomment">/// Unselects the row at `path`.
-    /// ## `path`
-    /// The [`TreePath`][crate::TreePath] to be unselected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_path&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Unselects a range of nodes, determined by `start_path` and `end_path`
-    /// inclusive.
-    /// ## `start_path`
-    /// The initial node of the range.
-    /// ## `end_path`
-    /// The initial node of the range.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_range&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Emitted whenever the selection has (possibly) changed. Please note that
-    /// this signal is mostly a hint. It may only be emitted once when a range
-    /// of rows are selected, and it may occasionally be emitted when nothing
-    /// has happened.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;TreeSelection&gt;&gt; TreeSelectionExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>count_selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_tree_selection_count_selected_rows(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tree_selection_get_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="comment">//fn select_function(&amp;self) -&gt; Option&lt;Box_&lt;dyn Fn(&amp;TreeSelection, &amp;TreeModel, &amp;TreePath, bool) -&gt; bool + &#39;static&gt;&gt; {
-    //    unsafe { TODO: call ffi:gtk_tree_selection_get_select_function() }
-    //}
-
-    </span><span class="kw">fn </span>selected(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreeIter)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>model = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TreeIter::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_tree_selection_get_selected(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>model,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_none(model), iter))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Vec&lt;TreePath&gt;, TreeModel) {
+    </span><span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (Vec&lt;TreePath&gt;, TreeModel) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>model = ptr::null_mut();
             <span class="kw">let </span>ret =
@@ -949,7 +765,14 @@
         }
     }
 
-    <span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeView&gt; {
+    <span class="doccomment">/// Returns the tree view associated with `self`.
+    ///
+    /// # Returns
+    ///
+    /// A [`TreeView`][crate::TreeView]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_get_tree_view&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_tree_view&quot;</span>)]
+    </span><span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeView&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_tree_selection_get_tree_view(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -957,10 +780,20 @@
         }
     }
 
-    <span class="comment">//fn user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Basic: Pointer&gt; {
+    <span class="comment">//#[doc(alias = &quot;gtk_tree_selection_get_user_data&quot;)]
+    //#[doc(alias = &quot;get_user_data&quot;)]
+    //fn user_data(&amp;self) -&gt; /*Unimplemented*/Option&lt;Basic: Pointer&gt; {
     //    unsafe { TODO: call ffi:gtk_tree_selection_get_user_data() }
     //}
 
+    </span><span class="doccomment">/// Returns [`true`] if the row at `iter` is currently selected.
+    /// ## `iter`
+    /// A valid [`TreeIter`][crate::TreeIter]
+    ///
+    /// # Returns
+    ///
+    /// [`true`], if `iter` is selected
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_iter_is_selected&quot;</span>)]
     </span><span class="kw">fn </span>iter_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_selection_iter_is_selected(
@@ -970,7 +803,16 @@
         }
     }
 
-    <span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if the row pointed to by `path` is currently selected. If `path`
+    /// does not point to a valid location, [`false`] is returned
+    /// ## `path`
+    /// A [`TreePath`][crate::TreePath] to check selection on.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if `path` is selected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_path_is_selected&quot;</span>)]
+    </span><span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_selection_path_is_selected(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -979,13 +821,20 @@
         }
     }
 
-    <span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Selects all the nodes. `self` must be set to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple]
+    /// mode.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_all&quot;</span>)]
+    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_select_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>select_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) {
+    <span class="doccomment">/// Selects the specified iterator.
+    /// ## `iter`
+    /// The [`TreeIter`][crate::TreeIter] to be selected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_iter&quot;</span>)]
+    </span><span class="kw">fn </span>select_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_select_iter(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -994,7 +843,11 @@
         }
     }
 
-    <span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Select the row at `path`.
+    /// ## `path`
+    /// The [`TreePath`][crate::TreePath] to be selected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_path&quot;</span>)]
+    </span><span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_select_path(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1003,7 +856,14 @@
         }
     }
 
-    <span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Selects a range of nodes, determined by `start_path` and `end_path` inclusive.
+    /// `self` must be set to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple] mode.
+    /// ## `start_path`
+    /// The initial node of the range.
+    /// ## `end_path`
+    /// The final node of the range.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_select_range&quot;</span>)]
+    </span><span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_select_range(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1013,7 +873,13 @@
         }
     }
 
-    <span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, <span class="kw-2">&amp;</span>TreeIter)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
+    <span class="doccomment">/// Calls a function for each selected node. Note that you cannot modify
+    /// the tree or selection from within this function. As a result,
+    /// [`selected_rows()`][Self::selected_rows()] might be more useful.
+    /// ## `func`
+    /// The function to call for each selected node.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_selected_foreach&quot;</span>)]
+    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, <span class="kw-2">&amp;</span>TreeIter)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
         <span class="kw">let </span>func_data: P = func;
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, <span class="kw-2">&amp;</span>TreeIter)&gt;(
             model: <span class="kw-2">*mut </span>ffi::GtkTreeModel,
@@ -1038,13 +904,28 @@
         }
     }
 
-    <span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: SelectionMode) {
+    <span class="doccomment">/// Sets the selection mode of the `self`. If the previous type was
+    /// [`SelectionMode::Multiple`][crate::SelectionMode::Multiple], then the anchor is kept selected, if it was
+    /// previously selected.
+    /// ## `type_`
+    /// The selection mode
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_set_mode&quot;</span>)]
+    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: SelectionMode) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_set_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, type_.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_select_function(
+    <span class="doccomment">/// Sets the selection function.
+    ///
+    /// If set, this function is called before any node is selected or unselected,
+    /// giving some control over which nodes are selected. The select function
+    /// should return [`true`] if the state of the node may be toggled, and [`false`]
+    /// if the state of the node should be left unchanged.
+    /// ## `func`
+    /// The selection function. May be [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_set_select_function&quot;</span>)]
+    </span><span class="kw">fn </span>set_select_function(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>TreeSelection, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreePath, bool) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
@@ -1096,13 +977,19 @@
         }
     }
 
-    <span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unselects all the nodes.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_all&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_unselect_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>unselect_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) {
+    <span class="doccomment">/// Unselects the specified iterator.
+    /// ## `iter`
+    /// The [`TreeIter`][crate::TreeIter] to be unselected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_iter&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_iter(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;</span>TreeIter) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_unselect_iter(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1111,7 +998,11 @@
         }
     }
 
-    <span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Unselects the row at `path`.
+    /// ## `path`
+    /// The [`TreePath`][crate::TreePath] to be unselected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_path&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_unselect_path(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1120,7 +1011,14 @@
         }
     }
 
-    <span class="kw">fn </span>unselect_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Unselects a range of nodes, determined by `start_path` and `end_path`
+    /// inclusive.
+    /// ## `start_path`
+    /// The initial node of the range.
+    /// ## `end_path`
+    /// The initial node of the range.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_selection_unselect_range&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_range(<span class="kw-2">&amp;</span><span class="self">self</span>, start_path: <span class="kw-2">&amp;</span>TreePath, end_path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_selection_unselect_range(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1130,7 +1028,12 @@
         }
     }
 
-    <span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted whenever the selection has (possibly) changed. Please note that
+    /// this signal is mostly a hint. It may only be emitted once when a range
+    /// of rows are selected, and it may occasionally be emitted when nothing
+    /// has happened.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>changed_trampoline&lt;P: IsA&lt;TreeSelection&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTreeSelection,
             f: glib::ffi::gpointer,
@@ -1151,7 +1054,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_mode_trampoline&lt;P: IsA&lt;TreeSelection&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTreeSelection,
             _param_spec: glib::ffi::gpointer,
@@ -1173,6 +1077,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;TreeSelection&gt;&gt; TreeSelectionExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TreeSelection {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

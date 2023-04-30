@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_palette.rs`."><title>tool_palette.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tool_palette.rs`."><title>tool_palette.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1361,61 +1361,7 @@
 <a href="#1288" id="1288">1288</a>
 <a href="#1289" id="1289">1289</a>
 <a href="#1290" id="1290">1290</a>
-<a href="#1291" id="1291">1291</a>
-<a href="#1292" id="1292">1292</a>
-<a href="#1293" id="1293">1293</a>
-<a href="#1294" id="1294">1294</a>
-<a href="#1295" id="1295">1295</a>
-<a href="#1296" id="1296">1296</a>
-<a href="#1297" id="1297">1297</a>
-<a href="#1298" id="1298">1298</a>
-<a href="#1299" id="1299">1299</a>
-<a href="#1300" id="1300">1300</a>
-<a href="#1301" id="1301">1301</a>
-<a href="#1302" id="1302">1302</a>
-<a href="#1303" id="1303">1303</a>
-<a href="#1304" id="1304">1304</a>
-<a href="#1305" id="1305">1305</a>
-<a href="#1306" id="1306">1306</a>
-<a href="#1307" id="1307">1307</a>
-<a href="#1308" id="1308">1308</a>
-<a href="#1309" id="1309">1309</a>
-<a href="#1310" id="1310">1310</a>
-<a href="#1311" id="1311">1311</a>
-<a href="#1312" id="1312">1312</a>
-<a href="#1313" id="1313">1313</a>
-<a href="#1314" id="1314">1314</a>
-<a href="#1315" id="1315">1315</a>
-<a href="#1316" id="1316">1316</a>
-<a href="#1317" id="1317">1317</a>
-<a href="#1318" id="1318">1318</a>
-<a href="#1319" id="1319">1319</a>
-<a href="#1320" id="1320">1320</a>
-<a href="#1321" id="1321">1321</a>
-<a href="#1322" id="1322">1322</a>
-<a href="#1323" id="1323">1323</a>
-<a href="#1324" id="1324">1324</a>
-<a href="#1325" id="1325">1325</a>
-<a href="#1326" id="1326">1326</a>
-<a href="#1327" id="1327">1327</a>
-<a href="#1328" id="1328">1328</a>
-<a href="#1329" id="1329">1329</a>
-<a href="#1330" id="1330">1330</a>
-<a href="#1331" id="1331">1331</a>
-<a href="#1332" id="1332">1332</a>
-<a href="#1333" id="1333">1333</a>
-<a href="#1334" id="1334">1334</a>
-<a href="#1335" id="1335">1335</a>
-<a href="#1336" id="1336">1336</a>
-<a href="#1337" id="1337">1337</a>
-<a href="#1338" id="1338">1338</a>
-<a href="#1339" id="1339">1339</a>
-<a href="#1340" id="1340">1340</a>
-<a href="#1341" id="1341">1341</a>
-<a href="#1342" id="1342">1342</a>
-<a href="#1343" id="1343">1343</a>
-<a href="#1344" id="1344">1344</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -2301,7 +2247,7 @@
 /// # Implementors
 ///
 /// [`ToolPalette`][struct@crate::ToolPalette]
-</span><span class="kw">pub trait </span>ToolPaletteExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ToolPaletteExt: IsA&lt;ToolPalette&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Sets `self` as drag source (see [`set_drag_source()`][Self::set_drag_source()])
     /// and sets `widget` as a drag destination for drags from `self`.
     /// See [`WidgetExtManual::drag_dest_set()`][crate::prelude::WidgetExtManual::drag_dest_set()].
@@ -2322,7 +2268,17 @@
         flags: DestDefaults,
         targets: ToolPaletteDragTargets,
         actions: gdk::DragAction,
-    );
+    ) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_tool_palette_add_drag_dest(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                widget.as_ref().to_glib_none().<span class="number">0</span>,
+                flags.into_glib(),
+                targets.into_glib(),
+                actions.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Get the dragged item from the selection.
     /// This could be a [`ToolItem`][crate::ToolItem] or a [`ToolItemGroup`][crate::ToolItemGroup].
@@ -2334,7 +2290,14 @@
     /// the dragged item in selection
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_drag_item&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drag_item&quot;</span>)]
-    </span><span class="kw">fn </span>drag_item(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>SelectionData) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>drag_item(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>SelectionData) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_tool_palette_get_drag_item(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                selection.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the group at position (x, y).
     /// ## `x`
@@ -2348,7 +2311,15 @@
     /// or [`None`] if there is no such group
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_drop_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drop_group&quot;</span>)]
-    </span><span class="kw">fn </span>drop_group(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItemGroup&gt;;
+    </span><span class="kw">fn </span>drop_group(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItemGroup&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_tool_palette_get_drop_group(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x,
+                y,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the item at position (x, y).
     /// See [`drop_group()`][Self::drop_group()].
@@ -2362,7 +2333,15 @@
     /// the [`ToolItem`][crate::ToolItem] at position or [`None`] if there is no such item
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_drop_item&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drop_item&quot;</span>)]
-    </span><span class="kw">fn </span>drop_item(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItem&gt;;
+    </span><span class="kw">fn </span>drop_item(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItem&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_tool_palette_get_drop_item(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x,
+                y,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets whether `group` is exclusive or not.
     /// See [`set_exclusive()`][Self::set_exclusive()].
@@ -2374,7 +2353,14 @@
     /// [`true`] if `group` is exclusive
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_exclusive&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_exclusive&quot;</span>)]
-    </span><span class="kw">fn </span>is_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>is_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_palette_get_exclusive(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                group.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets whether group should be given extra space.
     /// See [`set_expand()`][Self::set_expand()].
@@ -2386,7 +2372,14 @@
     /// [`true`] if group should be given extra space, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_expand&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_expand&quot;</span>)]
-    </span><span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool;
+    </span><span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_palette_get_expand(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                group.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the position of `group` in `self` as index.
     /// See [`set_group_position()`][Self::set_group_position()].
@@ -2398,7 +2391,14 @@
     /// the index of group or -1 if `group` is not a child of `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_group_position&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_group_position&quot;</span>)]
-    </span><span class="kw">fn </span>group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; i32;
+    </span><span class="kw">fn </span>group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_tool_palette_get_group_position(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                group.as_ref().to_glib_none().<span class="number">0</span>,
+            )
+        }
+    }
 
     <span class="doccomment">/// Gets the size of icons in the tool palette.
     /// See [`set_icon_size()`][Self::set_icon_size()].
@@ -2408,7 +2408,13 @@
     /// the [`IconSize`][crate::IconSize] of icons in the tool palette
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_icon_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_icon_size&quot;</span>)]
-    </span><span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize;
+    </span><span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_palette_get_icon_size(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the style (icons, text or both) of items in the tool palette.
     ///
@@ -2417,7 +2423,13 @@
     /// the [`ToolbarStyle`][crate::ToolbarStyle] of items in the tool palette.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_get_style&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_style&quot;</span>)]
-    </span><span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle;
+    </span><span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_tool_palette_get_style(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets the tool palette as a drag source.
     /// Enables all groups and items in the tool palette as drag sources
@@ -2427,176 +2439,7 @@
     /// the [`ToolPaletteDragTargets`][crate::ToolPaletteDragTargets]
     ///  which the widget should support
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_drag_source&quot;</span>)]
-    </span><span class="kw">fn </span>set_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>, targets: ToolPaletteDragTargets);
-
-    <span class="doccomment">/// Sets whether the group should be exclusive or not.
-    /// If an exclusive group is expanded all other groups are collapsed.
-    /// ## `group`
-    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
-    /// ## `exclusive`
-    /// whether the group should be exclusive or not
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_exclusive&quot;</span>)]
-    </span><span class="kw">fn </span>set_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, exclusive: bool);
-
-    <span class="doccomment">/// Sets whether the group should be given extra space.
-    /// ## `group`
-    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
-    /// ## `expand`
-    /// whether the group should be given extra space
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_expand&quot;</span>)]
-    </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, expand: bool);
-
-    <span class="doccomment">/// Sets the position of the group as an index of the tool palette.
-    /// If position is 0 the group will become the first child, if position is
-    /// -1 it will become the last child.
-    /// ## `group`
-    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
-    /// ## `position`
-    /// a new index for group
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_group_position&quot;</span>)]
-    </span><span class="kw">fn </span>set_group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, position: i32);
-
-    <span class="doccomment">/// Sets the size of icons in the tool palette.
-    /// ## `icon_size`
-    /// the [`IconSize`][crate::IconSize] that icons in the tool
-    ///  palette shall have
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_icon_size&quot;</span>)]
-    </span><span class="kw">fn </span>set_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size: IconSize);
-
-    <span class="doccomment">/// Sets the style (text, icons or both) of items in the tool palette.
-    /// ## `style`
-    /// the [`ToolbarStyle`][crate::ToolbarStyle] that items in the tool palette shall have
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_style&quot;</span>)]
-    </span><span class="kw">fn </span>set_style(<span class="kw-2">&amp;</span><span class="self">self</span>, style: ToolbarStyle);
-
-    <span class="doccomment">/// Unsets the tool palette icon size set with [`set_icon_size()`][Self::set_icon_size()],
-    /// so that user preferences will be used to determine the icon size.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_unset_icon_size&quot;</span>)]
-    </span><span class="kw">fn </span>unset_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Unsets a toolbar style set with [`set_style()`][Self::set_style()],
-    /// so that user preferences will be used to determine the toolbar style.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_unset_style&quot;</span>)]
-    </span><span class="kw">fn </span>unset_style(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Is [`true`] if the [`icon-size`][struct@crate::ToolPalette#icon-size] property has been set.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
-    </span><span class="kw">fn </span>is_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Is [`true`] if the [`icon-size`][struct@crate::ToolPalette#icon-size] property has been set.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
-    </span><span class="kw">fn </span>set_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size_set: bool);
-
-    <span class="doccomment">/// The style of items in the tool palette.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
-    </span><span class="kw">fn </span>toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle;
-
-    <span class="doccomment">/// The style of items in the tool palette.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
-    </span><span class="kw">fn </span>set_toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>, toolbar_style: ToolbarStyle);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;icon-size&quot;</span>)]
-    </span><span class="kw">fn </span>connect_icon_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
-    </span><span class="kw">fn </span>connect_icon_size_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toolbar_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;ToolPalette&gt;&gt; ToolPaletteExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_drag_dest(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-        flags: DestDefaults,
-        targets: ToolPaletteDragTargets,
-        actions: gdk::DragAction,
-    ) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_tool_palette_add_drag_dest(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                widget.as_ref().to_glib_none().<span class="number">0</span>,
-                flags.into_glib(),
-                targets.into_glib(),
-                actions.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>drag_item(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span>SelectionData) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_tool_palette_get_drag_item(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                selection.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>drop_group(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItemGroup&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_tool_palette_get_drop_group(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x,
-                y,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>drop_item(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ToolItem&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_tool_palette_get_drop_item(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x,
-                y,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_palette_get_exclusive(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                group.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_palette_get_expand(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                group.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_tool_palette_get_group_position(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                group.as_ref().to_glib_none().<span class="number">0</span>,
-            )
-        }
-    }
-
-    <span class="kw">fn </span>icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; IconSize {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_palette_get_icon_size(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_tool_palette_get_style(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>, targets: ToolPaletteDragTargets) {
+    </span><span class="kw">fn </span>set_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>, targets: ToolPaletteDragTargets) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_drag_source(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2605,7 +2448,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, exclusive: bool) {
+    <span class="doccomment">/// Sets whether the group should be exclusive or not.
+    /// If an exclusive group is expanded all other groups are collapsed.
+    /// ## `group`
+    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
+    /// ## `exclusive`
+    /// whether the group should be exclusive or not
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_exclusive&quot;</span>)]
+    </span><span class="kw">fn </span>set_exclusive(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, exclusive: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_exclusive(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2615,7 +2465,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, expand: bool) {
+    <span class="doccomment">/// Sets whether the group should be given extra space.
+    /// ## `group`
+    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
+    /// ## `expand`
+    /// whether the group should be given extra space
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_expand&quot;</span>)]
+    </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, expand: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_expand(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2625,7 +2481,15 @@
         }
     }
 
-    <span class="kw">fn </span>set_group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, position: i32) {
+    <span class="doccomment">/// Sets the position of the group as an index of the tool palette.
+    /// If position is 0 the group will become the first child, if position is
+    /// -1 it will become the last child.
+    /// ## `group`
+    /// a [`ToolItemGroup`][crate::ToolItemGroup] which is a child of palette
+    /// ## `position`
+    /// a new index for group
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_group_position&quot;</span>)]
+    </span><span class="kw">fn </span>set_group_position(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ToolItemGroup&gt;, position: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_group_position(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2635,7 +2499,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size: IconSize) {
+    <span class="doccomment">/// Sets the size of icons in the tool palette.
+    /// ## `icon_size`
+    /// the [`IconSize`][crate::IconSize] that icons in the tool
+    ///  palette shall have
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_icon_size&quot;</span>)]
+    </span><span class="kw">fn </span>set_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size: IconSize) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_icon_size(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2644,41 +2513,60 @@
         }
     }
 
-    <span class="kw">fn </span>set_style(<span class="kw-2">&amp;</span><span class="self">self</span>, style: ToolbarStyle) {
+    <span class="doccomment">/// Sets the style (text, icons or both) of items in the tool palette.
+    /// ## `style`
+    /// the [`ToolbarStyle`][crate::ToolbarStyle] that items in the tool palette shall have
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_set_style&quot;</span>)]
+    </span><span class="kw">fn </span>set_style(<span class="kw-2">&amp;</span><span class="self">self</span>, style: ToolbarStyle) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_set_style(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, style.into_glib());
         }
     }
 
-    <span class="kw">fn </span>unset_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unsets the tool palette icon size set with [`set_icon_size()`][Self::set_icon_size()],
+    /// so that user preferences will be used to determine the icon size.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_unset_icon_size&quot;</span>)]
+    </span><span class="kw">fn </span>unset_icon_size(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_unset_icon_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>unset_style(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unsets a toolbar style set with [`set_style()`][Self::set_style()],
+    /// so that user preferences will be used to determine the toolbar style.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tool_palette_unset_style&quot;</span>)]
+    </span><span class="kw">fn </span>unset_style(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tool_palette_unset_style(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>is_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Is [`true`] if the [`icon-size`][struct@crate::ToolPalette#icon-size] property has been set.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
+    </span><span class="kw">fn </span>is_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-size-set&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size_set: bool) {
+    <span class="doccomment">/// Is [`true`] if the [`icon-size`][struct@crate::ToolPalette#icon-size] property has been set.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
+    </span><span class="kw">fn </span>set_icon_size_set(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_size_set: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-size-set&quot;</span>, icon_size_set)
     }
 
-    <span class="kw">fn </span>toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
+    <span class="doccomment">/// The style of items in the tool palette.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
+    </span><span class="kw">fn </span>toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ToolbarStyle {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;toolbar-style&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>, toolbar_style: ToolbarStyle) {
+    <span class="doccomment">/// The style of items in the tool palette.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
+    </span><span class="kw">fn </span>set_toolbar_style(<span class="kw-2">&amp;</span><span class="self">self</span>, toolbar_style: ToolbarStyle) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;toolbar-style&quot;</span>, toolbar_style)
     }
 
-    <span class="kw">fn </span>connect_icon_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;icon-size&quot;</span>)]
+    </span><span class="kw">fn </span>connect_icon_size_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icon_size_trampoline&lt;
             P: IsA&lt;ToolPalette&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2703,7 +2591,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_icon_size_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;icon-size-set&quot;</span>)]
+    </span><span class="kw">fn </span>connect_icon_size_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icon_size_set_trampoline&lt;
             P: IsA&lt;ToolPalette&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2728,7 +2617,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_toolbar_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;toolbar-style&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toolbar_style_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_toolbar_style_trampoline&lt;
             P: IsA&lt;ToolPalette&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2753,6 +2643,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;ToolPalette&gt;&gt; ToolPaletteExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ToolPalette {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

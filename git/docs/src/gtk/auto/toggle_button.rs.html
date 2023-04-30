@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/toggle_button.rs`."><title>toggle_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/toggle_button.rs`."><title>toggle_button.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2110,33 +2110,7 @@
 <a href="#2037" id="2037">2037</a>
 <a href="#2038" id="2038">2038</a>
 <a href="#2039" id="2039">2039</a>
-<a href="#2040" id="2040">2040</a>
-<a href="#2041" id="2041">2041</a>
-<a href="#2042" id="2042">2042</a>
-<a href="#2043" id="2043">2043</a>
-<a href="#2044" id="2044">2044</a>
-<a href="#2045" id="2045">2045</a>
-<a href="#2046" id="2046">2046</a>
-<a href="#2047" id="2047">2047</a>
-<a href="#2048" id="2048">2048</a>
-<a href="#2049" id="2049">2049</a>
-<a href="#2050" id="2050">2050</a>
-<a href="#2051" id="2051">2051</a>
-<a href="#2052" id="2052">2052</a>
-<a href="#2053" id="2053">2053</a>
-<a href="#2054" id="2054">2054</a>
-<a href="#2055" id="2055">2055</a>
-<a href="#2056" id="2056">2056</a>
-<a href="#2057" id="2057">2057</a>
-<a href="#2058" id="2058">2058</a>
-<a href="#2059" id="2059">2059</a>
-<a href="#2060" id="2060">2060</a>
-<a href="#2061" id="2061">2061</a>
-<a href="#2062" id="2062">2062</a>
-<a href="#2063" id="2063">2063</a>
-<a href="#2064" id="2064">2064</a>
-<a href="#2065" id="2065">2065</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -3940,7 +3914,7 @@
 /// # Implementors
 ///
 /// [`CheckButton`][struct@crate::CheckButton], [`MenuButton`][struct@crate::MenuButton], [`ToggleButton`][struct@crate::ToggleButton]
-</span><span class="kw">pub trait </span>ToggleButtonExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ToggleButtonExt: IsA&lt;ToggleButton&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Queries a [`ToggleButton`][crate::ToggleButton] and returns its current state. Returns [`true`] if
     /// the toggle button is pressed in and [`false`] if it is raised.
     ///
@@ -3949,7 +3923,13 @@
     /// a `gboolean` value.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_get_active&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_active&quot;</span>)]
-    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_toggle_button_get_active(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the value set by [`set_inconsistent()`][Self::set_inconsistent()].
     ///
@@ -3958,7 +3938,13 @@
     /// [`true`] if the button is displayed as inconsistent, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_get_inconsistent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_toggle_button_get_inconsistent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves whether the button is displayed as a separate indicator
     /// and label. See [`set_mode()`][Self::set_mode()].
@@ -3969,7 +3955,13 @@
     ///  and label.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_get_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mode&quot;</span>)]
-    </span><span class="kw">fn </span>is_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_toggle_button_get_mode(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets the status of the toggle button. Set to [`true`] if you want the
     /// GtkToggleButton to be “pressed in”, and [`false`] to raise it.
@@ -3978,7 +3970,14 @@
     /// ## `is_active`
     /// [`true`] or [`false`].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_set_active&quot;</span>)]
-    </span><span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool);
+    </span><span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_toggle_button_set_active(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                is_active.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// If the user has selected a range of elements (such as some text or
     /// spreadsheet cells) that are affected by a toggle button, and the
@@ -3991,7 +3990,14 @@
     /// ## `setting`
     /// [`true`] if state is inconsistent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_set_inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
+    </span><span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_toggle_button_set_inconsistent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                setting.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets whether the button is displayed as a separate indicator and label.
     /// You can call this function on a checkbutton or a radiobutton with
@@ -4007,79 +4013,7 @@
     /// if [`true`], draw the button as a separate indicator
     /// and label; if [`false`], draw the button like a normal button
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_set_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool);
-
-    <span class="doccomment">/// Emits the [`toggled`][struct@crate::ToggleButton#toggled] signal on the
-    /// [`ToggleButton`][crate::ToggleButton]. There is no good reason for an
-    /// application ever to call this function.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_toggled&quot;</span>)]
-    </span><span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
-    </span><span class="kw">fn </span>draws_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
-    </span><span class="kw">fn </span>set_draw_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool);
-
-    <span class="doccomment">/// Should be connected if you wish to perform an action whenever the
-    /// [`ToggleButton`][crate::ToggleButton]&#39;s state is changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggled&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
-    </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
-    </span><span class="kw">fn </span>connect_draw_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;ToggleButton&gt;&gt; ToggleButtonExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_toggle_button_get_active(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_toggle_button_get_inconsistent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_toggle_button_get_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_toggle_button_set_active(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                is_active.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_toggle_button_set_inconsistent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                setting.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool) {
+    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_toggle_button_set_mode(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4088,21 +4022,30 @@
         }
     }
 
-    <span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Emits the [`toggled`][struct@crate::ToggleButton#toggled] signal on the
+    /// [`ToggleButton`][crate::ToggleButton]. There is no good reason for an
+    /// application ever to call this function.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_toggle_button_toggled&quot;</span>)]
+    </span><span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_toggle_button_toggled(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>draws_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
+    </span><span class="kw">fn </span>draws_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;draw-indicator&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_draw_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
+    </span><span class="kw">fn </span>set_draw_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_indicator: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;draw-indicator&quot;</span>, draw_indicator)
     }
 
-    <span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Should be connected if you wish to perform an action whenever the
+    /// [`ToggleButton`][crate::ToggleButton]&#39;s state is changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggled&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggled_trampoline&lt;P: IsA&lt;ToggleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkToggleButton,
             f: glib::ffi::gpointer,
@@ -4123,7 +4066,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
+    </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_active_trampoline&lt;P: IsA&lt;ToggleButton&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkToggleButton,
             _param_spec: glib::ffi::gpointer,
@@ -4145,7 +4089,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_draw_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-indicator&quot;</span>)]
+    </span><span class="kw">fn </span>connect_draw_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_draw_indicator_trampoline&lt;
             P: IsA&lt;ToggleButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4170,7 +4115,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;inconsistent&quot;</span>)]
+    </span><span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_inconsistent_trampoline&lt;
             P: IsA&lt;ToggleButton&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4195,6 +4141,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;ToggleButton&gt;&gt; ToggleButtonExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>ToggleButton {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

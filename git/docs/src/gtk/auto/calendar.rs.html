@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/calendar.rs`."><title>calendar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/calendar.rs`."><title>calendar.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2458,101 +2458,7 @@
 <a href="#2385" id="2385">2385</a>
 <a href="#2386" id="2386">2386</a>
 <a href="#2387" id="2387">2387</a>
-<a href="#2388" id="2388">2388</a>
-<a href="#2389" id="2389">2389</a>
-<a href="#2390" id="2390">2390</a>
-<a href="#2391" id="2391">2391</a>
-<a href="#2392" id="2392">2392</a>
-<a href="#2393" id="2393">2393</a>
-<a href="#2394" id="2394">2394</a>
-<a href="#2395" id="2395">2395</a>
-<a href="#2396" id="2396">2396</a>
-<a href="#2397" id="2397">2397</a>
-<a href="#2398" id="2398">2398</a>
-<a href="#2399" id="2399">2399</a>
-<a href="#2400" id="2400">2400</a>
-<a href="#2401" id="2401">2401</a>
-<a href="#2402" id="2402">2402</a>
-<a href="#2403" id="2403">2403</a>
-<a href="#2404" id="2404">2404</a>
-<a href="#2405" id="2405">2405</a>
-<a href="#2406" id="2406">2406</a>
-<a href="#2407" id="2407">2407</a>
-<a href="#2408" id="2408">2408</a>
-<a href="#2409" id="2409">2409</a>
-<a href="#2410" id="2410">2410</a>
-<a href="#2411" id="2411">2411</a>
-<a href="#2412" id="2412">2412</a>
-<a href="#2413" id="2413">2413</a>
-<a href="#2414" id="2414">2414</a>
-<a href="#2415" id="2415">2415</a>
-<a href="#2416" id="2416">2416</a>
-<a href="#2417" id="2417">2417</a>
-<a href="#2418" id="2418">2418</a>
-<a href="#2419" id="2419">2419</a>
-<a href="#2420" id="2420">2420</a>
-<a href="#2421" id="2421">2421</a>
-<a href="#2422" id="2422">2422</a>
-<a href="#2423" id="2423">2423</a>
-<a href="#2424" id="2424">2424</a>
-<a href="#2425" id="2425">2425</a>
-<a href="#2426" id="2426">2426</a>
-<a href="#2427" id="2427">2427</a>
-<a href="#2428" id="2428">2428</a>
-<a href="#2429" id="2429">2429</a>
-<a href="#2430" id="2430">2430</a>
-<a href="#2431" id="2431">2431</a>
-<a href="#2432" id="2432">2432</a>
-<a href="#2433" id="2433">2433</a>
-<a href="#2434" id="2434">2434</a>
-<a href="#2435" id="2435">2435</a>
-<a href="#2436" id="2436">2436</a>
-<a href="#2437" id="2437">2437</a>
-<a href="#2438" id="2438">2438</a>
-<a href="#2439" id="2439">2439</a>
-<a href="#2440" id="2440">2440</a>
-<a href="#2441" id="2441">2441</a>
-<a href="#2442" id="2442">2442</a>
-<a href="#2443" id="2443">2443</a>
-<a href="#2444" id="2444">2444</a>
-<a href="#2445" id="2445">2445</a>
-<a href="#2446" id="2446">2446</a>
-<a href="#2447" id="2447">2447</a>
-<a href="#2448" id="2448">2448</a>
-<a href="#2449" id="2449">2449</a>
-<a href="#2450" id="2450">2450</a>
-<a href="#2451" id="2451">2451</a>
-<a href="#2452" id="2452">2452</a>
-<a href="#2453" id="2453">2453</a>
-<a href="#2454" id="2454">2454</a>
-<a href="#2455" id="2455">2455</a>
-<a href="#2456" id="2456">2456</a>
-<a href="#2457" id="2457">2457</a>
-<a href="#2458" id="2458">2458</a>
-<a href="#2459" id="2459">2459</a>
-<a href="#2460" id="2460">2460</a>
-<a href="#2461" id="2461">2461</a>
-<a href="#2462" id="2462">2462</a>
-<a href="#2463" id="2463">2463</a>
-<a href="#2464" id="2464">2464</a>
-<a href="#2465" id="2465">2465</a>
-<a href="#2466" id="2466">2466</a>
-<a href="#2467" id="2467">2467</a>
-<a href="#2468" id="2468">2468</a>
-<a href="#2469" id="2469">2469</a>
-<a href="#2470" id="2470">2470</a>
-<a href="#2471" id="2471">2471</a>
-<a href="#2472" id="2472">2472</a>
-<a href="#2473" id="2473">2473</a>
-<a href="#2474" id="2474">2474</a>
-<a href="#2475" id="2475">2475</a>
-<a href="#2476" id="2476">2476</a>
-<a href="#2477" id="2477">2477</a>
-<a href="#2478" id="2478">2478</a>
-<a href="#2479" id="2479">2479</a>
-<a href="#2480" id="2480">2480</a>
-<a href="#2481" id="2481">2481</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4184,10 +4090,14 @@
 /// # Implementors
 ///
 /// [`Calendar`][struct@crate::Calendar]
-</span><span class="kw">pub trait </span>CalendarExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>CalendarExt: IsA&lt;Calendar&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Remove all visual markers.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_clear_marks&quot;</span>)]
-    </span><span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_calendar_clear_marks(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Obtains the selected date from a [`Calendar`][crate::Calendar].
     ///
@@ -4207,249 +4117,7 @@
     ///  1 and 31), or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_date&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_date&quot;</span>)]
-    </span><span class="kw">fn </span>date(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, u32, u32);
-
-    <span class="doccomment">/// Returns if the `day` of the `self` is already marked.
-    /// ## `day`
-    /// the day number between 1 and 31.
-    ///
-    /// # Returns
-    ///
-    /// whether the day is marked.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_day_is_marked&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_day_is_marked&quot;</span>)]
-    </span><span class="kw">fn </span>day_is_marked(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; bool;
-
-    <span class="doccomment">/// Queries the height of detail cells, in rows.
-    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
-    ///
-    /// # Returns
-    ///
-    /// The height of detail cells, in rows.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_detail_height_rows&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_detail_height_rows&quot;</span>)]
-    </span><span class="kw">fn </span>detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Queries the width of detail cells, in characters.
-    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
-    ///
-    /// # Returns
-    ///
-    /// The width of detail cells, in characters.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_detail_width_chars&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_detail_width_chars&quot;</span>)]
-    </span><span class="kw">fn </span>detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns the current display options of `self`.
-    ///
-    /// # Returns
-    ///
-    /// the display options.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_display_options&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_display_options&quot;</span>)]
-    </span><span class="kw">fn </span>display_options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CalendarDisplayOptions;
-
-    <span class="doccomment">/// Places a visual marker on a particular day.
-    /// ## `day`
-    /// the day number to mark between 1 and 31.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_mark_day&quot;</span>)]
-    </span><span class="kw">fn </span>mark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32);
-
-    <span class="doccomment">/// Selects a day from the current month.
-    /// ## `day`
-    /// the day number between 1 and 31, or 0 to unselect
-    ///  the currently selected day.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_select_day&quot;</span>)]
-    </span><span class="kw">fn </span>select_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32);
-
-    <span class="doccomment">/// Shifts the calendar to a different month.
-    /// ## `month`
-    /// a month number between 0 and 11.
-    /// ## `year`
-    /// the year the month is in.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_select_month&quot;</span>)]
-    </span><span class="kw">fn </span>select_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32, year: u32);
-
-    <span class="doccomment">/// Installs a function which provides Pango markup with detail information
-    /// for each day. Examples for such details are holidays or appointments. That
-    /// information is shown below each day when [`show-details`][struct@crate::Calendar#show-details] is set.
-    /// A tooltip containing with full detail information is provided, if the entire
-    /// text should not fit into the details area, or if [`show-details`][struct@crate::Calendar#show-details]
-    /// is not set.
-    ///
-    /// The size of the details area can be restricted by setting the
-    /// [`detail-width-chars`][struct@crate::Calendar#detail-width-chars] and [`detail-height-rows`][struct@crate::Calendar#detail-height-rows]
-    /// properties.
-    /// ## `func`
-    /// a function providing details for each day.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_detail_func&lt;P: Fn(<span class="kw-2">&amp;</span>Calendar, u32, u32, u32) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
-
-    <span class="doccomment">/// Updates the height of detail cells.
-    /// See [`detail-height-rows`][struct@crate::Calendar#detail-height-rows].
-    /// ## `rows`
-    /// detail height in rows.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_height_rows&quot;</span>)]
-    </span><span class="kw">fn </span>set_detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>, rows: i32);
-
-    <span class="doccomment">/// Updates the width of detail cells.
-    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
-    /// ## `chars`
-    /// detail width in characters.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_width_chars&quot;</span>)]
-    </span><span class="kw">fn </span>set_detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, chars: i32);
-
-    <span class="doccomment">/// Sets display options (whether to display the heading and the month
-    /// headings).
-    /// ## `flags`
-    /// the display options to set
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_display_options&quot;</span>)]
-    </span><span class="kw">fn </span>set_display_options(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: CalendarDisplayOptions);
-
-    <span class="doccomment">/// Removes the visual marker from a particular day.
-    /// ## `day`
-    /// the day number to unmark between 1 and 31.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_unmark_day&quot;</span>)]
-    </span><span class="kw">fn </span>unmark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32);
-
-    <span class="doccomment">/// The selected day (as a number between 1 and 31, or 0
-    /// to unselect the currently selected day).
-    /// This property gets initially set to the current day.
-    </span><span class="kw">fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// The selected day (as a number between 1 and 31, or 0
-    /// to unselect the currently selected day).
-    /// This property gets initially set to the current day.
-    </span><span class="kw">fn </span>set_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: i32);
-
-    <span class="doccomment">/// The selected month (as a number between 0 and 11).
-    /// This property gets initially set to the current month.
-    </span><span class="kw">fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// The selected month (as a number between 0 and 11).
-    /// This property gets initially set to the current month.
-    </span><span class="kw">fn </span>set_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: i32);
-
-    <span class="doccomment">/// Determines whether the selected month can be changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
-    </span><span class="kw">fn </span>is_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Determines whether the selected month can be changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
-    </span><span class="kw">fn </span>set_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>, no_month_change: bool);
-
-    <span class="doccomment">/// Determines whether day names are displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
-    </span><span class="kw">fn </span>shows_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Determines whether day names are displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>, show_day_names: bool);
-
-    <span class="doccomment">/// Determines whether details are shown directly in the widget, or if they are
-    /// available only as tooltip. When this property is set days with details are
-    /// marked.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
-    </span><span class="kw">fn </span>shows_details(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Determines whether details are shown directly in the widget, or if they are
-    /// available only as tooltip. When this property is set days with details are
-    /// marked.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_details(<span class="kw-2">&amp;</span><span class="self">self</span>, show_details: bool);
-
-    <span class="doccomment">/// Determines whether a heading is displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
-    </span><span class="kw">fn </span>shows_heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Determines whether a heading is displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, show_heading: bool);
-
-    <span class="doccomment">/// Determines whether week numbers are displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
-    </span><span class="kw">fn </span>shows_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Determines whether week numbers are displayed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>, show_week_numbers: bool);
-
-    <span class="doccomment">/// The selected year.
-    /// This property gets initially set to the current year.
-    </span><span class="kw">fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// The selected year.
-    /// This property gets initially set to the current year.
-    </span><span class="kw">fn </span>set_year(<span class="kw-2">&amp;</span><span class="self">self</span>, year: i32);
-
-    <span class="doccomment">/// Emitted when the user selects a day.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;day-selected&quot;</span>)]
-    </span><span class="kw">fn </span>connect_day_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when the user double-clicks a day.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;day-selected-double-click&quot;</span>)]
-    </span><span class="kw">fn </span>connect_day_selected_double_click&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when the user clicks a button to change the selected month on a
-    /// calendar.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;month-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_month_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when the user switched to the next month.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;next-month&quot;</span>)]
-    </span><span class="kw">fn </span>connect_next_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when user switched to the next year.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;next-year&quot;</span>)]
-    </span><span class="kw">fn </span>connect_next_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when the user switched to the previous month.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;prev-month&quot;</span>)]
-    </span><span class="kw">fn </span>connect_prev_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// Emitted when user switched to the previous year.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;prev-year&quot;</span>)]
-    </span><span class="kw">fn </span>connect_prev_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;day&quot;</span>)]
-    </span><span class="kw">fn </span>connect_day_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;detail-height-rows&quot;</span>)]
-    </span><span class="kw">fn </span>connect_detail_height_rows_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;detail-width-chars&quot;</span>)]
-    </span><span class="kw">fn </span>connect_detail_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;month&quot;</span>)]
-    </span><span class="kw">fn </span>connect_month_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
-    </span><span class="kw">fn </span>connect_no_month_change_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_day_names_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_details_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_week_numbers_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;year&quot;</span>)]
-    </span><span class="kw">fn </span>connect_year_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Calendar&gt;&gt; CalendarExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>clear_marks(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_calendar_clear_marks(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>date(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, u32, u32) {
+    </span><span class="kw">fn </span>date(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (u32, u32, u32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>year = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>month = mem::MaybeUninit::uninit();
@@ -4464,7 +4132,16 @@
         }
     }
 
-    <span class="kw">fn </span>day_is_marked(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; bool {
+    <span class="doccomment">/// Returns if the `day` of the `self` is already marked.
+    /// ## `day`
+    /// the day number between 1 and 31.
+    ///
+    /// # Returns
+    ///
+    /// whether the day is marked.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_day_is_marked&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_day_is_marked&quot;</span>)]
+    </span><span class="kw">fn </span>day_is_marked(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_calendar_get_day_is_marked(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4473,15 +4150,38 @@
         }
     }
 
-    <span class="kw">fn </span>detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Queries the height of detail cells, in rows.
+    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
+    ///
+    /// # Returns
+    ///
+    /// The height of detail cells, in rows.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_detail_height_rows&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_detail_height_rows&quot;</span>)]
+    </span><span class="kw">fn </span>detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_calendar_get_detail_height_rows(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Queries the width of detail cells, in characters.
+    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
+    ///
+    /// # Returns
+    ///
+    /// The width of detail cells, in characters.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_detail_width_chars&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_detail_width_chars&quot;</span>)]
+    </span><span class="kw">fn </span>detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_calendar_get_detail_width_chars(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>display_options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CalendarDisplayOptions {
+    <span class="doccomment">/// Returns the current display options of `self`.
+    ///
+    /// # Returns
+    ///
+    /// the display options.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_get_display_options&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_display_options&quot;</span>)]
+    </span><span class="kw">fn </span>display_options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CalendarDisplayOptions {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_calendar_get_display_options(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4489,25 +4189,53 @@
         }
     }
 
-    <span class="kw">fn </span>mark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
+    <span class="doccomment">/// Places a visual marker on a particular day.
+    /// ## `day`
+    /// the day number to mark between 1 and 31.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_mark_day&quot;</span>)]
+    </span><span class="kw">fn </span>mark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_mark_day(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, day);
         }
     }
 
-    <span class="kw">fn </span>select_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
+    <span class="doccomment">/// Selects a day from the current month.
+    /// ## `day`
+    /// the day number between 1 and 31, or 0 to unselect
+    ///  the currently selected day.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_select_day&quot;</span>)]
+    </span><span class="kw">fn </span>select_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_select_day(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, day);
         }
     }
 
-    <span class="kw">fn </span>select_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32, year: u32) {
+    <span class="doccomment">/// Shifts the calendar to a different month.
+    /// ## `month`
+    /// a month number between 0 and 11.
+    /// ## `year`
+    /// the year the month is in.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_select_month&quot;</span>)]
+    </span><span class="kw">fn </span>select_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: u32, year: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_select_month(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, month, year);
         }
     }
 
-    <span class="kw">fn </span>set_detail_func&lt;P: Fn(<span class="kw-2">&amp;</span>Calendar, u32, u32, u32) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// Installs a function which provides Pango markup with detail information
+    /// for each day. Examples for such details are holidays or appointments. That
+    /// information is shown below each day when [`show-details`][struct@crate::Calendar#show-details] is set.
+    /// A tooltip containing with full detail information is provided, if the entire
+    /// text should not fit into the details area, or if [`show-details`][struct@crate::Calendar#show-details]
+    /// is not set.
+    ///
+    /// The size of the details area can be restricted by setting the
+    /// [`detail-width-chars`][struct@crate::Calendar#detail-width-chars] and [`detail-height-rows`][struct@crate::Calendar#detail-height-rows]
+    /// properties.
+    /// ## `func`
+    /// a function providing details for each day.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_func&quot;</span>)]
+    </span><span class="kw">fn </span>set_detail_func&lt;P: Fn(<span class="kw-2">&amp;</span>Calendar, u32, u32, u32) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         func: P,
     ) {
@@ -4545,19 +4273,34 @@
         }
     }
 
-    <span class="kw">fn </span>set_detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>, rows: i32) {
+    <span class="doccomment">/// Updates the height of detail cells.
+    /// See [`detail-height-rows`][struct@crate::Calendar#detail-height-rows].
+    /// ## `rows`
+    /// detail height in rows.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_height_rows&quot;</span>)]
+    </span><span class="kw">fn </span>set_detail_height_rows(<span class="kw-2">&amp;</span><span class="self">self</span>, rows: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_set_detail_height_rows(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, rows);
         }
     }
 
-    <span class="kw">fn </span>set_detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, chars: i32) {
+    <span class="doccomment">/// Updates the width of detail cells.
+    /// See [`detail-width-chars`][struct@crate::Calendar#detail-width-chars].
+    /// ## `chars`
+    /// detail width in characters.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_detail_width_chars&quot;</span>)]
+    </span><span class="kw">fn </span>set_detail_width_chars(<span class="kw-2">&amp;</span><span class="self">self</span>, chars: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_set_detail_width_chars(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, chars);
         }
     }
 
-    <span class="kw">fn </span>set_display_options(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: CalendarDisplayOptions) {
+    <span class="doccomment">/// Sets display options (whether to display the heading and the month
+    /// headings).
+    /// ## `flags`
+    /// the display options to set
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_set_display_options&quot;</span>)]
+    </span><span class="kw">fn </span>set_display_options(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: CalendarDisplayOptions) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_set_display_options(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4566,77 +4309,121 @@
         }
     }
 
-    <span class="kw">fn </span>unmark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
+    <span class="doccomment">/// Removes the visual marker from a particular day.
+    /// ## `day`
+    /// the day number to unmark between 1 and 31.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_calendar_unmark_day&quot;</span>)]
+    </span><span class="kw">fn </span>unmark_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: u32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_calendar_unmark_day(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, day);
         }
     }
 
-    <span class="kw">fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The selected day (as a number between 1 and 31, or 0
+    /// to unselect the currently selected day).
+    /// This property gets initially set to the current day.
+    </span><span class="kw">fn </span>day(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;day&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: i32) {
+    <span class="doccomment">/// The selected day (as a number between 1 and 31, or 0
+    /// to unselect the currently selected day).
+    /// This property gets initially set to the current day.
+    </span><span class="kw">fn </span>set_day(<span class="kw-2">&amp;</span><span class="self">self</span>, day: i32) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;day&quot;</span>, day)
     }
 
-    <span class="kw">fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The selected month (as a number between 0 and 11).
+    /// This property gets initially set to the current month.
+    </span><span class="kw">fn </span>month(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;month&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: i32) {
+    <span class="doccomment">/// The selected month (as a number between 0 and 11).
+    /// This property gets initially set to the current month.
+    </span><span class="kw">fn </span>set_month(<span class="kw-2">&amp;</span><span class="self">self</span>, month: i32) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;month&quot;</span>, month)
     }
 
-    <span class="kw">fn </span>is_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether the selected month can be changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
+    </span><span class="kw">fn </span>is_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;no-month-change&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>, no_month_change: bool) {
+    <span class="doccomment">/// Determines whether the selected month can be changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
+    </span><span class="kw">fn </span>set_no_month_change(<span class="kw-2">&amp;</span><span class="self">self</span>, no_month_change: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;no-month-change&quot;</span>, no_month_change)
     }
 
-    <span class="kw">fn </span>shows_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether day names are displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
+    </span><span class="kw">fn </span>shows_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-day-names&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_show_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>, show_day_names: bool) {
+    <span class="doccomment">/// Determines whether day names are displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_day_names(<span class="kw-2">&amp;</span><span class="self">self</span>, show_day_names: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-day-names&quot;</span>, show_day_names)
     }
 
-    <span class="kw">fn </span>shows_details(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether details are shown directly in the widget, or if they are
+    /// available only as tooltip. When this property is set days with details are
+    /// marked.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
+    </span><span class="kw">fn </span>shows_details(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-details&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_show_details(<span class="kw-2">&amp;</span><span class="self">self</span>, show_details: bool) {
+    <span class="doccomment">/// Determines whether details are shown directly in the widget, or if they are
+    /// available only as tooltip. When this property is set days with details are
+    /// marked.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_details(<span class="kw-2">&amp;</span><span class="self">self</span>, show_details: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-details&quot;</span>, show_details)
     }
 
-    <span class="kw">fn </span>shows_heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether a heading is displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
+    </span><span class="kw">fn </span>shows_heading(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-heading&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_show_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, show_heading: bool) {
+    <span class="doccomment">/// Determines whether a heading is displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_heading(<span class="kw-2">&amp;</span><span class="self">self</span>, show_heading: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-heading&quot;</span>, show_heading)
     }
 
-    <span class="kw">fn </span>shows_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Determines whether week numbers are displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
+    </span><span class="kw">fn </span>shows_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-week-numbers&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_show_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>, show_week_numbers: bool) {
+    <span class="doccomment">/// Determines whether week numbers are displayed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_week_numbers(<span class="kw-2">&amp;</span><span class="self">self</span>, show_week_numbers: bool) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;show-week-numbers&quot;</span>, show_week_numbers)
     }
 
-    <span class="kw">fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The selected year.
+    /// This property gets initially set to the current year.
+    </span><span class="kw">fn </span>year(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;year&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_year(<span class="kw-2">&amp;</span><span class="self">self</span>, year: i32) {
+    <span class="doccomment">/// The selected year.
+    /// This property gets initially set to the current year.
+    </span><span class="kw">fn </span>set_year(<span class="kw-2">&amp;</span><span class="self">self</span>, year: i32) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;year&quot;</span>, year)
     }
 
-    <span class="kw">fn </span>connect_day_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the user selects a day.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;day-selected&quot;</span>)]
+    </span><span class="kw">fn </span>connect_day_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>day_selected_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4657,7 +4444,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_day_selected_double_click&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the user double-clicks a day.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;day-selected-double-click&quot;</span>)]
+    </span><span class="kw">fn </span>connect_day_selected_double_click&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>day_selected_double_click_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4681,7 +4470,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_month_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the user clicks a button to change the selected month on a
+    /// calendar.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;month-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_month_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>month_changed_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4702,7 +4494,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_next_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the user switched to the next month.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;next-month&quot;</span>)]
+    </span><span class="kw">fn </span>connect_next_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>next_month_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4723,7 +4517,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_next_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when user switched to the next year.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;next-year&quot;</span>)]
+    </span><span class="kw">fn </span>connect_next_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>next_year_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4744,7 +4540,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_prev_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when the user switched to the previous month.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;prev-month&quot;</span>)]
+    </span><span class="kw">fn </span>connect_prev_month&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>prev_month_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4765,7 +4563,9 @@
         }
     }
 
-    <span class="kw">fn </span>connect_prev_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when user switched to the previous year.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;prev-year&quot;</span>)]
+    </span><span class="kw">fn </span>connect_prev_year&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>prev_year_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             f: glib::ffi::gpointer,
@@ -4786,7 +4586,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_day_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;day&quot;</span>)]
+    </span><span class="kw">fn </span>connect_day_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_day_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             _param_spec: glib::ffi::gpointer,
@@ -4808,7 +4609,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_detail_height_rows_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;detail-height-rows&quot;</span>)]
+    </span><span class="kw">fn </span>connect_detail_height_rows_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_detail_height_rows_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4833,7 +4635,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_detail_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;detail-width-chars&quot;</span>)]
+    </span><span class="kw">fn </span>connect_detail_width_chars_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_detail_width_chars_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4858,7 +4661,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_month_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;month&quot;</span>)]
+    </span><span class="kw">fn </span>connect_month_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_month_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             _param_spec: glib::ffi::gpointer,
@@ -4880,7 +4684,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_no_month_change_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;no-month-change&quot;</span>)]
+    </span><span class="kw">fn </span>connect_no_month_change_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_no_month_change_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4905,7 +4710,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_day_names_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-day-names&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_day_names_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_day_names_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4930,7 +4736,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_details_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-details&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_details_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_details_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4955,7 +4762,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-heading&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_heading_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_heading_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4980,7 +4788,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_week_numbers_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-week-numbers&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_week_numbers_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_week_numbers_trampoline&lt;
             P: IsA&lt;Calendar&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5005,7 +4814,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_year_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;year&quot;</span>)]
+    </span><span class="kw">fn </span>connect_year_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_year_trampoline&lt;P: IsA&lt;Calendar&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCalendar,
             _param_spec: glib::ffi::gpointer,
@@ -5027,6 +4837,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Calendar&gt;&gt; CalendarExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Calendar {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

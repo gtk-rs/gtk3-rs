@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view_column.rs`."><title>tree_view_column.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/tree_view_column.rs`."><title>tree_view_column.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1720,157 +1720,7 @@
 <a href="#1647" id="1647">1647</a>
 <a href="#1648" id="1648">1648</a>
 <a href="#1649" id="1649">1649</a>
-<a href="#1650" id="1650">1650</a>
-<a href="#1651" id="1651">1651</a>
-<a href="#1652" id="1652">1652</a>
-<a href="#1653" id="1653">1653</a>
-<a href="#1654" id="1654">1654</a>
-<a href="#1655" id="1655">1655</a>
-<a href="#1656" id="1656">1656</a>
-<a href="#1657" id="1657">1657</a>
-<a href="#1658" id="1658">1658</a>
-<a href="#1659" id="1659">1659</a>
-<a href="#1660" id="1660">1660</a>
-<a href="#1661" id="1661">1661</a>
-<a href="#1662" id="1662">1662</a>
-<a href="#1663" id="1663">1663</a>
-<a href="#1664" id="1664">1664</a>
-<a href="#1665" id="1665">1665</a>
-<a href="#1666" id="1666">1666</a>
-<a href="#1667" id="1667">1667</a>
-<a href="#1668" id="1668">1668</a>
-<a href="#1669" id="1669">1669</a>
-<a href="#1670" id="1670">1670</a>
-<a href="#1671" id="1671">1671</a>
-<a href="#1672" id="1672">1672</a>
-<a href="#1673" id="1673">1673</a>
-<a href="#1674" id="1674">1674</a>
-<a href="#1675" id="1675">1675</a>
-<a href="#1676" id="1676">1676</a>
-<a href="#1677" id="1677">1677</a>
-<a href="#1678" id="1678">1678</a>
-<a href="#1679" id="1679">1679</a>
-<a href="#1680" id="1680">1680</a>
-<a href="#1681" id="1681">1681</a>
-<a href="#1682" id="1682">1682</a>
-<a href="#1683" id="1683">1683</a>
-<a href="#1684" id="1684">1684</a>
-<a href="#1685" id="1685">1685</a>
-<a href="#1686" id="1686">1686</a>
-<a href="#1687" id="1687">1687</a>
-<a href="#1688" id="1688">1688</a>
-<a href="#1689" id="1689">1689</a>
-<a href="#1690" id="1690">1690</a>
-<a href="#1691" id="1691">1691</a>
-<a href="#1692" id="1692">1692</a>
-<a href="#1693" id="1693">1693</a>
-<a href="#1694" id="1694">1694</a>
-<a href="#1695" id="1695">1695</a>
-<a href="#1696" id="1696">1696</a>
-<a href="#1697" id="1697">1697</a>
-<a href="#1698" id="1698">1698</a>
-<a href="#1699" id="1699">1699</a>
-<a href="#1700" id="1700">1700</a>
-<a href="#1701" id="1701">1701</a>
-<a href="#1702" id="1702">1702</a>
-<a href="#1703" id="1703">1703</a>
-<a href="#1704" id="1704">1704</a>
-<a href="#1705" id="1705">1705</a>
-<a href="#1706" id="1706">1706</a>
-<a href="#1707" id="1707">1707</a>
-<a href="#1708" id="1708">1708</a>
-<a href="#1709" id="1709">1709</a>
-<a href="#1710" id="1710">1710</a>
-<a href="#1711" id="1711">1711</a>
-<a href="#1712" id="1712">1712</a>
-<a href="#1713" id="1713">1713</a>
-<a href="#1714" id="1714">1714</a>
-<a href="#1715" id="1715">1715</a>
-<a href="#1716" id="1716">1716</a>
-<a href="#1717" id="1717">1717</a>
-<a href="#1718" id="1718">1718</a>
-<a href="#1719" id="1719">1719</a>
-<a href="#1720" id="1720">1720</a>
-<a href="#1721" id="1721">1721</a>
-<a href="#1722" id="1722">1722</a>
-<a href="#1723" id="1723">1723</a>
-<a href="#1724" id="1724">1724</a>
-<a href="#1725" id="1725">1725</a>
-<a href="#1726" id="1726">1726</a>
-<a href="#1727" id="1727">1727</a>
-<a href="#1728" id="1728">1728</a>
-<a href="#1729" id="1729">1729</a>
-<a href="#1730" id="1730">1730</a>
-<a href="#1731" id="1731">1731</a>
-<a href="#1732" id="1732">1732</a>
-<a href="#1733" id="1733">1733</a>
-<a href="#1734" id="1734">1734</a>
-<a href="#1735" id="1735">1735</a>
-<a href="#1736" id="1736">1736</a>
-<a href="#1737" id="1737">1737</a>
-<a href="#1738" id="1738">1738</a>
-<a href="#1739" id="1739">1739</a>
-<a href="#1740" id="1740">1740</a>
-<a href="#1741" id="1741">1741</a>
-<a href="#1742" id="1742">1742</a>
-<a href="#1743" id="1743">1743</a>
-<a href="#1744" id="1744">1744</a>
-<a href="#1745" id="1745">1745</a>
-<a href="#1746" id="1746">1746</a>
-<a href="#1747" id="1747">1747</a>
-<a href="#1748" id="1748">1748</a>
-<a href="#1749" id="1749">1749</a>
-<a href="#1750" id="1750">1750</a>
-<a href="#1751" id="1751">1751</a>
-<a href="#1752" id="1752">1752</a>
-<a href="#1753" id="1753">1753</a>
-<a href="#1754" id="1754">1754</a>
-<a href="#1755" id="1755">1755</a>
-<a href="#1756" id="1756">1756</a>
-<a href="#1757" id="1757">1757</a>
-<a href="#1758" id="1758">1758</a>
-<a href="#1759" id="1759">1759</a>
-<a href="#1760" id="1760">1760</a>
-<a href="#1761" id="1761">1761</a>
-<a href="#1762" id="1762">1762</a>
-<a href="#1763" id="1763">1763</a>
-<a href="#1764" id="1764">1764</a>
-<a href="#1765" id="1765">1765</a>
-<a href="#1766" id="1766">1766</a>
-<a href="#1767" id="1767">1767</a>
-<a href="#1768" id="1768">1768</a>
-<a href="#1769" id="1769">1769</a>
-<a href="#1770" id="1770">1770</a>
-<a href="#1771" id="1771">1771</a>
-<a href="#1772" id="1772">1772</a>
-<a href="#1773" id="1773">1773</a>
-<a href="#1774" id="1774">1774</a>
-<a href="#1775" id="1775">1775</a>
-<a href="#1776" id="1776">1776</a>
-<a href="#1777" id="1777">1777</a>
-<a href="#1778" id="1778">1778</a>
-<a href="#1779" id="1779">1779</a>
-<a href="#1780" id="1780">1780</a>
-<a href="#1781" id="1781">1781</a>
-<a href="#1782" id="1782">1782</a>
-<a href="#1783" id="1783">1783</a>
-<a href="#1784" id="1784">1784</a>
-<a href="#1785" id="1785">1785</a>
-<a href="#1786" id="1786">1786</a>
-<a href="#1787" id="1787">1787</a>
-<a href="#1788" id="1788">1788</a>
-<a href="#1789" id="1789">1789</a>
-<a href="#1790" id="1790">1790</a>
-<a href="#1791" id="1791">1791</a>
-<a href="#1792" id="1792">1792</a>
-<a href="#1793" id="1793">1793</a>
-<a href="#1794" id="1794">1794</a>
-<a href="#1795" id="1795">1795</a>
-<a href="#1796" id="1796">1796</a>
-<a href="#1797" id="1797">1797</a>
-<a href="#1798" id="1798">1798</a>
-<a href="#1799" id="1799">1799</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -1890,7 +1740,7 @@
     /// It allows to set properties of the column header, and functions as a holding pen for
     /// the cell renderers which determine how the data in the column is displayed.
     ///
-    /// Please refer to the [tree widget conceptual overview][TreeWidget]
+    /// Please refer to the [tree widget conceptual overview](TreeWidget.html)
     /// for an overview of all the objects and data types related to the tree widget and how
     /// they work together.
     ///
@@ -2183,7 +2033,7 @@
 /// # Implementors
 ///
 /// [`TreeViewColumn`][struct@crate::TreeViewColumn]
-</span><span class="kw">pub trait </span>TreeViewColumnExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>TreeViewColumnExt: IsA&lt;TreeViewColumn&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds an attribute mapping to the list in `self`. The `column` is the
     /// column of the model to get a value from, and the `attribute` is the
     /// parameter on `cell_renderer` to be set from the value. So for example
@@ -2197,7 +2047,16 @@
     /// ## `column`
     /// The column position on the model to get the attribute from.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_add_attribute&quot;</span>)]
-    </span><span class="kw">fn </span>add_attribute(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, attribute: <span class="kw-2">&amp;</span>str, column: i32);
+    </span><span class="kw">fn </span>add_attribute(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, attribute: <span class="kw-2">&amp;</span>str, column: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_tree_view_column_add_attribute(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                cell_renderer.as_ref().to_glib_none().<span class="number">0</span>,
+                attribute.to_glib_none().<span class="number">0</span>,
+                column,
+            );
+        }
+    }
 
     <span class="doccomment">/// Obtains the horizontal position and size of a cell in a column. If the
     /// cell is not found in the column, `start_pos` and `width` are not changed and
@@ -2217,7 +2076,23 @@
     /// return location for the width of `cell`,
     ///  may be [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_get_position&quot;</span>)]
-    </span><span class="kw">fn </span>cell_get_position(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt;;
+    </span><span class="kw">fn </span>cell_get_position(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>x_offset = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>width = mem::MaybeUninit::uninit();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_tree_view_column_cell_get_position(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                cell_renderer.as_ref().to_glib_none().<span class="number">0</span>,
+                x_offset.as_mut_ptr(),
+                width.as_mut_ptr(),
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((x_offset.assume_init(), width.assume_init()))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Obtains the width and height needed to render the column. This is used
     /// primarily by the [`TreeView`][crate::TreeView].
@@ -2239,538 +2114,7 @@
     /// ## `height`
     /// location to return height needed to render a cell, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_get_size&quot;</span>)]
-    </span><span class="kw">fn </span>cell_get_size(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_area: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Rectangle&gt;) -&gt; (i32, i32, i32, i32);
-
-    <span class="doccomment">/// Returns [`true`] if any of the cells packed into the `self` are visible.
-    /// For this to be meaningful, you must first initialize the cells with
-    /// [`cell_set_cell_data()`][Self::cell_set_cell_data()]
-    ///
-    /// # Returns
-    ///
-    /// [`true`], if any of the cells packed into the `self` are currently visible
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_is_visible&quot;</span>)]
-    </span><span class="kw">fn </span>cell_is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Sets the cell renderer based on the `tree_model` and `iter`. That is, for
-    /// every attribute mapping in `self`, it will get a value from the set
-    /// column on the `iter`, and use that value to set the attribute on the cell
-    /// renderer. This is used primarily by the [`TreeView`][crate::TreeView].
-    /// ## `tree_model`
-    /// The [`TreeModel`][crate::TreeModel] to to get the cell renderers attributes from.
-    /// ## `iter`
-    /// The [`TreeIter`][crate::TreeIter] to to get the cell renderer’s attributes from.
-    /// ## `is_expander`
-    /// [`true`], if the row has children
-    /// ## `is_expanded`
-    /// [`true`], if the row has visible children
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_set_cell_data&quot;</span>)]
-    </span><span class="kw">fn </span>cell_set_cell_data(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        tree_model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;,
-        iter: <span class="kw-2">&amp;</span>TreeIter,
-        is_expander: bool,
-        is_expanded: bool,
-    );
-
-    <span class="doccomment">/// Unsets all the mappings on all renderers on the `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clear&quot;</span>)]
-    </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Clears all existing attributes previously set with
-    /// `gtk_tree_view_column_set_attributes()`.
-    /// ## `cell_renderer`
-    /// a [`CellRenderer`][crate::CellRenderer] to clear the attribute mapping on.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clear_attributes&quot;</span>)]
-    </span><span class="kw">fn </span>clear_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;);
-
-    <span class="doccomment">/// Emits the “clicked” signal on the column. This function will only work if
-    /// `self` is clickable.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clicked&quot;</span>)]
-    </span><span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Sets the current keyboard focus to be at `cell`, if the column contains
-    /// 2 or more editable and activatable cells.
-    /// ## `cell`
-    /// A [`CellRenderer`][crate::CellRenderer]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_focus_cell&quot;</span>)]
-    </span><span class="kw">fn </span>focus_cell(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;);
-
-    <span class="doccomment">/// Returns the current x alignment of `self`. This value can range
-    /// between 0.0 and 1.0.
-    ///
-    /// # Returns
-    ///
-    /// The current alignent of `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_alignment&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_alignment&quot;</span>)]
-    </span><span class="kw">fn </span>alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
-
-    <span class="doccomment">/// Returns the button used in the treeview column header
-    ///
-    /// # Returns
-    ///
-    /// The button for the column header.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_button&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_button&quot;</span>)]
-    </span><span class="kw">fn </span>button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
-
-    <span class="doccomment">/// Returns [`true`] if the user can click on the header for the column.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if user can click the column header.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_clickable&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_clickable&quot;</span>)]
-    </span><span class="kw">fn </span>is_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Returns [`true`] if the column expands to fill available space.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the column expands to fill available space.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_expand&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_expand&quot;</span>)]
-    </span><span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Gets the fixed width of the column. This may not be the actual displayed
-    /// width of the column; for that, use [`width()`][Self::width()].
-    ///
-    /// # Returns
-    ///
-    /// The fixed width of the column.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_fixed_width&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_fixed_width&quot;</span>)]
-    </span><span class="kw">fn </span>fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns the maximum width in pixels of the `self`, or -1 if no maximum
-    /// width is set.
-    ///
-    /// # Returns
-    ///
-    /// The maximum width of the `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_max_width&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_max_width&quot;</span>)]
-    </span><span class="kw">fn </span>max_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns the minimum width in pixels of the `self`, or -1 if no minimum
-    /// width is set.
-    ///
-    /// # Returns
-    ///
-    /// The minimum width of the `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_min_width&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_min_width&quot;</span>)]
-    </span><span class="kw">fn </span>min_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns [`true`] if the `self` can be reordered by the user.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the `self` can be reordered by the user.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_reorderable&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Returns [`true`] if the `self` can be resized by the end user.
-    ///
-    /// # Returns
-    ///
-    /// [`true`], if the `self` can be resized.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_resizable&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_resizable&quot;</span>)]
-    </span><span class="kw">fn </span>is_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Returns the current type of `self`.
-    ///
-    /// # Returns
-    ///
-    /// The type of `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sizing&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_sizing&quot;</span>)]
-    </span><span class="kw">fn </span>sizing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeViewColumnSizing;
-
-    <span class="doccomment">/// Gets the logical `sort_column_id` that the model sorts on when this
-    /// column is selected for sorting.
-    /// See [`set_sort_column_id()`][Self::set_sort_column_id()].
-    ///
-    /// # Returns
-    ///
-    /// the current `sort_column_id` for this column, or -1 if
-    ///  this column can’t be used for sorting.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_column_id&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_sort_column_id&quot;</span>)]
-    </span><span class="kw">fn </span>sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Gets the value set by [`set_sort_indicator()`][Self::set_sort_indicator()].
-    ///
-    /// # Returns
-    ///
-    /// whether the sort indicator arrow is displayed
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_indicator&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_sort_indicator&quot;</span>)]
-    </span><span class="kw">fn </span>is_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Gets the value set by [`set_sort_order()`][Self::set_sort_order()].
-    ///
-    /// # Returns
-    ///
-    /// the sort order the sort indicator is indicating
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_order&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_sort_order&quot;</span>)]
-    </span><span class="kw">fn </span>sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SortType;
-
-    <span class="doccomment">/// Returns the spacing of `self`.
-    ///
-    /// # Returns
-    ///
-    /// the spacing of `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_spacing&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns the title of the widget.
-    ///
-    /// # Returns
-    ///
-    /// the title of the column. This string should not be
-    /// modified or freed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_title&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_title&quot;</span>)]
-    </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
-
-    <span class="doccomment">/// Returns the [`TreeView`][crate::TreeView] wherein `self` has been inserted.
-    /// If `column` is currently not inserted in any tree view, [`None`] is
-    /// returned.
-    ///
-    /// # Returns
-    ///
-    /// The tree view wherein `column` has
-    ///  been inserted if any, [`None`] otherwise.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_tree_view&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_tree_view&quot;</span>)]
-    </span><span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
-
-    <span class="doccomment">/// Returns [`true`] if `self` is visible.
-    ///
-    /// # Returns
-    ///
-    /// whether the column is visible or not. If it is visible, then
-    /// the tree will show the column.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_visible&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_visible&quot;</span>)]
-    </span><span class="kw">fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Returns the [`Widget`][crate::Widget] in the button on the column header.
-    /// If a custom widget has not been set then [`None`] is returned.
-    ///
-    /// # Returns
-    ///
-    /// The [`Widget`][crate::Widget] in the column
-    ///  header, or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_widget&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_widget&quot;</span>)]
-    </span><span class="kw">fn </span>widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
-
-    <span class="doccomment">/// Returns the current size of `self` in pixels.
-    ///
-    /// # Returns
-    ///
-    /// The current width of `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_width&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_width&quot;</span>)]
-    </span><span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Returns the current X offset of `self` in pixels.
-    ///
-    /// # Returns
-    ///
-    /// The current X offset of `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_x_offset&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_x_offset&quot;</span>)]
-    </span><span class="kw">fn </span>x_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// Adds the `cell` to end of the column. If `expand` is [`false`], then the `cell`
-    /// is allocated no more space than it needs. Any unused space is divided
-    /// evenly between cells for which `expand` is [`true`].
-    /// ## `cell`
-    /// The [`CellRenderer`][crate::CellRenderer].
-    /// ## `expand`
-    /// [`true`] if `cell` is to be given extra space allocated to `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_pack_end&quot;</span>)]
-    </span><span class="kw">fn </span>pack_end(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool);
-
-    <span class="doccomment">/// Packs the `cell` into the beginning of the column. If `expand` is [`false`], then
-    /// the `cell` is allocated no more space than it needs. Any unused space is divided
-    /// evenly between cells for which `expand` is [`true`].
-    /// ## `cell`
-    /// The [`CellRenderer`][crate::CellRenderer].
-    /// ## `expand`
-    /// [`true`] if `cell` is to be given extra space allocated to `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_pack_start&quot;</span>)]
-    </span><span class="kw">fn </span>pack_start(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool);
-
-    <span class="doccomment">/// Flags the column, and the cell renderers added to this column, to have
-    /// their sizes renegotiated.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_queue_resize&quot;</span>)]
-    </span><span class="kw">fn </span>queue_resize(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Sets the alignment of the title or custom widget inside the column header.
-    /// The alignment determines its location inside the button -- 0.0 for left, 0.5
-    /// for center, 1.0 for right.
-    /// ## `xalign`
-    /// The alignment, which is between [0.0 and 1.0] inclusive.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_alignment&quot;</span>)]
-    </span><span class="kw">fn </span>set_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32);
-
-    <span class="comment">//#[doc(alias = &quot;gtk_tree_view_column_set_attributes&quot;)]
-    //fn set_attributes(&amp;self, cell_renderer: &amp;impl IsA&lt;CellRenderer&gt;, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
-
-    </span><span class="doccomment">/// Sets the `GtkTreeCellDataFunc` to use for the column. This
-    /// function is used instead of the standard attributes mapping for
-    /// setting the column value, and should set the value of `self`&#39;s
-    /// cell renderer as appropriate. `func` may be [`None`] to remove an
-    /// older one.
-    /// ## `cell_renderer`
-    /// A [`CellRenderer`][crate::CellRenderer]
-    /// ## `func`
-    /// The `GtkTreeCellDataFunc` to use.
-    /// ## `func_data`
-    /// The user data for `func`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_cell_data_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_cell_data_func(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;,
-        func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>TreeViewColumn, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    );
-
-    <span class="doccomment">/// Sets the header to be active if `clickable` is [`true`]. When the header is
-    /// active, then it can take keyboard focus, and can be clicked.
-    /// ## `clickable`
-    /// [`true`] if the header is active.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_clickable&quot;</span>)]
-    </span><span class="kw">fn </span>set_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>, clickable: bool);
-
-    <span class="doccomment">/// Sets the column to take available extra space. This space is shared equally
-    /// amongst all columns that have the expand set to [`true`]. If no column has this
-    /// option set, then the last column gets all extra space. By default, every
-    /// column is created with this [`false`].
-    ///
-    /// Along with “fixed-width”, the “expand” property changes when the column is
-    /// resized by the user.
-    /// ## `expand`
-    /// [`true`] if the column should expand to fill available space.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_expand&quot;</span>)]
-    </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool);
-
-    <span class="doccomment">/// If `fixed_width` is not -1, sets the fixed width of `self`; otherwise
-    /// unsets it. The effective value of `fixed_width` is clamped between the
-    /// minimum and maximum width of the column; however, the value stored in the
-    /// “fixed-width” property is not clamped. If the column sizing is
-    /// [`TreeViewColumnSizing::GrowOnly`][crate::TreeViewColumnSizing::GrowOnly] or [`TreeViewColumnSizing::Autosize`][crate::TreeViewColumnSizing::Autosize], setting
-    /// a fixed width overrides the automatically calculated width. Note that
-    /// `fixed_width` is only a hint to GTK+; the width actually allocated to the
-    /// column may be greater or less than requested.
-    ///
-    /// Along with “expand”, the “fixed-width” property changes when the column is
-    /// resized by the user.
-    /// ## `fixed_width`
-    /// The new fixed width, in pixels, or -1.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_fixed_width&quot;</span>)]
-    </span><span class="kw">fn </span>set_fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>, fixed_width: i32);
-
-    <span class="doccomment">/// Sets the maximum width of the `self`. If `max_width` is -1, then the
-    /// maximum width is unset. Note, the column can actually be wider than max
-    /// width if it’s the last column in a view. In this case, the column expands to
-    /// fill any extra space.
-    /// ## `max_width`
-    /// The maximum width of the column in pixels, or -1.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_max_width&quot;</span>)]
-    </span><span class="kw">fn </span>set_max_width(<span class="kw-2">&amp;</span><span class="self">self</span>, max_width: i32);
-
-    <span class="doccomment">/// Sets the minimum width of the `self`. If `min_width` is -1, then the
-    /// minimum width is unset.
-    /// ## `min_width`
-    /// The minimum width of the column in pixels, or -1.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_min_width&quot;</span>)]
-    </span><span class="kw">fn </span>set_min_width(<span class="kw-2">&amp;</span><span class="self">self</span>, min_width: i32);
-
-    <span class="doccomment">/// If `reorderable` is [`true`], then the column can be reordered by the end user
-    /// dragging the header.
-    /// ## `reorderable`
-    /// [`true`], if the column can be reordered.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool);
-
-    <span class="doccomment">/// If `resizable` is [`true`], then the user can explicitly resize the column by
-    /// grabbing the outer edge of the column button. If resizable is [`true`] and
-    /// sizing mode of the column is [`TreeViewColumnSizing::Autosize`][crate::TreeViewColumnSizing::Autosize], then the sizing
-    /// mode is changed to [`TreeViewColumnSizing::GrowOnly`][crate::TreeViewColumnSizing::GrowOnly].
-    /// ## `resizable`
-    /// [`true`], if the column can be resized
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_resizable&quot;</span>)]
-    </span><span class="kw">fn </span>set_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>, resizable: bool);
-
-    <span class="doccomment">/// Sets the growth behavior of `self` to `type_`.
-    /// ## `type_`
-    /// The [`TreeViewColumnSizing`][crate::TreeViewColumnSizing].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sizing&quot;</span>)]
-    </span><span class="kw">fn </span>set_sizing(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TreeViewColumnSizing);
-
-    <span class="doccomment">/// Sets the logical `sort_column_id` that this column sorts on when this column
-    /// is selected for sorting. Doing so makes the column header clickable.
-    /// ## `sort_column_id`
-    /// The `sort_column_id` of the model to sort on.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_column_id&quot;</span>)]
-    </span><span class="kw">fn </span>set_sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>, sort_column_id: i32);
-
-    <span class="doccomment">/// Call this function with a `setting` of [`true`] to display an arrow in
-    /// the header button indicating the column is sorted. Call
-    /// [`set_sort_order()`][Self::set_sort_order()] to change the direction of
-    /// the arrow.
-    /// ## `setting`
-    /// [`true`] to display an indicator that the column is sorted
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_indicator&quot;</span>)]
-    </span><span class="kw">fn </span>set_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
-
-    <span class="doccomment">/// Changes the appearance of the sort indicator.
-    ///
-    /// This does not actually sort the model. Use
-    /// [`set_sort_column_id()`][Self::set_sort_column_id()] if you want automatic sorting
-    /// support. This function is primarily for custom sorting behavior, and should
-    /// be used in conjunction with [`TreeSortableExtManual::set_sort_column_id()`][crate::prelude::TreeSortableExtManual::set_sort_column_id()] to do
-    /// that. For custom models, the mechanism will vary.
-    ///
-    /// The sort indicator changes direction to indicate normal sort or reverse sort.
-    /// Note that you must have the sort indicator enabled to see anything when
-    /// calling this function; see [`set_sort_indicator()`][Self::set_sort_indicator()].
-    /// ## `order`
-    /// sort order that the sort indicator should indicate
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_order&quot;</span>)]
-    </span><span class="kw">fn </span>set_sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>, order: SortType);
-
-    <span class="doccomment">/// Sets the spacing field of `self`, which is the number of pixels to
-    /// place between cell renderers packed into it.
-    /// ## `spacing`
-    /// distance between cell renderers in pixels.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32);
-
-    <span class="doccomment">/// Sets the title of the `self`. If a custom widget has been set, then
-    /// this value is ignored.
-    /// ## `title`
-    /// The title of the `self`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_title&quot;</span>)]
-    </span><span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets the visibility of `self`.
-    /// ## `visible`
-    /// [`true`] if the `self` is visible.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_visible&quot;</span>)]
-    </span><span class="kw">fn </span>set_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool);
-
-    <span class="doccomment">/// Sets the widget in the header to be `widget`. If widget is [`None`], then the
-    /// header button is set with a [`Label`][crate::Label] set to the title of `self`.
-    /// ## `widget`
-    /// A child [`Widget`][crate::Widget], or [`None`].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_widget&quot;</span>)]
-    </span><span class="kw">fn </span>set_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
-
-    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this column.
-    ///
-    /// If no area is specified when creating the tree view column with [`TreeViewColumn::with_area()`][crate::TreeViewColumn::with_area()]
-    /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
-    </span><span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt;;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;clicked&quot;</span>)]
-    </span><span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;alignment&quot;</span>)]
-    </span><span class="kw">fn </span>connect_alignment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;clickable&quot;</span>)]
-    </span><span class="kw">fn </span>connect_clickable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;expand&quot;</span>)]
-    </span><span class="kw">fn </span>connect_expand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;fixed-width&quot;</span>)]
-    </span><span class="kw">fn </span>connect_fixed_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;max-width&quot;</span>)]
-    </span><span class="kw">fn </span>connect_max_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;min-width&quot;</span>)]
-    </span><span class="kw">fn </span>connect_min_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;resizable&quot;</span>)]
-    </span><span class="kw">fn </span>connect_resizable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;sizing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_sizing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;sort-column-id&quot;</span>)]
-    </span><span class="kw">fn </span>connect_sort_column_id_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;sort-indicator&quot;</span>)]
-    </span><span class="kw">fn </span>connect_sort_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;sort-order&quot;</span>)]
-    </span><span class="kw">fn </span>connect_sort_order_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;title&quot;</span>)]
-    </span><span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;visible&quot;</span>)]
-    </span><span class="kw">fn </span>connect_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;widget&quot;</span>)]
-    </span><span class="kw">fn </span>connect_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;width&quot;</span>)]
-    </span><span class="kw">fn </span>connect_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;x-offset&quot;</span>)]
-    </span><span class="kw">fn </span>connect_x_offset_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;TreeViewColumn&gt;&gt; TreeViewColumnExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_attribute(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, attribute: <span class="kw-2">&amp;</span>str, column: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_tree_view_column_add_attribute(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell_renderer.as_ref().to_glib_none().<span class="number">0</span>,
-                attribute.to_glib_none().<span class="number">0</span>,
-                column,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>cell_get_position(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(i32, i32)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>x_offset = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>width = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_tree_view_column_cell_get_position(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell_renderer.as_ref().to_glib_none().<span class="number">0</span>,
-                x_offset.as_mut_ptr(),
-                width.as_mut_ptr(),
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((x_offset.assume_init(), width.assume_init()))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>cell_get_size(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_area: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Rectangle&gt;) -&gt; (i32, i32, i32, i32) {
+    </span><span class="kw">fn </span>cell_get_size(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_area: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Rectangle&gt;) -&gt; (i32, i32, i32, i32) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x_offset = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y_offset = mem::MaybeUninit::uninit();
@@ -2793,7 +2137,15 @@
         }
     }
 
-    <span class="kw">fn </span>cell_is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if any of the cells packed into the `self` are visible.
+    /// For this to be meaningful, you must first initialize the cells with
+    /// [`cell_set_cell_data()`][Self::cell_set_cell_data()]
+    ///
+    /// # Returns
+    ///
+    /// [`true`], if any of the cells packed into the `self` are currently visible
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_is_visible&quot;</span>)]
+    </span><span class="kw">fn </span>cell_is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_cell_is_visible(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2801,7 +2153,20 @@
         }
     }
 
-    <span class="kw">fn </span>cell_set_cell_data(
+    <span class="doccomment">/// Sets the cell renderer based on the `tree_model` and `iter`. That is, for
+    /// every attribute mapping in `self`, it will get a value from the set
+    /// column on the `iter`, and use that value to set the attribute on the cell
+    /// renderer. This is used primarily by the [`TreeView`][crate::TreeView].
+    /// ## `tree_model`
+    /// The [`TreeModel`][crate::TreeModel] to to get the cell renderers attributes from.
+    /// ## `iter`
+    /// The [`TreeIter`][crate::TreeIter] to to get the cell renderer’s attributes from.
+    /// ## `is_expander`
+    /// [`true`], if the row has children
+    /// ## `is_expanded`
+    /// [`true`], if the row has visible children
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_cell_set_cell_data&quot;</span>)]
+    </span><span class="kw">fn </span>cell_set_cell_data(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tree_model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;,
         iter: <span class="kw-2">&amp;</span>TreeIter,
@@ -2819,13 +2184,20 @@
         }
     }
 
-    <span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unsets all the mappings on all renderers on the `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clear&quot;</span>)]
+    </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_clear(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>clear_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) {
+    <span class="doccomment">/// Clears all existing attributes previously set with
+    /// `gtk_tree_view_column_set_attributes()`.
+    /// ## `cell_renderer`
+    /// a [`CellRenderer`][crate::CellRenderer] to clear the attribute mapping on.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clear_attributes&quot;</span>)]
+    </span><span class="kw">fn </span>clear_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_clear_attributes(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2834,13 +2206,21 @@
         }
     }
 
-    <span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Emits the “clicked” signal on the column. This function will only work if
+    /// `self` is clickable.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_clicked&quot;</span>)]
+    </span><span class="kw">fn </span>clicked(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_clicked(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>focus_cell(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) {
+    <span class="doccomment">/// Sets the current keyboard focus to be at `cell`, if the column contains
+    /// 2 or more editable and activatable cells.
+    /// ## `cell`
+    /// A [`CellRenderer`][crate::CellRenderer]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_focus_cell&quot;</span>)]
+    </span><span class="kw">fn </span>focus_cell(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_focus_cell(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2849,11 +2229,26 @@
         }
     }
 
-    <span class="kw">fn </span>alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
+    <span class="doccomment">/// Returns the current x alignment of `self`. This value can range
+    /// between 0.0 and 1.0.
+    ///
+    /// # Returns
+    ///
+    /// The current alignent of `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_alignment&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_alignment&quot;</span>)]
+    </span><span class="kw">fn </span>alignment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_alignment(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+    <span class="doccomment">/// Returns the button used in the treeview column header
+    ///
+    /// # Returns
+    ///
+    /// The button for the column header.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_button&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_button&quot;</span>)]
+    </span><span class="kw">fn </span>button(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_tree_view_column_get_button(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2861,7 +2256,14 @@
         }
     }
 
-    <span class="kw">fn </span>is_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if the user can click on the header for the column.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if user can click the column header.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_clickable&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_clickable&quot;</span>)]
+    </span><span class="kw">fn </span>is_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_clickable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2869,7 +2271,14 @@
         }
     }
 
-    <span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if the column expands to fill available space.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the column expands to fill available space.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_expand&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_expand&quot;</span>)]
+    </span><span class="kw">fn </span>expands(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_expand(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2877,19 +2286,50 @@
         }
     }
 
-    <span class="kw">fn </span>fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Gets the fixed width of the column. This may not be the actual displayed
+    /// width of the column; for that, use [`width()`][Self::width()].
+    ///
+    /// # Returns
+    ///
+    /// The fixed width of the column.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_fixed_width&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_fixed_width&quot;</span>)]
+    </span><span class="kw">fn </span>fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_fixed_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>max_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Returns the maximum width in pixels of the `self`, or -1 if no maximum
+    /// width is set.
+    ///
+    /// # Returns
+    ///
+    /// The maximum width of the `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_max_width&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_max_width&quot;</span>)]
+    </span><span class="kw">fn </span>max_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_max_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>min_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Returns the minimum width in pixels of the `self`, or -1 if no minimum
+    /// width is set.
+    ///
+    /// # Returns
+    ///
+    /// The minimum width of the `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_min_width&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_min_width&quot;</span>)]
+    </span><span class="kw">fn </span>min_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_min_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if the `self` can be reordered by the user.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the `self` can be reordered by the user.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_reorderable&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_reorderable&quot;</span>)]
+    </span><span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_reorderable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2897,7 +2337,14 @@
         }
     }
 
-    <span class="kw">fn </span>is_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if the `self` can be resized by the end user.
+    ///
+    /// # Returns
+    ///
+    /// [`true`], if the `self` can be resized.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_resizable&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_resizable&quot;</span>)]
+    </span><span class="kw">fn </span>is_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_resizable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2905,7 +2352,14 @@
         }
     }
 
-    <span class="kw">fn </span>sizing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeViewColumnSizing {
+    <span class="doccomment">/// Returns the current type of `self`.
+    ///
+    /// # Returns
+    ///
+    /// The type of `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sizing&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_sizing&quot;</span>)]
+    </span><span class="kw">fn </span>sizing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TreeViewColumnSizing {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_sizing(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2913,11 +2367,28 @@
         }
     }
 
-    <span class="kw">fn </span>sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Gets the logical `sort_column_id` that the model sorts on when this
+    /// column is selected for sorting.
+    /// See [`set_sort_column_id()`][Self::set_sort_column_id()].
+    ///
+    /// # Returns
+    ///
+    /// the current `sort_column_id` for this column, or -1 if
+    ///  this column can’t be used for sorting.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_column_id&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_sort_column_id&quot;</span>)]
+    </span><span class="kw">fn </span>sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_sort_column_id(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>is_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Gets the value set by [`set_sort_indicator()`][Self::set_sort_indicator()].
+    ///
+    /// # Returns
+    ///
+    /// whether the sort indicator arrow is displayed
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_indicator&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_sort_indicator&quot;</span>)]
+    </span><span class="kw">fn </span>is_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_sort_indicator(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2925,7 +2396,14 @@
         }
     }
 
-    <span class="kw">fn </span>sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SortType {
+    <span class="doccomment">/// Gets the value set by [`set_sort_order()`][Self::set_sort_order()].
+    ///
+    /// # Returns
+    ///
+    /// the sort order the sort indicator is indicating
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_sort_order&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_sort_order&quot;</span>)]
+    </span><span class="kw">fn </span>sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SortType {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_sort_order(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2933,11 +2411,26 @@
         }
     }
 
-    <span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Returns the spacing of `self`.
+    ///
+    /// # Returns
+    ///
+    /// the spacing of `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_spacing&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    <span class="doccomment">/// Returns the title of the widget.
+    ///
+    /// # Returns
+    ///
+    /// the title of the column. This string should not be
+    /// modified or freed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_title&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_title&quot;</span>)]
+    </span><span class="kw">fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_tree_view_column_get_title(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2945,7 +2438,17 @@
         }
     }
 
-    <span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+    <span class="doccomment">/// Returns the [`TreeView`][crate::TreeView] wherein `self` has been inserted.
+    /// If `column` is currently not inserted in any tree view, [`None`] is
+    /// returned.
+    ///
+    /// # Returns
+    ///
+    /// The tree view wherein `column` has
+    ///  been inserted if any, [`None`] otherwise.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_tree_view&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_tree_view&quot;</span>)]
+    </span><span class="kw">fn </span>tree_view(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_tree_view_column_get_tree_view(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2953,7 +2456,15 @@
         }
     }
 
-    <span class="kw">fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    <span class="doccomment">/// Returns [`true`] if `self` is visible.
+    ///
+    /// # Returns
+    ///
+    /// whether the column is visible or not. If it is visible, then
+    /// the tree will show the column.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_visible&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_visible&quot;</span>)]
+    </span><span class="kw">fn </span>is_visible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_tree_view_column_get_visible(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2961,7 +2472,16 @@
         }
     }
 
-    <span class="kw">fn </span>widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+    <span class="doccomment">/// Returns the [`Widget`][crate::Widget] in the button on the column header.
+    /// If a custom widget has not been set then [`None`] is returned.
+    ///
+    /// # Returns
+    ///
+    /// The [`Widget`][crate::Widget] in the column
+    ///  header, or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_widget&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_widget&quot;</span>)]
+    </span><span class="kw">fn </span>widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_tree_view_column_get_widget(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2969,15 +2489,37 @@
         }
     }
 
-    <span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Returns the current size of `self` in pixels.
+    ///
+    /// # Returns
+    ///
+    /// The current width of `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_width&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_width&quot;</span>)]
+    </span><span class="kw">fn </span>width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>x_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// Returns the current X offset of `self` in pixels.
+    ///
+    /// # Returns
+    ///
+    /// The current X offset of `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_get_x_offset&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_x_offset&quot;</span>)]
+    </span><span class="kw">fn </span>x_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         <span class="kw">unsafe </span>{ ffi::gtk_tree_view_column_get_x_offset(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
     }
 
-    <span class="kw">fn </span>pack_end(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
+    <span class="doccomment">/// Adds the `cell` to end of the column. If `expand` is [`false`], then the `cell`
+    /// is allocated no more space than it needs. Any unused space is divided
+    /// evenly between cells for which `expand` is [`true`].
+    /// ## `cell`
+    /// The [`CellRenderer`][crate::CellRenderer].
+    /// ## `expand`
+    /// [`true`] if `cell` is to be given extra space allocated to `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_pack_end&quot;</span>)]
+    </span><span class="kw">fn </span>pack_end(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_pack_end(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2987,7 +2529,15 @@
         }
     }
 
-    <span class="kw">fn </span>pack_start(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
+    <span class="doccomment">/// Packs the `cell` into the beginning of the column. If `expand` is [`false`], then
+    /// the `cell` is allocated no more space than it needs. Any unused space is divided
+    /// evenly between cells for which `expand` is [`true`].
+    /// ## `cell`
+    /// The [`CellRenderer`][crate::CellRenderer].
+    /// ## `expand`
+    /// [`true`] if `cell` is to be given extra space allocated to `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_pack_start&quot;</span>)]
+    </span><span class="kw">fn </span>pack_start(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_pack_start(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2997,22 +2547,44 @@
         }
     }
 
-    <span class="kw">fn </span>queue_resize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Flags the column, and the cell renderers added to this column, to have
+    /// their sizes renegotiated.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_queue_resize&quot;</span>)]
+    </span><span class="kw">fn </span>queue_resize(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_queue_resize(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32) {
+    <span class="doccomment">/// Sets the alignment of the title or custom widget inside the column header.
+    /// The alignment determines its location inside the button -- 0.0 for left, 0.5
+    /// for center, 1.0 for right.
+    /// ## `xalign`
+    /// The alignment, which is between [0.0 and 1.0] inclusive.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_alignment&quot;</span>)]
+    </span><span class="kw">fn </span>set_alignment(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_alignment(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, xalign);
         }
     }
 
-    <span class="comment">//fn set_attributes(&amp;self, cell_renderer: &amp;impl IsA&lt;CellRenderer&gt;, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
+    <span class="comment">//#[doc(alias = &quot;gtk_tree_view_column_set_attributes&quot;)]
+    //fn set_attributes(&amp;self, cell_renderer: &amp;impl IsA&lt;CellRenderer&gt;, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_tree_view_column_set_attributes() }
     //}
 
+    </span><span class="doccomment">/// Sets the `GtkTreeCellDataFunc` to use for the column. This
+    /// function is used instead of the standard attributes mapping for
+    /// setting the column value, and should set the value of `self`&#39;s
+    /// cell renderer as appropriate. `func` may be [`None`] to remove an
+    /// older one.
+    /// ## `cell_renderer`
+    /// A [`CellRenderer`][crate::CellRenderer]
+    /// ## `func`
+    /// The `GtkTreeCellDataFunc` to use.
+    /// ## `func_data`
+    /// The user data for `func`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_cell_data_func&quot;</span>)]
     </span><span class="kw">fn </span>set_cell_data_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         cell_renderer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;,
@@ -3068,7 +2640,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>, clickable: bool) {
+    <span class="doccomment">/// Sets the header to be active if `clickable` is [`true`]. When the header is
+    /// active, then it can take keyboard focus, and can be clicked.
+    /// ## `clickable`
+    /// [`true`] if the header is active.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_clickable&quot;</span>)]
+    </span><span class="kw">fn </span>set_clickable(<span class="kw-2">&amp;</span><span class="self">self</span>, clickable: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_clickable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3077,7 +2654,17 @@
         }
     }
 
-    <span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool) {
+    <span class="doccomment">/// Sets the column to take available extra space. This space is shared equally
+    /// amongst all columns that have the expand set to [`true`]. If no column has this
+    /// option set, then the last column gets all extra space. By default, every
+    /// column is created with this [`false`].
+    ///
+    /// Along with “fixed-width”, the “expand” property changes when the column is
+    /// resized by the user.
+    /// ## `expand`
+    /// [`true`] if the column should expand to fill available space.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_expand&quot;</span>)]
+    </span><span class="kw">fn </span>set_expand(<span class="kw-2">&amp;</span><span class="self">self</span>, expand: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_expand(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3086,25 +2673,56 @@
         }
     }
 
-    <span class="kw">fn </span>set_fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>, fixed_width: i32) {
+    <span class="doccomment">/// If `fixed_width` is not -1, sets the fixed width of `self`; otherwise
+    /// unsets it. The effective value of `fixed_width` is clamped between the
+    /// minimum and maximum width of the column; however, the value stored in the
+    /// “fixed-width” property is not clamped. If the column sizing is
+    /// [`TreeViewColumnSizing::GrowOnly`][crate::TreeViewColumnSizing::GrowOnly] or [`TreeViewColumnSizing::Autosize`][crate::TreeViewColumnSizing::Autosize], setting
+    /// a fixed width overrides the automatically calculated width. Note that
+    /// `fixed_width` is only a hint to GTK+; the width actually allocated to the
+    /// column may be greater or less than requested.
+    ///
+    /// Along with “expand”, the “fixed-width” property changes when the column is
+    /// resized by the user.
+    /// ## `fixed_width`
+    /// The new fixed width, in pixels, or -1.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_fixed_width&quot;</span>)]
+    </span><span class="kw">fn </span>set_fixed_width(<span class="kw-2">&amp;</span><span class="self">self</span>, fixed_width: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_fixed_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, fixed_width);
         }
     }
 
-    <span class="kw">fn </span>set_max_width(<span class="kw-2">&amp;</span><span class="self">self</span>, max_width: i32) {
+    <span class="doccomment">/// Sets the maximum width of the `self`. If `max_width` is -1, then the
+    /// maximum width is unset. Note, the column can actually be wider than max
+    /// width if it’s the last column in a view. In this case, the column expands to
+    /// fill any extra space.
+    /// ## `max_width`
+    /// The maximum width of the column in pixels, or -1.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_max_width&quot;</span>)]
+    </span><span class="kw">fn </span>set_max_width(<span class="kw-2">&amp;</span><span class="self">self</span>, max_width: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_max_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, max_width);
         }
     }
 
-    <span class="kw">fn </span>set_min_width(<span class="kw-2">&amp;</span><span class="self">self</span>, min_width: i32) {
+    <span class="doccomment">/// Sets the minimum width of the `self`. If `min_width` is -1, then the
+    /// minimum width is unset.
+    /// ## `min_width`
+    /// The minimum width of the column in pixels, or -1.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_min_width&quot;</span>)]
+    </span><span class="kw">fn </span>set_min_width(<span class="kw-2">&amp;</span><span class="self">self</span>, min_width: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_min_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, min_width);
         }
     }
 
-    <span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool) {
+    <span class="doccomment">/// If `reorderable` is [`true`], then the column can be reordered by the end user
+    /// dragging the header.
+    /// ## `reorderable`
+    /// [`true`], if the column can be reordered.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_reorderable&quot;</span>)]
+    </span><span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_reorderable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3113,7 +2731,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>, resizable: bool) {
+    <span class="doccomment">/// If `resizable` is [`true`], then the user can explicitly resize the column by
+    /// grabbing the outer edge of the column button. If resizable is [`true`] and
+    /// sizing mode of the column is [`TreeViewColumnSizing::Autosize`][crate::TreeViewColumnSizing::Autosize], then the sizing
+    /// mode is changed to [`TreeViewColumnSizing::GrowOnly`][crate::TreeViewColumnSizing::GrowOnly].
+    /// ## `resizable`
+    /// [`true`], if the column can be resized
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_resizable&quot;</span>)]
+    </span><span class="kw">fn </span>set_resizable(<span class="kw-2">&amp;</span><span class="self">self</span>, resizable: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_resizable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3122,13 +2747,22 @@
         }
     }
 
-    <span class="kw">fn </span>set_sizing(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TreeViewColumnSizing) {
+    <span class="doccomment">/// Sets the growth behavior of `self` to `type_`.
+    /// ## `type_`
+    /// The [`TreeViewColumnSizing`][crate::TreeViewColumnSizing].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sizing&quot;</span>)]
+    </span><span class="kw">fn </span>set_sizing(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: TreeViewColumnSizing) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_sizing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, type_.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>, sort_column_id: i32) {
+    <span class="doccomment">/// Sets the logical `sort_column_id` that this column sorts on when this column
+    /// is selected for sorting. Doing so makes the column header clickable.
+    /// ## `sort_column_id`
+    /// The `sort_column_id` of the model to sort on.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_column_id&quot;</span>)]
+    </span><span class="kw">fn </span>set_sort_column_id(<span class="kw-2">&amp;</span><span class="self">self</span>, sort_column_id: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_sort_column_id(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3137,7 +2771,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+    <span class="doccomment">/// Call this function with a `setting` of [`true`] to display an arrow in
+    /// the header button indicating the column is sorted. Call
+    /// [`set_sort_order()`][Self::set_sort_order()] to change the direction of
+    /// the arrow.
+    /// ## `setting`
+    /// [`true`] to display an indicator that the column is sorted
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_indicator&quot;</span>)]
+    </span><span class="kw">fn </span>set_sort_indicator(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_sort_indicator(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3146,7 +2787,21 @@
         }
     }
 
-    <span class="kw">fn </span>set_sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>, order: SortType) {
+    <span class="doccomment">/// Changes the appearance of the sort indicator.
+    ///
+    /// This does not actually sort the model. Use
+    /// [`set_sort_column_id()`][Self::set_sort_column_id()] if you want automatic sorting
+    /// support. This function is primarily for custom sorting behavior, and should
+    /// be used in conjunction with [`TreeSortableExtManual::set_sort_column_id()`][crate::prelude::TreeSortableExtManual::set_sort_column_id()] to do
+    /// that. For custom models, the mechanism will vary.
+    ///
+    /// The sort indicator changes direction to indicate normal sort or reverse sort.
+    /// Note that you must have the sort indicator enabled to see anything when
+    /// calling this function; see [`set_sort_indicator()`][Self::set_sort_indicator()].
+    /// ## `order`
+    /// sort order that the sort indicator should indicate
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_sort_order&quot;</span>)]
+    </span><span class="kw">fn </span>set_sort_order(<span class="kw-2">&amp;</span><span class="self">self</span>, order: SortType) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_sort_order(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3155,13 +2810,23 @@
         }
     }
 
-    <span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32) {
+    <span class="doccomment">/// Sets the spacing field of `self`, which is the number of pixels to
+    /// place between cell renderers packed into it.
+    /// ## `spacing`
+    /// distance between cell renderers in pixels.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, spacing);
         }
     }
 
-    <span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets the title of the `self`. If a custom widget has been set, then
+    /// this value is ignored.
+    /// ## `title`
+    /// The title of the `self`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_title&quot;</span>)]
+    </span><span class="kw">fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_title(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3170,7 +2835,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool) {
+    <span class="doccomment">/// Sets the visibility of `self`.
+    /// ## `visible`
+    /// [`true`] if the `self` is visible.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_visible&quot;</span>)]
+    </span><span class="kw">fn </span>set_visible(<span class="kw-2">&amp;</span><span class="self">self</span>, visible: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_visible(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3179,7 +2848,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+    <span class="doccomment">/// Sets the widget in the header to be `widget`. If widget is [`None`], then the
+    /// header button is set with a [`Label`][crate::Label] set to the title of `self`.
+    /// ## `widget`
+    /// A child [`Widget`][crate::Widget], or [`None`].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_view_column_set_widget&quot;</span>)]
+    </span><span class="kw">fn </span>set_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_tree_view_column_set_widget(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3188,11 +2862,17 @@
         }
     }
 
-    <span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt; {
+    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this column.
+    ///
+    /// If no area is specified when creating the tree view column with [`TreeViewColumn::with_area()`][crate::TreeViewColumn::with_area()]
+    /// a horizontally oriented [`CellAreaBox`][crate::CellAreaBox] will be used.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
+    </span><span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;cell-area&quot;</span>)
     }
 
-    <span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;clicked&quot;</span>)]
+    </span><span class="kw">fn </span>connect_clicked&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>clicked_trampoline&lt;P: IsA&lt;TreeViewColumn&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTreeViewColumn,
             f: glib::ffi::gpointer,
@@ -3213,7 +2893,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_alignment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;alignment&quot;</span>)]
+    </span><span class="kw">fn </span>connect_alignment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_alignment_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3238,7 +2919,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_clickable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;clickable&quot;</span>)]
+    </span><span class="kw">fn </span>connect_clickable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_clickable_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3263,7 +2945,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_expand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;expand&quot;</span>)]
+    </span><span class="kw">fn </span>connect_expand_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_expand_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3288,7 +2971,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_fixed_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;fixed-width&quot;</span>)]
+    </span><span class="kw">fn </span>connect_fixed_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_fixed_width_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3313,7 +2997,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_max_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;max-width&quot;</span>)]
+    </span><span class="kw">fn </span>connect_max_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_max_width_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3338,7 +3023,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_min_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;min-width&quot;</span>)]
+    </span><span class="kw">fn </span>connect_min_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_min_width_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3363,7 +3049,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
+    </span><span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_reorderable_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3388,7 +3075,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_resizable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;resizable&quot;</span>)]
+    </span><span class="kw">fn </span>connect_resizable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_resizable_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3413,7 +3101,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_sizing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;sizing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_sizing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_sizing_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3438,7 +3127,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_sort_column_id_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;sort-column-id&quot;</span>)]
+    </span><span class="kw">fn </span>connect_sort_column_id_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_sort_column_id_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3463,7 +3153,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_sort_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;sort-indicator&quot;</span>)]
+    </span><span class="kw">fn </span>connect_sort_indicator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_sort_indicator_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3488,7 +3179,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_sort_order_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;sort-order&quot;</span>)]
+    </span><span class="kw">fn </span>connect_sort_order_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_sort_order_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3513,7 +3205,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_spacing_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3538,7 +3231,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;title&quot;</span>)]
+    </span><span class="kw">fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_title_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3563,7 +3257,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;visible&quot;</span>)]
+    </span><span class="kw">fn </span>connect_visible_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_visible_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3588,7 +3283,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;widget&quot;</span>)]
+    </span><span class="kw">fn </span>connect_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_widget_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3613,7 +3309,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;width&quot;</span>)]
+    </span><span class="kw">fn </span>connect_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_width_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3638,7 +3335,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_x_offset_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;x-offset&quot;</span>)]
+    </span><span class="kw">fn </span>connect_x_offset_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_x_offset_trampoline&lt;
             P: IsA&lt;TreeViewColumn&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3663,6 +3361,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;TreeViewColumn&gt;&gt; TreeViewColumnExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TreeViewColumn {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_buffer.rs`."><title>text_buffer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/text_buffer.rs`."><title>text_buffer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2370,217 +2370,7 @@
 <a href="#2297" id="2297">2297</a>
 <a href="#2298" id="2298">2298</a>
 <a href="#2299" id="2299">2299</a>
-<a href="#2300" id="2300">2300</a>
-<a href="#2301" id="2301">2301</a>
-<a href="#2302" id="2302">2302</a>
-<a href="#2303" id="2303">2303</a>
-<a href="#2304" id="2304">2304</a>
-<a href="#2305" id="2305">2305</a>
-<a href="#2306" id="2306">2306</a>
-<a href="#2307" id="2307">2307</a>
-<a href="#2308" id="2308">2308</a>
-<a href="#2309" id="2309">2309</a>
-<a href="#2310" id="2310">2310</a>
-<a href="#2311" id="2311">2311</a>
-<a href="#2312" id="2312">2312</a>
-<a href="#2313" id="2313">2313</a>
-<a href="#2314" id="2314">2314</a>
-<a href="#2315" id="2315">2315</a>
-<a href="#2316" id="2316">2316</a>
-<a href="#2317" id="2317">2317</a>
-<a href="#2318" id="2318">2318</a>
-<a href="#2319" id="2319">2319</a>
-<a href="#2320" id="2320">2320</a>
-<a href="#2321" id="2321">2321</a>
-<a href="#2322" id="2322">2322</a>
-<a href="#2323" id="2323">2323</a>
-<a href="#2324" id="2324">2324</a>
-<a href="#2325" id="2325">2325</a>
-<a href="#2326" id="2326">2326</a>
-<a href="#2327" id="2327">2327</a>
-<a href="#2328" id="2328">2328</a>
-<a href="#2329" id="2329">2329</a>
-<a href="#2330" id="2330">2330</a>
-<a href="#2331" id="2331">2331</a>
-<a href="#2332" id="2332">2332</a>
-<a href="#2333" id="2333">2333</a>
-<a href="#2334" id="2334">2334</a>
-<a href="#2335" id="2335">2335</a>
-<a href="#2336" id="2336">2336</a>
-<a href="#2337" id="2337">2337</a>
-<a href="#2338" id="2338">2338</a>
-<a href="#2339" id="2339">2339</a>
-<a href="#2340" id="2340">2340</a>
-<a href="#2341" id="2341">2341</a>
-<a href="#2342" id="2342">2342</a>
-<a href="#2343" id="2343">2343</a>
-<a href="#2344" id="2344">2344</a>
-<a href="#2345" id="2345">2345</a>
-<a href="#2346" id="2346">2346</a>
-<a href="#2347" id="2347">2347</a>
-<a href="#2348" id="2348">2348</a>
-<a href="#2349" id="2349">2349</a>
-<a href="#2350" id="2350">2350</a>
-<a href="#2351" id="2351">2351</a>
-<a href="#2352" id="2352">2352</a>
-<a href="#2353" id="2353">2353</a>
-<a href="#2354" id="2354">2354</a>
-<a href="#2355" id="2355">2355</a>
-<a href="#2356" id="2356">2356</a>
-<a href="#2357" id="2357">2357</a>
-<a href="#2358" id="2358">2358</a>
-<a href="#2359" id="2359">2359</a>
-<a href="#2360" id="2360">2360</a>
-<a href="#2361" id="2361">2361</a>
-<a href="#2362" id="2362">2362</a>
-<a href="#2363" id="2363">2363</a>
-<a href="#2364" id="2364">2364</a>
-<a href="#2365" id="2365">2365</a>
-<a href="#2366" id="2366">2366</a>
-<a href="#2367" id="2367">2367</a>
-<a href="#2368" id="2368">2368</a>
-<a href="#2369" id="2369">2369</a>
-<a href="#2370" id="2370">2370</a>
-<a href="#2371" id="2371">2371</a>
-<a href="#2372" id="2372">2372</a>
-<a href="#2373" id="2373">2373</a>
-<a href="#2374" id="2374">2374</a>
-<a href="#2375" id="2375">2375</a>
-<a href="#2376" id="2376">2376</a>
-<a href="#2377" id="2377">2377</a>
-<a href="#2378" id="2378">2378</a>
-<a href="#2379" id="2379">2379</a>
-<a href="#2380" id="2380">2380</a>
-<a href="#2381" id="2381">2381</a>
-<a href="#2382" id="2382">2382</a>
-<a href="#2383" id="2383">2383</a>
-<a href="#2384" id="2384">2384</a>
-<a href="#2385" id="2385">2385</a>
-<a href="#2386" id="2386">2386</a>
-<a href="#2387" id="2387">2387</a>
-<a href="#2388" id="2388">2388</a>
-<a href="#2389" id="2389">2389</a>
-<a href="#2390" id="2390">2390</a>
-<a href="#2391" id="2391">2391</a>
-<a href="#2392" id="2392">2392</a>
-<a href="#2393" id="2393">2393</a>
-<a href="#2394" id="2394">2394</a>
-<a href="#2395" id="2395">2395</a>
-<a href="#2396" id="2396">2396</a>
-<a href="#2397" id="2397">2397</a>
-<a href="#2398" id="2398">2398</a>
-<a href="#2399" id="2399">2399</a>
-<a href="#2400" id="2400">2400</a>
-<a href="#2401" id="2401">2401</a>
-<a href="#2402" id="2402">2402</a>
-<a href="#2403" id="2403">2403</a>
-<a href="#2404" id="2404">2404</a>
-<a href="#2405" id="2405">2405</a>
-<a href="#2406" id="2406">2406</a>
-<a href="#2407" id="2407">2407</a>
-<a href="#2408" id="2408">2408</a>
-<a href="#2409" id="2409">2409</a>
-<a href="#2410" id="2410">2410</a>
-<a href="#2411" id="2411">2411</a>
-<a href="#2412" id="2412">2412</a>
-<a href="#2413" id="2413">2413</a>
-<a href="#2414" id="2414">2414</a>
-<a href="#2415" id="2415">2415</a>
-<a href="#2416" id="2416">2416</a>
-<a href="#2417" id="2417">2417</a>
-<a href="#2418" id="2418">2418</a>
-<a href="#2419" id="2419">2419</a>
-<a href="#2420" id="2420">2420</a>
-<a href="#2421" id="2421">2421</a>
-<a href="#2422" id="2422">2422</a>
-<a href="#2423" id="2423">2423</a>
-<a href="#2424" id="2424">2424</a>
-<a href="#2425" id="2425">2425</a>
-<a href="#2426" id="2426">2426</a>
-<a href="#2427" id="2427">2427</a>
-<a href="#2428" id="2428">2428</a>
-<a href="#2429" id="2429">2429</a>
-<a href="#2430" id="2430">2430</a>
-<a href="#2431" id="2431">2431</a>
-<a href="#2432" id="2432">2432</a>
-<a href="#2433" id="2433">2433</a>
-<a href="#2434" id="2434">2434</a>
-<a href="#2435" id="2435">2435</a>
-<a href="#2436" id="2436">2436</a>
-<a href="#2437" id="2437">2437</a>
-<a href="#2438" id="2438">2438</a>
-<a href="#2439" id="2439">2439</a>
-<a href="#2440" id="2440">2440</a>
-<a href="#2441" id="2441">2441</a>
-<a href="#2442" id="2442">2442</a>
-<a href="#2443" id="2443">2443</a>
-<a href="#2444" id="2444">2444</a>
-<a href="#2445" id="2445">2445</a>
-<a href="#2446" id="2446">2446</a>
-<a href="#2447" id="2447">2447</a>
-<a href="#2448" id="2448">2448</a>
-<a href="#2449" id="2449">2449</a>
-<a href="#2450" id="2450">2450</a>
-<a href="#2451" id="2451">2451</a>
-<a href="#2452" id="2452">2452</a>
-<a href="#2453" id="2453">2453</a>
-<a href="#2454" id="2454">2454</a>
-<a href="#2455" id="2455">2455</a>
-<a href="#2456" id="2456">2456</a>
-<a href="#2457" id="2457">2457</a>
-<a href="#2458" id="2458">2458</a>
-<a href="#2459" id="2459">2459</a>
-<a href="#2460" id="2460">2460</a>
-<a href="#2461" id="2461">2461</a>
-<a href="#2462" id="2462">2462</a>
-<a href="#2463" id="2463">2463</a>
-<a href="#2464" id="2464">2464</a>
-<a href="#2465" id="2465">2465</a>
-<a href="#2466" id="2466">2466</a>
-<a href="#2467" id="2467">2467</a>
-<a href="#2468" id="2468">2468</a>
-<a href="#2469" id="2469">2469</a>
-<a href="#2470" id="2470">2470</a>
-<a href="#2471" id="2471">2471</a>
-<a href="#2472" id="2472">2472</a>
-<a href="#2473" id="2473">2473</a>
-<a href="#2474" id="2474">2474</a>
-<a href="#2475" id="2475">2475</a>
-<a href="#2476" id="2476">2476</a>
-<a href="#2477" id="2477">2477</a>
-<a href="#2478" id="2478">2478</a>
-<a href="#2479" id="2479">2479</a>
-<a href="#2480" id="2480">2480</a>
-<a href="#2481" id="2481">2481</a>
-<a href="#2482" id="2482">2482</a>
-<a href="#2483" id="2483">2483</a>
-<a href="#2484" id="2484">2484</a>
-<a href="#2485" id="2485">2485</a>
-<a href="#2486" id="2486">2486</a>
-<a href="#2487" id="2487">2487</a>
-<a href="#2488" id="2488">2488</a>
-<a href="#2489" id="2489">2489</a>
-<a href="#2490" id="2490">2490</a>
-<a href="#2491" id="2491">2491</a>
-<a href="#2492" id="2492">2492</a>
-<a href="#2493" id="2493">2493</a>
-<a href="#2494" id="2494">2494</a>
-<a href="#2495" id="2495">2495</a>
-<a href="#2496" id="2496">2496</a>
-<a href="#2497" id="2497">2497</a>
-<a href="#2498" id="2498">2498</a>
-<a href="#2499" id="2499">2499</a>
-<a href="#2500" id="2500">2500</a>
-<a href="#2501" id="2501">2501</a>
-<a href="#2502" id="2502">2502</a>
-<a href="#2503" id="2503">2503</a>
-<a href="#2504" id="2504">2504</a>
-<a href="#2505" id="2505">2505</a>
-<a href="#2506" id="2506">2506</a>
-<a href="#2507" id="2507">2507</a>
-<a href="#2508" id="2508">2508</a>
-<a href="#2509" id="2509">2509</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -2594,7 +2384,7 @@
 
 <span class="macro">glib::wrapper! </span>{
     <span class="doccomment">/// You may wish to begin by reading the
-    /// [text widget conceptual overview][TextWidget]
+    /// [text widget conceptual overview](TextWidget.html)
     /// which gives an overview of all the objects and data
     /// types related to the text widget and how they work together.
     ///
@@ -2900,7 +2690,7 @@
 /// # Implementors
 ///
 /// [`TextBuffer`][struct@crate::TextBuffer]
-</span><span class="kw">pub trait </span>TextBufferExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>TextBufferExt: IsA&lt;TextBuffer&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds the mark at position `where_`. The mark must not be added to
     /// another buffer, and if its name is not [`None`] then there must not
     /// be another mark in the buffer with the same name.
@@ -2912,7 +2702,15 @@
     /// ## `where_`
     /// location to place mark
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_add_mark&quot;</span>)]
-    </span><span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_add_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+                where_.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Adds `clipboard` to the list of clipboards in which the selection
     /// contents of `self` are available. In most cases, `clipboard` will be
@@ -2920,7 +2718,14 @@
     /// ## `clipboard`
     /// a [`Clipboard`][crate::Clipboard]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_add_selection_clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>add_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard);
+    </span><span class="kw">fn </span>add_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_add_selection_clipboard(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                clipboard.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Emits the “apply-tag” signal on `self`. The default
     /// handler for the signal applies `tag` to the given range.
@@ -2932,7 +2737,16 @@
     /// ## `end`
     /// other bound of range to be tagged
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_apply_tag&quot;</span>)]
-    </span><span class="kw">fn </span>apply_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>apply_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_apply_tag(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                tag.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Calls [`TextTagTableExt::lookup()`][crate::prelude::TextTagTableExt::lookup()] on the buffer’s tag table to
     /// get a [`TextTag`][crate::TextTag], then calls [`apply_tag()`][Self::apply_tag()].
@@ -2943,7 +2757,16 @@
     /// ## `end`
     /// other bound of range to be tagged
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_apply_tag_by_name&quot;</span>)]
-    </span><span class="kw">fn </span>apply_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>apply_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_apply_tag_by_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Performs the appropriate action as if the user hit the delete
     /// key with the cursor at the position specified by `iter`. In the
@@ -2966,7 +2789,16 @@
     ///
     /// [`true`] if the buffer was modified
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_backspace&quot;</span>)]
-    </span><span class="kw">fn </span>backspace(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, interactive: bool, default_editable: bool) -&gt; bool;
+    </span><span class="kw">fn </span>backspace(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, interactive: bool, default_editable: bool) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_backspace(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                interactive.into_glib(),
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Called to indicate that the buffer operations between here and a
     /// call to [`end_user_action()`][Self::end_user_action()] are part of a single
@@ -2986,13 +2818,24 @@
     /// no need to add extra calls if you user action consists solely of a
     /// single call to one of those functions.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_begin_user_action&quot;</span>)]
-    </span><span class="kw">fn </span>begin_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>begin_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_begin_user_action(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Copies the currently-selected text to a clipboard.
     /// ## `clipboard`
     /// the [`Clipboard`][crate::Clipboard] object to copy to
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_copy_clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard);
+    </span><span class="kw">fn </span>copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_copy_clipboard(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                clipboard.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// This is a convenience function which simply creates a child anchor
     /// with [`TextChildAnchor::new()`][crate::TextChildAnchor::new()] and inserts it into the buffer
@@ -3006,7 +2849,14 @@
     ///
     /// the created child anchor
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_create_child_anchor&quot;</span>)]
-    </span><span class="kw">fn </span>create_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; <span class="prelude-ty">Option</span>&lt;TextChildAnchor&gt;;
+    </span><span class="kw">fn </span>create_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; <span class="prelude-ty">Option</span>&lt;TextChildAnchor&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_create_child_anchor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Creates a mark at position `where_`. If `mark_name` is [`None`], the mark
     /// is anonymous; otherwise, the mark can be retrieved by name using
@@ -3041,7 +2891,16 @@
         mark_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
         where_: <span class="kw-2">&amp;</span>TextIter,
         left_gravity: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_create_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark_name.to_glib_none().<span class="number">0</span>,
+                where_.to_glib_none().<span class="number">0</span>,
+                left_gravity.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Copies the currently-selected text to a clipboard, then deletes
     /// said text if it’s editable.
@@ -3050,7 +2909,15 @@
     /// ## `default_editable`
     /// default editability of the buffer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_cut_clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard, default_editable: bool);
+    </span><span class="kw">fn </span>cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard, default_editable: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_cut_clipboard(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                clipboard.to_glib_none().<span class="number">0</span>,
+                default_editable.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Deletes text between `start` and `end`. The order of `start` and `end`
     /// is not actually relevant; [`delete()`][Self::delete()] will reorder
@@ -3064,7 +2931,15 @@
     /// ## `end`
     /// another position in `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_delete&quot;</span>)]
-    </span><span class="kw">fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;mut </span>TextIter, end: <span class="kw-2">&amp;mut </span>TextIter);
+    </span><span class="kw">fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;mut </span>TextIter, end: <span class="kw-2">&amp;mut </span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_delete(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none_mut().<span class="number">0</span>,
+                end.to_glib_none_mut().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Deletes all editable text in the given range.
     /// Calls [`delete()`][Self::delete()] for each editable sub-range of
@@ -3087,7 +2962,16 @@
         start_iter: <span class="kw-2">&amp;mut </span>TextIter,
         end_iter: <span class="kw-2">&amp;mut </span>TextIter,
         default_editable: bool,
-    ) -&gt; bool;
+    ) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_delete_interactive(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start_iter.to_glib_none_mut().<span class="number">0</span>,
+                end_iter.to_glib_none_mut().<span class="number">0</span>,
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Deletes `mark`, so that it’s no longer located anywhere in the
     /// buffer. Removes the reference the buffer holds to the mark, so if
@@ -3101,14 +2985,28 @@
     /// ## `mark`
     /// a [`TextMark`][crate::TextMark] in `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_delete_mark&quot;</span>)]
-    </span><span class="kw">fn </span>delete_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;);
+    </span><span class="kw">fn </span>delete_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_delete_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Deletes the mark named `name`; the mark must exist. See
     /// [`delete_mark()`][Self::delete_mark()] for details.
     /// ## `name`
     /// name of a mark in `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_delete_mark_by_name&quot;</span>)]
-    </span><span class="kw">fn </span>delete_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>delete_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_delete_mark_by_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Deletes the range between the “insert” and “selection_bound” marks,
     /// that is, the currently-selected text. If `interactive` is [`true`],
@@ -3123,7 +3021,15 @@
     ///
     /// whether there was a non-empty selection to delete
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_delete_selection&quot;</span>)]
-    </span><span class="kw">fn </span>delete_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, interactive: bool, default_editable: bool) -&gt; bool;
+    </span><span class="kw">fn </span>delete_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, interactive: bool, default_editable: bool) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_delete_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                interactive.into_glib(),
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// This function deserializes rich text in format `format` and inserts
     /// it at `iter`.
@@ -3150,7 +3056,27 @@
         format: <span class="kw-2">&amp;</span>gdk::Atom,
         iter: <span class="kw-2">&amp;mut </span>TextIter,
         data: <span class="kw-2">&amp;</span>[u8],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt;;
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
+        <span class="kw">let </span>length = data.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
+            <span class="kw">let </span>is_ok = ffi::gtk_text_buffer_deserialize(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                content_buffer.as_ref().to_glib_none().<span class="number">0</span>,
+                format.to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                data.to_glib_none().<span class="number">0</span>,
+                length,
+                <span class="kw-2">&amp;mut </span>error,
+            );
+            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <span class="kw">if </span>error.is_null() {
+                <span class="prelude-val">Ok</span>(())
+            } <span class="kw">else </span>{
+                <span class="prelude-val">Err</span>(from_glib_full(error))
+            }
+        }
+    }
 
     <span class="doccomment">/// This functions returns the value set with
     /// [`deserialize_set_can_create_tags()`][Self::deserialize_set_can_create_tags()]
@@ -3161,7 +3087,14 @@
     ///
     /// whether deserializing this format may create tags
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_deserialize_get_can_create_tags&quot;</span>)]
-    </span><span class="kw">fn </span>deserialize_get_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; bool;
+    </span><span class="kw">fn </span>deserialize_get_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_deserialize_get_can_create_tags(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                format.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Use this function to allow a rich text deserialization function to
     /// create new tags in the receiving buffer. Note that using this
@@ -3185,12 +3118,24 @@
     /// ## `can_create_tags`
     /// whether deserializing this format may create tags
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_deserialize_set_can_create_tags&quot;</span>)]
-    </span><span class="kw">fn </span>deserialize_set_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom, can_create_tags: bool);
+    </span><span class="kw">fn </span>deserialize_set_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom, can_create_tags: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_deserialize_set_can_create_tags(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                format.to_glib_none().<span class="number">0</span>,
+                can_create_tags.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Should be paired with a call to [`begin_user_action()`][Self::begin_user_action()].
     /// See that function for a full explanation.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_end_user_action&quot;</span>)]
-    </span><span class="kw">fn </span>end_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>end_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_end_user_action(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Retrieves the first and last iterators in the buffer, i.e. the
     /// entire buffer lies within the range [`start`,`end`).
@@ -3205,7 +3150,18 @@
     /// iterator to initialize with the end iterator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_bounds&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounds&quot;</span>)]
-    </span><span class="kw">fn </span>bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TextIter, TextIter);
+    </span><span class="kw">fn </span>bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TextIter, TextIter) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>start = TextIter::uninitialized();
+            <span class="kw">let </span><span class="kw-2">mut </span>end = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_bounds(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none_mut().<span class="number">0</span>,
+                end.to_glib_none_mut().<span class="number">0</span>,
+            );
+            (start, end)
+        }
+    }
 
     <span class="doccomment">/// Gets the number of characters in the buffer; note that characters
     /// and bytes are not the same, you can’t e.g. expect the contents of
@@ -3217,7 +3173,9 @@
     /// number of characters in the buffer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_char_count&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_char_count&quot;</span>)]
-    </span><span class="kw">fn </span>char_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>char_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_buffer_get_char_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// This function returns the list of targets this text buffer can
     /// provide for copying and as DND source. The targets in the list are
@@ -3230,7 +3188,13 @@
     /// the [`TargetList`][crate::TargetList]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_copy_target_list&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_copy_target_list&quot;</span>)]
-    </span><span class="kw">fn </span>copy_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt;;
+    </span><span class="kw">fn </span>copy_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_copy_target_list(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// This function returns the rich text deserialize formats registered
     /// with `self` using `gtk_text_buffer_register_deserialize_format()` or
@@ -3242,7 +3206,19 @@
     ///  `GdkAtoms` representing the registered formats.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_deserialize_formats&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_deserialize_formats&quot;</span>)]
-    </span><span class="kw">fn </span>deserialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt;;
+    </span><span class="kw">fn </span>deserialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>n_formats = mem::MaybeUninit::uninit();
+            <span class="kw">let </span>ret = FromGlibContainer::from_glib_container_num(
+                ffi::gtk_text_buffer_get_deserialize_formats(
+                    <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                    n_formats.as_mut_ptr(),
+                ),
+                n_formats.assume_init() <span class="kw">as _</span>,
+            );
+            ret
+        }
+    }
 
     <span class="doccomment">/// Initializes `iter` with the “end iterator,” one past the last valid
     /// character in the text buffer. If dereferenced with
@@ -3258,7 +3234,16 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_end_iter&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_end_iter&quot;</span>)]
-    </span><span class="kw">fn </span>end_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter;
+    </span><span class="kw">fn </span>end_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_end_iter(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Indicates whether the buffer has some text currently selected.
     ///
@@ -3267,7 +3252,13 @@
     /// [`true`] if the there is text selected
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_has_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_selection&quot;</span>)]
-    </span><span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_get_has_selection(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the mark that represents the cursor (insertion point).
     /// Equivalent to calling [`mark()`][Self::mark()] to get the mark
@@ -3278,7 +3269,13 @@
     ///
     /// insertion point mark
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_insert&quot;</span>)]
-    </span><span class="kw">fn </span>get_insert(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt;;
+    </span><span class="kw">fn </span>get_insert(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_insert(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Obtains the location of `anchor` within `self`.
     /// ## `anchor`
@@ -3291,7 +3288,17 @@
     /// an iterator to be initialized
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_child_anchor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_child_anchor&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_child_anchor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                anchor.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Initializes `iter` to the start of the given line. If `line_number` is greater
     /// than the number of lines in the `self`, the end iterator is returned.
@@ -3305,7 +3312,17 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_line&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_line&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_line(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_line(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_line(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                line_number,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Obtains an iterator pointing to `byte_index` within the given line.
     /// `byte_index` must be the start of a UTF-8 character. Note bytes, not
@@ -3328,7 +3345,18 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_line_index&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_line_index&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_line_index(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, byte_index: i32) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_line_index(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, byte_index: i32) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_line_index(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                line_number,
+                byte_index,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Obtains an iterator pointing to `char_offset` within the given line. Note
     /// characters, not bytes; UTF-8 may encode one character as multiple bytes.
@@ -3350,7 +3378,18 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_line_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_line_offset&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_line_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, char_offset: i32) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_line_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, char_offset: i32) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_line_offset(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                line_number,
+                char_offset,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Initializes `iter` with the current position of `mark`.
     /// ## `mark`
@@ -3363,7 +3402,17 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_mark&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_mark&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Initializes `iter` to a position `char_offset` chars from the start
     /// of the entire buffer. If `char_offset` is -1 or greater than the number
@@ -3379,7 +3428,17 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_iter_at_offset&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_iter_at_offset&quot;</span>)]
-    </span><span class="kw">fn </span>iter_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, char_offset: i32) -&gt; TextIter;
+    </span><span class="kw">fn </span>iter_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, char_offset: i32) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_iter_at_offset(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                char_offset,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Obtains the number of lines in the buffer. This value is cached, so
     /// the function is very fast.
@@ -3389,7 +3448,9 @@
     /// number of lines in the buffer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_line_count&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_line_count&quot;</span>)]
-    </span><span class="kw">fn </span>line_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>line_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_text_buffer_get_line_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the mark named `name` in buffer `self`, or [`None`] if no such
     /// mark exists in the buffer.
@@ -3401,7 +3462,14 @@
     /// a [`TextMark`][crate::TextMark], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_mark&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mark&quot;</span>)]
-    </span><span class="kw">fn </span>mark(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt;;
+    </span><span class="kw">fn </span>mark(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Indicates whether the buffer has been modified since the last call
     /// to [`set_modified()`][Self::set_modified()] set the modification flag to
@@ -3413,7 +3481,13 @@
     /// [`true`] if the buffer has been modified
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_modified&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modified&quot;</span>)]
-    </span><span class="kw">fn </span>is_modified(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_modified(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_get_modified(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// This function returns the list of targets this text buffer supports
     /// for pasting and as DND destination. The targets in the list are
@@ -3426,7 +3500,13 @@
     /// the [`TargetList`][crate::TargetList]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_paste_target_list&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paste_target_list&quot;</span>)]
-    </span><span class="kw">fn </span>paste_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt;;
+    </span><span class="kw">fn </span>paste_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_paste_target_list(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the mark that represents the selection bound. Equivalent
     /// to calling [`mark()`][Self::mark()] to get the mark named
@@ -3445,7 +3525,13 @@
     /// selection bound mark
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_selection_bound&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_bound&quot;</span>)]
-    </span><span class="kw">fn </span>selection_bound(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt;;
+    </span><span class="kw">fn </span>selection_bound(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_selection_bound(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns [`true`] if some text is selected; places the bounds
     /// of the selection in `start` and `end` (if the selection has length 0,
@@ -3465,7 +3551,22 @@
     /// iterator to initialize with selection end
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_selection_bounds&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_bounds&quot;</span>)]
-    </span><span class="kw">fn </span>selection_bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, TextIter)&gt;;
+    </span><span class="kw">fn </span>selection_bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, TextIter)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>start = TextIter::uninitialized();
+            <span class="kw">let </span><span class="kw-2">mut </span>end = TextIter::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_buffer_get_selection_bounds(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none_mut().<span class="number">0</span>,
+                end.to_glib_none_mut().<span class="number">0</span>,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((start, end))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// This function returns the rich text serialize formats registered
     /// with `self` using `gtk_text_buffer_register_serialize_format()` or
@@ -3477,7 +3578,19 @@
     ///  `GdkAtoms` representing the registered formats.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_serialize_formats&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_serialize_formats&quot;</span>)]
-    </span><span class="kw">fn </span>serialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt;;
+    </span><span class="kw">fn </span>serialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>n_formats = mem::MaybeUninit::uninit();
+            <span class="kw">let </span>ret = FromGlibContainer::from_glib_container_num(
+                ffi::gtk_text_buffer_get_serialize_formats(
+                    <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                    n_formats.as_mut_ptr(),
+                ),
+                n_formats.assume_init() <span class="kw">as _</span>,
+            );
+            ret
+        }
+    }
 
     <span class="doccomment">/// Returns the text in the range [`start`,`end`). Excludes undisplayed
     /// text (text marked with tags that set the invisibility attribute) if
@@ -3506,7 +3619,16 @@
         start: <span class="kw-2">&amp;</span>TextIter,
         end: <span class="kw-2">&amp;</span>TextIter,
         include_hidden_chars: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_text_buffer_get_slice(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+                include_hidden_chars.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Initialized `iter` with the first position in the text buffer. This
     /// is the same as using [`iter_at_offset()`][Self::iter_at_offset()] to get
@@ -3519,7 +3641,16 @@
     /// iterator to initialize
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_start_iter&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_start_iter&quot;</span>)]
-    </span><span class="kw">fn </span>start_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter;
+    </span><span class="kw">fn </span>start_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
+            ffi::gtk_text_buffer_get_start_iter(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            );
+            iter
+        }
+    }
 
     <span class="doccomment">/// Get the [`TextTagTable`][crate::TextTagTable] associated with this buffer.
     ///
@@ -3528,7 +3659,13 @@
     /// the buffer’s tag table
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_get_tag_table&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tag_table&quot;</span>)]
-    </span><span class="kw">fn </span>tag_table(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextTagTable&gt;;
+    </span><span class="kw">fn </span>tag_table(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextTagTable&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_get_tag_table(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the text in the range [`start`,`end`). Excludes undisplayed
     /// text (text marked with tags that set the invisibility attribute) if
@@ -3554,7 +3691,16 @@
         start: <span class="kw-2">&amp;</span>TextIter,
         end: <span class="kw-2">&amp;</span>TextIter,
         include_hidden_chars: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_text_buffer_get_text(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+                include_hidden_chars.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Inserts `len` bytes of `text` at position `iter`. If `len` is -1,
     /// `text` must be nul-terminated and will be inserted in its
@@ -3570,7 +3716,17 @@
     /// ## `len`
     /// length of text in bytes, or -1
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert&quot;</span>)]
-    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                text.to_glib_none().<span class="number">0</span>,
+                len,
+            );
+        }
+    }
 
     <span class="doccomment">/// Simply calls [`insert()`][Self::insert()], using the current
     /// cursor position as the insertion point.
@@ -3579,7 +3735,16 @@
     /// ## `len`
     /// length of text, in bytes
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_at_cursor&quot;</span>)]
-    </span><span class="kw">fn </span>insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert_at_cursor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                text.to_glib_none().<span class="number">0</span>,
+                len,
+            );
+        }
+    }
 
     <span class="doccomment">/// Inserts a child widget anchor into the text buffer at `iter`. The
     /// anchor will be counted as one character in character counts, and
@@ -3597,7 +3762,15 @@
     /// ## `anchor`
     /// a [`TextChildAnchor`][crate::TextChildAnchor]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_child_anchor&quot;</span>)]
-    </span><span class="kw">fn </span>insert_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;);
+    </span><span class="kw">fn </span>insert_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert_child_anchor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                anchor.as_ref().to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Like [`insert()`][Self::insert()], but the insertion will not occur if
     /// `iter` is at a non-editable location in the buffer. Usually you
@@ -3620,7 +3793,18 @@
     ///
     /// whether text was actually inserted
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_interactive&quot;</span>)]
-    </span><span class="kw">fn </span>insert_interactive(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool;
+    </span><span class="kw">fn </span>insert_interactive(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool {
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_insert_interactive(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                text.to_glib_none().<span class="number">0</span>,
+                len,
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Calls [`insert_interactive()`][Self::insert_interactive()] at the cursor
     /// position.
@@ -3639,7 +3823,17 @@
     ///
     /// whether text was actually inserted
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_interactive_at_cursor&quot;</span>)]
-    </span><span class="kw">fn </span>insert_interactive_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool;
+    </span><span class="kw">fn </span>insert_interactive_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool {
+        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_insert_interactive_at_cursor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                text.to_glib_none().<span class="number">0</span>,
+                len,
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Inserts the text in `markup` at position `iter`. `markup` will be inserted
     /// in its entirety and must be nul-terminated and valid UTF-8. Emits the
@@ -3653,7 +3847,17 @@
     /// ## `len`
     /// length of `markup` in bytes, or -1
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_markup&quot;</span>)]
-    </span><span class="kw">fn </span>insert_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, markup: <span class="kw-2">&amp;</span>str);
+    </span><span class="kw">fn </span>insert_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, markup: <span class="kw-2">&amp;</span>str) {
+        <span class="kw">let </span>len = markup.len() <span class="kw">as _</span>;
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert_markup(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                markup.to_glib_none().<span class="number">0</span>,
+                len,
+            );
+        }
+    }
 
     <span class="doccomment">/// Inserts an image into the text buffer at `iter`. The image will be
     /// counted as one character in character counts, and when obtaining
@@ -3668,7 +3872,15 @@
     /// ## `pixbuf`
     /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_pixbuf&quot;</span>)]
-    </span><span class="kw">fn </span>insert_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf);
+    </span><span class="kw">fn </span>insert_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert_pixbuf(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                pixbuf.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Copies text, tags, and pixbufs between `start` and `end` (the order
     /// of `start` and `end` doesn’t matter) and inserts the copy at `iter`.
@@ -3685,7 +3897,16 @@
     /// ## `end`
     /// another position in the same buffer as `start`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_insert_range&quot;</span>)]
-    </span><span class="kw">fn </span>insert_range(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>insert_range(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_insert_range(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Same as [`insert_range()`][Self::insert_range()], but does nothing if the
     /// insertion point isn’t editable. The `default_editable` parameter
@@ -3711,10 +3932,22 @@
         start: <span class="kw-2">&amp;</span>TextIter,
         end: <span class="kw-2">&amp;</span>TextIter,
         default_editable: bool,
-    ) -&gt; bool;
+    ) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_text_buffer_insert_range_interactive(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+                default_editable.into_glib(),
+            ))
+        }
+    }
 
     <span class="comment">//#[doc(alias = &quot;gtk_text_buffer_insert_with_tags_by_name&quot;)]
-    //fn insert_with_tags_by_name(&amp;self, iter: &amp;mut TextIter, text: &amp;str, first_tag_name: &amp;str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs);
+    //fn insert_with_tags_by_name(&amp;self, iter: &amp;mut TextIter, text: &amp;str, first_tag_name: &amp;str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
+    //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags_by_name() }
+    //}
 
     </span><span class="doccomment">/// Moves `mark` to the new location `where_`. Emits the [`mark-set`][struct@crate::TextBuffer#mark-set]
     /// signal as notification of the move.
@@ -3723,7 +3956,15 @@
     /// ## `where_`
     /// new location for `mark` in `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_move_mark&quot;</span>)]
-    </span><span class="kw">fn </span>move_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>move_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_move_mark(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mark.as_ref().to_glib_none().<span class="number">0</span>,
+                where_.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Moves the mark named `name` (which must exist) to location `where_`.
     /// See [`move_mark()`][Self::move_mark()] for details.
@@ -3732,7 +3973,15 @@
     /// ## `where_`
     /// new location for mark
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_move_mark_by_name&quot;</span>)]
-    </span><span class="kw">fn </span>move_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, where_: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>move_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, where_: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_move_mark_by_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+                where_.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Pastes the contents of a clipboard. If `override_location` is [`None`], the
     /// pasted text will be inserted at the cursor position, or the buffer selection
@@ -3753,7 +4002,16 @@
         clipboard: <span class="kw-2">&amp;</span>Clipboard,
         override_location: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;,
         default_editable: bool,
-    );
+    ) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_paste_clipboard(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                clipboard.to_glib_none().<span class="number">0</span>,
+                mut_override(override_location.to_glib_none().<span class="number">0</span>),
+                default_editable.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// This function moves the “insert” and “selection_bound” marks
     /// simultaneously. If you move them to the same place in two steps
@@ -3765,7 +4023,14 @@
     /// ## `where_`
     /// where to put the cursor
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_place_cursor&quot;</span>)]
-    </span><span class="kw">fn </span>place_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, where_: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>place_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, where_: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_place_cursor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                where_.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// This function registers GTK+’s internal rich text serialization
     /// format with the passed `self`. See
@@ -3778,7 +4043,14 @@
     /// the [`gdk::Atom`][crate::gdk::Atom] that corresponds to the
     ///  newly registered format’s mime-type.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_register_deserialize_tagset&quot;</span>)]
-    </span><span class="kw">fn </span>register_deserialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom;
+    </span><span class="kw">fn </span>register_deserialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_register_deserialize_tagset(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                tagset_name.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// This function registers GTK+’s internal rich text serialization
     /// format with the passed `self`. The internal format does not comply
@@ -3805,7 +4077,14 @@
     /// the [`gdk::Atom`][crate::gdk::Atom] that corresponds to the
     ///  newly registered format’s mime-type.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_register_serialize_tagset&quot;</span>)]
-    </span><span class="kw">fn </span>register_serialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom;
+    </span><span class="kw">fn </span>register_serialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_text_buffer_register_serialize_tagset(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                tagset_name.to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Removes all tags in the range between `start` and `end`. Be careful
     /// with this function; it could remove tags added in code unrelated to
@@ -3817,7 +4096,15 @@
     /// ## `end`
     /// other bound of range to be untagged
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_remove_all_tags&quot;</span>)]
-    </span><span class="kw">fn </span>remove_all_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>remove_all_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_remove_all_tags(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Removes a [`Clipboard`][crate::Clipboard] added with
     /// [`add_selection_clipboard()`][Self::add_selection_clipboard()].
@@ -3825,7 +4112,14 @@
     /// a [`Clipboard`][crate::Clipboard] added to `self` by
     ///  [`add_selection_clipboard()`][Self::add_selection_clipboard()]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_remove_selection_clipboard&quot;</span>)]
-    </span><span class="kw">fn </span>remove_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard);
+    </span><span class="kw">fn </span>remove_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_remove_selection_clipboard(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                clipboard.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Emits the “remove-tag” signal. The default handler for the signal
     /// removes all occurrences of `tag` from the given range. `start` and
@@ -3837,7 +4131,16 @@
     /// ## `end`
     /// other bound of range to be untagged
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_remove_tag&quot;</span>)]
-    </span><span class="kw">fn </span>remove_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>remove_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_remove_tag(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                tag.as_ref().to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Calls [`TextTagTableExt::lookup()`][crate::prelude::TextTagTableExt::lookup()] on the buffer’s tag table to
     /// get a [`TextTag`][crate::TextTag], then calls [`remove_tag()`][Self::remove_tag()].
@@ -3848,7 +4151,16 @@
     /// ## `end`
     /// other bound of range to be untagged
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_remove_tag_by_name&quot;</span>)]
-    </span><span class="kw">fn </span>remove_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>remove_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_remove_tag_by_name(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                name.to_glib_none().<span class="number">0</span>,
+                start.to_glib_none().<span class="number">0</span>,
+                end.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// This function moves the “insert” and “selection_bound” marks
     /// simultaneously. If you move them in two steps
@@ -3862,7 +4174,15 @@
     /// ## `bound`
     /// where to put the “selection_bound” mark
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_select_range&quot;</span>)]
-    </span><span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, ins: <span class="kw-2">&amp;</span>TextIter, bound: <span class="kw-2">&amp;</span>TextIter);
+    </span><span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, ins: <span class="kw-2">&amp;</span>TextIter, bound: <span class="kw-2">&amp;</span>TextIter) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_text_buffer_select_range(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                ins.to_glib_none().<span class="number">0</span>,
+                bound.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// This function serializes the portion of text between `start`
     /// and `end` in the rich text format represented by `format`.
@@ -3890,841 +4210,6 @@
         format: <span class="kw-2">&amp;</span>gdk::Atom,
         start: <span class="kw-2">&amp;</span>TextIter,
         end: <span class="kw-2">&amp;</span>TextIter,
-    ) -&gt; Vec&lt;u8&gt;;
-
-    <span class="doccomment">/// Used to keep track of whether the buffer has been modified since the
-    /// last time it was saved. Whenever the buffer is saved to disk, call
-    /// gtk_text_buffer_set_modified (`self`, FALSE). When the buffer is modified,
-    /// it will automatically toggled on the modified bit again. When the modified
-    /// bit flips, the buffer emits the [`modified-changed`][struct@crate::TextBuffer#modified-changed] signal.
-    /// ## `setting`
-    /// modification flag setting
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_set_modified&quot;</span>)]
-    </span><span class="kw">fn </span>set_modified(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
-
-    <span class="doccomment">/// Deletes current contents of `self`, and inserts `text` instead. If
-    /// `len` is -1, `text` must be nul-terminated. `text` must be valid UTF-8.
-    /// ## `text`
-    /// UTF-8 text to insert
-    /// ## `len`
-    /// length of `text` in bytes
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_set_text&quot;</span>)]
-    </span><span class="kw">fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// This function unregisters a rich text format that was previously
-    /// registered using `gtk_text_buffer_register_deserialize_format()` or
-    /// [`register_deserialize_tagset()`][Self::register_deserialize_tagset()].
-    /// ## `format`
-    /// a [`gdk::Atom`][crate::gdk::Atom] representing a registered rich text format.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_unregister_deserialize_format&quot;</span>)]
-    </span><span class="kw">fn </span>unregister_deserialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom);
-
-    <span class="doccomment">/// This function unregisters a rich text format that was previously
-    /// registered using `gtk_text_buffer_register_serialize_format()` or
-    /// [`register_serialize_tagset()`][Self::register_serialize_tagset()]
-    /// ## `format`
-    /// a [`gdk::Atom`][crate::gdk::Atom] representing a registered rich text format.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_unregister_serialize_format&quot;</span>)]
-    </span><span class="kw">fn </span>unregister_serialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom);
-
-    <span class="doccomment">/// The position of the insert mark (as offset from the beginning
-    /// of the buffer). It is useful for getting notified when the
-    /// cursor moves.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
-    </span><span class="kw">fn </span>cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
-
-    <span class="doccomment">/// The ::begin-user-action signal is emitted at the beginning of a single
-    /// user-visible operation on a [`TextBuffer`][crate::TextBuffer].
-    ///
-    /// See also:
-    /// [`begin_user_action()`][Self::begin_user_action()],
-    /// [`insert_interactive()`][Self::insert_interactive()],
-    /// [`insert_range_interactive()`][Self::insert_range_interactive()],
-    /// [`delete_interactive()`][Self::delete_interactive()],
-    /// [`backspace()`][Self::backspace()],
-    /// [`delete_selection()`][Self::delete_selection()].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;begin-user-action&quot;</span>)]
-    </span><span class="kw">fn </span>connect_begin_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::changed signal is emitted when the content of a [`TextBuffer`][crate::TextBuffer]
-    /// has changed.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::end-user-action signal is emitted at the end of a single
-    /// user-visible operation on the [`TextBuffer`][crate::TextBuffer].
-    ///
-    /// See also:
-    /// [`end_user_action()`][Self::end_user_action()],
-    /// [`insert_interactive()`][Self::insert_interactive()],
-    /// [`insert_range_interactive()`][Self::insert_range_interactive()],
-    /// [`delete_interactive()`][Self::delete_interactive()],
-    /// [`backspace()`][Self::backspace()],
-    /// [`delete_selection()`][Self::delete_selection()],
-    /// [`backspace()`][Self::backspace()].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;end-user-action&quot;</span>)]
-    </span><span class="kw">fn </span>connect_end_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::mark-deleted signal is emitted as notification
-    /// after a [`TextMark`][crate::TextMark] is deleted.
-    ///
-    /// See also:
-    /// [`delete_mark()`][Self::delete_mark()].
-    /// ## `mark`
-    /// The mark that was deleted
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;mark-deleted&quot;</span>)]
-    </span><span class="kw">fn </span>connect_mark_deleted&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::mark-set signal is emitted as notification
-    /// after a [`TextMark`][crate::TextMark] is set.
-    ///
-    /// See also:
-    /// [`create_mark()`][Self::create_mark()],
-    /// [`move_mark()`][Self::move_mark()].
-    /// ## `location`
-    /// The location of `mark` in `textbuffer`
-    /// ## `mark`
-    /// The mark that is set
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;mark-set&quot;</span>)]
-    </span><span class="kw">fn </span>connect_mark_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::modified-changed signal is emitted when the modified bit of a
-    /// [`TextBuffer`][crate::TextBuffer] flips.
-    ///
-    /// See also:
-    /// [`set_modified()`][Self::set_modified()].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;modified-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_modified_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The paste-done signal is emitted after paste operation has been completed.
-    /// This is useful to properly scroll the view to the end of the pasted text.
-    /// See [`paste_clipboard()`][Self::paste_clipboard()] for more details.
-    /// ## `clipboard`
-    /// the [`Clipboard`][crate::Clipboard] pasted from
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-done&quot;</span>)]
-    </span><span class="kw">fn </span>connect_paste_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Clipboard) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;copy-target-list&quot;</span>)]
-    </span><span class="kw">fn </span>connect_copy_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
-    </span><span class="kw">fn </span>connect_cursor_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;paste-target-list&quot;</span>)]
-    </span><span class="kw">fn </span>connect_paste_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
-    </span><span class="kw">fn </span>connect_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;TextBuffer&gt;&gt; TextBufferExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>add_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_add_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-                where_.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>add_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_add_selection_clipboard(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                clipboard.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>apply_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_apply_tag(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                tag.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>apply_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_apply_tag_by_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>backspace(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, interactive: bool, default_editable: bool) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_backspace(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                interactive.into_glib(),
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>begin_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_begin_user_action(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_copy_clipboard(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                clipboard.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>create_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter) -&gt; <span class="prelude-ty">Option</span>&lt;TextChildAnchor&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_create_child_anchor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>create_mark(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        mark_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        where_: <span class="kw-2">&amp;</span>TextIter,
-        left_gravity: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_create_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark_name.to_glib_none().<span class="number">0</span>,
-                where_.to_glib_none().<span class="number">0</span>,
-                left_gravity.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard, default_editable: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_cut_clipboard(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                clipboard.to_glib_none().<span class="number">0</span>,
-                default_editable.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>delete(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;mut </span>TextIter, end: <span class="kw-2">&amp;mut </span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_delete(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none_mut().<span class="number">0</span>,
-                end.to_glib_none_mut().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>delete_interactive(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        start_iter: <span class="kw-2">&amp;mut </span>TextIter,
-        end_iter: <span class="kw-2">&amp;mut </span>TextIter,
-        default_editable: bool,
-    ) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_delete_interactive(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start_iter.to_glib_none_mut().<span class="number">0</span>,
-                end_iter.to_glib_none_mut().<span class="number">0</span>,
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>delete_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_delete_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>delete_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_delete_mark_by_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>delete_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, interactive: bool, default_editable: bool) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_delete_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                interactive.into_glib(),
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>deserialize(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        content_buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;,
-        format: <span class="kw-2">&amp;</span>gdk::Atom,
-        iter: <span class="kw-2">&amp;mut </span>TextIter,
-        data: <span class="kw-2">&amp;</span>[u8],
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
-        <span class="kw">let </span>length = data.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
-            <span class="kw">let </span>is_ok = ffi::gtk_text_buffer_deserialize(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                content_buffer.as_ref().to_glib_none().<span class="number">0</span>,
-                format.to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                data.to_glib_none().<span class="number">0</span>,
-                length,
-                <span class="kw-2">&amp;mut </span>error,
-            );
-            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
-            <span class="kw">if </span>error.is_null() {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
-            }
-        }
-    }
-
-    <span class="kw">fn </span>deserialize_get_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_deserialize_get_can_create_tags(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                format.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>deserialize_set_can_create_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom, can_create_tags: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_deserialize_set_can_create_tags(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                format.to_glib_none().<span class="number">0</span>,
-                can_create_tags.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>end_user_action(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_end_user_action(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TextIter, TextIter) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>start = TextIter::uninitialized();
-            <span class="kw">let </span><span class="kw-2">mut </span>end = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_bounds(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none_mut().<span class="number">0</span>,
-                end.to_glib_none_mut().<span class="number">0</span>,
-            );
-            (start, end)
-        }
-    }
-
-    <span class="kw">fn </span>char_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_buffer_get_char_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>copy_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_copy_target_list(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>deserialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>n_formats = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = FromGlibContainer::from_glib_container_num(
-                ffi::gtk_text_buffer_get_deserialize_formats(
-                    <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                    n_formats.as_mut_ptr(),
-                ),
-                n_formats.assume_init() <span class="kw">as _</span>,
-            );
-            ret
-        }
-    }
-
-    <span class="kw">fn </span>end_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_end_iter(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>has_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_get_has_selection(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>get_insert(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_insert(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_child_anchor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                anchor.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_line(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_line(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                line_number,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_line_index(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, byte_index: i32) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_line_index(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                line_number,
-                byte_index,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_line_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, line_number: i32, char_offset: i32) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_line_offset(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                line_number,
-                char_offset,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>iter_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, char_offset: i32) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_iter_at_offset(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                char_offset,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>line_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_text_buffer_get_line_count(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>mark(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_modified(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_get_modified(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>paste_target_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TargetList&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_paste_target_list(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>selection_bound(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextMark&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_selection_bound(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>selection_bounds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TextIter, TextIter)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>start = TextIter::uninitialized();
-            <span class="kw">let </span><span class="kw-2">mut </span>end = TextIter::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_text_buffer_get_selection_bounds(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none_mut().<span class="number">0</span>,
-                end.to_glib_none_mut().<span class="number">0</span>,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((start, end))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>serialize_formats(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::Atom&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>n_formats = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = FromGlibContainer::from_glib_container_num(
-                ffi::gtk_text_buffer_get_serialize_formats(
-                    <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                    n_formats.as_mut_ptr(),
-                ),
-                n_formats.assume_init() <span class="kw">as _</span>,
-            );
-            ret
-        }
-    }
-
-    <span class="kw">fn </span>slice(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        start: <span class="kw-2">&amp;</span>TextIter,
-        end: <span class="kw-2">&amp;</span>TextIter,
-        include_hidden_chars: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_text_buffer_get_slice(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-                include_hidden_chars.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>start_iter(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; TextIter {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TextIter::uninitialized();
-            ffi::gtk_text_buffer_get_start_iter(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            );
-            iter
-        }
-    }
-
-    <span class="kw">fn </span>tag_table(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TextTagTable&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_get_tag_table(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>text(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        start: <span class="kw-2">&amp;</span>TextIter,
-        end: <span class="kw-2">&amp;</span>TextIter,
-        include_hidden_chars: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_text_buffer_get_text(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-                include_hidden_chars.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                text.to_glib_none().<span class="number">0</span>,
-                len,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert_at_cursor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                text.to_glib_none().<span class="number">0</span>,
-                len,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_child_anchor(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, anchor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextChildAnchor&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert_child_anchor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                anchor.as_ref().to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_interactive(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool {
-        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_insert_interactive(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                text.to_glib_none().<span class="number">0</span>,
-                len,
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>insert_interactive_at_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, default_editable: bool) -&gt; bool {
-        <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_insert_interactive_at_cursor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                text.to_glib_none().<span class="number">0</span>,
-                len,
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>insert_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, markup: <span class="kw-2">&amp;</span>str) {
-        <span class="kw">let </span>len = markup.len() <span class="kw">as _</span>;
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert_markup(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                markup.to_glib_none().<span class="number">0</span>,
-                len,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert_pixbuf(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                pixbuf.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_range(<span class="kw-2">&amp;</span><span class="self">self</span>, iter: <span class="kw-2">&amp;mut </span>TextIter, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_insert_range(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>insert_range_interactive(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        iter: <span class="kw-2">&amp;mut </span>TextIter,
-        start: <span class="kw-2">&amp;</span>TextIter,
-        end: <span class="kw-2">&amp;</span>TextIter,
-        default_editable: bool,
-    ) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_text_buffer_insert_range_interactive(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-                default_editable.into_glib(),
-            ))
-        }
-    }
-
-    <span class="comment">//fn insert_with_tags_by_name(&amp;self, iter: &amp;mut TextIter, text: &amp;str, first_tag_name: &amp;str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_text_buffer_insert_with_tags_by_name() }
-    //}
-
-    </span><span class="kw">fn </span>move_mark(<span class="kw-2">&amp;</span><span class="self">self</span>, mark: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextMark&gt;, where_: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_move_mark(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mark.as_ref().to_glib_none().<span class="number">0</span>,
-                where_.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>move_mark_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, where_: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_move_mark_by_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-                where_.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>paste_clipboard(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        clipboard: <span class="kw-2">&amp;</span>Clipboard,
-        override_location: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TextIter&gt;,
-        default_editable: bool,
-    ) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_paste_clipboard(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                clipboard.to_glib_none().<span class="number">0</span>,
-                mut_override(override_location.to_glib_none().<span class="number">0</span>),
-                default_editable.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>place_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, where_: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_place_cursor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                where_.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>register_deserialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_register_deserialize_tagset(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                tagset_name.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>register_serialize_tagset(<span class="kw-2">&amp;</span><span class="self">self</span>, tagset_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; gdk::Atom {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_text_buffer_register_serialize_tagset(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                tagset_name.to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>remove_all_tags(<span class="kw-2">&amp;</span><span class="self">self</span>, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_remove_all_tags(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>remove_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span>Clipboard) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_remove_selection_clipboard(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                clipboard.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>remove_tag(<span class="kw-2">&amp;</span><span class="self">self</span>, tag: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextTag&gt;, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_remove_tag(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                tag.as_ref().to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>remove_tag_by_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, start: <span class="kw-2">&amp;</span>TextIter, end: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_remove_tag_by_name(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                name.to_glib_none().<span class="number">0</span>,
-                start.to_glib_none().<span class="number">0</span>,
-                end.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>select_range(<span class="kw-2">&amp;</span><span class="self">self</span>, ins: <span class="kw-2">&amp;</span>TextIter, bound: <span class="kw-2">&amp;</span>TextIter) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_text_buffer_select_range(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                ins.to_glib_none().<span class="number">0</span>,
-                bound.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>serialize(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        content_buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;,
-        format: <span class="kw-2">&amp;</span>gdk::Atom,
-        start: <span class="kw-2">&amp;</span>TextIter,
-        end: <span class="kw-2">&amp;</span>TextIter,
     ) -&gt; Vec&lt;u8&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>length = mem::MaybeUninit::uninit();
@@ -4743,13 +4228,28 @@
         }
     }
 
-    <span class="kw">fn </span>set_modified(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+    <span class="doccomment">/// Used to keep track of whether the buffer has been modified since the
+    /// last time it was saved. Whenever the buffer is saved to disk, call
+    /// gtk_text_buffer_set_modified (`self`, FALSE). When the buffer is modified,
+    /// it will automatically toggled on the modified bit again. When the modified
+    /// bit flips, the buffer emits the [`modified-changed`][struct@crate::TextBuffer#modified-changed] signal.
+    /// ## `setting`
+    /// modification flag setting
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_set_modified&quot;</span>)]
+    </span><span class="kw">fn </span>set_modified(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_text_buffer_set_modified(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, setting.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Deletes current contents of `self`, and inserts `text` instead. If
+    /// `len` is -1, `text` must be nul-terminated. `text` must be valid UTF-8.
+    /// ## `text`
+    /// UTF-8 text to insert
+    /// ## `len`
+    /// length of `text` in bytes
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_set_text&quot;</span>)]
+    </span><span class="kw">fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
         <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
             ffi::gtk_text_buffer_set_text(
@@ -4760,7 +4260,13 @@
         }
     }
 
-    <span class="kw">fn </span>unregister_deserialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) {
+    <span class="doccomment">/// This function unregisters a rich text format that was previously
+    /// registered using `gtk_text_buffer_register_deserialize_format()` or
+    /// [`register_deserialize_tagset()`][Self::register_deserialize_tagset()].
+    /// ## `format`
+    /// a [`gdk::Atom`][crate::gdk::Atom] representing a registered rich text format.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_unregister_deserialize_format&quot;</span>)]
+    </span><span class="kw">fn </span>unregister_deserialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) {
         <span class="kw">unsafe </span>{
             ffi::gtk_text_buffer_unregister_deserialize_format(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4769,7 +4275,13 @@
         }
     }
 
-    <span class="kw">fn </span>unregister_serialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) {
+    <span class="doccomment">/// This function unregisters a rich text format that was previously
+    /// registered using `gtk_text_buffer_register_serialize_format()` or
+    /// [`register_serialize_tagset()`][Self::register_serialize_tagset()]
+    /// ## `format`
+    /// a [`gdk::Atom`][crate::gdk::Atom] representing a registered rich text format.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_buffer_unregister_serialize_format&quot;</span>)]
+    </span><span class="kw">fn </span>unregister_serialize_format(<span class="kw-2">&amp;</span><span class="self">self</span>, format: <span class="kw-2">&amp;</span>gdk::Atom) {
         <span class="kw">unsafe </span>{
             ffi::gtk_text_buffer_unregister_serialize_format(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4778,11 +4290,26 @@
         }
     }
 
-    <span class="kw">fn </span>cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="doccomment">/// The position of the insert mark (as offset from the beginning
+    /// of the buffer). It is useful for getting notified when the
+    /// cursor moves.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    </span><span class="kw">fn </span>cursor_position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;cursor-position&quot;</span>)
     }
 
-    <span class="kw">fn </span>connect_begin_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::begin-user-action signal is emitted at the beginning of a single
+    /// user-visible operation on a [`TextBuffer`][crate::TextBuffer].
+    ///
+    /// See also:
+    /// [`begin_user_action()`][Self::begin_user_action()],
+    /// [`insert_interactive()`][Self::insert_interactive()],
+    /// [`insert_range_interactive()`][Self::insert_range_interactive()],
+    /// [`delete_interactive()`][Self::delete_interactive()],
+    /// [`backspace()`][Self::backspace()],
+    /// [`delete_selection()`][Self::delete_selection()].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;begin-user-action&quot;</span>)]
+    </span><span class="kw">fn </span>connect_begin_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>begin_user_action_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4806,7 +4333,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::changed signal is emitted when the content of a [`TextBuffer`][crate::TextBuffer]
+    /// has changed.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>changed_trampoline&lt;P: IsA&lt;TextBuffer&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextBuffer,
             f: glib::ffi::gpointer,
@@ -4827,7 +4357,19 @@
         }
     }
 
-    <span class="kw">fn </span>connect_end_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::end-user-action signal is emitted at the end of a single
+    /// user-visible operation on the [`TextBuffer`][crate::TextBuffer].
+    ///
+    /// See also:
+    /// [`end_user_action()`][Self::end_user_action()],
+    /// [`insert_interactive()`][Self::insert_interactive()],
+    /// [`insert_range_interactive()`][Self::insert_range_interactive()],
+    /// [`delete_interactive()`][Self::delete_interactive()],
+    /// [`backspace()`][Self::backspace()],
+    /// [`delete_selection()`][Self::delete_selection()],
+    /// [`backspace()`][Self::backspace()].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;end-user-action&quot;</span>)]
+    </span><span class="kw">fn </span>connect_end_user_action&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>end_user_action_trampoline&lt;P: IsA&lt;TextBuffer&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextBuffer,
             f: glib::ffi::gpointer,
@@ -4848,7 +4390,15 @@
         }
     }
 
-    <span class="kw">fn </span>connect_mark_deleted&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::mark-deleted signal is emitted as notification
+    /// after a [`TextMark`][crate::TextMark] is deleted.
+    ///
+    /// See also:
+    /// [`delete_mark()`][Self::delete_mark()].
+    /// ## `mark`
+    /// The mark that was deleted
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;mark-deleted&quot;</span>)]
+    </span><span class="kw">fn </span>connect_mark_deleted&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>mark_deleted_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>,
@@ -4876,7 +4426,18 @@
         }
     }
 
-    <span class="kw">fn </span>connect_mark_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::mark-set signal is emitted as notification
+    /// after a [`TextMark`][crate::TextMark] is set.
+    ///
+    /// See also:
+    /// [`create_mark()`][Self::create_mark()],
+    /// [`move_mark()`][Self::move_mark()].
+    /// ## `location`
+    /// The location of `mark` in `textbuffer`
+    /// ## `mark`
+    /// The mark that is set
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;mark-set&quot;</span>)]
+    </span><span class="kw">fn </span>connect_mark_set&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TextIter, <span class="kw-2">&amp;</span>TextMark) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -4909,7 +4470,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_modified_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::modified-changed signal is emitted when the modified bit of a
+    /// [`TextBuffer`][crate::TextBuffer] flips.
+    ///
+    /// See also:
+    /// [`set_modified()`][Self::set_modified()].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;modified-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_modified_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>modified_changed_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4933,7 +4500,13 @@
         }
     }
 
-    <span class="kw">fn </span>connect_paste_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Clipboard) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The paste-done signal is emitted after paste operation has been completed.
+    /// This is useful to properly scroll the view to the end of the pasted text.
+    /// See [`paste_clipboard()`][Self::paste_clipboard()] for more details.
+    /// ## `clipboard`
+    /// the [`Clipboard`][crate::Clipboard] pasted from
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;paste-done&quot;</span>)]
+    </span><span class="kw">fn </span>connect_paste_done&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Clipboard) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>paste_done_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>Clipboard) + <span class="lifetime">&#39;static</span>,
@@ -4961,7 +4534,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_copy_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;copy-target-list&quot;</span>)]
+    </span><span class="kw">fn </span>connect_copy_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_copy_target_list_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4986,7 +4560,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_cursor_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;cursor-position&quot;</span>)]
+    </span><span class="kw">fn </span>connect_cursor_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_cursor_position_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5011,7 +4586,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-selection&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_selection_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_selection_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5036,7 +4612,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_paste_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;paste-target-list&quot;</span>)]
+    </span><span class="kw">fn </span>connect_paste_target_list_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_paste_target_list_trampoline&lt;
             P: IsA&lt;TextBuffer&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -5061,7 +4638,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;text&quot;</span>)]
+    </span><span class="kw">fn </span>connect_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_text_trampoline&lt;P: IsA&lt;TextBuffer&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkTextBuffer,
             _param_spec: glib::ffi::gpointer,
@@ -5083,6 +4661,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;TextBuffer&gt;&gt; TextBufferExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>TextBuffer {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

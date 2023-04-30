@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/check_menu_item.rs`."><title>check_menu_item.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/check_menu_item.rs`."><title>check_menu_item.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2008,29 +2008,7 @@
 <a href="#1935" id="1935">1935</a>
 <a href="#1936" id="1936">1936</a>
 <a href="#1937" id="1937">1937</a>
-<a href="#1938" id="1938">1938</a>
-<a href="#1939" id="1939">1939</a>
-<a href="#1940" id="1940">1940</a>
-<a href="#1941" id="1941">1941</a>
-<a href="#1942" id="1942">1942</a>
-<a href="#1943" id="1943">1943</a>
-<a href="#1944" id="1944">1944</a>
-<a href="#1945" id="1945">1945</a>
-<a href="#1946" id="1946">1946</a>
-<a href="#1947" id="1947">1947</a>
-<a href="#1948" id="1948">1948</a>
-<a href="#1949" id="1949">1949</a>
-<a href="#1950" id="1950">1950</a>
-<a href="#1951" id="1951">1951</a>
-<a href="#1952" id="1952">1952</a>
-<a href="#1953" id="1953">1953</a>
-<a href="#1954" id="1954">1954</a>
-<a href="#1955" id="1955">1955</a>
-<a href="#1956" id="1956">1956</a>
-<a href="#1957" id="1957">1957</a>
-<a href="#1958" id="1958">1958</a>
-<a href="#1959" id="1959">1959</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -3754,7 +3732,7 @@
 /// # Implementors
 ///
 /// [`CheckMenuItem`][struct@crate::CheckMenuItem], [`RadioMenuItem`][struct@crate::RadioMenuItem]
-</span><span class="kw">pub trait </span>CheckMenuItemExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>CheckMenuItemExt: IsA&lt;CheckMenuItem&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Returns whether the check menu item is active. See
     /// gtk_check_menu_item_set_active ().
     ///
@@ -3763,7 +3741,13 @@
     /// [`true`] if the menu item is checked.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_get_active&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_active&quot;</span>)]
-    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_check_menu_item_get_active(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether `self` looks like a [`RadioMenuItem`][crate::RadioMenuItem]
     ///
@@ -3772,7 +3756,13 @@
     /// Whether `self` looks like a [`RadioMenuItem`][crate::RadioMenuItem]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_get_draw_as_radio&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_draw_as_radio&quot;</span>)]
-    </span><span class="kw">fn </span>draws_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>draws_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the value set by [`set_inconsistent()`][Self::set_inconsistent()].
     ///
@@ -3781,19 +3771,39 @@
     /// [`true`] if inconsistent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_get_inconsistent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_check_menu_item_get_inconsistent(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Sets the active state of the menu item’s check box.
     /// ## `is_active`
     /// boolean value indicating whether the check box is active.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_set_active&quot;</span>)]
-    </span><span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool);
+    </span><span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_check_menu_item_set_active(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                is_active.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets whether `self` is drawn like a [`RadioMenuItem`][crate::RadioMenuItem]
     /// ## `draw_as_radio`
     /// whether `self` is drawn like a [`RadioMenuItem`][crate::RadioMenuItem]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_set_draw_as_radio&quot;</span>)]
-    </span><span class="kw">fn </span>set_draw_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_as_radio: bool);
+    </span><span class="kw">fn </span>set_draw_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_as_radio: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_check_menu_item_set_draw_as_radio(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                draw_as_radio.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// If the user has selected a range of elements (such as some text or
     /// spreadsheet cells) that are affected by a boolean setting, and the
@@ -3806,73 +3816,7 @@
     /// ## `setting`
     /// [`true`] to display an “inconsistent” third state check
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_set_inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool);
-
-    <span class="doccomment">/// Emits the [`toggled`][struct@crate::CheckMenuItem#toggled] signal.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_toggled&quot;</span>)]
-    </span><span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// This signal is emitted when the state of the check box is changed.
-    ///
-    /// A signal handler can use [`is_active()`][Self::is_active()]
-    /// to discover the new state.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggled&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
-    </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;draw-as-radio&quot;</span>)]
-    </span><span class="kw">fn </span>connect_draw_as_radio_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;inconsistent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;CheckMenuItem&gt;&gt; CheckMenuItemExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_check_menu_item_get_active(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>draws_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_check_menu_item_get_inconsistent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_active(<span class="kw-2">&amp;</span><span class="self">self</span>, is_active: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_check_menu_item_set_active(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                is_active.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_draw_as_radio(<span class="kw-2">&amp;</span><span class="self">self</span>, draw_as_radio: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_check_menu_item_set_draw_as_radio(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                draw_as_radio.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
+    </span><span class="kw">fn </span>set_inconsistent(<span class="kw-2">&amp;</span><span class="self">self</span>, setting: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_check_menu_item_set_inconsistent(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -3881,13 +3825,20 @@
         }
     }
 
-    <span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Emits the [`toggled`][struct@crate::CheckMenuItem#toggled] signal.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_menu_item_toggled&quot;</span>)]
+    </span><span class="kw">fn </span>toggled(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_check_menu_item_toggled(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// This signal is emitted when the state of the check box is changed.
+    ///
+    /// A signal handler can use [`is_active()`][Self::is_active()]
+    /// to discover the new state.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggled&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggled&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggled_trampoline&lt;P: IsA&lt;CheckMenuItem&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkCheckMenuItem,
             f: glib::ffi::gpointer,
@@ -3908,7 +3859,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;active&quot;</span>)]
+    </span><span class="kw">fn </span>connect_active_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_active_trampoline&lt;
             P: IsA&lt;CheckMenuItem&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3933,7 +3885,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_draw_as_radio_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;draw-as-radio&quot;</span>)]
+    </span><span class="kw">fn </span>connect_draw_as_radio_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_draw_as_radio_trampoline&lt;
             P: IsA&lt;CheckMenuItem&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3958,7 +3911,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;inconsistent&quot;</span>)]
+    </span><span class="kw">fn </span>connect_inconsistent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_inconsistent_trampoline&lt;
             P: IsA&lt;CheckMenuItem&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -3983,6 +3937,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;CheckMenuItem&gt;&gt; CheckMenuItemExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>CheckMenuItem {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

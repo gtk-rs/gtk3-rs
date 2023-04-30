@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/frame.rs`."><title>frame.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/frame.rs`."><title>frame.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1105,41 +1105,7 @@
 <a href="#1032" id="1032">1032</a>
 <a href="#1033" id="1033">1033</a>
 <a href="#1034" id="1034">1034</a>
-<a href="#1035" id="1035">1035</a>
-<a href="#1036" id="1036">1036</a>
-<a href="#1037" id="1037">1037</a>
-<a href="#1038" id="1038">1038</a>
-<a href="#1039" id="1039">1039</a>
-<a href="#1040" id="1040">1040</a>
-<a href="#1041" id="1041">1041</a>
-<a href="#1042" id="1042">1042</a>
-<a href="#1043" id="1043">1043</a>
-<a href="#1044" id="1044">1044</a>
-<a href="#1045" id="1045">1045</a>
-<a href="#1046" id="1046">1046</a>
-<a href="#1047" id="1047">1047</a>
-<a href="#1048" id="1048">1048</a>
-<a href="#1049" id="1049">1049</a>
-<a href="#1050" id="1050">1050</a>
-<a href="#1051" id="1051">1051</a>
-<a href="#1052" id="1052">1052</a>
-<a href="#1053" id="1053">1053</a>
-<a href="#1054" id="1054">1054</a>
-<a href="#1055" id="1055">1055</a>
-<a href="#1056" id="1056">1056</a>
-<a href="#1057" id="1057">1057</a>
-<a href="#1058" id="1058">1058</a>
-<a href="#1059" id="1059">1059</a>
-<a href="#1060" id="1060">1060</a>
-<a href="#1061" id="1061">1061</a>
-<a href="#1062" id="1062">1062</a>
-<a href="#1063" id="1063">1063</a>
-<a href="#1064" id="1064">1064</a>
-<a href="#1065" id="1065">1065</a>
-<a href="#1066" id="1066">1066</a>
-<a href="#1067" id="1067">1067</a>
-<a href="#1068" id="1068">1068</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -1895,7 +1861,7 @@
 /// # Implementors
 ///
 /// [`AspectFrame`][struct@crate::AspectFrame], [`Frame`][struct@crate::Frame]
-</span><span class="kw">pub trait </span>FrameExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>FrameExt: IsA&lt;Frame&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// If the frame’s label widget is a [`Label`][crate::Label], returns the
     /// text in the label widget. (The frame will have a [`Label`][crate::Label]
     /// for the label widget if a non-[`None`] argument was passed
@@ -1909,7 +1875,9 @@
     ///  must not be modified or freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_get_label&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_label&quot;</span>)]
-    </span><span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_frame_get_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Retrieves the X and Y alignment of the frame’s label. See
     /// [`set_label_align()`][Self::set_label_align()].
@@ -1926,7 +1894,18 @@
     ///  frame’s label, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_get_label_align&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_label_align&quot;</span>)]
-    </span><span class="kw">fn </span>label_align(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (f32, f32);
+    </span><span class="kw">fn </span>label_align(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (f32, f32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>xalign = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>yalign = mem::MaybeUninit::uninit();
+            ffi::gtk_frame_get_label_align(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                xalign.as_mut_ptr(),
+                yalign.as_mut_ptr(),
+            );
+            (xalign.assume_init(), yalign.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Retrieves the label widget for the frame. See
     /// [`set_label_widget()`][Self::set_label_widget()].
@@ -1937,7 +1916,13 @@
     /// there is none.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_get_label_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_label_widget&quot;</span>)]
-    </span><span class="kw">fn </span>label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_frame_get_label_widget(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the shadow type of the frame. See
     /// [`set_shadow_type()`][Self::set_shadow_type()].
@@ -1947,14 +1932,24 @@
     /// the current shadow type of the frame.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_get_shadow_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_shadow_type&quot;</span>)]
-    </span><span class="kw">fn </span>shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ShadowType;
+    </span><span class="kw">fn </span>shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ShadowType {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_frame_get_shadow_type(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Removes the current [`label-widget`][struct@crate::Frame#label-widget]. If `label` is not [`None`], creates a
     /// new [`Label`][crate::Label] with that text and adds it as the [`label-widget`][struct@crate::Frame#label-widget].
     /// ## `label`
     /// the text to use as the label of the frame
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_set_label&quot;</span>)]
-    </span><span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_frame_set_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, label.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Sets the alignment of the frame widget’s label. The
     /// default values for a newly created frame are 0.0 and 0.5.
@@ -1968,99 +1963,18 @@
     ///  0.0 or 1.0 the gap in the frame won’t be painted because the label
     ///  will be completely above or below the frame.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_set_label_align&quot;</span>)]
-    </span><span class="kw">fn </span>set_label_align(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32, yalign: f32);
+    </span><span class="kw">fn </span>set_label_align(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32, yalign: f32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_frame_set_label_align(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, xalign, yalign);
+        }
+    }
 
     <span class="doccomment">/// Sets the [`label-widget`][struct@crate::Frame#label-widget] for the frame. This is the widget that
     /// will appear embedded in the top edge of the frame as a title.
     /// ## `label_widget`
     /// the new label widget
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_set_label_widget&quot;</span>)]
-    </span><span class="kw">fn </span>set_label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, label_widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
-
-    <span class="doccomment">/// Sets the [`shadow-type`][struct@crate::Frame#shadow-type] for `self`, i.e. whether it is drawn without
-    /// ([`ShadowType::None`][crate::ShadowType::None]) or with (other values) a visible border. Values other than
-    /// [`ShadowType::None`][crate::ShadowType::None] are treated identically by GtkFrame. The chosen type is
-    /// applied by removing or adding the .flat class to the CSS node named border.
-    /// ## `type_`
-    /// the new [`ShadowType`][crate::ShadowType]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_set_shadow_type&quot;</span>)]
-    </span><span class="kw">fn </span>set_shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: ShadowType);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
-    </span><span class="kw">fn </span>label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
-    </span><span class="kw">fn </span>set_label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_xalign: f32);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
-    </span><span class="kw">fn </span>label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
-    </span><span class="kw">fn </span>set_label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_yalign: f32);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
-    </span><span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-widget&quot;</span>)]
-    </span><span class="kw">fn </span>connect_label_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
-    </span><span class="kw">fn </span>connect_label_xalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
-    </span><span class="kw">fn </span>connect_label_yalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;shadow-type&quot;</span>)]
-    </span><span class="kw">fn </span>connect_shadow_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Frame&gt;&gt; FrameExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>label(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_frame_get_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>label_align(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (f32, f32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>xalign = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>yalign = mem::MaybeUninit::uninit();
-            ffi::gtk_frame_get_label_align(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                xalign.as_mut_ptr(),
-                yalign.as_mut_ptr(),
-            );
-            (xalign.assume_init(), yalign.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_frame_get_label_widget(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ShadowType {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_frame_get_shadow_type(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_frame_set_label(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, label.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_label_align(<span class="kw-2">&amp;</span><span class="self">self</span>, xalign: f32, yalign: f32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_frame_set_label_align(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, xalign, yalign);
-        }
-    }
-
-    <span class="kw">fn </span>set_label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, label_widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+    </span><span class="kw">fn </span>set_label_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, label_widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_frame_set_label_widget(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -2069,29 +1983,41 @@
         }
     }
 
-    <span class="kw">fn </span>set_shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: ShadowType) {
+    <span class="doccomment">/// Sets the [`shadow-type`][struct@crate::Frame#shadow-type] for `self`, i.e. whether it is drawn without
+    /// ([`ShadowType::None`][crate::ShadowType::None]) or with (other values) a visible border. Values other than
+    /// [`ShadowType::None`][crate::ShadowType::None] are treated identically by GtkFrame. The chosen type is
+    /// applied by removing or adding the .flat class to the CSS node named border.
+    /// ## `type_`
+    /// the new [`ShadowType`][crate::ShadowType]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_frame_set_shadow_type&quot;</span>)]
+    </span><span class="kw">fn </span>set_shadow_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: ShadowType) {
         <span class="kw">unsafe </span>{
             ffi::gtk_frame_set_shadow_type(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, type_.into_glib());
         }
     }
 
-    <span class="kw">fn </span>label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
+    </span><span class="kw">fn </span>label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;label-xalign&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_xalign: f32) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
+    </span><span class="kw">fn </span>set_label_xalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_xalign: f32) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;label-xalign&quot;</span>, label_xalign)
     }
 
-    <span class="kw">fn </span>label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
+    </span><span class="kw">fn </span>label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f32 {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;label-yalign&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_yalign: f32) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
+    </span><span class="kw">fn </span>set_label_yalign(<span class="kw-2">&amp;</span><span class="self">self</span>, label_yalign: f32) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;label-yalign&quot;</span>, label_yalign)
     }
 
-    <span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label&quot;</span>)]
+    </span><span class="kw">fn </span>connect_label_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_label_trampoline&lt;P: IsA&lt;Frame&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFrame,
             _param_spec: glib::ffi::gpointer,
@@ -2113,7 +2039,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_label_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-widget&quot;</span>)]
+    </span><span class="kw">fn </span>connect_label_widget_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_label_widget_trampoline&lt;P: IsA&lt;Frame&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFrame,
             _param_spec: glib::ffi::gpointer,
@@ -2135,7 +2062,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_label_xalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-xalign&quot;</span>)]
+    </span><span class="kw">fn </span>connect_label_xalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_label_xalign_trampoline&lt;P: IsA&lt;Frame&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFrame,
             _param_spec: glib::ffi::gpointer,
@@ -2157,7 +2085,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_label_yalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;label-yalign&quot;</span>)]
+    </span><span class="kw">fn </span>connect_label_yalign_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_label_yalign_trampoline&lt;P: IsA&lt;Frame&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFrame,
             _param_spec: glib::ffi::gpointer,
@@ -2179,7 +2108,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_shadow_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;shadow-type&quot;</span>)]
+    </span><span class="kw">fn </span>connect_shadow_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_shadow_type_trampoline&lt;P: IsA&lt;Frame&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFrame,
             _param_spec: glib::ffi::gpointer,
@@ -2201,6 +2131,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Frame&gt;&gt; FrameExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Frame {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

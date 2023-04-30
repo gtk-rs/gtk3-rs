@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/im_context.rs`."><title>im_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/im_context.rs`."><title>im_context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -764,57 +764,7 @@
 <a href="#691" id="691">691</a>
 <a href="#692" id="692">692</a>
 <a href="#693" id="693">693</a>
-<a href="#694" id="694">694</a>
-<a href="#695" id="695">695</a>
-<a href="#696" id="696">696</a>
-<a href="#697" id="697">697</a>
-<a href="#698" id="698">698</a>
-<a href="#699" id="699">699</a>
-<a href="#700" id="700">700</a>
-<a href="#701" id="701">701</a>
-<a href="#702" id="702">702</a>
-<a href="#703" id="703">703</a>
-<a href="#704" id="704">704</a>
-<a href="#705" id="705">705</a>
-<a href="#706" id="706">706</a>
-<a href="#707" id="707">707</a>
-<a href="#708" id="708">708</a>
-<a href="#709" id="709">709</a>
-<a href="#710" id="710">710</a>
-<a href="#711" id="711">711</a>
-<a href="#712" id="712">712</a>
-<a href="#713" id="713">713</a>
-<a href="#714" id="714">714</a>
-<a href="#715" id="715">715</a>
-<a href="#716" id="716">716</a>
-<a href="#717" id="717">717</a>
-<a href="#718" id="718">718</a>
-<a href="#719" id="719">719</a>
-<a href="#720" id="720">720</a>
-<a href="#721" id="721">721</a>
-<a href="#722" id="722">722</a>
-<a href="#723" id="723">723</a>
-<a href="#724" id="724">724</a>
-<a href="#725" id="725">725</a>
-<a href="#726" id="726">726</a>
-<a href="#727" id="727">727</a>
-<a href="#728" id="728">728</a>
-<a href="#729" id="729">729</a>
-<a href="#730" id="730">730</a>
-<a href="#731" id="731">731</a>
-<a href="#732" id="732">732</a>
-<a href="#733" id="733">733</a>
-<a href="#734" id="734">734</a>
-<a href="#735" id="735">735</a>
-<a href="#736" id="736">736</a>
-<a href="#737" id="737">737</a>
-<a href="#738" id="738">738</a>
-<a href="#739" id="739">739</a>
-<a href="#740" id="740">740</a>
-<a href="#741" id="741">741</a>
-<a href="#742" id="742">742</a>
-<a href="#743" id="743">743</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -991,7 +941,7 @@
 /// # Implementors
 ///
 /// [`IMContextSimple`][struct@crate::IMContextSimple], [`IMContext`][struct@crate::IMContext], [`IMMulticontext`][struct@crate::IMMulticontext]
-</span><span class="kw">pub trait </span>IMContextExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>IMContextExt: IsA&lt;IMContext&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Asks the widget that the input context is attached to to delete
     /// characters around the cursor position by emitting the
     /// GtkIMContext::delete_surrounding signal. Note that `offset` and `n_chars`
@@ -1018,7 +968,15 @@
     ///
     /// [`true`] if the signal was handled.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_delete_surrounding&quot;</span>)]
-    </span><span class="kw">fn </span>delete_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, n_chars: i32) -&gt; bool;
+    </span><span class="kw">fn </span>delete_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, n_chars: i32) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_im_context_delete_surrounding(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                offset,
+                n_chars,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Allow an input method to internally handle key press and release
     /// events. If this function returns [`true`], then no further processing
@@ -1030,21 +988,36 @@
     ///
     /// [`true`] if the input method handled the key event.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_filter_keypress&quot;</span>)]
-    </span><span class="kw">fn </span>filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool;
+    </span><span class="kw">fn </span>filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_im_context_filter_keypress(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(event.to_glib_none().<span class="number">0</span>),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Notify the input method that the widget to which this
     /// input context corresponds has gained focus. The input method
     /// may, for example, change the displayed feedback to reflect
     /// this change.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_in&quot;</span>)]
-    </span><span class="kw">fn </span>focus_in(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>focus_in(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_im_context_focus_in(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Notify the input method that the widget to which this
     /// input context corresponds has lost focus. The input method
     /// may, for example, change the displayed feedback or reset the contexts
     /// state to reflect this change.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_focus_out&quot;</span>)]
-    </span><span class="kw">fn </span>focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_im_context_focus_out(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Retrieve the current preedit string for the input context,
     /// and a list of attributes to apply to the string.
@@ -1068,7 +1041,24 @@
     ///  within the preedit string.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_get_preedit_string&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preedit_string&quot;</span>)]
-    </span><span class="kw">fn </span>preedit_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (glib::GString, pango::AttrList, i32);
+    </span><span class="kw">fn </span>preedit_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (glib::GString, pango::AttrList, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>str = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>attrs = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>cursor_pos = mem::MaybeUninit::uninit();
+            ffi::gtk_im_context_get_preedit_string(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>str,
+                <span class="kw-2">&amp;mut </span>attrs,
+                cursor_pos.as_mut_ptr(),
+            );
+            (
+                from_glib_full(str),
+                from_glib_full(attrs),
+                cursor_pos.assume_init(),
+            )
+        }
+    }
 
     <span class="doccomment">/// Retrieves context around the insertion point. Input methods
     /// typically want context in order to constrain input text based on
@@ -1099,182 +1089,7 @@
     ///  cursor within `text`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_get_surrounding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_surrounding&quot;</span>)]
-    </span><span class="kw">fn </span>surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(glib::GString, i32)&gt;;
-
-    <span class="doccomment">/// Notify the input method that a change such as a change in cursor
-    /// position has been made. This will typically cause the input
-    /// method to clear the preedit state.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_reset&quot;</span>)]
-    </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Set the client window for the input context; this is the
-    /// [`gdk::Window`][crate::gdk::Window] in which the input appears. This window is
-    /// used in order to correctly position status windows, and may
-    /// also be used for purposes internal to the input method.
-    /// ## `window`
-    /// the client window. This may be [`None`] to indicate
-    ///  that the previous client window no longer exists.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_client_window&quot;</span>)]
-    </span><span class="kw">fn </span>set_client_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;);
-
-    <span class="doccomment">/// Notify the input method that a change in cursor
-    /// position has been made. The location is relative to the client
-    /// window.
-    /// ## `area`
-    /// new location
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_cursor_location&quot;</span>)]
-    </span><span class="kw">fn </span>set_cursor_location(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>gdk::Rectangle);
-
-    <span class="doccomment">/// Sets surrounding context around the insertion point and preedit
-    /// string. This function is expected to be called in response to the
-    /// GtkIMContext::retrieve_surrounding signal, and will likely have no
-    /// effect if called at other times.
-    /// ## `text`
-    /// text surrounding the insertion point, as UTF-8.
-    ///  the preedit string should not be included within
-    ///  `text`.
-    /// ## `len`
-    /// the length of `text`, or -1 if `text` is nul-terminated
-    /// ## `cursor_index`
-    /// the byte index of the insertion cursor within `text`.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_surrounding&quot;</span>)]
-    </span><span class="kw">fn </span>set_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, cursor_index: i32);
-
-    <span class="doccomment">/// Sets whether the IM context should use the preedit string
-    /// to display feedback. If `use_preedit` is FALSE (default
-    /// is TRUE), then the IM context may use some other method to display
-    /// feedback, such as displaying it in a child of the root window.
-    /// ## `use_preedit`
-    /// whether the IM context should use the preedit string.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_use_preedit&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_preedit(<span class="kw-2">&amp;</span><span class="self">self</span>, use_preedit: bool);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
-    </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
-    </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, input_hints: InputHints);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
-    </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
-    </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, input_purpose: InputPurpose);
-
-    <span class="doccomment">/// The ::commit signal is emitted when a complete input sequence
-    /// has been entered by the user. This can be a single character
-    /// immediately after a key press or the final result of preediting.
-    /// ## `str`
-    /// the completed character(s) entered by the user
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;commit&quot;</span>)]
-    </span><span class="kw">fn </span>connect_commit&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::delete-surrounding signal is emitted when the input method
-    /// needs to delete all or part of the context surrounding the cursor.
-    /// ## `offset`
-    /// the character offset from the cursor position of the text
-    ///  to be deleted. A negative value indicates a position before
-    ///  the cursor.
-    /// ## `n_chars`
-    /// the number of characters to be deleted
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the signal was handled.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-surrounding&quot;</span>)]
-    </span><span class="kw">fn </span>connect_delete_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::preedit-changed signal is emitted whenever the preedit sequence
-    /// currently being entered has changed. It is also emitted at the end of
-    /// a preedit sequence, in which case
-    /// [`preedit_string()`][Self::preedit_string()] returns the empty string.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::preedit-end signal is emitted when a preediting sequence
-    /// has been completed or canceled.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-end&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preedit_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::preedit-start signal is emitted when a new preediting sequence
-    /// starts.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-start&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preedit_start&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::retrieve-surrounding signal is emitted when the input method
-    /// requires the context surrounding the cursor. The callback should set
-    /// the input method surrounding context by calling the
-    /// [`set_surrounding()`][Self::set_surrounding()] method.
-    ///
-    /// # Returns
-    ///
-    /// [`true`] if the signal was handled.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;retrieve-surrounding&quot;</span>)]
-    </span><span class="kw">fn </span>connect_retrieve_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
-    </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
-    </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;IMContext&gt;&gt; IMContextExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>delete_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: i32, n_chars: i32) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_im_context_delete_surrounding(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                offset,
-                n_chars,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>filter_keypress(<span class="kw-2">&amp;</span><span class="self">self</span>, event: <span class="kw-2">&amp;</span>gdk::EventKey) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_im_context_filter_keypress(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(event.to_glib_none().<span class="number">0</span>),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>focus_in(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_im_context_focus_in(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_im_context_focus_out(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>preedit_string(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (glib::GString, pango::AttrList, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>str = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>attrs = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>cursor_pos = mem::MaybeUninit::uninit();
-            ffi::gtk_im_context_get_preedit_string(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>str,
-                <span class="kw-2">&amp;mut </span>attrs,
-                cursor_pos.as_mut_ptr(),
-            );
-            (
-                from_glib_full(str),
-                from_glib_full(attrs),
-                cursor_pos.assume_init(),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(glib::GString, i32)&gt; {
+    </span><span class="kw">fn </span>surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(glib::GString, i32)&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>text = ptr::null_mut();
             <span class="kw">let </span><span class="kw-2">mut </span>cursor_index = mem::MaybeUninit::uninit();
@@ -1291,13 +1106,25 @@
         }
     }
 
-    <span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Notify the input method that a change such as a change in cursor
+    /// position has been made. This will typically cause the input
+    /// method to clear the preedit state.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_reset&quot;</span>)]
+    </span><span class="kw">fn </span>reset(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_reset(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_client_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;) {
+    <span class="doccomment">/// Set the client window for the input context; this is the
+    /// [`gdk::Window`][crate::gdk::Window] in which the input appears. This window is
+    /// used in order to correctly position status windows, and may
+    /// also be used for purposes internal to the input method.
+    /// ## `window`
+    /// the client window. This may be [`None`] to indicate
+    ///  that the previous client window no longer exists.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_client_window&quot;</span>)]
+    </span><span class="kw">fn </span>set_client_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_set_client_window(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1306,7 +1133,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_cursor_location(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>gdk::Rectangle) {
+    <span class="doccomment">/// Notify the input method that a change in cursor
+    /// position has been made. The location is relative to the client
+    /// window.
+    /// ## `area`
+    /// new location
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_cursor_location&quot;</span>)]
+    </span><span class="kw">fn </span>set_cursor_location(<span class="kw-2">&amp;</span><span class="self">self</span>, area: <span class="kw-2">&amp;</span>gdk::Rectangle) {
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_set_cursor_location(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1315,7 +1148,20 @@
         }
     }
 
-    <span class="kw">fn </span>set_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, cursor_index: i32) {
+    <span class="doccomment">/// Sets surrounding context around the insertion point and preedit
+    /// string. This function is expected to be called in response to the
+    /// GtkIMContext::retrieve_surrounding signal, and will likely have no
+    /// effect if called at other times.
+    /// ## `text`
+    /// text surrounding the insertion point, as UTF-8.
+    ///  the preedit string should not be included within
+    ///  `text`.
+    /// ## `len`
+    /// the length of `text`, or -1 if `text` is nul-terminated
+    /// ## `cursor_index`
+    /// the byte index of the insertion cursor within `text`.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_surrounding&quot;</span>)]
+    </span><span class="kw">fn </span>set_surrounding(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str, cursor_index: i32) {
         <span class="kw">let </span>len = text.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_set_surrounding(
@@ -1327,7 +1173,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_use_preedit(<span class="kw-2">&amp;</span><span class="self">self</span>, use_preedit: bool) {
+    <span class="doccomment">/// Sets whether the IM context should use the preedit string
+    /// to display feedback. If `use_preedit` is FALSE (default
+    /// is TRUE), then the IM context may use some other method to display
+    /// feedback, such as displaying it in a child of the root window.
+    /// ## `use_preedit`
+    /// whether the IM context should use the preedit string.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_im_context_set_use_preedit&quot;</span>)]
+    </span><span class="kw">fn </span>set_use_preedit(<span class="kw-2">&amp;</span><span class="self">self</span>, use_preedit: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_im_context_set_use_preedit(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1336,23 +1189,33 @@
         }
     }
 
-    <span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    </span><span class="kw">fn </span>input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputHints {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;input-hints&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, input_hints: InputHints) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    </span><span class="kw">fn </span>set_input_hints(<span class="kw-2">&amp;</span><span class="self">self</span>, input_hints: InputHints) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;input-hints&quot;</span>, input_hints)
     }
 
-    <span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    </span><span class="kw">fn </span>input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputPurpose {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;input-purpose&quot;</span>)
     }
 
-    <span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, input_purpose: InputPurpose) {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    </span><span class="kw">fn </span>set_input_purpose(<span class="kw-2">&amp;</span><span class="self">self</span>, input_purpose: InputPurpose) {
         glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;input-purpose&quot;</span>, input_purpose)
     }
 
-    <span class="kw">fn </span>connect_commit&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::commit signal is emitted when a complete input sequence
+    /// has been entered by the user. This can be a single character
+    /// immediately after a key press or the final result of preediting.
+    /// ## `str`
+    /// the completed character(s) entered by the user
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;commit&quot;</span>)]
+    </span><span class="kw">fn </span>connect_commit&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>commit_trampoline&lt;P: IsA&lt;IMContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIMContext,
             str: <span class="kw-2">*mut </span>libc::c_char,
@@ -1377,7 +1240,20 @@
         }
     }
 
-    <span class="kw">fn </span>connect_delete_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::delete-surrounding signal is emitted when the input method
+    /// needs to delete all or part of the context surrounding the cursor.
+    /// ## `offset`
+    /// the character offset from the cursor position of the text
+    ///  to be deleted. A negative value indicates a position before
+    ///  the cursor.
+    /// ## `n_chars`
+    /// the number of characters to be deleted
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the signal was handled.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;delete-surrounding&quot;</span>)]
+    </span><span class="kw">fn </span>connect_delete_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -1411,7 +1287,12 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::preedit-changed signal is emitted whenever the preedit sequence
+    /// currently being entered has changed. It is also emitted at the end of
+    /// a preedit sequence, in which case
+    /// [`preedit_string()`][Self::preedit_string()] returns the empty string.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preedit_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>preedit_changed_trampoline&lt;P: IsA&lt;IMContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIMContext,
             f: glib::ffi::gpointer,
@@ -1432,7 +1313,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preedit_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::preedit-end signal is emitted when a preediting sequence
+    /// has been completed or canceled.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-end&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preedit_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>preedit_end_trampoline&lt;P: IsA&lt;IMContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIMContext,
             f: glib::ffi::gpointer,
@@ -1453,7 +1337,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preedit_start&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::preedit-start signal is emitted when a new preediting sequence
+    /// starts.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;preedit-start&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preedit_start&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>preedit_start_trampoline&lt;P: IsA&lt;IMContext&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIMContext,
             f: glib::ffi::gpointer,
@@ -1474,7 +1361,16 @@
         }
     }
 
-    <span class="kw">fn </span>connect_retrieve_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::retrieve-surrounding signal is emitted when the input method
+    /// requires the context surrounding the cursor. The callback should set
+    /// the input method surrounding context by calling the
+    /// [`set_surrounding()`][Self::set_surrounding()] method.
+    ///
+    /// # Returns
+    ///
+    /// [`true`] if the signal was handled.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;retrieve-surrounding&quot;</span>)]
+    </span><span class="kw">fn </span>connect_retrieve_surrounding&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -1501,7 +1397,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-hints&quot;</span>)]
+    </span><span class="kw">fn </span>connect_input_hints_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_input_hints_trampoline&lt;
             P: IsA&lt;IMContext&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1526,7 +1423,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;input-purpose&quot;</span>)]
+    </span><span class="kw">fn </span>connect_input_purpose_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_input_purpose_trampoline&lt;
             P: IsA&lt;IMContext&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1551,6 +1449,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;IMContext&gt;&gt; IMContextExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>IMContext {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

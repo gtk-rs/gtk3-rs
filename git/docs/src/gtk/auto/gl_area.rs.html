@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gl_area.rs`."><title>gl_area.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gl_area.rs`."><title>gl_area.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2297,67 +2297,7 @@
 <a href="#2224" id="2224">2224</a>
 <a href="#2225" id="2225">2225</a>
 <a href="#2226" id="2226">2226</a>
-<a href="#2227" id="2227">2227</a>
-<a href="#2228" id="2228">2228</a>
-<a href="#2229" id="2229">2229</a>
-<a href="#2230" id="2230">2230</a>
-<a href="#2231" id="2231">2231</a>
-<a href="#2232" id="2232">2232</a>
-<a href="#2233" id="2233">2233</a>
-<a href="#2234" id="2234">2234</a>
-<a href="#2235" id="2235">2235</a>
-<a href="#2236" id="2236">2236</a>
-<a href="#2237" id="2237">2237</a>
-<a href="#2238" id="2238">2238</a>
-<a href="#2239" id="2239">2239</a>
-<a href="#2240" id="2240">2240</a>
-<a href="#2241" id="2241">2241</a>
-<a href="#2242" id="2242">2242</a>
-<a href="#2243" id="2243">2243</a>
-<a href="#2244" id="2244">2244</a>
-<a href="#2245" id="2245">2245</a>
-<a href="#2246" id="2246">2246</a>
-<a href="#2247" id="2247">2247</a>
-<a href="#2248" id="2248">2248</a>
-<a href="#2249" id="2249">2249</a>
-<a href="#2250" id="2250">2250</a>
-<a href="#2251" id="2251">2251</a>
-<a href="#2252" id="2252">2252</a>
-<a href="#2253" id="2253">2253</a>
-<a href="#2254" id="2254">2254</a>
-<a href="#2255" id="2255">2255</a>
-<a href="#2256" id="2256">2256</a>
-<a href="#2257" id="2257">2257</a>
-<a href="#2258" id="2258">2258</a>
-<a href="#2259" id="2259">2259</a>
-<a href="#2260" id="2260">2260</a>
-<a href="#2261" id="2261">2261</a>
-<a href="#2262" id="2262">2262</a>
-<a href="#2263" id="2263">2263</a>
-<a href="#2264" id="2264">2264</a>
-<a href="#2265" id="2265">2265</a>
-<a href="#2266" id="2266">2266</a>
-<a href="#2267" id="2267">2267</a>
-<a href="#2268" id="2268">2268</a>
-<a href="#2269" id="2269">2269</a>
-<a href="#2270" id="2270">2270</a>
-<a href="#2271" id="2271">2271</a>
-<a href="#2272" id="2272">2272</a>
-<a href="#2273" id="2273">2273</a>
-<a href="#2274" id="2274">2274</a>
-<a href="#2275" id="2275">2275</a>
-<a href="#2276" id="2276">2276</a>
-<a href="#2277" id="2277">2277</a>
-<a href="#2278" id="2278">2278</a>
-<a href="#2279" id="2279">2279</a>
-<a href="#2280" id="2280">2280</a>
-<a href="#2281" id="2281">2281</a>
-<a href="#2282" id="2282">2282</a>
-<a href="#2283" id="2283">2283</a>
-<a href="#2284" id="2284">2284</a>
-<a href="#2285" id="2285">2285</a>
-<a href="#2286" id="2286">2286</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -4035,7 +3975,7 @@
 /// # Implementors
 ///
 /// [`GLArea`][struct@crate::GLArea]
-</span><span class="kw">pub trait </span>GLAreaExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>GLAreaExt: IsA&lt;GLArea&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Ensures that the `self` framebuffer object is made the current draw
     /// and read target, and that all the required buffers for the `self`
     /// are created and bound to the frambuffer.
@@ -4044,7 +3984,11 @@
     /// [`render`][struct@crate::GLArea#render] signal, and doesn&#39;t normally need to be called
     /// by application code.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_attach_buffers&quot;</span>)]
-    </span><span class="kw">fn </span>attach_buffers(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>attach_buffers(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_attach_buffers(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Returns whether the area is in auto render mode or not.
     ///
@@ -4053,7 +3997,13 @@
     /// [`true`] if the `self` is auto rendering, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_auto_render&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_auto_render&quot;</span>)]
-    </span><span class="kw">fn </span>is_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_gl_area_get_auto_render(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the [`gdk::GLContext`][crate::gdk::GLContext] used by `self`.
     ///
@@ -4062,7 +4012,9 @@
     /// the [`gdk::GLContext`][crate::gdk::GLContext]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_context&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_context&quot;</span>)]
-    </span><span class="kw">fn </span>context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::GLContext&gt;;
+    </span><span class="kw">fn </span>context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::GLContext&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gl_area_get_context(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Gets the current error set on the `self`.
     ///
@@ -4071,7 +4023,9 @@
     /// the [`glib::Error`][crate::glib::Error] or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_error&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_error&quot;</span>)]
-    </span><span class="kw">fn </span>error(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Error&gt;;
+    </span><span class="kw">fn </span>error(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Error&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gl_area_get_error(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Returns whether the area has an alpha component.
     ///
@@ -4080,7 +4034,13 @@
     /// [`true`] if the `self` has an alpha component, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_has_alpha&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_alpha&quot;</span>)]
-    </span><span class="kw">fn </span>has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_gl_area_get_has_alpha(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the area has a depth buffer.
     ///
@@ -4089,7 +4049,13 @@
     /// [`true`] if the `self` has a depth buffer, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_has_depth_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_depth_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_gl_area_get_has_depth_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the area has a stencil buffer.
     ///
@@ -4098,7 +4064,13 @@
     /// [`true`] if the `self` has a stencil buffer, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_has_stencil_buffer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_has_stencil_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_gl_area_get_has_stencil_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Retrieves the required version of OpenGL set
     /// using [`set_required_version()`][Self::set_required_version()].
@@ -4113,7 +4085,18 @@
     /// return location for the required minor version
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_required_version&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_required_version&quot;</span>)]
-    </span><span class="kw">fn </span>required_version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32);
+    </span><span class="kw">fn </span>required_version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>major = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>minor = mem::MaybeUninit::uninit();
+            ffi::gtk_gl_area_get_required_version(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
+            );
+            (major.assume_init(), minor.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Retrieves the value set by [`set_use_es()`][Self::set_use_es()].
     ///
@@ -4123,7 +4106,9 @@
     ///  and [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_get_use_es&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_es&quot;</span>)]
-    </span><span class="kw">fn </span>uses_es(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>uses_es(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_gl_area_get_use_es(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Ensures that the [`gdk::GLContext`][crate::gdk::GLContext] used by `self` is associated with
     /// the [`GLArea`][crate::GLArea].
@@ -4132,7 +4117,11 @@
     /// [`render`][struct@crate::GLArea#render] signal, and doesn&#39;t normally need to be called
     /// by application code.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_make_current&quot;</span>)]
-    </span><span class="kw">fn </span>make_current(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>make_current(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_make_current(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// Marks the currently rendered data (if any) as invalid, and queues
     /// a redraw of the widget, ensuring that the [`render`][struct@crate::GLArea#render] signal
@@ -4142,7 +4131,11 @@
     /// been called with a [`false`] value. The default behaviour is to
     /// emit [`render`][struct@crate::GLArea#render] on each draw.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_queue_render&quot;</span>)]
-    </span><span class="kw">fn </span>queue_render(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    </span><span class="kw">fn </span>queue_render(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_queue_render(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// If `auto_render` is [`true`] the [`render`][struct@crate::GLArea#render] signal will be
     /// emitted every time the widget draws. This is the default and is
@@ -4156,7 +4149,14 @@
     /// ## `auto_render`
     /// a boolean
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_auto_render&quot;</span>)]
-    </span><span class="kw">fn </span>set_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>, auto_render: bool);
+    </span><span class="kw">fn </span>set_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>, auto_render: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_auto_render(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                auto_render.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets an error on the area which will be shown instead of the
     /// GL rendering. This is useful in the [`create-context`][struct@crate::GLArea#create-context]
@@ -4164,7 +4164,11 @@
     /// ## `error`
     /// a new [`glib::Error`][crate::glib::Error], or [`None`] to unset the error
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_error&quot;</span>)]
-    </span><span class="kw">fn </span>set_error(<span class="kw-2">&amp;</span><span class="self">self</span>, error: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>glib::Error&gt;);
+    </span><span class="kw">fn </span>set_error(<span class="kw-2">&amp;</span><span class="self">self</span>, error: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>glib::Error&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_error(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, error.to_glib_none().<span class="number">0</span>);
+        }
+    }
 
     <span class="doccomment">/// If `has_alpha` is [`true`] the buffer allocated by the widget will have
     /// an alpha channel component, and when rendering to the window the
@@ -4175,7 +4179,11 @@
     /// ## `has_alpha`
     /// [`true`] to add an alpha component
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_has_alpha&quot;</span>)]
-    </span><span class="kw">fn </span>set_has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>, has_alpha: bool);
+    </span><span class="kw">fn </span>set_has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>, has_alpha: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_has_alpha(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, has_alpha.into_glib());
+        }
+    }
 
     <span class="doccomment">/// If `has_depth_buffer` is [`true`] the widget will allocate and
     /// enable a depth buffer for the target framebuffer. Otherwise
@@ -4183,7 +4191,14 @@
     /// ## `has_depth_buffer`
     /// [`true`] to add a depth buffer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_has_depth_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>set_has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_depth_buffer: bool);
+    </span><span class="kw">fn </span>set_has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_depth_buffer: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_has_depth_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                has_depth_buffer.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// If `has_stencil_buffer` is [`true`] the widget will allocate and
     /// enable a stencil buffer for the target framebuffer. Otherwise
@@ -4191,7 +4206,14 @@
     /// ## `has_stencil_buffer`
     /// [`true`] to add a stencil buffer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_has_stencil_buffer&quot;</span>)]
-    </span><span class="kw">fn </span>set_has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_stencil_buffer: bool);
+    </span><span class="kw">fn </span>set_has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_stencil_buffer: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_has_stencil_buffer(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                has_stencil_buffer.into_glib(),
+            );
+        }
+    }
 
     <span class="doccomment">/// Sets the required version of OpenGL to be used when creating the context
     /// for the widget.
@@ -4202,7 +4224,11 @@
     /// ## `minor`
     /// the minor version
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_required_version&quot;</span>)]
-    </span><span class="kw">fn </span>set_required_version(<span class="kw-2">&amp;</span><span class="self">self</span>, major: i32, minor: i32);
+    </span><span class="kw">fn </span>set_required_version(<span class="kw-2">&amp;</span><span class="self">self</span>, major: i32, minor: i32) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_required_version(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, major, minor);
+        }
+    }
 
     <span class="doccomment">/// Sets whether the `self` should create an OpenGL or an OpenGL ES context.
     ///
@@ -4211,7 +4237,11 @@
     /// ## `use_es`
     /// whether to use OpenGL or OpenGL ES
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gl_area_set_use_es&quot;</span>)]
-    </span><span class="kw">fn </span>set_use_es(<span class="kw-2">&amp;</span><span class="self">self</span>, use_es: bool);
+    </span><span class="kw">fn </span>set_use_es(<span class="kw-2">&amp;</span><span class="self">self</span>, use_es: bool) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_gl_area_set_use_es(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_es.into_glib());
+        }
+    }
 
     <span class="doccomment">/// The ::create-context signal is emitted when the widget is being
     /// realized, and allows you to override how the GL context is
@@ -4229,191 +4259,6 @@
     ///  the [`GLArea`][crate::GLArea] widget will take ownership of the returned value.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;create-context&quot;</span>)]
     </span><span class="kw">fn </span>connect_create_context&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::GLContext&gt; + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::render signal is emitted every time the contents
-    /// of the [`GLArea`][crate::GLArea] should be redrawn.
-    ///
-    /// The `context` is bound to the `area` prior to emitting this function,
-    /// and the buffers are painted to the window once the emission terminates.
-    /// ## `context`
-    /// the [`gdk::GLContext`][crate::gdk::GLContext] used by `area`
-    ///
-    /// # Returns
-    ///
-    /// [`true`] to stop other handlers from being invoked for the event.
-    ///  [`false`] to propagate the event further.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;render&quot;</span>)]
-    </span><span class="kw">fn </span>connect_render&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::GLContext) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::resize signal is emitted once when the widget is realized, and
-    /// then each time the widget is changed while realized. This is useful
-    /// in order to keep GL state up to date with the widget size, like for
-    /// instance camera properties which may depend on the width/height ratio.
-    ///
-    /// The GL context for the area is guaranteed to be current when this signal
-    /// is emitted.
-    ///
-    /// The default handler sets up the GL viewport.
-    /// ## `width`
-    /// the width of the viewport
-    /// ## `height`
-    /// the height of the viewport
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;resize&quot;</span>)]
-    </span><span class="kw">fn </span>connect_resize&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;auto-render&quot;</span>)]
-    </span><span class="kw">fn </span>connect_auto_render_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;context&quot;</span>)]
-    </span><span class="kw">fn </span>connect_context_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-alpha&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_alpha_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-depth-buffer&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_depth_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;has-stencil-buffer&quot;</span>)]
-    </span><span class="kw">fn </span>connect_has_stencil_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;use-es&quot;</span>)]
-    </span><span class="kw">fn </span>connect_use_es_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;GLArea&gt;&gt; GLAreaExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>attach_buffers(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_attach_buffers(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>is_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gl_area_get_auto_render(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::GLContext&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gl_area_get_context(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>error(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Error&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gl_area_get_error(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gl_area_get_has_alpha(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gl_area_get_has_depth_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gl_area_get_has_stencil_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>required_version(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (i32, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>major = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>minor = mem::MaybeUninit::uninit();
-            ffi::gtk_gl_area_get_required_version(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                major.as_mut_ptr(),
-                minor.as_mut_ptr(),
-            );
-            (major.assume_init(), minor.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>uses_es(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_gl_area_get_use_es(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>make_current(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_make_current(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>queue_render(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_queue_render(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_auto_render(<span class="kw-2">&amp;</span><span class="self">self</span>, auto_render: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_auto_render(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                auto_render.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_error(<span class="kw-2">&amp;</span><span class="self">self</span>, error: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>glib::Error&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_error(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, error.to_glib_none().<span class="number">0</span>);
-        }
-    }
-
-    <span class="kw">fn </span>set_has_alpha(<span class="kw-2">&amp;</span><span class="self">self</span>, has_alpha: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_has_alpha(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, has_alpha.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>set_has_depth_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_depth_buffer: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_has_depth_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                has_depth_buffer.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_has_stencil_buffer(<span class="kw-2">&amp;</span><span class="self">self</span>, has_stencil_buffer: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_has_stencil_buffer(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                has_stencil_buffer.into_glib(),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>set_required_version(<span class="kw-2">&amp;</span><span class="self">self</span>, major: i32, minor: i32) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_required_version(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, major, minor);
-        }
-    }
-
-    <span class="kw">fn </span>set_use_es(<span class="kw-2">&amp;</span><span class="self">self</span>, use_es: bool) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_gl_area_set_use_es(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, use_es.into_glib());
-        }
-    }
-
-    <span class="kw">fn </span>connect_create_context&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::GLContext&gt; + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -4440,7 +4285,20 @@
         }
     }
 
-    <span class="kw">fn </span>connect_render&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::GLContext) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::render signal is emitted every time the contents
+    /// of the [`GLArea`][crate::GLArea] should be redrawn.
+    ///
+    /// The `context` is bound to the `area` prior to emitting this function,
+    /// and the buffers are painted to the window once the emission terminates.
+    /// ## `context`
+    /// the [`gdk::GLContext`][crate::gdk::GLContext] used by `area`
+    ///
+    /// # Returns
+    ///
+    /// [`true`] to stop other handlers from being invoked for the event.
+    ///  [`false`] to propagate the event further.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;render&quot;</span>)]
+    </span><span class="kw">fn </span>connect_render&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>gdk::GLContext) -&gt; glib::signal::Inhibit + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -4472,7 +4330,21 @@
         }
     }
 
-    <span class="kw">fn </span>connect_resize&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::resize signal is emitted once when the widget is realized, and
+    /// then each time the widget is changed while realized. This is useful
+    /// in order to keep GL state up to date with the widget size, like for
+    /// instance camera properties which may depend on the width/height ratio.
+    ///
+    /// The GL context for the area is guaranteed to be current when this signal
+    /// is emitted.
+    ///
+    /// The default handler sets up the GL viewport.
+    /// ## `width`
+    /// the width of the viewport
+    /// ## `height`
+    /// the height of the viewport
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;resize&quot;</span>)]
+    </span><span class="kw">fn </span>connect_resize&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, i32, i32) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>resize_trampoline&lt;P: IsA&lt;GLArea&gt;, F: Fn(<span class="kw-2">&amp;</span>P, i32, i32) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkGLArea,
             width: libc::c_int,
@@ -4499,7 +4371,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_auto_render_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;auto-render&quot;</span>)]
+    </span><span class="kw">fn </span>connect_auto_render_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_auto_render_trampoline&lt;P: IsA&lt;GLArea&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkGLArea,
             _param_spec: glib::ffi::gpointer,
@@ -4521,7 +4394,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_context_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;context&quot;</span>)]
+    </span><span class="kw">fn </span>connect_context_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_context_trampoline&lt;P: IsA&lt;GLArea&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkGLArea,
             _param_spec: glib::ffi::gpointer,
@@ -4543,7 +4417,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_alpha_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-alpha&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_alpha_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_alpha_trampoline&lt;P: IsA&lt;GLArea&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkGLArea,
             _param_spec: glib::ffi::gpointer,
@@ -4565,7 +4440,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_depth_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-depth-buffer&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_depth_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_depth_buffer_trampoline&lt;
             P: IsA&lt;GLArea&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4590,7 +4466,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_has_stencil_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;has-stencil-buffer&quot;</span>)]
+    </span><span class="kw">fn </span>connect_has_stencil_buffer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_has_stencil_buffer_trampoline&lt;
             P: IsA&lt;GLArea&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4615,7 +4492,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_use_es_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;use-es&quot;</span>)]
+    </span><span class="kw">fn </span>connect_use_es_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_use_es_trampoline&lt;P: IsA&lt;GLArea&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkGLArea,
             _param_spec: glib::ffi::gpointer,
@@ -4637,6 +4515,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;GLArea&gt;&gt; GLAreaExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>GLArea {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

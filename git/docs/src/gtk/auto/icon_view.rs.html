@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/icon_view.rs`."><title>icon_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/icon_view.rs`."><title>icon_view.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -3824,215 +3824,7 @@
 <a href="#3751" id="3751">3751</a>
 <a href="#3752" id="3752">3752</a>
 <a href="#3753" id="3753">3753</a>
-<a href="#3754" id="3754">3754</a>
-<a href="#3755" id="3755">3755</a>
-<a href="#3756" id="3756">3756</a>
-<a href="#3757" id="3757">3757</a>
-<a href="#3758" id="3758">3758</a>
-<a href="#3759" id="3759">3759</a>
-<a href="#3760" id="3760">3760</a>
-<a href="#3761" id="3761">3761</a>
-<a href="#3762" id="3762">3762</a>
-<a href="#3763" id="3763">3763</a>
-<a href="#3764" id="3764">3764</a>
-<a href="#3765" id="3765">3765</a>
-<a href="#3766" id="3766">3766</a>
-<a href="#3767" id="3767">3767</a>
-<a href="#3768" id="3768">3768</a>
-<a href="#3769" id="3769">3769</a>
-<a href="#3770" id="3770">3770</a>
-<a href="#3771" id="3771">3771</a>
-<a href="#3772" id="3772">3772</a>
-<a href="#3773" id="3773">3773</a>
-<a href="#3774" id="3774">3774</a>
-<a href="#3775" id="3775">3775</a>
-<a href="#3776" id="3776">3776</a>
-<a href="#3777" id="3777">3777</a>
-<a href="#3778" id="3778">3778</a>
-<a href="#3779" id="3779">3779</a>
-<a href="#3780" id="3780">3780</a>
-<a href="#3781" id="3781">3781</a>
-<a href="#3782" id="3782">3782</a>
-<a href="#3783" id="3783">3783</a>
-<a href="#3784" id="3784">3784</a>
-<a href="#3785" id="3785">3785</a>
-<a href="#3786" id="3786">3786</a>
-<a href="#3787" id="3787">3787</a>
-<a href="#3788" id="3788">3788</a>
-<a href="#3789" id="3789">3789</a>
-<a href="#3790" id="3790">3790</a>
-<a href="#3791" id="3791">3791</a>
-<a href="#3792" id="3792">3792</a>
-<a href="#3793" id="3793">3793</a>
-<a href="#3794" id="3794">3794</a>
-<a href="#3795" id="3795">3795</a>
-<a href="#3796" id="3796">3796</a>
-<a href="#3797" id="3797">3797</a>
-<a href="#3798" id="3798">3798</a>
-<a href="#3799" id="3799">3799</a>
-<a href="#3800" id="3800">3800</a>
-<a href="#3801" id="3801">3801</a>
-<a href="#3802" id="3802">3802</a>
-<a href="#3803" id="3803">3803</a>
-<a href="#3804" id="3804">3804</a>
-<a href="#3805" id="3805">3805</a>
-<a href="#3806" id="3806">3806</a>
-<a href="#3807" id="3807">3807</a>
-<a href="#3808" id="3808">3808</a>
-<a href="#3809" id="3809">3809</a>
-<a href="#3810" id="3810">3810</a>
-<a href="#3811" id="3811">3811</a>
-<a href="#3812" id="3812">3812</a>
-<a href="#3813" id="3813">3813</a>
-<a href="#3814" id="3814">3814</a>
-<a href="#3815" id="3815">3815</a>
-<a href="#3816" id="3816">3816</a>
-<a href="#3817" id="3817">3817</a>
-<a href="#3818" id="3818">3818</a>
-<a href="#3819" id="3819">3819</a>
-<a href="#3820" id="3820">3820</a>
-<a href="#3821" id="3821">3821</a>
-<a href="#3822" id="3822">3822</a>
-<a href="#3823" id="3823">3823</a>
-<a href="#3824" id="3824">3824</a>
-<a href="#3825" id="3825">3825</a>
-<a href="#3826" id="3826">3826</a>
-<a href="#3827" id="3827">3827</a>
-<a href="#3828" id="3828">3828</a>
-<a href="#3829" id="3829">3829</a>
-<a href="#3830" id="3830">3830</a>
-<a href="#3831" id="3831">3831</a>
-<a href="#3832" id="3832">3832</a>
-<a href="#3833" id="3833">3833</a>
-<a href="#3834" id="3834">3834</a>
-<a href="#3835" id="3835">3835</a>
-<a href="#3836" id="3836">3836</a>
-<a href="#3837" id="3837">3837</a>
-<a href="#3838" id="3838">3838</a>
-<a href="#3839" id="3839">3839</a>
-<a href="#3840" id="3840">3840</a>
-<a href="#3841" id="3841">3841</a>
-<a href="#3842" id="3842">3842</a>
-<a href="#3843" id="3843">3843</a>
-<a href="#3844" id="3844">3844</a>
-<a href="#3845" id="3845">3845</a>
-<a href="#3846" id="3846">3846</a>
-<a href="#3847" id="3847">3847</a>
-<a href="#3848" id="3848">3848</a>
-<a href="#3849" id="3849">3849</a>
-<a href="#3850" id="3850">3850</a>
-<a href="#3851" id="3851">3851</a>
-<a href="#3852" id="3852">3852</a>
-<a href="#3853" id="3853">3853</a>
-<a href="#3854" id="3854">3854</a>
-<a href="#3855" id="3855">3855</a>
-<a href="#3856" id="3856">3856</a>
-<a href="#3857" id="3857">3857</a>
-<a href="#3858" id="3858">3858</a>
-<a href="#3859" id="3859">3859</a>
-<a href="#3860" id="3860">3860</a>
-<a href="#3861" id="3861">3861</a>
-<a href="#3862" id="3862">3862</a>
-<a href="#3863" id="3863">3863</a>
-<a href="#3864" id="3864">3864</a>
-<a href="#3865" id="3865">3865</a>
-<a href="#3866" id="3866">3866</a>
-<a href="#3867" id="3867">3867</a>
-<a href="#3868" id="3868">3868</a>
-<a href="#3869" id="3869">3869</a>
-<a href="#3870" id="3870">3870</a>
-<a href="#3871" id="3871">3871</a>
-<a href="#3872" id="3872">3872</a>
-<a href="#3873" id="3873">3873</a>
-<a href="#3874" id="3874">3874</a>
-<a href="#3875" id="3875">3875</a>
-<a href="#3876" id="3876">3876</a>
-<a href="#3877" id="3877">3877</a>
-<a href="#3878" id="3878">3878</a>
-<a href="#3879" id="3879">3879</a>
-<a href="#3880" id="3880">3880</a>
-<a href="#3881" id="3881">3881</a>
-<a href="#3882" id="3882">3882</a>
-<a href="#3883" id="3883">3883</a>
-<a href="#3884" id="3884">3884</a>
-<a href="#3885" id="3885">3885</a>
-<a href="#3886" id="3886">3886</a>
-<a href="#3887" id="3887">3887</a>
-<a href="#3888" id="3888">3888</a>
-<a href="#3889" id="3889">3889</a>
-<a href="#3890" id="3890">3890</a>
-<a href="#3891" id="3891">3891</a>
-<a href="#3892" id="3892">3892</a>
-<a href="#3893" id="3893">3893</a>
-<a href="#3894" id="3894">3894</a>
-<a href="#3895" id="3895">3895</a>
-<a href="#3896" id="3896">3896</a>
-<a href="#3897" id="3897">3897</a>
-<a href="#3898" id="3898">3898</a>
-<a href="#3899" id="3899">3899</a>
-<a href="#3900" id="3900">3900</a>
-<a href="#3901" id="3901">3901</a>
-<a href="#3902" id="3902">3902</a>
-<a href="#3903" id="3903">3903</a>
-<a href="#3904" id="3904">3904</a>
-<a href="#3905" id="3905">3905</a>
-<a href="#3906" id="3906">3906</a>
-<a href="#3907" id="3907">3907</a>
-<a href="#3908" id="3908">3908</a>
-<a href="#3909" id="3909">3909</a>
-<a href="#3910" id="3910">3910</a>
-<a href="#3911" id="3911">3911</a>
-<a href="#3912" id="3912">3912</a>
-<a href="#3913" id="3913">3913</a>
-<a href="#3914" id="3914">3914</a>
-<a href="#3915" id="3915">3915</a>
-<a href="#3916" id="3916">3916</a>
-<a href="#3917" id="3917">3917</a>
-<a href="#3918" id="3918">3918</a>
-<a href="#3919" id="3919">3919</a>
-<a href="#3920" id="3920">3920</a>
-<a href="#3921" id="3921">3921</a>
-<a href="#3922" id="3922">3922</a>
-<a href="#3923" id="3923">3923</a>
-<a href="#3924" id="3924">3924</a>
-<a href="#3925" id="3925">3925</a>
-<a href="#3926" id="3926">3926</a>
-<a href="#3927" id="3927">3927</a>
-<a href="#3928" id="3928">3928</a>
-<a href="#3929" id="3929">3929</a>
-<a href="#3930" id="3930">3930</a>
-<a href="#3931" id="3931">3931</a>
-<a href="#3932" id="3932">3932</a>
-<a href="#3933" id="3933">3933</a>
-<a href="#3934" id="3934">3934</a>
-<a href="#3935" id="3935">3935</a>
-<a href="#3936" id="3936">3936</a>
-<a href="#3937" id="3937">3937</a>
-<a href="#3938" id="3938">3938</a>
-<a href="#3939" id="3939">3939</a>
-<a href="#3940" id="3940">3940</a>
-<a href="#3941" id="3941">3941</a>
-<a href="#3942" id="3942">3942</a>
-<a href="#3943" id="3943">3943</a>
-<a href="#3944" id="3944">3944</a>
-<a href="#3945" id="3945">3945</a>
-<a href="#3946" id="3946">3946</a>
-<a href="#3947" id="3947">3947</a>
-<a href="#3948" id="3948">3948</a>
-<a href="#3949" id="3949">3949</a>
-<a href="#3950" id="3950">3950</a>
-<a href="#3951" id="3951">3951</a>
-<a href="#3952" id="3952">3952</a>
-<a href="#3953" id="3953">3953</a>
-<a href="#3954" id="3954">3954</a>
-<a href="#3955" id="3955">3955</a>
-<a href="#3956" id="3956">3956</a>
-<a href="#3957" id="3957">3957</a>
-<a href="#3958" id="3958">3958</a>
-<a href="#3959" id="3959">3959</a>
-<a href="#3960" id="3960">3960</a>
-<a href="#3961" id="3961">3961</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -6004,7 +5796,7 @@
 /// # Implementors
 ///
 /// [`IconView`][struct@crate::IconView]
-</span><span class="kw">pub trait </span>IconViewExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>IconViewExt: IsA&lt;IconView&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Converts widget coordinates to coordinates for the bin_window,
     /// as expected by e.g. [`path_at_pos()`][Self::path_at_pos()].
     /// ## `wx`
@@ -6021,7 +5813,20 @@
     /// ## `by`
     /// return location for bin_window Y coordinate
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_convert_widget_to_bin_window_coords&quot;</span>)]
-    </span><span class="kw">fn </span>convert_widget_to_bin_window_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, wx: i32, wy: i32) -&gt; (i32, i32);
+    </span><span class="kw">fn </span>convert_widget_to_bin_window_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, wx: i32, wy: i32) -&gt; (i32, i32) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>bx = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>by = mem::MaybeUninit::uninit();
+            ffi::gtk_icon_view_convert_widget_to_bin_window_coords(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                wx,
+                wy,
+                bx.as_mut_ptr(),
+                by.as_mut_ptr(),
+            );
+            (bx.assume_init(), by.assume_init())
+        }
+    }
 
     <span class="doccomment">/// Creates a [`cairo::Surface`][crate::cairo::Surface] representation of the item at `path`.
     /// This image is used for a drag icon.
@@ -6032,7 +5837,14 @@
     ///
     /// a newly-allocated surface of the drag icon.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_create_drag_icon&quot;</span>)]
-    </span><span class="kw">fn </span>create_drag_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt;;
+    </span><span class="kw">fn </span>create_drag_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_icon_view_create_drag_icon(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the setting set by [`set_activate_on_single_click()`][Self::set_activate_on_single_click()].
     ///
@@ -6041,7 +5853,13 @@
     /// [`true`] if item-activated will be emitted on a single click
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_activate_on_single_click&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_icon_view_get_activate_on_single_click(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Fills the bounding rectangle in widget coordinates for the cell specified by
     /// `path` and `cell`. If `cell` is [`None`] the main cell area is used.
@@ -6064,7 +5882,22 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: <span class="kw-2">&amp;</span>TreePath,
         cell: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>rect = gdk::Rectangle::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_cell_rect(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+                cell.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                rect.to_glib_none_mut().<span class="number">0</span>,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>(rect)
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::column-spacing property.
     ///
@@ -6073,7 +5906,9 @@
     /// the space between columns
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_column_spacing&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_column_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_column_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the value of the ::columns property.
     ///
@@ -6082,7 +5917,9 @@
     /// the number of columns, or -1
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_columns&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_columns&quot;</span>)]
-    </span><span class="kw">fn </span>columns(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>columns(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_columns(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Fills in `path` and `cell` with the current cursor path and cell.
     /// If the cursor isn’t currently set, then *`path` will be [`None`].
@@ -6103,7 +5940,22 @@
     ///  focus cell, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_cursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cursor&quot;</span>)]
-    </span><span class="kw">fn </span>cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt;;
+    </span><span class="kw">fn </span>cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>cell = ptr::null_mut();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_cursor(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>path,
+                <span class="kw-2">&amp;mut </span>cell,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib_none(cell)))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Determines the destination item for a given position.
     /// ## `drag_x`
@@ -6127,7 +5979,24 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         drag_x: i32,
         drag_y: i32,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, IconViewDropPosition)&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, IconViewDropPosition)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>pos = mem::MaybeUninit::uninit();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_dest_item_at_pos(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                drag_x,
+                drag_y,
+                <span class="kw-2">&amp;mut </span>path,
+                pos.as_mut_ptr(),
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib(pos.assume_init())))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Gets information about the item that is highlighted for feedback.
     ///
@@ -6142,7 +6011,18 @@
     /// Return location for the drop position, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_drag_dest_item&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_drag_dest_item&quot;</span>)]
-    </span><span class="kw">fn </span>drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TreePath, IconViewDropPosition);
+    </span><span class="kw">fn </span>drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TreePath, IconViewDropPosition) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>pos = mem::MaybeUninit::uninit();
+            ffi::gtk_icon_view_get_drag_dest_item(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>path,
+                pos.as_mut_ptr(),
+            );
+            (from_glib_full(path), from_glib(pos.assume_init()))
+        }
+    }
 
     <span class="doccomment">/// Finds the path at the point (`x`, `y`), relative to bin_window coordinates.
     /// In contrast to [`path_at_pos()`][Self::path_at_pos()], this function also
@@ -6167,7 +6047,24 @@
     ///  responsible for the cell at (`x`, `y`), or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_at_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_at_pos&quot;</span>)]
-    </span><span class="kw">fn </span>item_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt;;
+    </span><span class="kw">fn </span>item_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>cell = ptr::null_mut();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_item_at_pos(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x,
+                y,
+                <span class="kw-2">&amp;mut </span>path,
+                <span class="kw-2">&amp;mut </span>cell,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib_none(cell)))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Gets the column in which the item `path` is currently
     /// displayed. Column numbers start at 0.
@@ -6179,7 +6076,14 @@
     /// The column in which the item is displayed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_column&quot;</span>)]
-    </span><span class="kw">fn </span>item_column(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32;
+    </span><span class="kw">fn </span>item_column(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_icon_view_get_item_column(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+            )
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::item-orientation property which determines
     /// whether the labels are drawn beside the icons instead of below.
@@ -6189,7 +6093,13 @@
     /// the relative position of texts and icons
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_orientation&quot;</span>)]
-    </span><span class="kw">fn </span>item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation;
+    </span><span class="kw">fn </span>item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_icon_view_get_item_orientation(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::item-padding property.
     ///
@@ -6198,7 +6108,9 @@
     /// the padding around items
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_padding&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_padding&quot;</span>)]
-    </span><span class="kw">fn </span>item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_item_padding(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the row in which the item `path` is currently
     /// displayed. Row numbers start at 0.
@@ -6210,7 +6122,14 @@
     /// The row in which the item is displayed
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_row&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_row&quot;</span>)]
-    </span><span class="kw">fn </span>item_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32;
+    </span><span class="kw">fn </span>item_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32 {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_icon_view_get_item_row(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+            )
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::item-width property.
     ///
@@ -6219,7 +6138,9 @@
     /// the width of a single item, or -1
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_item_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_item_width&quot;</span>)]
-    </span><span class="kw">fn </span>item_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>item_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_item_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the value of the ::margin property.
     ///
@@ -6228,7 +6149,9 @@
     /// the space at the borders
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_margin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_margin&quot;</span>)]
-    </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the column with markup text for `self`.
     ///
@@ -6237,7 +6160,9 @@
     /// the markup column, or -1 if it’s unset.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_markup_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_markup_column&quot;</span>)]
-    </span><span class="kw">fn </span>markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_markup_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the model the [`IconView`][crate::IconView] is based on. Returns [`None`] if the
     /// model is unset.
@@ -6248,7 +6173,9 @@
     ///  currently being used.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_model&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_model&quot;</span>)]
-    </span><span class="kw">fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeModel&gt;;
+    </span><span class="kw">fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeModel&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_icon_view_get_model(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// Finds the path at the point (`x`, `y`), relative to bin_window coordinates.
     /// See [`item_at_pos()`][Self::item_at_pos()], if you are also interested in
@@ -6266,7 +6193,15 @@
     /// to the icon or [`None`] if no icon exists at that position.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_path_at_pos&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_path_at_pos&quot;</span>)]
-    </span><span class="kw">fn </span>path_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TreePath&gt;;
+    </span><span class="kw">fn </span>path_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TreePath&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_icon_view_get_path_at_pos(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x,
+                y,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the column with pixbufs for `self`.
     ///
@@ -6275,7 +6210,9 @@
     /// the pixbuf column, or -1 if it’s unset.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_pixbuf_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pixbuf_column&quot;</span>)]
-    </span><span class="kw">fn </span>pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_pixbuf_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Retrieves whether the user can reorder the list via drag-and-drop.
     /// See [`set_reorderable()`][Self::set_reorderable()].
@@ -6285,7 +6222,13 @@
     /// [`true`] if the list can be reordered.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_reorderable&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_icon_view_get_reorderable(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::row-spacing property.
     ///
@@ -6294,7 +6237,9 @@
     /// the space between rows
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_row_spacing&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_row_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Creates a list of paths of all selected items. Additionally, if you are
     /// planning on modifying the model after calling this function, you may
@@ -6315,7 +6260,13 @@
     /// A `GList` containing a [`TreePath`][crate::TreePath] for each selected row.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_selected_items&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_items&quot;</span>)]
-    </span><span class="kw">fn </span>selected_items(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;TreePath&gt;;
+    </span><span class="kw">fn </span>selected_items(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;TreePath&gt; {
+        <span class="kw">unsafe </span>{
+            FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_view_get_selected_items(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the selection mode of the `self`.
     ///
@@ -6324,7 +6275,13 @@
     /// the current selection mode
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_selection_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode;
+    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_icon_view_get_selection_mode(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the value of the ::spacing property.
     ///
@@ -6333,7 +6290,9 @@
     /// the space between cells
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_spacing&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the column with text for `self`.
     ///
@@ -6342,7 +6301,9 @@
     /// the text column, or -1 if it’s unset.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_text_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_text_column&quot;</span>)]
-    </span><span class="kw">fn </span>text_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>text_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_text_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Returns the column of `self`’s model which is being used for
     /// displaying tooltips on `self`’s rows.
@@ -6353,7 +6314,9 @@
     /// used, or -1 if this is disabled.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_tooltip_column&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_tooltip_column&quot;</span>)]
-    </span><span class="kw">fn </span>tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_tooltip_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// This function is supposed to be used in a [`query-tooltip`][struct@crate::Widget#query-tooltip]
     /// signal handler for [`IconView`][crate::IconView]. The `x`, `y` and `keyboard_tip` values
@@ -6393,7 +6356,27 @@
         x: <span class="kw-2">&amp;mut </span>i32,
         y: <span class="kw-2">&amp;mut </span>i32,
         keyboard_tip: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreePath, TreeIter)&gt;;
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreePath, TreeIter)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>model = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>iter = TreeIter::uninitialized();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_tooltip_context(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                x,
+                y,
+                keyboard_tip.into_glib(),
+                <span class="kw-2">&amp;mut </span>model,
+                <span class="kw-2">&amp;mut </span>path,
+                iter.to_glib_none_mut().<span class="number">0</span>,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_none(model), from_glib_full(path), iter))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Sets `start_path` and `end_path` to be the first and last visible path.
     /// Note that there may be invisible paths in between.
@@ -6412,13 +6395,35 @@
     /// Return location for end of region, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_get_visible_range&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visible_range&quot;</span>)]
-    </span><span class="kw">fn </span>visible_range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, TreePath)&gt;;
+    </span><span class="kw">fn </span>visible_range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, TreePath)&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>start_path = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>end_path = ptr::null_mut();
+            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_visible_range(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span>start_path,
+                <span class="kw-2">&amp;mut </span>end_path,
+            ));
+            <span class="kw">if </span>ret {
+                <span class="prelude-val">Some</span>((from_glib_full(start_path), from_glib_full(end_path)))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">None
+            </span>}
+        }
+    }
 
     <span class="doccomment">/// Activates the item determined by `path`.
     /// ## `path`
     /// The [`TreePath`][crate::TreePath] to be activated
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_item_activated&quot;</span>)]
-    </span><span class="kw">fn </span>item_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
+    </span><span class="kw">fn </span>item_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_icon_view_item_activated(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+            );
+        }
+    }
 
     <span class="doccomment">/// Returns [`true`] if the icon pointed to by `path` is currently
     /// selected. If `path` does not point to a valid location, [`false`] is returned.
@@ -6429,7 +6434,14 @@
     ///
     /// [`true`] if `path` is selected.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_path_is_selected&quot;</span>)]
-    </span><span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool;
+    </span><span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_icon_view_path_is_selected(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                mut_override(path.to_glib_none().<span class="number">0</span>),
+            ))
+        }
+    }
 
     <span class="doccomment">/// Moves the alignments of `self` to the position specified by `path`.
     /// `row_align` determines where the row is placed, and `col_align` determines
@@ -6454,709 +6466,7 @@
     /// ## `col_align`
     /// The horizontal alignment of the item specified by `path`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_scroll_to_path&quot;</span>)]
-    </span><span class="kw">fn </span>scroll_to_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath, use_align: bool, row_align: f32, col_align: f32);
-
-    <span class="doccomment">/// Selects all the icons. `self` must has its selection mode set
-    /// to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_select_all&quot;</span>)]
-    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Selects the row at `path`.
-    /// ## `path`
-    /// The [`TreePath`][crate::TreePath] to be selected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_select_path&quot;</span>)]
-    </span><span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Calls a function for each selected icon. Note that the model or
-    /// selection cannot be modified from within this function.
-    /// ## `func`
-    /// The function to call for each selected icon.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_selected_foreach&quot;</span>)]
-    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>IconView, <span class="kw-2">&amp;</span>TreePath)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P);
-
-    <span class="doccomment">/// Causes the [`item-activated`][struct@crate::IconView#item-activated] signal to be emitted on
-    /// a single click instead of a double click.
-    /// ## `single`
-    /// [`true`] to emit item-activated on a single click
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool);
-
-    <span class="doccomment">/// Sets the ::column-spacing property which specifies the space
-    /// which is inserted between the columns of the icon view.
-    /// ## `column_spacing`
-    /// the column spacing
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_column_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, column_spacing: i32);
-
-    <span class="doccomment">/// Sets the ::columns property which determines in how
-    /// many columns the icons are arranged. If `columns` is
-    /// -1, the number of columns will be chosen automatically
-    /// to fill the available area.
-    /// ## `columns`
-    /// the number of columns
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_columns&quot;</span>)]
-    </span><span class="kw">fn </span>set_columns(<span class="kw-2">&amp;</span><span class="self">self</span>, columns: i32);
-
-    <span class="doccomment">/// Sets the current keyboard focus to be at `path`, and selects it. This is
-    /// useful when you want to focus the user’s attention on a particular item.
-    /// If `cell` is not [`None`], then focus is given to the cell specified by
-    /// it. Additionally, if `start_editing` is [`true`], then editing should be
-    /// started in the specified cell.
-    ///
-    /// This function is often followed by `gtk_widget_grab_focus
-    /// (icon_view)` in order to give keyboard focus to the widget.
-    /// Please note that editing can only happen when the widget is realized.
-    /// ## `path`
-    /// A [`TreePath`][crate::TreePath]
-    /// ## `cell`
-    /// One of the cell renderers of `self`, or [`None`]
-    /// ## `start_editing`
-    /// [`true`] if the specified cell should start being edited.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_cursor&quot;</span>)]
-    </span><span class="kw">fn </span>set_cursor(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        path: <span class="kw-2">&amp;</span>TreePath,
-        cell: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;&gt;,
-        start_editing: bool,
-    );
-
-    <span class="doccomment">/// Sets the item that is highlighted for feedback.
-    /// ## `path`
-    /// The path of the item to highlight, or [`None`].
-    /// ## `pos`
-    /// Specifies where to drop, relative to the item
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_drag_dest_item&quot;</span>)]
-    </span><span class="kw">fn </span>set_drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreePath&gt;, pos: IconViewDropPosition);
-
-    <span class="doccomment">/// Sets the ::item-orientation property which determines whether the labels
-    /// are drawn beside the icons instead of below.
-    /// ## `orientation`
-    /// the relative position of texts and icons
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_orientation&quot;</span>)]
-    </span><span class="kw">fn </span>set_item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: Orientation);
-
-    <span class="doccomment">/// Sets the [`item-padding`][struct@crate::IconView#item-padding] property which specifies the padding
-    /// around each of the icon view’s items.
-    /// ## `item_padding`
-    /// the item padding
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_padding&quot;</span>)]
-    </span><span class="kw">fn </span>set_item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, item_padding: i32);
-
-    <span class="doccomment">/// Sets the ::item-width property which specifies the width
-    /// to use for each item. If it is set to -1, the icon view will
-    /// automatically determine a suitable item size.
-    /// ## `item_width`
-    /// the width for each item
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_width&quot;</span>)]
-    </span><span class="kw">fn </span>set_item_width(<span class="kw-2">&amp;</span><span class="self">self</span>, item_width: i32);
-
-    <span class="doccomment">/// Sets the ::margin property which specifies the space
-    /// which is inserted at the top, bottom, left and right
-    /// of the icon view.
-    /// ## `margin`
-    /// the margin
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_margin&quot;</span>)]
-    </span><span class="kw">fn </span>set_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32);
-
-    <span class="doccomment">/// Sets the column with markup information for `self` to be
-    /// `column`. The markup column must be of type `G_TYPE_STRING`.
-    /// If the markup column is set to something, it overrides
-    /// the text column set by [`set_text_column()`][Self::set_text_column()].
-    /// ## `column`
-    /// A column in the currently used model, or -1 to display no text
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_markup_column&quot;</span>)]
-    </span><span class="kw">fn </span>set_markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
-
-    <span class="doccomment">/// Sets the model for a [`IconView`][crate::IconView].
-    /// If the `self` already has a model set, it will remove
-    /// it before setting the new model. If `model` is [`None`], then
-    /// it will unset the old model.
-    /// ## `model`
-    /// The model.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_model&quot;</span>)]
-    </span><span class="kw">fn </span>set_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;&gt;);
-
-    <span class="doccomment">/// Sets the column with pixbufs for `self` to be `column`. The pixbuf
-    /// column must be of type `GDK_TYPE_PIXBUF`
-    /// ## `column`
-    /// A column in the currently used model, or -1 to disable
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_pixbuf_column&quot;</span>)]
-    </span><span class="kw">fn </span>set_pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
-
-    <span class="doccomment">/// This function is a convenience function to allow you to reorder models that
-    /// support the `GtkTreeDragSourceIface` and the `GtkTreeDragDestIface`. Both
-    /// [`TreeStore`][crate::TreeStore] and [`ListStore`][crate::ListStore] support these. If `reorderable` is [`true`], then
-    /// the user can reorder the model by dragging and dropping rows. The
-    /// developer can listen to these changes by connecting to the model&#39;s
-    /// row_inserted and row_deleted signals. The reordering is implemented by setting up
-    /// the icon view as a drag source and destination. Therefore, drag and
-    /// drop can not be used in a reorderable view for any other purpose.
-    ///
-    /// This function does not give you any degree of control over the order -- any
-    /// reordering is allowed. If more control is needed, you should probably
-    /// handle drag and drop manually.
-    /// ## `reorderable`
-    /// [`true`], if the list of items can be reordered.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool);
-
-    <span class="doccomment">/// Sets the ::row-spacing property which specifies the space
-    /// which is inserted between the rows of the icon view.
-    /// ## `row_spacing`
-    /// the row spacing
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_row_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, row_spacing: i32);
-
-    <span class="doccomment">/// Sets the selection mode of the `self`.
-    /// ## `mode`
-    /// The selection mode
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode);
-
-    <span class="doccomment">/// Sets the ::spacing property which specifies the space
-    /// which is inserted between the cells (i.e. the icon and
-    /// the text) of an item.
-    /// ## `spacing`
-    /// the spacing
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_spacing&quot;</span>)]
-    </span><span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32);
-
-    <span class="doccomment">/// Sets the column with text for `self` to be `column`. The text
-    /// column must be of type `G_TYPE_STRING`.
-    /// ## `column`
-    /// A column in the currently used model, or -1 to display no text
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_text_column&quot;</span>)]
-    </span><span class="kw">fn </span>set_text_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
-
-    <span class="doccomment">/// Sets the tip area of `tooltip` to the area which `cell` occupies in
-    /// the item pointed to by `path`. See also [`Tooltip::set_tip_area()`][crate::Tooltip::set_tip_area()].
-    ///
-    /// See also [`set_tooltip_column()`][Self::set_tooltip_column()] for a simpler alternative.
-    /// ## `tooltip`
-    /// a [`Tooltip`][crate::Tooltip]
-    /// ## `path`
-    /// a [`TreePath`][crate::TreePath]
-    /// ## `cell`
-    /// a [`CellRenderer`][crate::CellRenderer] or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_cell&quot;</span>)]
-    </span><span class="kw">fn </span>set_tooltip_cell(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        tooltip: <span class="kw-2">&amp;</span>Tooltip,
-        path: <span class="kw-2">&amp;</span>TreePath,
-        cell: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;&gt;,
-    );
-
-    <span class="doccomment">/// If you only plan to have simple (text-only) tooltips on full items, you
-    /// can use this function to have [`IconView`][crate::IconView] handle these automatically
-    /// for you. `column` should be set to the column in `self`’s model
-    /// containing the tooltip texts, or -1 to disable this feature.
-    ///
-    /// When enabled, [`has-tooltip`][struct@crate::Widget#has-tooltip] will be set to [`true`] and
-    /// `self` will connect a [`query-tooltip`][struct@crate::Widget#query-tooltip] signal handler.
-    ///
-    /// Note that the signal handler sets the text with [`Tooltip::set_markup()`][crate::Tooltip::set_markup()],
-    /// so &amp;, &lt;, etc have to be escaped in the text.
-    /// ## `column`
-    /// an integer, which is a valid column number for `self`’s model
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_column&quot;</span>)]
-    </span><span class="kw">fn </span>set_tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32);
-
-    <span class="doccomment">/// Sets the tip area of `tooltip` to be the area covered by the item at `path`.
-    /// See also [`set_tooltip_column()`][Self::set_tooltip_column()] for a simpler alternative.
-    /// See also [`Tooltip::set_tip_area()`][crate::Tooltip::set_tip_area()].
-    /// ## `tooltip`
-    /// a [`Tooltip`][crate::Tooltip]
-    /// ## `path`
-    /// a [`TreePath`][crate::TreePath]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_item&quot;</span>)]
-    </span><span class="kw">fn </span>set_tooltip_item(<span class="kw-2">&amp;</span><span class="self">self</span>, tooltip: <span class="kw-2">&amp;</span>Tooltip, path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Unselects all the icons.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unselect_all&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Unselects the row at `path`.
-    /// ## `path`
-    /// The [`TreePath`][crate::TreePath] to be unselected.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unselect_path&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath);
-
-    <span class="doccomment">/// Undoes the effect of `gtk_icon_view_enable_model_drag_dest()`. Calling this
-    /// method sets [`reorderable`][struct@crate::IconView#reorderable] to [`false`].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unset_model_drag_dest&quot;</span>)]
-    </span><span class="kw">fn </span>unset_model_drag_dest(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Undoes the effect of `gtk_icon_view_enable_model_drag_source()`. Calling this
-    /// method sets [`reorderable`][struct@crate::IconView#reorderable] to [`false`].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unset_model_drag_source&quot;</span>)]
-    </span><span class="kw">fn </span>unset_model_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this view.
-    ///
-    /// If no area is specified when creating the icon view with [`IconView::with_area()`][crate::IconView::with_area()]
-    /// a [`CellAreaBox`][crate::CellAreaBox] will be used.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
-    </span><span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt;;
-
-    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user activates the currently
-    /// focused item.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control activation
-    /// programmatically.
-    ///
-    /// The default bindings for this signal are Space, Return and Enter.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-item&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F)
-        -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_activate_cursor_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// The ::item-activated signal is emitted when the method
-    /// [`item_activated()`][Self::item_activated()] is called, when the user double
-    /// clicks an item with the &quot;activate-on-single-click&quot; property set
-    /// to [`false`], or when the user single clicks an item when the
-    /// &quot;activate-on-single-click&quot; property set to [`true`]. It is also
-    /// emitted when a non-editable item is selected and one of the keys:
-    /// Space, Return or Enter is pressed.
-    /// ## `path`
-    /// the [`TreePath`][crate::TreePath] for the activated item
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;item-activated&quot;</span>)]
-    </span><span class="kw">fn </span>connect_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// The ::move-cursor signal is a
-    /// [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user initiates a cursor movement.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control the cursor
-    /// programmatically.
-    ///
-    /// The default bindings for this signal include
-    /// - Arrow keys which move by individual steps
-    /// - Home/End keys which move to the first/last item
-    /// - PageUp/PageDown which move by &quot;pages&quot;
-    /// All of these will extend the selection when combined with
-    /// the Shift modifier.
-    /// ## `step`
-    /// the granularity of the move, as a [`MovementStep`][crate::MovementStep]
-    /// ## `count`
-    /// the number of `step` units to move
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, step: MovementStep, count: i32) -&gt; bool;
-
-    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user selects all items.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control selection
-    /// programmatically.
-    ///
-    /// The default binding for this signal is Ctrl-a.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user selects the item that is currently
-    /// focused.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control selection
-    /// programmatically.
-    ///
-    /// There is no default binding for this signal.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-cursor-item&quot;</span>)]
-    </span><span class="kw">fn </span>connect_select_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_select_cursor_item(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// The ::selection-changed signal is emitted when the selection
-    /// (i.e. the set of selected items) changes.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user toggles whether the currently
-    /// focused item is selected or not. The exact effect of this
-    /// depend on the selection mode.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control selection
-    /// programmatically.
-    ///
-    /// There is no default binding for this signal is Ctrl-Space.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-item&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggle_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_toggle_cursor_item(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
-    /// which gets emitted when the user unselects all items.
-    ///
-    /// Applications should not connect to it, but may emit it with
-    /// `g_signal_emit_by_name()` if they need to control selection
-    /// programmatically.
-    ///
-    /// The default binding for this signal is Ctrl-Shift-a.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="kw">fn </span>emit_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        f: F,
-    ) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;column-spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;columns&quot;</span>)]
-    </span><span class="kw">fn </span>connect_columns_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;item-orientation&quot;</span>)]
-    </span><span class="kw">fn </span>connect_item_orientation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;item-padding&quot;</span>)]
-    </span><span class="kw">fn </span>connect_item_padding_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;item-width&quot;</span>)]
-    </span><span class="kw">fn </span>connect_item_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;markup-column&quot;</span>)]
-    </span><span class="kw">fn </span>connect_markup_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
-    </span><span class="kw">fn </span>connect_model_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-column&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pixbuf_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
-    </span><span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;row-spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;spacing&quot;</span>)]
-    </span><span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;text-column&quot;</span>)]
-    </span><span class="kw">fn </span>connect_text_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;tooltip-column&quot;</span>)]
-    </span><span class="kw">fn </span>connect_tooltip_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;IconView&gt;&gt; IconViewExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>convert_widget_to_bin_window_coords(<span class="kw-2">&amp;</span><span class="self">self</span>, wx: i32, wy: i32) -&gt; (i32, i32) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>bx = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>by = mem::MaybeUninit::uninit();
-            ffi::gtk_icon_view_convert_widget_to_bin_window_coords(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                wx,
-                wy,
-                bx.as_mut_ptr(),
-                by.as_mut_ptr(),
-            );
-            (bx.assume_init(), by.assume_init())
-        }
-    }
-
-    <span class="kw">fn </span>create_drag_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_icon_view_create_drag_icon(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_icon_view_get_activate_on_single_click(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>cell_rect(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        path: <span class="kw-2">&amp;</span>TreePath,
-        cell: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;&gt;,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>rect = gdk::Rectangle::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_cell_rect(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-                cell.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                rect.to_glib_none_mut().<span class="number">0</span>,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>(rect)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_column_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>columns(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_columns(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>cursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>cell = ptr::null_mut();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_cursor(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>path,
-                <span class="kw-2">&amp;mut </span>cell,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib_none(cell)))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>dest_item_at_pos(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        drag_x: i32,
-        drag_y: i32,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, IconViewDropPosition)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>pos = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_dest_item_at_pos(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                drag_x,
-                drag_y,
-                <span class="kw-2">&amp;mut </span>path,
-                pos.as_mut_ptr(),
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib(pos.assume_init())))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (TreePath, IconViewDropPosition) {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>pos = mem::MaybeUninit::uninit();
-            ffi::gtk_icon_view_get_drag_dest_item(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>path,
-                pos.as_mut_ptr(),
-            );
-            (from_glib_full(path), from_glib(pos.assume_init()))
-        }
-    }
-
-    <span class="kw">fn </span>item_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, CellRenderer)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>cell = ptr::null_mut();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_item_at_pos(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x,
-                y,
-                <span class="kw-2">&amp;mut </span>path,
-                <span class="kw-2">&amp;mut </span>cell,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_full(path), from_glib_none(cell)))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>item_column(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_icon_view_get_item_column(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_icon_view_get_item_orientation(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_item_padding(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>item_row(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; i32 {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_icon_view_get_item_row(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-            )
-        }
-    }
-
-    <span class="kw">fn </span>item_width(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_item_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_markup_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>model(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;TreeModel&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_icon_view_get_model(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>path_at_pos(<span class="kw-2">&amp;</span><span class="self">self</span>, x: i32, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;TreePath&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_icon_view_get_path_at_pos(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x,
-                y,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_pixbuf_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>is_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_icon_view_get_reorderable(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_row_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>selected_items(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;TreePath&gt; {
-        <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_full(ffi::gtk_icon_view_get_selected_items(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_icon_view_get_selection_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>spacing(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>text_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_text_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_icon_view_get_tooltip_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="kw">fn </span>tooltip_context(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        x: <span class="kw-2">&amp;mut </span>i32,
-        y: <span class="kw-2">&amp;mut </span>i32,
-        keyboard_tip: bool,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;(TreeModel, TreePath, TreeIter)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>model = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>iter = TreeIter::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_tooltip_context(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x,
-                y,
-                keyboard_tip.into_glib(),
-                <span class="kw-2">&amp;mut </span>model,
-                <span class="kw-2">&amp;mut </span>path,
-                iter.to_glib_none_mut().<span class="number">0</span>,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_none(model), from_glib_full(path), iter))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>visible_range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(TreePath, TreePath)&gt; {
-        <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>start_path = ptr::null_mut();
-            <span class="kw">let </span><span class="kw-2">mut </span>end_path = ptr::null_mut();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_icon_view_get_visible_range(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>start_path,
-                <span class="kw-2">&amp;mut </span>end_path,
-            ));
-            <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((from_glib_full(start_path), from_glib_full(end_path)))
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
-        }
-    }
-
-    <span class="kw">fn </span>item_activated(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_icon_view_item_activated(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-            );
-        }
-    }
-
-    <span class="kw">fn </span>path_is_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) -&gt; bool {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_icon_view_path_is_selected(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(path.to_glib_none().<span class="number">0</span>),
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>scroll_to_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath, use_align: bool, row_align: f32, col_align: f32) {
+    </span><span class="kw">fn </span>scroll_to_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath, use_align: bool, row_align: f32, col_align: f32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_scroll_to_path(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7168,13 +6478,20 @@
         }
     }
 
-    <span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Selects all the icons. `self` must has its selection mode set
+    /// to [`SelectionMode::Multiple`][crate::SelectionMode::Multiple].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_select_all&quot;</span>)]
+    </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_select_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Selects the row at `path`.
+    /// ## `path`
+    /// The [`TreePath`][crate::TreePath] to be selected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_select_path&quot;</span>)]
+    </span><span class="kw">fn </span>select_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_select_path(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7183,7 +6500,12 @@
         }
     }
 
-    <span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>IconView, <span class="kw-2">&amp;</span>TreePath)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
+    <span class="doccomment">/// Calls a function for each selected icon. Note that the model or
+    /// selection cannot be modified from within this function.
+    /// ## `func`
+    /// The function to call for each selected icon.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_selected_foreach&quot;</span>)]
+    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>IconView, <span class="kw-2">&amp;</span>TreePath)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
         <span class="kw">let </span>func_data: P = func;
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>IconView, <span class="kw-2">&amp;</span>TreePath)&gt;(
             icon_view: <span class="kw-2">*mut </span>ffi::GtkIconView,
@@ -7206,7 +6528,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool) {
+    <span class="doccomment">/// Causes the [`item-activated`][struct@crate::IconView#item-activated] signal to be emitted on
+    /// a single click instead of a double click.
+    /// ## `single`
+    /// [`true`] to emit item-activated on a single click
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_activate_on_single_click&quot;</span>)]
+    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_activate_on_single_click(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7215,19 +6542,47 @@
         }
     }
 
-    <span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, column_spacing: i32) {
+    <span class="doccomment">/// Sets the ::column-spacing property which specifies the space
+    /// which is inserted between the columns of the icon view.
+    /// ## `column_spacing`
+    /// the column spacing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_column_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_column_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, column_spacing: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_column_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, column_spacing);
         }
     }
 
-    <span class="kw">fn </span>set_columns(<span class="kw-2">&amp;</span><span class="self">self</span>, columns: i32) {
+    <span class="doccomment">/// Sets the ::columns property which determines in how
+    /// many columns the icons are arranged. If `columns` is
+    /// -1, the number of columns will be chosen automatically
+    /// to fill the available area.
+    /// ## `columns`
+    /// the number of columns
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_columns&quot;</span>)]
+    </span><span class="kw">fn </span>set_columns(<span class="kw-2">&amp;</span><span class="self">self</span>, columns: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_columns(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, columns);
         }
     }
 
-    <span class="kw">fn </span>set_cursor(
+    <span class="doccomment">/// Sets the current keyboard focus to be at `path`, and selects it. This is
+    /// useful when you want to focus the user’s attention on a particular item.
+    /// If `cell` is not [`None`], then focus is given to the cell specified by
+    /// it. Additionally, if `start_editing` is [`true`], then editing should be
+    /// started in the specified cell.
+    ///
+    /// This function is often followed by `gtk_widget_grab_focus
+    /// (icon_view)` in order to give keyboard focus to the widget.
+    /// Please note that editing can only happen when the widget is realized.
+    /// ## `path`
+    /// A [`TreePath`][crate::TreePath]
+    /// ## `cell`
+    /// One of the cell renderers of `self`, or [`None`]
+    /// ## `start_editing`
+    /// [`true`] if the specified cell should start being edited.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_cursor&quot;</span>)]
+    </span><span class="kw">fn </span>set_cursor(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         path: <span class="kw-2">&amp;</span>TreePath,
         cell: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;&gt;,
@@ -7243,7 +6598,13 @@
         }
     }
 
-    <span class="kw">fn </span>set_drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreePath&gt;, pos: IconViewDropPosition) {
+    <span class="doccomment">/// Sets the item that is highlighted for feedback.
+    /// ## `path`
+    /// The path of the item to highlight, or [`None`].
+    /// ## `pos`
+    /// Specifies where to drop, relative to the item
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_drag_dest_item&quot;</span>)]
+    </span><span class="kw">fn </span>set_drag_dest_item(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TreePath&gt;, pos: IconViewDropPosition) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_drag_dest_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7253,7 +6614,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: Orientation) {
+    <span class="doccomment">/// Sets the ::item-orientation property which determines whether the labels
+    /// are drawn beside the icons instead of below.
+    /// ## `orientation`
+    /// the relative position of texts and icons
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_orientation&quot;</span>)]
+    </span><span class="kw">fn </span>set_item_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: Orientation) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_item_orientation(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7262,31 +6628,62 @@
         }
     }
 
-    <span class="kw">fn </span>set_item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, item_padding: i32) {
+    <span class="doccomment">/// Sets the [`item-padding`][struct@crate::IconView#item-padding] property which specifies the padding
+    /// around each of the icon view’s items.
+    /// ## `item_padding`
+    /// the item padding
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_padding&quot;</span>)]
+    </span><span class="kw">fn </span>set_item_padding(<span class="kw-2">&amp;</span><span class="self">self</span>, item_padding: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_item_padding(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, item_padding);
         }
     }
 
-    <span class="kw">fn </span>set_item_width(<span class="kw-2">&amp;</span><span class="self">self</span>, item_width: i32) {
+    <span class="doccomment">/// Sets the ::item-width property which specifies the width
+    /// to use for each item. If it is set to -1, the icon view will
+    /// automatically determine a suitable item size.
+    /// ## `item_width`
+    /// the width for each item
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_item_width&quot;</span>)]
+    </span><span class="kw">fn </span>set_item_width(<span class="kw-2">&amp;</span><span class="self">self</span>, item_width: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_item_width(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, item_width);
         }
     }
 
-    <span class="kw">fn </span>set_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32) {
+    <span class="doccomment">/// Sets the ::margin property which specifies the space
+    /// which is inserted at the top, bottom, left and right
+    /// of the icon view.
+    /// ## `margin`
+    /// the margin
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_margin&quot;</span>)]
+    </span><span class="kw">fn </span>set_margin(<span class="kw-2">&amp;</span><span class="self">self</span>, margin: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_margin(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, margin);
         }
     }
 
-    <span class="kw">fn </span>set_markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
+    <span class="doccomment">/// Sets the column with markup information for `self` to be
+    /// `column`. The markup column must be of type `G_TYPE_STRING`.
+    /// If the markup column is set to something, it overrides
+    /// the text column set by [`set_text_column()`][Self::set_text_column()].
+    /// ## `column`
+    /// A column in the currently used model, or -1 to display no text
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_markup_column&quot;</span>)]
+    </span><span class="kw">fn </span>set_markup_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_markup_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, column);
         }
     }
 
-    <span class="kw">fn </span>set_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;&gt;) {
+    <span class="doccomment">/// Sets the model for a [`IconView`][crate::IconView].
+    /// If the `self` already has a model set, it will remove
+    /// it before setting the new model. If `model` is [`None`], then
+    /// it will unset the old model.
+    /// ## `model`
+    /// The model.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_model&quot;</span>)]
+    </span><span class="kw">fn </span>set_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_model(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7295,13 +6692,33 @@
         }
     }
 
-    <span class="kw">fn </span>set_pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
+    <span class="doccomment">/// Sets the column with pixbufs for `self` to be `column`. The pixbuf
+    /// column must be of type `GDK_TYPE_PIXBUF`
+    /// ## `column`
+    /// A column in the currently used model, or -1 to disable
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_pixbuf_column&quot;</span>)]
+    </span><span class="kw">fn </span>set_pixbuf_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_pixbuf_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, column);
         }
     }
 
-    <span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool) {
+    <span class="doccomment">/// This function is a convenience function to allow you to reorder models that
+    /// support the `GtkTreeDragSourceIface` and the `GtkTreeDragDestIface`. Both
+    /// [`TreeStore`][crate::TreeStore] and [`ListStore`][crate::ListStore] support these. If `reorderable` is [`true`], then
+    /// the user can reorder the model by dragging and dropping rows. The
+    /// developer can listen to these changes by connecting to the model&#39;s
+    /// row_inserted and row_deleted signals. The reordering is implemented by setting up
+    /// the icon view as a drag source and destination. Therefore, drag and
+    /// drop can not be used in a reorderable view for any other purpose.
+    ///
+    /// This function does not give you any degree of control over the order -- any
+    /// reordering is allowed. If more control is needed, you should probably
+    /// handle drag and drop manually.
+    /// ## `reorderable`
+    /// [`true`], if the list of items can be reordered.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_reorderable&quot;</span>)]
+    </span><span class="kw">fn </span>set_reorderable(<span class="kw-2">&amp;</span><span class="self">self</span>, reorderable: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_reorderable(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7310,31 +6727,62 @@
         }
     }
 
-    <span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, row_spacing: i32) {
+    <span class="doccomment">/// Sets the ::row-spacing property which specifies the space
+    /// which is inserted between the rows of the icon view.
+    /// ## `row_spacing`
+    /// the row spacing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_row_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_row_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, row_spacing: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_row_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, row_spacing);
         }
     }
 
-    <span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode) {
+    <span class="doccomment">/// Sets the selection mode of the `self`.
+    /// ## `mode`
+    /// The selection mode
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_selection_mode&quot;</span>)]
+    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_selection_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, mode.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32) {
+    <span class="doccomment">/// Sets the ::spacing property which specifies the space
+    /// which is inserted between the cells (i.e. the icon and
+    /// the text) of an item.
+    /// ## `spacing`
+    /// the spacing
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_spacing&quot;</span>)]
+    </span><span class="kw">fn </span>set_spacing(<span class="kw-2">&amp;</span><span class="self">self</span>, spacing: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_spacing(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, spacing);
         }
     }
 
-    <span class="kw">fn </span>set_text_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
+    <span class="doccomment">/// Sets the column with text for `self` to be `column`. The text
+    /// column must be of type `G_TYPE_STRING`.
+    /// ## `column`
+    /// A column in the currently used model, or -1 to display no text
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_text_column&quot;</span>)]
+    </span><span class="kw">fn </span>set_text_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_text_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, column);
         }
     }
 
-    <span class="kw">fn </span>set_tooltip_cell(
+    <span class="doccomment">/// Sets the tip area of `tooltip` to the area which `cell` occupies in
+    /// the item pointed to by `path`. See also [`Tooltip::set_tip_area()`][crate::Tooltip::set_tip_area()].
+    ///
+    /// See also [`set_tooltip_column()`][Self::set_tooltip_column()] for a simpler alternative.
+    /// ## `tooltip`
+    /// a [`Tooltip`][crate::Tooltip]
+    /// ## `path`
+    /// a [`TreePath`][crate::TreePath]
+    /// ## `cell`
+    /// a [`CellRenderer`][crate::CellRenderer] or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_cell&quot;</span>)]
+    </span><span class="kw">fn </span>set_tooltip_cell(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         tooltip: <span class="kw-2">&amp;</span>Tooltip,
         path: <span class="kw-2">&amp;</span>TreePath,
@@ -7350,13 +6798,34 @@
         }
     }
 
-    <span class="kw">fn </span>set_tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
+    <span class="doccomment">/// If you only plan to have simple (text-only) tooltips on full items, you
+    /// can use this function to have [`IconView`][crate::IconView] handle these automatically
+    /// for you. `column` should be set to the column in `self`’s model
+    /// containing the tooltip texts, or -1 to disable this feature.
+    ///
+    /// When enabled, [`has-tooltip`][struct@crate::Widget#has-tooltip] will be set to [`true`] and
+    /// `self` will connect a [`query-tooltip`][struct@crate::Widget#query-tooltip] signal handler.
+    ///
+    /// Note that the signal handler sets the text with [`Tooltip::set_markup()`][crate::Tooltip::set_markup()],
+    /// so &amp;, &lt;, etc have to be escaped in the text.
+    /// ## `column`
+    /// an integer, which is a valid column number for `self`’s model
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_column&quot;</span>)]
+    </span><span class="kw">fn </span>set_tooltip_column(<span class="kw-2">&amp;</span><span class="self">self</span>, column: i32) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_tooltip_column(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, column);
         }
     }
 
-    <span class="kw">fn </span>set_tooltip_item(<span class="kw-2">&amp;</span><span class="self">self</span>, tooltip: <span class="kw-2">&amp;</span>Tooltip, path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Sets the tip area of `tooltip` to be the area covered by the item at `path`.
+    /// See also [`set_tooltip_column()`][Self::set_tooltip_column()] for a simpler alternative.
+    /// See also [`Tooltip::set_tip_area()`][crate::Tooltip::set_tip_area()].
+    /// ## `tooltip`
+    /// a [`Tooltip`][crate::Tooltip]
+    /// ## `path`
+    /// a [`TreePath`][crate::TreePath]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_set_tooltip_item&quot;</span>)]
+    </span><span class="kw">fn </span>set_tooltip_item(<span class="kw-2">&amp;</span><span class="self">self</span>, tooltip: <span class="kw-2">&amp;</span>Tooltip, path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_set_tooltip_item(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7366,13 +6835,19 @@
         }
     }
 
-    <span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Unselects all the icons.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unselect_all&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_unselect_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
+    <span class="doccomment">/// Unselects the row at `path`.
+    /// ## `path`
+    /// The [`TreePath`][crate::TreePath] to be unselected.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unselect_path&quot;</span>)]
+    </span><span class="kw">fn </span>unselect_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>TreePath) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_unselect_path(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -7381,23 +6856,44 @@
         }
     }
 
-    <span class="kw">fn </span>unset_model_drag_dest(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Undoes the effect of `gtk_icon_view_enable_model_drag_dest()`. Calling this
+    /// method sets [`reorderable`][struct@crate::IconView#reorderable] to [`false`].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unset_model_drag_dest&quot;</span>)]
+    </span><span class="kw">fn </span>unset_model_drag_dest(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_unset_model_drag_dest(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>unset_model_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Undoes the effect of `gtk_icon_view_enable_model_drag_source()`. Calling this
+    /// method sets [`reorderable`][struct@crate::IconView#reorderable] to [`false`].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_icon_view_unset_model_drag_source&quot;</span>)]
+    </span><span class="kw">fn </span>unset_model_drag_source(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_icon_view_unset_model_drag_source(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt; {
+    <span class="doccomment">/// The [`CellArea`][crate::CellArea] used to layout cell renderers for this view.
+    ///
+    /// If no area is specified when creating the icon view with [`IconView::with_area()`][crate::IconView::with_area()]
+    /// a [`CellAreaBox`][crate::CellAreaBox] will be used.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;cell-area&quot;</span>)]
+    </span><span class="kw">fn </span>cell_area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt; {
         glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;cell-area&quot;</span>)
     }
 
-    <span class="kw">fn </span>connect_activate_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user activates the currently
+    /// focused item.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control activation
+    /// programmatically.
+    ///
+    /// The default bindings for this signal are Space, Return and Enter.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-item&quot;</span>)]
+    </span><span class="kw">fn </span>connect_activate_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -7428,7 +6924,17 @@
         <span class="self">self</span>.emit_by_name(<span class="string">&quot;activate-cursor-item&quot;</span>, <span class="kw-2">&amp;</span>[])
     }
 
-    <span class="kw">fn </span>connect_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::item-activated signal is emitted when the method
+    /// [`item_activated()`][Self::item_activated()] is called, when the user double
+    /// clicks an item with the &quot;activate-on-single-click&quot; property set
+    /// to [`false`], or when the user single clicks an item when the
+    /// &quot;activate-on-single-click&quot; property set to [`true`]. It is also
+    /// emitted when a non-editable item is selected and one of the keys:
+    /// Space, Return or Enter is pressed.
+    /// ## `path`
+    /// the [`TreePath`][crate::TreePath] for the activated item
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;item-activated&quot;</span>)]
+    </span><span class="kw">fn </span>connect_item_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>item_activated_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>TreePath) + <span class="lifetime">&#39;static</span>,
@@ -7456,7 +6962,26 @@
         }
     }
 
-    <span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="doccomment">/// The ::move-cursor signal is a
+    /// [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user initiates a cursor movement.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control the cursor
+    /// programmatically.
+    ///
+    /// The default bindings for this signal include
+    /// - Arrow keys which move by individual steps
+    /// - Home/End keys which move to the first/last item
+    /// - PageUp/PageDown which move by &quot;pages&quot;
+    /// All of these will extend the selection when combined with
+    /// the Shift modifier.
+    /// ## `step`
+    /// the granularity of the move, as a [`MovementStep`][crate::MovementStep]
+    /// ## `count`
+    /// the number of `step` units to move
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
+    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -7494,7 +7019,16 @@
         <span class="self">self</span>.emit_by_name(<span class="string">&quot;move-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>step, <span class="kw-2">&amp;</span>count])
     }
 
-    <span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user selects all items.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control selection
+    /// programmatically.
+    ///
+    /// The default binding for this signal is Ctrl-a.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_all_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             f: glib::ffi::gpointer,
@@ -7519,7 +7053,17 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;select-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_select_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user selects the item that is currently
+    /// focused.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control selection
+    /// programmatically.
+    ///
+    /// There is no default binding for this signal.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;select-cursor-item&quot;</span>)]
+    </span><span class="kw">fn </span>connect_select_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_cursor_item_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7547,7 +7091,10 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;select-cursor-item&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// The ::selection-changed signal is emitted when the selection
+    /// (i.e. the set of selected items) changes.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;selection-changed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_selection_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>selection_changed_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             f: glib::ffi::gpointer,
@@ -7568,7 +7115,18 @@
         }
     }
 
-    <span class="kw">fn </span>connect_toggle_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user toggles whether the currently
+    /// focused item is selected or not. The exact effect of this
+    /// depend on the selection mode.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control selection
+    /// programmatically.
+    ///
+    /// There is no default binding for this signal is Ctrl-Space.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-item&quot;</span>)]
+    </span><span class="kw">fn </span>connect_toggle_cursor_item&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_cursor_item_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7596,7 +7154,16 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;toggle-cursor-item&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// A [keybinding signal][GtkBindingSignal]
+    /// which gets emitted when the user unselects all items.
+    ///
+    /// Applications should not connect to it, but may emit it with
+    /// `g_signal_emit_by_name()` if they need to control selection
+    /// programmatically.
+    ///
+    /// The default binding for this signal is Ctrl-Shift-a.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
+    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>unselect_all_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             f: glib::ffi::gpointer,
@@ -7621,7 +7188,8 @@
         <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;unselect-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
-    <span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
+    <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
+    </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; SignalHandlerId {
@@ -7649,7 +7217,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;column-spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_column_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_column_spacing_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7674,7 +7243,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_columns_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;columns&quot;</span>)]
+    </span><span class="kw">fn </span>connect_columns_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_columns_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -7696,7 +7266,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_item_orientation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;item-orientation&quot;</span>)]
+    </span><span class="kw">fn </span>connect_item_orientation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_item_orientation_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7721,7 +7292,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_item_padding_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;item-padding&quot;</span>)]
+    </span><span class="kw">fn </span>connect_item_padding_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_item_padding_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7746,7 +7318,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_item_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;item-width&quot;</span>)]
+    </span><span class="kw">fn </span>connect_item_width_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_item_width_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -7768,7 +7341,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_markup_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;markup-column&quot;</span>)]
+    </span><span class="kw">fn </span>connect_markup_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_markup_column_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7793,7 +7367,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_model_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;model&quot;</span>)]
+    </span><span class="kw">fn </span>connect_model_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_model_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -7815,7 +7390,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pixbuf_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-column&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pixbuf_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pixbuf_column_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7840,7 +7416,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;reorderable&quot;</span>)]
+    </span><span class="kw">fn </span>connect_reorderable_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_reorderable_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7865,7 +7442,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;row-spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_row_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_row_spacing_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7890,7 +7468,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
+    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_selection_mode_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7915,7 +7494,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;spacing&quot;</span>)]
+    </span><span class="kw">fn </span>connect_spacing_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_spacing_trampoline&lt;P: IsA&lt;IconView&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkIconView,
             _param_spec: glib::ffi::gpointer,
@@ -7937,7 +7517,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_text_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;text-column&quot;</span>)]
+    </span><span class="kw">fn </span>connect_text_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_text_column_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7962,7 +7543,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_tooltip_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;tooltip-column&quot;</span>)]
+    </span><span class="kw">fn </span>connect_tooltip_column_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_tooltip_column_trampoline&lt;
             P: IsA&lt;IconView&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -7987,6 +7569,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;IconView&gt;&gt; IconViewExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>IconView {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

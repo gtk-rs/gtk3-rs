@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/popover.rs`."><title>popover.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/popover.rs`."><title>popover.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -2129,49 +2129,7 @@
 <a href="#2056" id="2056">2056</a>
 <a href="#2057" id="2057">2057</a>
 <a href="#2058" id="2058">2058</a>
-<a href="#2059" id="2059">2059</a>
-<a href="#2060" id="2060">2060</a>
-<a href="#2061" id="2061">2061</a>
-<a href="#2062" id="2062">2062</a>
-<a href="#2063" id="2063">2063</a>
-<a href="#2064" id="2064">2064</a>
-<a href="#2065" id="2065">2065</a>
-<a href="#2066" id="2066">2066</a>
-<a href="#2067" id="2067">2067</a>
-<a href="#2068" id="2068">2068</a>
-<a href="#2069" id="2069">2069</a>
-<a href="#2070" id="2070">2070</a>
-<a href="#2071" id="2071">2071</a>
-<a href="#2072" id="2072">2072</a>
-<a href="#2073" id="2073">2073</a>
-<a href="#2074" id="2074">2074</a>
-<a href="#2075" id="2075">2075</a>
-<a href="#2076" id="2076">2076</a>
-<a href="#2077" id="2077">2077</a>
-<a href="#2078" id="2078">2078</a>
-<a href="#2079" id="2079">2079</a>
-<a href="#2080" id="2080">2080</a>
-<a href="#2081" id="2081">2081</a>
-<a href="#2082" id="2082">2082</a>
-<a href="#2083" id="2083">2083</a>
-<a href="#2084" id="2084">2084</a>
-<a href="#2085" id="2085">2085</a>
-<a href="#2086" id="2086">2086</a>
-<a href="#2087" id="2087">2087</a>
-<a href="#2088" id="2088">2088</a>
-<a href="#2089" id="2089">2089</a>
-<a href="#2090" id="2090">2090</a>
-<a href="#2091" id="2091">2091</a>
-<a href="#2092" id="2092">2092</a>
-<a href="#2093" id="2093">2093</a>
-<a href="#2094" id="2094">2094</a>
-<a href="#2095" id="2095">2095</a>
-<a href="#2096" id="2096">2096</a>
-<a href="#2097" id="2097">2097</a>
-<a href="#2098" id="2098">2098</a>
-<a href="#2099" id="2099">2099</a>
-<a href="#2100" id="2100">2100</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
@@ -3824,7 +3782,7 @@
 /// # Implementors
 ///
 /// [`PopoverMenu`][struct@crate::PopoverMenu], [`Popover`][struct@crate::Popover]
-</span><span class="kw">pub trait </span>PopoverExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>PopoverExt: IsA&lt;Popover&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Establishes a binding between a [`Popover`][crate::Popover] and a [`gio::MenuModel`][crate::gio::MenuModel].
     ///
     /// The contents of `self` are removed and then refilled with menu items
@@ -3855,7 +3813,15 @@
     /// ## `action_namespace`
     /// the namespace for actions in `model`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_bind_model&quot;</span>)]
-    </span><span class="kw">fn </span>bind_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::MenuModel&gt;&gt;, action_namespace: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;);
+    </span><span class="kw">fn </span>bind_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::MenuModel&gt;&gt;, action_namespace: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+        <span class="kw">unsafe </span>{
+            ffi::gtk_popover_bind_model(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                model.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                action_namespace.to_glib_none().<span class="number">0</span>,
+            );
+        }
+    }
 
     <span class="doccomment">/// Returns the constraint for placing this popover.
     /// See [`set_constrain_to()`][Self::set_constrain_to()].
@@ -3865,7 +3831,13 @@
     /// the constraint for placing this popover.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_constrain_to&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_constrain_to&quot;</span>)]
-    </span><span class="kw">fn </span>constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PopoverConstraint;
+    </span><span class="kw">fn </span>constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PopoverConstraint {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_popover_get_constrain_to(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the widget that should be set as the default while
     /// the popover is shown.
@@ -3876,7 +3848,13 @@
     /// or [`None`] if there is none
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_default_widget&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_widget&quot;</span>)]
-    </span><span class="kw">fn </span>default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
+    </span><span class="kw">fn </span>default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_popover_get_default_widget(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the popover is modal, see gtk_popover_set_modal to
     /// see the implications of this.
@@ -3886,7 +3864,9 @@
     /// [`true`] if `self` is modal
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_modal&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_modal&quot;</span>)]
-    </span><span class="kw">fn </span>is_modal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
+    </span><span class="kw">fn </span>is_modal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_popover_get_modal(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    }
 
     <span class="doccomment">/// If a rectangle to point to has been set, this function will
     /// return [`true`] and fill in `rect` with such rectangle, otherwise
@@ -3901,149 +3881,7 @@
     /// location to store the rectangle
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_pointing_to&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_pointing_to&quot;</span>)]
-    </span><span class="kw">fn </span>pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt;;
-
-    <span class="doccomment">/// Returns the preferred position of `self`.
-    ///
-    /// # Returns
-    ///
-    /// The preferred position.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_position&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_position&quot;</span>)]
-    </span><span class="kw">fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType;
-
-    <span class="doccomment">/// Returns the widget `self` is currently attached to
-    ///
-    /// # Returns
-    ///
-    /// a [`Widget`][crate::Widget]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_relative_to&quot;</span>)]
-    #[doc(alias = <span class="string">&quot;get_relative_to&quot;</span>)]
-    </span><span class="kw">fn </span>relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt;;
-
-    <span class="doccomment">/// Pops `self` down.This is different than a [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] call
-    /// in that it shows the popover with a transition. If you want to hide
-    /// the popover without a transition, use [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_popdown&quot;</span>)]
-    </span><span class="kw">fn </span>popdown(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Pops `self` up. This is different than a [`WidgetExt::show()`][crate::prelude::WidgetExt::show()] call
-    /// in that it shows the popover with a transition. If you want to show
-    /// the popover without a transition, use [`WidgetExt::show()`][crate::prelude::WidgetExt::show()].
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_popup&quot;</span>)]
-    </span><span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>);
-
-    <span class="doccomment">/// Sets a constraint for positioning this popover.
-    ///
-    /// Note that not all platforms support placing popovers freely,
-    /// and may already impose constraints.
-    /// ## `constraint`
-    /// the new constraint
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_constrain_to&quot;</span>)]
-    </span><span class="kw">fn </span>set_constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>, constraint: PopoverConstraint);
-
-    <span class="doccomment">/// Sets the widget that should be set as default widget while
-    /// the popover is shown (see [`GtkWindowExt::set_default()`][crate::prelude::GtkWindowExt::set_default()]). [`Popover`][crate::Popover]
-    /// remembers the previous default widget and reestablishes it
-    /// when the popover is dismissed.
-    /// ## `widget`
-    /// the new default widget, or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_default_widget&quot;</span>)]
-    </span><span class="kw">fn </span>set_default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
-
-    <span class="doccomment">/// Sets whether `self` is modal, a modal popover will grab all input
-    /// within the toplevel and grab the keyboard focus on it when being
-    /// displayed. Clicking outside the popover area or pressing Esc will
-    /// dismiss the popover and ungrab input.
-    /// ## `modal`
-    /// [`true`] to make popover claim all input within the toplevel
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_modal&quot;</span>)]
-    </span><span class="kw">fn </span>set_modal(<span class="kw-2">&amp;</span><span class="self">self</span>, modal: bool);
-
-    <span class="doccomment">/// Sets the rectangle that `self` will point to, in the
-    /// coordinate space of the widget `self` is attached to,
-    /// see [`set_relative_to()`][Self::set_relative_to()].
-    /// ## `rect`
-    /// rectangle to point to
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_pointing_to&quot;</span>)]
-    </span><span class="kw">fn </span>set_pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>, rect: <span class="kw-2">&amp;</span>gdk::Rectangle);
-
-    <span class="doccomment">/// Sets the preferred position for `self` to appear. If the `self`
-    /// is currently visible, it will be immediately updated.
-    ///
-    /// This preference will be respected where possible, although
-    /// on lack of space (eg. if close to the window edges), the
-    /// [`Popover`][crate::Popover] may choose to appear on the opposite side
-    /// ## `position`
-    /// preferred popover position
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_position&quot;</span>)]
-    </span><span class="kw">fn </span>set_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType);
-
-    <span class="doccomment">/// Sets a new widget to be attached to `self`. If `self` is
-    /// visible, the position will be updated.
-    ///
-    /// Note: the ownership of popovers is always given to their `relative_to`
-    /// widget, so if `relative_to` is set to [`None`] on an attached `self`, it
-    /// will be detached from its previous widget, and consequently destroyed
-    /// unless extra references are kept.
-    /// ## `relative_to`
-    /// a [`Widget`][crate::Widget]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_relative_to&quot;</span>)]
-    </span><span class="kw">fn </span>set_relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>, relative_to: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;);
-
-    <span class="doccomment">/// This signal is emitted when the popover is dismissed either through
-    /// API or user interaction.
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;closed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_closed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;constrain-to&quot;</span>)]
-    </span><span class="kw">fn </span>connect_constrain_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;modal&quot;</span>)]
-    </span><span class="kw">fn </span>connect_modal_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;pointing-to&quot;</span>)]
-    </span><span class="kw">fn </span>connect_pointing_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;position&quot;</span>)]
-    </span><span class="kw">fn </span>connect_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;relative-to&quot;</span>)]
-    </span><span class="kw">fn </span>connect_relative_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;Popover&gt;&gt; PopoverExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>bind_model(<span class="kw-2">&amp;</span><span class="self">self</span>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::MenuModel&gt;&gt;, action_namespace: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        <span class="kw">unsafe </span>{
-            ffi::gtk_popover_bind_model(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                model.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                action_namespace.to_glib_none().<span class="number">0</span>,
-            );
-        }
-    }
-
-    <span class="kw">fn </span>constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PopoverConstraint {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_popover_get_constrain_to(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_popover_get_default_widget(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>is_modal(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_popover_get_modal(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
-    }
-
-    <span class="kw">fn </span>pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt; {
+    </span><span class="kw">fn </span>pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>rect = gdk::Rectangle::uninitialized();
             <span class="kw">let </span>ret = from_glib(ffi::gtk_popover_get_pointing_to(
@@ -4058,7 +3896,14 @@
         }
     }
 
-    <span class="kw">fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
+    <span class="doccomment">/// Returns the preferred position of `self`.
+    ///
+    /// # Returns
+    ///
+    /// The preferred position.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_position&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_position&quot;</span>)]
+    </span><span class="kw">fn </span>position(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PositionType {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_popover_get_position(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4066,7 +3911,14 @@
         }
     }
 
-    <span class="kw">fn </span>relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+    <span class="doccomment">/// Returns the widget `self` is currently attached to
+    ///
+    /// # Returns
+    ///
+    /// a [`Widget`][crate::Widget]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_get_relative_to&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_relative_to&quot;</span>)]
+    </span><span class="kw">fn </span>relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gtk_popover_get_relative_to(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4074,19 +3926,34 @@
         }
     }
 
-    <span class="kw">fn </span>popdown(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Pops `self` down.This is different than a [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()] call
+    /// in that it shows the popover with a transition. If you want to hide
+    /// the popover without a transition, use [`WidgetExt::hide()`][crate::prelude::WidgetExt::hide()].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_popdown&quot;</span>)]
+    </span><span class="kw">fn </span>popdown(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_popdown(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="doccomment">/// Pops `self` up. This is different than a [`WidgetExt::show()`][crate::prelude::WidgetExt::show()] call
+    /// in that it shows the popover with a transition. If you want to show
+    /// the popover without a transition, use [`WidgetExt::show()`][crate::prelude::WidgetExt::show()].
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_popup&quot;</span>)]
+    </span><span class="kw">fn </span>popup(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_popup(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>, constraint: PopoverConstraint) {
+    <span class="doccomment">/// Sets a constraint for positioning this popover.
+    ///
+    /// Note that not all platforms support placing popovers freely,
+    /// and may already impose constraints.
+    /// ## `constraint`
+    /// the new constraint
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_constrain_to&quot;</span>)]
+    </span><span class="kw">fn </span>set_constrain_to(<span class="kw-2">&amp;</span><span class="self">self</span>, constraint: PopoverConstraint) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_constrain_to(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4095,7 +3962,14 @@
         }
     }
 
-    <span class="kw">fn </span>set_default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+    <span class="doccomment">/// Sets the widget that should be set as default widget while
+    /// the popover is shown (see [`GtkWindowExt::set_default()`][crate::prelude::GtkWindowExt::set_default()]). [`Popover`][crate::Popover]
+    /// remembers the previous default widget and reestablishes it
+    /// when the popover is dismissed.
+    /// ## `widget`
+    /// the new default widget, or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_default_widget&quot;</span>)]
+    </span><span class="kw">fn </span>set_default_widget(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_default_widget(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4104,25 +3978,57 @@
         }
     }
 
-    <span class="kw">fn </span>set_modal(<span class="kw-2">&amp;</span><span class="self">self</span>, modal: bool) {
+    <span class="doccomment">/// Sets whether `self` is modal, a modal popover will grab all input
+    /// within the toplevel and grab the keyboard focus on it when being
+    /// displayed. Clicking outside the popover area or pressing Esc will
+    /// dismiss the popover and ungrab input.
+    /// ## `modal`
+    /// [`true`] to make popover claim all input within the toplevel
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_modal&quot;</span>)]
+    </span><span class="kw">fn </span>set_modal(<span class="kw-2">&amp;</span><span class="self">self</span>, modal: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_modal(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, modal.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>, rect: <span class="kw-2">&amp;</span>gdk::Rectangle) {
+    <span class="doccomment">/// Sets the rectangle that `self` will point to, in the
+    /// coordinate space of the widget `self` is attached to,
+    /// see [`set_relative_to()`][Self::set_relative_to()].
+    /// ## `rect`
+    /// rectangle to point to
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_pointing_to&quot;</span>)]
+    </span><span class="kw">fn </span>set_pointing_to(<span class="kw-2">&amp;</span><span class="self">self</span>, rect: <span class="kw-2">&amp;</span>gdk::Rectangle) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_pointing_to(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, rect.to_glib_none().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType) {
+    <span class="doccomment">/// Sets the preferred position for `self` to appear. If the `self`
+    /// is currently visible, it will be immediately updated.
+    ///
+    /// This preference will be respected where possible, although
+    /// on lack of space (eg. if close to the window edges), the
+    /// [`Popover`][crate::Popover] may choose to appear on the opposite side
+    /// ## `position`
+    /// preferred popover position
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_position&quot;</span>)]
+    </span><span class="kw">fn </span>set_position(<span class="kw-2">&amp;</span><span class="self">self</span>, position: PositionType) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_position(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, position.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>, relative_to: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+    <span class="doccomment">/// Sets a new widget to be attached to `self`. If `self` is
+    /// visible, the position will be updated.
+    ///
+    /// Note: the ownership of popovers is always given to their `relative_to`
+    /// widget, so if `relative_to` is set to [`None`] on an attached `self`, it
+    /// will be detached from its previous widget, and consequently destroyed
+    /// unless extra references are kept.
+    /// ## `relative_to`
+    /// a [`Widget`][crate::Widget]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_popover_set_relative_to&quot;</span>)]
+    </span><span class="kw">fn </span>set_relative_to(<span class="kw-2">&amp;</span><span class="self">self</span>, relative_to: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_popover_set_relative_to(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -4131,7 +4037,10 @@
         }
     }
 
-    <span class="kw">fn </span>connect_closed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// This signal is emitted when the popover is dismissed either through
+    /// API or user interaction.
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;closed&quot;</span>)]
+    </span><span class="kw">fn </span>connect_closed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>closed_trampoline&lt;P: IsA&lt;Popover&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPopover,
             f: glib::ffi::gpointer,
@@ -4152,7 +4061,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_constrain_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;constrain-to&quot;</span>)]
+    </span><span class="kw">fn </span>connect_constrain_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_constrain_to_trampoline&lt;
             P: IsA&lt;Popover&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -4177,7 +4087,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_modal_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;modal&quot;</span>)]
+    </span><span class="kw">fn </span>connect_modal_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_modal_trampoline&lt;P: IsA&lt;Popover&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -4199,7 +4110,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_pointing_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;pointing-to&quot;</span>)]
+    </span><span class="kw">fn </span>connect_pointing_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_pointing_to_trampoline&lt;P: IsA&lt;Popover&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -4221,7 +4133,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;position&quot;</span>)]
+    </span><span class="kw">fn </span>connect_position_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_position_trampoline&lt;P: IsA&lt;Popover&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -4243,7 +4156,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_relative_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;relative-to&quot;</span>)]
+    </span><span class="kw">fn </span>connect_relative_to_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_relative_to_trampoline&lt;P: IsA&lt;Popover&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkPopover,
             _param_spec: glib::ffi::gpointer,
@@ -4265,6 +4179,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;Popover&gt;&gt; PopoverExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>Popover {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {

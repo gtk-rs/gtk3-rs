@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/font_chooser.rs`."><title>font_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c4dbdcde0fbd8430.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (a266f1199 2023-03-22)" data-search-js="search-a6dd7f063a44c279.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-9184409068f70b79.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f5a2577c5297a973.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/font_chooser.rs`."><title>font_chooser.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ba5701c5741a7b69.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (87b1f891e 2023-04-29)" data-search-js="search-618e954b235f6acc.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.17" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.17") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -772,85 +772,12 @@
 <a href="#699" id="699">699</a>
 <a href="#700" id="700">700</a>
 <a href="#701" id="701">701</a>
-<a href="#702" id="702">702</a>
-<a href="#703" id="703">703</a>
-<a href="#704" id="704">704</a>
-<a href="#705" id="705">705</a>
-<a href="#706" id="706">706</a>
-<a href="#707" id="707">707</a>
-<a href="#708" id="708">708</a>
-<a href="#709" id="709">709</a>
-<a href="#710" id="710">710</a>
-<a href="#711" id="711">711</a>
-<a href="#712" id="712">712</a>
-<a href="#713" id="713">713</a>
-<a href="#714" id="714">714</a>
-<a href="#715" id="715">715</a>
-<a href="#716" id="716">716</a>
-<a href="#717" id="717">717</a>
-<a href="#718" id="718">718</a>
-<a href="#719" id="719">719</a>
-<a href="#720" id="720">720</a>
-<a href="#721" id="721">721</a>
-<a href="#722" id="722">722</a>
-<a href="#723" id="723">723</a>
-<a href="#724" id="724">724</a>
-<a href="#725" id="725">725</a>
-<a href="#726" id="726">726</a>
-<a href="#727" id="727">727</a>
-<a href="#728" id="728">728</a>
-<a href="#729" id="729">729</a>
-<a href="#730" id="730">730</a>
-<a href="#731" id="731">731</a>
-<a href="#732" id="732">732</a>
-<a href="#733" id="733">733</a>
-<a href="#734" id="734">734</a>
-<a href="#735" id="735">735</a>
-<a href="#736" id="736">736</a>
-<a href="#737" id="737">737</a>
-<a href="#738" id="738">738</a>
-<a href="#739" id="739">739</a>
-<a href="#740" id="740">740</a>
-<a href="#741" id="741">741</a>
-<a href="#742" id="742">742</a>
-<a href="#743" id="743">743</a>
-<a href="#744" id="744">744</a>
-<a href="#745" id="745">745</a>
-<a href="#746" id="746">746</a>
-<a href="#747" id="747">747</a>
-<a href="#748" id="748">748</a>
-<a href="#749" id="749">749</a>
-<a href="#750" id="750">750</a>
-<a href="#751" id="751">751</a>
-<a href="#752" id="752">752</a>
-<a href="#753" id="753">753</a>
-<a href="#754" id="754">754</a>
-<a href="#755" id="755">755</a>
-<a href="#756" id="756">756</a>
-<a href="#757" id="757">757</a>
-<a href="#758" id="758">758</a>
-<a href="#759" id="759">759</a>
-<a href="#760" id="760">760</a>
-<a href="#761" id="761">761</a>
-<a href="#762" id="762">762</a>
-<a href="#763" id="763">763</a>
-<a href="#764" id="764">764</a>
-<a href="#765" id="765">765</a>
-<a href="#766" id="766">766</a>
-<a href="#767" id="767">767</a>
-<a href="#768" id="768">768</a>
-<a href="#769" id="769">769</a>
-<a href="#770" id="770">770</a>
-<a href="#771" id="771">771</a>
-<a href="#772" id="772">772</a>
-<a href="#773" id="773">773</a>
-<a href="#774" id="774">774</a>
-</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-#[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+</span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
 </span><span class="kw">use </span><span class="kw">crate</span>::FontChooserLevel;
 <span class="kw">use </span>glib::{
     prelude::<span class="kw-2">*</span>,
@@ -944,7 +871,7 @@
 /// # Implementors
 ///
 /// [`FontButton`][struct@crate::FontButton], [`FontChooserDialog`][struct@crate::FontChooserDialog], [`FontChooserWidget`][struct@crate::FontChooserWidget], [`FontChooser`][struct@crate::FontChooser]
-</span><span class="kw">pub trait </span>FontChooserExt: <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>FontChooserExt: IsA&lt;FontChooser&gt; + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Gets the currently-selected font name.
     ///
     /// Note that this can be a different string than what you set with
@@ -963,7 +890,13 @@
     ///  free this string with `g_free()`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font&quot;</span>)]
-    </span><span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_font(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the currently-selected font.
     ///
@@ -982,7 +915,13 @@
     ///  current font, or [`None`] if no font is selected.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_desc&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_desc&quot;</span>)]
-    </span><span class="kw">fn </span>font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontDescription&gt;;
+    </span><span class="kw">fn </span>font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontDescription&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_font_desc(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the [`pango::FontFace`][crate::pango::FontFace] representing the selected font group
     /// details (i.e. family, slant, weight, width, etc).
@@ -996,7 +935,13 @@
     ///  `self` and must not be modified or freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_face&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_face&quot;</span>)]
-    </span><span class="kw">fn </span>font_face(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFace&gt;;
+    </span><span class="kw">fn </span>font_face(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFace&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_font_chooser_get_font_face(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the [`pango::FontFamily`][crate::pango::FontFamily] representing the selected font family.
     /// Font families are a collection of font faces.
@@ -1010,18 +955,30 @@
     ///  and must not be modified or freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_family&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_family&quot;</span>)]
-    </span><span class="kw">fn </span>font_family(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFamily&gt;;
+    </span><span class="kw">fn </span>font_family(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFamily&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_none(ffi::gtk_font_chooser_get_font_family(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the currently-selected font features.
     ///
     /// # Returns
     ///
     /// the currently selected font features
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_features&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_features&quot;</span>)]
-    </span><span class="kw">fn </span>font_features(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>font_features(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_font_features(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the custom font map of this font chooser widget,
     /// or [`None`] if it does not have one.
@@ -1031,7 +988,13 @@
     /// a [`pango::FontMap`][crate::pango::FontMap], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_map&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_map&quot;</span>)]
-    </span><span class="kw">fn </span>font_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontMap&gt;;
+    </span><span class="kw">fn </span>font_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontMap&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_font_map(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// The selected font size.
     ///
@@ -1041,29 +1004,43 @@
     ///  or -1 if no font size is selected.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_font_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_font_size&quot;</span>)]
-    </span><span class="kw">fn </span>font_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32;
+    </span><span class="kw">fn </span>font_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+        <span class="kw">unsafe </span>{ ffi::gtk_font_chooser_get_font_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    }
 
     <span class="doccomment">/// Gets the language that is used for font features.
     ///
     /// # Returns
     ///
     /// the currently selected language
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk_font_chooser_get_language&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_language&quot;</span>)]
-    </span><span class="kw">fn </span>language(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>language(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_language(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns the current level of granularity for selecting fonts.
     ///
     /// # Returns
     ///
     /// the current granularity level
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gtk_font_chooser_get_level&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_level&quot;</span>)]
-    </span><span class="kw">fn </span>level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FontChooserLevel;
+    </span><span class="kw">fn </span>level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FontChooserLevel {
+        <span class="kw">unsafe </span>{
+            from_glib(ffi::gtk_font_chooser_get_level(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Gets the text displayed in the preview area.
     ///
@@ -1073,7 +1050,13 @@
     ///  preview area
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_preview_text&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_preview_text&quot;</span>)]
-    </span><span class="kw">fn </span>preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt;;
+    </span><span class="kw">fn </span>preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::gtk_font_chooser_get_preview_text(
+                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            ))
+        }
+    }
 
     <span class="doccomment">/// Returns whether the preview entry is shown or not.
     ///
@@ -1083,214 +1066,7 @@
     ///  or [`false`] if it is hidden.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_get_show_preview_entry&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_show_preview_entry&quot;</span>)]
-    </span><span class="kw">fn </span>shows_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool;
-
-    <span class="doccomment">/// Adds a filter function that decides which fonts to display
-    /// in the font chooser.
-    /// ## `filter`
-    /// a `GtkFontFilterFunc`, or [`None`]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_filter_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_filter_func(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        filter: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>pango::FontFamily, <span class="kw-2">&amp;</span>pango::FontFace) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;,
-    );
-
-    <span class="doccomment">/// Sets the currently-selected font.
-    /// ## `fontname`
-    /// a font name like “Helvetica 12” or “Times Bold 18”
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font&quot;</span>)]
-    </span><span class="kw">fn </span>set_font(<span class="kw-2">&amp;</span><span class="self">self</span>, fontname: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets the currently-selected font from `font_desc`.
-    /// ## `font_desc`
-    /// a [`pango::FontDescription`][crate::pango::FontDescription]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font_desc&quot;</span>)]
-    </span><span class="kw">fn </span>set_font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription);
-
-    <span class="doccomment">/// Sets a custom font map to use for this font chooser widget.
-    /// A custom font map can be used to present application-specific
-    /// fonts instead of or in addition to the normal system fonts.
-    ///
-    ///
-    ///
-    /// **⚠️ The following code is in C ⚠️**
-    ///
-    /// ```C
-    /// FcConfig *config;
-    /// PangoFontMap *fontmap;
-    ///
-    /// config = FcInitLoadConfigAndFonts ();
-    /// FcConfigAppFontAddFile (config, my_app_font_file);
-    ///
-    /// fontmap = pango_cairo_font_map_new_for_font_type (CAIRO_FONT_TYPE_FT);
-    /// pango_fc_font_map_set_config (PANGO_FC_FONT_MAP (fontmap), config);
-    ///
-    /// gtk_font_chooser_set_font_map (font_chooser, fontmap);
-    /// ```
-    ///
-    /// Note that other GTK+ widgets will only be able to use the application-specific
-    /// font if it is present in the font map they use:
-    ///
-    ///
-    /// ```text
-    /// context = gtk_widget_get_pango_context (label);
-    /// pango_context_set_font_map (context, fontmap);
-    /// ```
-    /// ## `fontmap`
-    /// a [`pango::FontMap`][crate::pango::FontMap]
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font_map&quot;</span>)]
-    </span><span class="kw">fn </span>set_font_map(<span class="kw-2">&amp;</span><span class="self">self</span>, fontmap: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;pango::FontMap&gt;&gt;);
-
-    <span class="doccomment">/// Sets the language to use for font features.
-    /// ## `language`
-    /// a language
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;gtk_font_chooser_set_language&quot;</span>)]
-    </span><span class="kw">fn </span>set_language(<span class="kw-2">&amp;</span><span class="self">self</span>, language: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Sets the desired level of granularity for selecting fonts.
-    /// ## `level`
-    /// the desired level of granularity
-    </span><span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;gtk_font_chooser_set_level&quot;</span>)]
-    </span><span class="kw">fn </span>set_level(<span class="kw-2">&amp;</span><span class="self">self</span>, level: FontChooserLevel);
-
-    <span class="doccomment">/// Sets the text displayed in the preview area.
-    /// The `text` is used to show how the selected font looks.
-    /// ## `text`
-    /// the text to display in the preview area
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_preview_text&quot;</span>)]
-    </span><span class="kw">fn </span>set_preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str);
-
-    <span class="doccomment">/// Shows or hides the editable preview entry.
-    /// ## `show_preview_entry`
-    /// whether to show the editable preview entry or not
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_show_preview_entry&quot;</span>)]
-    </span><span class="kw">fn </span>set_show_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>, show_preview_entry: bool);
-
-    <span class="doccomment">/// Emitted when a font is activated.
-    /// This usually happens when the user double clicks an item,
-    /// or an item is selected and the user presses one of the keys
-    /// Space, Shift+Space, Return or Enter.
-    /// ## `fontname`
-    /// the font name
-    </span><span class="attr">#[doc(alias = <span class="string">&quot;font-activated&quot;</span>)]
-    </span><span class="kw">fn </span>connect_font_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;font&quot;</span>)]
-    </span><span class="kw">fn </span>connect_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
-    </span><span class="kw">fn </span>connect_font_desc_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;font-features&quot;</span>)]
-    </span><span class="kw">fn </span>connect_font_features_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;language&quot;</span>)]
-    </span><span class="kw">fn </span>connect_language_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    #[doc(alias = <span class="string">&quot;level&quot;</span>)]
-    </span><span class="kw">fn </span>connect_level_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;preview-text&quot;</span>)]
-    </span><span class="kw">fn </span>connect_preview_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-
-    <span class="attr">#[doc(alias = <span class="string">&quot;show-preview-entry&quot;</span>)]
-    </span><span class="kw">fn </span>connect_show_preview_entry_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId;
-}
-
-<span class="kw">impl</span>&lt;O: IsA&lt;FontChooser&gt;&gt; FontChooserExt <span class="kw">for </span>O {
-    <span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_font(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontDescription&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_font_desc(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>font_face(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFace&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_font_chooser_get_font_face(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>font_family(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontFamily&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_font_chooser_get_font_family(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">fn </span>font_features(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_font_features(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>font_map(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;pango::FontMap&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_font_map(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>font_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_font_chooser_get_font_size(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
-    }
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">fn </span>language(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_language(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">fn </span>level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FontChooserLevel {
-        <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_font_chooser_get_level(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{
-            from_glib_full(ffi::gtk_font_chooser_get_preview_text(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-            ))
-        }
-    }
-
-    <span class="kw">fn </span>shows_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    </span><span class="kw">fn </span>shows_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gtk_font_chooser_get_show_preview_entry(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1298,7 +1074,12 @@
         }
     }
 
-    <span class="kw">fn </span>set_filter_func(
+    <span class="doccomment">/// Adds a filter function that decides which fonts to display
+    /// in the font chooser.
+    /// ## `filter`
+    /// a `GtkFontFilterFunc`, or [`None`]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_filter_func&quot;</span>)]
+    </span><span class="kw">fn </span>set_filter_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         filter: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>pango::FontFamily, <span class="kw-2">&amp;</span>pango::FontFace) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
@@ -1346,7 +1127,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_font(<span class="kw-2">&amp;</span><span class="self">self</span>, fontname: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets the currently-selected font.
+    /// ## `fontname`
+    /// a font name like “Helvetica 12” or “Times Bold 18”
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font&quot;</span>)]
+    </span><span class="kw">fn </span>set_font(<span class="kw-2">&amp;</span><span class="self">self</span>, fontname: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_font(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1355,7 +1140,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription) {
+    <span class="doccomment">/// Sets the currently-selected font from `font_desc`.
+    /// ## `font_desc`
+    /// a [`pango::FontDescription`][crate::pango::FontDescription]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font_desc&quot;</span>)]
+    </span><span class="kw">fn </span>set_font_desc(<span class="kw-2">&amp;</span><span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_font_desc(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1364,7 +1153,39 @@
         }
     }
 
-    <span class="kw">fn </span>set_font_map(<span class="kw-2">&amp;</span><span class="self">self</span>, fontmap: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;pango::FontMap&gt;&gt;) {
+    <span class="doccomment">/// Sets a custom font map to use for this font chooser widget.
+    /// A custom font map can be used to present application-specific
+    /// fonts instead of or in addition to the normal system fonts.
+    ///
+    ///
+    ///
+    /// **⚠️ The following code is in C ⚠️**
+    ///
+    /// ```C
+    /// FcConfig *config;
+    /// PangoFontMap *fontmap;
+    ///
+    /// config = FcInitLoadConfigAndFonts ();
+    /// FcConfigAppFontAddFile (config, my_app_font_file);
+    ///
+    /// fontmap = pango_cairo_font_map_new_for_font_type (CAIRO_FONT_TYPE_FT);
+    /// pango_fc_font_map_set_config (PANGO_FC_FONT_MAP (fontmap), config);
+    ///
+    /// gtk_font_chooser_set_font_map (font_chooser, fontmap);
+    /// ```
+    ///
+    /// Note that other GTK+ widgets will only be able to use the application-specific
+    /// font if it is present in the font map they use:
+    ///
+    ///
+    /// ```text
+    /// context = gtk_widget_get_pango_context (label);
+    /// pango_context_set_font_map (context, fontmap);
+    /// ```
+    /// ## `fontmap`
+    /// a [`pango::FontMap`][crate::pango::FontMap]
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_font_map&quot;</span>)]
+    </span><span class="kw">fn </span>set_font_map(<span class="kw-2">&amp;</span><span class="self">self</span>, fontmap: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;pango::FontMap&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_font_map(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1373,8 +1194,12 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    <span class="doccomment">/// Sets the language to use for font features.
+    /// ## `language`
+    /// a language
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;gtk_font_chooser_set_language&quot;</span>)]
     </span><span class="kw">fn </span>set_language(<span class="kw-2">&amp;</span><span class="self">self</span>, language: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_language(
@@ -1384,15 +1209,24 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    <span class="doccomment">/// Sets the desired level of granularity for selecting fonts.
+    /// ## `level`
+    /// the desired level of granularity
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;gtk_font_chooser_set_level&quot;</span>)]
     </span><span class="kw">fn </span>set_level(<span class="kw-2">&amp;</span><span class="self">self</span>, level: FontChooserLevel) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_level(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, level.into_glib());
         }
     }
 
-    <span class="kw">fn </span>set_preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
+    <span class="doccomment">/// Sets the text displayed in the preview area.
+    /// The `text` is used to show how the selected font looks.
+    /// ## `text`
+    /// the text to display in the preview area
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_preview_text&quot;</span>)]
+    </span><span class="kw">fn </span>set_preview_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span>str) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_preview_text(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1401,7 +1235,11 @@
         }
     }
 
-    <span class="kw">fn </span>set_show_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>, show_preview_entry: bool) {
+    <span class="doccomment">/// Shows or hides the editable preview entry.
+    /// ## `show_preview_entry`
+    /// whether to show the editable preview entry or not
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_font_chooser_set_show_preview_entry&quot;</span>)]
+    </span><span class="kw">fn </span>set_show_preview_entry(<span class="kw-2">&amp;</span><span class="self">self</span>, show_preview_entry: bool) {
         <span class="kw">unsafe </span>{
             ffi::gtk_font_chooser_set_show_preview_entry(
                 <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
@@ -1410,7 +1248,14 @@
         }
     }
 
-    <span class="kw">fn </span>connect_font_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="doccomment">/// Emitted when a font is activated.
+    /// This usually happens when the user double clicks an item,
+    /// or an item is selected and the user presses one of the keys
+    /// Space, Shift+Space, Return or Enter.
+    /// ## `fontname`
+    /// the font name
+    </span><span class="attr">#[doc(alias = <span class="string">&quot;font-activated&quot;</span>)]
+    </span><span class="kw">fn </span>connect_font_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>font_activated_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str) + <span class="lifetime">&#39;static</span>,
@@ -1438,7 +1283,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;font&quot;</span>)]
+    </span><span class="kw">fn </span>connect_font_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_font_trampoline&lt;P: IsA&lt;FontChooser&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontChooser,
             _param_spec: glib::ffi::gpointer,
@@ -1460,7 +1306,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_font_desc_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;font-desc&quot;</span>)]
+    </span><span class="kw">fn </span>connect_font_desc_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_font_desc_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1485,8 +1332,9 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;font-features&quot;</span>)]
     </span><span class="kw">fn </span>connect_font_features_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_font_features_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
@@ -1512,8 +1360,9 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;language&quot;</span>)]
     </span><span class="kw">fn </span>connect_language_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_language_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
@@ -1539,8 +1388,9 @@
         }
     }
 
-    <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, feature = <span class="string">&quot;dox&quot;</span>))]
-    #[cfg_attr(feature = <span class="string">&quot;dox&quot;</span>, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
+    #[doc(alias = <span class="string">&quot;level&quot;</span>)]
     </span><span class="kw">fn </span>connect_level_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_level_trampoline&lt;P: IsA&lt;FontChooser&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GtkFontChooser,
@@ -1563,7 +1413,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_preview_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;preview-text&quot;</span>)]
+    </span><span class="kw">fn </span>connect_preview_text_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_preview_text_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1588,7 +1439,8 @@
         }
     }
 
-    <span class="kw">fn </span>connect_show_preview_entry_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    <span class="attr">#[doc(alias = <span class="string">&quot;show-preview-entry&quot;</span>)]
+    </span><span class="kw">fn </span>connect_show_preview_entry_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_show_preview_entry_trampoline&lt;
             P: IsA&lt;FontChooser&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1613,6 +1465,8 @@
         }
     }
 }
+
+<span class="kw">impl</span>&lt;O: IsA&lt;FontChooser&gt;&gt; FontChooserExt <span class="kw">for </span>O {}
 
 <span class="kw">impl </span>fmt::Display <span class="kw">for </span>FontChooser {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
