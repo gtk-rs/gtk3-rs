@@ -40,20 +40,9 @@ pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
 }
 
 pub trait IconViewImplExt: ObjectSubclass {
-    fn parent_item_activated(&self, path: &TreePath);
-    fn parent_selection_changed(&self);
-    fn parent_select_all(&self);
-    fn parent_unselect_all(&self);
-    fn parent_select_cursor_item(&self);
-    fn parent_toggle_cursor_item(&self);
-    fn parent_move_cursor(&self, step: MovementStep, count: i32) -> bool;
-    fn parent_activate_cursor_item(&self) -> bool;
-}
-
-impl<T: IconViewImpl> IconViewImplExt for T {
     fn parent_item_activated(&self, path: &TreePath) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).item_activated {
                 f(
@@ -63,60 +52,54 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             }
         }
     }
-
     fn parent_selection_changed(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).selection_changed {
                 f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
-
     fn parent_select_all(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_all {
                 f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
-
     fn parent_unselect_all(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).unselect_all {
                 f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
-
     fn parent_select_cursor_item(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).select_cursor_item {
                 f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
-
     fn parent_toggle_cursor_item(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).toggle_cursor_item {
                 f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0)
             }
         }
     }
-
     fn parent_move_cursor(&self, step: MovementStep, count: i32) -> bool {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).move_cursor {
                 from_glib(f(
@@ -129,10 +112,9 @@ impl<T: IconViewImpl> IconViewImplExt for T {
             }
         }
     }
-
     fn parent_activate_cursor_item(&self) -> bool {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkIconViewClass;
             if let Some(f) = (*parent_class).activate_cursor_item {
                 from_glib(f(self.obj().unsafe_cast_ref::<IconView>().to_glib_none().0))
@@ -142,6 +124,8 @@ impl<T: IconViewImpl> IconViewImplExt for T {
         }
     }
 }
+
+impl<T: IconViewImpl> IconViewImplExt for T {}
 
 unsafe impl<T: IconViewImpl> IsSubclassable<T> for IconView {
     fn class_init(class: &mut ::glib::Class<Self>) {

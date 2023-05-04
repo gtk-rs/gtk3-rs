@@ -43,19 +43,9 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
 }
 
 pub trait ContainerImplExt: ObjectSubclass {
-    fn parent_add(&self, widget: &Widget);
-    fn parent_remove(&self, widget: &Widget);
-    fn parent_check_resize(&self);
-    fn parent_set_focus_child(&self, widget: Option<&Widget>);
-    fn parent_child_type(&self) -> glib::Type;
-    fn parent_path_for_child(&self, widget: &Widget) -> WidgetPath;
-    fn parent_forall(&self, include_internals: bool, callback: &Callback);
-}
-
-impl<T: ContainerImpl> ContainerImplExt for T {
     fn parent_add(&self, widget: &Widget) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).add {
                 f(
@@ -65,10 +55,9 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             }
         }
     }
-
     fn parent_remove(&self, widget: &Widget) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).remove {
                 f(
@@ -78,20 +67,18 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             }
         }
     }
-
     fn parent_check_resize(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).check_resize {
                 f(self.obj().unsafe_cast_ref::<Container>().to_glib_none().0)
             }
         }
     }
-
     fn parent_set_focus_child(&self, widget: Option<&Widget>) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).set_focus_child {
                 f(
@@ -101,10 +88,9 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             }
         }
     }
-
     fn parent_child_type(&self) -> glib::Type {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).child_type {
                 from_glib(f(self
@@ -117,10 +103,9 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             }
         }
     }
-
     fn parent_path_for_child(&self, widget: &Widget) -> WidgetPath {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             let f = (*parent_class)
                 .get_path_for_child
@@ -131,10 +116,9 @@ impl<T: ContainerImpl> ContainerImplExt for T {
             ))
         }
     }
-
     fn parent_forall(&self, include_internals: bool, callback: &Callback) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkContainerClass;
             if let Some(f) = (*parent_class).forall {
                 f(
@@ -147,6 +131,8 @@ impl<T: ContainerImpl> ContainerImplExt for T {
         }
     }
 }
+
+impl<T: ContainerImpl> ContainerImplExt for T {}
 
 unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
     fn class_init(class: &mut ::glib::Class<Self>) {

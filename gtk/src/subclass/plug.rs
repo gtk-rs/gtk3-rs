@@ -15,13 +15,9 @@ pub trait PlugImpl: PlugImplExt + WindowImpl {
 }
 
 pub trait PlugImplExt: ObjectSubclass {
-    fn parent_embedded(&self);
-}
-
-impl<T: PlugImpl> PlugImplExt for T {
     fn parent_embedded(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkPlugClass;
             if let Some(f) = (*parent_class).embedded {
                 f(self.obj().unsafe_cast_ref::<Plug>().to_glib_none().0)
@@ -29,6 +25,8 @@ impl<T: PlugImpl> PlugImplExt for T {
         }
     }
 }
+
+impl<T: PlugImpl> PlugImplExt for T {}
 
 unsafe impl<T: PlugImpl> IsSubclassable<T> for Plug {
     fn class_init(class: &mut ::glib::Class<Self>) {

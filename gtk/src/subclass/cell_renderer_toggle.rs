@@ -17,13 +17,9 @@ pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
 }
 
 pub trait CellRendererToggleImplExt: ObjectSubclass {
-    fn parent_toggled(&self, path: &str);
-}
-
-impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
     fn parent_toggled(&self, path: &str) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererToggleClass;
             if let Some(f) = (*parent_class).toggled {
                 f(
@@ -37,6 +33,8 @@ impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {
         }
     }
 }
+
+impl<T: CellRendererToggleImpl> CellRendererToggleImplExt for T {}
 
 unsafe impl<T: CellRendererToggleImpl> IsSubclassable<T> for CellRendererToggle {
     fn class_init(class: &mut ::glib::Class<Self>) {

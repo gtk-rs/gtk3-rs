@@ -22,14 +22,9 @@ pub trait ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
 }
 
 pub trait ScrolledWindowImplExt: ObjectSubclass {
-    fn parent_move_focus_out(&self, direction_type: DirectionType);
-    fn parent_scroll_child(&self, scroll: ScrollType, borizontal: bool) -> bool;
-}
-
-impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {
     fn parent_move_focus_out(&self, direction_type: DirectionType) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkScrolledWindowClass;
             if let Some(f) = (*parent_class).move_focus_out {
                 f(
@@ -42,10 +37,9 @@ impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {
             }
         }
     }
-
     fn parent_scroll_child(&self, scroll: ScrollType, horizontal: bool) -> bool {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkScrolledWindowClass;
             if let Some(f) = (*parent_class).scroll_child {
                 from_glib(f(
@@ -62,6 +56,8 @@ impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {
         }
     }
 }
+
+impl<T: ScrolledWindowImpl> ScrolledWindowImplExt for T {}
 
 unsafe impl<T: ScrolledWindowImpl> IsSubclassable<T> for ScrolledWindow {
     fn class_init(class: &mut ::glib::Class<Self>) {

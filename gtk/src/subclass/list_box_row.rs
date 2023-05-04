@@ -15,13 +15,9 @@ pub trait ListBoxRowImpl: ListBoxRowImplExt + BinImpl {
 }
 
 pub trait ListBoxRowImplExt: ObjectSubclass {
-    fn parent_activate(&self);
-}
-
-impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {
     fn parent_activate(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxRowClass;
             if let Some(f) = (*parent_class).activate {
                 f(self.obj().unsafe_cast_ref::<ListBoxRow>().to_glib_none().0)
@@ -29,6 +25,8 @@ impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {
         }
     }
 }
+
+impl<T: ListBoxRowImpl> ListBoxRowImplExt for T {}
 
 unsafe impl<T: ListBoxRowImpl> IsSubclassable<T> for ListBoxRow {
     fn class_init(class: &mut ::glib::Class<Self>) {

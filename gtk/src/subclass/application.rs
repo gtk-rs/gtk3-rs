@@ -22,14 +22,9 @@ pub trait GtkApplicationImpl:
 }
 
 pub trait GtkApplicationImplExt: ObjectSubclass {
-    fn parent_window_added(&self, window: &Window);
-    fn parent_window_removed(&self, window: &Window);
-}
-
-impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
     fn parent_window_added(&self, window: &Window) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_added {
                 f(
@@ -39,10 +34,9 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
             }
         }
     }
-
     fn parent_window_removed(&self, window: &Window) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkApplicationClass;
             if let Some(f) = (*parent_class).window_removed {
                 f(
@@ -53,6 +47,8 @@ impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {
         }
     }
 }
+
+impl<T: GtkApplicationImpl> GtkApplicationImplExt for T {}
 
 unsafe impl<T: GtkApplicationImpl> IsSubclassable<T> for Application {
     fn class_init(class: &mut ::glib::Class<Self>) {

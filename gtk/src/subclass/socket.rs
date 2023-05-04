@@ -21,24 +21,18 @@ pub trait SocketImpl: SocketImplExt + ContainerImpl {
 }
 
 pub trait SocketImplExt: ObjectSubclass {
-    fn parent_plug_added(&self);
-    fn parent_plug_removed(&self) -> Inhibit;
-}
-
-impl<T: SocketImpl> SocketImplExt for T {
     fn parent_plug_added(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_added {
                 f(self.obj().unsafe_cast_ref::<Socket>().to_glib_none().0)
             }
         }
     }
-
     fn parent_plug_removed(&self) -> Inhibit {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_removed {
                 Inhibit(from_glib(f(self
@@ -52,6 +46,8 @@ impl<T: SocketImpl> SocketImplExt for T {
         }
     }
 }
+
+impl<T: SocketImpl> SocketImplExt for T {}
 
 unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
     fn class_init(class: &mut ::glib::Class<Self>) {
