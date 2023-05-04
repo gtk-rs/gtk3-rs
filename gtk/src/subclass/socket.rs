@@ -20,7 +20,12 @@ pub trait SocketImpl: SocketImplExt + ContainerImpl {
     }
 }
 
-pub trait SocketImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::SocketImpl> Sealed for T {}
+}
+
+pub trait SocketImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_plug_added(&self) {
         unsafe {
             let data = Self::type_data();

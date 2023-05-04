@@ -4,7 +4,12 @@ use crate::Buildable;
 use glib::translate::*;
 use glib::IsA;
 
-pub trait BuildableExtManual: IsA<Buildable> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::Buildable>> Sealed for T {}
+}
+
+pub trait BuildableExtManual: IsA<Buildable> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_buildable_get_name")]
     #[doc(alias = "get_buildable_name")]
     fn buildable_name(&self) -> Option<String> {

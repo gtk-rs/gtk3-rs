@@ -42,7 +42,12 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
     }
 }
 
-pub trait ContainerImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ContainerImpl> Sealed for T {}
+}
+
+pub trait ContainerImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_add(&self, widget: &Widget) {
         unsafe {
             let data = Self::type_data();

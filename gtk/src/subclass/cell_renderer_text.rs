@@ -16,7 +16,12 @@ pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     }
 }
 
-pub trait CellRendererTextImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererTextImpl> Sealed for T {}
+}
+
+pub trait CellRendererTextImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_edited(&self, path: &str, new_text: &str) {
         unsafe {
             let data = Self::type_data();

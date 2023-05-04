@@ -21,7 +21,12 @@ pub trait ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
     }
 }
 
-pub trait ScrolledWindowImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ScrolledWindowImpl> Sealed for T {}
+}
+
+pub trait ScrolledWindowImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_move_focus_out(&self, direction_type: DirectionType) {
         unsafe {
             let data = Self::type_data();

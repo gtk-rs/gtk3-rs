@@ -12,7 +12,12 @@ use std::boxed::Box as Box_;
 use std::mem::transmute;
 use std::{slice, str};
 
-pub trait TextBufferExtManual: IsA<TextBuffer> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::TextBuffer>> Sealed for T {}
+}
+
+pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
     fn connect_apply_tag<F: Fn(&Self, &TextTag, &mut TextIter, &mut TextIter) + 'static>(
         &self,
         f: F,

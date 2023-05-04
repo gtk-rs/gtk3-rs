@@ -33,7 +33,12 @@ pub trait WindowImpl: WindowImplExt + BinImpl {
     }
 }
 
-pub trait WindowImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::WindowImpl> Sealed for T {}
+}
+
+pub trait WindowImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_set_focus(&self, focus: Option<&Widget>) {
         unsafe {
             let data = Self::type_data();

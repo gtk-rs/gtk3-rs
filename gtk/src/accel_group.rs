@@ -6,7 +6,12 @@ use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::ToValue;
 
-pub trait AccelGroupExtManual: IsA<AccelGroup> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::AccelGroup>> Sealed for T {}
+}
+
+pub trait AccelGroupExtManual: IsA<AccelGroup> + sealed::Sealed + 'static {
     fn connect_accel_group<F>(
         &self,
         accel_key: u32,

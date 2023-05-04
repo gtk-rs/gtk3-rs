@@ -161,7 +161,12 @@ impl Window {
     }
 }
 
-pub trait WindowExtManual: IsA<Window> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::Window>> Sealed for T {}
+}
+
+pub trait WindowExtManual: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "gdk_window_set_user_data")]
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
         ffi::gdk_window_set_user_data(

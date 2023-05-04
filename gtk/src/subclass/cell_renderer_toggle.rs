@@ -16,7 +16,12 @@ pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
     }
 }
 
-pub trait CellRendererToggleImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererToggleImpl> Sealed for T {}
+}
+
+pub trait CellRendererToggleImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_toggled(&self, path: &str) {
         unsafe {
             let data = Self::type_data();

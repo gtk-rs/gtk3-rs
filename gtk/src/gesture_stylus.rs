@@ -6,7 +6,12 @@ use gdk::AxisUse;
 use glib::object::IsA;
 use glib::translate::*;
 
-pub trait GestureStylusExtManual: IsA<GestureStylus> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::GestureStylus>> Sealed for T {}
+}
+
+pub trait GestureStylusExtManual: IsA<GestureStylus> + sealed::Sealed + 'static {
     #[cfg(any(feature = "v3_24", docsrs))]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_get_axes")]

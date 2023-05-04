@@ -14,7 +14,12 @@ pub trait PlugImpl: PlugImplExt + WindowImpl {
     }
 }
 
-pub trait PlugImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::PlugImpl> Sealed for T {}
+}
+
+pub trait PlugImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_embedded(&self) {
         unsafe {
             let data = Self::type_data();

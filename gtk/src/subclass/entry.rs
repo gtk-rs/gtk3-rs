@@ -18,7 +18,12 @@ pub trait EntryImpl: EntryImplExt + WidgetImpl {
     }
 }
 
-pub trait EntryImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::EntryImpl> Sealed for T {}
+}
+
+pub trait EntryImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_populate_popup(&self, popup: &Widget) {
         unsafe {
             let data = Self::type_data();

@@ -21,7 +21,12 @@ pub trait GtkApplicationImpl:
     }
 }
 
-pub trait GtkApplicationImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::GtkApplicationImpl> Sealed for T {}
+}
+
+pub trait GtkApplicationImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_window_added(&self, window: &Window) {
         unsafe {
             let data = Self::type_data();

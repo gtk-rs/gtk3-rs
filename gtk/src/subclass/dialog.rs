@@ -20,7 +20,12 @@ pub trait DialogImpl: DialogImplExt + WindowImpl {
     }
 }
 
-pub trait DialogImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::DialogImpl> Sealed for T {}
+}
+
+pub trait DialogImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_response(&self, response: ResponseType) {
         unsafe {
             let data = Self::type_data();

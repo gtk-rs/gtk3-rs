@@ -25,7 +25,12 @@ pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl
     }
 }
 
-pub trait CellRendererAccelImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererAccelImpl> Sealed for T {}
+}
+
+pub trait CellRendererAccelImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_accel_edited(
         &self,
         path: &str,

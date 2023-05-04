@@ -93,7 +93,12 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     }
 }
 
-pub trait CellRendererImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererImpl> Sealed for T {}
+}
+
+pub trait CellRendererImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_request_mode(&self) -> SizeRequestMode {
         unsafe {
             let data = Self::type_data();

@@ -7,7 +7,12 @@ use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;
 
-pub trait ColorChooserExtManual: IsA<ColorChooser> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::ColorChooser>> Sealed for T {}
+}
+
+pub trait ColorChooserExtManual: IsA<ColorChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_color_chooser_add_palette")]
     fn add_palette(&self, orientation: Orientation, colors_per_line: i32, colors: &[RGBA]) {
         unsafe {

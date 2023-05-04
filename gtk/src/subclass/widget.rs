@@ -225,7 +225,12 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     }
 }
 
-pub trait WidgetImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::WidgetImpl> Sealed for T {}
+}
+
+pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_adjust_baseline_allocation(&self, baseline: &mut i32) {
         unsafe {
             let data = Self::type_data();

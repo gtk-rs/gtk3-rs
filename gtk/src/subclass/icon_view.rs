@@ -39,7 +39,12 @@ pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     }
 }
 
-pub trait IconViewImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IconViewImpl> Sealed for T {}
+}
+
+pub trait IconViewImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_item_activated(&self, path: &TreePath) {
         unsafe {
             let data = Self::type_data();

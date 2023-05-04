@@ -46,7 +46,12 @@ pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
     }
 }
 
-pub trait ListBoxImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ListBoxImpl> Sealed for T {}
+}
+
+pub trait ListBoxImplExt: ObjectSubclass + sealed::Sealed {
     fn list_box_activate_cursor_row(&self) {
         unsafe {
             let data = Self::type_data();

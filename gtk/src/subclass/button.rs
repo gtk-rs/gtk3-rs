@@ -17,7 +17,12 @@ pub trait ButtonImpl: ButtonImplExt + BinImpl {
     }
 }
 
-pub trait ButtonImplExt: ObjectSubclass {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ButtonImpl> Sealed for T {}
+}
+
+pub trait ButtonImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_activate(&self) {
         unsafe {
             let data = Self::type_data();
