@@ -33,18 +33,15 @@ pub trait WindowImpl: WindowImplExt + BinImpl {
     }
 }
 
-pub trait WindowImplExt: ObjectSubclass {
-    fn parent_set_focus(&self, focus: Option<&Widget>);
-    fn parent_activate_focus(&self);
-    fn parent_activate_default(&self);
-    fn parent_keys_changed(&self);
-    fn parent_enable_debugging(&self, toggle: bool) -> bool;
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::WindowImpl> Sealed for T {}
 }
 
-impl<T: WindowImpl> WindowImplExt for T {
+pub trait WindowImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_set_focus(&self, focus: Option<&Widget>) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).set_focus {
                 f(
@@ -54,40 +51,36 @@ impl<T: WindowImpl> WindowImplExt for T {
             }
         }
     }
-
     fn parent_activate_focus(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_focus {
                 f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
-
     fn parent_activate_default(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).activate_default {
                 f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
-
     fn parent_keys_changed(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).keys_changed {
                 f(self.obj().unsafe_cast_ref::<Window>().to_glib_none().0)
             }
         }
     }
-
     fn parent_enable_debugging(&self, toggle: bool) -> bool {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWindowClass;
             if let Some(f) = (*parent_class).enable_debugging {
                 from_glib(f(
@@ -100,6 +93,8 @@ impl<T: WindowImpl> WindowImplExt for T {
         }
     }
 }
+
+impl<T: WindowImpl> WindowImplExt for T {}
 
 unsafe impl<T: WindowImpl> IsSubclassable<T> for Window {
     fn class_init(class: &mut ::glib::Class<Self>) {

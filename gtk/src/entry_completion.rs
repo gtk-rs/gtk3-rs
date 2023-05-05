@@ -7,7 +7,12 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib::Cast;
 
-pub trait EntryCompletionExtManual: IsA<EntryCompletion> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::EntryCompletion>> Sealed for T {}
+}
+
+pub trait EntryCompletionExtManual: IsA<EntryCompletion> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_entry_completion_get_entry")]
     #[doc(alias = "get_entry")]
     fn entry(&self) -> Option<Entry> {

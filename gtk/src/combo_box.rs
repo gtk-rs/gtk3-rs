@@ -4,7 +4,12 @@ use crate::ComboBox;
 use glib::object::IsA;
 use glib::translate::*;
 
-pub trait ComboBoxExtManual: IsA<ComboBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::ComboBox>> Sealed for T {}
+}
+
+pub trait ComboBoxExtManual: IsA<ComboBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_combo_box_set_active")]
     fn set_active(&self, index_: Option<u32>) {
         let index_ = match index_ {

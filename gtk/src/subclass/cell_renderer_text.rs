@@ -16,14 +16,15 @@ pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     }
 }
 
-pub trait CellRendererTextImplExt: ObjectSubclass {
-    fn parent_edited(&self, path: &str, new_text: &str);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererTextImpl> Sealed for T {}
 }
 
-impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
+pub trait CellRendererTextImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_edited(&self, path: &str, new_text: &str) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererTextClass;
             if let Some(f) = (*parent_class).edited {
                 f(
@@ -38,6 +39,8 @@ impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {
         }
     }
 }
+
+impl<T: CellRendererTextImpl> CellRendererTextImplExt for T {}
 
 unsafe impl<T: CellRendererTextImpl> IsSubclassable<T> for CellRendererText {
     fn class_init(class: &mut ::glib::Class<Self>) {

@@ -17,7 +17,12 @@ use glib::Cast;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 
-pub trait StackSwitcherExtManual: IsA<StackSwitcher> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::StackSwitcher>> Sealed for T {}
+}
+
+pub trait StackSwitcherExtManual: IsA<StackSwitcher> + sealed::Sealed + 'static {
     #[doc(alias = "icon-size")]
     fn icon_size(&self) -> IconSize {
         unsafe { from_glib(self.as_ref().property::<i32>("icon-size")) }

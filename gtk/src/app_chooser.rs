@@ -13,20 +13,14 @@ glib::wrapper! {
     }
 }
 
-pub trait AppChooserExt: 'static {
-    #[doc(alias = "gtk_app_chooser_get_app_info")]
-    #[doc(alias = "get_app_info")]
-    fn app_info(&self) -> Option<AppInfo>;
-
-    #[doc(alias = "gtk_app_chooser_get_content_type")]
-    #[doc(alias = "get_content_type")]
-    fn content_type(&self) -> Option<String>;
-
-    #[doc(alias = "gtk_app_chooser_refresh")]
-    fn refresh(&self);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::AppChooser>> Sealed for T {}
 }
 
-impl<O: IsA<AppChooser>> AppChooserExt for O {
+pub trait AppChooserExt: IsA<AppChooser> + sealed::Sealed + 'static {
+    #[doc(alias = "gtk_app_chooser_get_app_info")]
+    #[doc(alias = "get_app_info")]
     fn app_info(&self) -> Option<AppInfo> {
         unsafe {
             from_glib_full(ffi::gtk_app_chooser_get_app_info(
@@ -35,6 +29,8 @@ impl<O: IsA<AppChooser>> AppChooserExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_get_content_type")]
+    #[doc(alias = "get_content_type")]
     fn content_type(&self) -> Option<String> {
         unsafe {
             from_glib_full(ffi::gtk_app_chooser_get_content_type(
@@ -43,7 +39,10 @@ impl<O: IsA<AppChooser>> AppChooserExt for O {
         }
     }
 
+    #[doc(alias = "gtk_app_chooser_refresh")]
     fn refresh(&self) {
         unsafe { ffi::gtk_app_chooser_refresh(self.as_ref().to_glib_none().0) }
     }
 }
+
+impl<O: IsA<AppChooser>> AppChooserExt for O {}

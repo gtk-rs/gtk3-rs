@@ -27,7 +27,12 @@ impl TickCallbackId {
     }
 }
 
-pub trait WidgetExtManual: IsA<Widget> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::Widget>> Sealed for T {}
+}
+
+pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_drag_dest_set")]
     fn drag_dest_set(&self, flags: DestDefaults, targets: &[TargetEntry], actions: DragAction) {
         let stashes: Vec<_> = targets.iter().map(|e| e.to_glib_none()).collect();

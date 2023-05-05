@@ -46,31 +46,24 @@ pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
     }
 }
 
-pub trait ListBoxImplExt: ObjectSubclass {
-    fn list_box_activate_cursor_row(&self);
-    fn list_box_move_cursor(&self, step: MovementStep, count: i32);
-    fn list_box_row_activated(&self, row: &ListBoxRow);
-    fn list_box_row_selected(&self, row: Option<&ListBoxRow>);
-    fn list_box_select_all(&self);
-    fn list_box_selected_rows_changed(&self);
-    fn list_box_toggle_cursor_row(&self);
-    fn list_box_unselect_all(&self);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ListBoxImpl> Sealed for T {}
 }
 
-impl<T: ListBoxImpl> ListBoxImplExt for T {
+pub trait ListBoxImplExt: ObjectSubclass + sealed::Sealed {
     fn list_box_activate_cursor_row(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).activate_cursor_row {
                 f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
-
     fn list_box_move_cursor(&self, step: MovementStep, count: i32) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).move_cursor {
                 f(
@@ -81,10 +74,9 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             }
         }
     }
-
     fn list_box_row_activated(&self, row: &ListBoxRow) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_activated {
                 f(
@@ -94,10 +86,9 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             }
         }
     }
-
     fn list_box_row_selected(&self, row: Option<&ListBoxRow>) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).row_selected {
                 f(
@@ -107,40 +98,36 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
             }
         }
     }
-
     fn list_box_select_all(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).select_all {
                 f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
-
     fn list_box_selected_rows_changed(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).selected_rows_changed {
                 f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
-
     fn list_box_toggle_cursor_row(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).toggle_cursor_row {
                 f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
             }
         }
     }
-
     fn list_box_unselect_all(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkListBoxClass;
             if let Some(f) = (*parent_class).unselect_all {
                 f(self.obj().unsafe_cast_ref::<ListBox>().to_glib_none().0)
@@ -148,6 +135,8 @@ impl<T: ListBoxImpl> ListBoxImplExt for T {
         }
     }
 }
+
+impl<T: ListBoxImpl> ListBoxImplExt for T {}
 
 unsafe impl<T: ListBoxImpl> IsSubclassable<T> for ListBox {
     fn class_init(class: &mut ::glib::Class<Self>) {

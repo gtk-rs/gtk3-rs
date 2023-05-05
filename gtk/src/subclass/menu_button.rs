@@ -7,7 +7,12 @@ use crate::MenuButton;
 
 pub trait MenuButtonImpl: MenuButtonImplExt + ToggleButtonImpl {}
 
-pub trait MenuButtonImplExt: ObjectSubclass {}
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::MenuButtonImpl> Sealed for T {}
+}
+
+pub trait MenuButtonImplExt: ObjectSubclass + sealed::Sealed {}
 
 impl<T: MenuButtonImpl> MenuButtonImplExt for T {}
 

@@ -18,15 +18,15 @@ pub trait EntryImpl: EntryImplExt + WidgetImpl {
     }
 }
 
-pub trait EntryImplExt: ObjectSubclass {
-    fn parent_populate_popup(&self, popup: &Widget);
-    fn parent_activate(&self);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::EntryImpl> Sealed for T {}
 }
 
-impl<T: EntryImpl> EntryImplExt for T {
+pub trait EntryImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_populate_popup(&self, popup: &Widget) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).populate_popup {
                 f(
@@ -36,10 +36,9 @@ impl<T: EntryImpl> EntryImplExt for T {
             }
         }
     }
-
     fn parent_activate(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkEntryClass;
             if let Some(f) = (*parent_class).activate {
                 f(self.obj().unsafe_cast_ref::<Entry>().to_glib_none().0)
@@ -47,6 +46,8 @@ impl<T: EntryImpl> EntryImplExt for T {
         }
     }
 }
+
+impl<T: EntryImpl> EntryImplExt for T {}
 
 unsafe impl<T: EntryImpl> IsSubclassable<T> for Entry {
     fn class_init(class: &mut glib::Class<Self>) {

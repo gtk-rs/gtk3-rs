@@ -7,7 +7,12 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 
-pub trait ColorButtonExtManual: IsA<ColorButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::ColorButton>> Sealed for T {}
+}
+
+pub trait ColorButtonExtManual: IsA<ColorButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_color_button_new_with_color")]
     fn with_color(color: &gdk::Color) -> ColorButton {
         assert_initialized_main_thread!();

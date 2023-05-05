@@ -25,18 +25,12 @@ pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl
     }
 }
 
-pub trait CellRendererAccelImplExt: ObjectSubclass {
-    fn parent_accel_edited(
-        &self,
-        path: &str,
-        accel_key: u32,
-        accel_mods: gdk::ModifierType,
-        hardware_keycode: u32,
-    );
-    fn parent_accel_cleared(&self, path: &str);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::CellRendererAccelImpl> Sealed for T {}
 }
 
-impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
+pub trait CellRendererAccelImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_accel_edited(
         &self,
         path: &str,
@@ -45,7 +39,7 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         hardware_keycode: u32,
     ) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_edited {
                 f(
@@ -61,10 +55,9 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
             }
         }
     }
-
     fn parent_accel_cleared(&self, path: &str) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkCellRendererAccelClass;
             if let Some(f) = (*parent_class).accel_cleared {
                 f(
@@ -78,6 +71,8 @@ impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {
         }
     }
 }
+
+impl<T: CellRendererAccelImpl> CellRendererAccelImplExt for T {}
 
 unsafe impl<T: CellRendererAccelImpl> IsSubclassable<T> for CellRendererAccel {
     fn class_init(class: &mut ::glib::Class<Self>) {

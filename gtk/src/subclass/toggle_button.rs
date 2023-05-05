@@ -13,14 +13,15 @@ pub trait ToggleButtonImpl: ToggleButtonImplExt + ButtonImpl {
     }
 }
 
-pub trait ToggleButtonImplExt: ObjectSubclass {
-    fn parent_toggled(&self);
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::ToggleButtonImpl> Sealed for T {}
 }
 
-impl<T: ToggleButtonImpl> ToggleButtonImplExt for T {
+pub trait ToggleButtonImplExt: ObjectSubclass + sealed::Sealed {
     fn parent_toggled(&self) {
         unsafe {
-            let data = T::type_data();
+            let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkToggleButtonClass;
             if let Some(f) = (*parent_class).toggled {
                 f(self
@@ -32,6 +33,8 @@ impl<T: ToggleButtonImpl> ToggleButtonImplExt for T {
         }
     }
 }
+
+impl<T: ToggleButtonImpl> ToggleButtonImplExt for T {}
 
 unsafe impl<T: ToggleButtonImpl> IsSubclassable<T> for ToggleButton {
     fn class_init(class: &mut glib::Class<Self>) {

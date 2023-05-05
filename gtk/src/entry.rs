@@ -6,7 +6,12 @@ use std::convert::TryFrom;
 
 use crate::Entry;
 
-pub trait EntryExtManual: IsA<Entry> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::Entry>> Sealed for T {}
+}
+
+pub trait EntryExtManual: IsA<Entry> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_entry_get_invisible_char")]
     #[doc(alias = "get_invisible_char")]
     fn invisible_char(&self) -> Option<char> {

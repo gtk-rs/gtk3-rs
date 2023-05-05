@@ -26,7 +26,12 @@ impl ListStore {
     }
 }
 
-pub trait GtkListStoreExtManual: IsA<ListStore> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::ListStore>> Sealed for T {}
+}
+
+pub trait GtkListStoreExtManual: IsA<ListStore> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_list_store_insert_with_valuesv")]
     fn insert_with_values(
         &self,

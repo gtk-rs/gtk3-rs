@@ -50,7 +50,12 @@ impl Backend {
     }
 }
 
-pub trait DisplayExtManual: IsA<Display> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: glib::IsA<crate::Display>> Sealed for T {}
+}
+
+pub trait DisplayExtManual: IsA<Display> + sealed::Sealed + 'static {
     // rustdoc-stripper-ignore-next
     /// Get the currently used display backend
     fn backend(&self) -> Backend {
