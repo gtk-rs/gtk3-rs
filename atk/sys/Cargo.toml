@@ -38,7 +38,7 @@ name = "atk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.18.0"
 edition = "2021"
-rust-version = "1.64"
+rust-version = "1.65"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
