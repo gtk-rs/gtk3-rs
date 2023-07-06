@@ -1546,6 +1546,7 @@ generate_builder = true
 [[object]]
 name = "Gtk.MountOperation"
 status = "generate"
+trait_name = "GtkMountOperationExt"
 generate_builder = true
 
 [[object]]
@@ -2026,6 +2027,7 @@ generate_builder = true
 [[object]]
 name = "Gtk.Settings"
 status = "generate"
+trait_name = "GtkSettingsExt"
     [[object.function]]
     pattern = "install_property.*"
     #deprecated in 3.16
