@@ -28,7 +28,6 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 libc = "0.2"
-bitflags = "1.0"
 ffi = { package = "atk-sys", path = "sys" }
 glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
 
