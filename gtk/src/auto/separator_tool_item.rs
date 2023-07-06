@@ -305,7 +305,12 @@ impl SeparatorToolItemBuilder {
     }
 }
 
-pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SeparatorToolItem>> Sealed for T {}
+}
+
+pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]
     #[doc(alias = "get_draw")]
     fn draws(&self) -> bool {

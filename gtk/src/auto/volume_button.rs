@@ -372,15 +372,20 @@ impl VolumeButtonBuilder {
     }
 }
 
-pub trait VolumeButtonExt: IsA<VolumeButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::VolumeButton>> Sealed for T {}
+}
+
+pub trait VolumeButtonExt: IsA<VolumeButton> + sealed::Sealed + 'static {
     #[doc(alias = "use-symbolic")]
     fn uses_symbolic(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "use-symbolic")
+        ObjectExt::property(self.as_ref(), "use-symbolic")
     }
 
     #[doc(alias = "use-symbolic")]
     fn set_use_symbolic(&self, use_symbolic: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-symbolic", use_symbolic)
+        ObjectExt::set_property(self.as_ref(), "use-symbolic", use_symbolic)
     }
 
     #[doc(alias = "use-symbolic")]

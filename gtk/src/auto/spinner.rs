@@ -267,7 +267,12 @@ impl SpinnerBuilder {
     }
 }
 
-pub trait SpinnerExt: IsA<Spinner> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Spinner>> Sealed for T {}
+}
+
+pub trait SpinnerExt: IsA<Spinner> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_spinner_start")]
     fn start(&self) {
         unsafe {
@@ -283,11 +288,11 @@ pub trait SpinnerExt: IsA<Spinner> + 'static {
     }
 
     fn is_active(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "active")
+        ObjectExt::property(self.as_ref(), "active")
     }
 
     fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "active", active)
+        ObjectExt::set_property(self.as_ref(), "active", active)
     }
 
     #[doc(alias = "active")]

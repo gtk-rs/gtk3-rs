@@ -515,7 +515,12 @@ impl MessageDialogBuilder {
     }
 }
 
-pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MessageDialog>> Sealed for T {}
+}
+
+pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
     //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
     //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
@@ -548,50 +553,50 @@ pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
 
     #[doc(alias = "message-type")]
     fn message_type(&self) -> MessageType {
-        glib::ObjectExt::property(self.as_ref(), "message-type")
+        ObjectExt::property(self.as_ref(), "message-type")
     }
 
     #[doc(alias = "message-type")]
     fn set_message_type(&self, message_type: MessageType) {
-        glib::ObjectExt::set_property(self.as_ref(), "message-type", message_type)
+        ObjectExt::set_property(self.as_ref(), "message-type", message_type)
     }
 
     #[doc(alias = "secondary-text")]
     fn secondary_text(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "secondary-text")
+        ObjectExt::property(self.as_ref(), "secondary-text")
     }
 
     #[doc(alias = "secondary-text")]
     fn set_secondary_text(&self, secondary_text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-text", secondary_text)
+        ObjectExt::set_property(self.as_ref(), "secondary-text", secondary_text)
     }
 
     #[doc(alias = "secondary-use-markup")]
     fn is_secondary_use_markup(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "secondary-use-markup")
+        ObjectExt::property(self.as_ref(), "secondary-use-markup")
     }
 
     #[doc(alias = "secondary-use-markup")]
     fn set_secondary_use_markup(&self, secondary_use_markup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "secondary-use-markup", secondary_use_markup)
+        ObjectExt::set_property(self.as_ref(), "secondary-use-markup", secondary_use_markup)
     }
 
     fn text(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "text")
+        ObjectExt::property(self.as_ref(), "text")
     }
 
     fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text", text)
+        ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
     #[doc(alias = "use-markup")]
     fn uses_markup(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "use-markup")
+        ObjectExt::property(self.as_ref(), "use-markup")
     }
 
     #[doc(alias = "use-markup")]
     fn set_use_markup(&self, use_markup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-markup", use_markup)
+        ObjectExt::set_property(self.as_ref(), "use-markup", use_markup)
     }
 
     #[doc(alias = "message-area")]

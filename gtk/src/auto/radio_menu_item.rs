@@ -375,7 +375,12 @@ impl RadioMenuItemBuilder {
     }
 }
 
-pub trait RadioMenuItemExt: IsA<RadioMenuItem> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RadioMenuItem>> Sealed for T {}
+}
+
+pub trait RadioMenuItemExt: IsA<RadioMenuItem> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]
     #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioMenuItem> {

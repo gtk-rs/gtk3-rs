@@ -23,7 +23,12 @@ impl Selection {
     pub const NONE: Option<&'static Selection> = None;
 }
 
-pub trait SelectionExt: IsA<Selection> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Selection>> Sealed for T {}
+}
+
+pub trait SelectionExt: IsA<Selection> + sealed::Sealed + 'static {
     #[doc(alias = "atk_selection_add_selection")]
     fn add_selection(&self, i: i32) -> bool {
         unsafe {

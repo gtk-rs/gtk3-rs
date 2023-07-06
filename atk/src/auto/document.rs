@@ -22,7 +22,12 @@ impl Document {
     pub const NONE: Option<&'static Document> = None;
 }
 
-pub trait DocumentExt: IsA<Document> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Document>> Sealed for T {}
+}
+
+pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "atk_document_get_attribute_value")]
     #[doc(alias = "get_attribute_value")]
     fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString> {

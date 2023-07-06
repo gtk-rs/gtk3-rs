@@ -343,7 +343,12 @@ impl MenuItemBuilder {
     }
 }
 
-pub trait GtkMenuItemExt: IsA<MenuItem> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MenuItem>> Sealed for T {}
+}
+
+pub trait GtkMenuItemExt: IsA<MenuItem> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_item_deselect")]
     fn deselect(&self) {
         unsafe {
@@ -467,12 +472,12 @@ pub trait GtkMenuItemExt: IsA<MenuItem> + 'static {
 
     #[doc(alias = "right-justified")]
     fn is_right_justified(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "right-justified")
+        ObjectExt::property(self.as_ref(), "right-justified")
     }
 
     #[doc(alias = "right-justified")]
     fn set_right_justified(&self, right_justified: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "right-justified", right_justified)
+        ObjectExt::set_property(self.as_ref(), "right-justified", right_justified)
     }
 
     #[doc(alias = "activate")]

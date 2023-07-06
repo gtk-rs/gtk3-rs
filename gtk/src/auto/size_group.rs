@@ -73,7 +73,12 @@ impl SizeGroupBuilder {
     }
 }
 
-pub trait SizeGroupExt: IsA<SizeGroup> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SizeGroup>> Sealed for T {}
+}
+
+pub trait SizeGroupExt: IsA<SizeGroup> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
     fn add_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {

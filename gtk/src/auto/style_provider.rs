@@ -19,7 +19,12 @@ impl StyleProvider {
     pub const NONE: Option<&'static StyleProvider> = None;
 }
 
-pub trait StyleProviderExt: IsA<StyleProvider> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StyleProvider>> Sealed for T {}
+}
+
+pub trait StyleProviderExt: IsA<StyleProvider> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_style_provider_get_style_property")]
     #[doc(alias = "get_style_property")]
     fn style_property(

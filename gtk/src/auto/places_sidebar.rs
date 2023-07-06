@@ -254,22 +254,22 @@ impl PlacesSidebar {
 
     #[doc(alias = "populate-all")]
     pub fn populates_all(&self) -> bool {
-        glib::ObjectExt::property(self, "populate-all")
+        ObjectExt::property(self, "populate-all")
     }
 
     #[doc(alias = "populate-all")]
     pub fn set_populate_all(&self, populate_all: bool) {
-        glib::ObjectExt::set_property(self, "populate-all", populate_all)
+        ObjectExt::set_property(self, "populate-all", populate_all)
     }
 
     #[doc(alias = "show-connect-to-server")]
     pub fn shows_connect_to_server(&self) -> bool {
-        glib::ObjectExt::property(self, "show-connect-to-server")
+        ObjectExt::property(self, "show-connect-to-server")
     }
 
     #[doc(alias = "show-connect-to-server")]
     pub fn set_show_connect_to_server(&self, show_connect_to_server: bool) {
-        glib::ObjectExt::set_property(self, "show-connect-to-server", show_connect_to_server)
+        ObjectExt::set_property(self, "show-connect-to-server", show_connect_to_server)
     }
 
     #[doc(alias = "drag-action-ask")]

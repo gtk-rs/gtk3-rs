@@ -87,7 +87,12 @@ impl CellAreaBoxBuilder {
     }
 }
 
-pub trait CellAreaBoxExt: IsA<CellAreaBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellAreaBox>> Sealed for T {}
+}
+
+pub trait CellAreaBoxExt: IsA<CellAreaBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]
     #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32 {

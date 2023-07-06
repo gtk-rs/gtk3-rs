@@ -564,7 +564,12 @@ impl AboutDialogBuilder {
     }
 }
 
-pub trait AboutDialogExt: IsA<AboutDialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AboutDialog>> Sealed for T {}
+}
+
+pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_about_dialog_add_credit_section")]
     fn add_credit_section(&self, section_name: &str, people: &[&str]) {
         unsafe {

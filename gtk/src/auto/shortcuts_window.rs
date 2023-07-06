@@ -464,25 +464,30 @@ impl ShortcutsWindowBuilder {
     }
 }
 
-pub trait ShortcutsWindowExt: IsA<ShortcutsWindow> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ShortcutsWindow>> Sealed for T {}
+}
+
+pub trait ShortcutsWindowExt: IsA<ShortcutsWindow> + sealed::Sealed + 'static {
     #[doc(alias = "section-name")]
     fn section_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "section-name")
+        ObjectExt::property(self.as_ref(), "section-name")
     }
 
     #[doc(alias = "section-name")]
     fn set_section_name(&self, section_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "section-name", section_name)
+        ObjectExt::set_property(self.as_ref(), "section-name", section_name)
     }
 
     #[doc(alias = "view-name")]
     fn view_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "view-name")
+        ObjectExt::property(self.as_ref(), "view-name")
     }
 
     #[doc(alias = "view-name")]
     fn set_view_name(&self, view_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "view-name", view_name)
+        ObjectExt::set_property(self.as_ref(), "view-name", view_name)
     }
 
     #[doc(alias = "close")]

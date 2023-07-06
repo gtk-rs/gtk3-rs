@@ -23,7 +23,12 @@ impl FileChooser {
     pub const NONE: Option<&'static FileChooser> = None;
 }
 
-pub trait FileChooserExt: IsA<FileChooser> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FileChooser>> Sealed for T {}
+}
+
+pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_add_filter")]
     fn add_filter(&self, filter: FileFilter) {
         unsafe {

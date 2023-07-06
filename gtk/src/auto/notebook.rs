@@ -324,7 +324,12 @@ impl NotebookBuilder {
     }
 }
 
-pub trait NotebookExt: IsA<Notebook> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Notebook>> Sealed for T {}
+}
+
+pub trait NotebookExt: IsA<Notebook> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_notebook_detach_tab")]
     fn detach_tab(&self, child: &impl IsA<Widget>) {
         unsafe {
@@ -613,20 +618,20 @@ pub trait NotebookExt: IsA<Notebook> + 'static {
 
     #[doc(alias = "enable-popup")]
     fn enables_popup(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "enable-popup")
+        ObjectExt::property(self.as_ref(), "enable-popup")
     }
 
     #[doc(alias = "enable-popup")]
     fn set_enable_popup(&self, enable_popup: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "enable-popup", enable_popup)
+        ObjectExt::set_property(self.as_ref(), "enable-popup", enable_popup)
     }
 
     fn page(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "page")
+        ObjectExt::property(self.as_ref(), "page")
     }
 
     fn set_page(&self, page: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "page", page)
+        ObjectExt::set_property(self.as_ref(), "page", page)
     }
 
     fn child_is_detachable<T: IsA<crate::Widget>>(&self, item: &T) -> bool {

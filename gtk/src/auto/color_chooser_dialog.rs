@@ -494,15 +494,20 @@ impl ColorChooserDialogBuilder {
     }
 }
 
-pub trait ColorChooserDialogExt: IsA<ColorChooserDialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ColorChooserDialog>> Sealed for T {}
+}
+
+pub trait ColorChooserDialogExt: IsA<ColorChooserDialog> + sealed::Sealed + 'static {
     #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-editor")
+        ObjectExt::property(self.as_ref(), "show-editor")
     }
 
     #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
+        ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
     #[doc(alias = "show-editor")]

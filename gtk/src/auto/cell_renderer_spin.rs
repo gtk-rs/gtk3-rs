@@ -459,31 +459,36 @@ impl CellRendererSpinBuilder {
     }
 }
 
-pub trait CellRendererSpinExt: IsA<CellRendererSpin> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererSpin>> Sealed for T {}
+}
+
+pub trait CellRendererSpinExt: IsA<CellRendererSpin> + sealed::Sealed + 'static {
     fn adjustment(&self) -> Option<Adjustment> {
-        glib::ObjectExt::property(self.as_ref(), "adjustment")
+        ObjectExt::property(self.as_ref(), "adjustment")
     }
 
     fn set_adjustment<P: IsA<Adjustment>>(&self, adjustment: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "adjustment", adjustment)
+        ObjectExt::set_property(self.as_ref(), "adjustment", adjustment)
     }
 
     #[doc(alias = "climb-rate")]
     fn climb_rate(&self) -> f64 {
-        glib::ObjectExt::property(self.as_ref(), "climb-rate")
+        ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
     #[doc(alias = "climb-rate")]
     fn set_climb_rate(&self, climb_rate: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
+        ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
 
     fn digits(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "digits")
+        ObjectExt::property(self.as_ref(), "digits")
     }
 
     fn set_digits(&self, digits: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "digits", digits)
+        ObjectExt::set_property(self.as_ref(), "digits", digits)
     }
 
     #[doc(alias = "adjustment")]

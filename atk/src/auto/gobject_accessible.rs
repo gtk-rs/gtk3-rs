@@ -29,7 +29,12 @@ impl GObjectAccessible {
     }
 }
 
-pub trait GObjectAccessibleExt: IsA<GObjectAccessible> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::GObjectAccessible>> Sealed for T {}
+}
+
+pub trait GObjectAccessibleExt: IsA<GObjectAccessible> + sealed::Sealed + 'static {
     #[doc(alias = "atk_gobject_accessible_get_object")]
     #[doc(alias = "get_object")]
     fn object(&self) -> Option<glib::Object> {

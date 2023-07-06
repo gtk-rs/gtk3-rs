@@ -26,7 +26,12 @@ impl Text {
     pub const NONE: Option<&'static Text> = None;
 }
 
-pub trait TextExt: IsA<Text> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Text>> Sealed for T {}
+}
+
+pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
     #[doc(alias = "atk_text_add_selection")]
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool {
         unsafe {

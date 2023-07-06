@@ -18,7 +18,12 @@ impl EditableText {
     pub const NONE: Option<&'static EditableText> = None;
 }
 
-pub trait EditableTextExt: IsA<EditableText> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::EditableText>> Sealed for T {}
+}
+
+pub trait EditableTextExt: IsA<EditableText> + sealed::Sealed + 'static {
     #[doc(alias = "atk_editable_text_copy_text")]
     fn copy_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {

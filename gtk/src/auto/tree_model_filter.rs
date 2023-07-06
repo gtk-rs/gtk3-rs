@@ -19,7 +19,12 @@ impl TreeModelFilter {
     pub const NONE: Option<&'static TreeModelFilter> = None;
 }
 
-pub trait TreeModelFilterExt: IsA<TreeModelFilter> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeModelFilter>> Sealed for T {}
+}
+
+pub trait TreeModelFilterExt: IsA<TreeModelFilter> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_model_filter_clear_cache")]
     fn clear_cache(&self) {
         unsafe {
@@ -139,7 +144,7 @@ pub trait TreeModelFilterExt: IsA<TreeModelFilter> + 'static {
 
     #[doc(alias = "child-model")]
     fn child_model(&self) -> Option<TreeModel> {
-        glib::ObjectExt::property(self.as_ref(), "child-model")
+        ObjectExt::property(self.as_ref(), "child-model")
     }
 }
 

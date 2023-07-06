@@ -333,7 +333,12 @@ impl StackBuilder {
     }
 }
 
-pub trait StackExt: IsA<Stack> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Stack>> Sealed for T {}
+}
+
+pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_stack_add_named")]
     fn add_named(&self, child: &impl IsA<Widget>, name: &str) {
         unsafe {

@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use bitflags::bitflags;
-use glib::{translate::*, value::FromValue, value::ToValue, StaticType, Type};
+use glib::{bitflags::bitflags, prelude::*, translate::*};
 use std::fmt;
 
 bitflags! {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = "AtkHyperlinkStateFlags")]
     pub struct HyperlinkStateFlags: u32 {
         #[doc(alias = "ATK_HYPERLINK_IS_INLINE")]
@@ -41,7 +41,7 @@ impl FromGlib<ffi::AtkHyperlinkStateFlags> for HyperlinkStateFlags {
 
 impl StaticType for HyperlinkStateFlags {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_hyperlink_state_flags_get_type()) }
     }
 }
@@ -60,7 +60,7 @@ impl glib::value::ValueType for HyperlinkStateFlags {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for HyperlinkStateFlags {
+unsafe impl<'a> glib::value::FromValue<'a> for HyperlinkStateFlags {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]

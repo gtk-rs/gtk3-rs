@@ -23,7 +23,12 @@ impl TreeModel {
     pub const NONE: Option<&'static TreeModel> = None;
 }
 
-pub trait TreeModelExt: IsA<TreeModel> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeModel>> Sealed for T {}
+}
+
+pub trait TreeModelExt: IsA<TreeModel> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_model_foreach")]
     fn foreach<P: FnMut(&TreeModel, &TreePath, &TreeIter) -> bool>(&self, func: P) {
         let func_data: P = func;

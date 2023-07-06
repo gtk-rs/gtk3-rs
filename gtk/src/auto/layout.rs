@@ -330,7 +330,12 @@ impl LayoutBuilder {
     }
 }
 
-pub trait LayoutExt: IsA<Layout> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Layout>> Sealed for T {}
+}
+
+pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
     #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window> {
@@ -389,19 +394,19 @@ pub trait LayoutExt: IsA<Layout> + 'static {
     }
 
     fn height(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "height")
+        ObjectExt::property(self.as_ref(), "height")
     }
 
     fn set_height(&self, height: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "height", height)
+        ObjectExt::set_property(self.as_ref(), "height", height)
     }
 
     fn width(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "width")
+        ObjectExt::property(self.as_ref(), "width")
     }
 
     fn set_width(&self, width: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "width", width)
+        ObjectExt::set_property(self.as_ref(), "width", width)
     }
 
     fn child_x<T: IsA<crate::Widget>>(&self, item: &T) -> i32 {

@@ -19,7 +19,12 @@ impl HyperlinkImpl {
     pub const NONE: Option<&'static HyperlinkImpl> = None;
 }
 
-pub trait HyperlinkImplExt: IsA<HyperlinkImpl> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::HyperlinkImpl>> Sealed for T {}
+}
+
+pub trait HyperlinkImplExt: IsA<HyperlinkImpl> + sealed::Sealed + 'static {
     #[doc(alias = "atk_hyperlink_impl_get_hyperlink")]
     #[doc(alias = "get_hyperlink")]
     fn hyperlink(&self) -> Option<Hyperlink> {

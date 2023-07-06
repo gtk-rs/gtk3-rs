@@ -23,7 +23,12 @@ impl Object {
     pub const NONE: Option<&'static Object> = None;
 }
 
-pub trait AtkObjectExt: IsA<Object> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Object>> Sealed for T {}
+}
+
+pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
     #[doc(alias = "atk_object_add_relationship")]
     fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
@@ -220,22 +225,22 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-component-layer")]
     fn accessible_component_layer(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "accessible-component-layer")
+        ObjectExt::property(self.as_ref(), "accessible-component-layer")
     }
 
     #[doc(alias = "accessible-component-mdi-zorder")]
     fn accessible_component_mdi_zorder(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "accessible-component-mdi-zorder")
+        ObjectExt::property(self.as_ref(), "accessible-component-mdi-zorder")
     }
 
     #[doc(alias = "accessible-description")]
     fn accessible_description(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-description")
+        ObjectExt::property(self.as_ref(), "accessible-description")
     }
 
     #[doc(alias = "accessible-description")]
     fn set_accessible_description(&self, accessible_description: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-description",
             accessible_description,
@@ -244,47 +249,47 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-hypertext-nlinks")]
     fn accessible_hypertext_nlinks(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "accessible-hypertext-nlinks")
+        ObjectExt::property(self.as_ref(), "accessible-hypertext-nlinks")
     }
 
     #[doc(alias = "accessible-name")]
     fn accessible_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-name")
+        ObjectExt::property(self.as_ref(), "accessible-name")
     }
 
     #[doc(alias = "accessible-name")]
     fn set_accessible_name(&self, accessible_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-name", accessible_name)
+        ObjectExt::set_property(self.as_ref(), "accessible-name", accessible_name)
     }
 
     #[doc(alias = "accessible-parent")]
     fn accessible_parent(&self) -> Option<Object> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-parent")
+        ObjectExt::property(self.as_ref(), "accessible-parent")
     }
 
     #[doc(alias = "accessible-parent")]
     fn set_accessible_parent<P: IsA<Object>>(&self, accessible_parent: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-parent", accessible_parent)
+        ObjectExt::set_property(self.as_ref(), "accessible-parent", accessible_parent)
     }
 
     #[doc(alias = "accessible-role")]
     fn accessible_role(&self) -> Role {
-        glib::ObjectExt::property(self.as_ref(), "accessible-role")
+        ObjectExt::property(self.as_ref(), "accessible-role")
     }
 
     #[doc(alias = "accessible-role")]
     fn set_accessible_role(&self, accessible_role: Role) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-role", accessible_role)
+        ObjectExt::set_property(self.as_ref(), "accessible-role", accessible_role)
     }
 
     #[doc(alias = "accessible-table-caption")]
     fn accessible_table_caption(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-caption")
+        ObjectExt::property(self.as_ref(), "accessible-table-caption")
     }
 
     #[doc(alias = "accessible-table-caption")]
     fn set_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-caption",
             accessible_table_caption,
@@ -293,7 +298,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-caption-object")]
     fn accessible_table_caption_object(&self) -> Option<Object> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-caption-object")
+        ObjectExt::property(self.as_ref(), "accessible-table-caption-object")
     }
 
     #[doc(alias = "accessible-table-caption-object")]
@@ -301,7 +306,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
         &self,
         accessible_table_caption_object: Option<&P>,
     ) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-caption-object",
             accessible_table_caption_object,
@@ -310,7 +315,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-column-description")]
     fn accessible_table_column_description(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-column-description")
+        ObjectExt::property(self.as_ref(), "accessible-table-column-description")
     }
 
     #[doc(alias = "accessible-table-column-description")]
@@ -318,7 +323,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
         &self,
         accessible_table_column_description: Option<&str>,
     ) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-column-description",
             accessible_table_column_description,
@@ -327,7 +332,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-column-header")]
     fn accessible_table_column_header(&self) -> Option<Object> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-column-header")
+        ObjectExt::property(self.as_ref(), "accessible-table-column-header")
     }
 
     #[doc(alias = "accessible-table-column-header")]
@@ -335,7 +340,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
         &self,
         accessible_table_column_header: Option<&P>,
     ) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-column-header",
             accessible_table_column_header,
@@ -344,12 +349,12 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-row-description")]
     fn accessible_table_row_description(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-row-description")
+        ObjectExt::property(self.as_ref(), "accessible-table-row-description")
     }
 
     #[doc(alias = "accessible-table-row-description")]
     fn set_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-row-description",
             accessible_table_row_description,
@@ -358,7 +363,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-row-header")]
     fn accessible_table_row_header(&self) -> Option<Object> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-row-header")
+        ObjectExt::property(self.as_ref(), "accessible-table-row-header")
     }
 
     #[doc(alias = "accessible-table-row-header")]
@@ -366,7 +371,7 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
         &self,
         accessible_table_row_header: Option<&P>,
     ) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-row-header",
             accessible_table_row_header,
@@ -375,12 +380,12 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-table-summary")]
     fn accessible_table_summary(&self) -> Option<Object> {
-        glib::ObjectExt::property(self.as_ref(), "accessible-table-summary")
+        ObjectExt::property(self.as_ref(), "accessible-table-summary")
     }
 
     #[doc(alias = "accessible-table-summary")]
     fn set_accessible_table_summary<P: IsA<Object>>(&self, accessible_table_summary: Option<&P>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "accessible-table-summary",
             accessible_table_summary,
@@ -389,12 +394,12 @@ pub trait AtkObjectExt: IsA<Object> + 'static {
 
     #[doc(alias = "accessible-value")]
     fn accessible_value(&self) -> f64 {
-        glib::ObjectExt::property(self.as_ref(), "accessible-value")
+        ObjectExt::property(self.as_ref(), "accessible-value")
     }
 
     #[doc(alias = "accessible-value")]
     fn set_accessible_value(&self, accessible_value: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "accessible-value", accessible_value)
+        ObjectExt::set_property(self.as_ref(), "accessible-value", accessible_value)
     }
 
     #[doc(alias = "active-descendant-changed")]

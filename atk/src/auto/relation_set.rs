@@ -31,7 +31,12 @@ impl Default for RelationSet {
     }
 }
 
-pub trait RelationSetExt: IsA<RelationSet> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RelationSet>> Sealed for T {}
+}
+
+pub trait RelationSetExt: IsA<RelationSet> + sealed::Sealed + 'static {
     #[doc(alias = "atk_relation_set_add")]
     fn add(&self, relation: &impl IsA<Relation>) {
         unsafe {

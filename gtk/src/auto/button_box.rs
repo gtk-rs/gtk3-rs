@@ -316,7 +316,12 @@ impl ButtonBoxBuilder {
     }
 }
 
-pub trait ButtonBoxExt: IsA<ButtonBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ButtonBox>> Sealed for T {}
+}
+
+pub trait ButtonBoxExt: IsA<ButtonBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]
     #[doc(alias = "get_child_non_homogeneous")]
     fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool {
@@ -383,12 +388,12 @@ pub trait ButtonBoxExt: IsA<ButtonBox> + 'static {
 
     #[doc(alias = "layout-style")]
     fn layout_style(&self) -> ButtonBoxStyle {
-        glib::ObjectExt::property(self.as_ref(), "layout-style")
+        ObjectExt::property(self.as_ref(), "layout-style")
     }
 
     #[doc(alias = "layout-style")]
     fn set_layout_style(&self, layout_style: ButtonBoxStyle) {
-        glib::ObjectExt::set_property(self.as_ref(), "layout-style", layout_style)
+        ObjectExt::set_property(self.as_ref(), "layout-style", layout_style)
     }
 
     #[doc(alias = "layout-style")]

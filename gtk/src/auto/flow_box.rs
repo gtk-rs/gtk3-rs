@@ -336,7 +336,12 @@ impl FlowBoxBuilder {
     }
 }
 
-pub trait FlowBoxExt: IsA<FlowBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FlowBox>> Sealed for T {}
+}
+
+pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_flow_box_bind_model")]
     fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,

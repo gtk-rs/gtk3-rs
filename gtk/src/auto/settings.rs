@@ -38,7 +38,12 @@ impl Settings {
     }
 }
 
-pub trait SettingsExt: IsA<Settings> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Settings>> Sealed for T {}
+}
+
+pub trait SettingsExt: IsA<Settings> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_settings_reset_property")]
     fn reset_property(&self, name: &str) {
         unsafe {
@@ -48,12 +53,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-alternative-button-order")]
     fn is_gtk_alternative_button_order(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-alternative-button-order")
+        ObjectExt::property(self.as_ref(), "gtk-alternative-button-order")
     }
 
     #[doc(alias = "gtk-alternative-button-order")]
     fn set_gtk_alternative_button_order(&self, gtk_alternative_button_order: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-alternative-button-order",
             gtk_alternative_button_order,
@@ -62,12 +67,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-alternative-sort-arrows")]
     fn is_gtk_alternative_sort_arrows(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-alternative-sort-arrows")
+        ObjectExt::property(self.as_ref(), "gtk-alternative-sort-arrows")
     }
 
     #[doc(alias = "gtk-alternative-sort-arrows")]
     fn set_gtk_alternative_sort_arrows(&self, gtk_alternative_sort_arrows: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-alternative-sort-arrows",
             gtk_alternative_sort_arrows,
@@ -76,12 +81,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-application-prefer-dark-theme")]
     fn is_gtk_application_prefer_dark_theme(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-application-prefer-dark-theme")
+        ObjectExt::property(self.as_ref(), "gtk-application-prefer-dark-theme")
     }
 
     #[doc(alias = "gtk-application-prefer-dark-theme")]
     fn set_gtk_application_prefer_dark_theme(&self, gtk_application_prefer_dark_theme: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-application-prefer-dark-theme",
             gtk_application_prefer_dark_theme,
@@ -92,14 +97,14 @@ pub trait SettingsExt: IsA<Settings> + 'static {
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk-cursor-aspect-ratio")]
     fn gtk_cursor_aspect_ratio(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-aspect-ratio")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-aspect-ratio")
     }
 
     #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk-cursor-aspect-ratio")]
     fn set_gtk_cursor_aspect_ratio(&self, gtk_cursor_aspect_ratio: f32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-cursor-aspect-ratio",
             gtk_cursor_aspect_ratio,
@@ -108,22 +113,22 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-cursor-blink")]
     fn is_gtk_cursor_blink(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-blink")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-blink")
     }
 
     #[doc(alias = "gtk-cursor-blink")]
     fn set_gtk_cursor_blink(&self, gtk_cursor_blink: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-cursor-blink", gtk_cursor_blink)
+        ObjectExt::set_property(self.as_ref(), "gtk-cursor-blink", gtk_cursor_blink)
     }
 
     #[doc(alias = "gtk-cursor-blink-time")]
     fn gtk_cursor_blink_time(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-blink-time")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-blink-time")
     }
 
     #[doc(alias = "gtk-cursor-blink-time")]
     fn set_gtk_cursor_blink_time(&self, gtk_cursor_blink_time: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-cursor-blink-time",
             gtk_cursor_blink_time,
@@ -132,12 +137,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-cursor-blink-timeout")]
     fn gtk_cursor_blink_timeout(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-blink-timeout")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-blink-timeout")
     }
 
     #[doc(alias = "gtk-cursor-blink-timeout")]
     fn set_gtk_cursor_blink_timeout(&self, gtk_cursor_blink_timeout: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-cursor-blink-timeout",
             gtk_cursor_blink_timeout,
@@ -146,12 +151,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-cursor-theme-name")]
     fn gtk_cursor_theme_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-theme-name")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-theme-name")
     }
 
     #[doc(alias = "gtk-cursor-theme-name")]
     fn set_gtk_cursor_theme_name(&self, gtk_cursor_theme_name: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-cursor-theme-name",
             gtk_cursor_theme_name,
@@ -160,12 +165,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-cursor-theme-size")]
     fn gtk_cursor_theme_size(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-cursor-theme-size")
+        ObjectExt::property(self.as_ref(), "gtk-cursor-theme-size")
     }
 
     #[doc(alias = "gtk-cursor-theme-size")]
     fn set_gtk_cursor_theme_size(&self, gtk_cursor_theme_size: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-cursor-theme-size",
             gtk_cursor_theme_size,
@@ -174,12 +179,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-decoration-layout")]
     fn gtk_decoration_layout(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-decoration-layout")
+        ObjectExt::property(self.as_ref(), "gtk-decoration-layout")
     }
 
     #[doc(alias = "gtk-decoration-layout")]
     fn set_gtk_decoration_layout(&self, gtk_decoration_layout: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-decoration-layout",
             gtk_decoration_layout,
@@ -188,12 +193,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-dialogs-use-header")]
     fn is_gtk_dialogs_use_header(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-dialogs-use-header")
+        ObjectExt::property(self.as_ref(), "gtk-dialogs-use-header")
     }
 
     #[doc(alias = "gtk-dialogs-use-header")]
     fn set_gtk_dialogs_use_header(&self, gtk_dialogs_use_header: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-dialogs-use-header",
             gtk_dialogs_use_header,
@@ -202,12 +207,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-dnd-drag-threshold")]
     fn gtk_dnd_drag_threshold(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-dnd-drag-threshold")
+        ObjectExt::property(self.as_ref(), "gtk-dnd-drag-threshold")
     }
 
     #[doc(alias = "gtk-dnd-drag-threshold")]
     fn set_gtk_dnd_drag_threshold(&self, gtk_dnd_drag_threshold: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-dnd-drag-threshold",
             gtk_dnd_drag_threshold,
@@ -216,12 +221,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-double-click-distance")]
     fn gtk_double_click_distance(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-double-click-distance")
+        ObjectExt::property(self.as_ref(), "gtk-double-click-distance")
     }
 
     #[doc(alias = "gtk-double-click-distance")]
     fn set_gtk_double_click_distance(&self, gtk_double_click_distance: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-double-click-distance",
             gtk_double_click_distance,
@@ -230,12 +235,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-double-click-time")]
     fn gtk_double_click_time(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-double-click-time")
+        ObjectExt::property(self.as_ref(), "gtk-double-click-time")
     }
 
     #[doc(alias = "gtk-double-click-time")]
     fn set_gtk_double_click_time(&self, gtk_double_click_time: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-double-click-time",
             gtk_double_click_time,
@@ -244,22 +249,22 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-enable-accels")]
     fn is_gtk_enable_accels(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-enable-accels")
+        ObjectExt::property(self.as_ref(), "gtk-enable-accels")
     }
 
     #[doc(alias = "gtk-enable-accels")]
     fn set_gtk_enable_accels(&self, gtk_enable_accels: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-enable-accels", gtk_enable_accels)
+        ObjectExt::set_property(self.as_ref(), "gtk-enable-accels", gtk_enable_accels)
     }
 
     #[doc(alias = "gtk-enable-animations")]
     fn is_gtk_enable_animations(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-enable-animations")
+        ObjectExt::property(self.as_ref(), "gtk-enable-animations")
     }
 
     #[doc(alias = "gtk-enable-animations")]
     fn set_gtk_enable_animations(&self, gtk_enable_animations: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-enable-animations",
             gtk_enable_animations,
@@ -268,12 +273,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-enable-event-sounds")]
     fn is_gtk_enable_event_sounds(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-enable-event-sounds")
+        ObjectExt::property(self.as_ref(), "gtk-enable-event-sounds")
     }
 
     #[doc(alias = "gtk-enable-event-sounds")]
     fn set_gtk_enable_event_sounds(&self, gtk_enable_event_sounds: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-enable-event-sounds",
             gtk_enable_event_sounds,
@@ -282,12 +287,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-enable-input-feedback-sounds")]
     fn is_gtk_enable_input_feedback_sounds(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-enable-input-feedback-sounds")
+        ObjectExt::property(self.as_ref(), "gtk-enable-input-feedback-sounds")
     }
 
     #[doc(alias = "gtk-enable-input-feedback-sounds")]
     fn set_gtk_enable_input_feedback_sounds(&self, gtk_enable_input_feedback_sounds: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-enable-input-feedback-sounds",
             gtk_enable_input_feedback_sounds,
@@ -296,12 +301,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-enable-primary-paste")]
     fn is_gtk_enable_primary_paste(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-enable-primary-paste")
+        ObjectExt::property(self.as_ref(), "gtk-enable-primary-paste")
     }
 
     #[doc(alias = "gtk-enable-primary-paste")]
     fn set_gtk_enable_primary_paste(&self, gtk_enable_primary_paste: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-enable-primary-paste",
             gtk_enable_primary_paste,
@@ -310,12 +315,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-entry-password-hint-timeout")]
     fn gtk_entry_password_hint_timeout(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-entry-password-hint-timeout")
+        ObjectExt::property(self.as_ref(), "gtk-entry-password-hint-timeout")
     }
 
     #[doc(alias = "gtk-entry-password-hint-timeout")]
     fn set_gtk_entry_password_hint_timeout(&self, gtk_entry_password_hint_timeout: u32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-entry-password-hint-timeout",
             gtk_entry_password_hint_timeout,
@@ -324,12 +329,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-entry-select-on-focus")]
     fn is_gtk_entry_select_on_focus(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-entry-select-on-focus")
+        ObjectExt::property(self.as_ref(), "gtk-entry-select-on-focus")
     }
 
     #[doc(alias = "gtk-entry-select-on-focus")]
     fn set_gtk_entry_select_on_focus(&self, gtk_entry_select_on_focus: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-entry-select-on-focus",
             gtk_entry_select_on_focus,
@@ -338,32 +343,32 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-error-bell")]
     fn is_gtk_error_bell(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-error-bell")
+        ObjectExt::property(self.as_ref(), "gtk-error-bell")
     }
 
     #[doc(alias = "gtk-error-bell")]
     fn set_gtk_error_bell(&self, gtk_error_bell: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-error-bell", gtk_error_bell)
+        ObjectExt::set_property(self.as_ref(), "gtk-error-bell", gtk_error_bell)
     }
 
     #[doc(alias = "gtk-font-name")]
     fn gtk_font_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-font-name")
+        ObjectExt::property(self.as_ref(), "gtk-font-name")
     }
 
     #[doc(alias = "gtk-font-name")]
     fn set_gtk_font_name(&self, gtk_font_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-font-name", gtk_font_name)
+        ObjectExt::set_property(self.as_ref(), "gtk-font-name", gtk_font_name)
     }
 
     #[doc(alias = "gtk-fontconfig-timestamp")]
     fn gtk_fontconfig_timestamp(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-fontconfig-timestamp")
+        ObjectExt::property(self.as_ref(), "gtk-fontconfig-timestamp")
     }
 
     #[doc(alias = "gtk-fontconfig-timestamp")]
     fn set_gtk_fontconfig_timestamp(&self, gtk_fontconfig_timestamp: u32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-fontconfig-timestamp",
             gtk_fontconfig_timestamp,
@@ -372,52 +377,52 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-icon-theme-name")]
     fn gtk_icon_theme_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-icon-theme-name")
+        ObjectExt::property(self.as_ref(), "gtk-icon-theme-name")
     }
 
     #[doc(alias = "gtk-icon-theme-name")]
     fn set_gtk_icon_theme_name(&self, gtk_icon_theme_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-icon-theme-name", gtk_icon_theme_name)
+        ObjectExt::set_property(self.as_ref(), "gtk-icon-theme-name", gtk_icon_theme_name)
     }
 
     #[doc(alias = "gtk-im-module")]
     fn gtk_im_module(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-im-module")
+        ObjectExt::property(self.as_ref(), "gtk-im-module")
     }
 
     #[doc(alias = "gtk-im-module")]
     fn set_gtk_im_module(&self, gtk_im_module: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-im-module", gtk_im_module)
+        ObjectExt::set_property(self.as_ref(), "gtk-im-module", gtk_im_module)
     }
 
     #[doc(alias = "gtk-key-theme-name")]
     fn gtk_key_theme_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-key-theme-name")
+        ObjectExt::property(self.as_ref(), "gtk-key-theme-name")
     }
 
     #[doc(alias = "gtk-key-theme-name")]
     fn set_gtk_key_theme_name(&self, gtk_key_theme_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-key-theme-name", gtk_key_theme_name)
+        ObjectExt::set_property(self.as_ref(), "gtk-key-theme-name", gtk_key_theme_name)
     }
 
     #[doc(alias = "gtk-keynav-use-caret")]
     fn is_gtk_keynav_use_caret(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-keynav-use-caret")
+        ObjectExt::property(self.as_ref(), "gtk-keynav-use-caret")
     }
 
     #[doc(alias = "gtk-keynav-use-caret")]
     fn set_gtk_keynav_use_caret(&self, gtk_keynav_use_caret: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-keynav-use-caret", gtk_keynav_use_caret)
+        ObjectExt::set_property(self.as_ref(), "gtk-keynav-use-caret", gtk_keynav_use_caret)
     }
 
     #[doc(alias = "gtk-label-select-on-focus")]
     fn is_gtk_label_select_on_focus(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-label-select-on-focus")
+        ObjectExt::property(self.as_ref(), "gtk-label-select-on-focus")
     }
 
     #[doc(alias = "gtk-label-select-on-focus")]
     fn set_gtk_label_select_on_focus(&self, gtk_label_select_on_focus: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-label-select-on-focus",
             gtk_label_select_on_focus,
@@ -426,36 +431,36 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-long-press-time")]
     fn gtk_long_press_time(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-long-press-time")
+        ObjectExt::property(self.as_ref(), "gtk-long-press-time")
     }
 
     #[doc(alias = "gtk-long-press-time")]
     fn set_gtk_long_press_time(&self, gtk_long_press_time: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-long-press-time", gtk_long_press_time)
+        ObjectExt::set_property(self.as_ref(), "gtk-long-press-time", gtk_long_press_time)
     }
 
     #[doc(alias = "gtk-modules")]
     fn gtk_modules(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-modules")
+        ObjectExt::property(self.as_ref(), "gtk-modules")
     }
 
     #[doc(alias = "gtk-modules")]
     fn set_gtk_modules(&self, gtk_modules: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-modules", gtk_modules)
+        ObjectExt::set_property(self.as_ref(), "gtk-modules", gtk_modules)
     }
 
     #[cfg(feature = "v3_24_9")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_9")))]
     #[doc(alias = "gtk-overlay-scrolling")]
     fn is_gtk_overlay_scrolling(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-overlay-scrolling")
+        ObjectExt::property(self.as_ref(), "gtk-overlay-scrolling")
     }
 
     #[cfg(feature = "v3_24_9")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_9")))]
     #[doc(alias = "gtk-overlay-scrolling")]
     fn set_gtk_overlay_scrolling(&self, gtk_overlay_scrolling: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-overlay-scrolling",
             gtk_overlay_scrolling,
@@ -464,12 +469,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-primary-button-warps-slider")]
     fn is_gtk_primary_button_warps_slider(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-primary-button-warps-slider")
+        ObjectExt::property(self.as_ref(), "gtk-primary-button-warps-slider")
     }
 
     #[doc(alias = "gtk-primary-button-warps-slider")]
     fn set_gtk_primary_button_warps_slider(&self, gtk_primary_button_warps_slider: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-primary-button-warps-slider",
             gtk_primary_button_warps_slider,
@@ -478,22 +483,22 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-print-backends")]
     fn gtk_print_backends(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-print-backends")
+        ObjectExt::property(self.as_ref(), "gtk-print-backends")
     }
 
     #[doc(alias = "gtk-print-backends")]
     fn set_gtk_print_backends(&self, gtk_print_backends: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-print-backends", gtk_print_backends)
+        ObjectExt::set_property(self.as_ref(), "gtk-print-backends", gtk_print_backends)
     }
 
     #[doc(alias = "gtk-print-preview-command")]
     fn gtk_print_preview_command(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-print-preview-command")
+        ObjectExt::property(self.as_ref(), "gtk-print-preview-command")
     }
 
     #[doc(alias = "gtk-print-preview-command")]
     fn set_gtk_print_preview_command(&self, gtk_print_preview_command: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-print-preview-command",
             gtk_print_preview_command,
@@ -502,12 +507,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-recent-files-enabled")]
     fn is_gtk_recent_files_enabled(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-recent-files-enabled")
+        ObjectExt::property(self.as_ref(), "gtk-recent-files-enabled")
     }
 
     #[doc(alias = "gtk-recent-files-enabled")]
     fn set_gtk_recent_files_enabled(&self, gtk_recent_files_enabled: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-recent-files-enabled",
             gtk_recent_files_enabled,
@@ -516,12 +521,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-recent-files-max-age")]
     fn gtk_recent_files_max_age(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-recent-files-max-age")
+        ObjectExt::property(self.as_ref(), "gtk-recent-files-max-age")
     }
 
     #[doc(alias = "gtk-recent-files-max-age")]
     fn set_gtk_recent_files_max_age(&self, gtk_recent_files_max_age: i32) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-recent-files-max-age",
             gtk_recent_files_max_age,
@@ -530,12 +535,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-shell-shows-app-menu")]
     fn is_gtk_shell_shows_app_menu(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-shell-shows-app-menu")
+        ObjectExt::property(self.as_ref(), "gtk-shell-shows-app-menu")
     }
 
     #[doc(alias = "gtk-shell-shows-app-menu")]
     fn set_gtk_shell_shows_app_menu(&self, gtk_shell_shows_app_menu: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-shell-shows-app-menu",
             gtk_shell_shows_app_menu,
@@ -544,12 +549,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-shell-shows-desktop")]
     fn is_gtk_shell_shows_desktop(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-shell-shows-desktop")
+        ObjectExt::property(self.as_ref(), "gtk-shell-shows-desktop")
     }
 
     #[doc(alias = "gtk-shell-shows-desktop")]
     fn set_gtk_shell_shows_desktop(&self, gtk_shell_shows_desktop: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-shell-shows-desktop",
             gtk_shell_shows_desktop,
@@ -558,12 +563,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-shell-shows-menubar")]
     fn is_gtk_shell_shows_menubar(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-shell-shows-menubar")
+        ObjectExt::property(self.as_ref(), "gtk-shell-shows-menubar")
     }
 
     #[doc(alias = "gtk-shell-shows-menubar")]
     fn set_gtk_shell_shows_menubar(&self, gtk_shell_shows_menubar: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-shell-shows-menubar",
             gtk_shell_shows_menubar,
@@ -572,42 +577,42 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-sound-theme-name")]
     fn gtk_sound_theme_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-sound-theme-name")
+        ObjectExt::property(self.as_ref(), "gtk-sound-theme-name")
     }
 
     #[doc(alias = "gtk-sound-theme-name")]
     fn set_gtk_sound_theme_name(&self, gtk_sound_theme_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-sound-theme-name", gtk_sound_theme_name)
+        ObjectExt::set_property(self.as_ref(), "gtk-sound-theme-name", gtk_sound_theme_name)
     }
 
     #[doc(alias = "gtk-split-cursor")]
     fn is_gtk_split_cursor(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "gtk-split-cursor")
+        ObjectExt::property(self.as_ref(), "gtk-split-cursor")
     }
 
     #[doc(alias = "gtk-split-cursor")]
     fn set_gtk_split_cursor(&self, gtk_split_cursor: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-split-cursor", gtk_split_cursor)
+        ObjectExt::set_property(self.as_ref(), "gtk-split-cursor", gtk_split_cursor)
     }
 
     #[doc(alias = "gtk-theme-name")]
     fn gtk_theme_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-theme-name")
+        ObjectExt::property(self.as_ref(), "gtk-theme-name")
     }
 
     #[doc(alias = "gtk-theme-name")]
     fn set_gtk_theme_name(&self, gtk_theme_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-theme-name", gtk_theme_name)
+        ObjectExt::set_property(self.as_ref(), "gtk-theme-name", gtk_theme_name)
     }
 
     #[doc(alias = "gtk-titlebar-double-click")]
     fn gtk_titlebar_double_click(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-titlebar-double-click")
+        ObjectExt::property(self.as_ref(), "gtk-titlebar-double-click")
     }
 
     #[doc(alias = "gtk-titlebar-double-click")]
     fn set_gtk_titlebar_double_click(&self, gtk_titlebar_double_click: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-titlebar-double-click",
             gtk_titlebar_double_click,
@@ -616,12 +621,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-titlebar-middle-click")]
     fn gtk_titlebar_middle_click(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-titlebar-middle-click")
+        ObjectExt::property(self.as_ref(), "gtk-titlebar-middle-click")
     }
 
     #[doc(alias = "gtk-titlebar-middle-click")]
     fn set_gtk_titlebar_middle_click(&self, gtk_titlebar_middle_click: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-titlebar-middle-click",
             gtk_titlebar_middle_click,
@@ -630,12 +635,12 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-titlebar-right-click")]
     fn gtk_titlebar_right_click(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-titlebar-right-click")
+        ObjectExt::property(self.as_ref(), "gtk-titlebar-right-click")
     }
 
     #[doc(alias = "gtk-titlebar-right-click")]
     fn set_gtk_titlebar_right_click(&self, gtk_titlebar_right_click: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "gtk-titlebar-right-click",
             gtk_titlebar_right_click,
@@ -644,52 +649,52 @@ pub trait SettingsExt: IsA<Settings> + 'static {
 
     #[doc(alias = "gtk-xft-antialias")]
     fn gtk_xft_antialias(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-xft-antialias")
+        ObjectExt::property(self.as_ref(), "gtk-xft-antialias")
     }
 
     #[doc(alias = "gtk-xft-antialias")]
     fn set_gtk_xft_antialias(&self, gtk_xft_antialias: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-xft-antialias", gtk_xft_antialias)
+        ObjectExt::set_property(self.as_ref(), "gtk-xft-antialias", gtk_xft_antialias)
     }
 
     #[doc(alias = "gtk-xft-dpi")]
     fn gtk_xft_dpi(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-xft-dpi")
+        ObjectExt::property(self.as_ref(), "gtk-xft-dpi")
     }
 
     #[doc(alias = "gtk-xft-dpi")]
     fn set_gtk_xft_dpi(&self, gtk_xft_dpi: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-xft-dpi", gtk_xft_dpi)
+        ObjectExt::set_property(self.as_ref(), "gtk-xft-dpi", gtk_xft_dpi)
     }
 
     #[doc(alias = "gtk-xft-hinting")]
     fn gtk_xft_hinting(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "gtk-xft-hinting")
+        ObjectExt::property(self.as_ref(), "gtk-xft-hinting")
     }
 
     #[doc(alias = "gtk-xft-hinting")]
     fn set_gtk_xft_hinting(&self, gtk_xft_hinting: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-xft-hinting", gtk_xft_hinting)
+        ObjectExt::set_property(self.as_ref(), "gtk-xft-hinting", gtk_xft_hinting)
     }
 
     #[doc(alias = "gtk-xft-hintstyle")]
     fn gtk_xft_hintstyle(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-xft-hintstyle")
+        ObjectExt::property(self.as_ref(), "gtk-xft-hintstyle")
     }
 
     #[doc(alias = "gtk-xft-hintstyle")]
     fn set_gtk_xft_hintstyle(&self, gtk_xft_hintstyle: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-xft-hintstyle", gtk_xft_hintstyle)
+        ObjectExt::set_property(self.as_ref(), "gtk-xft-hintstyle", gtk_xft_hintstyle)
     }
 
     #[doc(alias = "gtk-xft-rgba")]
     fn gtk_xft_rgba(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "gtk-xft-rgba")
+        ObjectExt::property(self.as_ref(), "gtk-xft-rgba")
     }
 
     #[doc(alias = "gtk-xft-rgba")]
     fn set_gtk_xft_rgba(&self, gtk_xft_rgba: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gtk-xft-rgba", gtk_xft_rgba)
+        ObjectExt::set_property(self.as_ref(), "gtk-xft-rgba", gtk_xft_rgba)
     }
 
     #[doc(alias = "gtk-alternative-button-order")]

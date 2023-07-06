@@ -35,7 +35,7 @@ impl DeviceTool {
     }
 
     pub fn axes(&self) -> AxisFlags {
-        glib::ObjectExt::property(self, "axes")
+        ObjectExt::property(self, "axes")
     }
 }
 

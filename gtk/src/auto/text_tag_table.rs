@@ -35,7 +35,12 @@ impl Default for TextTagTable {
     }
 }
 
-pub trait TextTagTableExt: IsA<TextTagTable> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TextTagTable>> Sealed for T {}
+}
+
+pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_text_tag_table_add")]
     fn add(&self, tag: &impl IsA<TextTag>) -> bool {
         unsafe {

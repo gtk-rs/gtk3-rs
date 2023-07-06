@@ -119,7 +119,12 @@ impl Default for Image {
     }
 }
 
-pub trait ImageExt: IsA<Image> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Image>> Sealed for T {}
+}
+
+pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_image_clear")]
     fn clear(&self) {
         unsafe {
@@ -247,34 +252,34 @@ pub trait ImageExt: IsA<Image> + 'static {
     }
 
     fn file(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "file")
+        ObjectExt::property(self.as_ref(), "file")
     }
 
     fn set_file(&self, file: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "file", file)
+        ObjectExt::set_property(self.as_ref(), "file", file)
     }
 
     fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gicon", gicon)
+        ObjectExt::set_property(self.as_ref(), "gicon", gicon)
     }
 
     #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "icon-name")
+        ObjectExt::property(self.as_ref(), "icon-name")
     }
 
     #[doc(alias = "icon-name")]
     fn set_icon_name(&self, icon_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
+        ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
     }
 
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
+        ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
     }
 
     #[doc(alias = "pixbuf-animation")]
     fn pixbuf_animation(&self) -> Option<gdk_pixbuf::PixbufAnimation> {
-        glib::ObjectExt::property(self.as_ref(), "pixbuf-animation")
+        ObjectExt::property(self.as_ref(), "pixbuf-animation")
     }
 
     #[doc(alias = "pixbuf-animation")]
@@ -282,33 +287,33 @@ pub trait ImageExt: IsA<Image> + 'static {
         &self,
         pixbuf_animation: Option<&P>,
     ) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf-animation", pixbuf_animation)
+        ObjectExt::set_property(self.as_ref(), "pixbuf-animation", pixbuf_animation)
     }
 
     fn resource(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "resource")
+        ObjectExt::property(self.as_ref(), "resource")
     }
 
     fn set_resource(&self, resource: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "resource", resource)
+        ObjectExt::set_property(self.as_ref(), "resource", resource)
     }
 
     fn surface(&self) -> Option<cairo::Surface> {
-        glib::ObjectExt::property(self.as_ref(), "surface")
+        ObjectExt::property(self.as_ref(), "surface")
     }
 
     fn set_surface(&self, surface: Option<&cairo::Surface>) {
-        glib::ObjectExt::set_property(self.as_ref(), "surface", surface)
+        ObjectExt::set_property(self.as_ref(), "surface", surface)
     }
 
     #[doc(alias = "use-fallback")]
     fn uses_fallback(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "use-fallback")
+        ObjectExt::property(self.as_ref(), "use-fallback")
     }
 
     #[doc(alias = "use-fallback")]
     fn set_use_fallback(&self, use_fallback: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "use-fallback", use_fallback)
+        ObjectExt::set_property(self.as_ref(), "use-fallback", use_fallback)
     }
 
     #[doc(alias = "file")]

@@ -302,7 +302,12 @@ impl ToolItemBuilder {
     }
 }
 
-pub trait ToolItemExt: IsA<ToolItem> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ToolItem>> Sealed for T {}
+}
+
+pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]
     #[doc(alias = "get_ellipsize_mode")]
     fn ellipsize_mode(&self) -> pango::EllipsizeMode {

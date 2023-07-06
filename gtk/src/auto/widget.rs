@@ -54,7 +54,12 @@ impl fmt::Display for Widget {
     }
 }
 
-pub trait WidgetExt: IsA<Widget> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Widget>> Sealed for T {}
+}
+
+pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_widget_activate")]
     fn activate(&self) -> bool {
         unsafe { from_glib(ffi::gtk_widget_activate(self.as_ref().to_glib_none().0)) }
@@ -1927,58 +1932,58 @@ pub trait WidgetExt: IsA<Widget> + 'static {
 
     #[doc(alias = "composite-child")]
     fn is_composite_child(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "composite-child")
+        ObjectExt::property(self.as_ref(), "composite-child")
     }
 
     fn expands(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "expand")
+        ObjectExt::property(self.as_ref(), "expand")
     }
 
     fn set_expand(&self, expand: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "expand", expand)
+        ObjectExt::set_property(self.as_ref(), "expand", expand)
     }
 
     #[doc(alias = "has-default")]
     fn set_has_default(&self, has_default: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-default", has_default)
+        ObjectExt::set_property(self.as_ref(), "has-default", has_default)
     }
 
     #[doc(alias = "has-focus")]
     fn set_has_focus(&self, has_focus: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-focus", has_focus)
+        ObjectExt::set_property(self.as_ref(), "has-focus", has_focus)
     }
 
     #[doc(alias = "height-request")]
     fn height_request(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "height-request")
+        ObjectExt::property(self.as_ref(), "height-request")
     }
 
     #[doc(alias = "height-request")]
     fn set_height_request(&self, height_request: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "height-request", height_request)
+        ObjectExt::set_property(self.as_ref(), "height-request", height_request)
     }
 
     #[doc(alias = "is-focus")]
     fn set_is_focus(&self, is_focus: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "is-focus", is_focus)
+        ObjectExt::set_property(self.as_ref(), "is-focus", is_focus)
     }
 
     fn margin(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "margin")
+        ObjectExt::property(self.as_ref(), "margin")
     }
 
     fn set_margin(&self, margin: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "margin", margin)
+        ObjectExt::set_property(self.as_ref(), "margin", margin)
     }
 
     #[doc(alias = "width-request")]
     fn width_request(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "width-request")
+        ObjectExt::property(self.as_ref(), "width-request")
     }
 
     #[doc(alias = "width-request")]
     fn set_width_request(&self, width_request: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "width-request", width_request)
+        ObjectExt::set_property(self.as_ref(), "width-request", width_request)
     }
 
     #[doc(alias = "accel-closures-changed")]

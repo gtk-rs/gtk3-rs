@@ -199,57 +199,62 @@ impl CellRendererProgressBuilder {
     }
 }
 
-pub trait CellRendererProgressExt: IsA<CellRendererProgress> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererProgress>> Sealed for T {}
+}
+
+pub trait CellRendererProgressExt: IsA<CellRendererProgress> + sealed::Sealed + 'static {
     fn is_inverted(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "inverted")
+        ObjectExt::property(self.as_ref(), "inverted")
     }
 
     fn set_inverted(&self, inverted: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "inverted", inverted)
+        ObjectExt::set_property(self.as_ref(), "inverted", inverted)
     }
 
     fn pulse(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "pulse")
+        ObjectExt::property(self.as_ref(), "pulse")
     }
 
     fn set_pulse(&self, pulse: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pulse", pulse)
+        ObjectExt::set_property(self.as_ref(), "pulse", pulse)
     }
 
     fn text(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "text")
+        ObjectExt::property(self.as_ref(), "text")
     }
 
     fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text", text)
+        ObjectExt::set_property(self.as_ref(), "text", text)
     }
 
     #[doc(alias = "text-xalign")]
     fn text_xalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "text-xalign")
+        ObjectExt::property(self.as_ref(), "text-xalign")
     }
 
     #[doc(alias = "text-xalign")]
     fn set_text_xalign(&self, text_xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-xalign", text_xalign)
+        ObjectExt::set_property(self.as_ref(), "text-xalign", text_xalign)
     }
 
     #[doc(alias = "text-yalign")]
     fn text_yalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "text-yalign")
+        ObjectExt::property(self.as_ref(), "text-yalign")
     }
 
     #[doc(alias = "text-yalign")]
     fn set_text_yalign(&self, text_yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-yalign", text_yalign)
+        ObjectExt::set_property(self.as_ref(), "text-yalign", text_yalign)
     }
 
     fn value(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "value")
+        ObjectExt::property(self.as_ref(), "value")
     }
 
     fn set_value(&self, value: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "value", value)
+        ObjectExt::set_property(self.as_ref(), "value", value)
     }
 
     #[doc(alias = "inverted")]

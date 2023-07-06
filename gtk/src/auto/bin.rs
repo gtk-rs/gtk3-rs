@@ -19,7 +19,12 @@ impl Bin {
     pub const NONE: Option<&'static Bin> = None;
 }
 
-pub trait BinExt: IsA<Bin> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Bin>> Sealed for T {}
+}
+
+pub trait BinExt: IsA<Bin> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_bin_get_child")]
     #[doc(alias = "get_child")]
     fn child(&self) -> Option<Widget> {

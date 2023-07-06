@@ -375,7 +375,12 @@ impl ScaleButtonBuilder {
     }
 }
 
-pub trait ScaleButtonExt: IsA<ScaleButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ScaleButton>> Sealed for T {}
+}
+
+pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_scale_button_get_adjustment")]
     #[doc(alias = "get_adjustment")]
     fn adjustment(&self) -> Adjustment {
@@ -447,15 +452,15 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + 'static {
     }
 
     fn icons(&self) -> Vec<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "icons")
+        ObjectExt::property(self.as_ref(), "icons")
     }
 
     fn size(&self) -> IconSize {
-        glib::ObjectExt::property(self.as_ref(), "size")
+        ObjectExt::property(self.as_ref(), "size")
     }
 
     fn set_size(&self, size: IconSize) {
-        glib::ObjectExt::set_property(self.as_ref(), "size", size)
+        ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
     #[doc(alias = "popdown")]

@@ -31,7 +31,12 @@ impl Default for Plug {
     }
 }
 
-pub trait AtkPlugExt: IsA<Plug> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Plug>> Sealed for T {}
+}
+
+pub trait AtkPlugExt: IsA<Plug> + sealed::Sealed + 'static {
     #[doc(alias = "atk_plug_get_id")]
     #[doc(alias = "get_id")]
     fn id(&self) -> Option<glib::GString> {

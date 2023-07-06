@@ -361,7 +361,12 @@ impl LinkButtonBuilder {
     }
 }
 
-pub trait LinkButtonExt: IsA<LinkButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::LinkButton>> Sealed for T {}
+}
+
+pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_link_button_get_uri")]
     #[doc(alias = "get_uri")]
     fn uri(&self) -> Option<glib::GString> {

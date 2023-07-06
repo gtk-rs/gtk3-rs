@@ -392,7 +392,12 @@ impl MenuButtonBuilder {
     }
 }
 
-pub trait MenuButtonExt: IsA<MenuButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MenuButton>> Sealed for T {}
+}
+
+pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_button_get_align_widget")]
     #[doc(alias = "get_align_widget")]
     fn align_widget(&self) -> Option<Widget> {

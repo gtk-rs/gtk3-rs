@@ -23,7 +23,12 @@ impl Value {
     pub const NONE: Option<&'static Value> = None;
 }
 
-pub trait ValueExt: IsA<Value> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Value>> Sealed for T {}
+}
+
+pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
     #[doc(alias = "atk_value_get_current_value")]
     #[doc(alias = "get_current_value")]
     fn current_value(&self) -> glib::Value {

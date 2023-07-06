@@ -275,7 +275,12 @@ impl FixedBuilder {
     }
 }
 
-pub trait FixedExt: IsA<Fixed> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Fixed>> Sealed for T {}
+}
+
+pub trait FixedExt: IsA<Fixed> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_fixed_move")]
     #[doc(alias = "move")]
     fn move_(&self, widget: &impl IsA<Widget>, x: i32, y: i32) {

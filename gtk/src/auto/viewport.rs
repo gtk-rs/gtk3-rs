@@ -325,7 +325,12 @@ impl ViewportBuilder {
     }
 }
 
-pub trait ViewportExt: IsA<Viewport> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Viewport>> Sealed for T {}
+}
+
+pub trait ViewportExt: IsA<Viewport> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_viewport_get_bin_window")]
     #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window> {

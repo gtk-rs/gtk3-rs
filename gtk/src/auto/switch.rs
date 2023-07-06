@@ -287,7 +287,12 @@ impl SwitchBuilder {
     }
 }
 
-pub trait SwitchExt: IsA<Switch> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Switch>> Sealed for T {}
+}
+
+pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_switch_get_active")]
     #[doc(alias = "get_active")]
     fn is_active(&self) -> bool {

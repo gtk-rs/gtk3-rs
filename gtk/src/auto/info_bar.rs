@@ -334,7 +334,12 @@ impl InfoBarBuilder {
     }
 }
 
-pub trait InfoBarExt: IsA<InfoBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::InfoBar>> Sealed for T {}
+}
+
+pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_info_bar_add_action_widget")]
     fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {

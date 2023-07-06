@@ -169,7 +169,12 @@ impl SocketAccessibleBuilder {
     }
 }
 
-pub trait SocketAccessibleExt: IsA<SocketAccessible> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SocketAccessible>> Sealed for T {}
+}
+
+pub trait SocketAccessibleExt: IsA<SocketAccessible> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_socket_accessible_embed")]
     fn embed(&self, path: &str) {
         unsafe {

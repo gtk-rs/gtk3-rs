@@ -421,7 +421,12 @@ impl FontButtonBuilder {
     }
 }
 
-pub trait FontButtonExt: IsA<FontButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FontButton>> Sealed for T {}
+}
+
+pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_font_button_get_show_size")]
     #[doc(alias = "get_show_size")]
     fn shows_size(&self) -> bool {

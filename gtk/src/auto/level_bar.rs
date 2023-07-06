@@ -307,7 +307,12 @@ impl LevelBarBuilder {
     }
 }
 
-pub trait LevelBarExt: IsA<LevelBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::LevelBar>> Sealed for T {}
+}
+
+pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_level_bar_add_offset_value")]
     fn add_offset_value(&self, name: &str, value: f64) {
         unsafe {

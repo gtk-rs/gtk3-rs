@@ -31,7 +31,12 @@ impl Default for Socket {
     }
 }
 
-pub trait AtkSocketExt: IsA<Socket> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Socket>> Sealed for T {}
+}
+
+pub trait AtkSocketExt: IsA<Socket> + sealed::Sealed + 'static {
     #[doc(alias = "atk_socket_embed")]
     fn embed(&self, plug_id: &str) {
         unsafe {

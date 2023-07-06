@@ -275,7 +275,12 @@ impl OverlayBuilder {
     }
 }
 
-pub trait OverlayExt: IsA<Overlay> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Overlay>> Sealed for T {}
+}
+
+pub trait OverlayExt: IsA<Overlay> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]
     fn add_overlay(&self, widget: &impl IsA<Widget>) {
         unsafe {

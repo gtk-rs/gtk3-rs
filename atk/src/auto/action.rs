@@ -18,7 +18,12 @@ impl Action {
     pub const NONE: Option<&'static Action> = None;
 }
 
-pub trait AtkActionExt: IsA<Action> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Action>> Sealed for T {}
+}
+
+pub trait AtkActionExt: IsA<Action> + sealed::Sealed + 'static {
     #[doc(alias = "atk_action_do_action")]
     fn do_action(&self, i: i32) -> bool {
         unsafe { from_glib(ffi::atk_action_do_action(self.as_ref().to_glib_none().0, i)) }

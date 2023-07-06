@@ -365,7 +365,12 @@ impl CheckMenuItemBuilder {
     }
 }
 
-pub trait CheckMenuItemExt: IsA<CheckMenuItem> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CheckMenuItem>> Sealed for T {}
+}
+
+pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_check_menu_item_get_active")]
     #[doc(alias = "get_active")]
     fn is_active(&self) -> bool {

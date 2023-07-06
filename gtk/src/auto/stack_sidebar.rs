@@ -285,7 +285,12 @@ impl StackSidebarBuilder {
     }
 }
 
-pub trait StackSidebarExt: IsA<StackSidebar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StackSidebar>> Sealed for T {}
+}
+
+pub trait StackSidebarExt: IsA<StackSidebar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]
     #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack> {

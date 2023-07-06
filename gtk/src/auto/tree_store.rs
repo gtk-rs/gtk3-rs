@@ -29,7 +29,12 @@ impl TreeStore {
     //}
 }
 
-pub trait TreeStoreExt: IsA<TreeStore> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeStore>> Sealed for T {}
+}
+
+pub trait TreeStoreExt: IsA<TreeStore> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_store_append")]
     fn append(&self, parent: Option<&TreeIter>) -> TreeIter {
         unsafe {

@@ -657,7 +657,12 @@ impl SpinButtonBuilder {
     }
 }
 
-pub trait SpinButtonExt: IsA<SpinButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SpinButton>> Sealed for T {}
+}
+
+pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_spin_button_configure")]
     fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32) {
         unsafe {
@@ -860,12 +865,12 @@ pub trait SpinButtonExt: IsA<SpinButton> + 'static {
 
     #[doc(alias = "climb-rate")]
     fn climb_rate(&self) -> f64 {
-        glib::ObjectExt::property(self.as_ref(), "climb-rate")
+        ObjectExt::property(self.as_ref(), "climb-rate")
     }
 
     #[doc(alias = "climb-rate")]
     fn set_climb_rate(&self, climb_rate: f64) {
-        glib::ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
+        ObjectExt::set_property(self.as_ref(), "climb-rate", climb_rate)
     }
 
     #[doc(alias = "adjustment")]

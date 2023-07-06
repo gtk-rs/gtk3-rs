@@ -23,7 +23,12 @@ impl Table {
     pub const NONE: Option<&'static Table> = None;
 }
 
-pub trait TableExt: IsA<Table> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Table>> Sealed for T {}
+}
+
+pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
     #[doc(alias = "atk_table_add_column_selection")]
     fn add_column_selection(&self, column: i32) -> bool {
         unsafe {

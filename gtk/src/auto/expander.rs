@@ -335,7 +335,12 @@ impl ExpanderBuilder {
     }
 }
 
-pub trait ExpanderExt: IsA<Expander> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Expander>> Sealed for T {}
+}
+
+pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_expander_get_expanded")]
     #[doc(alias = "get_expanded")]
     fn is_expanded(&self) -> bool {

@@ -129,7 +129,12 @@ impl StyleContextBuilder {
     }
 }
 
-pub trait StyleContextExt: IsA<StyleContext> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StyleContext>> Sealed for T {}
+}
+
+pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_style_context_add_class")]
     fn add_class(&self, class_name: &str) {
         unsafe {
@@ -474,21 +479,21 @@ pub trait StyleContextExt: IsA<StyleContext> + 'static {
     }
 
     fn direction(&self) -> TextDirection {
-        glib::ObjectExt::property(self.as_ref(), "direction")
+        ObjectExt::property(self.as_ref(), "direction")
     }
 
     fn set_direction(&self, direction: TextDirection) {
-        glib::ObjectExt::set_property(self.as_ref(), "direction", direction)
+        ObjectExt::set_property(self.as_ref(), "direction", direction)
     }
 
     #[doc(alias = "paint-clock")]
     fn paint_clock(&self) -> Option<gdk::FrameClock> {
-        glib::ObjectExt::property(self.as_ref(), "paint-clock")
+        ObjectExt::property(self.as_ref(), "paint-clock")
     }
 
     #[doc(alias = "paint-clock")]
     fn set_paint_clock(&self, paint_clock: Option<&gdk::FrameClock>) {
-        glib::ObjectExt::set_property(self.as_ref(), "paint-clock", paint_clock)
+        ObjectExt::set_property(self.as_ref(), "paint-clock", paint_clock)
     }
 
     #[doc(alias = "changed")]

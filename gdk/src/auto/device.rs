@@ -26,7 +26,12 @@ impl Device {
     pub const NONE: Option<&'static Device> = None;
 }
 
-pub trait DeviceExt: IsA<Device> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Device>> Sealed for T {}
+}
+
+pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "gdk_device_get_associated_device")]
     #[doc(alias = "get_associated_device")]
     #[must_use]
@@ -310,40 +315,40 @@ pub trait DeviceExt: IsA<Device> + 'static {
 
     #[doc(alias = "device-manager")]
     fn device_manager(&self) -> Option<DeviceManager> {
-        glib::ObjectExt::property(self.as_ref(), "device-manager")
+        ObjectExt::property(self.as_ref(), "device-manager")
     }
 
     #[doc(alias = "input-mode")]
     fn input_mode(&self) -> InputMode {
-        glib::ObjectExt::property(self.as_ref(), "input-mode")
+        ObjectExt::property(self.as_ref(), "input-mode")
     }
 
     #[doc(alias = "input-mode")]
     fn set_input_mode(&self, input_mode: InputMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "input-mode", input_mode)
+        ObjectExt::set_property(self.as_ref(), "input-mode", input_mode)
     }
 
     #[doc(alias = "input-source")]
     fn input_source(&self) -> InputSource {
-        glib::ObjectExt::property(self.as_ref(), "input-source")
+        ObjectExt::property(self.as_ref(), "input-source")
     }
 
     #[doc(alias = "num-touches")]
     fn num_touches(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "num-touches")
+        ObjectExt::property(self.as_ref(), "num-touches")
     }
 
     fn set_seat<P: IsA<Seat>>(&self, seat: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "seat", seat)
+        ObjectExt::set_property(self.as_ref(), "seat", seat)
     }
 
     fn tool(&self) -> Option<DeviceTool> {
-        glib::ObjectExt::property(self.as_ref(), "tool")
+        ObjectExt::property(self.as_ref(), "tool")
     }
 
     #[doc(alias = "type")]
     fn type_(&self) -> DeviceType {
-        glib::ObjectExt::property(self.as_ref(), "type")
+        ObjectExt::property(self.as_ref(), "type")
     }
 
     #[doc(alias = "changed")]

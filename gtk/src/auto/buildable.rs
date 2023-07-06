@@ -19,7 +19,12 @@ impl Buildable {
     pub const NONE: Option<&'static Buildable> = None;
 }
 
-pub trait BuildableExt: IsA<Buildable> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Buildable>> Sealed for T {}
+}
+
+pub trait BuildableExt: IsA<Buildable> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_buildable_add_child")]
     fn add_child(
         &self,

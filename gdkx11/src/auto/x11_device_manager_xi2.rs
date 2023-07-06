@@ -25,15 +25,15 @@ impl X11DeviceManagerXI2 {
     }
 
     pub fn major(&self) -> i32 {
-        glib::ObjectExt::property(self, "major")
+        ObjectExt::property(self, "major")
     }
 
     pub fn minor(&self) -> i32 {
-        glib::ObjectExt::property(self, "minor")
+        ObjectExt::property(self, "minor")
     }
 
     pub fn opcode(&self) -> i32 {
-        glib::ObjectExt::property(self, "opcode")
+        ObjectExt::property(self, "opcode")
     }
 }
 

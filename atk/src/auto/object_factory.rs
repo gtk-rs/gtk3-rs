@@ -19,7 +19,12 @@ impl ObjectFactory {
     pub const NONE: Option<&'static ObjectFactory> = None;
 }
 
-pub trait ObjectFactoryExt: IsA<ObjectFactory> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ObjectFactory>> Sealed for T {}
+}
+
+pub trait ObjectFactoryExt: IsA<ObjectFactory> + sealed::Sealed + 'static {
     #[doc(alias = "atk_object_factory_create_accessible")]
     fn create_accessible(&self, obj: &impl IsA<glib::Object>) -> Option<Object> {
         unsafe {

@@ -31,7 +31,12 @@ impl Default for StateSet {
     }
 }
 
-pub trait StateSetExt: IsA<StateSet> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StateSet>> Sealed for T {}
+}
+
+pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
     #[doc(alias = "atk_state_set_add_state")]
     fn add_state(&self, type_: StateType) -> bool {
         unsafe {

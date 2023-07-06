@@ -457,33 +457,38 @@ impl CellRendererComboBuilder {
     }
 }
 
-pub trait CellRendererComboExt: IsA<CellRendererCombo> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererCombo>> Sealed for T {}
+}
+
+pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'static {
     #[doc(alias = "has-entry")]
     fn has_entry(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "has-entry")
+        ObjectExt::property(self.as_ref(), "has-entry")
     }
 
     #[doc(alias = "has-entry")]
     fn set_has_entry(&self, has_entry: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-entry", has_entry)
+        ObjectExt::set_property(self.as_ref(), "has-entry", has_entry)
     }
 
     fn model(&self) -> Option<TreeModel> {
-        glib::ObjectExt::property(self.as_ref(), "model")
+        ObjectExt::property(self.as_ref(), "model")
     }
 
     fn set_model<P: IsA<TreeModel>>(&self, model: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "model", model)
+        ObjectExt::set_property(self.as_ref(), "model", model)
     }
 
     #[doc(alias = "text-column")]
     fn text_column(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "text-column")
+        ObjectExt::property(self.as_ref(), "text-column")
     }
 
     #[doc(alias = "text-column")]
     fn set_text_column(&self, text_column: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-column", text_column)
+        ObjectExt::set_property(self.as_ref(), "text-column", text_column)
     }
 
     #[doc(alias = "changed")]

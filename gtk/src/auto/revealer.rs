@@ -299,7 +299,12 @@ impl RevealerBuilder {
     }
 }
 
-pub trait RevealerExt: IsA<Revealer> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Revealer>> Sealed for T {}
+}
+
+pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_revealer_get_child_revealed")]
     #[doc(alias = "get_child_revealed")]
     fn is_child_revealed(&self) -> bool {
