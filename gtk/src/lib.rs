@@ -44,8 +44,8 @@ pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_U
 mod rt;
 
 #[cfg(test)]
-pub(crate) static TEST_THREAD_WORKER: once_cell::sync::Lazy<glib::ThreadPool> =
-    once_cell::sync::Lazy::new(|| {
+pub(crate) static TEST_THREAD_WORKER: glib::once_cell::sync::Lazy<glib::ThreadPool> =
+    glib::once_cell::sync::Lazy::new(|| {
         let pool = glib::ThreadPool::exclusive(1).unwrap();
         pool.push(move || {
             crate::init().expect("Tests failed to initialize gtk");

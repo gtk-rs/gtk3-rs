@@ -1,7 +1,7 @@
+use glib::once_cell::unsync::OnceCell;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use once_cell::unsync::OnceCell;
 
 use crate::simple_window::SimpleWindow;
 

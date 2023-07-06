@@ -26,7 +26,7 @@ impl ObjectSubclass for RowData {
 // corresponding values of the properties.
 impl ObjectImpl for RowData {
     fn properties() -> &'static [glib::ParamSpec] {
-        use once_cell::sync::Lazy;
+        use glib::once_cell::sync::Lazy;
         static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
             vec![
                 glib::ParamSpecString::builder("name").build(),
