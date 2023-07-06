@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/enums.rs`."><title>enums.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (77f4f828a 2023-05-20)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/enums.rs`."><title>enums.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (d9c13cd45 2023-07-05)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -3131,7 +3131,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::{translate::<span class="kw-2">*</span>, value::FromValue, value::ToValue, StaticType, Type};
+</span><span class="kw">use </span>glib::{prelude::<span class="kw-2">*</span>, translate::<span class="kw-2">*</span>};
 <span class="kw">use </span>std::fmt;
 
 <span class="doccomment">/// Specifies how xy coordinates are to be interpreted. Used by functions such
@@ -3202,7 +3202,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>CoordType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_coord_type_get_type()) }
     }
 }
@@ -3221,7 +3221,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>CoordType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>CoordType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -3354,7 +3354,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>Layer {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_layer_get_type()) }
     }
 }
@@ -3373,7 +3373,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Layer {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Layer {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -3628,7 +3628,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>RelationType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_relation_type_get_type()) }
     }
 }
@@ -3647,7 +3647,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>RelationType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>RelationType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -4601,7 +4601,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>Role {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_role_get_type()) }
     }
 }
@@ -4620,7 +4620,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Role {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>Role {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -4761,7 +4761,7 @@
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
 </span><span class="kw">impl </span>StaticType <span class="kw">for </span>ScrollType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_scroll_type_get_type()) }
     }
 }
@@ -4786,7 +4786,7 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v2_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
-</span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>ScrollType {
+</span><span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>ScrollType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -5220,7 +5220,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>StateType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_state_type_get_type()) }
     }
 }
@@ -5239,7 +5239,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>StateType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>StateType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -5520,7 +5520,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>TextAttribute {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_text_attribute_get_type()) }
     }
 }
@@ -5539,7 +5539,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextAttribute {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextAttribute {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -5671,7 +5671,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>TextBoundary {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_text_boundary_get_type()) }
     }
 }
@@ -5690,7 +5690,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextBoundary {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextBoundary {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -5795,7 +5795,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>TextClipType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_text_clip_type_get_type()) }
     }
 }
@@ -5814,7 +5814,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextClipType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextClipType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -5935,7 +5935,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>TextGranularity {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_text_granularity_get_type()) }
     }
 }
@@ -5954,7 +5954,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextGranularity {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>TextGranularity {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
@@ -6131,7 +6131,7 @@
 
 <span class="kw">impl </span>StaticType <span class="kw">for </span>ValueType {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; Type {
+    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
         <span class="kw">unsafe </span>{ from_glib(ffi::atk_value_type_get_type()) }
     }
 }
@@ -6150,7 +6150,7 @@
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>ValueType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>ValueType {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]

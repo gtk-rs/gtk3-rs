@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/image.rs`."><title>image.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (77f4f828a 2023-05-20)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/image.rs`."><title>image.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.72.0-nightly (d9c13cd45 2023-07-05)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1306,6 +1306,11 @@
 <a href="#1233" id="1233">1233</a>
 <a href="#1234" id="1234">1234</a>
 <a href="#1235" id="1235">1235</a>
+<a href="#1236" id="1236">1236</a>
+<a href="#1237" id="1237">1237</a>
+<a href="#1238" id="1238">1238</a>
+<a href="#1239" id="1239">1239</a>
+<a href="#1240" id="1240">1240</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
@@ -2006,12 +2011,17 @@
     }
 }
 
+<span class="kw">mod </span>sealed {
+    <span class="kw">pub trait </span>Sealed {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::Image&gt;&gt; Sealed <span class="kw">for </span>T {}
+}
+
 <span class="doccomment">/// Trait containing all [`struct@Image`] methods.
 ///
 /// # Implementors
 ///
 /// [`Image`][struct@crate::Image]
-</span><span class="kw">pub trait </span>ImageExt: IsA&lt;Image&gt; + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>ImageExt: IsA&lt;Image&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Resets the image to be empty.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_image_clear&quot;</span>)]
     </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
@@ -2219,41 +2229,41 @@
     }
 
     <span class="kw">fn </span>file(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;file&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;file&quot;</span>)
     }
 
     <span class="kw">fn </span>set_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;file&quot;</span>, file)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;file&quot;</span>, file)
     }
 
     <span class="doccomment">/// The GIcon displayed in the GtkImage. For themed icons,
     /// If the icon theme is changed, the image will be updated
     /// automatically.
     </span><span class="kw">fn </span>set_gicon&lt;P: IsA&lt;gio::Icon&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, gicon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gicon&quot;</span>, gicon)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;gicon&quot;</span>, gicon)
     }
 
     <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
     /// changed, the image will be updated automatically.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
     </span><span class="kw">fn </span>icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>)
     }
 
     <span class="doccomment">/// The name of the icon in the icon theme. If the icon theme is
     /// changed, the image will be updated automatically.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-name&quot;</span>)]
     </span><span class="kw">fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>, icon_name)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;icon-name&quot;</span>, icon_name)
     }
 
     <span class="kw">fn </span>set_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf&quot;</span>, pixbuf)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf&quot;</span>, pixbuf)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
     </span><span class="kw">fn </span>pixbuf_animation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk_pixbuf::PixbufAnimation&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;pixbuf-animation&quot;</span>)]
@@ -2261,25 +2271,25 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         pixbuf_animation: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
     ) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>, pixbuf_animation)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;pixbuf-animation&quot;</span>, pixbuf_animation)
     }
 
     <span class="doccomment">/// A path to a resource file to display.
     </span><span class="kw">fn </span>resource(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>)
     }
 
     <span class="doccomment">/// A path to a resource file to display.
     </span><span class="kw">fn </span>set_resource(<span class="kw-2">&amp;</span><span class="self">self</span>, resource: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>, resource)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;resource&quot;</span>, resource)
     }
 
     <span class="kw">fn </span>surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Surface&gt; {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;surface&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;surface&quot;</span>)
     }
 
     <span class="kw">fn </span>set_surface(<span class="kw-2">&amp;</span><span class="self">self</span>, surface: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>cairo::Surface&gt;) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;surface&quot;</span>, surface)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;surface&quot;</span>, surface)
     }
 
     <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
@@ -2288,7 +2298,7 @@
     /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
     </span><span class="kw">fn </span>uses_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        glib::ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>)
+        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>)
     }
 
     <span class="doccomment">/// Whether the icon displayed in the GtkImage will use
@@ -2297,7 +2307,7 @@
     /// and [`ImageType::Gicon`][crate::ImageType::Gicon].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;use-fallback&quot;</span>)]
     </span><span class="kw">fn </span>set_use_fallback(<span class="kw-2">&amp;</span><span class="self">self</span>, use_fallback: bool) {
-        glib::ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>, use_fallback)
+        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;use-fallback&quot;</span>, use_fallback)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;file&quot;</span>)]
