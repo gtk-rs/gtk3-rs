@@ -43,7 +43,7 @@ mod sealed {
     impl<T: super::IsA<super::Settings>> Sealed for T {}
 }
 
-pub trait SettingsExt: IsA<Settings> + sealed::Sealed + 'static {
+pub trait GtkSettingsExt: IsA<Settings> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_settings_reset_property")]
     fn reset_property(&self, name: &str) {
         unsafe {
@@ -2124,7 +2124,7 @@ pub trait SettingsExt: IsA<Settings> + sealed::Sealed + 'static {
     }
 }
 
-impl<O: IsA<Settings>> SettingsExt for O {}
+impl<O: IsA<Settings>> GtkSettingsExt for O {}
 
 impl fmt::Display for Settings {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

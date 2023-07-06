@@ -1031,7 +1031,7 @@ pub mod traits {
     pub use super::menu_shell::MenuShellExt;
     pub use super::menu_tool_button::MenuToolButtonExt;
     pub use super::message_dialog::MessageDialogExt;
-    pub use super::mount_operation::MountOperationExt;
+    pub use super::mount_operation::GtkMountOperationExt;
     pub use super::native_dialog::NativeDialogExt;
     pub use super::notebook::NotebookExt;
     pub use super::offscreen_window::OffscreenWindowExt;
@@ -1065,7 +1065,7 @@ pub mod traits {
     pub use super::search_bar::SearchBarExt;
     pub use super::search_entry::SearchEntryExt;
     pub use super::separator_tool_item::SeparatorToolItemExt;
-    pub use super::settings::SettingsExt;
+    pub use super::settings::GtkSettingsExt;
     pub use super::shortcuts_window::ShortcutsWindowExt;
     pub use super::size_group::SizeGroupExt;
     #[cfg(gdk_backend = "x11")]

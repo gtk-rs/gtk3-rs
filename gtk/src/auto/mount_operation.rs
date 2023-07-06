@@ -153,7 +153,7 @@ mod sealed {
     impl<T: super::IsA<super::MountOperation>> Sealed for T {}
 }
 
-pub trait MountOperationExt: IsA<MountOperation> + sealed::Sealed + 'static {
+pub trait GtkMountOperationExt: IsA<MountOperation> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_mount_operation_get_parent")]
     #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<Window> {
@@ -282,7 +282,7 @@ pub trait MountOperationExt: IsA<MountOperation> + sealed::Sealed + 'static {
     }
 }
 
-impl<O: IsA<MountOperation>> MountOperationExt for O {}
+impl<O: IsA<MountOperation>> GtkMountOperationExt for O {}
 
 impl fmt::Display for MountOperation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
