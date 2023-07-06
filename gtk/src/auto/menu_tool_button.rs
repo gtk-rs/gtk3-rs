@@ -361,7 +361,12 @@ impl MenuToolButtonBuilder {
     }
 }
 
-pub trait MenuToolButtonExt: IsA<MenuToolButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MenuToolButton>> Sealed for T {}
+}
+
+pub trait MenuToolButtonExt: IsA<MenuToolButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_tool_button_get_menu")]
     #[doc(alias = "get_menu")]
     fn menu(&self) -> Option<Widget> {

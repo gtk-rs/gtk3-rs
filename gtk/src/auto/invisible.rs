@@ -277,7 +277,12 @@ impl InvisibleBuilder {
     }
 }
 
-pub trait InvisibleExt: IsA<Invisible> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Invisible>> Sealed for T {}
+}
+
+pub trait InvisibleExt: IsA<Invisible> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_invisible_set_screen")]
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {

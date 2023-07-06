@@ -355,7 +355,12 @@ impl AppChooserWidgetBuilder {
     }
 }
 
-pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AppChooserWidget>> Sealed for T {}
+}
+
+pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_app_chooser_widget_get_default_text")]
     #[doc(alias = "get_default_text")]
     fn default_text(&self) -> Option<glib::GString> {

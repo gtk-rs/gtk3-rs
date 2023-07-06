@@ -295,7 +295,12 @@ impl SearchBarBuilder {
     }
 }
 
-pub trait SearchBarExt: IsA<SearchBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SearchBar>> Sealed for T {}
+}
+
+pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_search_bar_connect_entry")]
     fn connect_entry(&self, entry: &impl IsA<Entry>) {
         unsafe {
@@ -358,12 +363,12 @@ pub trait SearchBarExt: IsA<SearchBar> + 'static {
 
     #[doc(alias = "search-mode-enabled")]
     fn is_search_mode_enabled(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "search-mode-enabled")
+        ObjectExt::property(self.as_ref(), "search-mode-enabled")
     }
 
     #[doc(alias = "search-mode-enabled")]
     fn set_search_mode_enabled(&self, search_mode_enabled: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "search-mode-enabled", search_mode_enabled)
+        ObjectExt::set_property(self.as_ref(), "search-mode-enabled", search_mode_enabled)
     }
 
     #[doc(alias = "search-mode-enabled")]

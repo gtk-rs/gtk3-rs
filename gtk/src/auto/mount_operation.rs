@@ -148,7 +148,12 @@ impl MountOperationBuilder {
     }
 }
 
-pub trait MountOperationExt: IsA<MountOperation> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MountOperation>> Sealed for T {}
+}
+
+pub trait MountOperationExt: IsA<MountOperation> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_mount_operation_get_parent")]
     #[doc(alias = "get_parent")]
     fn parent(&self) -> Option<Window> {

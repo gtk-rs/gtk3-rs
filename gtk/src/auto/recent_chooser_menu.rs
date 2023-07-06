@@ -434,7 +434,12 @@ impl RecentChooserMenuBuilder {
     }
 }
 
-pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RecentChooserMenu>> Sealed for T {}
+}
+
+pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
     #[doc(alias = "get_show_numbers")]
     fn shows_numbers(&self) -> bool {

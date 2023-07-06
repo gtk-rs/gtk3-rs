@@ -23,7 +23,12 @@ impl TreeSortable {
     pub const NONE: Option<&'static TreeSortable> = None;
 }
 
-pub trait TreeSortableExt: IsA<TreeSortable> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeSortable>> Sealed for T {}
+}
+
+pub trait TreeSortableExt: IsA<TreeSortable> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_sortable_has_default_sort_func")]
     fn has_default_sort_func(&self) -> bool {
         unsafe {

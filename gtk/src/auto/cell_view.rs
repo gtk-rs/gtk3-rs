@@ -368,7 +368,12 @@ impl CellViewBuilder {
     }
 }
 
-pub trait CellViewExt: IsA<CellView> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellView>> Sealed for T {}
+}
+
+pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_cell_view_get_displayed_row")]
     #[doc(alias = "get_displayed_row")]
     fn displayed_row(&self) -> Option<TreePath> {
@@ -453,32 +458,32 @@ pub trait CellViewExt: IsA<CellView> + 'static {
     }
 
     fn set_background(&self, background: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "background", background)
+        ObjectExt::set_property(self.as_ref(), "background", background)
     }
 
     #[doc(alias = "background-rgba")]
     fn background_rgba(&self) -> Option<gdk::RGBA> {
-        glib::ObjectExt::property(self.as_ref(), "background-rgba")
+        ObjectExt::property(self.as_ref(), "background-rgba")
     }
 
     #[doc(alias = "background-set")]
     fn is_background_set(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "background-set")
+        ObjectExt::property(self.as_ref(), "background-set")
     }
 
     #[doc(alias = "background-set")]
     fn set_background_set(&self, background_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "background-set", background_set)
+        ObjectExt::set_property(self.as_ref(), "background-set", background_set)
     }
 
     #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area")
+        ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     #[doc(alias = "cell-area-context")]
     fn cell_area_context(&self) -> Option<CellAreaContext> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area-context")
+        ObjectExt::property(self.as_ref(), "cell-area-context")
     }
 
     #[doc(alias = "background")]

@@ -303,7 +303,12 @@ impl ProgressBarBuilder {
     }
 }
 
-pub trait ProgressBarExt: IsA<ProgressBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ProgressBar>> Sealed for T {}
+}
+
+pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_progress_bar_get_ellipsize")]
     #[doc(alias = "get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode {

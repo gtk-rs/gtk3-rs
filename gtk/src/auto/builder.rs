@@ -59,7 +59,12 @@ impl Default for Builder {
     }
 }
 
-pub trait BuilderExt: IsA<Builder> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Builder>> Sealed for T {}
+}
+
+pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
     //#[doc(alias = "gtk_builder_add_callback_symbol")]
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P) {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }

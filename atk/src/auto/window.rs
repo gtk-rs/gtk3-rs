@@ -23,7 +23,12 @@ impl Window {
     pub const NONE: Option<&'static Window> = None;
 }
 
-pub trait AtkWindowExt: IsA<Window> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Window>> Sealed for T {}
+}
+
+pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "activate")]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn activate_trampoline<P: IsA<Window>, F: Fn(&P) + 'static>(

@@ -23,7 +23,12 @@ impl Gesture {
     pub const NONE: Option<&'static Gesture> = None;
 }
 
-pub trait GestureExt: IsA<Gesture> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Gesture>> Sealed for T {}
+}
+
+pub trait GestureExt: IsA<Gesture> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_gesture_get_bounding_box")]
     #[doc(alias = "get_bounding_box")]
     fn bounding_box(&self) -> Option<gdk::Rectangle> {
@@ -226,7 +231,7 @@ pub trait GestureExt: IsA<Gesture> + 'static {
 
     #[doc(alias = "n-points")]
     fn n_points(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "n-points")
+        ObjectExt::property(self.as_ref(), "n-points")
     }
 
     #[doc(alias = "begin")]

@@ -381,7 +381,12 @@ impl LockButtonBuilder {
     }
 }
 
-pub trait LockButtonExt: IsA<LockButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::LockButton>> Sealed for T {}
+}
+
+pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_lock_button_get_permission")]
     #[doc(alias = "get_permission")]
     fn permission(&self) -> Option<gio::Permission> {
@@ -404,42 +409,42 @@ pub trait LockButtonExt: IsA<LockButton> + 'static {
 
     #[doc(alias = "text-lock")]
     fn text_lock(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "text-lock")
+        ObjectExt::property(self.as_ref(), "text-lock")
     }
 
     #[doc(alias = "text-lock")]
     fn set_text_lock(&self, text_lock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-lock", text_lock)
+        ObjectExt::set_property(self.as_ref(), "text-lock", text_lock)
     }
 
     #[doc(alias = "text-unlock")]
     fn text_unlock(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "text-unlock")
+        ObjectExt::property(self.as_ref(), "text-unlock")
     }
 
     #[doc(alias = "text-unlock")]
     fn set_text_unlock(&self, text_unlock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "text-unlock", text_unlock)
+        ObjectExt::set_property(self.as_ref(), "text-unlock", text_unlock)
     }
 
     #[doc(alias = "tooltip-lock")]
     fn tooltip_lock(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "tooltip-lock")
+        ObjectExt::property(self.as_ref(), "tooltip-lock")
     }
 
     #[doc(alias = "tooltip-lock")]
     fn set_tooltip_lock(&self, tooltip_lock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "tooltip-lock", tooltip_lock)
+        ObjectExt::set_property(self.as_ref(), "tooltip-lock", tooltip_lock)
     }
 
     #[doc(alias = "tooltip-not-authorized")]
     fn tooltip_not_authorized(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "tooltip-not-authorized")
+        ObjectExt::property(self.as_ref(), "tooltip-not-authorized")
     }
 
     #[doc(alias = "tooltip-not-authorized")]
     fn set_tooltip_not_authorized(&self, tooltip_not_authorized: Option<&str>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "tooltip-not-authorized",
             tooltip_not_authorized,
@@ -448,12 +453,12 @@ pub trait LockButtonExt: IsA<LockButton> + 'static {
 
     #[doc(alias = "tooltip-unlock")]
     fn tooltip_unlock(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "tooltip-unlock")
+        ObjectExt::property(self.as_ref(), "tooltip-unlock")
     }
 
     #[doc(alias = "tooltip-unlock")]
     fn set_tooltip_unlock(&self, tooltip_unlock: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "tooltip-unlock", tooltip_unlock)
+        ObjectExt::set_property(self.as_ref(), "tooltip-unlock", tooltip_unlock)
     }
 
     #[doc(alias = "permission")]

@@ -279,7 +279,12 @@ impl FlowBoxChildBuilder {
     }
 }
 
-pub trait FlowBoxChildExt: IsA<FlowBoxChild> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FlowBoxChild>> Sealed for T {}
+}
+
+pub trait FlowBoxChildExt: IsA<FlowBoxChild> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_flow_box_child_changed")]
     fn changed(&self) {
         unsafe {

@@ -353,7 +353,12 @@ impl ToolButtonBuilder {
     }
 }
 
-pub trait ToolButtonExt: IsA<ToolButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ToolButton>> Sealed for T {}
+}
+
+pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tool_button_get_icon_name")]
     #[doc(alias = "get_icon_name")]
     fn icon_name(&self) -> Option<glib::GString> {

@@ -44,7 +44,12 @@ impl Default for AccelGroup {
     }
 }
 
-pub trait AccelGroupExt: IsA<AccelGroup> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AccelGroup>> Sealed for T {}
+}
+
+pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_accel_group_activate")]
     fn activate(
         &self,

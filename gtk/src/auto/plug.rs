@@ -477,7 +477,12 @@ impl PlugBuilder {
     }
 }
 
-pub trait PlugExt: IsA<Plug> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Plug>> Sealed for T {}
+}
+
+pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_plug_construct")]
     fn construct(&self, socket_id: xlib::Window) {
         unsafe {

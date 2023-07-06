@@ -379,7 +379,12 @@ impl ComboBoxTextBuilder {
     }
 }
 
-pub trait ComboBoxTextExt: IsA<ComboBoxText> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ComboBoxText>> Sealed for T {}
+}
+
+pub trait ComboBoxTextExt: IsA<ComboBoxText> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_combo_box_text_append")]
     fn append(&self, id: Option<&str>, text: &str) {
         unsafe {

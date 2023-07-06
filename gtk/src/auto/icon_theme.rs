@@ -50,7 +50,12 @@ impl Default for IconTheme {
     }
 }
 
-pub trait IconThemeExt: IsA<IconTheme> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::IconTheme>> Sealed for T {}
+}
+
+pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_icon_theme_add_resource_path")]
     fn add_resource_path(&self, path: &str) {
         unsafe {

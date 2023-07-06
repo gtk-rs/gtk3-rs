@@ -310,7 +310,12 @@ impl BoxBuilder {
     }
 }
 
-pub trait BoxExt: IsA<Box> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Box>> Sealed for T {}
+}
+
+pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_box_get_baseline_position")]
     #[doc(alias = "get_baseline_position")]
     fn baseline_position(&self) -> BaselinePosition {

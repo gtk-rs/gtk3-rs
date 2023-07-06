@@ -291,7 +291,12 @@ impl EventBoxBuilder {
     }
 }
 
-pub trait EventBoxExt: IsA<EventBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::EventBox>> Sealed for T {}
+}
+
+pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]
     #[doc(alias = "get_above_child")]
     fn is_above_child(&self) -> bool {

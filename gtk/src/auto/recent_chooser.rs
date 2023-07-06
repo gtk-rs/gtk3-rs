@@ -23,7 +23,12 @@ impl RecentChooser {
     pub const NONE: Option<&'static RecentChooser> = None;
 }
 
-pub trait RecentChooserExt: IsA<RecentChooser> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RecentChooser>> Sealed for T {}
+}
+
+pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_recent_chooser_add_filter")]
     fn add_filter(&self, filter: &RecentFilter) {
         unsafe {

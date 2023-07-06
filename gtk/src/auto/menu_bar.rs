@@ -311,7 +311,12 @@ impl MenuBarBuilder {
     }
 }
 
-pub trait MenuBarExt: IsA<MenuBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MenuBar>> Sealed for T {}
+}
+
+pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
     #[doc(alias = "get_child_pack_direction")]
     fn child_pack_direction(&self) -> PackDirection {

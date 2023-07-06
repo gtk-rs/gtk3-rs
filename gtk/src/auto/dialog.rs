@@ -476,7 +476,12 @@ impl DialogBuilder {
     }
 }
 
-pub trait DialogExt: IsA<Dialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Dialog>> Sealed for T {}
+}
+
+pub trait DialogExt: IsA<Dialog> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_dialog_add_action_widget")]
     fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {
@@ -576,7 +581,7 @@ pub trait DialogExt: IsA<Dialog> + 'static {
 
     #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "use-header-bar")
+        ObjectExt::property(self.as_ref(), "use-header-bar")
     }
 
     #[doc(alias = "close")]

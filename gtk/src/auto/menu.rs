@@ -376,7 +376,12 @@ impl MenuBuilder {
     }
 }
 
-pub trait GtkMenuExt: IsA<Menu> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Menu>> Sealed for T {}
+}
+
+pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_attach")]
     fn attach(
         &self,
@@ -591,47 +596,47 @@ pub trait GtkMenuExt: IsA<Menu> + 'static {
 
     #[doc(alias = "anchor-hints")]
     fn anchor_hints(&self) -> gdk::AnchorHints {
-        glib::ObjectExt::property(self.as_ref(), "anchor-hints")
+        ObjectExt::property(self.as_ref(), "anchor-hints")
     }
 
     #[doc(alias = "anchor-hints")]
     fn set_anchor_hints(&self, anchor_hints: gdk::AnchorHints) {
-        glib::ObjectExt::set_property(self.as_ref(), "anchor-hints", anchor_hints)
+        ObjectExt::set_property(self.as_ref(), "anchor-hints", anchor_hints)
     }
 
     #[doc(alias = "attach-widget")]
     fn set_attach_widget<P: IsA<Widget>>(&self, attach_widget: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "attach-widget", attach_widget)
+        ObjectExt::set_property(self.as_ref(), "attach-widget", attach_widget)
     }
 
     #[doc(alias = "menu-type-hint")]
     fn menu_type_hint(&self) -> gdk::WindowTypeHint {
-        glib::ObjectExt::property(self.as_ref(), "menu-type-hint")
+        ObjectExt::property(self.as_ref(), "menu-type-hint")
     }
 
     #[doc(alias = "menu-type-hint")]
     fn set_menu_type_hint(&self, menu_type_hint: gdk::WindowTypeHint) {
-        glib::ObjectExt::set_property(self.as_ref(), "menu-type-hint", menu_type_hint)
+        ObjectExt::set_property(self.as_ref(), "menu-type-hint", menu_type_hint)
     }
 
     #[doc(alias = "rect-anchor-dx")]
     fn rect_anchor_dx(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "rect-anchor-dx")
+        ObjectExt::property(self.as_ref(), "rect-anchor-dx")
     }
 
     #[doc(alias = "rect-anchor-dx")]
     fn set_rect_anchor_dx(&self, rect_anchor_dx: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", rect_anchor_dx)
+        ObjectExt::set_property(self.as_ref(), "rect-anchor-dx", rect_anchor_dx)
     }
 
     #[doc(alias = "rect-anchor-dy")]
     fn rect_anchor_dy(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "rect-anchor-dy")
+        ObjectExt::property(self.as_ref(), "rect-anchor-dy")
     }
 
     #[doc(alias = "rect-anchor-dy")]
     fn set_rect_anchor_dy(&self, rect_anchor_dy: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", rect_anchor_dy)
+        ObjectExt::set_property(self.as_ref(), "rect-anchor-dy", rect_anchor_dy)
     }
 
     #[doc(alias = "item.bottom-attach")]

@@ -546,7 +546,12 @@ impl WindowBuilder {
     }
 }
 
-pub trait GtkWindowExt: IsA<Window> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Window>> Sealed for T {}
+}
+
+pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_window_activate_default")]
     fn activate_default(&self) -> bool {
         unsafe {
@@ -1426,37 +1431,37 @@ pub trait GtkWindowExt: IsA<Window> + 'static {
 
     #[doc(alias = "default-height")]
     fn default_height(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "default-height")
+        ObjectExt::property(self.as_ref(), "default-height")
     }
 
     #[doc(alias = "default-height")]
     fn set_default_height(&self, default_height: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "default-height", default_height)
+        ObjectExt::set_property(self.as_ref(), "default-height", default_height)
     }
 
     #[doc(alias = "default-width")]
     fn default_width(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "default-width")
+        ObjectExt::property(self.as_ref(), "default-width")
     }
 
     #[doc(alias = "default-width")]
     fn set_default_width(&self, default_width: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "default-width", default_width)
+        ObjectExt::set_property(self.as_ref(), "default-width", default_width)
     }
 
     #[doc(alias = "type")]
     fn type_(&self) -> WindowType {
-        glib::ObjectExt::property(self.as_ref(), "type")
+        ObjectExt::property(self.as_ref(), "type")
     }
 
     #[doc(alias = "window-position")]
     fn window_position(&self) -> WindowPosition {
-        glib::ObjectExt::property(self.as_ref(), "window-position")
+        ObjectExt::property(self.as_ref(), "window-position")
     }
 
     #[doc(alias = "window-position")]
     fn set_window_position(&self, window_position: WindowPosition) {
-        glib::ObjectExt::set_property(self.as_ref(), "window-position", window_position)
+        ObjectExt::set_property(self.as_ref(), "window-position", window_position)
     }
 
     #[doc(alias = "activate-default")]

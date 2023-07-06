@@ -334,7 +334,12 @@ impl PopoverBuilder {
     }
 }
 
-pub trait PopoverExt: IsA<Popover> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Popover>> Sealed for T {}
+}
+
+pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_popover_bind_model")]
     fn bind_model(&self, model: Option<&impl IsA<gio::MenuModel>>, action_namespace: Option<&str>) {
         unsafe {

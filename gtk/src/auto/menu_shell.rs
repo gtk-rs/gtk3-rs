@@ -23,7 +23,12 @@ impl MenuShell {
     pub const NONE: Option<&'static MenuShell> = None;
 }
 
-pub trait MenuShellExt: IsA<MenuShell> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MenuShell>> Sealed for T {}
+}
+
+pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_menu_shell_activate_item")]
     fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool) {
         unsafe {

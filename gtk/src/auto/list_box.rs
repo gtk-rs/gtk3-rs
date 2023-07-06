@@ -296,7 +296,12 @@ impl ListBoxBuilder {
     }
 }
 
-pub trait ListBoxExt: IsA<ListBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ListBox>> Sealed for T {}
+}
+
+pub trait ListBoxExt: IsA<ListBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_list_box_bind_model")]
     fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,

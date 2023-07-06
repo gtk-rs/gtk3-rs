@@ -19,7 +19,12 @@ impl Image {
     pub const NONE: Option<&'static Image> = None;
 }
 
-pub trait AtkImageExt: IsA<Image> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Image>> Sealed for T {}
+}
+
+pub trait AtkImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "atk_image_get_image_description")]
     #[doc(alias = "get_image_description")]
     fn image_description(&self) -> Option<glib::GString> {

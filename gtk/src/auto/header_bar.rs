@@ -335,7 +335,12 @@ impl HeaderBarBuilder {
     }
 }
 
-pub trait HeaderBarExt: IsA<HeaderBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::HeaderBar>> Sealed for T {}
+}
+
+pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]
     #[doc(alias = "get_custom_title")]
     fn custom_title(&self) -> Option<Widget> {
@@ -475,12 +480,12 @@ pub trait HeaderBarExt: IsA<HeaderBar> + 'static {
 
     #[doc(alias = "decoration-layout-set")]
     fn is_decoration_layout_set(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "decoration-layout-set")
+        ObjectExt::property(self.as_ref(), "decoration-layout-set")
     }
 
     #[doc(alias = "decoration-layout-set")]
     fn set_decoration_layout_set(&self, decoration_layout_set: bool) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "decoration-layout-set",
             decoration_layout_set,
@@ -488,11 +493,11 @@ pub trait HeaderBarExt: IsA<HeaderBar> + 'static {
     }
 
     fn spacing(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "spacing")
+        ObjectExt::property(self.as_ref(), "spacing")
     }
 
     fn set_spacing(&self, spacing: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "spacing", spacing)
+        ObjectExt::set_property(self.as_ref(), "spacing", spacing)
     }
 
     #[doc(alias = "child.pack-type")]

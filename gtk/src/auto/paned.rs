@@ -303,7 +303,12 @@ impl PanedBuilder {
     }
 }
 
-pub trait PanedExt: IsA<Paned> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Paned>> Sealed for T {}
+}
+
+pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_paned_add1")]
     fn add1(&self, child: &impl IsA<Widget>) {
         unsafe {
@@ -402,22 +407,22 @@ pub trait PanedExt: IsA<Paned> + 'static {
 
     #[doc(alias = "max-position")]
     fn max_position(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "max-position")
+        ObjectExt::property(self.as_ref(), "max-position")
     }
 
     #[doc(alias = "min-position")]
     fn min_position(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "min-position")
+        ObjectExt::property(self.as_ref(), "min-position")
     }
 
     #[doc(alias = "position-set")]
     fn is_position_set(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "position-set")
+        ObjectExt::property(self.as_ref(), "position-set")
     }
 
     #[doc(alias = "position-set")]
     fn set_position_set(&self, position_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "position-set", position_set)
+        ObjectExt::set_property(self.as_ref(), "position-set", position_set)
     }
 
     fn child_resizes<T: IsA<crate::Widget>>(&self, item: &T) -> bool {

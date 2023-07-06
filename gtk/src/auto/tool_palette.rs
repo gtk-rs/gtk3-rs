@@ -349,7 +349,12 @@ impl ToolPaletteBuilder {
     }
 }
 
-pub trait ToolPaletteExt: IsA<ToolPalette> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ToolPalette>> Sealed for T {}
+}
+
+pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tool_palette_add_drag_dest")]
     fn add_drag_dest(
         &self,
@@ -533,22 +538,22 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + 'static {
 
     #[doc(alias = "icon-size-set")]
     fn is_icon_size_set(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "icon-size-set")
+        ObjectExt::property(self.as_ref(), "icon-size-set")
     }
 
     #[doc(alias = "icon-size-set")]
     fn set_icon_size_set(&self, icon_size_set: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "icon-size-set", icon_size_set)
+        ObjectExt::set_property(self.as_ref(), "icon-size-set", icon_size_set)
     }
 
     #[doc(alias = "toolbar-style")]
     fn toolbar_style(&self) -> ToolbarStyle {
-        glib::ObjectExt::property(self.as_ref(), "toolbar-style")
+        ObjectExt::property(self.as_ref(), "toolbar-style")
     }
 
     #[doc(alias = "toolbar-style")]
     fn set_toolbar_style(&self, toolbar_style: ToolbarStyle) {
-        glib::ObjectExt::set_property(self.as_ref(), "toolbar-style", toolbar_style)
+        ObjectExt::set_property(self.as_ref(), "toolbar-style", toolbar_style)
     }
 
     #[doc(alias = "icon-size")]

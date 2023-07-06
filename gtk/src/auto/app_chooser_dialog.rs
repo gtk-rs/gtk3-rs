@@ -517,7 +517,12 @@ impl AppChooserDialogBuilder {
     }
 }
 
-pub trait AppChooserDialogExt: IsA<AppChooserDialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AppChooserDialog>> Sealed for T {}
+}
+
+pub trait AppChooserDialogExt: IsA<AppChooserDialog> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_app_chooser_dialog_get_heading")]
     #[doc(alias = "get_heading")]
     fn heading(&self) -> Option<glib::GString> {
@@ -549,7 +554,7 @@ pub trait AppChooserDialogExt: IsA<AppChooserDialog> + 'static {
     }
 
     fn gfile(&self) -> Option<gio::File> {
-        glib::ObjectExt::property(self.as_ref(), "gfile")
+        ObjectExt::property(self.as_ref(), "gfile")
     }
 
     #[doc(alias = "heading")]

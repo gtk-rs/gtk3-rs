@@ -85,7 +85,12 @@ impl TextBufferBuilder {
     }
 }
 
-pub trait TextBufferExt: IsA<TextBuffer> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TextBuffer>> Sealed for T {}
+}
+
+pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_text_buffer_add_mark")]
     fn add_mark(&self, mark: &impl IsA<TextMark>, where_: &TextIter) {
         unsafe {
@@ -934,7 +939,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + 'static {
 
     #[doc(alias = "cursor-position")]
     fn cursor_position(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "cursor-position")
+        ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
     #[doc(alias = "begin-user-action")]

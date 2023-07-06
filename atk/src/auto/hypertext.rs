@@ -23,7 +23,12 @@ impl Hypertext {
     pub const NONE: Option<&'static Hypertext> = None;
 }
 
-pub trait HypertextExt: IsA<Hypertext> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Hypertext>> Sealed for T {}
+}
+
+pub trait HypertextExt: IsA<Hypertext> + sealed::Sealed + 'static {
     #[doc(alias = "atk_hypertext_get_link")]
     #[doc(alias = "get_link")]
     fn link(&self, link_index: i32) -> Option<Hyperlink> {

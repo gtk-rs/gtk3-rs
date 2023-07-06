@@ -23,7 +23,12 @@ impl Hyperlink {
     pub const NONE: Option<&'static Hyperlink> = None;
 }
 
-pub trait HyperlinkExt: IsA<Hyperlink> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Hyperlink>> Sealed for T {}
+}
+
+pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
     #[doc(alias = "atk_hyperlink_get_end_index")]
     #[doc(alias = "get_end_index")]
     fn end_index(&self) -> i32 {
@@ -76,7 +81,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + 'static {
 
     #[doc(alias = "number-of-anchors")]
     fn number_of_anchors(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "number-of-anchors")
+        ObjectExt::property(self.as_ref(), "number-of-anchors")
     }
 
     #[doc(alias = "link-activated")]

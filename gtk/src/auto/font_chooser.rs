@@ -25,7 +25,12 @@ impl FontChooser {
     pub const NONE: Option<&'static FontChooser> = None;
 }
 
-pub trait FontChooserExt: IsA<FontChooser> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FontChooser>> Sealed for T {}
+}
+
+pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_font_chooser_get_font")]
     #[doc(alias = "get_font")]
     fn font(&self) -> Option<glib::GString> {

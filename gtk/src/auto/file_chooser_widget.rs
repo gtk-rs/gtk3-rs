@@ -393,19 +393,24 @@ impl FileChooserWidgetBuilder {
     }
 }
 
-pub trait FileChooserWidgetExt: IsA<FileChooserWidget> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FileChooserWidget>> Sealed for T {}
+}
+
+pub trait FileChooserWidgetExt: IsA<FileChooserWidget> + sealed::Sealed + 'static {
     #[doc(alias = "search-mode")]
     fn is_search_mode(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "search-mode")
+        ObjectExt::property(self.as_ref(), "search-mode")
     }
 
     #[doc(alias = "search-mode")]
     fn set_search_mode(&self, search_mode: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "search-mode", search_mode)
+        ObjectExt::set_property(self.as_ref(), "search-mode", search_mode)
     }
 
     fn subtitle(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "subtitle")
+        ObjectExt::property(self.as_ref(), "subtitle")
     }
 
     #[doc(alias = "desktop-folder")]

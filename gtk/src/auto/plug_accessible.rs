@@ -169,7 +169,12 @@ impl PlugAccessibleBuilder {
     }
 }
 
-pub trait PlugAccessibleExt: IsA<PlugAccessible> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::PlugAccessible>> Sealed for T {}
+}
+
+pub trait PlugAccessibleExt: IsA<PlugAccessible> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_plug_accessible_get_id")]
     #[doc(alias = "get_id")]
     fn id(&self) -> Option<glib::GString> {

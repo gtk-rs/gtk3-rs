@@ -407,7 +407,12 @@ impl AppChooserButtonBuilder {
     }
 }
 
-pub trait AppChooserButtonExt: IsA<AppChooserButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AppChooserButton>> Sealed for T {}
+}
+
+pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_app_chooser_button_append_custom_item")]
     fn append_custom_item(&self, name: &str, label: &str, icon: &impl IsA<gio::Icon>) {
         unsafe {

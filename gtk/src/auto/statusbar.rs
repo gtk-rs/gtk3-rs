@@ -307,7 +307,12 @@ impl StatusbarBuilder {
     }
 }
 
-pub trait StatusbarExt: IsA<Statusbar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Statusbar>> Sealed for T {}
+}
+
+pub trait StatusbarExt: IsA<Statusbar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_statusbar_get_context_id")]
     #[doc(alias = "get_context_id")]
     fn context_id(&self, context_description: &str) -> u32 {

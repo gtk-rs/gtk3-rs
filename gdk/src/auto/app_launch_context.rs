@@ -58,7 +58,7 @@ impl AppLaunchContext {
     }
 
     pub fn display(&self) -> Option<Display> {
-        glib::ObjectExt::property(self, "display")
+        ObjectExt::property(self, "display")
     }
 }
 

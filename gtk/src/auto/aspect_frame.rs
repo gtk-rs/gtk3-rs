@@ -350,7 +350,12 @@ impl AspectFrameBuilder {
     }
 }
 
-pub trait AspectFrameExt: IsA<AspectFrame> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AspectFrame>> Sealed for T {}
+}
+
+pub trait AspectFrameExt: IsA<AspectFrame> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_aspect_frame_set")]
     fn set(&self, xalign: f32, yalign: f32, ratio: f32, obey_child: bool) {
         unsafe {
@@ -366,36 +371,36 @@ pub trait AspectFrameExt: IsA<AspectFrame> + 'static {
 
     #[doc(alias = "obey-child")]
     fn is_obey_child(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "obey-child")
+        ObjectExt::property(self.as_ref(), "obey-child")
     }
 
     #[doc(alias = "obey-child")]
     fn set_obey_child(&self, obey_child: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "obey-child", obey_child)
+        ObjectExt::set_property(self.as_ref(), "obey-child", obey_child)
     }
 
     fn ratio(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "ratio")
+        ObjectExt::property(self.as_ref(), "ratio")
     }
 
     fn set_ratio(&self, ratio: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "ratio", ratio)
+        ObjectExt::set_property(self.as_ref(), "ratio", ratio)
     }
 
     fn xalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "xalign")
+        ObjectExt::property(self.as_ref(), "xalign")
     }
 
     fn set_xalign(&self, xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "xalign", xalign)
+        ObjectExt::set_property(self.as_ref(), "xalign", xalign)
     }
 
     fn yalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "yalign")
+        ObjectExt::property(self.as_ref(), "yalign")
     }
 
     fn set_yalign(&self, yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "yalign", yalign)
+        ObjectExt::set_property(self.as_ref(), "yalign", yalign)
     }
 
     #[doc(alias = "obey-child")]

@@ -115,7 +115,12 @@ impl ApplicationBuilder {
     }
 }
 
-pub trait GtkApplicationExt: IsA<Application> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Application>> Sealed for T {}
+}
+
+pub trait GtkApplicationExt: IsA<Application> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_application_add_window")]
     fn add_window(&self, window: &impl IsA<Window>) {
         unsafe {
@@ -305,19 +310,19 @@ pub trait GtkApplicationExt: IsA<Application> + 'static {
 
     #[doc(alias = "register-session")]
     fn is_register_session(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "register-session")
+        ObjectExt::property(self.as_ref(), "register-session")
     }
 
     #[doc(alias = "register-session")]
     fn set_register_session(&self, register_session: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "register-session", register_session)
+        ObjectExt::set_property(self.as_ref(), "register-session", register_session)
     }
 
     #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "screensaver-active")]
     fn is_screensaver_active(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "screensaver-active")
+        ObjectExt::property(self.as_ref(), "screensaver-active")
     }
 
     #[cfg(feature = "v3_24_8")]

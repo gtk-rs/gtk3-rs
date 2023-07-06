@@ -23,7 +23,12 @@ impl TreeSelection {
     pub const NONE: Option<&'static TreeSelection> = None;
 }
 
-pub trait TreeSelectionExt: IsA<TreeSelection> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeSelection>> Sealed for T {}
+}
+
+pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_selection_count_selected_rows")]
     fn count_selected_rows(&self) -> i32 {
         unsafe { ffi::gtk_tree_selection_count_selected_rows(self.as_ref().to_glib_none().0) }

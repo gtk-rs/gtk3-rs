@@ -24,7 +24,12 @@ impl Container {
     pub const NONE: Option<&'static Container> = None;
 }
 
-pub trait ContainerExt: IsA<Container> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Container>> Sealed for T {}
+}
+
+pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_container_add")]
     fn add(&self, widget: &impl IsA<Widget>) {
         unsafe {
@@ -287,17 +292,17 @@ pub trait ContainerExt: IsA<Container> + 'static {
     }
 
     fn set_child<P: IsA<Widget>>(&self, child: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "child", child)
+        ObjectExt::set_property(self.as_ref(), "child", child)
     }
 
     #[doc(alias = "resize-mode")]
     fn resize_mode(&self) -> ResizeMode {
-        glib::ObjectExt::property(self.as_ref(), "resize-mode")
+        ObjectExt::property(self.as_ref(), "resize-mode")
     }
 
     #[doc(alias = "resize-mode")]
     fn set_resize_mode(&self, resize_mode: ResizeMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "resize-mode", resize_mode)
+        ObjectExt::set_property(self.as_ref(), "resize-mode", resize_mode)
     }
 
     #[doc(alias = "add")]

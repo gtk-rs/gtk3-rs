@@ -26,7 +26,12 @@ impl Component {
     pub const NONE: Option<&'static Component> = None;
 }
 
-pub trait ComponentExt: IsA<Component> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Component>> Sealed for T {}
+}
+
+pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
     #[doc(alias = "atk_component_contains")]
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {

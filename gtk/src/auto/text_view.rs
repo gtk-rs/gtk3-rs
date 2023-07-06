@@ -455,7 +455,12 @@ impl TextViewBuilder {
     }
 }
 
-pub trait TextViewExt: IsA<TextView> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TextView>> Sealed for T {}
+}
+
+pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_text_view_add_child_at_anchor")]
     fn add_child_at_anchor(&self, child: &impl IsA<Widget>, anchor: &impl IsA<TextChildAnchor>) {
         unsafe {
@@ -1183,22 +1188,22 @@ pub trait TextViewExt: IsA<TextView> + 'static {
 
     #[doc(alias = "im-module")]
     fn im_module(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "im-module")
+        ObjectExt::property(self.as_ref(), "im-module")
     }
 
     #[doc(alias = "im-module")]
     fn set_im_module(&self, im_module: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "im-module", im_module)
+        ObjectExt::set_property(self.as_ref(), "im-module", im_module)
     }
 
     #[doc(alias = "populate-all")]
     fn populates_all(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "populate-all")
+        ObjectExt::property(self.as_ref(), "populate-all")
     }
 
     #[doc(alias = "populate-all")]
     fn set_populate_all(&self, populate_all: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "populate-all", populate_all)
+        ObjectExt::set_property(self.as_ref(), "populate-all", populate_all)
     }
 
     #[doc(alias = "backspace")]

@@ -376,7 +376,12 @@ impl ToggleButtonBuilder {
     }
 }
 
-pub trait ToggleButtonExt: IsA<ToggleButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ToggleButton>> Sealed for T {}
+}
+
+pub trait ToggleButtonExt: IsA<ToggleButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_toggle_button_get_active")]
     #[doc(alias = "get_active")]
     fn is_active(&self) -> bool {
@@ -446,12 +451,12 @@ pub trait ToggleButtonExt: IsA<ToggleButton> + 'static {
 
     #[doc(alias = "draw-indicator")]
     fn draws_indicator(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "draw-indicator")
+        ObjectExt::property(self.as_ref(), "draw-indicator")
     }
 
     #[doc(alias = "draw-indicator")]
     fn set_draw_indicator(&self, draw_indicator: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "draw-indicator", draw_indicator)
+        ObjectExt::set_property(self.as_ref(), "draw-indicator", draw_indicator)
     }
 
     #[doc(alias = "toggled")]

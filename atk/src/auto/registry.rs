@@ -19,7 +19,12 @@ impl Registry {
     pub const NONE: Option<&'static Registry> = None;
 }
 
-pub trait RegistryExt: IsA<Registry> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Registry>> Sealed for T {}
+}
+
+pub trait RegistryExt: IsA<Registry> + sealed::Sealed + 'static {
     #[doc(alias = "atk_registry_get_factory")]
     #[doc(alias = "get_factory")]
     fn factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {

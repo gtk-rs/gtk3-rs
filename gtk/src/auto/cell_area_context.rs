@@ -23,7 +23,12 @@ impl CellAreaContext {
     pub const NONE: Option<&'static CellAreaContext> = None;
 }
 
-pub trait CellAreaContextExt: IsA<CellAreaContext> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellAreaContext>> Sealed for T {}
+}
+
+pub trait CellAreaContextExt: IsA<CellAreaContext> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_cell_area_context_allocate")]
     fn allocate(&self, width: i32, height: i32) {
         unsafe {
@@ -149,22 +154,22 @@ pub trait CellAreaContextExt: IsA<CellAreaContext> + 'static {
 
     #[doc(alias = "minimum-height")]
     fn minimum_height(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "minimum-height")
+        ObjectExt::property(self.as_ref(), "minimum-height")
     }
 
     #[doc(alias = "minimum-width")]
     fn minimum_width(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "minimum-width")
+        ObjectExt::property(self.as_ref(), "minimum-width")
     }
 
     #[doc(alias = "natural-height")]
     fn natural_height(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "natural-height")
+        ObjectExt::property(self.as_ref(), "natural-height")
     }
 
     #[doc(alias = "natural-width")]
     fn natural_width(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "natural-width")
+        ObjectExt::property(self.as_ref(), "natural-width")
     }
 
     #[doc(alias = "minimum-height")]

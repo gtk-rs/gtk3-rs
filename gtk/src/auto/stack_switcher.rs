@@ -35,7 +35,12 @@ impl Default for StackSwitcher {
     }
 }
 
-pub trait StackSwitcherExt: IsA<StackSwitcher> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StackSwitcher>> Sealed for T {}
+}
+
+pub trait StackSwitcherExt: IsA<StackSwitcher> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]
     #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack> {

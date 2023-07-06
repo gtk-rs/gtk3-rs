@@ -209,41 +209,46 @@ impl CellRendererPixbufBuilder {
     }
 }
 
-pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererPixbuf>> Sealed for T {}
+}
+
+pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'static {
     fn gicon(&self) -> Option<gio::Icon> {
-        glib::ObjectExt::property(self.as_ref(), "gicon")
+        ObjectExt::property(self.as_ref(), "gicon")
     }
 
     fn set_gicon<P: IsA<gio::Icon>>(&self, gicon: Option<&P>) {
-        glib::ObjectExt::set_property(self.as_ref(), "gicon", gicon)
+        ObjectExt::set_property(self.as_ref(), "gicon", gicon)
     }
 
     #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "icon-name")
+        ObjectExt::property(self.as_ref(), "icon-name")
     }
 
     #[doc(alias = "icon-name")]
     fn set_icon_name(&self, icon_name: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
+        ObjectExt::set_property(self.as_ref(), "icon-name", icon_name)
     }
 
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        glib::ObjectExt::property(self.as_ref(), "pixbuf")
+        ObjectExt::property(self.as_ref(), "pixbuf")
     }
 
     fn set_pixbuf(&self, pixbuf: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
+        ObjectExt::set_property(self.as_ref(), "pixbuf", pixbuf)
     }
 
     #[doc(alias = "pixbuf-expander-closed")]
     fn pixbuf_expander_closed(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        glib::ObjectExt::property(self.as_ref(), "pixbuf-expander-closed")
+        ObjectExt::property(self.as_ref(), "pixbuf-expander-closed")
     }
 
     #[doc(alias = "pixbuf-expander-closed")]
     fn set_pixbuf_expander_closed(&self, pixbuf_expander_closed: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(
+        ObjectExt::set_property(
             self.as_ref(),
             "pixbuf-expander-closed",
             pixbuf_expander_closed,
@@ -252,30 +257,30 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + 'static {
 
     #[doc(alias = "pixbuf-expander-open")]
     fn pixbuf_expander_open(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        glib::ObjectExt::property(self.as_ref(), "pixbuf-expander-open")
+        ObjectExt::property(self.as_ref(), "pixbuf-expander-open")
     }
 
     #[doc(alias = "pixbuf-expander-open")]
     fn set_pixbuf_expander_open(&self, pixbuf_expander_open: Option<&gdk_pixbuf::Pixbuf>) {
-        glib::ObjectExt::set_property(self.as_ref(), "pixbuf-expander-open", pixbuf_expander_open)
+        ObjectExt::set_property(self.as_ref(), "pixbuf-expander-open", pixbuf_expander_open)
     }
 
     #[doc(alias = "stock-detail")]
     fn stock_detail(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "stock-detail")
+        ObjectExt::property(self.as_ref(), "stock-detail")
     }
 
     #[doc(alias = "stock-detail")]
     fn set_stock_detail(&self, stock_detail: Option<&str>) {
-        glib::ObjectExt::set_property(self.as_ref(), "stock-detail", stock_detail)
+        ObjectExt::set_property(self.as_ref(), "stock-detail", stock_detail)
     }
 
     fn surface(&self) -> Option<cairo::Surface> {
-        glib::ObjectExt::property(self.as_ref(), "surface")
+        ObjectExt::property(self.as_ref(), "surface")
     }
 
     fn set_surface(&self, surface: Option<&cairo::Surface>) {
-        glib::ObjectExt::set_property(self.as_ref(), "surface", surface)
+        ObjectExt::set_property(self.as_ref(), "surface", surface)
     }
 
     #[doc(alias = "gicon")]

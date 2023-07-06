@@ -439,7 +439,12 @@ impl TreeViewBuilder {
     }
 }
 
-pub trait TreeViewExt: IsA<TreeView> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeView>> Sealed for T {}
+}
+
+pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_append_column")]
     fn append_column(&self, column: &impl IsA<TreeViewColumn>) -> i32 {
         unsafe {
@@ -1693,12 +1698,12 @@ pub trait TreeViewExt: IsA<TreeView> + 'static {
 
     #[doc(alias = "enable-grid-lines")]
     fn enable_grid_lines(&self) -> TreeViewGridLines {
-        glib::ObjectExt::property(self.as_ref(), "enable-grid-lines")
+        ObjectExt::property(self.as_ref(), "enable-grid-lines")
     }
 
     #[doc(alias = "enable-grid-lines")]
     fn set_enable_grid_lines(&self, enable_grid_lines: TreeViewGridLines) {
-        glib::ObjectExt::set_property(self.as_ref(), "enable-grid-lines", enable_grid_lines)
+        ObjectExt::set_property(self.as_ref(), "enable-grid-lines", enable_grid_lines)
     }
 
     #[doc(alias = "columns-changed")]

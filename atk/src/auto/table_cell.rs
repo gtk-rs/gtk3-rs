@@ -19,7 +19,12 @@ impl TableCell {
     pub const NONE: Option<&'static TableCell> = None;
 }
 
-pub trait TableCellExt: IsA<TableCell> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TableCell>> Sealed for T {}
+}
+
+pub trait TableCellExt: IsA<TableCell> + sealed::Sealed + 'static {
     #[doc(alias = "atk_table_cell_get_column_header_cells")]
     #[doc(alias = "get_column_header_cells")]
     fn column_header_cells(&self) -> Vec<Object> {

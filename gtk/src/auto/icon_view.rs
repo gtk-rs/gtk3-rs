@@ -435,7 +435,12 @@ impl IconViewBuilder {
     }
 }
 
-pub trait IconViewExt: IsA<IconView> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::IconView>> Sealed for T {}
+}
+
+pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_icon_view_convert_widget_to_bin_window_coords")]
     fn convert_widget_to_bin_window_coords(&self, wx: i32, wy: i32) -> (i32, i32) {
         unsafe {
@@ -1056,7 +1061,7 @@ pub trait IconViewExt: IsA<IconView> + 'static {
 
     #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area")
+        ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     #[doc(alias = "activate-cursor-item")]

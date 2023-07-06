@@ -327,7 +327,12 @@ impl CalendarBuilder {
     }
 }
 
-pub trait CalendarExt: IsA<Calendar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Calendar>> Sealed for T {}
+}
+
+pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_calendar_clear_marks")]
     fn clear_marks(&self) {
         unsafe {
@@ -477,77 +482,77 @@ pub trait CalendarExt: IsA<Calendar> + 'static {
     }
 
     fn day(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "day")
+        ObjectExt::property(self.as_ref(), "day")
     }
 
     fn set_day(&self, day: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "day", day)
+        ObjectExt::set_property(self.as_ref(), "day", day)
     }
 
     fn month(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "month")
+        ObjectExt::property(self.as_ref(), "month")
     }
 
     fn set_month(&self, month: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "month", month)
+        ObjectExt::set_property(self.as_ref(), "month", month)
     }
 
     #[doc(alias = "no-month-change")]
     fn is_no_month_change(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "no-month-change")
+        ObjectExt::property(self.as_ref(), "no-month-change")
     }
 
     #[doc(alias = "no-month-change")]
     fn set_no_month_change(&self, no_month_change: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "no-month-change", no_month_change)
+        ObjectExt::set_property(self.as_ref(), "no-month-change", no_month_change)
     }
 
     #[doc(alias = "show-day-names")]
     fn shows_day_names(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-day-names")
+        ObjectExt::property(self.as_ref(), "show-day-names")
     }
 
     #[doc(alias = "show-day-names")]
     fn set_show_day_names(&self, show_day_names: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-day-names", show_day_names)
+        ObjectExt::set_property(self.as_ref(), "show-day-names", show_day_names)
     }
 
     #[doc(alias = "show-details")]
     fn shows_details(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-details")
+        ObjectExt::property(self.as_ref(), "show-details")
     }
 
     #[doc(alias = "show-details")]
     fn set_show_details(&self, show_details: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-details", show_details)
+        ObjectExt::set_property(self.as_ref(), "show-details", show_details)
     }
 
     #[doc(alias = "show-heading")]
     fn shows_heading(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-heading")
+        ObjectExt::property(self.as_ref(), "show-heading")
     }
 
     #[doc(alias = "show-heading")]
     fn set_show_heading(&self, show_heading: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-heading", show_heading)
+        ObjectExt::set_property(self.as_ref(), "show-heading", show_heading)
     }
 
     #[doc(alias = "show-week-numbers")]
     fn shows_week_numbers(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-week-numbers")
+        ObjectExt::property(self.as_ref(), "show-week-numbers")
     }
 
     #[doc(alias = "show-week-numbers")]
     fn set_show_week_numbers(&self, show_week_numbers: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-week-numbers", show_week_numbers)
+        ObjectExt::set_property(self.as_ref(), "show-week-numbers", show_week_numbers)
     }
 
     fn year(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "year")
+        ObjectExt::property(self.as_ref(), "year")
     }
 
     fn set_year(&self, year: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "year", year)
+        ObjectExt::set_property(self.as_ref(), "year", year)
     }
 
     #[doc(alias = "day-selected")]

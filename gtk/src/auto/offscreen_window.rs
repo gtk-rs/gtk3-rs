@@ -460,7 +460,12 @@ impl OffscreenWindowBuilder {
     }
 }
 
-pub trait OffscreenWindowExt: IsA<OffscreenWindow> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::OffscreenWindow>> Sealed for T {}
+}
+
+pub trait OffscreenWindowExt: IsA<OffscreenWindow> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
     #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {

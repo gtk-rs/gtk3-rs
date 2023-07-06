@@ -19,7 +19,12 @@ impl TreeDragSource {
     pub const NONE: Option<&'static TreeDragSource> = None;
 }
 
-pub trait TreeDragSourceExt: IsA<TreeDragSource> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeDragSource>> Sealed for T {}
+}
+
+pub trait TreeDragSourceExt: IsA<TreeDragSource> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_drag_source_drag_data_delete")]
     fn drag_data_delete(&self, path: &mut TreePath) -> bool {
         unsafe {

@@ -279,7 +279,12 @@ impl SocketBuilder {
     }
 }
 
-pub trait GtkSocketExt: IsA<Socket> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Socket>> Sealed for T {}
+}
+
+pub trait GtkSocketExt: IsA<Socket> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_socket_add_id")]
     fn add_id(&self, window: xlib::Window) {
         unsafe {

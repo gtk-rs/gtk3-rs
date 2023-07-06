@@ -374,7 +374,12 @@ impl ColorButtonBuilder {
     }
 }
 
-pub trait ColorButtonExt: IsA<ColorButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ColorButton>> Sealed for T {}
+}
+
+pub trait ColorButtonExt: IsA<ColorButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_color_button_get_title")]
     #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString> {
@@ -393,21 +398,21 @@ pub trait ColorButtonExt: IsA<ColorButton> + 'static {
     }
 
     fn alpha(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "alpha")
+        ObjectExt::property(self.as_ref(), "alpha")
     }
 
     fn set_alpha(&self, alpha: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "alpha", alpha)
+        ObjectExt::set_property(self.as_ref(), "alpha", alpha)
     }
 
     #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "show-editor")
+        ObjectExt::property(self.as_ref(), "show-editor")
     }
 
     #[doc(alias = "show-editor")]
     fn set_show_editor(&self, show_editor: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
+        ObjectExt::set_property(self.as_ref(), "show-editor", show_editor)
     }
 
     #[doc(alias = "color-set")]

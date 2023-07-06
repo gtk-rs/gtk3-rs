@@ -25,7 +25,12 @@ impl Misc {
     }
 }
 
-pub trait AtkMiscExt: IsA<Misc> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Misc>> Sealed for T {}
+}
+
+pub trait AtkMiscExt: IsA<Misc> + sealed::Sealed + 'static {
     #[doc(alias = "atk_misc_threads_enter")]
     fn threads_enter(&self) {
         unsafe {

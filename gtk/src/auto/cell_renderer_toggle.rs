@@ -187,7 +187,12 @@ impl CellRendererToggleBuilder {
     }
 }
 
-pub trait CellRendererToggleExt: IsA<CellRendererToggle> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererToggle>> Sealed for T {}
+}
+
+pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
     #[doc(alias = "get_activatable")]
     fn is_activatable(&self) -> bool {
@@ -249,21 +254,21 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + 'static {
     }
 
     fn is_inconsistent(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "inconsistent")
+        ObjectExt::property(self.as_ref(), "inconsistent")
     }
 
     fn set_inconsistent(&self, inconsistent: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "inconsistent", inconsistent)
+        ObjectExt::set_property(self.as_ref(), "inconsistent", inconsistent)
     }
 
     #[doc(alias = "indicator-size")]
     fn indicator_size(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "indicator-size")
+        ObjectExt::property(self.as_ref(), "indicator-size")
     }
 
     #[doc(alias = "indicator-size")]
     fn set_indicator_size(&self, indicator_size: i32) {
-        glib::ObjectExt::set_property(self.as_ref(), "indicator-size", indicator_size)
+        ObjectExt::set_property(self.as_ref(), "indicator-size", indicator_size)
     }
 
     #[doc(alias = "toggled")]

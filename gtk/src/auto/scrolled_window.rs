@@ -399,7 +399,12 @@ impl ScrolledWindowBuilder {
     }
 }
 
-pub trait ScrolledWindowExt: IsA<ScrolledWindow> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ScrolledWindow>> Sealed for T {}
+}
+
+pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]
     #[doc(alias = "get_capture_button_press")]
     fn is_capture_button_press(&self) -> bool {
@@ -690,32 +695,32 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + 'static {
 
     #[doc(alias = "hscrollbar-policy")]
     fn hscrollbar_policy(&self) -> PolicyType {
-        glib::ObjectExt::property(self.as_ref(), "hscrollbar-policy")
+        ObjectExt::property(self.as_ref(), "hscrollbar-policy")
     }
 
     #[doc(alias = "hscrollbar-policy")]
     fn set_hscrollbar_policy(&self, hscrollbar_policy: PolicyType) {
-        glib::ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", hscrollbar_policy)
+        ObjectExt::set_property(self.as_ref(), "hscrollbar-policy", hscrollbar_policy)
     }
 
     #[doc(alias = "vscrollbar-policy")]
     fn vscrollbar_policy(&self) -> PolicyType {
-        glib::ObjectExt::property(self.as_ref(), "vscrollbar-policy")
+        ObjectExt::property(self.as_ref(), "vscrollbar-policy")
     }
 
     #[doc(alias = "vscrollbar-policy")]
     fn set_vscrollbar_policy(&self, vscrollbar_policy: PolicyType) {
-        glib::ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", vscrollbar_policy)
+        ObjectExt::set_property(self.as_ref(), "vscrollbar-policy", vscrollbar_policy)
     }
 
     #[doc(alias = "window-placement")]
     fn window_placement(&self) -> CornerType {
-        glib::ObjectExt::property(self.as_ref(), "window-placement")
+        ObjectExt::property(self.as_ref(), "window-placement")
     }
 
     #[doc(alias = "window-placement")]
     fn set_window_placement(&self, window_placement: CornerType) {
-        glib::ObjectExt::set_property(self.as_ref(), "window-placement", window_placement)
+        ObjectExt::set_property(self.as_ref(), "window-placement", window_placement)
     }
 
     #[doc(alias = "edge-overshot")]

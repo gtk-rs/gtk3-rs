@@ -18,7 +18,12 @@ impl StreamableContent {
     pub const NONE: Option<&'static StreamableContent> = None;
 }
 
-pub trait StreamableContentExt: IsA<StreamableContent> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::StreamableContent>> Sealed for T {}
+}
+
+pub trait StreamableContentExt: IsA<StreamableContent> + sealed::Sealed + 'static {
     #[doc(alias = "atk_streamable_content_get_mime_type")]
     #[doc(alias = "get_mime_type")]
     fn mime_type(&self, i: i32) -> Option<glib::GString> {

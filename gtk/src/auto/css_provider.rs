@@ -65,7 +65,12 @@ impl fmt::Display for CssProvider {
     }
 }
 
-pub trait CssProviderExt: IsA<CssProvider> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CssProvider>> Sealed for T {}
+}
+
+pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_css_provider_load_from_data")]
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error> {
         let length = data.len() as _;

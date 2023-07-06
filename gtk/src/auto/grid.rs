@@ -320,7 +320,12 @@ impl GridBuilder {
     }
 }
 
-pub trait GridExt: IsA<Grid> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Grid>> Sealed for T {}
+}
+
+pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_grid_attach")]
     fn attach(&self, child: &impl IsA<Widget>, left: i32, top: i32, width: i32, height: i32) {
         unsafe {

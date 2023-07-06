@@ -579,7 +579,12 @@ impl SearchEntryBuilder {
     }
 }
 
-pub trait SearchEntryExt: IsA<SearchEntry> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::SearchEntry>> Sealed for T {}
+}
+
+pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_search_entry_handle_event")]
     fn handle_event(&self, event: &gdk::Event) -> bool {
         unsafe {

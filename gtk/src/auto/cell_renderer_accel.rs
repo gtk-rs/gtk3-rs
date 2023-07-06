@@ -463,43 +463,48 @@ impl CellRendererAccelBuilder {
     }
 }
 
-pub trait CellRendererAccelExt: IsA<CellRendererAccel> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererAccel>> Sealed for T {}
+}
+
+pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'static {
     #[doc(alias = "accel-key")]
     fn accel_key(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "accel-key")
+        ObjectExt::property(self.as_ref(), "accel-key")
     }
 
     #[doc(alias = "accel-key")]
     fn set_accel_key(&self, accel_key: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-key", accel_key)
+        ObjectExt::set_property(self.as_ref(), "accel-key", accel_key)
     }
 
     #[doc(alias = "accel-mode")]
     fn accel_mode(&self) -> CellRendererAccelMode {
-        glib::ObjectExt::property(self.as_ref(), "accel-mode")
+        ObjectExt::property(self.as_ref(), "accel-mode")
     }
 
     #[doc(alias = "accel-mode")]
     fn set_accel_mode(&self, accel_mode: CellRendererAccelMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-mode", accel_mode)
+        ObjectExt::set_property(self.as_ref(), "accel-mode", accel_mode)
     }
 
     #[doc(alias = "accel-mods")]
     fn accel_mods(&self) -> gdk::ModifierType {
-        glib::ObjectExt::property(self.as_ref(), "accel-mods")
+        ObjectExt::property(self.as_ref(), "accel-mods")
     }
 
     #[doc(alias = "accel-mods")]
     fn set_accel_mods(&self, accel_mods: gdk::ModifierType) {
-        glib::ObjectExt::set_property(self.as_ref(), "accel-mods", accel_mods)
+        ObjectExt::set_property(self.as_ref(), "accel-mods", accel_mods)
     }
 
     fn keycode(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "keycode")
+        ObjectExt::property(self.as_ref(), "keycode")
     }
 
     fn set_keycode(&self, keycode: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "keycode", keycode)
+        ObjectExt::set_property(self.as_ref(), "keycode", keycode)
     }
 
     #[doc(alias = "accel-cleared")]

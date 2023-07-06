@@ -353,10 +353,15 @@ impl FontChooserWidgetBuilder {
     }
 }
 
-pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FontChooserWidget>> Sealed for T {}
+}
+
+pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + sealed::Sealed + 'static {
     //#[doc(alias = "tweak-action")]
     //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
-    //    glib::ObjectExt::property(self.as_ref(), "tweak-action")
+    //    ObjectExt::property(self.as_ref(), "tweak-action")
     //}
 
     #[doc(alias = "tweak-action")]

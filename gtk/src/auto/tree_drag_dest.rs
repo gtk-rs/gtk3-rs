@@ -19,7 +19,12 @@ impl TreeDragDest {
     pub const NONE: Option<&'static TreeDragDest> = None;
 }
 
-pub trait TreeDragDestExt: IsA<TreeDragDest> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeDragDest>> Sealed for T {}
+}
+
+pub trait TreeDragDestExt: IsA<TreeDragDest> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_drag_dest_drag_data_received")]
     fn drag_data_received(&self, dest: &mut TreePath, selection_data: &mut SelectionData) -> bool {
         unsafe {

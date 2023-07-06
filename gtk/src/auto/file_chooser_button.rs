@@ -420,7 +420,12 @@ impl FileChooserButtonBuilder {
     }
 }
 
-pub trait FileChooserButtonExt: IsA<FileChooserButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::FileChooserButton>> Sealed for T {}
+}
+
+pub trait FileChooserButtonExt: IsA<FileChooserButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_button_get_title")]
     #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString> {

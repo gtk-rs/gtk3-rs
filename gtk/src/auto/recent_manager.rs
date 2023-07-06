@@ -81,7 +81,12 @@ impl RecentManagerBuilder {
     }
 }
 
-pub trait RecentManagerExt: IsA<RecentManager> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RecentManager>> Sealed for T {}
+}
+
+pub trait RecentManagerExt: IsA<RecentManager> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_recent_manager_add_full")]
     fn add_full(&self, uri: &str, recent_data: &RecentData) -> bool {
         unsafe {
@@ -192,11 +197,11 @@ pub trait RecentManagerExt: IsA<RecentManager> + 'static {
     }
 
     fn filename(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self.as_ref(), "filename")
+        ObjectExt::property(self.as_ref(), "filename")
     }
 
     fn size(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "size")
+        ObjectExt::property(self.as_ref(), "size")
     }
 
     #[doc(alias = "changed")]

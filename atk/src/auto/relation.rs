@@ -36,7 +36,12 @@ impl Relation {
     }
 }
 
-pub trait RelationExt: IsA<Relation> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Relation>> Sealed for T {}
+}
+
+pub trait RelationExt: IsA<Relation> + sealed::Sealed + 'static {
     #[doc(alias = "atk_relation_add_target")]
     fn add_target(&self, target: &impl IsA<Object>) {
         unsafe {
@@ -79,11 +84,11 @@ pub trait RelationExt: IsA<Relation> + 'static {
 
     #[doc(alias = "relation-type")]
     fn set_relation_type(&self, relation_type: RelationType) {
-        glib::ObjectExt::set_property(self.as_ref(), "relation-type", relation_type)
+        ObjectExt::set_property(self.as_ref(), "relation-type", relation_type)
     }
 
     fn set_target(&self, target: Option<&glib::ValueArray>) {
-        glib::ObjectExt::set_property(self.as_ref(), "target", target)
+        ObjectExt::set_property(self.as_ref(), "target", target)
     }
 
     #[doc(alias = "relation-type")]

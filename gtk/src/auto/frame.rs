@@ -311,7 +311,12 @@ impl FrameBuilder {
     }
 }
 
-pub trait FrameExt: IsA<Frame> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Frame>> Sealed for T {}
+}
+
+pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_frame_get_label")]
     #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
@@ -386,22 +391,22 @@ pub trait FrameExt: IsA<Frame> + 'static {
 
     #[doc(alias = "label-xalign")]
     fn label_xalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "label-xalign")
+        ObjectExt::property(self.as_ref(), "label-xalign")
     }
 
     #[doc(alias = "label-xalign")]
     fn set_label_xalign(&self, label_xalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "label-xalign", label_xalign)
+        ObjectExt::set_property(self.as_ref(), "label-xalign", label_xalign)
     }
 
     #[doc(alias = "label-yalign")]
     fn label_yalign(&self) -> f32 {
-        glib::ObjectExt::property(self.as_ref(), "label-yalign")
+        ObjectExt::property(self.as_ref(), "label-yalign")
     }
 
     #[doc(alias = "label-yalign")]
     fn set_label_yalign(&self, label_yalign: f32) {
-        glib::ObjectExt::set_property(self.as_ref(), "label-yalign", label_yalign)
+        ObjectExt::set_property(self.as_ref(), "label-yalign", label_yalign)
     }
 
     #[doc(alias = "label")]

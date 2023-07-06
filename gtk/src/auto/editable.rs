@@ -18,7 +18,12 @@ impl Editable {
     pub const NONE: Option<&'static Editable> = None;
 }
 
-pub trait EditableExt: IsA<Editable> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Editable>> Sealed for T {}
+}
+
+pub trait EditableExt: IsA<Editable> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_editable_copy_clipboard")]
     fn copy_clipboard(&self) {
         unsafe {

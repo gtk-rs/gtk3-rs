@@ -352,7 +352,12 @@ impl RadioToolButtonBuilder {
     }
 }
 
-pub trait RadioToolButtonExt: IsA<RadioToolButton> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::RadioToolButton>> Sealed for T {}
+}
+
+pub trait RadioToolButtonExt: IsA<RadioToolButton> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_radio_tool_button_get_group")]
     #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioButton> {

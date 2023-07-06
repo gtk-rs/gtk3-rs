@@ -431,7 +431,12 @@ impl ComboBoxBuilder {
     }
 }
 
-pub trait ComboBoxExt: IsA<ComboBox> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ComboBox>> Sealed for T {}
+}
+
+pub trait ComboBoxExt: IsA<ComboBox> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_combo_box_get_active_id")]
     #[doc(alias = "get_active_id")]
     fn active_id(&self) -> Option<glib::GString> {
@@ -683,22 +688,22 @@ pub trait ComboBoxExt: IsA<ComboBox> + 'static {
 
     #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area")
+        ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     #[doc(alias = "has-frame")]
     fn has_frame(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "has-frame")
+        ObjectExt::property(self.as_ref(), "has-frame")
     }
 
     #[doc(alias = "has-frame")]
     fn set_has_frame(&self, has_frame: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "has-frame", has_frame)
+        ObjectExt::set_property(self.as_ref(), "has-frame", has_frame)
     }
 
     #[doc(alias = "popup-shown")]
     fn is_popup_shown(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "popup-shown")
+        ObjectExt::property(self.as_ref(), "popup-shown")
     }
 
     #[doc(alias = "changed")]

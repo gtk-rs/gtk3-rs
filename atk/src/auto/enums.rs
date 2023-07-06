@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::{translate::*, value::FromValue, value::ToValue, StaticType, Type};
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -66,7 +66,7 @@ impl FromGlib<ffi::AtkCoordType> for CoordType {
 
 impl StaticType for CoordType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_coord_type_get_type()) }
     }
 }
@@ -85,7 +85,7 @@ impl glib::value::ValueType for CoordType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for CoordType {
+unsafe impl<'a> glib::value::FromValue<'a> for CoordType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -205,7 +205,7 @@ impl FromGlib<ffi::AtkLayer> for Layer {
 
 impl StaticType for Layer {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_layer_get_type()) }
     }
 }
@@ -224,7 +224,7 @@ impl glib::value::ValueType for Layer {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for Layer {
+unsafe impl<'a> glib::value::FromValue<'a> for Layer {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -427,7 +427,7 @@ impl FromGlib<ffi::AtkRelationType> for RelationType {
 
 impl StaticType for RelationType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_relation_type_get_type()) }
     }
 }
@@ -446,7 +446,7 @@ impl glib::value::ValueType for RelationType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for RelationType {
+unsafe impl<'a> glib::value::FromValue<'a> for RelationType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -1191,7 +1191,7 @@ impl FromGlib<ffi::AtkRole> for Role {
 
 impl StaticType for Role {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_role_get_type()) }
     }
 }
@@ -1210,7 +1210,7 @@ impl glib::value::ValueType for Role {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for Role {
+unsafe impl<'a> glib::value::FromValue<'a> for Role {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -1335,7 +1335,7 @@ impl FromGlib<ffi::AtkScrollType> for ScrollType {
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl StaticType for ScrollType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_scroll_type_get_type()) }
     }
 }
@@ -1360,7 +1360,7 @@ impl glib::value::ValueType for ScrollType {
 
 #[cfg(feature = "v2_30")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
-unsafe impl<'a> FromValue<'a> for ScrollType {
+unsafe impl<'a> glib::value::FromValue<'a> for ScrollType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -1682,7 +1682,7 @@ impl FromGlib<ffi::AtkStateType> for StateType {
 
 impl StaticType for StateType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_state_type_get_type()) }
     }
 }
@@ -1701,7 +1701,7 @@ impl glib::value::ValueType for StateType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for StateType {
+unsafe impl<'a> glib::value::FromValue<'a> for StateType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -1951,7 +1951,7 @@ impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
 
 impl StaticType for TextAttribute {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_attribute_get_type()) }
     }
 }
@@ -1970,7 +1970,7 @@ impl glib::value::ValueType for TextAttribute {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for TextAttribute {
+unsafe impl<'a> glib::value::FromValue<'a> for TextAttribute {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -2085,7 +2085,7 @@ impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
 
 impl StaticType for TextBoundary {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_boundary_get_type()) }
     }
 }
@@ -2104,7 +2104,7 @@ impl glib::value::ValueType for TextBoundary {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for TextBoundary {
+unsafe impl<'a> glib::value::FromValue<'a> for TextBoundary {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -2204,7 +2204,7 @@ impl FromGlib<ffi::AtkTextClipType> for TextClipType {
 
 impl StaticType for TextClipType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_clip_type_get_type()) }
     }
 }
@@ -2223,7 +2223,7 @@ impl glib::value::ValueType for TextClipType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for TextClipType {
+unsafe impl<'a> glib::value::FromValue<'a> for TextClipType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -2328,7 +2328,7 @@ impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
 
 impl StaticType for TextGranularity {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_granularity_get_type()) }
     }
 }
@@ -2347,7 +2347,7 @@ impl glib::value::ValueType for TextGranularity {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for TextGranularity {
+unsafe impl<'a> glib::value::FromValue<'a> for TextGranularity {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]
@@ -2521,7 +2521,7 @@ impl FromGlib<ffi::AtkValueType> for ValueType {
 
 impl StaticType for ValueType {
     #[inline]
-    fn static_type() -> Type {
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_value_type_get_type()) }
     }
 }
@@ -2540,7 +2540,7 @@ impl glib::value::ValueType for ValueType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for ValueType {
+unsafe impl<'a> glib::value::FromValue<'a> for ValueType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
     #[inline]

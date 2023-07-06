@@ -29,7 +29,12 @@ impl ListStore {
     //}
 }
 
-pub trait GtkListStoreExt: IsA<ListStore> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ListStore>> Sealed for T {}
+}
+
+pub trait GtkListStoreExt: IsA<ListStore> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_list_store_append")]
     fn append(&self) -> TreeIter {
         unsafe {

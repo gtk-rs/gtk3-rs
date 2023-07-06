@@ -314,7 +314,12 @@ impl ToolItemGroupBuilder {
     }
 }
 
-pub trait ToolItemGroupExt: IsA<ToolItemGroup> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ToolItemGroup>> Sealed for T {}
+}
+
+pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tool_item_group_get_collapsed")]
     #[doc(alias = "get_collapsed")]
     fn is_collapsed(&self) -> bool {

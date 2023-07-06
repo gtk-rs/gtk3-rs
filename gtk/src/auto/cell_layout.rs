@@ -19,7 +19,12 @@ impl CellLayout {
     pub const NONE: Option<&'static CellLayout> = None;
 }
 
-pub trait CellLayoutExt: IsA<CellLayout> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellLayout>> Sealed for T {}
+}
+
+pub trait CellLayoutExt: IsA<CellLayout> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_cell_layout_add_attribute")]
     fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {

@@ -470,7 +470,12 @@ impl AssistantBuilder {
     }
 }
 
-pub trait AssistantExt: IsA<Assistant> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Assistant>> Sealed for T {}
+}
+
+pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_assistant_add_action_widget")]
     fn add_action_widget(&self, child: &impl IsA<Widget>) {
         unsafe {
@@ -712,7 +717,7 @@ pub trait AssistantExt: IsA<Assistant> + 'static {
 
     #[doc(alias = "use-header-bar")]
     fn use_header_bar(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "use-header-bar")
+        ObjectExt::property(self.as_ref(), "use-header-bar")
     }
 
     fn child_is_complete<T: IsA<crate::Widget>>(&self, item: &T) -> bool {

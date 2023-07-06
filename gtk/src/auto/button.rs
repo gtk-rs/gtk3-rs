@@ -367,7 +367,12 @@ impl ButtonBuilder {
     }
 }
 
-pub trait ButtonExt: IsA<Button> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Button>> Sealed for T {}
+}
+
+pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_button_clicked")]
     fn clicked(&self) {
         unsafe {

@@ -140,7 +140,12 @@ impl EntryCompletionBuilder {
     }
 }
 
-pub trait EntryCompletionExt: IsA<EntryCompletion> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::EntryCompletion>> Sealed for T {}
+}
+
+pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_entry_completion_complete")]
     fn complete(&self) {
         unsafe {
@@ -392,7 +397,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + 'static {
 
     #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area")
+        ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     #[doc(alias = "action-activated")]

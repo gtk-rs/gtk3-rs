@@ -397,7 +397,12 @@ impl AccelLabelBuilder {
     }
 }
 
-pub trait AccelLabelExt: IsA<AccelLabel> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::AccelLabel>> Sealed for T {}
+}
+
+pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]
     #[doc(alias = "get_accel")]
     fn accel(&self) -> (u32, gdk::ModifierType) {
@@ -470,7 +475,7 @@ pub trait AccelLabelExt: IsA<AccelLabel> + 'static {
 
     #[doc(alias = "accel-closure")]
     fn accel_closure(&self) -> Option<glib::Closure> {
-        glib::ObjectExt::property(self.as_ref(), "accel-closure")
+        ObjectExt::property(self.as_ref(), "accel-closure")
     }
 
     #[doc(alias = "accel-closure")]

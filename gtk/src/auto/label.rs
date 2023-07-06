@@ -389,7 +389,12 @@ impl LabelBuilder {
     }
 }
 
-pub trait LabelExt: IsA<Label> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::Label>> Sealed for T {}
+}
+
+pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_label_get_angle")]
     #[doc(alias = "get_angle")]
     fn angle(&self) -> f64 {
@@ -780,30 +785,30 @@ pub trait LabelExt: IsA<Label> + 'static {
 
     #[doc(alias = "cursor-position")]
     fn cursor_position(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "cursor-position")
+        ObjectExt::property(self.as_ref(), "cursor-position")
     }
 
     #[doc(alias = "selection-bound")]
     fn selection_bound(&self) -> i32 {
-        glib::ObjectExt::property(self.as_ref(), "selection-bound")
+        ObjectExt::property(self.as_ref(), "selection-bound")
     }
 
     fn wraps(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "wrap")
+        ObjectExt::property(self.as_ref(), "wrap")
     }
 
     fn set_wrap(&self, wrap: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap", wrap)
+        ObjectExt::set_property(self.as_ref(), "wrap", wrap)
     }
 
     #[doc(alias = "wrap-mode")]
     fn wrap_mode(&self) -> pango::WrapMode {
-        glib::ObjectExt::property(self.as_ref(), "wrap-mode")
+        ObjectExt::property(self.as_ref(), "wrap-mode")
     }
 
     #[doc(alias = "wrap-mode")]
     fn set_wrap_mode(&self, wrap_mode: pango::WrapMode) {
-        glib::ObjectExt::set_property(self.as_ref(), "wrap-mode", wrap_mode)
+        ObjectExt::set_property(self.as_ref(), "wrap-mode", wrap_mode)
     }
 
     #[doc(alias = "activate-current-link")]

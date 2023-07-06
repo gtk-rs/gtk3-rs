@@ -22,7 +22,12 @@ impl ColorChooser {
     pub const NONE: Option<&'static ColorChooser> = None;
 }
 
-pub trait ColorChooserExt: IsA<ColorChooser> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ColorChooser>> Sealed for T {}
+}
+
+pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_color_chooser_get_rgba")]
     #[doc(alias = "get_rgba")]
     fn rgba(&self) -> gdk::RGBA {

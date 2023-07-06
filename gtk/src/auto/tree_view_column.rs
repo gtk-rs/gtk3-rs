@@ -185,7 +185,12 @@ impl TreeViewColumnBuilder {
     }
 }
 
-pub trait TreeViewColumnExt: IsA<TreeViewColumn> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TreeViewColumn>> Sealed for T {}
+}
+
+pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_column_add_attribute")]
     fn add_attribute(&self, cell_renderer: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {
@@ -705,7 +710,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + 'static {
 
     #[doc(alias = "cell-area")]
     fn cell_area(&self) -> Option<CellArea> {
-        glib::ObjectExt::property(self.as_ref(), "cell-area")
+        ObjectExt::property(self.as_ref(), "cell-area")
     }
 
     #[doc(alias = "clicked")]

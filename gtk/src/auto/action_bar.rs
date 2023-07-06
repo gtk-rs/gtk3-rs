@@ -275,7 +275,12 @@ impl ActionBarBuilder {
     }
 }
 
-pub trait ActionBarExt: IsA<ActionBar> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::ActionBar>> Sealed for T {}
+}
+
+pub trait ActionBarExt: IsA<ActionBar> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]
     #[doc(alias = "get_center_widget")]
     fn center_widget(&self) -> Option<Widget> {

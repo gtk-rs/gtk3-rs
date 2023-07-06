@@ -175,29 +175,34 @@ impl CellRendererSpinnerBuilder {
     }
 }
 
-pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::CellRendererSpinner>> Sealed for T {}
+}
+
+pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + sealed::Sealed + 'static {
     fn is_active(&self) -> bool {
-        glib::ObjectExt::property(self.as_ref(), "active")
+        ObjectExt::property(self.as_ref(), "active")
     }
 
     fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "active", active)
+        ObjectExt::set_property(self.as_ref(), "active", active)
     }
 
     fn pulse(&self) -> u32 {
-        glib::ObjectExt::property(self.as_ref(), "pulse")
+        ObjectExt::property(self.as_ref(), "pulse")
     }
 
     fn set_pulse(&self, pulse: u32) {
-        glib::ObjectExt::set_property(self.as_ref(), "pulse", pulse)
+        ObjectExt::set_property(self.as_ref(), "pulse", pulse)
     }
 
     fn size(&self) -> IconSize {
-        glib::ObjectExt::property(self.as_ref(), "size")
+        ObjectExt::property(self.as_ref(), "size")
     }
 
     fn set_size(&self, size: IconSize) {
-        glib::ObjectExt::set_property(self.as_ref(), "size", size)
+        ObjectExt::set_property(self.as_ref(), "size", size)
     }
 
     #[doc(alias = "active")]

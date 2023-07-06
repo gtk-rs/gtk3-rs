@@ -23,7 +23,12 @@ impl NativeDialog {
     pub const NONE: Option<&'static NativeDialog> = None;
 }
 
-pub trait NativeDialogExt: IsA<NativeDialog> + 'static {
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::NativeDialog>> Sealed for T {}
+}
+
+pub trait NativeDialogExt: IsA<NativeDialog> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_native_dialog_destroy")]
     fn destroy(&self) {
         unsafe {
@@ -118,7 +123,7 @@ pub trait NativeDialogExt: IsA<NativeDialog> + 'static {
     }
 
     fn set_visible(&self, visible: bool) {
-        glib::ObjectExt::set_property(self.as_ref(), "visible", visible)
+        ObjectExt::set_property(self.as_ref(), "visible", visible)
     }
 
     #[doc(alias = "response")]

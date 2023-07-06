@@ -38,83 +38,83 @@ impl ModelButton {
     }
 
     pub fn is_active(&self) -> bool {
-        glib::ObjectExt::property(self, "active")
+        ObjectExt::property(self, "active")
     }
 
     pub fn set_active(&self, active: bool) {
-        glib::ObjectExt::set_property(self, "active", active)
+        ObjectExt::set_property(self, "active", active)
     }
 
     pub fn is_centered(&self) -> bool {
-        glib::ObjectExt::property(self, "centered")
+        ObjectExt::property(self, "centered")
     }
 
     pub fn set_centered(&self, centered: bool) {
-        glib::ObjectExt::set_property(self, "centered", centered)
+        ObjectExt::set_property(self, "centered", centered)
     }
 
     pub fn icon(&self) -> Option<gio::Icon> {
-        glib::ObjectExt::property(self, "icon")
+        ObjectExt::property(self, "icon")
     }
 
     pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
-        glib::ObjectExt::set_property(self, "icon", icon)
+        ObjectExt::set_property(self, "icon", icon)
     }
 
     pub fn is_iconic(&self) -> bool {
-        glib::ObjectExt::property(self, "iconic")
+        ObjectExt::property(self, "iconic")
     }
 
     pub fn set_iconic(&self, iconic: bool) {
-        glib::ObjectExt::set_property(self, "iconic", iconic)
+        ObjectExt::set_property(self, "iconic", iconic)
     }
 
     pub fn is_inverted(&self) -> bool {
-        glib::ObjectExt::property(self, "inverted")
+        ObjectExt::property(self, "inverted")
     }
 
     pub fn set_inverted(&self, inverted: bool) {
-        glib::ObjectExt::set_property(self, "inverted", inverted)
+        ObjectExt::set_property(self, "inverted", inverted)
     }
 
     #[doc(alias = "menu-name")]
     pub fn menu_name(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self, "menu-name")
+        ObjectExt::property(self, "menu-name")
     }
 
     #[doc(alias = "menu-name")]
     pub fn set_menu_name(&self, menu_name: Option<&str>) {
-        glib::ObjectExt::set_property(self, "menu-name", menu_name)
+        ObjectExt::set_property(self, "menu-name", menu_name)
     }
 
     pub fn role(&self) -> ButtonRole {
-        glib::ObjectExt::property(self, "role")
+        ObjectExt::property(self, "role")
     }
 
     pub fn set_role(&self, role: ButtonRole) {
-        glib::ObjectExt::set_property(self, "role", role)
+        ObjectExt::set_property(self, "role", role)
     }
 
     pub fn text(&self) -> Option<glib::GString> {
-        glib::ObjectExt::property(self, "text")
+        ObjectExt::property(self, "text")
     }
 
     pub fn set_text(&self, text: Option<&str>) {
-        glib::ObjectExt::set_property(self, "text", text)
+        ObjectExt::set_property(self, "text", text)
     }
 
     #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "use-markup")]
     pub fn uses_markup(&self) -> bool {
-        glib::ObjectExt::property(self, "use-markup")
+        ObjectExt::property(self, "use-markup")
     }
 
     #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "use-markup")]
     pub fn set_use_markup(&self, use_markup: bool) {
-        glib::ObjectExt::set_property(self, "use-markup", use_markup)
+        ObjectExt::set_property(self, "use-markup", use_markup)
     }
 
     #[doc(alias = "active")]
