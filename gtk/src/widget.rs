@@ -4,7 +4,6 @@ use gdk::{DragAction, Event, ModifierType};
 use glib::ffi::gboolean;
 use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
 use glib::translate::*;
-use glib::Continue;
 use std::mem::transmute;
 use std::ptr;
 
@@ -152,7 +151,7 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_widget_add_tick_callback")]
-    fn add_tick_callback<P: Fn(&Self, &gdk::FrameClock) -> Continue + 'static>(
+    fn add_tick_callback<P: Fn(&Self, &gdk::FrameClock) -> glib::ControlFlow + 'static>(
         &self,
         callback: P,
     ) -> TickCallbackId {
@@ -160,7 +159,7 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
 
         unsafe extern "C" fn callback_func<
             O: IsA<Widget>,
-            P: Fn(&O, &gdk::FrameClock) -> Continue + 'static,
+            P: Fn(&O, &gdk::FrameClock) -> glib::ControlFlow + 'static,
         >(
             widget: *mut ffi::GtkWidget,
             frame_clock: *mut gdk::ffi::GdkFrameClock,
@@ -176,7 +175,7 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
 
         unsafe extern "C" fn notify_func<
             O: IsA<Widget>,
-            P: Fn(&O, &gdk::FrameClock) -> Continue + 'static,
+            P: Fn(&O, &gdk::FrameClock) -> glib::ControlFlow + 'static,
         >(
             data: glib::ffi::gpointer,
         ) {

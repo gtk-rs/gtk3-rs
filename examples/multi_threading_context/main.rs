@@ -48,7 +48,7 @@ fn build_ui(application: &gtk::Application) {
     rx.attach(None, move |text| {
         text_buffer.set_text(&text);
 
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     });
 
     window.add(&scroll);

@@ -128,7 +128,7 @@ fn build_ui(application: &gtk::Application) {
 
         area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, WIDTH, HEIGHT);
 
-        Continue(true)
+        glib::ControlFlow::Continue
     });
 
     window.show_all();
