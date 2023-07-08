@@ -1324,7 +1324,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "extend-selection")]
     fn connect_extend_selection<
-        F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::signal::Inhibit
+        F: Fn(&Self, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::ControlFlow
             + 'static,
     >(
         &self,
@@ -1332,13 +1332,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     ) -> SignalHandlerId {
         unsafe extern "C" fn extend_selection_trampoline<
             P: IsA<TextView>,
-            F: Fn(
-                    &P,
-                    TextExtendSelection,
-                    &TextIter,
-                    &TextIter,
-                    &TextIter,
-                ) -> glib::signal::Inhibit
+            F: Fn(&P, TextExtendSelection, &TextIter, &TextIter, &TextIter) -> glib::ControlFlow
                 + 'static,
         >(
             this: *mut ffi::GtkTextView,

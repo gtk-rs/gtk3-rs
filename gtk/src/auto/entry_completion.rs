@@ -431,14 +431,14 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "cursor-on-match")]
     fn connect_cursor_on_match<
-        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn cursor_on_match_trampoline<
             P: IsA<EntryCompletion>,
-            F: Fn(&P, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &TreeModel, &TreeIter) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             model: *mut ffi::GtkTreeModel,
@@ -467,13 +467,13 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "insert-prefix")]
-    fn connect_insert_prefix<F: Fn(&Self, &str) -> glib::signal::Inhibit + 'static>(
+    fn connect_insert_prefix<F: Fn(&Self, &str) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn insert_prefix_trampoline<
             P: IsA<EntryCompletion>,
-            F: Fn(&P, &str) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &str) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             prefix: *mut libc::c_char,
@@ -501,14 +501,14 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "match-selected")]
     fn connect_match_selected<
-        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &TreeModel, &TreeIter) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn match_selected_trampoline<
             P: IsA<EntryCompletion>,
-            F: Fn(&P, &TreeModel, &TreeIter) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &TreeModel, &TreeIter) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
             model: *mut ffi::GtkTreeModel,

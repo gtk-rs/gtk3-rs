@@ -398,13 +398,13 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "activate-link")]
-    fn connect_activate_link<F: Fn(&Self) -> glib::signal::Inhibit + 'static>(
+    fn connect_activate_link<F: Fn(&Self) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn activate_link_trampoline<
             P: IsA<LinkButton>,
-            F: Fn(&P) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkLinkButton,
             f: glib::ffi::gpointer,
