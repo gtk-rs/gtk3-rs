@@ -569,15 +569,13 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "popup-context-menu")]
-    fn connect_popup_context_menu<
-        F: Fn(&Self, i32, i32, i32) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_popup_context_menu<F: Fn(&Self, i32, i32, i32) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn popup_context_menu_trampoline<
             P: IsA<Toolbar>,
-            F: Fn(&P, i32, i32, i32) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, i32, i32, i32) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkToolbar,
             x: libc::c_int,

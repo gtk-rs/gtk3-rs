@@ -2013,14 +2013,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "button-press-event")]
     fn connect_button_press_event<
-        F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventButton) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn button_press_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventButton) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventButton,
@@ -2048,14 +2048,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "button-release-event")]
     fn connect_button_release_event<
-        F: Fn(&Self, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventButton) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn button_release_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventButton) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventButton) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventButton,
@@ -2214,13 +2214,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "delete-event")]
-    fn connect_delete_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
+    fn connect_delete_event<F: Fn(&Self, &gdk::Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn delete_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::Event) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
@@ -2269,13 +2269,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "destroy-event")]
-    fn connect_destroy_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
+    fn connect_destroy_event<F: Fn(&Self, &gdk::Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn destroy_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::Event) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
@@ -2551,14 +2551,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "drag-failed")]
     fn connect_drag_failed<
-        F: Fn(&Self, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::DragContext, DragResult) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn drag_failed_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::DragContext, DragResult) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::DragContext, DragResult) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             context: *mut gdk::ffi::GdkDragContext,
@@ -2660,13 +2660,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "draw")]
-    fn connect_draw<F: Fn(&Self, &cairo::Context) -> glib::signal::Inhibit + 'static>(
+    fn connect_draw<F: Fn(&Self, &cairo::Context) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn draw_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &cairo::Context) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &cairo::Context) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             cr: *mut cairo::ffi::cairo_t,
@@ -2694,14 +2694,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "enter-notify-event")]
     fn connect_enter_notify_event<
-        F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventCrossing) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn enter_notify_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventCrossing) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventCrossing,
@@ -2728,13 +2728,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "event")]
-    fn connect_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
+    fn connect_event<F: Fn(&Self, &gdk::Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::Event) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEvent,
@@ -2790,13 +2790,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "focus")]
-    fn connect_focus<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
+    fn connect_focus<F: Fn(&Self, DirectionType) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, DirectionType) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             direction: ffi::GtkDirectionType,
@@ -2823,13 +2823,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "focus-in-event")]
-    fn connect_focus_in_event<F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static>(
+    fn connect_focus_in_event<F: Fn(&Self, &gdk::EventFocus) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_in_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventFocus) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventFocus,
@@ -2856,15 +2856,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "focus-out-event")]
-    fn connect_focus_out_event<
-        F: Fn(&Self, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_focus_out_event<F: Fn(&Self, &gdk::EventFocus) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn focus_out_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventFocus) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventFocus) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventFocus,
@@ -2892,14 +2890,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "grab-broken-event")]
     fn connect_grab_broken_event<
-        F: Fn(&Self, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventGrabBroken) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn grab_broken_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventGrabBroken) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventGrabBroken) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventGrabBroken,
@@ -3034,13 +3032,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "key-press-event")]
-    fn connect_key_press_event<F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static>(
+    fn connect_key_press_event<F: Fn(&Self, &gdk::EventKey) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn key_press_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventKey) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventKey,
@@ -3067,15 +3065,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "key-release-event")]
-    fn connect_key_release_event<
-        F: Fn(&Self, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
-    >(
+    fn connect_key_release_event<F: Fn(&Self, &gdk::EventKey) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn key_release_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventKey) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventKey) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventKey,
@@ -3102,13 +3098,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "keynav-failed")]
-    fn connect_keynav_failed<F: Fn(&Self, DirectionType) -> glib::signal::Inhibit + 'static>(
+    fn connect_keynav_failed<F: Fn(&Self, DirectionType) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn keynav_failed_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, DirectionType) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, DirectionType) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             direction: ffi::GtkDirectionType,
@@ -3136,14 +3132,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "leave-notify-event")]
     fn connect_leave_notify_event<
-        F: Fn(&Self, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventCrossing) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn leave_notify_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventCrossing) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventCrossing) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventCrossing,
@@ -3192,13 +3188,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "mnemonic-activate")]
-    fn connect_mnemonic_activate<F: Fn(&Self, bool) -> glib::signal::Inhibit + 'static>(
+    fn connect_mnemonic_activate<F: Fn(&Self, bool) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn mnemonic_activate_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, bool) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, bool) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             group_cycling: glib::ffi::gboolean,
@@ -3226,14 +3222,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "motion-notify-event")]
     fn connect_motion_notify_event<
-        F: Fn(&Self, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventMotion) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn motion_notify_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventMotion) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventMotion) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventMotion,
@@ -3351,14 +3347,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "property-notify-event")]
     fn connect_property_notify_event<
-        F: Fn(&Self, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventProperty) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn property_notify_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventProperty) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventProperty) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProperty,
@@ -3386,14 +3382,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "proximity-in-event")]
     fn connect_proximity_in_event<
-        F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventProximity) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn proximity_in_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventProximity) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProximity,
@@ -3421,14 +3417,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "proximity-out-event")]
     fn connect_proximity_out_event<
-        F: Fn(&Self, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventProximity) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn proximity_out_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventProximity) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventProximity) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventProximity,
@@ -3550,13 +3546,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "scroll-event")]
-    fn connect_scroll_event<F: Fn(&Self, &gdk::EventScroll) -> glib::signal::Inhibit + 'static>(
+    fn connect_scroll_event<F: Fn(&Self, &gdk::EventScroll) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn scroll_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventScroll) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventScroll) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventScroll,
@@ -3584,14 +3580,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "selection-clear-event")]
     fn connect_selection_clear_event<
-        F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventSelection) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_clear_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventSelection) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
@@ -3655,14 +3651,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "selection-notify-event")]
     fn connect_selection_notify_event<
-        F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventSelection) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_notify_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventSelection) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
@@ -3724,14 +3720,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "selection-request-event")]
     fn connect_selection_request_event<
-        F: Fn(&Self, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventSelection) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn selection_request_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventSelection) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventSelection) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventSelection,
@@ -3900,13 +3896,13 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "touch-event")]
-    fn connect_touch_event<F: Fn(&Self, &gdk::Event) -> glib::signal::Inhibit + 'static>(
+    fn connect_touch_event<F: Fn(&Self, &gdk::Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn touch_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::Event) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::Event) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             object: *mut gdk::ffi::GdkEvent,
@@ -3978,14 +3974,14 @@ pub trait WidgetExt: IsA<Widget> + sealed::Sealed + 'static {
 
     #[doc(alias = "window-state-event")]
     fn connect_window_state_event<
-        F: Fn(&Self, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &gdk::EventWindowState) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn window_state_event_trampoline<
             P: IsA<Widget>,
-            F: Fn(&P, &gdk::EventWindowState) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &gdk::EventWindowState) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventWindowState,

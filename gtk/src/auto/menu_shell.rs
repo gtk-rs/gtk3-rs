@@ -351,13 +351,13 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "move-selected")]
-    fn connect_move_selected<F: Fn(&Self, i32) -> glib::signal::Inhibit + 'static>(
+    fn connect_move_selected<F: Fn(&Self, i32) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn move_selected_trampoline<
             P: IsA<MenuShell>,
-            F: Fn(&P, i32) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, i32) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkMenuShell,
             distance: libc::c_int,

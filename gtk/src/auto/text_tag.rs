@@ -1257,14 +1257,14 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
 
     #[doc(alias = "event")]
     fn connect_event<
-        F: Fn(&Self, &glib::Object, &gdk::Event, &TextIter) -> glib::signal::Inhibit + 'static,
+        F: Fn(&Self, &glib::Object, &gdk::Event, &TextIter) -> glib::ControlFlow + 'static,
     >(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_trampoline<
             P: IsA<TextTag>,
-            F: Fn(&P, &glib::Object, &gdk::Event, &TextIter) -> glib::signal::Inhibit + 'static,
+            F: Fn(&P, &glib::Object, &gdk::Event, &TextIter) -> glib::ControlFlow + 'static,
         >(
             this: *mut ffi::GtkTextTag,
             object: *mut glib::gobject_ffi::GObject,
