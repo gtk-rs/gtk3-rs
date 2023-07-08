@@ -57,7 +57,7 @@ fn build_ui(application: &gtk::Application) {
         cr.arc(0.5 + eye_dx, eye_y, 0.05, 0.0, PI * 2.);
         cr.fill().expect("Invalid cairo surface state");
 
-        Inhibit(false)
+        glib::ControlFlow::Break
     });
 
     drawable(application, 500, 500, |_, cr| {
@@ -82,7 +82,7 @@ fn build_ui(application: &gtk::Application) {
         cr.arc(0.27, 0.65, 0.02, 0.0, PI * 2.);
         cr.fill().expect("Invalid cairo surface state");
 
-        Inhibit(false)
+        glib::ControlFlow::Break
     });
 }
 
@@ -99,10 +99,10 @@ fn main() {
 
 pub fn drawable<F>(application: &gtk::Application, width: i32, height: i32, draw_fn: F)
 where
-    F: Fn(&DrawingArea, &Context) -> Inhibit + 'static,
+    F: Fn(&DrawingArea, &Context) -> glib::ControlFlow + 'static,
 {
     let window = gtk::ApplicationWindow::new(application);
-    let drawing_area = Box::new(DrawingArea::new)();
+    let drawing_area = DrawingArea::new();
 
     drawing_area.connect_draw(draw_fn);
 

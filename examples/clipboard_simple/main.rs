@@ -22,7 +22,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("gtk::Clipboard Simple Example");
     window.connect_delete_event(|window, _| {
         window.close();
-        Inhibit(false)
+        glib::ControlFlow::Break
     });
 
     // Create the button grid

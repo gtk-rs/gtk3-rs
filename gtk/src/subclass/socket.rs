@@ -7,7 +7,6 @@ use glib::Cast;
 
 use super::container::ContainerImpl;
 
-use crate::Inhibit;
 use crate::Socket;
 
 pub trait SocketImpl: SocketImplExt + ContainerImpl {
@@ -15,7 +14,7 @@ pub trait SocketImpl: SocketImplExt + ContainerImpl {
         self.parent_plug_added()
     }
 
-    fn plug_removed(&self) -> Inhibit {
+    fn plug_removed(&self) -> glib::ControlFlow {
         self.parent_plug_removed()
     }
 }
@@ -35,18 +34,18 @@ pub trait SocketImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_plug_removed(&self) -> Inhibit {
+    fn parent_plug_removed(&self) -> glib::ControlFlow {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_removed {
-                Inhibit(from_glib(f(self
+                glib::ControlFlow::from_glib(f(self
                     .obj()
                     .unsafe_cast_ref::<Socket>()
                     .to_glib_none()
-                    .0)))
+                    .0))
             } else {
-                Inhibit(false)
+                glib::ControlFlow::Break
             }
         }
     }
