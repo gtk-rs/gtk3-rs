@@ -2,7 +2,7 @@
 
 use gdk::{DragAction, Event, ModifierType};
 use glib::ffi::gboolean;
-use glib::signal::{connect_raw, Inhibit, SignalHandlerId};
+use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
 use std::mem::transmute;
 use std::ptr;
@@ -88,11 +88,14 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         }
     }
 
-    fn connect_map_event<F: Fn(&Self, &Event) -> Inhibit + 'static>(
+    fn connect_map_event<F: Fn(&Self, &Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
+        unsafe extern "C" fn event_any_trampoline<
+            T,
+            F: Fn(&T, &Event) -> glib::ControlFlow + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventAny,
             f: &F,
@@ -119,11 +122,14 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         }
     }
 
-    fn connect_unmap_event<F: Fn(&Self, &Event) -> Inhibit + 'static>(
+    fn connect_unmap_event<F: Fn(&Self, &Event) -> glib::ControlFlow + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn event_any_trampoline<T, F: Fn(&T, &Event) -> Inhibit + 'static>(
+        unsafe extern "C" fn event_any_trampoline<
+            T,
+            F: Fn(&T, &Event) -> glib::ControlFlow + 'static,
+        >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventAny,
             f: &F,
@@ -231,11 +237,11 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_widget_hide_on_delete")]
-    fn hide_on_delete(&self) -> Inhibit {
+    fn hide_on_delete(&self) -> glib::ControlFlow {
         unsafe {
-            Inhibit(from_glib(ffi::gtk_widget_hide_on_delete(
+            glib::ControlFlow::from_glib(ffi::gtk_widget_hide_on_delete(
                 self.as_ref().to_glib_none().0,
-            )))
+            ))
         }
     }
 }

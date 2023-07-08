@@ -130,7 +130,7 @@ impl Widgets {
         window.set_default_size(500, 250);
         window.connect_delete_event(move |window, _| {
             window.close();
-            Inhibit(false)
+            glib::ControlFlow::Break
         });
 
         Self {
