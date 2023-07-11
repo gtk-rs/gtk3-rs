@@ -2,12 +2,20 @@
 
 use anyhow::{bail, Result};
 use proc_macro2::Span;
-use syn::parse::Error;
 use syn::spanned::Spanned;
 use syn::{
-    Attribute, DeriveInput, Field, Fields, Ident, Lit, Meta, MetaList, MetaNameValue, NestedMeta,
-    Type,
+    parse::{Error, Parse, ParseStream},
+    punctuated::Punctuated,
 };
+use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token, Type};
+
+mod kw {
+    syn::custom_keyword!(file);
+    syn::custom_keyword!(resource);
+    syn::custom_keyword!(string);
+
+    syn::custom_keyword!(id);
+}
 
 pub enum TemplateSource {
     File(String),
@@ -15,70 +23,53 @@ pub enum TemplateSource {
     String(String),
 }
 
+impl Parse for TemplateSource {
+    fn parse(input: ParseStream<'_>) -> syn::Result<Self> {
+        let lookahead = input.lookahead1();
+        let variant = if lookahead.peek(kw::file) {
+            let _: kw::file = input.parse()?;
+            TemplateSource::File
+        } else if lookahead.peek(kw::resource) {
+            let _: kw::resource = input.parse()?;
+            TemplateSource::Resource
+        } else if lookahead.peek(kw::string) {
+            let _: kw::string = input.parse()?;
+            TemplateSource::String
+        } else {
+            return Err(lookahead.error());
+        };
+
+        let _: Token![=] = input.parse()?;
+        let lit: LitStr = input.parse()?;
+        Ok(variant(lit.value()))
+    }
+}
+
 pub fn parse_template_source(input: &DeriveInput) -> Result<TemplateSource> {
-    let meta = match find_attribute_meta(&input.attrs, "template")? {
-        Some(meta) => meta,
+    let attr = match input.attrs.iter().find(|a| a.path().is_ident("template")) {
+        Some(attr) => attr,
         _ => bail!("Missing 'template' attribute"),
     };
 
-    let meta = match meta.nested.iter().find(|n| match n {
-        NestedMeta::Meta(m) => {
-            let p = m.path();
-            p.is_ident("file") || p.is_ident("resource") || p.is_ident("string")
-        }
-        _ => false,
-    }) {
-        Some(meta) => meta,
-        _ => bail!("Invalid meta, specify one of 'file', 'resource', or 'string'"),
-    };
-
-    let (ident, v) = parse_attribute(meta)?;
-
-    match ident.as_ref() {
-        "file" => Ok(TemplateSource::File(v)),
-        "resource" => Ok(TemplateSource::Resource(v)),
-        "string" => Ok(TemplateSource::String(v)),
-        s => bail!("Unknown enum meta {}", s),
-    }
-}
-
-// find the #[@attr_name] attribute in @attrs
-fn find_attribute_meta(attrs: &[Attribute], attr_name: &str) -> Result<Option<MetaList>> {
-    let meta = match attrs.iter().find(|a| a.path.is_ident(attr_name)) {
-        Some(a) => a.parse_meta(),
-        _ => return Ok(None),
-    };
-    match meta? {
-        Meta::List(n) => Ok(Some(n)),
-        _ => bail!("wrong meta type"),
-    }
-}
-
-// parse a single meta like: ident = "value"
-fn parse_attribute(meta: &NestedMeta) -> Result<(String, String)> {
-    let meta = match &meta {
-        NestedMeta::Meta(m) => m,
-        _ => bail!("wrong meta type"),
-    };
-    let meta = match meta {
-        Meta::NameValue(n) => n,
-        _ => bail!("wrong meta type"),
-    };
-    let value = match &meta.lit {
-        Lit::Str(s) => s.value(),
-        _ => bail!("wrong meta type"),
-    };
-
-    let ident = match meta.path.get_ident() {
-        None => bail!("missing ident"),
-        Some(ident) => ident,
-    };
-
-    Ok((ident.to_string(), value))
+    Ok(attr.parse_args()?)
 }
 
 pub enum FieldAttributeArg {
     Id(String),
+}
+
+impl Parse for FieldAttributeArg {
+    fn parse(input: ParseStream<'_>) -> syn::Result<Self> {
+        let lookahead = input.lookahead1();
+        if lookahead.peek(kw::id) {
+            let _: kw::id = input.parse()?;
+            let _: Token![=] = input.parse()?;
+            let lit: LitStr = input.parse()?;
+            Ok(Self::Id(lit.value()))
+        } else {
+            Err(lookahead.error())
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -99,83 +90,24 @@ pub struct AttributedField {
     pub attr: FieldAttribute,
 }
 
-fn parse_field_attr_value_str(name_value: &MetaNameValue) -> Result<String, Error> {
-    match &name_value.lit {
-        Lit::Str(s) => Ok(s.value()),
-        _ => Err(Error::new(
-            name_value.lit.span(),
-            "invalid value type: Expected str literal",
-        )),
-    }
-}
-
-fn parse_field_attr_meta(
-    ty: &FieldAttributeType,
-    meta: &NestedMeta,
-) -> Result<FieldAttributeArg, Error> {
-    let meta = match &meta {
-        NestedMeta::Meta(m) => m,
-        _ => {
-            return Err(Error::new(
-                meta.span(),
-                "invalid type - expected a name-value pair like id = \"widget\"",
-            ))
-        }
-    };
-    let name_value = match meta {
-        Meta::NameValue(n) => n,
-        _ => {
-            return Err(Error::new(
-                meta.span(),
-                "invalid type - expected a name-value pair like id = \"widget\"",
-            ))
-        }
-    };
-    let ident = match name_value.path.get_ident() {
-        None => {
-            return Err(Error::new(
-                name_value.path.span(),
-                "invalid name type - expected identifier",
-            ))
-        }
-        Some(ident) => ident,
-    };
-
-    let ident_str = ident.to_string();
-    let unknown_err = Err(Error::new(
-        ident.span(),
-        format!("unknown attribute argument: `{ident_str}`"),
-    ));
-    let value = match ty {
-        FieldAttributeType::TemplateChild => match ident_str.as_str() {
-            "id" => FieldAttributeArg::Id(parse_field_attr_value_str(name_value)?),
-            _ => return unknown_err,
-        },
-    };
-
-    Ok(value)
-}
-
-fn parse_field_attr_args(
-    ty: &FieldAttributeType,
-    attr: &Attribute,
-) -> Result<Vec<FieldAttributeArg>, Error> {
+fn parse_field_attr_args(attr: &Attribute) -> Result<Vec<FieldAttributeArg>, Error> {
     let mut field_attribute_args = Vec::new();
-    match attr.parse_meta()? {
+    match &attr.meta {
         Meta::List(list) => {
-            for meta in &list.nested {
-                let new_arg = parse_field_attr_meta(ty, meta)?;
-                for arg in &field_attribute_args {
+            let args =
+                list.parse_args_with(Punctuated::<FieldAttributeArg, Token![,]>::parse_terminated)?;
+            for arg in args {
+                for prev_arg in &field_attribute_args {
                     // Comparison of enum variants, not data
-                    if std::mem::discriminant(arg) == std::mem::discriminant(&new_arg) {
+                    if std::mem::discriminant(prev_arg) == std::mem::discriminant(&arg) {
                         return Err(Error::new(
-                            meta.span(),
+                            attr.span(),
                             "two instances of the same attribute \
                             argument, each argument must be specified only once",
                         ));
                     }
                 }
-                field_attribute_args.push(new_arg);
+                field_attribute_args.push(arg);
             }
         }
         Meta::Path(_) => (),
@@ -202,15 +134,15 @@ fn parse_field(field: &Field) -> Result<Option<AttributedField>, Error> {
 
     for field_attr in field_attrs {
         let span = field_attr.span();
-        let path_span = field_attr.path.span();
-        let ty = if field_attr.path.is_ident("template_child") {
+        let path_span = field_attr.path().span();
+        let ty = if field_attr.path().is_ident("template_child") {
             Some(FieldAttributeType::TemplateChild)
         } else {
             None
         };
 
         if let Some(ty) = ty {
-            let args = parse_field_attr_args(&ty, field_attr)?;
+            let args = parse_field_attr_args(field_attr)?;
 
             if attr.is_none() {
                 attr = Some(FieldAttribute {
