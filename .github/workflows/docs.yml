@@ -37,6 +37,9 @@ jobs:
       - run: python3 ./generator.py --embed-docs --yes ./
       - run: git clone https://gitlab.gnome.org/World/Rust/gir-rustdoc/ # checkout action doesn't support random urls
       - run: echo "RUSTDOCFLAGS=$(eval python3 ./gir-rustdoc/gir-rustdoc.py --pages-url 'https://gtk-rs.org/gtk3-rs/' --default-branch 'master' pre-docs | xargs)" >> ${GITHUB_ENV}
+        env:
+          RUSTDOCFLAGS: >
+            -Zunstable-options --generate-link-to-definition
       - uses: actions-rs/cargo@v1
         with:
           command: doc
