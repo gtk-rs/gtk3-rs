@@ -70,15 +70,11 @@ jobs:
       # not nightly
       # clippy
       - run: rustup component add clippy
-        if: matrix.rust == 'beta' || matrix.rust == 'stable'
+        if: matrix.rust == 'stable'
       - working-directory: ${{ matrix.conf.name }}
         name: clippy ${{ matrix.conf.name }}
         run: cargo clippy --all-targets -- -D warnings
         if: matrix.rust == 'stable'
-      - working-directory: ${{ matrix.conf.name }}
-        name: clippy ${{ matrix.conf.name }}
-        run: cargo clippy --all-targets
-        if: matrix.rust == 'beta'
       # tests
       - name: tests (rust ${{ matrix.rust }})
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
