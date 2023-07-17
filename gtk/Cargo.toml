@@ -29,7 +29,7 @@ gio_v2_58 = ["gio/v2_58"]
 unsafe-assume-initialized = []
 
 [package.metadata.docs.rs]
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [build-dependencies]
 pkg-config = "0.3.7"
