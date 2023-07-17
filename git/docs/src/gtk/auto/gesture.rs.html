@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture.rs`."><title>gesture.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture.rs`."><title>gesture.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -948,15 +948,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{EventController, EventSequenceState};
+</span><span class="kw">use crate</span>::{<a href="event_controller.rs.html#13-43">EventController</a>, <a href="enums.rs.html#2578-2590">EventSequenceState</a>};
 <span class="kw">use </span>glib::{
-    prelude::<span class="kw-2">*</span>,
-    signal::{connect_raw, SignalHandlerId},
-    translate::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem, mem::transmute};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`Gesture`][crate::Gesture] is the base object for gesture recognition, although this
     /// object is quite generalized to serve as a base for multi-touch gestures,
     /// it is suitable to implement single-touch and pointer-based gestures (using
@@ -1136,20 +1136,20 @@
     ///
     /// [`GestureExt`][trait@crate::prelude::GestureExt], [`EventControllerExt`][trait@crate::prelude::EventControllerExt], [`trait@glib::ObjectExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkGesture&quot;</span>)]
-    </span><span class="kw">pub struct </span>Gesture(Object&lt;ffi::GtkGesture, ffi::GtkGestureClass&gt;) @extends EventController;
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.Gesture.html">Gesture</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>, <a href="../../../gtk_sys/type.GtkGestureClass.html">ffi::GtkGestureClass</a>&gt;) @extends <a href="event_controller.rs.html#13-43">EventController</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_gesture_get_type(),
     }
 }
 
-<span class="kw">impl </span>Gesture {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Gesture&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#13-198">Gesture</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#13-198">Gesture</a>&gt; = <span class="prelude-val">None</span>;
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::Gesture&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<a href="#13-198"><span class="kw">super</span>::Gesture</a>&gt;&gt; <a href="#205">Sealed</a> <span class="kw">for </span>T {}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@Gesture`] methods.
@@ -1157,7 +1157,7 @@
 /// # Implementors
 ///
 /// [`GestureRotate`][struct@crate::GestureRotate], [`GestureSingle`][struct@crate::GestureSingle], [`GestureZoom`][struct@crate::GestureZoom], [`Gesture`][struct@crate::Gesture]
-</span><span class="kw">pub trait </span>GestureExt: IsA&lt;Gesture&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span><a href="../../../gtk/prelude/trait.GestureExt.html">GestureExt</a>: IsA&lt;<a href="#13-198">Gesture</a>&gt; + <a href="#205">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// If there are touch sequences being currently handled by `self`,
     /// this function returns [`true`] and fills in `rect` with the bounding
     /// box containing all active touches. Otherwise, [`false`] will be
@@ -1177,15 +1177,15 @@
     /// bounding box containing all active touches.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounding_box&quot;</span>)]
-    </span><span class="kw">fn </span>bounding_box(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Rectangle&gt; {
+    </span><span class="kw">fn </span>bounding_box(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>rect = gdk::Rectangle::uninitialized();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_gesture_get_bounding_box(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                rect.to_glib_none_mut().<span class="number">0</span>,
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_get_bounding_box(
+                <a class="self" href="#234">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#236">rect</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
             ));
             <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>(rect)
+                <span class="prelude-val">Some</span>(<a href="#236">rect</a>)
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>}
@@ -1208,17 +1208,17 @@
     /// Y coordinate for the bounding box center
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_bounding_box_center&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bounding_box_center&quot;</span>)]
-    </span><span class="kw">fn </span>bounding_box_center(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
+    </span><span class="kw">fn </span>bounding_box_center(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;(<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_gesture_get_bounding_box_center(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                x.as_mut_ptr(),
-                y.as_mut_ptr(),
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_get_bounding_box_center(
+                <a class="self" href="#265">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#267">x</a>.as_mut_ptr(),
+                <a href="#268">y</a>.as_mut_ptr(),
             ));
             <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((x.assume_init(), y.assume_init()))
+                <span class="prelude-val">Some</span>((<a href="#267">x</a>.assume_init(), <a href="#268">y</a>.assume_init()))
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>}
@@ -1233,8 +1233,8 @@
     /// a [`gdk::Device`][crate::gdk::Device], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_device&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device&quot;</span>)]
-    </span><span class="kw">fn </span>device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Device&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gesture_get_device(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/device/struct.Device.html">gdk::Device</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_gesture_get_device(<a class="self" href="#290">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns all gestures in the group of `self`
@@ -1245,10 +1245,10 @@
     ///  of `GtkGestures`, free with `g_list_free()`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_group&quot;</span>)]
-    </span><span class="kw">fn </span>group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Gesture&gt; {
+    </span><span class="kw">fn </span>group(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="#13-198">Gesture</a>&gt; {
         <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_gesture_get_group(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_container</a>(ffi::gtk_gesture_get_group(
+                <a class="self" href="#302">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1266,11 +1266,11 @@
     /// The last event from `sequence`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_event&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_last_event&quot;</span>)]
-    </span><span class="kw">fn </span>last_event(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Event&gt; {
+    </span><span class="kw">fn </span>last_event(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/event/struct.Event.html">gdk::Event</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_gesture_get_last_event(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(sequence.to_glib_none().<span class="number">0</span>),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_gesture_get_last_event(
+                <a class="self" href="#323">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#323">sequence</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
             ))
         }
     }
@@ -1282,10 +1282,10 @@
     /// The last updated sequence
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_last_updated_sequence&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_last_updated_sequence&quot;</span>)]
-    </span><span class="kw">fn </span>last_updated_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::EventSequence&gt; {
+    </span><span class="kw">fn </span>last_updated_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_gesture_get_last_updated_sequence(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_gesture_get_last_updated_sequence(
+                <a class="self" href="#339">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1308,18 +1308,18 @@
     /// return location for Y axis of the sequence coordinates
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_point&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_point&quot;</span>)]
-    </span><span class="kw">fn </span>point(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(f64, f64)&gt; {
+    </span><span class="kw">fn </span>point(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;(<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>)&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>x = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>y = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::gtk_gesture_get_point(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(sequence.to_glib_none().<span class="number">0</span>),
-                x.as_mut_ptr(),
-                y.as_mut_ptr(),
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_get_point(
+                <a class="self" href="#365">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#365">sequence</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+                <a href="#367">x</a>.as_mut_ptr(),
+                <a href="#368">y</a>.as_mut_ptr(),
             ));
             <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>((x.assume_init(), y.assume_init()))
+                <span class="prelude-val">Some</span>((<a href="#367">x</a>.assume_init(), <a href="#368">y</a>.assume_init()))
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>}
@@ -1335,11 +1335,11 @@
     /// The sequence state in `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequence_state&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_sequence_state&quot;</span>)]
-    </span><span class="kw">fn </span>sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span>gdk::EventSequence) -&gt; EventSequenceState {
+    </span><span class="kw">fn </span>sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>) -&gt; <a href="enums.rs.html#2578-2590">EventSequenceState</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_get_sequence_state(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(sequence.to_glib_none().<span class="number">0</span>),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_get_sequence_state(
+                <a class="self" href="#392">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#392">sequence</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
             ))
         }
     }
@@ -1355,10 +1355,10 @@
     ///  through `g_list_free()`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_sequences&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_sequences&quot;</span>)]
-    </span><span class="kw">fn </span>sequences(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;gdk::EventSequence&gt; {
+    </span><span class="kw">fn </span>sequences(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt; {
         <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_gesture_get_sequences(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_container</a>(ffi::gtk_gesture_get_sequences(
+                <a class="self" href="#412">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1372,8 +1372,8 @@
     /// the user defined window, or [`None`] if none
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
-    </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Window&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_gesture_get_window(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/window/struct.Window.html">gdk::Window</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_gesture_get_window(<a class="self" href="#429">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Adds `gesture` to the same group than `self`. Gestures
@@ -1391,11 +1391,11 @@
     /// a [`Gesture`][crate::Gesture]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_group&quot;</span>)]
     #[doc(alias = <span class="string">&quot;group&quot;</span>)]
-    </span><span class="kw">fn </span>group_with(<span class="kw-2">&amp;</span><span class="self">self</span>, gesture: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Gesture&gt;) {
+    </span><span class="kw">fn </span>group_with(<span class="kw-2">&amp;</span><span class="self">self</span>, gesture: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="#13-198">Gesture</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_gesture_group(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                gesture.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#448">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#448">gesture</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1409,11 +1409,11 @@
     ///
     /// [`true`] if `self` is handling `sequence`, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_handles_sequence&quot;</span>)]
-    </span><span class="kw">fn </span>handles_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) -&gt; bool {
+    </span><span class="kw">fn </span>handles_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_handles_sequence(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(sequence.to_glib_none().<span class="number">0</span>),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_handles_sequence(
+                <a class="self" href="#466">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#466">sequence</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
             ))
         }
     }
@@ -1426,8 +1426,8 @@
     ///
     /// [`true`] if gesture is active
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_active&quot;</span>)]
-    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_gesture_is_active(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>is_active(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_is_active(<a class="self" href="#483">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns [`true`] if both gestures pertain to the same group.
@@ -1438,11 +1438,11 @@
     ///
     /// whether the gestures are grouped
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_grouped_with&quot;</span>)]
-    </span><span class="kw">fn </span>is_grouped_with(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Gesture&gt;) -&gt; bool {
+    </span><span class="kw">fn </span>is_grouped_with(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="#13-198">Gesture</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_is_grouped_with(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                other.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_is_grouped_with(
+                <a class="self" href="#495">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#495">other</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1456,10 +1456,10 @@
     ///
     /// [`true`] if gesture is recognized
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_is_recognized&quot;</span>)]
-    </span><span class="kw">fn </span>is_recognized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    </span><span class="kw">fn </span>is_recognized(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_is_recognized(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_is_recognized(
+                <a class="self" href="#513">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1517,12 +1517,12 @@
     /// [`true`] if `sequence` is handled by `self`,
     ///  and the state is changed successfully
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_sequence_state&quot;</span>)]
-    </span><span class="kw">fn </span>set_sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span>gdk::EventSequence, state: EventSequenceState) -&gt; bool {
+    </span><span class="kw">fn </span>set_sequence_state(<span class="kw-2">&amp;</span><span class="self">self</span>, sequence: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>, state: <a href="enums.rs.html#2578-2590">EventSequenceState</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_set_sequence_state(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                mut_override(sequence.to_glib_none().<span class="number">0</span>),
-                state.into_glib(),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_set_sequence_state(
+                <a class="self" href="#574">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#574">sequence</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+                <a href="#574">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
         }
     }
@@ -1538,11 +1538,11 @@
     /// [`true`] if the state of at least one sequence
     ///  was changed successfully
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_state&quot;</span>)]
-    </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, state: EventSequenceState) -&gt; bool {
+    </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="enums.rs.html#2578-2590">EventSequenceState</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_gesture_set_state(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state.into_glib(),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_set_state(
+                <a class="self" href="#595">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#595">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
         }
     }
@@ -1553,9 +1553,9 @@
     /// ## `window`
     /// a [`gdk::Window`][crate::gdk::Window], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_set_window&quot;</span>)]
-    </span><span class="kw">fn </span>set_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Window&gt;) {
+    </span><span class="kw">fn </span>set_window(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/window/struct.Window.html">gdk::Window</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_gesture_set_window(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, window.to_glib_none().<span class="number">0</span>);
+            ffi::gtk_gesture_set_window(<a class="self" href="#610">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#610">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -1563,14 +1563,14 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_ungroup&quot;</span>)]
     </span><span class="kw">fn </span>ungroup(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_gesture_ungroup(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_gesture_ungroup(<a class="self" href="#618">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
     <span class="doccomment">/// The number of touch points that trigger recognition on this gesture,
     </span><span class="attr">#[doc(alias = <span class="string">&quot;n-points&quot;</span>)]
-    </span><span class="kw">fn </span>n_points(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;n-points&quot;</span>)
+    </span><span class="kw">fn </span>n_points(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#626">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;n-points&quot;</span>)
     }
 
     <span class="doccomment">/// This signal is emitted when the gesture is recognized. This means the
@@ -1583,35 +1583,35 @@
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that made the gesture to be recognized
     </span><span class="attr">#[doc(alias = <span class="string">&quot;begin&quot;</span>)]
-    </span><span class="kw">fn </span>connect_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_begin&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>begin_trampoline&lt;
-            P: IsA&lt;Gesture&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-198">Gesture</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
-            sequence: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSequence,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
+            sequence: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSequence.html">gdk::ffi::GdkEventSequence</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Gesture::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;gdk::EventSequence&gt;::from_glib_borrow(sequence)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#650">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#652">f</a>(
+                Gesture::from_glib_borrow(<a href="#648">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;::from_glib_borrow(<a href="#649">sequence</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#642">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#641">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;begin\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     begin_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#661">f</a>),
             )
         }
     }
@@ -1625,35 +1625,35 @@
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that was cancelled
     </span><span class="attr">#[doc(alias = <span class="string">&quot;cancel&quot;</span>)]
-    </span><span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_cancel&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cancel_trampoline&lt;
-            P: IsA&lt;Gesture&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-198">Gesture</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
-            sequence: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSequence,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
+            sequence: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSequence.html">gdk::ffi::GdkEventSequence</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Gesture::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;gdk::EventSequence&gt;::from_glib_borrow(sequence)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#692">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#694">f</a>(
+                Gesture::from_glib_borrow(<a href="#690">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;::from_glib_borrow(<a href="#691">sequence</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#684">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#683">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;cancel\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     cancel_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#703">f</a>),
             )
         }
     }
@@ -1670,35 +1670,35 @@
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that made gesture recognition to finish
     </span><span class="attr">#[doc(alias = <span class="string">&quot;end&quot;</span>)]
-    </span><span class="kw">fn </span>connect_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_end&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>end_trampoline&lt;
-            P: IsA&lt;Gesture&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-198">Gesture</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
-            sequence: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSequence,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
+            sequence: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSequence.html">gdk::ffi::GdkEventSequence</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Gesture::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;gdk::EventSequence&gt;::from_glib_borrow(sequence)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#737">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#739">f</a>(
+                Gesture::from_glib_borrow(<a href="#735">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;::from_glib_borrow(<a href="#736">sequence</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#729">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#728">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;end\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     end_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#748">f</a>),
             )
         }
     }
@@ -1712,38 +1712,38 @@
     /// the new sequence state
     </span><span class="attr">#[doc(alias = <span class="string">&quot;sequence-state-changed&quot;</span>)]
     </span><span class="kw">fn </span>connect_sequence_state_changed&lt;
-        F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;, EventSequenceState) + <span class="lifetime">&#39;static</span>,
+        F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;, <a href="enums.rs.html#2578-2590">EventSequenceState</a>) + <span class="lifetime">&#39;static</span>,
     &gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>sequence_state_changed_trampoline&lt;
-            P: IsA&lt;Gesture&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;, EventSequenceState) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-198">Gesture</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;, <a href="enums.rs.html#2578-2590">EventSequenceState</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
-            sequence: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSequence,
-            state: ffi::GtkEventSequenceState,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
+            sequence: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSequence.html">gdk::ffi::GdkEventSequence</a>,
+            state: <a href="../../../gtk_sys/type.GtkEventSequenceState.html">ffi::GtkEventSequenceState</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Gesture::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;gdk::EventSequence&gt;::from_glib_borrow(sequence)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#781">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#783">f</a>(
+                Gesture::from_glib_borrow(<a href="#778">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;::from_glib_borrow(<a href="#779">sequence</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
-                from_glib(state),
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#780">state</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#772">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#771">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;sequence-state-changed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     sequence_state_changed_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#793">f</a>),
             )
         }
     }
@@ -1753,68 +1753,68 @@
     /// ## `sequence`
     /// the [`gdk::EventSequence`][crate::gdk::EventSequence] that was updated
     </span><span class="attr">#[doc(alias = <span class="string">&quot;update&quot;</span>)]
-    </span><span class="kw">fn </span>connect_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_update&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>update_trampoline&lt;
-            P: IsA&lt;Gesture&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::EventSequence&gt;) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-198">Gesture</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
-            sequence: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSequence,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
+            sequence: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSequence.html">gdk::ffi::GdkEventSequence</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Gesture::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;gdk::EventSequence&gt;::from_glib_borrow(sequence)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#820">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#822">f</a>(
+                Gesture::from_glib_borrow(<a href="#818">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="../../../gdk/auto/event_sequence/struct.EventSequence.html">gdk::EventSequence</a>&gt;::from_glib_borrow(<a href="#819">sequence</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#812">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#811">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;update\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     update_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#831">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;window&quot;</span>)]
-    </span><span class="kw">fn </span>connect_window_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_window_trampoline&lt;P: IsA&lt;Gesture&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesture,
+    </span><span class="kw">fn </span>connect_window_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_window_trampoline&lt;P: IsA&lt;<a href="#13-198">Gesture</a>&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesture.html">ffi::GtkGesture</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Gesture::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#848">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#850">f</a>(Gesture::from_glib_borrow(<a href="#846">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#844">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#844">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::window\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_window_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#854">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;Gesture&gt;&gt; GestureExt <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#13-198">Gesture</a>&gt;&gt; <a href="#214-865">GestureExt</a> <span class="kw">for </span>O {}
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>Gesture {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;Gesture&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#13-198">Gesture</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#870">f</a>.write_str(<span class="string">&quot;Gesture&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

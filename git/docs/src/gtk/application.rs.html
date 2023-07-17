@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/application.rs`."><title>application.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/application.rs`."><title>application.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -118,46 +118,46 @@
 <a href="#45" id="45">45</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::rt;
-<span class="kw">use </span><span class="kw">crate</span>::Application;
-<span class="kw">use </span>gio::prelude::<span class="kw-2">*</span>;
-<span class="kw">use </span>gio::ApplicationFlags;
-<span class="kw">use </span>glib::signal::SignalHandlerId;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="lib.rs.html#65"><span class="kw">crate</span>::rt</a>;
+<span class="kw">use </span><a href="auto/application.rs.html#13-318"><span class="kw">crate</span>::Application</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/index.html">gio::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/flags/struct.ApplicationFlags.html">gio::ApplicationFlags</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">glib::signal::SignalHandlerId</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<span class="kw">use </span>std::cell::RefCell;
-<span class="kw">use </span>std::rc::Rc;
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html">std::cell::RefCell</a>;
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html">std::rc::Rc</a>;
 
-<span class="kw">impl </span>Application {
+<span class="kw">impl </span><a href="auto/application.rs.html#13-318">Application</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gtk_application_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new(application_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;, flags: ApplicationFlags) -&gt; Application {
+    </span><span class="kw">pub fn </span>new(application_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, flags: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/flags/struct.ApplicationFlags.html">ApplicationFlags</a>) -&gt; <a href="auto/application.rs.html#13-318">Application</a> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">let </span>app: Application = <span class="kw">unsafe </span>{
+        <span class="kw">let </span>app: <a href="auto/application.rs.html#13-318">Application</a> = <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_application_new(
-                application_id.to_glib_none().<span class="number">0</span>,
-                flags.into_glib(),
+                <a href="#15">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#15">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
         };
-        Application::register_startup_hook(<span class="kw-2">&amp;</span>app);
-        app
+        Application::register_startup_hook(<span class="kw-2">&amp;</span><a href="#17">app</a>);
+        <a href="#17">app</a>
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>register_startup_hook(app: <span class="kw-2">&amp;</span>Application) {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>register_startup_hook(app: <span class="kw-2">&amp;</span><a href="auto/application.rs.html#13-318">Application</a>) {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">let </span>signalid: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;SignalHandlerId&gt;&gt;&gt; = Rc::new(RefCell::new(<span class="prelude-val">None</span>));
+        <span class="kw">let </span>signalid: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>&gt;&gt;&gt; = Rc::new(RefCell::new(<span class="prelude-val">None</span>));
         {
-            <span class="kw">let </span>signalid_ = signalid.clone();
+            <span class="kw">let </span>signalid_ = <a href="#29">signalid</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
 
-            <span class="kw">let </span>id = app.connect_startup(<span class="kw">move </span>|app| {
-                app.disconnect(
-                    signalid_
+            <span class="kw">let </span>id = <a href="#27">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/application/trait.ApplicationExt.html">connect_startup</a>(<span class="kw">move </span>|app| {
+                <a href="#33">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">disconnect</a>(
+                    <a href="#31">signalid_</a>
                         .borrow_mut()
                         .take()
                         .expect(<span class="string">&quot;Signal ID went missing&quot;</span>),
                 );
-                <span class="kw">unsafe </span>{ rt::set_initialized() }
+                <span class="kw">unsafe </span>{ <a href="rt.rs.html#82-103">rt::set_initialized</a>() }
             });
-            <span class="kw-2">*</span>signalid.borrow_mut() = <span class="prelude-val">Some</span>(id);
+            <span class="kw-2">*</span><a href="#29">signalid</a>.borrow_mut() = <span class="prelude-val">Some</span>(<a href="#33">id</a>);
         }
     }
 }

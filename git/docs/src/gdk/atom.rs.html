@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/atom.rs`."><title>atom.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/atom.rs`."><title>atom.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -335,36 +335,36 @@
 <a href="#262" id="262">262</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::GString;
-<span class="kw">use </span>std::mem;
-<span class="kw">use </span>std::ptr;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>;
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 
 <span class="doccomment">/// An opaque type representing a string as an index into a table
 /// of strings on the X server.
 </span><span class="attr">#[derive(Copy, Clone, PartialEq, Eq)]
 #[doc(alias = <span class="string">&quot;GdkAtom&quot;</span>)]
-</span><span class="kw">pub struct </span>Atom(ffi::GdkAtom);
+</span><span class="kw">pub struct </span><a href="../../gdk/struct.Atom.html">Atom</a>(ffi::GdkAtom);
 
-<span class="kw">pub const </span>NONE: Atom = Atom(<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_PRIMARY: Atom = Atom(<span class="number">1 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_SECONDARY: Atom = Atom(<span class="number">2 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_CLIPBOARD: Atom = Atom(<span class="number">69 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>TARGET_BITMAP: Atom = Atom(<span class="number">5 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>TARGET_COLORMAP: Atom = Atom(<span class="number">7 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>TARGET_DRAWABLE: Atom = Atom(<span class="number">17 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>TARGET_PIXMAP: Atom = Atom(<span class="number">20 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>TARGET_STRING: Atom = Atom(<span class="number">31 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_ATOM: Atom = Atom(<span class="number">4 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_BITMAP: Atom = Atom(<span class="number">5 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_COLORMAP: Atom = Atom(<span class="number">7 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_DRAWABLE: Atom = Atom(<span class="number">17 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_INTEGER: Atom = Atom(<span class="number">19 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_PIXMAP: Atom = Atom(<span class="number">20 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_WINDOW: Atom = Atom(<span class="number">33 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-<span class="kw">pub const </span>SELECTION_TYPE_STRING: Atom = Atom(<span class="number">31 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.ATOM_NONE.html">NONE</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_PRIMARY.html">SELECTION_PRIMARY</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">1 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_SECONDARY.html">SELECTION_SECONDARY</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">2 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_CLIPBOARD.html">SELECTION_CLIPBOARD</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">69 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.TARGET_BITMAP.html">TARGET_BITMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">5 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.TARGET_COLORMAP.html">TARGET_COLORMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">7 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.TARGET_DRAWABLE.html">TARGET_DRAWABLE</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">17 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.TARGET_PIXMAP.html">TARGET_PIXMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">20 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.TARGET_STRING.html">TARGET_STRING</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">31 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_ATOM.html">SELECTION_TYPE_ATOM</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">4 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_BITMAP.html">SELECTION_TYPE_BITMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">5 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_COLORMAP.html">SELECTION_TYPE_COLORMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">7 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_DRAWABLE.html">SELECTION_TYPE_DRAWABLE</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">17 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_INTEGER.html">SELECTION_TYPE_INTEGER</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">19 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_PIXMAP.html">SELECTION_TYPE_PIXMAP</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">20 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_WINDOW.html">SELECTION_TYPE_WINDOW</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">33 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+<span class="kw">pub const </span><a href="../../gdk/constant.SELECTION_TYPE_STRING.html">SELECTION_TYPE_STRING</a>: <a href="#12">Atom</a> = <a href="#12">Atom</a>(<span class="number">31 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
 
-<span class="kw">impl </span>Atom {
+<span class="kw">impl </span><a href="#12">Atom</a> {
     <span class="doccomment">/// Finds or creates an atom corresponding to a given string.
     /// ## `atom_name`
     /// a string.
@@ -378,12 +378,12 @@
     ///
     /// the atom corresponding to `atom_name`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_atom_intern&quot;</span>)]
-    </span><span class="kw">pub fn </span>intern(atom_name: <span class="kw-2">&amp;</span>str) -&gt; Atom {
-        <span class="macro">assert_initialized_main_thread!</span>();
+    </span><span class="kw">pub fn </span>intern(atom_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="#12">Atom</a> {
+        <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
-            Atom(ffi::gdk_atom_intern(
-                atom_name.to_glib_none().<span class="number">0</span>,
-                <span class="bool-val">false</span>.into_glib(),
+            <a href="#12">Atom</a>(ffi::gdk_atom_intern(
+                <a href="#46">atom_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="bool-val">false</span>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
         }
     }
@@ -396,203 +396,203 @@
     ///  corresponding to `self`. When you are done with the
     ///  return value, you should free it using `g_free()`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_atom_name&quot;</span>)]
-    </span><span class="kw">pub fn </span>name(<span class="self">self</span>) -&gt; GString {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_atom_name(<span class="self">self</span>.<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>name(<span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">GString</a> {
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_atom_name(<a class="self" href="#64">self</a>.<span class="number">0</span>)) }
     }
 
-    <span class="kw">pub fn </span>value(<span class="self">self</span>) -&gt; usize {
-        <span class="self">self</span>.<span class="number">0 </span><span class="kw">as </span>usize
+    <span class="kw">pub fn </span>value(<span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> {
+        <a class="self" href="#68">self</a>.<span class="number">0 </span><span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>
     }
 }
 
-<span class="kw">impl </span>GlibPtrDefault <span class="kw">for </span>Atom {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.GlibPtrDefault.html">GlibPtrDefault</a> <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">type </span>GlibType = ffi::GdkAtom;
 }
 
-<span class="kw">unsafe impl </span>glib::translate::TransparentPtrType <span class="kw">for </span>Atom {}
+<span class="kw">unsafe impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.TransparentPtrType.html">glib::translate::TransparentPtrType</a> <span class="kw">for </span><a href="#12">Atom</a> {}
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>Uninitialized <span class="kw">for </span>Atom {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.Uninitialized.html">Uninitialized</a> <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>uninitialized() -&gt; <span class="self">Self </span>{
         mem::zeroed()
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtr&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtr&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">type </span>Storage = ();
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, Atom&gt; {
-        Stash(<span class="self">self</span>.<span class="number">0</span>, ())
+    </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, <a href="#12">Atom</a>&gt; {
+        Stash(<a class="self" href="#91">self</a>.<span class="number">0</span>, ())
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtrMut&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtrMut&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">type </span>Storage = ();
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_glib_none_mut(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; StashMut&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom, Atom&gt; {
-        StashMut(<span class="kw-2">&amp;mut </span><span class="self">self</span>.<span class="number">0</span>, ())
+    </span><span class="kw">fn </span>to_glib_none_mut(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; StashMut&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom, <a href="#12">Atom</a>&gt; {
+        StashMut(<span class="kw-2">&amp;mut </span><a class="self" href="#100">self</a>.<span class="number">0</span>, ())
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibContainerFromSlice&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibContainerFromSlice&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">type </span>Storage = (
-        Vec&lt;Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, Atom&gt;&gt;,
+        Vec&lt;Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, <a href="#12">Atom</a>&gt;&gt;,
         <span class="prelude-ty">Option</span>&lt;Vec&lt;ffi::GdkAtom&gt;&gt;,
     );
 
-    <span class="kw">fn </span>to_glib_none_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[Atom]) -&gt; (<span class="kw-2">*mut </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
+    <span class="kw">fn </span>to_glib_none_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<a href="#12">Atom</a>]) -&gt; (<span class="kw-2">*mut </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = t.iter().map(|s| s.to_glib_none()).collect();
-        <span class="kw">let </span><span class="kw-2">mut </span>v_ptr: Vec&lt;<span class="kw">_</span>&gt; = v.iter().map(|s| s.<span class="number">0</span>).collect();
-        v_ptr.push(ptr::null_mut());
+        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = <a href="#111">t</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#114">s</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
+        <span class="kw">let </span><span class="kw-2">mut </span>v_ptr: Vec&lt;<span class="kw">_</span>&gt; = <a href="#114">v</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#115">s</a>.<span class="number">0</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
+        <a href="#115">v_ptr</a>.push(ptr::null_mut());
 
-        (v_ptr.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GdkAtom, (v, <span class="prelude-val">Some</span>(v_ptr)))
+        (<a href="#115">v_ptr</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GdkAtom, (<a href="#114">v</a>, <span class="prelude-val">Some</span>(<a href="#115">v_ptr</a>)))
     }
 
-    <span class="kw">fn </span>to_glib_container_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[Atom]) -&gt; (<span class="kw-2">*mut </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
+    <span class="kw">fn </span>to_glib_container_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<a href="#12">Atom</a>]) -&gt; (<span class="kw-2">*mut </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = t.iter().map(|s| s.to_glib_none()).collect();
+        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = <a href="#121">t</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#124">s</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
 
         <span class="kw">let </span>v_ptr = <span class="kw">unsafe </span>{
-            <span class="kw">let </span>v_ptr = glib::ffi::g_malloc0(mem::size_of::&lt;ffi::GdkAtom&gt;() * (t.len() + <span class="number">1</span>))
+            <span class="kw">let </span>v_ptr = glib::ffi::g_malloc0(mem::size_of::&lt;ffi::GdkAtom&gt;() * (<a href="#121">t</a>.len() + <span class="number">1</span>))
                 <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GdkAtom;
 
             <span class="kw">for </span>(i, s) <span class="kw">in </span>v.iter().enumerate() {
                 ptr::write(v_ptr.add(i), s.<span class="number">0</span>);
             }
 
-            v_ptr
+            <a href="#127">v_ptr</a>
         };
 
-        (v_ptr, (v, <span class="prelude-val">None</span>))
+        (<a href="#126">v_ptr</a>, (<a href="#124">v</a>, <span class="prelude-val">None</span>))
     }
 
-    <span class="kw">fn </span>to_glib_full_from_slice(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[Atom]) -&gt; <span class="kw-2">*mut </span>ffi::GdkAtom {
+    <span class="kw">fn </span>to_glib_full_from_slice(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[<a href="#12">Atom</a>]) -&gt; <span class="kw-2">*mut </span>ffi::GdkAtom {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="macro">unimplemented!</span>()
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unimplemented.html">unimplemented!</a>()
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibContainerFromSlice&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span>ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibContainerFromSlice&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span>ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">type </span>Storage = (
-        Vec&lt;Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, Atom&gt;&gt;,
+        Vec&lt;Stash&lt;<span class="lifetime">&#39;a</span>, ffi::GdkAtom, <a href="#12">Atom</a>&gt;&gt;,
         <span class="prelude-ty">Option</span>&lt;Vec&lt;ffi::GdkAtom&gt;&gt;,
     );
 
-    <span class="kw">fn </span>to_glib_none_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[Atom]) -&gt; (<span class="kw-2">*const </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
+    <span class="kw">fn </span>to_glib_none_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<a href="#12">Atom</a>]) -&gt; (<span class="kw-2">*const </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = t.iter().map(|s| s.to_glib_none()).collect();
-        <span class="kw">let </span><span class="kw-2">mut </span>v_ptr: Vec&lt;<span class="kw">_</span>&gt; = v.iter().map(|s| s.<span class="number">0</span>).collect();
-        v_ptr.push(ptr::null_mut());
+        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = <a href="#153">t</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#156">s</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
+        <span class="kw">let </span><span class="kw-2">mut </span>v_ptr: Vec&lt;<span class="kw">_</span>&gt; = <a href="#156">v</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#157">s</a>.<span class="number">0</span>).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
+        <a href="#157">v_ptr</a>.push(ptr::null_mut());
 
-        (v_ptr.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>ffi::GdkAtom, (v, <span class="prelude-val">Some</span>(v_ptr)))
+        (<a href="#157">v_ptr</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>ffi::GdkAtom, (<a href="#156">v</a>, <span class="prelude-val">Some</span>(<a href="#157">v_ptr</a>)))
     }
 
-    <span class="kw">fn </span>to_glib_container_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[Atom]) -&gt; (<span class="kw-2">*const </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
+    <span class="kw">fn </span>to_glib_container_from_slice(t: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[<a href="#12">Atom</a>]) -&gt; (<span class="kw-2">*const </span>ffi::GdkAtom, <span class="self">Self</span>::Storage) {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = t.iter().map(|s| s.to_glib_none()).collect();
+        <span class="kw">let </span>v: Vec&lt;<span class="kw">_</span>&gt; = <a href="#163">t</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|s| <a href="#166">s</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
 
         <span class="kw">let </span>v_ptr = <span class="kw">unsafe </span>{
-            <span class="kw">let </span>v_ptr = glib::ffi::g_malloc0(mem::size_of::&lt;ffi::GdkAtom&gt;() * (t.len() + <span class="number">1</span>))
+            <span class="kw">let </span>v_ptr = glib::ffi::g_malloc0(mem::size_of::&lt;ffi::GdkAtom&gt;() * (<a href="#163">t</a>.len() + <span class="number">1</span>))
                 <span class="kw">as </span><span class="kw-2">*mut </span>ffi::GdkAtom;
 
             <span class="kw">for </span>(i, s) <span class="kw">in </span>v.iter().enumerate() {
                 ptr::write(v_ptr.add(i), s.<span class="number">0</span>);
             }
 
-            v_ptr <span class="kw">as </span><span class="kw-2">*const </span>ffi::GdkAtom
+            <a href="#169">v_ptr</a> <span class="kw">as </span><span class="kw-2">*const </span>ffi::GdkAtom
         };
 
-        (v_ptr, (v, <span class="prelude-val">None</span>))
+        (<a href="#168">v_ptr</a>, (<a href="#166">v</a>, <span class="prelude-val">None</span>))
     }
 
-    <span class="kw">fn </span>to_glib_full_from_slice(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[Atom]) -&gt; <span class="kw-2">*const </span>ffi::GdkAtom {
+    <span class="kw">fn </span>to_glib_full_from_slice(<span class="kw">_</span>: <span class="kw-2">&amp;</span>[<a href="#12">Atom</a>]) -&gt; <span class="kw-2">*const </span>ffi::GdkAtom {
         <span class="macro">skip_assert_initialized!</span>();
 
-        <span class="macro">unimplemented!</span>()
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unimplemented.html">unimplemented!</a>()
     }
 }
 
-<span class="kw">impl </span>FromGlibPtrNone&lt;ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl </span>FromGlibPtrNone&lt;ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib_none(ptr: ffi::GdkAtom) -&gt; Atom {
-        Atom(ptr)
+    </span><span class="kw">unsafe fn </span>from_glib_none(ptr: ffi::GdkAtom) -&gt; <a href="#12">Atom</a> {
+        <a href="#12">Atom</a>(<a href="#191">ptr</a>)
     }
 }
 
-<span class="kw">impl </span>FromGlibPtrBorrow&lt;ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl </span>FromGlibPtrBorrow&lt;ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib_borrow(ptr: ffi::GdkAtom) -&gt; glib::translate::Borrowed&lt;Atom&gt; {
-        glib::translate::Borrowed::new(Atom(ptr))
+    </span><span class="kw">unsafe fn </span>from_glib_borrow(ptr: ffi::GdkAtom) -&gt; glib::translate::Borrowed&lt;<a href="#12">Atom</a>&gt; {
+        glib::translate::Borrowed::new(<a href="#12">Atom</a>(<a href="#198">ptr</a>))
     }
 }
 
-<span class="kw">impl </span>FromGlibPtrFull&lt;ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl </span>FromGlibPtrFull&lt;ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib_full(<span class="kw">_</span>: ffi::GdkAtom) -&gt; Atom {
-        <span class="macro">unimplemented!</span>()
+    </span><span class="kw">unsafe fn </span>from_glib_full(<span class="kw">_</span>: ffi::GdkAtom) -&gt; <a href="#12">Atom</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unimplemented.html">unimplemented!</a>()
     }
 }
 
-<span class="kw">impl </span>FromGlibContainerAsVec&lt;ffi::GdkAtom, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
-    <span class="kw">unsafe fn </span>from_glib_none_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: usize) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
+<span class="kw">impl </span>FromGlibContainerAsVec&lt;ffi::GdkAtom, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
+    <span class="kw">unsafe fn </span>from_glib_none_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
         <span class="kw">if </span>num == <span class="number">0 </span>|| ptr.is_null() {
             <span class="kw">return </span>Vec::new();
         }
 
-        <span class="kw">let </span><span class="kw-2">mut </span>res = Vec::with_capacity(num);
+        <span class="kw">let </span><span class="kw-2">mut </span>res = Vec::with_capacity(<a href="#211">num</a>);
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..num {
             res.push(from_glib_none(ptr::read(ptr.add(i))));
         }
-        res
+        <a href="#216">res</a>
     }
 
-    <span class="kw">unsafe fn </span>from_glib_container_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: usize) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
-        <span class="kw">let </span>res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-        glib::ffi::g_free(ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-        res
+    <span class="kw">unsafe fn </span>from_glib_container_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">let </span>res = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainerAsVec.html">FromGlibContainerAsVec::from_glib_none_num_as_vec</a>(<a href="#223">ptr</a>, <a href="#223">num</a>);
+        glib::ffi::g_free(<a href="#223">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+        <a href="#224">res</a>
     }
 
-    <span class="kw">unsafe fn </span>from_glib_full_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: usize) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
+    <span class="kw">unsafe fn </span>from_glib_full_num_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom, num: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
         <span class="kw">if </span>num == <span class="number">0 </span>|| ptr.is_null() {
             <span class="kw">return </span>Vec::new();
         }
 
-        <span class="kw">let </span><span class="kw-2">mut </span>res = Vec::with_capacity(num);
+        <span class="kw">let </span><span class="kw-2">mut </span>res = Vec::with_capacity(<a href="#229">num</a>);
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..num {
             res.push(from_glib_full(ptr::read(ptr.add(i))));
         }
-        glib::ffi::g_free(ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-        res
+        glib::ffi::g_free(<a href="#229">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+        <a href="#234">res</a>
     }
 }
 
-<span class="kw">impl </span>FromGlibPtrArrayContainerAsVec&lt;ffi::GdkAtom, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span>Atom {
+<span class="kw">impl </span>FromGlibPtrArrayContainerAsVec&lt;ffi::GdkAtom, <span class="kw-2">*mut </span>ffi::GdkAtom&gt; <span class="kw">for </span><a href="#12">Atom</a> {
     <span class="kw">unsafe fn </span>from_glib_none_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
-        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, c_ptr_array_len(ptr))
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainerAsVec.html">FromGlibContainerAsVec::from_glib_none_num_as_vec</a>(<a href="#244">ptr</a>, c_ptr_array_len(<a href="#244">ptr</a>))
     }
 
     <span class="kw">unsafe fn </span>from_glib_container_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
-        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, c_ptr_array_len(ptr))
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainerAsVec.html">FromGlibContainerAsVec::from_glib_container_num_as_vec</a>(<a href="#248">ptr</a>, c_ptr_array_len(<a href="#248">ptr</a>))
     }
 
     <span class="kw">unsafe fn </span>from_glib_full_as_vec(ptr: <span class="kw-2">*mut </span>ffi::GdkAtom) -&gt; Vec&lt;<span class="self">Self</span>&gt; {
-        FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, c_ptr_array_len(ptr))
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainerAsVec.html">FromGlibContainerAsVec::from_glib_full_num_as_vec</a>(<a href="#252">ptr</a>, c_ptr_array_len(<a href="#252">ptr</a>))
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt; <span class="kw">for </span>Atom {
-    <span class="kw">fn </span>from(r: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) -&gt; Atom {
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; From&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; <span class="kw">for </span><a href="#12">Atom</a> {
+    <span class="kw">fn </span>from(r: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="#12">Atom</a> {
         <span class="macro">skip_assert_initialized!</span>();
-        Atom::intern(r)
+        Atom::intern(<a href="#258">r</a>)
     }
 }
 </code></pre></div></section></main></body></html>

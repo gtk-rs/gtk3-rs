@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/object.rs`."><title>object.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/object.rs`."><title>object.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1519,15 +1519,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{Layer, RelationSet, RelationType, Role, State, StateSet};
+</span><span class="kw">use crate</span>::{<a href="enums.rs.html#137-164">Layer</a>, <a href="relation_set.rs.html#9-31">RelationSet</a>, <a href="enums.rs.html#285-383">RelationType</a>, <a href="enums.rs.html#563-1028">Role</a>, <a href="alias.rs.html#8">State</a>, <a href="state_set.rs.html#9-25">StateSet</a>};
 <span class="kw">use </span>glib::{
-    prelude::<span class="kw-2">*</span>,
-    signal::{connect_raw, SignalHandlerId},
-    translate::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// The base object class for the Accessibility Toolkit API.
     ///
     /// This class is the primary class for accessibility support via the
@@ -1695,20 +1695,20 @@
     ///
     /// [`AtkObjectExt`][trait@crate::prelude::AtkObjectExt], [`trait@glib::ObjectExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;AtkObject&quot;</span>)]
-    </span><span class="kw">pub struct </span>Object(Object&lt;ffi::AtkObject, ffi::AtkObjectClass&gt;);
+    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Object.html">Object</a>(Object&lt;ffi::AtkObject, ffi::AtkObjectClass&gt;);
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::atk_object_get_type(),
     }
 }
 
-<span class="kw">impl </span>Object {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Object&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#13-186">Object</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#13-186">Object</a>&gt; = <span class="prelude-val">None</span>;
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::Object&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<a href="#13-186"><span class="kw">super</span>::Object</a>&gt;&gt; <a href="#193">Sealed</a> <span class="kw">for </span>T {}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@Object`] methods.
@@ -1716,7 +1716,7 @@
 /// # Implementors
 ///
 /// [`GObjectAccessible`][struct@crate::GObjectAccessible], [`NoOpObject`][struct@crate::NoOpObject], [`Object`][struct@crate::Object], [`Plug`][struct@crate::Plug], [`Socket`][struct@crate::Socket], [`TableCell`][struct@crate::TableCell], [`Window`][struct@crate::Window]
-</span><span class="kw">pub trait </span>AtkObjectExt: IsA&lt;Object&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span><a href="../../../atk/prelude/trait.AtkObjectExt.html">AtkObjectExt</a>: IsA&lt;<a href="#13-186">Object</a>&gt; + <a href="#193">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds a relationship of the specified type with the specified target.
     /// ## `relationship`
     /// The [`RelationType`][crate::RelationType] of the relation
@@ -1727,12 +1727,12 @@
     ///
     /// TRUE if the relationship is added.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_add_relationship&quot;</span>)]
-    </span><span class="kw">fn </span>add_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
+    </span><span class="kw">fn </span>add_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: <a href="enums.rs.html#285-383">RelationType</a>, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="#13-186">Object</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::atk_object_add_relationship(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                relationship.into_glib(),
-                target.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#213">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#213">relationship</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#213">target</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1763,10 +1763,10 @@
     /// of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_description&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_description&quot;</span>)]
-    </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">fn </span>description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::atk_object_get_description(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#249">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1779,8 +1779,8 @@
     /// an integer which is the index of the accessible in its parent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_index_in_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_index_in_parent&quot;</span>)]
-    </span><span class="kw">fn </span>index_in_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_index_in_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">fn </span>index_in_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_index_in_parent(<a class="self" href="#265">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the layer of the accessible.
@@ -1794,8 +1794,8 @@
     /// an [`Layer`][crate::Layer] which is the layer of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_layer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_layer&quot;</span>)]
-    </span><span class="kw">fn </span>layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Layer {
-        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_layer(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#137-164">Layer</a> {
+        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_layer(<a class="self" href="#280">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the zorder of the accessible. The value G_MININT will be returned
@@ -1812,8 +1812,8 @@
     /// container.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_mdi_zorder&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_mdi_zorder&quot;</span>)]
-    </span><span class="kw">fn </span>mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_mdi_zorder(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">fn </span>mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_mdi_zorder(<a class="self" href="#298">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the number of accessible children of the accessible.
@@ -1824,8 +1824,8 @@
     /// of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_n_accessible_children&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_accessible_children&quot;</span>)]
-    </span><span class="kw">fn </span>n_accessible_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::atk_object_get_n_accessible_children(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">fn </span>n_accessible_children(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::atk_object_get_n_accessible_children(<a class="self" href="#310">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the accessible name of the accessible.
@@ -1835,8 +1835,8 @@
     /// a character string representing the accessible name of the object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_name&quot;</span>)]
-    </span><span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_name(<a class="self" href="#321">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
@@ -1848,10 +1848,10 @@
     ///  locale of `self`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_object_locale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_object_locale&quot;</span>)]
-    </span><span class="kw">fn </span>object_locale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">fn </span>object_locale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::atk_object_get_object_locale(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#334">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1872,8 +1872,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_parent&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_parent&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_get_parent(<a class="self" href="#358">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the role of the accessible.
@@ -1883,8 +1883,8 @@
     /// an [`Role`][crate::Role] which is the role of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_get_role&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_role&quot;</span>)]
-    </span><span class="kw">fn </span>role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
-        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#563-1028">Role</a> {
+        <span class="kw">unsafe </span>{ from_glib(ffi::atk_object_get_role(<a class="self" href="#369">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="comment">//#[doc(alias = &quot;atk_object_initialize&quot;)]
@@ -1901,12 +1901,12 @@
     /// ## `value`
     /// a gboolean which indicates whether the state is being set on or off
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_notify_state_change&quot;</span>)]
-    </span><span class="kw">fn </span>notify_state_change(<span class="kw-2">&amp;</span><span class="self">self</span>, state: State, value: bool) {
+    </span><span class="kw">fn </span>notify_state_change(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="alias.rs.html#8">State</a>, value: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::atk_object_notify_state_change(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                state,
-                value.into_glib(),
+                <a class="self" href="#387">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#387">state</a>,
+                <a href="#387">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -1925,8 +1925,8 @@
     /// parent of the accessible if assigned
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_peek_parent&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>peek_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_peek_parent(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">fn </span>peek_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::atk_object_peek_parent(<a class="self" href="#411">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets a reference to the specified accessible child of the object.
@@ -1941,11 +1941,11 @@
     /// accessible child of the accessible.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_accessible_child&quot;</span>)]
     #[must_use]
-    </span><span class="kw">fn </span>ref_accessible_child(<span class="kw-2">&amp;</span><span class="self">self</span>, i: i32) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
+    </span><span class="kw">fn </span>ref_accessible_child(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::atk_object_ref_accessible_child(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                i,
+                <a class="self" href="#427">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#427">i</a>,
             ))
         }
     }
@@ -1957,10 +1957,10 @@
     /// an [`RelationSet`][crate::RelationSet] representing the relation set
     /// of the object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_relation_set&quot;</span>)]
-    </span><span class="kw">fn </span>ref_relation_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;RelationSet&gt; {
+    </span><span class="kw">fn </span>ref_relation_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="relation_set.rs.html#9-31">RelationSet</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::atk_object_ref_relation_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#443">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1973,10 +1973,10 @@
     /// a reference to an [`StateSet`][crate::StateSet] which is the state
     /// set of the accessible
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_ref_state_set&quot;</span>)]
-    </span><span class="kw">fn </span>ref_state_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;StateSet&gt; {
+    </span><span class="kw">fn </span>ref_state_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="state_set.rs.html#9-25">StateSet</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::atk_object_ref_state_set(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#459">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1991,12 +1991,12 @@
     ///
     /// TRUE if the relationship is removed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_remove_relationship&quot;</span>)]
-    </span><span class="kw">fn </span>remove_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: RelationType, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) -&gt; bool {
+    </span><span class="kw">fn </span>remove_relationship(<span class="kw-2">&amp;</span><span class="self">self</span>, relationship: <a href="enums.rs.html#285-383">RelationType</a>, target: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="#13-186">Object</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::atk_object_remove_relationship(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                relationship.into_glib(),
-                target.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#477">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#477">relationship</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#477">target</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -2027,11 +2027,11 @@
     /// ## `description`
     /// a character string to be set as the accessible description
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_description&quot;</span>)]
-    </span><span class="kw">fn </span>set_description(<span class="kw-2">&amp;</span><span class="self">self</span>, description: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">fn </span>set_description(<span class="kw-2">&amp;</span><span class="self">self</span>, description: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::atk_object_set_description(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                description.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#513">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#513">description</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2043,9 +2043,9 @@
     /// ## `name`
     /// a character string to be set as the accessible name
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_name&quot;</span>)]
-    </span><span class="kw">fn </span>set_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">fn </span>set_name(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::atk_object_set_name(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, name.to_glib_none().<span class="number">0</span>);
+            ffi::atk_object_set_name(<a class="self" href="#529">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#529">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -2053,11 +2053,11 @@
     /// ## `parent`
     /// an [`Object`][crate::Object] to be set as the accessible parent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_parent&quot;</span>)]
-    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Object&gt;) {
+    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="#13-186">Object</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::atk_object_set_parent(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                parent.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#539">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#539">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2066,69 +2066,69 @@
     /// ## `role`
     /// an [`Role`][crate::Role] to be set as the role
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_object_set_role&quot;</span>)]
-    </span><span class="kw">fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: Role) {
+    </span><span class="kw">fn </span>set_role(<span class="kw-2">&amp;</span><span class="self">self</span>, role: <a href="enums.rs.html#563-1028">Role</a>) {
         <span class="kw">unsafe </span>{
-            ffi::atk_object_set_role(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, role.into_glib());
+            ffi::atk_object_set_role(<a class="self" href="#552">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#552">role</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-layer&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_component_layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-layer&quot;</span>)
+    </span><span class="kw">fn </span>accessible_component_layer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#559">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-component-layer&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_component_mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)
+    </span><span class="kw">fn </span>accessible_component_mdi_zorder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#564">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-component-mdi-zorder&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-description&quot;</span>)
+    </span><span class="kw">fn </span>accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#569">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-description&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-description&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+    </span><span class="kw">fn </span>set_accessible_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#574">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-description&quot;</span>,
-            accessible_description,
+            <a href="#574">accessible_description</a>,
         )
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_hypertext_nlinks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)
+    </span><span class="kw">fn </span>accessible_hypertext_nlinks(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#583">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-hypertext-nlinks&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>)
+    </span><span class="kw">fn </span>accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#588">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-name&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-name&quot;</span>, accessible_name)
+    </span><span class="kw">fn </span>set_accessible_name(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#593">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-name&quot;</span>, <a href="#593">accessible_name</a>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>)
+    </span><span class="kw">fn </span>accessible_parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#598">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-parent&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_parent&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-parent&quot;</span>, accessible_parent)
+    </span><span class="kw">fn </span>set_accessible_parent&lt;P: IsA&lt;<a href="#13-186">Object</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#603">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-parent&quot;</span>, <a href="#603">accessible_parent</a>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Role {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>)
+    </span><span class="kw">fn </span>accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#563-1028">Role</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#608">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-role&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_role: Role) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-role&quot;</span>, accessible_role)
+    </span><span class="kw">fn </span>set_accessible_role(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_role: <a href="enums.rs.html#563-1028">Role</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#613">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-role&quot;</span>, <a href="#613">accessible_role</a>)
     }
 
     <span class="doccomment">/// Table caption.
@@ -2137,8 +2137,8 @@
     ///
     /// Since 1.3. Use table-caption-object instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#623">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-caption&quot;</span>)
     }
 
     <span class="doccomment">/// Table caption.
@@ -2147,28 +2147,28 @@
     ///
     /// Since 1.3. Use table-caption-object instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_caption: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+    </span><span class="kw">fn </span>set_accessible_table_caption(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_caption: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#633">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-caption&quot;</span>,
-            accessible_table_caption,
+            <a href="#633">accessible_table_caption</a>,
         )
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_caption_object(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-caption-object&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_caption_object(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#642">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-caption-object&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-caption-object&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_caption_object&lt;P: IsA&lt;Object&gt;&gt;(
+    </span><span class="kw">fn </span>set_accessible_table_caption_object&lt;P: IsA&lt;<a href="#13-186">Object</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_caption_object: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
     ) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#648">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-caption-object&quot;</span>,
-            accessible_table_caption_object,
+            <a href="#649">accessible_table_caption_object</a>,
         )
     }
 
@@ -2179,8 +2179,8 @@
     /// Since 2.12. Use [`TableExt::column_description()`][crate::prelude::TableExt::column_description()]
     /// and [`TableExt::set_column_description()`][crate::prelude::TableExt::set_column_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_column_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-description&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_column_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#665">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-column-description&quot;</span>)
     }
 
     <span class="doccomment">/// Accessible table column description.
@@ -2192,12 +2192,12 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-description&quot;</span>)]
     </span><span class="kw">fn </span>set_accessible_table_column_description(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        accessible_table_column_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        accessible_table_column_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
     ) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#677">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-column-description&quot;</span>,
-            accessible_table_column_description,
+            <a href="#678">accessible_table_column_description</a>,
         )
     }
 
@@ -2208,8 +2208,8 @@
     /// Since 2.12. Use [`TableExt::column_header()`][crate::prelude::TableExt::column_header()] and
     /// [`TableExt::set_column_header()`][crate::prelude::TableExt::set_column_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-header&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_column_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-column-header&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_column_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#694">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-column-header&quot;</span>)
     }
 
     <span class="doccomment">/// Accessible table column header.
@@ -2219,14 +2219,14 @@
     /// Since 2.12. Use [`TableExt::column_header()`][crate::prelude::TableExt::column_header()] and
     /// [`TableExt::set_column_header()`][crate::prelude::TableExt::set_column_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-column-header&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_column_header&lt;P: IsA&lt;Object&gt;&gt;(
+    </span><span class="kw">fn </span>set_accessible_table_column_header&lt;P: IsA&lt;<a href="#13-186">Object</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_column_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
     ) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#706">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-column-header&quot;</span>,
-            accessible_table_column_header,
+            <a href="#707">accessible_table_column_header</a>,
         )
     }
 
@@ -2237,8 +2237,8 @@
     /// Since 2.12. Use [`TableExt::row_description()`][crate::prelude::TableExt::row_description()] and
     /// [`TableExt::set_row_description()`][crate::prelude::TableExt::set_row_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-description&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#723">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-row-description&quot;</span>)
     }
 
     <span class="doccomment">/// Accessible table row description.
@@ -2248,11 +2248,11 @@
     /// Since 2.12. Use [`TableExt::row_description()`][crate::prelude::TableExt::row_description()] and
     /// [`TableExt::set_row_description()`][crate::prelude::TableExt::set_row_description()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-description&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+    </span><span class="kw">fn </span>set_accessible_table_row_description(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_row_description: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#734">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-row-description&quot;</span>,
-            accessible_table_row_description,
+            <a href="#734">accessible_table_row_description</a>,
         )
     }
 
@@ -2263,8 +2263,8 @@
     /// Since 2.12. Use [`TableExt::row_header()`][crate::prelude::TableExt::row_header()] and
     /// [`TableExt::set_row_header()`][crate::prelude::TableExt::set_row_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-header&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_row_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-row-header&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_row_header(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#749">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-row-header&quot;</span>)
     }
 
     <span class="doccomment">/// Accessible table row header.
@@ -2274,28 +2274,28 @@
     /// Since 2.12. Use [`TableExt::row_header()`][crate::prelude::TableExt::row_header()] and
     /// [`TableExt::set_row_header()`][crate::prelude::TableExt::set_row_header()] instead.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-row-header&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_row_header&lt;P: IsA&lt;Object&gt;&gt;(
+    </span><span class="kw">fn </span>set_accessible_table_row_header&lt;P: IsA&lt;<a href="#13-186">Object</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         accessible_table_row_header: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;,
     ) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#761">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-row-header&quot;</span>,
-            accessible_table_row_header,
+            <a href="#762">accessible_table_row_header</a>,
         )
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_table_summary(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Object&gt; {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-table-summary&quot;</span>)
+    </span><span class="kw">fn </span>accessible_table_summary(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#13-186">Object</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#772">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-table-summary&quot;</span>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-table-summary&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_table_summary&lt;P: IsA&lt;Object&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_summary: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        ObjectExt::set_property(
-            <span class="self">self</span>.as_ref(),
+    </span><span class="kw">fn </span>set_accessible_table_summary&lt;P: IsA&lt;<a href="#13-186">Object</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_table_summary: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(
+            <a class="self" href="#777">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(),
             <span class="string">&quot;accessible-table-summary&quot;</span>,
-            accessible_table_summary,
+            <a href="#777">accessible_table_summary</a>,
         )
     }
 
@@ -2307,8 +2307,8 @@
     /// the value, and value-changed signal to be notified on their value
     /// changes.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>)
+    </span><span class="kw">fn </span>accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#793">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-value&quot;</span>)
     }
 
     <span class="doccomment">/// Numeric value of this object, in case being and AtkValue.
@@ -2319,8 +2319,8 @@
     /// the value, and value-changed signal to be notified on their value
     /// changes.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>set_accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_value: f64) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accessible-value&quot;</span>, accessible_value)
+    </span><span class="kw">fn </span>set_accessible_value(<span class="kw-2">&amp;</span><span class="self">self</span>, accessible_value: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#805">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accessible-value&quot;</span>, <a href="#805">accessible_value</a>)
     }
 
     <span class="doccomment">/// The &quot;active-descendant-changed&quot; signal is emitted by an object
@@ -2330,39 +2330,39 @@
     /// ## `arg1`
     /// the newly focused object.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;active-descendant-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_active_descendant_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_active_descendant_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="#13-186">Object</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>active_descendant_changed_trampoline&lt;
-            P: IsA&lt;Object&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="#13-186">Object</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             arg1: <span class="kw-2">*mut </span>ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="kw-2">&amp;</span>from_glib_borrow(arg1),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#827">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#829">f</a>(
+                Object::from_glib_borrow(<a href="#825">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#826">arg1</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#819">f</a>);
             <span class="kw">let </span>detailed_signal_name =
-                detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;active-descendant-changed::{name}\0&quot;</span>));
-            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
+                <a href="#818">detail</a>.map(|name| <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;active-descendant-changed::{name}\0&quot;</span>));
+            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] = <a href="#837">detailed_signal_name</a>
                 .as_ref()
-                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;active-descendant-changed\0&quot;</span>[..], |n| n.as_bytes());
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                signal_name.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;active-descendant-changed\0&quot;</span>[..], |n| <a href="#841">n</a>.as_bytes());
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#817">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#839">signal_name</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     active_descendant_changed_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#836">f</a>),
             )
         }
     }
@@ -2412,40 +2412,40 @@
     /// available for the implementor. In that case this pointer can be
     /// NULL.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;children-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, u32, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_children_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <span class="kw-2">&amp;</span><a href="#13-186">Object</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>children_changed_trampoline&lt;
-            P: IsA&lt;Object&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, u32, <span class="kw-2">&amp;</span>Object) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <span class="kw-2">&amp;</span><a href="#13-186">Object</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             arg1: libc::c_uint,
             arg2: <span class="kw-2">*mut </span>ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                arg1,
-                <span class="kw-2">&amp;</span>from_glib_borrow(arg2),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#910">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#912">f</a>(
+                Object::from_glib_borrow(<a href="#907">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <a href="#908">arg1</a>,
+                <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#909">arg2</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;children-changed::{name}\0&quot;</span>));
-            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#901">f</a>);
+            <span class="kw">let </span>detailed_signal_name = <a href="#900">detail</a>.map(|name| <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;children-changed::{name}\0&quot;</span>));
+            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] = <a href="#921">detailed_signal_name</a>
                 .as_ref()
-                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;children-changed\0&quot;</span>[..], |n| n.as_bytes());
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                signal_name.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;children-changed\0&quot;</span>[..], |n| <a href="#924">n</a>.as_bytes());
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#899">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#922">signal_name</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     children_changed_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#920">f</a>),
             )
         }
     }
@@ -2463,40 +2463,40 @@
     /// ## `arg2`
     /// A boolean which indicates whether the state has been set or unset.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;state-change&quot;</span>)]
-    </span><span class="kw">fn </span>connect_state_change&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>str, bool) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_state_change&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        detail: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>state_change_trampoline&lt;
-            P: IsA&lt;Object&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>str, bool) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             arg1: <span class="kw-2">*mut </span>libc::c_char,
             arg2: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="kw-2">&amp;</span>glib::GString::from_glib_borrow(arg1),
-                from_glib(arg2),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#961">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#963">f</a>(
+                Object::from_glib_borrow(<a href="#958">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="kw-2">&amp;</span>glib::GString::from_glib_borrow(<a href="#959">arg1</a>),
+                from_glib(<a href="#960">arg2</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            <span class="kw">let </span>detailed_signal_name = detail.map(|name| <span class="macro">format!</span>(<span class="string">&quot;state-change::{name}\0&quot;</span>));
-            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[u8] = detailed_signal_name
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#952">f</a>);
+            <span class="kw">let </span>detailed_signal_name = <a href="#951">detail</a>.map(|name| <a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;state-change::{name}\0&quot;</span>));
+            <span class="kw">let </span>signal_name: <span class="kw-2">&amp;</span>[<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>] = <a href="#972">detailed_signal_name</a>
                 .as_ref()
-                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;state-change\0&quot;</span>[..], |n| n.as_bytes());
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                signal_name.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                .map_or(<span class="kw-2">&amp;</span><span class="string">b&quot;state-change\0&quot;</span>[..], |n| <a href="#975">n</a>.as_bytes());
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#950">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#973">signal_name</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     state_change_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#971">f</a>),
             )
         }
     }
@@ -2504,26 +2504,26 @@
     <span class="doccomment">/// The &quot;visible-data-changed&quot; signal is emitted when the visual
     /// appearance of the object changed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;visible-data-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_visible_data_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_visible_data_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>visible_data_changed_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#996">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#998">f</a>(Object::from_glib_borrow(<a href="#995">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#990">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#990">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;visible-data-changed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     visible_data_changed_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1002">f</a>),
             )
         }
     }
@@ -2532,27 +2532,27 @@
     </span><span class="kw">fn </span>connect_accessible_component_layer_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_component_layer_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1025">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1027">f</a>(Object::from_glib_borrow(<a href="#1023">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1017">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1016">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-component-layer\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_component_layer_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1031">f</a>),
             )
         }
     }
@@ -2561,27 +2561,27 @@
     </span><span class="kw">fn </span>connect_accessible_component_mdi_zorder_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_component_mdi_zorder_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1054">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1056">f</a>(Object::from_glib_borrow(<a href="#1052">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1046">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1045">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-component-mdi-zorder\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_component_mdi_zorder_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1060">f</a>),
             )
         }
     }
@@ -2590,27 +2590,27 @@
     </span><span class="kw">fn </span>connect_accessible_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_description_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1083">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1085">f</a>(Object::from_glib_borrow(<a href="#1081">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1075">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1074">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-description\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_description_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1089">f</a>),
             )
         }
     }
@@ -2619,105 +2619,105 @@
     </span><span class="kw">fn </span>connect_accessible_hypertext_nlinks_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_hypertext_nlinks_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1112">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1114">f</a>(Object::from_glib_borrow(<a href="#1110">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1104">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1103">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-hypertext-nlinks\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_hypertext_nlinks_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1118">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-name&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accessible_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_name_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1138">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1140">f</a>(Object::from_glib_borrow(<a href="#1136">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1131">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1131">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-name\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_name_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1144">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-parent&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accessible_parent_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_parent_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1164">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1166">f</a>(Object::from_glib_borrow(<a href="#1162">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1157">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1157">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-parent\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_parent_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1170">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-role&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_role_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accessible_role_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_role_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1190">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1192">f</a>(Object::from_glib_borrow(<a href="#1188">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1183">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1183">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-role\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_role_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1196">f</a>),
             )
         }
     }
@@ -2726,27 +2726,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_caption_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_caption_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1219">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1221">f</a>(Object::from_glib_borrow(<a href="#1217">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1211">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1210">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-caption\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_caption_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1225">f</a>),
             )
         }
     }
@@ -2755,27 +2755,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_caption_object_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_caption_object_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1248">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1250">f</a>(Object::from_glib_borrow(<a href="#1246">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1240">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1239">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-caption-object\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_caption_object_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1254">f</a>),
             )
         }
     }
@@ -2784,27 +2784,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_column_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_column_description_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1277">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1279">f</a>(Object::from_glib_borrow(<a href="#1275">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1269">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-column-description\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_column_description_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1283">f</a>),
             )
         }
     }
@@ -2813,27 +2813,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_column_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_column_header_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1306">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1308">f</a>(Object::from_glib_borrow(<a href="#1304">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1298">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1297">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-column-header\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_column_header_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1312">f</a>),
             )
         }
     }
@@ -2842,27 +2842,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_row_description_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_row_description_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1335">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1337">f</a>(Object::from_glib_borrow(<a href="#1333">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1327">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1326">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-row-description\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_row_description_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1341">f</a>),
             )
         }
     }
@@ -2871,27 +2871,27 @@
     </span><span class="kw">fn </span>connect_accessible_table_row_header_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_row_header_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1364">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1366">f</a>(Object::from_glib_borrow(<a href="#1362">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1356">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1355">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-row-header\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_row_header_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1370">f</a>),
             )
         }
     }
@@ -2900,63 +2900,63 @@
     </span><span class="kw">fn </span>connect_accessible_table_summary_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_table_summary_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1393">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1395">f</a>(Object::from_glib_borrow(<a href="#1391">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1385">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1384">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-table-summary\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_table_summary_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1399">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accessible-value&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accessible_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accessible_value_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accessible_value_trampoline&lt;
-            P: IsA&lt;Object&gt;,
+            P: IsA&lt;<a href="#13-186">Object</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span>ffi::AtkObject,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1419">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1421">f</a>(Object::from_glib_borrow(<a href="#1417">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1412">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1412">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accessible-value\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accessible_value_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1425">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;Object&gt;&gt; AtkObjectExt <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#13-186">Object</a>&gt;&gt; <a href="#202-1436">AtkObjectExt</a> <span class="kw">for </span>O {}
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>Object {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;Object&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#13-186">Object</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#1441">f</a>.write_str(<span class="string">&quot;Object&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

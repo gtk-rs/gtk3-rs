@@ -1,4 +1,4 @@
-var sourcesIndex = JSON.parse('{\
+var srcIndex = JSON.parse('{\
 "atk":["",[["auto",[],["action.rs","alias.rs","component.rs","document.rs","editable_text.rs","enums.rs","flags.rs","gobject_accessible.rs","hyperlink.rs","hyperlink_impl.rs","hypertext.rs","image.rs","misc.rs","mod.rs","no_op_object.rs","no_op_object_factory.rs","object.rs","object_factory.rs","plug.rs","range.rs","rectangle.rs","registry.rs","relation.rs","relation_set.rs","selection.rs","socket.rs","state_set.rs","streamable_content.rs","table.rs","table_cell.rs","text.rs","text_range.rs","util.rs","value.rs","window.rs"]]],["attribute.rs","attribute_set.rs","editable_text.rs","lib.rs","prelude.rs","rt.rs","table.rs","text_rectangle.rs"]],\
 "atk_sys":["",[],["lib.rs"]],\
 "gdk":["",[["auto",[],["app_launch_context.rs","cursor.rs","device.rs","device_manager.rs","device_pad.rs","device_tool.rs","display.rs","display_manager.rs","drag_context.rs","drawing_context.rs","enums.rs","event_sequence.rs","flags.rs","frame_clock.rs","frame_timings.rs","functions.rs","gl_context.rs","keymap.rs","mod.rs","monitor.rs","rectangle.rs","rgba.rs","screen.rs","seat.rs","visual.rs","window.rs"]]],["atom.rs","cairo_interaction.rs","change_data.rs","device.rs","device_manager.rs","display.rs","drag_context.rs","event.rs","event_button.rs","event_configure.rs","event_crossing.rs","event_dnd.rs","event_expose.rs","event_focus.rs","event_grab_broken.rs","event_key.rs","event_motion.rs","event_owner_change.rs","event_pad_axis.rs","event_pad_button.rs","event_pad_group_mode.rs","event_property.rs","event_proximity.rs","event_scroll.rs","event_selection.rs","event_setting.rs","event_touch.rs","event_touchpad_pinch.rs","event_touchpad_swipe.rs","event_visibility.rs","event_window_state.rs","frame_clock.rs","frame_timings.rs","functions.rs","geometry.rs","keymap.rs","keymap_key.rs","keys.rs","lib.rs","prelude.rs","rectangle.rs","rgba.rs","rt.rs","screen.rs","time_coord.rs","visual.rs","window.rs"]],\
@@ -11,4 +11,4 @@ var sourcesIndex = JSON.parse('{\
 "gtk3_macros":["",[],["attribute_parser.rs","composite_template_derive.rs","lib.rs","util.rs"]],\
 "gtk_sys":["",[],["lib.rs","manual.rs"]]\
 }');
-createSourceSidebar();
+createSrcSidebar();

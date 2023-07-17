@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -155,84 +155,84 @@
 <a href="#82" id="82">82</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">pub mod </span>application;
-<span class="kw">pub mod </span>application_window;
-<span class="kw">pub mod </span>bin;
-<span class="kw">pub mod </span>box_;
-<span class="kw">pub mod </span>button;
-<span class="kw">pub mod </span>cell_renderer;
-<span class="kw">pub mod </span>cell_renderer_accel;
-<span class="kw">pub mod </span>cell_renderer_combo;
-<span class="kw">pub mod </span>cell_renderer_pixbuf;
-<span class="kw">pub mod </span>cell_renderer_progress;
-<span class="kw">pub mod </span>cell_renderer_spin;
-<span class="kw">pub mod </span>cell_renderer_spinner;
-<span class="kw">pub mod </span>cell_renderer_text;
-<span class="kw">pub mod </span>cell_renderer_toggle;
-<span class="kw">pub mod </span>container;
-<span class="kw">pub mod </span>dialog;
-<span class="kw">pub mod </span>drawing_area;
-<span class="kw">pub mod </span>entry;
-<span class="kw">pub mod </span>event_box;
-<span class="kw">pub mod </span>fixed;
-<span class="kw">pub mod </span>header_bar;
-<span class="kw">pub mod </span>icon_view;
-<span class="kw">pub mod </span>list_box;
-<span class="kw">pub mod </span>list_box_row;
-<span class="kw">pub mod </span>menu_button;
+</span><span class="kw">pub mod </span><a href="application.rs.html#3-122">application</a>;
+<span class="kw">pub mod </span><a href="application_window.rs.html#3-18">application_window</a>;
+<span class="kw">pub mod </span><a href="bin.rs.html#3-18">bin</a>;
+<span class="kw">pub mod </span><a href="box_.rs.html#3-18">box_</a>;
+<span class="kw">pub mod </span><a href="button.rs.html#3-75">button</a>;
+<span class="kw">pub mod </span><a href="cell_renderer.rs.html#3-697">cell_renderer</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_accel.rs.html#3-117">cell_renderer_accel</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_combo.rs.html#3-18">cell_renderer_combo</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_pixbuf.rs.html#3-19">cell_renderer_pixbuf</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_progress.rs.html#3-19">cell_renderer_progress</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_spin.rs.html#3-18">cell_renderer_spin</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_spinner.rs.html#3-19">cell_renderer_spinner</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_text.rs.html#3-70">cell_renderer_text</a>;
+<span class="kw">pub mod </span><a href="cell_renderer_toggle.rs.html#3-65">cell_renderer_toggle</a>;
+<span class="kw">pub mod </span><a href="container.rs.html#3-329">container</a>;
+<span class="kw">pub mod </span><a href="dialog.rs.html#3-87">dialog</a>;
+<span class="kw">pub mod </span><a href="drawing_area.rs.html#3-18">drawing_area</a>;
+<span class="kw">pub mod </span><a href="entry.rs.html#3-82">entry</a>;
+<span class="kw">pub mod </span><a href="event_box.rs.html#3-19">event_box</a>;
+<span class="kw">pub mod </span><a href="fixed.rs.html#3-19">fixed</a>;
+<span class="kw">pub mod </span><a href="header_bar.rs.html#3-19">header_bar</a>;
+<span class="kw">pub mod </span><a href="icon_view.rs.html#3-225">icon_view</a>;
+<span class="kw">pub mod </span><a href="list_box.rs.html#3-229">list_box</a>;
+<span class="kw">pub mod </span><a href="list_box_row.rs.html#3-54">list_box_row</a>;
+<span class="kw">pub mod </span><a href="menu_button.rs.html#3-23">menu_button</a>;
 <span class="attr">#[cfg(any(gdk_backend = <span class="string">&quot;x11&quot;</span>, docsrs))]
-</span><span class="kw">pub mod </span>plug;
-<span class="kw">pub mod </span>scrolled_window;
+</span><span class="kw">pub mod </span><a href="plug.rs.html#3-54">plug</a>;
+<span class="kw">pub mod </span><a href="scrolled_window.rs.html#3-99">scrolled_window</a>;
 <span class="attr">#[cfg(any(gdk_backend = <span class="string">&quot;x11&quot;</span>, docsrs))]
-</span><span class="kw">pub mod </span>socket;
-<span class="kw">pub mod </span>stack;
-<span class="kw">pub mod </span>toggle_button;
-<span class="kw">pub mod </span>tree_view;
-<span class="kw">pub mod </span>widget;
-<span class="kw">pub mod </span>window;
+</span><span class="kw">pub mod </span><a href="socket.rs.html#3-84">socket</a>;
+<span class="kw">pub mod </span><a href="stack.rs.html#3-19">stack</a>;
+<span class="kw">pub mod </span><a href="toggle_button.rs.html#3-56">toggle_button</a>;
+<span class="kw">pub mod </span><a href="tree_view.rs.html#3-19">tree_view</a>;
+<span class="kw">pub mod </span><a href="widget.rs.html#3-1682">widget</a>;
+<span class="kw">pub mod </span><a href="window.rs.html#3-165">window</a>;
 
-<span class="kw">pub mod </span>prelude {
+<span class="kw">pub mod </span><a href="../../../gtk/subclass/prelude/index.html">prelude</a> {
     <span class="attr">#[doc(hidden)]
-    </span><span class="kw">pub use </span>gio::subclass::prelude::<span class="kw-2">*</span>;
+    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/subclass/prelude/index.html">gio::subclass::prelude</a>::<span class="kw-2">*</span>;
     <span class="attr">#[doc(hidden)]
-    </span><span class="kw">pub use </span>glib::subclass::prelude::<span class="kw-2">*</span>;
+    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
 
-    <span class="kw">pub use </span><span class="kw">super</span>::application::{GtkApplicationImpl, GtkApplicationImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::application_window::ApplicationWindowImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::bin::BinImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::box_::BoxImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::button::ButtonImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer::{CellRendererImpl, CellRendererImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_accel::{CellRendererAccelImpl, CellRendererAccelImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_combo::CellRendererComboImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_pixbuf::CellRendererPixbufImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_progress::CellRendererProgressImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_spin::CellRendererSpinImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_spinner::CellRendererSpinnerImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_text::{CellRendererTextImpl, CellRendererTextImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_toggle::{CellRendererToggleImpl, CellRendererToggleImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::container::{ContainerClassSubclassExt, ContainerImpl, ContainerImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::dialog::{DialogImpl, DialogImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::drawing_area::DrawingAreaImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::entry::{EntryImpl, EntryImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::event_box::EventBoxImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::fixed::FixedImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::header_bar::HeaderBarImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::icon_view::{IconViewImpl, IconViewImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::list_box::{ListBoxImpl, ListBoxImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::menu_button::MenuButtonImpl;
+    <span class="kw">pub use </span><span class="kw">super</span>::application::{<a href="application.rs.html#12-22">GtkApplicationImpl</a>, <a href="application.rs.html#29-54">GtkApplicationImplExt</a>};
+    <span class="kw">pub use </span><a href="application_window.rs.html#8"><span class="kw">super</span>::application_window::ApplicationWindowImpl</a>;
+    <span class="kw">pub use </span><a href="bin.rs.html#8"><span class="kw">super</span>::bin::BinImpl</a>;
+    <span class="kw">pub use </span><a href="box_.rs.html#8"><span class="kw">super</span>::box_::BoxImpl</a>;
+    <span class="kw">pub use </span><a href="button.rs.html#10-19"><span class="kw">super</span>::button::ButtonImpl</a>;
+    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer::{<a href="cell_renderer.rs.html#18-227">CellRendererImpl</a>, <a href="cell_renderer.rs.html#234-474">CellRendererImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_accel::{<a href="cell_renderer_accel.rs.html#12-26">CellRendererAccelImpl</a>, <a href="cell_renderer_accel.rs.html#33-73">CellRendererAccelImplExt</a>};
+    <span class="kw">pub use </span><a href="cell_renderer_combo.rs.html#8"><span class="kw">super</span>::cell_renderer_combo::CellRendererComboImpl</a>;
+    <span class="kw">pub use </span><a href="cell_renderer_pixbuf.rs.html#9"><span class="kw">super</span>::cell_renderer_pixbuf::CellRendererPixbufImpl</a>;
+    <span class="kw">pub use </span><a href="cell_renderer_progress.rs.html#9"><span class="kw">super</span>::cell_renderer_progress::CellRendererProgressImpl</a>;
+    <span class="kw">pub use </span><a href="cell_renderer_spin.rs.html#8"><span class="kw">super</span>::cell_renderer_spin::CellRendererSpinImpl</a>;
+    <span class="kw">pub use </span><a href="cell_renderer_spinner.rs.html#9"><span class="kw">super</span>::cell_renderer_spinner::CellRendererSpinnerImpl</a>;
+    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_text::{<a href="cell_renderer_text.rs.html#13-17">CellRendererTextImpl</a>, <a href="cell_renderer_text.rs.html#24-41">CellRendererTextImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_toggle::{<a href="cell_renderer_toggle.rs.html#13-17">CellRendererToggleImpl</a>, <a href="cell_renderer_toggle.rs.html#24-40">CellRendererToggleImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::container::{<a href="container.rs.html#319-327">ContainerClassSubclassExt</a>, <a href="container.rs.html#14-107">ContainerImpl</a>, <a href="container.rs.html#114-202">ContainerImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::dialog::{<a href="dialog.rs.html#13-27">DialogImpl</a>, <a href="dialog.rs.html#34-56">DialogImplExt</a>};
+    <span class="kw">pub use </span><a href="drawing_area.rs.html#8"><span class="kw">super</span>::drawing_area::DrawingAreaImpl</a>;
+    <span class="kw">pub use </span><span class="kw">super</span>::entry::{<a href="entry.rs.html#11-19">EntryImpl</a>, <a href="entry.rs.html#26-48">EntryImplExt</a>};
+    <span class="kw">pub use </span><a href="event_box.rs.html#9"><span class="kw">super</span>::event_box::EventBoxImpl</a>;
+    <span class="kw">pub use </span><a href="fixed.rs.html#9"><span class="kw">super</span>::fixed::FixedImpl</a>;
+    <span class="kw">pub use </span><a href="header_bar.rs.html#9"><span class="kw">super</span>::header_bar::HeaderBarImpl</a>;
+    <span class="kw">pub use </span><span class="kw">super</span>::icon_view::{<a href="icon_view.rs.html#15-46">IconViewImpl</a>, <a href="icon_view.rs.html#53-137">IconViewImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::list_box::{<a href="list_box.rs.html#15-49">ListBoxImpl</a>, <a href="list_box.rs.html#56-139">ListBoxImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::list_box_row::{<a href="list_box_row.rs.html#11-15">ListBoxRowImpl</a>, <a href="list_box_row.rs.html#22-32">ListBoxRowImplExt</a>};
+    <span class="kw">pub use </span><a href="menu_button.rs.html#8"><span class="kw">super</span>::menu_button::MenuButtonImpl</a>;
     <span class="attr">#[cfg(any(gdk_backend = <span class="string">&quot;x11&quot;</span>, docsrs))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::plug::{PlugImpl, PlugImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::scrolled_window::{ScrolledWindowImpl, ScrolledWindowImplExt};
+    </span><span class="kw">pub use </span><span class="kw">super</span>::plug::{<a href="plug.rs.html#11-15">PlugImpl</a>, <a href="plug.rs.html#22-32">PlugImplExt</a>};
+    <span class="kw">pub use </span><span class="kw">super</span>::scrolled_window::{<a href="scrolled_window.rs.html#14-22">ScrolledWindowImpl</a>, <a href="scrolled_window.rs.html#29-63">ScrolledWindowImplExt</a>};
     <span class="attr">#[cfg(any(gdk_backend = <span class="string">&quot;x11&quot;</span>, docsrs))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::socket::{SocketImpl, SocketImplExt};
-    <span class="kw">pub use </span><span class="kw">super</span>::stack::StackImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::toggle_button::ToggleButtonImpl;
-    <span class="kw">pub use </span><span class="kw">super</span>::tree_view::TreeViewImpl;
+    </span><span class="kw">pub use </span><span class="kw">super</span>::socket::{<a href="socket.rs.html#12-20">SocketImpl</a>, <a href="socket.rs.html#27-52">SocketImplExt</a>};
+    <span class="kw">pub use </span><a href="stack.rs.html#9"><span class="kw">super</span>::stack::StackImpl</a>;
+    <span class="kw">pub use </span><a href="toggle_button.rs.html#10-17"><span class="kw">super</span>::toggle_button::ToggleButtonImpl</a>;
+    <span class="kw">pub use </span><a href="tree_view.rs.html#9"><span class="kw">super</span>::tree_view::TreeViewImpl</a>;
     <span class="kw">pub use </span><span class="kw">super</span>::widget::{
-        CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
+        <a href="widget.rs.html#1680-1682">CompositeTemplate</a>, <a href="widget.rs.html#1627-1632">TemplateChild</a>, <a href="widget.rs.html#1546-1621">WidgetClassSubclassExt</a>, <a href="widget.rs.html#20-358">WidgetImpl</a>, <a href="widget.rs.html#365-981">WidgetImplExt</a>,
     };
-    <span class="kw">pub use </span><span class="kw">super</span>::window::{WindowImpl, WindowImplExt};
+    <span class="kw">pub use </span><span class="kw">super</span>::window::{<a href="window.rs.html#14-42">WindowImpl</a>, <a href="window.rs.html#49-103">WindowImplExt</a>};
 }
 </code></pre></div></section></main></body></html>

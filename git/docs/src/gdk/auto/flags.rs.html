@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/flags.rs`."><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/flags.rs`."><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1543,10 +1543,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::{bitflags::bitflags, prelude::<span class="kw-2">*</span>, translate::<span class="kw-2">*</span>};
-<span class="kw">use </span>std::fmt;
+</span><span class="kw">use </span>glib::{<a href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags::bitflags</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Positioning hints for aligning a window relative to a rectangle.
     ///
     /// These hints determine how the window should be positioned in the case that
@@ -1564,7 +1564,7 @@
     /// sliding, which should take precedence over resizing.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkAnchorHints&quot;</span>)]
-    </span><span class="kw">pub struct </span>AnchorHints: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.AnchorHints.html">AnchorHints</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// allow flipping anchors horizontally
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ANCHOR_FLIP_X&quot;</span>)]
         </span><span class="kw">const </span>FLIP_X = ffi::GDK_ANCHOR_FLIP_X <span class="kw">as _</span>;
@@ -1595,91 +1595,91 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>AnchorHints {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#58">self</a>, <a href="#58">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>AnchorHints {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="kw">type </span>GlibType = ffi::GdkAnchorHints;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkAnchorHints {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#68">self</a>.<a href="#8-55">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAnchorHints&gt; <span class="kw">for </span>AnchorHints {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAnchorHints&gt; <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkAnchorHints) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#76">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>AnchorHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_anchor_hints_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>AnchorHints {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#95">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>AnchorHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>AnchorHints {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#107">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>AnchorHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#8-55">AnchorHints</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#116">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#115">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#116">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;AnchorHints&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#8-55">AnchorHints</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: AnchorHints) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#8-55">AnchorHints</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#131">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Flags describing the current capabilities of a device/tool.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkAxisFlags&quot;</span>)]
-    </span><span class="kw">pub struct </span>AxisFlags: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.AxisFlags.html">AxisFlags</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// X axis is present
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_AXIS_FLAG_X&quot;</span>)]
         </span><span class="kw">const </span>X = ffi::GDK_AXIS_FLAG_X <span class="kw">as _</span>;
@@ -1710,92 +1710,92 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>AxisFlags {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#173">self</a>, <a href="#173">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>AxisFlags {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="kw">type </span>GlibType = ffi::GdkAxisFlags;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkAxisFlags {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#183">self</a>.<a href="#137-170">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAxisFlags&gt; <span class="kw">for </span>AxisFlags {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAxisFlags&gt; <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkAxisFlags) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#191">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>AxisFlags {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_axis_flags_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>AxisFlags {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#210">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>AxisFlags {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>AxisFlags {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#222">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>AxisFlags {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#137-170">AxisFlags</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#231">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#230">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#231">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;AxisFlags&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#137-170">AxisFlags</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: AxisFlags) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#137-170">AxisFlags</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#246">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Used in [`DragContext`][crate::DragContext] to indicate what the destination
     /// should do with the dropped data.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkDragAction&quot;</span>)]
-    </span><span class="kw">pub struct </span>DragAction: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.DragAction.html">DragAction</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// Means nothing, and should not be used.
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_ACTION_DEFAULT&quot;</span>)]
         </span><span class="kw">const </span>DEFAULT = ffi::GDK_ACTION_DEFAULT <span class="kw">as _</span>;
@@ -1820,87 +1820,87 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>DragAction {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#283">self</a>, <a href="#283">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>DragAction {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="kw">type </span>GlibType = ffi::GdkDragAction;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDragAction {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#293">self</a>.<a href="#252-280">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDragAction&gt; <span class="kw">for </span>DragAction {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDragAction&gt; <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDragAction) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#301">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>DragAction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_drag_action_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>DragAction {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#320">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>DragAction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>DragAction {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#332">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>DragAction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#252-280">DragAction</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#341">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#340">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#341">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;DragAction&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#252-280">DragAction</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: DragAction) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#252-280">DragAction</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#356">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// A set of bit-flags to indicate which events a window is to receive.
     /// Most of these masks map onto one or more of the [`EventType`][crate::EventType] event types
     /// above.
@@ -1929,7 +1929,7 @@
     /// events, so different sequences may be distinguished.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkEventMask&quot;</span>)]
-    </span><span class="kw">pub struct </span>EventMask: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.EventMask.html">EventMask</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// receive expose events
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_EXPOSURE_MASK&quot;</span>)]
         </span><span class="kw">const </span>EXPOSURE_MASK = ffi::GDK_EXPOSURE_MASK <span class="kw">as _</span>;
@@ -2012,93 +2012,93 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>EventMask {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#475">self</a>, <a href="#475">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>EventMask {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="kw">type </span>GlibType = ffi::GdkEventMask;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkEventMask {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#485">self</a>.<a href="#362-472">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkEventMask&gt; <span class="kw">for </span>EventMask {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkEventMask&gt; <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkEventMask) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#493">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>EventMask {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_event_mask_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>EventMask {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#512">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>EventMask {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>EventMask {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#524">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>EventMask {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#362-472">EventMask</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#533">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#532">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#533">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;EventMask&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#362-472">EventMask</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: EventMask) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#362-472">EventMask</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#548">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// [`FrameClockPhase`][crate::FrameClockPhase] is used to represent the different paint clock
     /// phases that can be requested. The elements of the enumeration
     /// correspond to the signals of [`FrameClock`][crate::FrameClock].
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkFrameClockPhase&quot;</span>)]
-    </span><span class="kw">pub struct </span>FrameClockPhase: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.FrameClockPhase.html">FrameClockPhase</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// no phase
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FRAME_CLOCK_PHASE_NONE&quot;</span>)]
         </span><span class="kw">const </span>NONE = ffi::GDK_FRAME_CLOCK_PHASE_NONE <span class="kw">as _</span>;
@@ -2126,87 +2126,87 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>FrameClockPhase {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#589">self</a>, <a href="#589">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>FrameClockPhase {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="kw">type </span>GlibType = ffi::GdkFrameClockPhase;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkFrameClockPhase {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#599">self</a>.<a href="#554-586">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkFrameClockPhase&gt; <span class="kw">for </span>FrameClockPhase {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkFrameClockPhase&gt; <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkFrameClockPhase) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#607">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>FrameClockPhase {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_frame_clock_phase_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>FrameClockPhase {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#626">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>FrameClockPhase {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>FrameClockPhase {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#638">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>FrameClockPhase {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#554-586">FrameClockPhase</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#647">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#646">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#647">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;FrameClockPhase&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#554-586">FrameClockPhase</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: FrameClockPhase) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#554-586">FrameClockPhase</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#662">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// A set of bit-flags to indicate the state of modifier keys and mouse buttons
     /// in various event types. Typical modifier keys are Shift, Control, Meta,
     /// Super, Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.
@@ -2227,7 +2227,7 @@
     /// be set.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkModifierType&quot;</span>)]
-    </span><span class="kw">pub struct </span>ModifierType: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.ModifierType.html">ModifierType</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// the Shift key.
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SHIFT_MASK&quot;</span>)]
         </span><span class="kw">const </span>SHIFT_MASK = ffi::GDK_SHIFT_MASK <span class="kw">as _</span>;
@@ -2335,91 +2335,91 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>ModifierType {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#798">self</a>, <a href="#798">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>ModifierType {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="kw">type </span>GlibType = ffi::GdkModifierType;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkModifierType {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#808">self</a>.<a href="#668-795">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkModifierType&gt; <span class="kw">for </span>ModifierType {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkModifierType&gt; <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkModifierType) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#816">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>ModifierType {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_modifier_type_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>ModifierType {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#835">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>ModifierType {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>ModifierType {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#847">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>ModifierType {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#668-795">ModifierType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#856">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#855">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#856">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;ModifierType&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#668-795">ModifierType</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: ModifierType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#668-795">ModifierType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#871">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Flags describing the seat capabilities.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkSeatCapabilities&quot;</span>)]
-    </span><span class="kw">pub struct </span>SeatCapabilities: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.SeatCapabilities.html">SeatCapabilities</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// No input capabilities
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_SEAT_CAPABILITY_NONE&quot;</span>)]
         </span><span class="kw">const </span>NONE = ffi::GDK_SEAT_CAPABILITY_NONE <span class="kw">as _</span>;
@@ -2444,93 +2444,93 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>SeatCapabilities {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#907">self</a>, <a href="#907">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>SeatCapabilities {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="kw">type </span>GlibType = ffi::GdkSeatCapabilities;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkSeatCapabilities {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#917">self</a>.<a href="#877-904">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkSeatCapabilities&gt; <span class="kw">for </span>SeatCapabilities {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkSeatCapabilities&gt; <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkSeatCapabilities) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#925">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>SeatCapabilities {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_seat_capabilities_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>SeatCapabilities {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#944">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>SeatCapabilities {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>SeatCapabilities {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#956">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>SeatCapabilities {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#877-904">SeatCapabilities</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#965">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#964">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#965">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;SeatCapabilities&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#877-904">SeatCapabilities</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: SeatCapabilities) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#877-904">SeatCapabilities</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#980">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// These are hints originally defined by the Motif toolkit.
     /// The window manager can use them when determining how to decorate
     /// the window. The hint must be set before mapping the window.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkWMDecoration&quot;</span>)]
-    </span><span class="kw">pub struct </span>WMDecoration: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.WMDecoration.html">WMDecoration</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// all decorations should be applied.
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_DECOR_ALL&quot;</span>)]
         </span><span class="kw">const </span>ALL = ffi::GDK_DECOR_ALL <span class="kw">as _</span>;
@@ -2555,93 +2555,93 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>WMDecoration {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#1018">self</a>, <a href="#1018">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WMDecoration {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="kw">type </span>GlibType = ffi::GdkWMDecoration;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWMDecoration {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#1028">self</a>.<a href="#986-1015">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMDecoration&gt; <span class="kw">for </span>WMDecoration {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMDecoration&gt; <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWMDecoration) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#1036">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>WMDecoration {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_wm_decoration_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>WMDecoration {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#1055">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>WMDecoration {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>WMDecoration {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#1067">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>WMDecoration {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#986-1015">WMDecoration</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#1076">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#1075">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#1076">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;WMDecoration&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#986-1015">WMDecoration</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: WMDecoration) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#986-1015">WMDecoration</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#1091">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// These are hints originally defined by the Motif toolkit. The window manager
     /// can use them when determining the functions to offer for the window. The
     /// hint must be set before mapping the window.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkWMFunction&quot;</span>)]
-    </span><span class="kw">pub struct </span>WMFunction: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.WMFunction.html">WMFunction</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// all functions should be offered.
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_FUNC_ALL&quot;</span>)]
         </span><span class="kw">const </span>ALL = ffi::GDK_FUNC_ALL <span class="kw">as _</span>;
@@ -2663,87 +2663,87 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>WMFunction {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#1126">self</a>, <a href="#1126">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WMFunction {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="kw">type </span>GlibType = ffi::GdkWMFunction;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWMFunction {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#1136">self</a>.<a href="#1097-1123">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMFunction&gt; <span class="kw">for </span>WMFunction {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWMFunction&gt; <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWMFunction) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#1144">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>WMFunction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_wm_function_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>WMFunction {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#1163">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>WMFunction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>WMFunction {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#1175">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>WMFunction {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#1097-1123">WMFunction</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#1184">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#1183">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#1184">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;WMFunction&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#1097-1123">WMFunction</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: WMFunction) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#1097-1123">WMFunction</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#1199">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Used to indicate which fields of a [`Geometry`][crate::Geometry] struct should be paid
     /// attention to. Also, the presence/absence of [`POS`][Self::POS],
     /// [`USER_POS`][Self::USER_POS], and [`USER_SIZE`][Self::USER_SIZE] is significant, though they don&#39;t
@@ -2754,7 +2754,7 @@
     /// `gtk_window_parse_geometry()` automatically sets these flags.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkWindowHints&quot;</span>)]
-    </span><span class="kw">pub struct </span>WindowHints: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.WindowHints.html">WindowHints</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// indicates that the program has positioned the window
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_HINT_POS&quot;</span>)]
         </span><span class="kw">const </span>POS = ffi::GDK_HINT_POS <span class="kw">as _</span>;
@@ -2787,91 +2787,91 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>WindowHints {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#1250">self</a>, <a href="#1250">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WindowHints {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="kw">type </span>GlibType = ffi::GdkWindowHints;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowHints {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#1260">self</a>.<a href="#1205-1247">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowHints&gt; <span class="kw">for </span>WindowHints {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowHints&gt; <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowHints) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#1268">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>WindowHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_hints_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>WindowHints {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#1287">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>WindowHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>WindowHints {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#1299">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>WindowHints {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#1205-1247">WindowHints</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#1308">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#1307">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#1308">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;WindowHints&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#1205-1247">WindowHints</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: WindowHints) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#1205-1247">WindowHints</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#1323">v</a>)
     }
 }
 
-<span class="macro">bitflags! </span>{
+<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
     <span class="doccomment">/// Specifies the state of a toplevel window.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GdkWindowState&quot;</span>)]
-    </span><span class="kw">pub struct </span>WindowState: u32 {
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.WindowState.html">WindowState</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="doccomment">/// the window is not shown.
         </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_WINDOW_STATE_WITHDRAWN&quot;</span>)]
         </span><span class="kw">const </span>WITHDRAWN = ffi::GDK_WINDOW_STATE_WITHDRAWN <span class="kw">as _</span>;
@@ -2928,83 +2928,83 @@
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>WindowState {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<span class="self">self</span>, f)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        &lt;<span class="self">Self </span><span class="kw">as </span>fmt::Debug&gt;::fmt(<a class="self" href="#1391">self</a>, <a href="#1391">f</a>)
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>IntoGlib <span class="kw">for </span>WindowState {
+</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="kw">type </span>GlibType = ffi::GdkWindowState;
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowState {
-        <span class="self">self</span>.bits()
+        <a class="self" href="#1401">self</a>.<a href="#1329-1388">bits</a>()
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowState&gt; <span class="kw">for </span>WindowState {
+</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowState&gt; <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowState) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="self">Self</span>::from_bits_truncate(value)
+        <span class="self">Self</span>::from_bits_truncate(<a href="#1409">value</a>)
     }
 }
 
-<span class="kw">impl </span>StaticType <span class="kw">for </span>WindowState {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">StaticType</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>static_type() -&gt; glib::Type {
+    </span><span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="kw">unsafe </span>{ from_glib(ffi::gdk_window_state_get_type()) }
     }
 }
 
-<span class="kw">impl </span>glib::HasParamSpec <span class="kw">for </span>WindowState {
-    <span class="kw">type </span>ParamSpec = glib::ParamSpecFlags;
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/trait.HasParamSpec.html">glib::HasParamSpec</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
+    <span class="kw">type </span>ParamSpec = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpecFlags.html">glib::ParamSpecFlags</a>;
     <span class="kw">type </span>SetValue = <span class="self">Self</span>;
-    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span>str) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
+    <span class="kw">type </span>BuilderFn = <span class="kw">fn</span>(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::ParamSpecFlagsBuilder&lt;<span class="self">Self</span>&gt;;
 
     <span class="kw">fn </span>param_spec_builder() -&gt; <span class="self">Self</span>::BuilderFn {
-        |name| <span class="self">Self</span>::ParamSpec::builder(name)
+        |name| <span class="self">Self</span>::ParamSpec::builder(<a href="#1428">name</a>)
     }
 }
 
-<span class="kw">impl </span>glib::value::ValueType <span class="kw">for </span>WindowState {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ValueType.html">glib::value::ValueType</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="kw">type </span>Type = <span class="self">Self</span>;
 }
 
-<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span>WindowState {
+<span class="kw">unsafe impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; glib::value::FromValue&lt;<span class="lifetime">&#39;a</span>&gt; <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="kw">type </span>Checker = glib::value::GenericValueTypeChecker&lt;<span class="self">Self</span>&gt;;
 
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>glib::Value) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_value(value: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().<span class="number">0</span>))
+        from_glib(glib::gobject_ffi::g_value_get_flags(<a href="#1440">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
     }
 }
 
-<span class="kw">impl </span>ToValue <span class="kw">for </span>WindowState {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue</a> <span class="kw">for </span><a href="#1329-1388">WindowState</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Value {
+    </span><span class="kw">fn </span>to_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::for_value_type::&lt;<span class="self">Self</span>&gt;();
         <span class="kw">unsafe </span>{
-            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().<span class="number">0</span>, <span class="self">self</span>.into_glib());
+            glib::gobject_ffi::g_value_set_flags(<a href="#1449">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a class="self" href="#1448">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
-        value
+        <a href="#1449">value</a>
     }
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::Type {
+    </span><span class="kw">fn </span>value_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::Type</a> {
         <span class="self">Self</span>::static_type()
     }
 }
 
-<span class="kw">impl </span>From&lt;WindowState&gt; <span class="kw">for </span>glib::Value {
+<span class="kw">impl </span>From&lt;<a href="#1329-1388">WindowState</a>&gt; <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>from(v: WindowState) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">fn </span>from(v: <a href="#1329-1388">WindowState</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        ToValue::to_value(<span class="kw-2">&amp;</span>v)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/trait.ToValue.html">ToValue::to_value</a>(<span class="kw-2">&amp;</span><a href="#1464">v</a>)
     }
 }
 </code></pre></div></section></main></body></html>

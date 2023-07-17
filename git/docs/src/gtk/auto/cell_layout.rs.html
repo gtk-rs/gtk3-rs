@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_layout.rs`."><title>cell_layout.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_layout.rs`."><title>cell_layout.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -453,11 +453,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{CellArea, CellRenderer, TreeIter, TreeModel};
-<span class="kw">use </span>glib::{prelude::<span class="kw-2">*</span>, translate::<span class="kw-2">*</span>};
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt};
+</span><span class="kw">use crate</span>::{<a href="cell_area.rs.html#16-423">CellArea</a>, <a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <a href="tree_iter.rs.html#7-21">TreeIter</a>, <a href="tree_model.rs.html#13-276">TreeModel</a>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`CellLayout`][crate::CellLayout] is an interface to be implemented by all objects which
     /// want to provide a [`TreeViewColumn`][crate::TreeViewColumn] like API for packing cells,
     /// setting attributes and data funcs.
@@ -583,20 +583,20 @@
     ///
     /// [`CellLayoutExt`][trait@crate::prelude::CellLayoutExt]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkCellLayout&quot;</span>)]
-    </span><span class="kw">pub struct </span>CellLayout(Interface&lt;ffi::GtkCellLayout, ffi::GtkCellLayoutIface&gt;);
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.CellLayout.html">CellLayout</a>(Interface&lt;<a href="../../../gtk_sys/struct.GtkCellLayout.html">ffi::GtkCellLayout</a>, <a href="../../../gtk_sys/struct.GtkCellLayoutIface.html">ffi::GtkCellLayoutIface</a>&gt;);
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_cell_layout_get_type(),
     }
 }
 
-<span class="kw">impl </span>CellLayout {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>CellLayout&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#9-140">CellLayout</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#9-140">CellLayout</a>&gt; = <span class="prelude-val">None</span>;
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::CellLayout&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<a href="#9-140"><span class="kw">super</span>::CellLayout</a>&gt;&gt; <a href="#147">Sealed</a> <span class="kw">for </span>T {}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@CellLayout`] methods.
@@ -604,7 +604,7 @@
 /// # Implementors
 ///
 /// [`AppChooserButton`][struct@crate::AppChooserButton], [`CellAreaBox`][struct@crate::CellAreaBox], [`CellArea`][struct@crate::CellArea], [`CellLayout`][struct@crate::CellLayout], [`CellView`][struct@crate::CellView], [`ComboBoxText`][struct@crate::ComboBoxText], [`ComboBox`][struct@crate::ComboBox], [`EntryCompletion`][struct@crate::EntryCompletion], [`IconView`][struct@crate::IconView], [`TreeViewColumn`][struct@crate::TreeViewColumn]
-</span><span class="kw">pub trait </span>CellLayoutExt: IsA&lt;CellLayout&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span><a href="../../../gtk/prelude/trait.CellLayoutExt.html">CellLayoutExt</a>: IsA&lt;<a href="#9-140">CellLayout</a>&gt; + <a href="#147">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Adds an attribute mapping to the list in `self`.
     ///
     /// The `column` is the column of the model to get a value from, and the
@@ -618,13 +618,13 @@
     /// ## `column`
     /// the column position on the model to get the attribute from
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_add_attribute&quot;</span>)]
-    </span><span class="kw">fn </span>add_attribute(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, attribute: <span class="kw-2">&amp;</span>str, column: i32) {
+    </span><span class="kw">fn </span>add_attribute(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;, attribute: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, column: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_add_attribute(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
-                attribute.to_glib_none().<span class="number">0</span>,
-                column,
+                <a class="self" href="#170">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#170">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#170">attribute</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#170">column</a>,
             );
         }
     }
@@ -634,7 +634,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_clear&quot;</span>)]
     </span><span class="kw">fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_cell_layout_clear(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_cell_layout_clear(<a class="self" href="#184">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -643,11 +643,11 @@
     /// ## `cell`
     /// a [`CellRenderer`][crate::CellRenderer] to clear the attribute mapping on
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_clear_attributes&quot;</span>)]
-    </span><span class="kw">fn </span>clear_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;) {
+    </span><span class="kw">fn </span>clear_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_clear_attributes(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#195">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#195">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -662,10 +662,10 @@
     /// or [`None`] in case no cell area is used.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_get_area&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_area&quot;</span>)]
-    </span><span class="kw">fn </span>area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;CellArea&gt; {
+    </span><span class="kw">fn </span>area(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="cell_area.rs.html#16-423">CellArea</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_cell_layout_get_area(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_cell_layout_get_area(
+                <a class="self" href="#214">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -680,10 +680,10 @@
     ///  when no longer needed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_get_cells&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_cells&quot;</span>)]
-    </span><span class="kw">fn </span>cells(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;CellRenderer&gt; {
+    </span><span class="kw">fn </span>cells(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt; {
         <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_cell_layout_get_cells(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_container</a>(ffi::gtk_cell_layout_get_cells(
+                <a class="self" href="#232">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -698,12 +698,12 @@
     /// ## `expand`
     /// [`true`] if `cell` is to be given extra space allocated to `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_pack_end&quot;</span>)]
-    </span><span class="kw">fn </span>pack_end(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
+    </span><span class="kw">fn </span>pack_end(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;, expand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_pack_end(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
-                expand.into_glib(),
+                <a class="self" href="#250">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#250">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#250">expand</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -718,12 +718,12 @@
     /// ## `expand`
     /// [`true`] if `cell` is to be given extra space allocated to `self`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_pack_start&quot;</span>)]
-    </span><span class="kw">fn </span>pack_start(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, expand: bool) {
+    </span><span class="kw">fn </span>pack_start(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;, expand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_pack_start(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
-                expand.into_glib(),
+                <a class="self" href="#270">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#270">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#270">expand</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -737,12 +737,12 @@
     /// ## `position`
     /// new position to insert `cell` at
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_reorder&quot;</span>)]
-    </span><span class="kw">fn </span>reorder(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;, position: i32) {
+    </span><span class="kw">fn </span>reorder(<span class="kw-2">&amp;</span><span class="self">self</span>, cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;, position: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_reorder(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
-                position,
+                <a class="self" href="#289">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#289">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#289">position</a>,
             );
         }
     }
@@ -768,63 +768,63 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_layout_set_cell_data_func&quot;</span>)]
     </span><span class="kw">fn </span>set_cell_data_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;CellRenderer&gt;,
-        func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>CellLayout, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        cell: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="cell_renderer.rs.html#16-184">CellRenderer</a>&gt;,
+        func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="#9-140">CellLayout</a>, <span class="kw-2">&amp;</span><a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <span class="kw-2">&amp;</span><a href="tree_model.rs.html#13-276">TreeModel</a>, <span class="kw-2">&amp;</span><a href="tree_iter.rs.html#7-21">TreeIter</a>) + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
         <span class="kw">let </span>func_data: Box_&lt;
-            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>CellLayout, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-        &gt; = Box_::new(func);
+            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="#9-140">CellLayout</a>, <span class="kw-2">&amp;</span><a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <span class="kw-2">&amp;</span><a href="tree_model.rs.html#13-276">TreeModel</a>, <span class="kw-2">&amp;</span><a href="tree_iter.rs.html#7-21">TreeIter</a>) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        &gt; = Box_::new(<a href="#321">func</a>);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func(
-            cell_layout: <span class="kw-2">*mut </span>ffi::GtkCellLayout,
-            cell: <span class="kw-2">*mut </span>ffi::GtkCellRenderer,
-            tree_model: <span class="kw-2">*mut </span>ffi::GtkTreeModel,
-            iter: <span class="kw-2">*mut </span>ffi::GtkTreeIter,
+            cell_layout: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellLayout.html">ffi::GtkCellLayout</a>,
+            cell: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRenderer.html">ffi::GtkCellRenderer</a>,
+            tree_model: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkTreeModel.html">ffi::GtkTreeModel</a>,
+            iter: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkTreeIter.html">ffi::GtkTreeIter</a>,
             data: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>cell_layout = from_glib_borrow(cell_layout);
-            <span class="kw">let </span>cell = from_glib_borrow(cell);
-            <span class="kw">let </span>tree_model = from_glib_borrow(tree_model);
-            <span class="kw">let </span>iter = from_glib_borrow(iter);
+            <span class="kw">let </span>cell_layout = from_glib_borrow(<a href="#327">cell_layout</a>);
+            <span class="kw">let </span>cell = from_glib_borrow(<a href="#328">cell</a>);
+            <span class="kw">let </span>tree_model = from_glib_borrow(<a href="#329">tree_model</a>);
+            <span class="kw">let </span>iter = from_glib_borrow(<a href="#330">iter</a>);
             <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;
-                Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>CellLayout, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;,
-            &gt; = <span class="kw-2">&amp;*</span>(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span>callback {
-                callback(<span class="kw-2">&amp;</span>cell_layout, <span class="kw-2">&amp;</span>cell, <span class="kw-2">&amp;</span>tree_model, <span class="kw-2">&amp;</span>iter)
+                Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="#9-140">CellLayout</a>, <span class="kw-2">&amp;</span><a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <span class="kw-2">&amp;</span><a href="tree_model.rs.html#13-276">TreeModel</a>, <span class="kw-2">&amp;</span><a href="tree_iter.rs.html#7-21">TreeIter</a>) + <span class="lifetime">&#39;static</span>&gt;,
+            &gt; = <span class="kw-2">&amp;*</span>(<a href="#331">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span><a href="#337">callback</a> {
+                <a href="#340">callback</a>(<span class="kw-2">&amp;</span><a href="#333">cell_layout</a>, <span class="kw-2">&amp;</span><a href="#334">cell</a>, <span class="kw-2">&amp;</span><a href="#335">tree_model</a>, <span class="kw-2">&amp;</span><a href="#336">iter</a>)
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;cannot get closure...&quot;</span>)
             }
         }
         <span class="kw">let </span>func = <span class="kw">if </span>func_data.is_some() {
-            <span class="prelude-val">Some</span>(func_func <span class="kw">as _</span>)
+            <span class="prelude-val">Some</span>(<a href="#326-345">func_func</a> <span class="kw">as _</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>};
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>destroy_func(data: glib::ffi::gpointer) {
             <span class="kw">let </span>_callback: Box_&lt;
-                <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>CellLayout, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-            &gt; = Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+                <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="#9-140">CellLayout</a>, <span class="kw-2">&amp;</span><a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <span class="kw-2">&amp;</span><a href="tree_model.rs.html#13-276">TreeModel</a>, <span class="kw-2">&amp;</span><a href="tree_iter.rs.html#7-21">TreeIter</a>) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+            &gt; = Box_::from_raw(<a href="#351">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
         }
-        <span class="kw">let </span>destroy_call4 = <span class="prelude-val">Some</span>(destroy_func <span class="kw">as _</span>);
+        <span class="kw">let </span>destroy_call4 = <span class="prelude-val">Some</span>(<a href="#351-355">destroy_func</a> <span class="kw">as _</span>);
         <span class="kw">let </span>super_callback0: Box_&lt;
-            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>CellLayout, <span class="kw-2">&amp;</span>CellRenderer, <span class="kw-2">&amp;</span>TreeModel, <span class="kw-2">&amp;</span>TreeIter) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-        &gt; = func_data;
+            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="#9-140">CellLayout</a>, <span class="kw-2">&amp;</span><a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <span class="kw-2">&amp;</span><a href="tree_model.rs.html#13-276">TreeModel</a>, <span class="kw-2">&amp;</span><a href="tree_iter.rs.html#7-21">TreeIter</a>) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        &gt; = <a href="#323">func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_cell_layout_set_cell_data_func(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                cell.as_ref().to_glib_none().<span class="number">0</span>,
-                func,
-                Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                destroy_call4,
+                <a class="self" href="#319">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#320">cell</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#346">func</a>,
+                Box_::into_raw(<a href="#357">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#356">destroy_call4</a>,
             );
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;CellLayout&gt;&gt; CellLayoutExt <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#9-140">CellLayout</a>&gt;&gt; <a href="#156-370">CellLayoutExt</a> <span class="kw">for </span>O {}
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>CellLayout {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;CellLayout&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#9-140">CellLayout</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#375">f</a>.write_str(<span class="string">&quot;CellLayout&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

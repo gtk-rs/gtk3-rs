@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -192,10 +192,10 @@
 <a href="#119" id="119">119</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="attr">#[repr(packed)]
-</span><span class="kw">pub struct </span>GRange(<span class="kw">pub </span>i32, <span class="kw">pub </span>i32);
+</span><span class="kw">pub struct </span><a href="../../gdk/struct.GRange.html">GRange</a>(<span class="kw">pub </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="kw">pub </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
 
 <span class="doccomment">/// Obtains a clip region which contains the areas where the given
 /// ranges of text would be drawn. `x_origin` and `y_origin` are the top left
@@ -228,58 +228,58 @@
 ///
 /// a clip region containing the given ranges
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_layout_line_get_clip_region&quot;</span>)]
-</span><span class="kw">pub fn </span>pango_layout_line_get_clip_region(
-    line: <span class="kw-2">&amp;</span>pango::LayoutLine,
-    x_origin: i32,
-    y_origin: i32,
-    index_ranges: <span class="kw-2">&amp;</span>[GRange],
-) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Region&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../gdk/fn.pango_layout_line_get_clip_region.html">pango_layout_line_get_clip_region</a>(
+    line: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout_line/struct.LayoutLine.html">pango::LayoutLine</a>,
+    x_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    y_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    index_ranges: <span class="kw-2">&amp;</span>[<a href="#6">GRange</a>],
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
+    <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
 
-    <span class="kw">let </span>ptr: <span class="kw-2">*const </span>i32 = index_ranges.as_ptr() <span class="kw">as _</span>;
+    <span class="kw">let </span>ptr: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> = <a href="#43">index_ranges</a>.as_ptr() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gdk_pango_layout_line_get_clip_region(
-            line.to_glib_none().<span class="number">0</span>,
-            x_origin,
-            y_origin,
-            mut_override(ptr),
-            index_ranges.len() <span class="kw">as </span>i32,
+            <a href="#40">line</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#41">x_origin</a>,
+            <a href="#42">y_origin</a>,
+            mut_override(<a href="#47">ptr</a>),
+            <a href="#43">index_ranges</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         ))
     }
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_layout_get_clip_region&quot;</span>)]
-</span><span class="kw">pub fn </span>pango_layout_get_clip_region(
-    layout: <span class="kw-2">&amp;</span>pango::Layout,
-    x_origin: i32,
-    y_origin: i32,
-    index_ranges: <span class="kw-2">&amp;</span>[GRange],
-) -&gt; <span class="prelude-ty">Option</span>&lt;cairo::Region&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../gdk/fn.pango_layout_get_clip_region.html">pango_layout_get_clip_region</a>(
+    layout: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout/struct.Layout.html">pango::Layout</a>,
+    x_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    y_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    index_ranges: <span class="kw-2">&amp;</span>[<a href="#6">GRange</a>],
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
+    <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
 
-    <span class="kw">let </span>ptr: <span class="kw-2">*const </span>i32 = index_ranges.as_ptr() <span class="kw">as _</span>;
+    <span class="kw">let </span>ptr: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> = <a href="#64">index_ranges</a>.as_ptr() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gdk_pango_layout_get_clip_region(
-            layout.to_glib_none().<span class="number">0</span>,
-            x_origin,
-            y_origin,
-            ptr,
-            index_ranges.len() <span class="kw">as </span>i32,
+            <a href="#61">layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#62">x_origin</a>,
+            <a href="#63">y_origin</a>,
+            <a href="#68">ptr</a>,
+            <a href="#64">index_ranges</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         ))
     }
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gdk_setting_get&quot;</span>)]
-</span><span class="kw">pub fn </span>setting_get(name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Value&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../gdk/fn.setting_get.html">setting_get</a>(name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>&gt; {
+    <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
-        <span class="kw">let </span>done: bool = from_glib(ffi::gdk_setting_get(
-            name.to_glib_none().<span class="number">0</span>,
-            value.to_glib_none_mut().<span class="number">0</span>,
+        <span class="kw">let </span>done: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = from_glib(ffi::gdk_setting_get(
+            <a href="#81">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#84">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
         ));
         <span class="kw">if </span>done {
-            <span class="prelude-val">Some</span>(value)
+            <span class="prelude-val">Some</span>(<a href="#84">value</a>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>}
@@ -287,25 +287,25 @@
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gdk_property_change&quot;</span>)]
-</span><span class="kw">pub fn </span>property_change(
-    window: <span class="kw-2">&amp;</span><span class="kw">super</span>::Window,
-    property: <span class="kw-2">&amp;</span><span class="kw">super</span>::Atom,
-    type_: <span class="kw-2">&amp;</span><span class="kw">super</span>::Atom,
-    format: i32,
-    mode: <span class="kw">super</span>::PropMode,
-    data: <span class="kw">super</span>::ChangeData,
+</span><span class="kw">pub fn </span><a href="../../gdk/fn.property_change.html">property_change</a>(
+    window: <span class="kw-2">&amp;</span><a href="auto/window.rs.html#20-101"><span class="kw">super</span>::Window</a>,
+    property: <span class="kw-2">&amp;</span><a href="atom.rs.html#12"><span class="kw">super</span>::Atom</a>,
+    type_: <span class="kw-2">&amp;</span><a href="atom.rs.html#12"><span class="kw">super</span>::Atom</a>,
+    format: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    mode: <a href="auto/enums.rs.html#3504-3516"><span class="kw">super</span>::PropMode</a>,
+    data: <a href="change_data.rs.html#4-11"><span class="kw">super</span>::ChangeData</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">let </span>nelements = data.len();
+    <span class="kw">let </span>nelements = <a href="#104">data</a>.<a href="change_data.rs.html#26-33">len</a>();
     <span class="kw">unsafe </span>{
         ffi::gdk_property_change(
-            window.to_glib_none().<span class="number">0</span>,
-            property.to_glib_none().<span class="number">0</span>,
-            type_.to_glib_none().<span class="number">0</span>,
-            format,
-            mode.into_glib(),
-            data.to_glib(),
-            nelements <span class="kw">as </span>i32,
+            <a href="#99">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#100">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#101">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#102">format</a>,
+            <a href="#103">mode</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="#104">data</a>.<a href="change_data.rs.html#15-24">to_glib</a>(),
+            <a href="#107">nelements</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         );
     }
 }

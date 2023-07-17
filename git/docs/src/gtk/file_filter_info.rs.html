@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/file_filter_info.rs`."><title>file_filter_info.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/file_filter_info.rs`."><title>file_filter_info.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -264,22 +264,22 @@
 <a href="#191" id="191">191</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::FileFilterFlags;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::ffi::CStr;
+</span><span class="kw">use </span><a href="auto/flags.rs.html#763-783"><span class="kw">crate</span>::FileFilterFlags</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html">std::ffi::CStr</a>;
 
 <span class="doccomment">/// A [`FileFilterInfo`][crate::FileFilterInfo]-struct is used to pass information about the
 /// tested file to [`FileFilter::filter()`][crate::FileFilter::filter()].
 </span><span class="attr">#[repr(transparent)]
 #[doc(alias = <span class="string">&quot;GtkFileFilterInfo&quot;</span>)]
-</span><span class="kw">pub struct </span>FileFilterInfo(ffi::GtkFileFilterInfo);
+</span><span class="kw">pub struct </span><a href="../../gtk/struct.FileFilterInfo.html">FileFilterInfo</a>(<a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>);
 
-<span class="kw">impl </span>FileFilterInfo {
+<span class="kw">impl </span><a href="#11">FileFilterInfo</a> {
     <span class="kw">pub fn </span>new(
-        filename: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        uri: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        display_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-        mime_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
+        filename: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+        uri: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+        display_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+        mime_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">let </span><span class="kw-2">mut </span>contains = FileFilterFlags::empty();
@@ -294,28 +294,28 @@
             }
         }
 
-        <span class="self">Self</span>(ffi::GtkFileFilterInfo {
-            contains: contains.bits(),
-            filename: filename.to_glib_full(),
-            uri: uri.to_glib_full(),
-            display_name: display_name.to_glib_full(),
-            mime_type: mime_type.to_glib_full(),
+        <span class="self">Self</span>(<a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a> {
+            contains: <a href="#21">contains</a>.<a href="auto/flags.rs.html#763-783">bits</a>(),
+            filename: <a href="#15">filename</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_full</a>(),
+            uri: <a href="#16">uri</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_full</a>(),
+            display_name: <a href="#17">display_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_full</a>(),
+            mime_type: <a href="#18">mime_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_full</a>(),
         })
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;get_contains&quot;</span>)]
-    </span><span class="kw">pub fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; FileFilterFlags {
-        FileFilterFlags::from_bits_truncate(<span class="self">self</span>.<span class="number">0</span>.contains)
+    </span><span class="kw">pub fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="auto/flags.rs.html#763-783">FileFilterFlags</a> {
+        FileFilterFlags::from_bits_truncate(<a class="self" href="#43">self</a>.<span class="number">0</span>.contains)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;get_filename&quot;</span>)]
-    </span><span class="kw">pub fn </span>filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+    </span><span class="kw">pub fn </span>filename(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">if </span><span class="self">self</span>.<span class="number">0</span>.filename.is_null() {
                 <span class="prelude-val">None
             </span>} <span class="kw">else </span>{
                 <span class="prelude-val">Some</span>(
-                    CStr::from_ptr(<span class="self">self</span>.<span class="number">0</span>.filename)
+                    CStr::from_ptr(<a class="self" href="#48">self</a>.<span class="number">0</span>.filename)
                         .to_str()
                         .expect(<span class="string">&quot;filename was not valid UTF-8&quot;</span>),
                 )
@@ -324,13 +324,13 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;get_uri&quot;</span>)]
-    </span><span class="kw">pub fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+    </span><span class="kw">pub fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">if </span><span class="self">self</span>.<span class="number">0</span>.uri.is_null() {
                 <span class="prelude-val">None
             </span>} <span class="kw">else </span>{
                 <span class="prelude-val">Some</span>(
-                    CStr::from_ptr(<span class="self">self</span>.<span class="number">0</span>.uri)
+                    CStr::from_ptr(<a class="self" href="#63">self</a>.<span class="number">0</span>.uri)
                         .to_str()
                         .expect(<span class="string">&quot;uri was not valid UTF-8&quot;</span>),
                 )
@@ -339,13 +339,13 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;get_display_name&quot;</span>)]
-    </span><span class="kw">pub fn </span>display_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+    </span><span class="kw">pub fn </span>display_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">if </span><span class="self">self</span>.<span class="number">0</span>.display_name.is_null() {
                 <span class="prelude-val">None
             </span>} <span class="kw">else </span>{
                 <span class="prelude-val">Some</span>(
-                    CStr::from_ptr(<span class="self">self</span>.<span class="number">0</span>.display_name)
+                    CStr::from_ptr(<a class="self" href="#78">self</a>.<span class="number">0</span>.display_name)
                         .to_str()
                         .expect(<span class="string">&quot;display_name was not valid UTF-8&quot;</span>),
                 )
@@ -354,13 +354,13 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;get_mime_type&quot;</span>)]
-    </span><span class="kw">pub fn </span>mime_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+    </span><span class="kw">pub fn </span>mime_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">if </span><span class="self">self</span>.<span class="number">0</span>.mime_type.is_null() {
                 <span class="prelude-val">None
             </span>} <span class="kw">else </span>{
                 <span class="prelude-val">Some</span>(
-                    CStr::from_ptr(<span class="self">self</span>.<span class="number">0</span>.mime_type)
+                    CStr::from_ptr(<a class="self" href="#93">self</a>.<span class="number">0</span>.mime_type)
                         .to_str()
                         .expect(<span class="string">&quot;mime_type was not valid UTF-8&quot;</span>),
                 )
@@ -369,7 +369,7 @@
     }
 }
 
-<span class="kw">impl </span>Drop <span class="kw">for </span>FileFilterInfo {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html">Drop</a> <span class="kw">for </span><a href="#11">FileFilterInfo</a> {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">for </span>ptr <span class="kw">in </span>[
             <span class="self">self</span>.<span class="number">0</span>.filename,
@@ -385,34 +385,34 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlibPtrNone&lt;<span class="kw-2">*const </span>ffi::GtkFileFilterInfo&gt; <span class="kw">for </span>FileFilterInfo {
-    <span class="kw">unsafe fn </span>from_glib_none(ptr: <span class="kw-2">*const </span>ffi::GtkFileFilterInfo) -&gt; <span class="self">Self </span>{
-        <span class="macro">assert!</span>(!ptr.is_null());
-        <span class="self">Self</span>(ffi::GtkFileFilterInfo {
-            contains: (<span class="kw-2">*</span>ptr).contains,
-            filename: glib::ffi::g_strdup((<span class="kw-2">*</span>ptr).filename),
-            uri: glib::ffi::g_strdup((<span class="kw-2">*</span>ptr).uri),
-            display_name: glib::ffi::g_strdup((<span class="kw-2">*</span>ptr).display_name),
-            mime_type: glib::ffi::g_strdup((<span class="kw-2">*</span>ptr).mime_type),
+</span><span class="kw">impl </span>FromGlibPtrNone&lt;<span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>&gt; <span class="kw">for </span><a href="#11">FileFilterInfo</a> {
+    <span class="kw">unsafe fn </span>from_glib_none(ptr: <span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>) -&gt; <span class="self">Self </span>{
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(!ptr.is_null());
+        <span class="self">Self</span>(<a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a> {
+            contains: (<span class="kw-2">*</span><a href="#125">ptr</a>).contains,
+            filename: glib::ffi::g_strdup((<span class="kw-2">*</span><a href="#125">ptr</a>).filename),
+            uri: glib::ffi::g_strdup((<span class="kw-2">*</span><a href="#125">ptr</a>).uri),
+            display_name: glib::ffi::g_strdup((<span class="kw-2">*</span><a href="#125">ptr</a>).display_name),
+            mime_type: glib::ffi::g_strdup((<span class="kw-2">*</span><a href="#125">ptr</a>).mime_type),
         })
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlibPtrBorrow&lt;<span class="kw-2">*const </span>ffi::GtkFileFilterInfo&gt; <span class="kw">for </span>FileFilterInfo {
-    <span class="kw">unsafe fn </span>from_glib_borrow(ptr: <span class="kw-2">*const </span>ffi::GtkFileFilterInfo) -&gt; Borrowed&lt;<span class="self">Self</span>&gt; {
-        <span class="macro">assert!</span>(!ptr.is_null());
-        Borrowed::new(FileFilterInfo(<span class="kw-2">*</span>ptr))
+</span><span class="kw">impl </span>FromGlibPtrBorrow&lt;<span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>&gt; <span class="kw">for </span><a href="#11">FileFilterInfo</a> {
+    <span class="kw">unsafe fn </span>from_glib_borrow(ptr: <span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>) -&gt; Borrowed&lt;<span class="self">Self</span>&gt; {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(!ptr.is_null());
+        Borrowed::new(<a href="#11">FileFilterInfo</a>(<span class="kw-2">*</span><a href="#139">ptr</a>))
     }
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtr&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span>ffi::GtkFileFilterInfo&gt; <span class="kw">for </span>FileFilterInfo {
-    <span class="kw">type </span>Storage = (ffi::GtkFileFilterInfo, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>FileFilterInfo);
+</span><span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; ToGlibPtr&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>&gt; <span class="kw">for </span><a href="#11">FileFilterInfo</a> {
+    <span class="kw">type </span>Storage = (<a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><a href="#11">FileFilterInfo</a>);
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span>ffi::GtkFileFilterInfo, <span class="self">Self</span>&gt; {
-        Stash(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>, (<span class="self">self</span>.<span class="number">0</span>, <span class="self">self</span>))
+    </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkFileFilterInfo.html">ffi::GtkFileFilterInfo</a>, <span class="self">Self</span>&gt; {
+        Stash(<span class="kw-2">&amp;</span><a class="self" href="#150">self</a>.<span class="number">0</span>, (<a class="self" href="#150">self</a>.<span class="number">0</span>, <a class="self" href="#150">self</a>))
     }
 }
 

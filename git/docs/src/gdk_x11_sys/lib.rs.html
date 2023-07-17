@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_x11_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_x11_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -659,13 +659,13 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-</span><span class="kw">mod </span>manual;
+</span><span class="kw">mod </span><a href="manual.rs.html#3">manual</a>;
 
-<span class="kw">pub use </span>manual::<span class="kw-2">*</span>;
+<span class="kw">pub use </span><a href="#14">manual</a>::<span class="kw-2">*</span>;
 
 <span class="attr">#[allow(unused_imports)]
 </span><span class="kw">use </span>libc::{
-    c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
+    c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, <a href="https://doc.rust-lang.org/nightly/core/ffi/enum.c_void.html">c_void</a>,
     intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
@@ -674,313 +674,313 @@
 
 <span class="comment">// Records
 </span><span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11AppLaunchContextClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11AppLaunchContextClass.html">_GdkX11AppLaunchContextClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11AppLaunchContextClass = <span class="kw-2">*mut </span>_GdkX11AppLaunchContextClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11AppLaunchContextClass.html">GdkX11AppLaunchContextClass</a> = <span class="kw-2">*mut </span><a href="#29-32">_GdkX11AppLaunchContextClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11CursorClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11CursorClass.html">_GdkX11CursorClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11CursorClass = <span class="kw-2">*mut </span>_GdkX11CursorClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11CursorClass.html">GdkX11CursorClass</a> = <span class="kw-2">*mut </span><a href="#37-40">_GdkX11CursorClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DeviceCoreClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DeviceCoreClass.html">_GdkX11DeviceCoreClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DeviceCoreClass = <span class="kw-2">*mut </span>_GdkX11DeviceCoreClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DeviceCoreClass.html">GdkX11DeviceCoreClass</a> = <span class="kw-2">*mut </span><a href="#45-48">_GdkX11DeviceCoreClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DeviceManagerCoreClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DeviceManagerCoreClass.html">_GdkX11DeviceManagerCoreClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DeviceManagerCoreClass = <span class="kw-2">*mut </span>_GdkX11DeviceManagerCoreClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DeviceManagerCoreClass.html">GdkX11DeviceManagerCoreClass</a> = <span class="kw-2">*mut </span><a href="#53-56">_GdkX11DeviceManagerCoreClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DeviceManagerXI2Class {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DeviceManagerXI2Class.html">_GdkX11DeviceManagerXI2Class</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DeviceManagerXI2Class = <span class="kw-2">*mut </span>_GdkX11DeviceManagerXI2Class;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DeviceManagerXI2Class.html">GdkX11DeviceManagerXI2Class</a> = <span class="kw-2">*mut </span><a href="#61-64">_GdkX11DeviceManagerXI2Class</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DeviceXI2Class {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DeviceXI2Class.html">_GdkX11DeviceXI2Class</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DeviceXI2Class = <span class="kw-2">*mut </span>_GdkX11DeviceXI2Class;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DeviceXI2Class.html">GdkX11DeviceXI2Class</a> = <span class="kw-2">*mut </span><a href="#69-72">_GdkX11DeviceXI2Class</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DisplayClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DisplayClass.html">_GdkX11DisplayClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DisplayClass = <span class="kw-2">*mut </span>_GdkX11DisplayClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DisplayClass.html">GdkX11DisplayClass</a> = <span class="kw-2">*mut </span><a href="#77-80">_GdkX11DisplayClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DisplayManagerClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DisplayManagerClass.html">_GdkX11DisplayManagerClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DisplayManagerClass = <span class="kw-2">*mut </span>_GdkX11DisplayManagerClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DisplayManagerClass.html">GdkX11DisplayManagerClass</a> = <span class="kw-2">*mut </span><a href="#85-88">_GdkX11DisplayManagerClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11DragContextClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11DragContextClass.html">_GdkX11DragContextClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11DragContextClass = <span class="kw-2">*mut </span>_GdkX11DragContextClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11DragContextClass.html">GdkX11DragContextClass</a> = <span class="kw-2">*mut </span><a href="#93-96">_GdkX11DragContextClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11GLContextClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11GLContextClass.html">_GdkX11GLContextClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11GLContextClass = <span class="kw-2">*mut </span>_GdkX11GLContextClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11GLContextClass.html">GdkX11GLContextClass</a> = <span class="kw-2">*mut </span><a href="#101-104">_GdkX11GLContextClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11KeymapClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11KeymapClass.html">_GdkX11KeymapClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11KeymapClass = <span class="kw-2">*mut </span>_GdkX11KeymapClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11KeymapClass.html">GdkX11KeymapClass</a> = <span class="kw-2">*mut </span><a href="#109-112">_GdkX11KeymapClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11MonitorClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11MonitorClass.html">_GdkX11MonitorClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11MonitorClass = <span class="kw-2">*mut </span>_GdkX11MonitorClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11MonitorClass.html">GdkX11MonitorClass</a> = <span class="kw-2">*mut </span><a href="#117-120">_GdkX11MonitorClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11ScreenClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11ScreenClass.html">_GdkX11ScreenClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11ScreenClass = <span class="kw-2">*mut </span>_GdkX11ScreenClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11ScreenClass.html">GdkX11ScreenClass</a> = <span class="kw-2">*mut </span><a href="#125-128">_GdkX11ScreenClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11VisualClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11VisualClass.html">_GdkX11VisualClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11VisualClass = <span class="kw-2">*mut </span>_GdkX11VisualClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11VisualClass.html">GdkX11VisualClass</a> = <span class="kw-2">*mut </span><a href="#133-136">_GdkX11VisualClass</a>;
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>_GdkX11WindowClass {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct._GdkX11WindowClass.html">_GdkX11WindowClass</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">pub type </span>GdkX11WindowClass = <span class="kw-2">*mut </span>_GdkX11WindowClass;
+<span class="kw">pub type </span><a href="../../gdk_x11_sys/type.GdkX11WindowClass.html">GdkX11WindowClass</a> = <span class="kw-2">*mut </span><a href="#141-144">_GdkX11WindowClass</a>;
 
 <span class="comment">// Classes
 </span><span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11AppLaunchContext {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11AppLaunchContext.html">GdkX11AppLaunchContext</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11AppLaunchContext {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11AppLaunchContext @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#150-153">GdkX11AppLaunchContext</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#156">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11AppLaunchContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Cursor {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Cursor.html">GdkX11Cursor</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Cursor {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Cursor @ {self:p}&quot;</span>)).finish()
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#163-166">GdkX11Cursor</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#169">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Cursor @ {self:p}&quot;</span>)).finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DeviceCore {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DeviceCore.html">GdkX11DeviceCore</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceCore {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceCore @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#175-178">GdkX11DeviceCore</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#181">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DeviceCore @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DeviceManagerCore {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DeviceManagerCore.html">GdkX11DeviceManagerCore</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceManagerCore {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerCore @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#188-191">GdkX11DeviceManagerCore</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#194">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DeviceManagerCore @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DeviceManagerXI2 {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DeviceManagerXI2.html">GdkX11DeviceManagerXI2</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceManagerXI2 {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceManagerXI2 @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#201-204">GdkX11DeviceManagerXI2</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#207">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DeviceManagerXI2 @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DeviceXI2 {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DeviceXI2.html">GdkX11DeviceXI2</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DeviceXI2 {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DeviceXI2 @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#214-217">GdkX11DeviceXI2</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#220">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DeviceXI2 @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Display {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Display.html">GdkX11Display</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Display {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Display @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#227-230">GdkX11Display</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#233">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Display @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DisplayManager {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DisplayManager.html">GdkX11DisplayManager</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DisplayManager {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DisplayManager @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#240-243">GdkX11DisplayManager</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#246">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DisplayManager @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11DragContext {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11DragContext.html">GdkX11DragContext</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11DragContext {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11DragContext @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#253-256">GdkX11DragContext</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#259">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11DragContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11GLContext {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11GLContext.html">GdkX11GLContext</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11GLContext {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11GLContext @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#266-269">GdkX11GLContext</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#272">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11GLContext @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Keymap {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Keymap.html">GdkX11Keymap</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Keymap {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Keymap @ {self:p}&quot;</span>)).finish()
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#279-282">GdkX11Keymap</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#285">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Keymap @ {self:p}&quot;</span>)).finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Monitor {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Monitor.html">GdkX11Monitor</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Monitor {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Monitor @ {self:p}&quot;</span>))
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#291-294">GdkX11Monitor</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#297">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Monitor @ {self:p}&quot;</span>))
             .finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Screen {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Screen.html">GdkX11Screen</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Screen {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Screen @ {self:p}&quot;</span>)).finish()
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#304-307">GdkX11Screen</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#310">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Screen @ {self:p}&quot;</span>)).finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Visual {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Visual.html">GdkX11Visual</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Visual {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Visual @ {self:p}&quot;</span>)).finish()
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#316-319">GdkX11Visual</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#322">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Visual @ {self:p}&quot;</span>)).finish()
     }
 }
 
 <span class="attr">#[repr(C)]
-</span><span class="kw">pub struct </span>GdkX11Window {
-    _data: [u8; <span class="number">0</span>],
-    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span>u8, core::marker::PhantomPinned)&gt;,
+</span><span class="kw">pub struct </span><a href="../../gdk_x11_sys/struct.GdkX11Window.html">GdkX11Window</a> {
+    _data: [<a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>; <span class="number">0</span>],
+    _marker: core::marker::PhantomData&lt;(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomPinned.html">core::marker::PhantomPinned</a>)&gt;,
 }
 
-<span class="kw">impl </span>::std::fmt::Debug <span class="kw">for </span>GdkX11Window {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>::std::fmt::Formatter) -&gt; ::std::fmt::Result {
-        f.debug_struct(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;GdkX11Window @ {self:p}&quot;</span>)).finish()
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#328-331">GdkX11Window</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">::std::fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">::std::fmt::Result</a> {
+        <a href="#334">f</a>.debug_struct(<span class="kw-2">&amp;</span><a class="macro" href="https://doc.rust-lang.org/nightly/alloc/macro.format.html">format!</a>(<span class="string">&quot;GdkX11Window @ {self:p}&quot;</span>)).finish()
     }
 }
 
@@ -996,8 +996,8 @@
     // GdkX11Cursor
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_cursor_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gdk_x11_cursor_get_xcursor(cursor: <span class="kw-2">*mut </span>GdkX11Cursor) -&gt; xlib::Cursor;
-    <span class="kw">pub fn </span>gdk_x11_cursor_get_xdisplay(cursor: <span class="kw-2">*mut </span>GdkX11Cursor) -&gt; <span class="kw-2">*mut </span>xlib::Display;
+    <span class="kw">pub fn </span>gdk_x11_cursor_get_xcursor(cursor: <span class="kw-2">*mut </span><a href="#163-166">GdkX11Cursor</a>) -&gt; <a href="../../gdk_x11_sys/xlib/type.Cursor.html">xlib::Cursor</a>;
+    <span class="kw">pub fn </span>gdk_x11_cursor_get_xdisplay(cursor: <span class="kw-2">*mut </span><a href="#163-166">GdkX11Cursor</a>) -&gt; <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/type.Display.html">xlib::Display</a>;
 
     <span class="comment">//=========================================================================
     // GdkX11DeviceCore
@@ -1029,52 +1029,52 @@
         minor: <span class="kw-2">*mut </span>c_int,
     ) -&gt; gboolean;
     <span class="kw">pub fn </span>gdk_x11_display_broadcast_startup_message(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         message_type: <span class="kw-2">*const </span>c_char,
         ...
     );
-    <span class="kw">pub fn </span>gdk_x11_display_error_trap_pop(display: <span class="kw-2">*mut </span>GdkX11Display) -&gt; c_int;
-    <span class="kw">pub fn </span>gdk_x11_display_error_trap_pop_ignored(display: <span class="kw-2">*mut </span>GdkX11Display);
-    <span class="kw">pub fn </span>gdk_x11_display_error_trap_push(display: <span class="kw-2">*mut </span>GdkX11Display);
+    <span class="kw">pub fn </span>gdk_x11_display_error_trap_pop(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>) -&gt; c_int;
+    <span class="kw">pub fn </span>gdk_x11_display_error_trap_pop_ignored(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>);
+    <span class="kw">pub fn </span>gdk_x11_display_error_trap_push(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>);
     <span class="kw">pub fn </span>gdk_x11_display_get_startup_notification_id(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
     ) -&gt; <span class="kw-2">*const </span>c_char;
-    <span class="kw">pub fn </span>gdk_x11_display_get_user_time(display: <span class="kw-2">*mut </span>GdkX11Display) -&gt; u32;
-    <span class="kw">pub fn </span>gdk_x11_display_get_xdisplay(display: <span class="kw-2">*mut </span>GdkX11Display) -&gt; <span class="kw-2">*mut </span>xlib::Display;
-    <span class="kw">pub fn </span>gdk_x11_display_grab(display: <span class="kw-2">*mut </span>GdkX11Display);
+    <span class="kw">pub fn </span>gdk_x11_display_get_user_time(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+    <span class="kw">pub fn </span>gdk_x11_display_get_xdisplay(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>) -&gt; <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/type.Display.html">xlib::Display</a>;
+    <span class="kw">pub fn </span>gdk_x11_display_grab(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>);
     <span class="kw">pub fn </span>gdk_x11_display_set_cursor_theme(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         theme: <span class="kw-2">*const </span>c_char,
         size: c_int,
     );
     <span class="kw">pub fn </span>gdk_x11_display_set_startup_notification_id(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         startup_id: <span class="kw-2">*const </span>c_char,
     );
-    <span class="kw">pub fn </span>gdk_x11_display_set_window_scale(display: <span class="kw-2">*mut </span>GdkX11Display, scale: c_int);
+    <span class="kw">pub fn </span>gdk_x11_display_set_window_scale(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>, scale: c_int);
     <span class="kw">pub fn </span>gdk_x11_display_string_to_compound_text(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         str: <span class="kw-2">*const </span>c_char,
         encoding: <span class="kw-2">*mut </span>gdk::GdkAtom,
         format: <span class="kw-2">*mut </span>c_int,
-        ctext: <span class="kw-2">*mut *mut </span>u8,
+        ctext: <span class="kw-2">*mut *mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
         length: <span class="kw-2">*mut </span>c_int,
     ) -&gt; c_int;
     <span class="kw">pub fn </span>gdk_x11_display_text_property_to_text_list(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         encoding: gdk::GdkAtom,
         format: c_int,
-        text: <span class="kw-2">*const </span>u8,
+        text: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
         length: c_int,
         list: <span class="kw-2">*mut *mut *mut </span>c_char,
     ) -&gt; c_int;
-    <span class="kw">pub fn </span>gdk_x11_display_ungrab(display: <span class="kw-2">*mut </span>GdkX11Display);
+    <span class="kw">pub fn </span>gdk_x11_display_ungrab(display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>);
     <span class="kw">pub fn </span>gdk_x11_display_utf8_to_compound_text(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         str: <span class="kw-2">*const </span>c_char,
         encoding: <span class="kw-2">*mut </span>gdk::GdkAtom,
         format: <span class="kw-2">*mut </span>c_int,
-        ctext: <span class="kw-2">*mut *mut </span>u8,
+        ctext: <span class="kw-2">*mut *mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
         length: <span class="kw-2">*mut </span>c_int,
     ) -&gt; gboolean;
 
@@ -1097,34 +1097,34 @@
     // GdkX11Keymap
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_keymap_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gdk_x11_keymap_get_group_for_state(keymap: <span class="kw-2">*mut </span>GdkX11Keymap, state: c_uint) -&gt; c_int;
-    <span class="kw">pub fn </span>gdk_x11_keymap_key_is_modifier(keymap: <span class="kw-2">*mut </span>GdkX11Keymap, keycode: c_uint) -&gt; gboolean;
+    <span class="kw">pub fn </span>gdk_x11_keymap_get_group_for_state(keymap: <span class="kw-2">*mut </span><a href="#279-282">GdkX11Keymap</a>, state: c_uint) -&gt; c_int;
+    <span class="kw">pub fn </span>gdk_x11_keymap_key_is_modifier(keymap: <span class="kw-2">*mut </span><a href="#279-282">GdkX11Keymap</a>, keycode: c_uint) -&gt; gboolean;
 
     <span class="comment">//=========================================================================
     // GdkX11Monitor
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_monitor_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gdk_x11_monitor_get_output(monitor: <span class="kw-2">*mut </span>gdk::GdkMonitor) -&gt; xlib::XID;
+    <span class="kw">pub fn </span>gdk_x11_monitor_get_output(monitor: <span class="kw-2">*mut </span>gdk::GdkMonitor) -&gt; <a href="../../gdk_x11_sys/xlib/type.XID.html">xlib::XID</a>;
 
     <span class="comment">//=========================================================================
     // GdkX11Screen
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_screen_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gdk_x11_screen_get_current_desktop(screen: <span class="kw-2">*mut </span>GdkX11Screen) -&gt; u32;
+    <span class="kw">pub fn </span>gdk_x11_screen_get_current_desktop(screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
     <span class="kw">pub fn </span>gdk_x11_screen_get_monitor_output(
-        screen: <span class="kw-2">*mut </span>GdkX11Screen,
+        screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>,
         monitor_num: c_int,
-    ) -&gt; xlib::XID;
-    <span class="kw">pub fn </span>gdk_x11_screen_get_number_of_desktops(screen: <span class="kw-2">*mut </span>GdkX11Screen) -&gt; u32;
-    <span class="kw">pub fn </span>gdk_x11_screen_get_screen_number(screen: <span class="kw-2">*mut </span>GdkX11Screen) -&gt; c_int;
-    <span class="kw">pub fn </span>gdk_x11_screen_get_window_manager_name(screen: <span class="kw-2">*mut </span>GdkX11Screen) -&gt; <span class="kw-2">*const </span>c_char;
-    <span class="kw">pub fn </span>gdk_x11_screen_get_xscreen(screen: <span class="kw-2">*mut </span>GdkX11Screen) -&gt; <span class="kw-2">*mut </span>xlib::Screen;
+    ) -&gt; <a href="../../gdk_x11_sys/xlib/type.XID.html">xlib::XID</a>;
+    <span class="kw">pub fn </span>gdk_x11_screen_get_number_of_desktops(screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+    <span class="kw">pub fn </span>gdk_x11_screen_get_screen_number(screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>) -&gt; c_int;
+    <span class="kw">pub fn </span>gdk_x11_screen_get_window_manager_name(screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>) -&gt; <span class="kw-2">*const </span>c_char;
+    <span class="kw">pub fn </span>gdk_x11_screen_get_xscreen(screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>) -&gt; <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/struct.Screen.html">xlib::Screen</a>;
     <span class="kw">pub fn </span>gdk_x11_screen_lookup_visual(
-        screen: <span class="kw-2">*mut </span>GdkX11Screen,
-        xvisualid: xlib::VisualID,
-    ) -&gt; <span class="kw-2">*mut </span>GdkX11Visual;
+        screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>,
+        xvisualid: <a href="../../gdk_x11_sys/xlib/type.VisualID.html">xlib::VisualID</a>,
+    ) -&gt; <span class="kw-2">*mut </span><a href="#316-319">GdkX11Visual</a>;
     <span class="kw">pub fn </span>gdk_x11_screen_supports_net_wm_hint(
-        screen: <span class="kw-2">*mut </span>GdkX11Screen,
+        screen: <span class="kw-2">*mut </span><a href="#304-307">GdkX11Screen</a>,
         property: gdk::GdkAtom,
     ) -&gt; gboolean;
 
@@ -1132,43 +1132,43 @@
     // GdkX11Visual
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_visual_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gdk_x11_visual_get_xvisual(visual: <span class="kw-2">*mut </span>GdkX11Visual) -&gt; <span class="kw-2">*mut </span>xlib::Visual;
+    <span class="kw">pub fn </span>gdk_x11_visual_get_xvisual(visual: <span class="kw-2">*mut </span><a href="#316-319">GdkX11Visual</a>) -&gt; <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/struct.Visual.html">xlib::Visual</a>;
 
     <span class="comment">//=========================================================================
     // GdkX11Window
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_x11_window_get_type() -&gt; GType;
     <span class="kw">pub fn </span>gdk_x11_window_foreign_new_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
-        window: xlib::Window,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
+        window: <a href="../../gdk_x11_sys/xlib/type.Window.html">xlib::Window</a>,
     ) -&gt; <span class="kw-2">*mut </span>gdk::GdkWindow;
     <span class="kw">pub fn </span>gdk_x11_window_lookup_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
-        window: xlib::Window,
-    ) -&gt; <span class="kw-2">*mut </span>GdkX11Window;
-    <span class="kw">pub fn </span>gdk_x11_window_get_desktop(window: <span class="kw-2">*mut </span>GdkX11Window) -&gt; u32;
-    <span class="kw">pub fn </span>gdk_x11_window_get_xid(window: <span class="kw-2">*mut </span>GdkX11Window) -&gt; xlib::Window;
-    <span class="kw">pub fn </span>gdk_x11_window_move_to_current_desktop(window: <span class="kw-2">*mut </span>GdkX11Window);
-    <span class="kw">pub fn </span>gdk_x11_window_move_to_desktop(window: <span class="kw-2">*mut </span>GdkX11Window, desktop: u32);
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
+        window: <a href="../../gdk_x11_sys/xlib/type.Window.html">xlib::Window</a>,
+    ) -&gt; <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>;
+    <span class="kw">pub fn </span>gdk_x11_window_get_desktop(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+    <span class="kw">pub fn </span>gdk_x11_window_get_xid(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>) -&gt; <a href="../../gdk_x11_sys/xlib/type.Window.html">xlib::Window</a>;
+    <span class="kw">pub fn </span>gdk_x11_window_move_to_current_desktop(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>);
+    <span class="kw">pub fn </span>gdk_x11_window_move_to_desktop(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>, desktop: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>);
     <span class="kw">pub fn </span>gdk_x11_window_set_frame_extents(
-        window: <span class="kw-2">*mut </span>GdkX11Window,
+        window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>,
         left: c_int,
         right: c_int,
         top: c_int,
         bottom: c_int,
     );
     <span class="kw">pub fn </span>gdk_x11_window_set_frame_sync_enabled(
-        window: <span class="kw-2">*mut </span>GdkX11Window,
+        window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>,
         frame_sync_enabled: gboolean,
     );
     <span class="kw">pub fn </span>gdk_x11_window_set_hide_titlebar_when_maximized(
-        window: <span class="kw-2">*mut </span>GdkX11Window,
+        window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>,
         hide_titlebar_when_maximized: gboolean,
     );
-    <span class="kw">pub fn </span>gdk_x11_window_set_theme_variant(window: <span class="kw-2">*mut </span>GdkX11Window, variant: <span class="kw-2">*mut </span>c_char);
-    <span class="kw">pub fn </span>gdk_x11_window_set_user_time(window: <span class="kw-2">*mut </span>GdkX11Window, timestamp: u32);
+    <span class="kw">pub fn </span>gdk_x11_window_set_theme_variant(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>, variant: <span class="kw-2">*mut </span>c_char);
+    <span class="kw">pub fn </span>gdk_x11_window_set_user_time(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>, timestamp: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>);
     <span class="kw">pub fn </span>gdk_x11_window_set_utf8_property(
-        window: <span class="kw-2">*mut </span>GdkX11Window,
+        window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>,
         name: <span class="kw-2">*const </span>c_char,
         value: <span class="kw-2">*const </span>c_char,
     );
@@ -1176,48 +1176,48 @@
     <span class="comment">//=========================================================================
     // Other functions
     //=========================================================================
-    </span><span class="kw">pub fn </span>gdk_x11_atom_to_xatom(atom: gdk::GdkAtom) -&gt; xlib::Atom;
+    </span><span class="kw">pub fn </span>gdk_x11_atom_to_xatom(atom: gdk::GdkAtom) -&gt; <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>;
     <span class="kw">pub fn </span>gdk_x11_atom_to_xatom_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         atom: gdk::GdkAtom,
-    ) -&gt; xlib::Atom;
-    <span class="kw">pub fn </span>gdk_x11_device_get_id(device: <span class="kw-2">*mut </span>GdkX11DeviceCore) -&gt; c_int;
+    ) -&gt; <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>;
+    <span class="kw">pub fn </span>gdk_x11_device_get_id(device: <span class="kw-2">*mut </span><a href="#175-178">GdkX11DeviceCore</a>) -&gt; c_int;
     <span class="kw">pub fn </span>gdk_x11_device_manager_lookup(
-        device_manager: <span class="kw-2">*mut </span>GdkX11DeviceManagerCore,
+        device_manager: <span class="kw-2">*mut </span><a href="#188-191">GdkX11DeviceManagerCore</a>,
         device_id: c_int,
-    ) -&gt; <span class="kw-2">*mut </span>GdkX11DeviceCore;
-    <span class="kw">pub fn </span>gdk_x11_free_compound_text(ctext: <span class="kw-2">*mut </span>u8);
+    ) -&gt; <span class="kw-2">*mut </span><a href="#175-178">GdkX11DeviceCore</a>;
+    <span class="kw">pub fn </span>gdk_x11_free_compound_text(ctext: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>);
     <span class="kw">pub fn </span>gdk_x11_free_text_list(list: <span class="kw-2">*mut *mut </span>c_char);
-    <span class="kw">pub fn </span>gdk_x11_get_default_root_xwindow() -&gt; xlib::Window;
+    <span class="kw">pub fn </span>gdk_x11_get_default_root_xwindow() -&gt; <a href="../../gdk_x11_sys/xlib/type.Window.html">xlib::Window</a>;
     <span class="kw">pub fn </span>gdk_x11_get_default_screen() -&gt; c_int;
-    <span class="kw">pub fn </span>gdk_x11_get_default_xdisplay() -&gt; <span class="kw-2">*mut </span>xlib::Display;
+    <span class="kw">pub fn </span>gdk_x11_get_default_xdisplay() -&gt; <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/type.Display.html">xlib::Display</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_2&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_2&quot;</span>)))]
     </span><span class="kw">pub fn </span>gdk_x11_get_parent_relative_pattern() -&gt; <span class="kw-2">*mut </span>cairo::cairo_pattern_t;
-    <span class="kw">pub fn </span>gdk_x11_get_server_time(window: <span class="kw-2">*mut </span>GdkX11Window) -&gt; u32;
-    <span class="kw">pub fn </span>gdk_x11_get_xatom_by_name(atom_name: <span class="kw-2">*const </span>c_char) -&gt; xlib::Atom;
+    <span class="kw">pub fn </span>gdk_x11_get_server_time(window: <span class="kw-2">*mut </span><a href="#328-331">GdkX11Window</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+    <span class="kw">pub fn </span>gdk_x11_get_xatom_by_name(atom_name: <span class="kw-2">*const </span>c_char) -&gt; <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>;
     <span class="kw">pub fn </span>gdk_x11_get_xatom_by_name_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         atom_name: <span class="kw-2">*const </span>c_char,
-    ) -&gt; xlib::Atom;
-    <span class="kw">pub fn </span>gdk_x11_get_xatom_name(xatom: xlib::Atom) -&gt; <span class="kw-2">*const </span>c_char;
+    ) -&gt; <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>;
+    <span class="kw">pub fn </span>gdk_x11_get_xatom_name(xatom: <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>) -&gt; <span class="kw-2">*const </span>c_char;
     <span class="kw">pub fn </span>gdk_x11_get_xatom_name_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
-        xatom: xlib::Atom,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
+        xatom: <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>,
     ) -&gt; <span class="kw-2">*const </span>c_char;
     <span class="kw">pub fn </span>gdk_x11_grab_server();
-    <span class="kw">pub fn </span>gdk_x11_lookup_xdisplay(xdisplay: <span class="kw-2">*mut </span>xlib::Display) -&gt; <span class="kw-2">*mut </span>GdkX11Display;
+    <span class="kw">pub fn </span>gdk_x11_lookup_xdisplay(xdisplay: <span class="kw-2">*mut </span><a href="../../gdk_x11_sys/xlib/type.Display.html">xlib::Display</a>) -&gt; <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>;
     <span class="kw">pub fn </span>gdk_x11_register_standard_event_type(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
         event_base: c_int,
         n_events: c_int,
     );
     <span class="kw">pub fn </span>gdk_x11_set_sm_client_id(sm_client_id: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>gdk_x11_ungrab_server();
-    <span class="kw">pub fn </span>gdk_x11_xatom_to_atom(xatom: xlib::Atom) -&gt; gdk::GdkAtom;
+    <span class="kw">pub fn </span>gdk_x11_xatom_to_atom(xatom: <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>) -&gt; gdk::GdkAtom;
     <span class="kw">pub fn </span>gdk_x11_xatom_to_atom_for_display(
-        display: <span class="kw-2">*mut </span>GdkX11Display,
-        xatom: xlib::Atom,
+        display: <span class="kw-2">*mut </span><a href="#227-230">GdkX11Display</a>,
+        xatom: <a href="../../gdk_x11_sys/xlib/type.Atom.html">xlib::Atom</a>,
     ) -&gt; gdk::GdkAtom;
 
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/notebook.rs`."><title>notebook.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/notebook.rs`."><title>notebook.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -441,18 +441,18 @@
 <a href="#368" id="368">368</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Notebook;
-<span class="kw">use </span><span class="kw">crate</span>::Widget;
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>glib::IsA;
+</span><span class="kw">use </span><a href="auto/notebook.rs.html#16-1305"><span class="kw">crate</span>::Notebook</a>;
+<span class="kw">use </span><a href="auto/widget.rs.html#17-1520"><span class="kw">crate</span>::Widget</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::IsA</a>;
 <span class="kw">use </span>libc::c_int;
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: glib::IsA&lt;<span class="kw">crate</span>::Notebook&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: glib::IsA&lt;<a href="auto/notebook.rs.html#16-1305"><span class="kw">crate</span>::Notebook</a>&gt;&gt; <a href="#10">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span>NotebookExtManual: IsA&lt;Notebook&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+<span class="kw">pub trait </span><a href="../../gtk/prelude/trait.NotebookExtManual.html">NotebookExtManual</a>: IsA&lt;<a href="auto/notebook.rs.html#16-1305">Notebook</a>&gt; + <a href="#10">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Appends a page to `self`.
     /// ## `child`
     /// the [`Widget`][crate::Widget] to use as the contents of the page
@@ -465,15 +465,15 @@
     /// the index (starting from 0) of the appended
     ///  page in the notebook, or -1 if function fails
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_append_page&quot;</span>)]
-    </span><span class="kw">fn </span>append_page&lt;T: IsA&lt;Widget&gt;, U: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;) -&gt; u32 {
+    </span><span class="kw">fn </span>append_page&lt;T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;, U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_append_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#27">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#27">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#27">tab_label</a>.map(|p| <a href="#32">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#29">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -502,21 +502,21 @@
         child: <span class="kw-2">&amp;</span>T,
         tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;,
         menu_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>V&gt;,
-    ) -&gt; u32
+    ) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
     <span class="kw">where
-        </span>T: IsA&lt;Widget&gt;,
-        U: IsA&lt;Widget&gt;,
-        V: IsA&lt;Widget&gt;,
+        </span>T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        V: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
     {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_append_page_menu(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                menu_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#60">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#61">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#62">tab_label</a>.map(|p| <a href="#74">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#63">menu_label</a>.map(|p| <a href="#75">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#71">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -529,11 +529,11 @@
     ///  then -1 will be returned.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_get_current_page&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_page&quot;</span>)]
-    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;u32&gt; {
+    </span><span class="kw">fn </span>current_page(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>ret = ffi::gtk_notebook_get_current_page(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            <span class="kw">let </span>ret = ffi::gtk_notebook_get_current_page(<a class="self" href="#91">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
             <span class="kw">if </span>ret &gt;= <span class="number">0 </span>{
-                <span class="prelude-val">Some</span>(ret <span class="kw">as </span>u32)
+                <span class="prelude-val">Some</span>(<a href="#93">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>}
@@ -547,11 +547,11 @@
     /// the number of pages in the notebook
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_get_n_pages&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_pages&quot;</span>)]
-    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
+    </span><span class="kw">fn </span>n_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>ret = ffi::gtk_notebook_get_n_pages(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <span class="kw">let </span>ret = ffi::gtk_notebook_get_n_pages(<a class="self" href="#109">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#111">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -566,11 +566,11 @@
     /// is out of bounds
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_get_nth_page&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_nth_page&quot;</span>)]
-    </span><span class="kw">fn </span>nth_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;u32&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+    </span><span class="kw">fn </span>nth_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_notebook_get_nth_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page_num.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_notebook_get_nth_page(
+                <a class="self" href="#128">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#128">page_num</a>.map_or(-<span class="number">1</span>, |n| <a href="#132">n</a> <span class="kw">as </span>c_int),
             ))
         }
     }
@@ -590,20 +590,20 @@
     /// the index (starting from 0) of the inserted
     ///  page in the notebook, or -1 if function fails
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_insert_page&quot;</span>)]
-    </span><span class="kw">fn </span>insert_page&lt;T, U&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;, position: <span class="prelude-ty">Option</span>&lt;u32&gt;) -&gt; u32
+    </span><span class="kw">fn </span>insert_page&lt;T, U&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;, position: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
     <span class="kw">where
-        </span>T: IsA&lt;Widget&gt;,
-        U: IsA&lt;Widget&gt;,
+        </span>T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
     {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_insert_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                position.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                <a class="self" href="#152">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#152">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#152">tab_label</a>.map(|p| <a href="#161">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#152">position</a>.map_or(-<span class="number">1</span>, |n| <a href="#162">n</a> <span class="kw">as </span>c_int),
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#158">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -635,23 +635,23 @@
         child: <span class="kw-2">&amp;</span>T,
         tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;,
         menu_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>V&gt;,
-        position: <span class="prelude-ty">Option</span>&lt;u32&gt;,
-    ) -&gt; u32
+        position: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;,
+    ) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
     <span class="kw">where
-        </span>T: IsA&lt;Widget&gt;,
-        U: IsA&lt;Widget&gt;,
-        V: IsA&lt;Widget&gt;,
+        </span>T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        V: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
     {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_insert_page_menu(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                menu_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                position.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                <a class="self" href="#193">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#194">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#195">tab_label</a>.map(|p| <a href="#208">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#196">menu_label</a>.map(|p| <a href="#209">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#197">position</a>.map_or(-<span class="number">1</span>, |n| <a href="#210">n</a> <span class="kw">as </span>c_int),
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#205">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -665,14 +665,14 @@
     /// the index of the page containing `child`, or
     ///  -1 if `child` is not in the notebook
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_page_num&quot;</span>)]
-    </span><span class="kw">fn </span>page_num&lt;T: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Option</span>&lt;u32&gt; {
+    </span><span class="kw">fn </span>page_num&lt;T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_page_num(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#227">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#227">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
             <span class="kw">if </span>ret &gt;= <span class="number">0 </span>{
-                <span class="prelude-val">Some</span>(ret <span class="kw">as </span>u32)
+                <span class="prelude-val">Some</span>(<a href="#229">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
             </span>}
@@ -691,19 +691,19 @@
     /// the index (starting from 0) of the prepended
     ///  page in the notebook, or -1 if function fails
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_prepend_page&quot;</span>)]
-    </span><span class="kw">fn </span>prepend_page&lt;T, U&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;) -&gt; u32
+    </span><span class="kw">fn </span>prepend_page&lt;T, U&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
     <span class="kw">where
-        </span>T: IsA&lt;Widget&gt;,
-        U: IsA&lt;Widget&gt;,
+        </span>T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
     {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_prepend_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#253">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#253">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#253">tab_label</a>.map(|p| <a href="#262">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#259">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -732,21 +732,21 @@
         child: <span class="kw-2">&amp;</span>T,
         tab_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>U&gt;,
         menu_label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>V&gt;,
-    ) -&gt; u32
+    ) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
     <span class="kw">where
-        </span>T: IsA&lt;Widget&gt;,
-        U: IsA&lt;Widget&gt;,
-        V: IsA&lt;Widget&gt;,
+        </span>T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        U: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
+        V: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;,
     {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>ret = ffi::gtk_notebook_prepend_page_menu(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                tab_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                menu_label.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#290">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#291">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#292">tab_label</a>.map(|p| <a href="#304">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#293">menu_label</a>.map(|p| <a href="#305">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
-            <span class="macro">assert!</span>(ret &gt;= <span class="number">0</span>);
-            ret <span class="kw">as </span>u32
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(ret &gt;= <span class="number">0</span>);
+            <a href="#301">ret</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>
         }
     }
 
@@ -756,11 +756,11 @@
     /// the index of a notebook page, starting
     ///  from 0. If -1, the last page will be removed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_remove_page&quot;</span>)]
-    </span><span class="kw">fn </span>remove_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;u32&gt;) {
+    </span><span class="kw">fn </span>remove_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_notebook_remove_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page_num.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                <a class="self" href="#318">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#318">page_num</a>.map_or(-<span class="number">1</span>, |n| <a href="#322">n</a> <span class="kw">as </span>c_int),
             );
         }
     }
@@ -774,12 +774,12 @@
     /// ## `position`
     /// the new position, or -1 to move to the end
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_reorder_child&quot;</span>)]
-    </span><span class="kw">fn </span>reorder_child&lt;T: IsA&lt;Widget&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, position: <span class="prelude-ty">Option</span>&lt;u32&gt;) {
+    </span><span class="kw">fn </span>reorder_child&lt;T: IsA&lt;<a href="auto/widget.rs.html#17-1520">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span>T, position: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_notebook_reorder_child(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                position.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                <a class="self" href="#336">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#336">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#336">position</a>.map_or(-<span class="number">1</span>, |n| <a href="#341">n</a> <span class="kw">as </span>c_int),
             );
         }
     }
@@ -796,15 +796,15 @@
     ///  than the number of pages in the notebook, nothing
     ///  will be done.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_notebook_set_current_page&quot;</span>)]
-    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;u32&gt;) {
+    </span><span class="kw">fn </span>set_current_page(<span class="kw-2">&amp;</span><span class="self">self</span>, page_num: <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_notebook_set_current_page(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                page_num.map_or(-<span class="number">1</span>, |n| n <span class="kw">as </span>c_int),
+                <a class="self" href="#358">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#358">page_num</a>.map_or(-<span class="number">1</span>, |n| <a href="#362">n</a> <span class="kw">as </span>c_int),
             );
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;Notebook&gt;&gt; NotebookExtManual <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="auto/notebook.rs.html#16-1305">Notebook</a>&gt;&gt; <a href="#14-366">NotebookExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

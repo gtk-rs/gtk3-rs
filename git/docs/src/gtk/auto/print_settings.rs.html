@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/print_settings.rs`."><title>print_settings.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1226,13 +1226,13 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{
-    NumberUpLayout, PageOrientation, PageRange, PageSet, PaperSize, PrintDuplex, PrintPages,
-    PrintQuality, Unit,
+    <a href="enums.rs.html#4848-4875">NumberUpLayout</a>, <a href="enums.rs.html#5466-5481">PageOrientation</a>, <a href="../page_range.rs.html#6-10">PageRange</a>, <a href="enums.rs.html#5590-5602">PageSet</a>, <a href="paper_size.rs.html#9-29">PaperSize</a>, <a href="enums.rs.html#6203-6215">PrintDuplex</a>, <a href="enums.rs.html#6723-6738">PrintPages</a>,
+    <a href="enums.rs.html#6847-6862">PrintQuality</a>, <a href="enums.rs.html#10890-10905">Unit</a>,
 };
-<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
-<span class="kw">use </span>std::{fmt, mem, ptr};
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// A GtkPrintSettings object represents the settings of a print dialog in
     /// a system-independent way. The main use for this object is that once
     /// you’ve printed you can get a settings object that represents the settings
@@ -1250,22 +1250,22 @@
     ///
     /// [`trait@glib::ObjectExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkPrintSettings&quot;</span>)]
-    </span><span class="kw">pub struct </span>PrintSettings(Object&lt;ffi::GtkPrintSettings&gt;);
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.PrintSettings.html">PrintSettings</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkPrintSettings.html">ffi::GtkPrintSettings</a>&gt;);
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_print_settings_get_type(),
     }
 }
 
-<span class="kw">impl </span>PrintSettings {
+<span class="kw">impl </span><a href="#12-35">PrintSettings</a> {
     <span class="doccomment">/// Creates a new [`PrintSettings`][crate::PrintSettings] object.
     ///
     /// # Returns
     ///
     /// a new [`PrintSettings`][crate::PrintSettings] object
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new() -&gt; PrintSettings {
-        <span class="macro">assert_initialized_main_thread!</span>();
+    </span><span class="kw">pub fn </span>new() -&gt; <a href="#12-35">PrintSettings</a> {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_settings_new()) }
     }
 
@@ -1281,18 +1281,18 @@
     /// the restored [`PrintSettings`][crate::PrintSettings]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_file&quot;</span>)]
-    </span><span class="kw">pub fn </span>from_file(file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;PrintSettings, glib::Error&gt; {
-        <span class="macro">assert_initialized_main_thread!</span>();
+    </span><span class="kw">pub fn </span>from_file(file_name: <span class="kw">impl </span>AsRef&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">std::path::Path</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<a href="#12-35">PrintSettings</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
             <span class="kw">let </span>ret = ffi::gtk_print_settings_new_from_file(
-                file_name.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>error,
+                <a href="#61">file_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span><a href="#64">error</a>,
             );
             <span class="kw">if </span>error.is_null() {
-                <span class="prelude-val">Ok</span>(from_glib_full(ret))
+                <span class="prelude-val">Ok</span>(from_glib_full(<a href="#65">ret</a>))
             } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
+                <span class="prelude-val">Err</span>(from_glib_full(<a href="#64">error</a>))
             }
         }
     }
@@ -1307,11 +1307,11 @@
     /// a new [`PrintSettings`][crate::PrintSettings] object
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_gvariant&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_gvariant&quot;</span>)]
-    </span><span class="kw">pub fn </span>from_gvariant(variant: <span class="kw-2">&amp;</span>glib::Variant) -&gt; PrintSettings {
-        <span class="macro">assert_initialized_main_thread!</span>();
+    </span><span class="kw">pub fn </span>from_gvariant(variant: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/variant/struct.Variant.html">glib::Variant</a>) -&gt; <a href="#12-35">PrintSettings</a> {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_print_settings_new_from_gvariant(
-                variant.to_glib_none().<span class="number">0</span>,
+                <a href="#87">variant</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1332,54 +1332,54 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_new_from_key_file&quot;</span>)]
     #[doc(alias = <span class="string">&quot;new_from_key_file&quot;</span>)]
     </span><span class="kw">pub fn </span>from_key_file(
-        key_file: <span class="kw-2">&amp;</span>glib::KeyFile,
-        group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;PrintSettings, glib::Error&gt; {
-        <span class="macro">assert_initialized_main_thread!</span>();
+        key_file: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/auto/key_file/struct.KeyFile.html">glib::KeyFile</a>,
+        group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<a href="#12-35">PrintSettings</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
             <span class="kw">let </span>ret = ffi::gtk_print_settings_new_from_key_file(
-                key_file.to_glib_none().<span class="number">0</span>,
-                group_name.to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>error,
+                <a href="#112">key_file</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#113">group_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span><a href="#117">error</a>,
             );
             <span class="kw">if </span>error.is_null() {
-                <span class="prelude-val">Ok</span>(from_glib_full(ret))
+                <span class="prelude-val">Ok</span>(from_glib_full(<a href="#118">ret</a>))
             } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
+                <span class="prelude-val">Err</span>(from_glib_full(<a href="#117">error</a>))
             }
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_copy&quot;</span>)]
     #[must_use]
-    </span><span class="kw">pub fn </span>copy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;PrintSettings&gt; {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_settings_copy(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>copy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#12-35">PrintSettings</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_print_settings_copy(<a class="self" href="#133">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Calls `func` for each key-value pair of `self`.
     /// ## `func`
     /// the function to call
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_foreach&quot;</span>)]
-    </span><span class="kw">pub fn </span>foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
-        <span class="kw">let </span>func_data: P = func;
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>str, <span class="kw-2">&amp;</span>str)&gt;(
+    </span><span class="kw">pub fn </span>foreach&lt;P: FnMut(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
+        <span class="kw">let </span>func_data: P = <a href="#141">func</a>;
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)&gt;(
             key: <span class="kw-2">*const </span>libc::c_char,
             value: <span class="kw-2">*const </span>libc::c_char,
             user_data: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>key: Borrowed&lt;glib::GString&gt; = from_glib_borrow(key);
-            <span class="kw">let </span>value: Borrowed&lt;glib::GString&gt; = from_glib_borrow(value);
-            <span class="kw">let </span>callback: <span class="kw-2">*mut </span>P = user_data <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize <span class="kw">as </span><span class="kw-2">*mut </span>P;
-            (<span class="kw-2">*</span>callback)(key.as_str(), value.as_str())
+            <span class="kw">let </span>key: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; = from_glib_borrow(<a href="#144">key</a>);
+            <span class="kw">let </span>value: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; = from_glib_borrow(<a href="#145">value</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">*mut </span>P = <a href="#146">user_data</a> <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> <span class="kw">as </span><span class="kw-2">*mut </span>P;
+            (<span class="kw-2">*</span><a href="#150">callback</a>)(<a href="#148">key</a>.as_str(), <a href="#149">value</a>.as_str())
         }
         <span class="kw">let </span>func = <span class="prelude-val">Some</span>(func_func::&lt;P&gt; <span class="kw">as _</span>);
-        <span class="kw">let </span>super_callback0: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;</span>func_data;
+        <span class="kw">let </span>super_callback0: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;</span><a href="#142">func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_foreach(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                func,
-                super_callback0 <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a class="self" href="#141">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#153">func</a>,
+                <a href="#154">super_callback0</a> <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
         }
     }
@@ -1392,11 +1392,11 @@
     ///
     /// the string value for `key`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get&quot;</span>)]
-    </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_settings_get(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get(
+                <a class="self" href="#172">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#172">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1414,11 +1414,11 @@
     /// [`true`], if `key` maps to a true value.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_bool&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_bool&quot;</span>)]
-    </span><span class="kw">pub fn </span>bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; bool {
+    </span><span class="kw">pub fn </span>bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_settings_get_bool(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_bool(
+                <a class="self" href="#194">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#194">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1430,8 +1430,8 @@
     /// whether to collate the printed pages
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_collate&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_collate&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_collate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_collate(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>is_collate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_collate(<a class="self" href="#210">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_DEFAULT_SOURCE`][crate::PRINT_SETTINGS_DEFAULT_SOURCE].
@@ -1441,10 +1441,10 @@
     /// the default source
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_default_source&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_default_source&quot;</span>)]
-    </span><span class="kw">pub fn </span>default_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">pub fn </span>default_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_settings_get_default_source(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_default_source(
+                <a class="self" href="#221">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1456,8 +1456,8 @@
     /// the dithering that is used
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_dither&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_dither&quot;</span>)]
-    </span><span class="kw">pub fn </span>dither(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_get_dither(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>dither(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_dither(<a class="self" href="#236">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the double value associated with `key`, or 0.
@@ -1469,8 +1469,8 @@
     /// the double value of `key`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_double&quot;</span>)]
-    </span><span class="kw">pub fn </span>double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_double(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_double(<a class="self" href="#249">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#249">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the floating point number represented by
@@ -1488,12 +1488,12 @@
     /// the floating point number associated with `key`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_double_with_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_double_with_default&quot;</span>)]
-    </span><span class="kw">pub fn </span>double_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, def: f64) -&gt; f64 {
+    </span><span class="kw">pub fn </span>double_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, def: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_get_double_with_default(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                def,
+                <a class="self" href="#268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#268">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#268">def</a>,
             )
         }
     }
@@ -1505,8 +1505,8 @@
     /// whether to print the output in duplex.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_duplex&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_duplex&quot;</span>)]
-    </span><span class="kw">pub fn </span>duplex(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintDuplex {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_duplex(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>duplex(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#6203-6215">PrintDuplex</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_duplex(<a class="self" href="#285">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_FINISHINGS`][crate::PRINT_SETTINGS_FINISHINGS].
@@ -1516,10 +1516,10 @@
     /// the finishings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_finishings&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_finishings&quot;</span>)]
-    </span><span class="kw">pub fn </span>finishings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">pub fn </span>finishings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_settings_get_finishings(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_finishings(
+                <a class="self" href="#296">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1533,8 +1533,8 @@
     /// the integer value of `key`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_int&quot;</span>)]
-    </span><span class="kw">pub fn </span>int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_int(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_int(<a class="self" href="#313">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#313">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the value of `key`, interpreted as
@@ -1549,12 +1549,12 @@
     /// the integer value of `key`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_int_with_default&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_int_with_default&quot;</span>)]
-    </span><span class="kw">pub fn </span>int_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, def: i32) -&gt; i32 {
+    </span><span class="kw">pub fn </span>int_with_default(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, def: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_get_int_with_default(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                def,
+                <a class="self" href="#329">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#329">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#329">def</a>,
             )
         }
     }
@@ -1571,12 +1571,12 @@
     /// the length value of `key`, converted to `unit`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_length&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_length&quot;</span>)]
-    </span><span class="kw">pub fn </span>length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, unit: Unit) -&gt; f64 {
+    </span><span class="kw">pub fn </span>length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_get_length(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                unit.into_glib(),
+                <a class="self" href="#351">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#351">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#351">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             )
         }
     }
@@ -1590,10 +1590,10 @@
     /// the media type
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_media_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_media_type&quot;</span>)]
-    </span><span class="kw">pub fn </span>media_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">pub fn </span>media_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_settings_get_media_type(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_media_type(
+                <a class="self" href="#370">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1605,8 +1605,8 @@
     /// the number of copies to print
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_n_copies&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_n_copies&quot;</span>)]
-    </span><span class="kw">pub fn </span>n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_n_copies(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_n_copies(<a class="self" href="#385">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_NUMBER_UP`][crate::PRINT_SETTINGS_NUMBER_UP].
@@ -1616,8 +1616,8 @@
     /// the number of pages per sheet
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_number_up&quot;</span>)]
-    </span><span class="kw">pub fn </span>number_up(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_number_up(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>number_up(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_number_up(<a class="self" href="#396">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_NUMBER_UP_LAYOUT`][crate::PRINT_SETTINGS_NUMBER_UP_LAYOUT].
@@ -1627,10 +1627,10 @@
     /// layout of page in number-up mode
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_number_up_layout&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_number_up_layout&quot;</span>)]
-    </span><span class="kw">pub fn </span>number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NumberUpLayout {
+    </span><span class="kw">pub fn </span>number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#4848-4875">NumberUpLayout</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_settings_get_number_up_layout(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_number_up_layout(
+                <a class="self" href="#407">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1643,10 +1643,10 @@
     /// the orientation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_orientation&quot;</span>)]
-    </span><span class="kw">pub fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PageOrientation {
+    </span><span class="kw">pub fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#5466-5481">PageOrientation</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_settings_get_orientation(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_orientation(
+                <a class="self" href="#423">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1658,10 +1658,10 @@
     /// the output bin
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_output_bin&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_output_bin&quot;</span>)]
-    </span><span class="kw">pub fn </span>output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+    </span><span class="kw">pub fn </span>output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_print_settings_get_output_bin(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_output_bin(
+                <a class="self" href="#438">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1675,17 +1675,17 @@
     ///  it is no longer needed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_ranges&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_ranges&quot;</span>)]
-    </span><span class="kw">pub fn </span>page_ranges(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;PageRange&gt; {
+    </span><span class="kw">pub fn </span>page_ranges(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="../page_range.rs.html#6-10">PageRange</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>num_ranges = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = FromGlibContainer::from_glib_full_num(
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainer.html">FromGlibContainer::from_glib_full_num</a>(
                 ffi::gtk_print_settings_get_page_ranges(
-                    <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                    num_ranges.as_mut_ptr(),
+                    <a class="self" href="#455">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#457">num_ranges</a>.as_mut_ptr(),
                 ),
-                num_ranges.assume_init() <span class="kw">as _</span>,
+                <a href="#457">num_ranges</a>.assume_init() <span class="kw">as _</span>,
             );
-            ret
+            <a href="#458">ret</a>
         }
     }
 
@@ -1696,8 +1696,8 @@
     /// the set of pages to print
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_page_set&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_page_set&quot;</span>)]
-    </span><span class="kw">pub fn </span>page_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PageSet {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_page_set(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>page_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#5590-5602">PageSet</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_page_set(<a class="self" href="#476">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAPER_HEIGHT`][crate::PRINT_SETTINGS_PAPER_HEIGHT],
@@ -1710,8 +1710,8 @@
     /// the paper height, in units of `unit`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_height&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_height&quot;</span>)]
-    </span><span class="kw">pub fn </span>paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_height(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, unit.into_glib()) }
+    </span><span class="kw">pub fn </span>paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_height(<a class="self" href="#490">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#490">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PAPER_FORMAT`][crate::PRINT_SETTINGS_PAPER_FORMAT],
@@ -1722,10 +1722,10 @@
     /// the paper size
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_size&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_size&quot;</span>)]
-    </span><span class="kw">pub fn </span>paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PaperSize {
+    </span><span class="kw">pub fn </span>paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="paper_size.rs.html#9-29">PaperSize</a> {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_print_settings_get_paper_size(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#502">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1740,8 +1740,8 @@
     /// the paper width, in units of `unit`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_paper_width&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_paper_width&quot;</span>)]
-    </span><span class="kw">pub fn </span>paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: Unit) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, unit.into_glib()) }
+    </span><span class="kw">pub fn </span>paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_paper_width(<a class="self" href="#520">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#520">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PRINT_PAGES`][crate::PRINT_SETTINGS_PRINT_PAGES].
@@ -1751,10 +1751,10 @@
     /// which pages to print
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_print_pages&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_print_pages&quot;</span>)]
-    </span><span class="kw">pub fn </span>print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintPages {
+    </span><span class="kw">pub fn </span>print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#6723-6738">PrintPages</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_settings_get_print_pages(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_print_pages(
+                <a class="self" href="#531">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1767,8 +1767,8 @@
     /// the printer name
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_printer&quot;</span>)]
-    </span><span class="kw">pub fn </span>printer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_get_printer(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>printer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_get_printer(<a class="self" href="#547">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_PRINTER_LPI`][crate::PRINT_SETTINGS_PRINTER_LPI].
@@ -1778,8 +1778,8 @@
     /// the resolution in lpi (lines per inch)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_printer_lpi&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_printer_lpi&quot;</span>)]
-    </span><span class="kw">pub fn </span>printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_printer_lpi(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_printer_lpi(<a class="self" href="#558">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_QUALITY`][crate::PRINT_SETTINGS_QUALITY].
@@ -1789,8 +1789,8 @@
     /// the print quality
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_quality&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_quality&quot;</span>)]
-    </span><span class="kw">pub fn </span>quality(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; PrintQuality {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_quality(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>quality(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#6847-6862">PrintQuality</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_quality(<a class="self" href="#569">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION`][crate::PRINT_SETTINGS_RESOLUTION].
@@ -1800,8 +1800,8 @@
     /// the resolution in dpi
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution&quot;</span>)]
-    </span><span class="kw">pub fn </span>resolution(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>resolution(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution(<a class="self" href="#580">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION_X`][crate::PRINT_SETTINGS_RESOLUTION_X].
@@ -1811,8 +1811,8 @@
     /// the horizontal resolution in dpi
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_x&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution_x&quot;</span>)]
-    </span><span class="kw">pub fn </span>resolution_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_x(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>resolution_x(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_x(<a class="self" href="#591">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_RESOLUTION_Y`][crate::PRINT_SETTINGS_RESOLUTION_Y].
@@ -1822,8 +1822,8 @@
     /// the vertical resolution in dpi
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_resolution_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_resolution_y&quot;</span>)]
-    </span><span class="kw">pub fn </span>resolution_y(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_y(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>resolution_y(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_resolution_y(<a class="self" href="#602">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_REVERSE`][crate::PRINT_SETTINGS_REVERSE].
@@ -1833,8 +1833,8 @@
     /// whether to reverse the order of the printed pages
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_reverse&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_reverse&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_reverse(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>is_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_reverse(<a class="self" href="#613">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_SCALE`][crate::PRINT_SETTINGS_SCALE].
@@ -1844,8 +1844,8 @@
     /// the scale in percent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_scale&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scale&quot;</span>)]
-    </span><span class="kw">pub fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
-        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_scale(<span class="self">self</span>.to_glib_none().<span class="number">0</span>) }
+    </span><span class="kw">pub fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+        <span class="kw">unsafe </span>{ ffi::gtk_print_settings_get_scale(<a class="self" href="#624">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the value of [`PRINT_SETTINGS_USE_COLOR`][crate::PRINT_SETTINGS_USE_COLOR].
@@ -1855,8 +1855,8 @@
     /// whether to use color
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_get_use_color&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_color&quot;</span>)]
-    </span><span class="kw">pub fn </span>uses_color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_print_settings_get_use_color(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>uses_color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_get_use_color(<a class="self" href="#635">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns [`true`], if a value is associated with `key`.
@@ -1867,11 +1867,11 @@
     ///
     /// [`true`], if `key` has a value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_has_key&quot;</span>)]
-    </span><span class="kw">pub fn </span>has_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) -&gt; bool {
+    </span><span class="kw">pub fn </span>has_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_print_settings_has_key(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_print_settings_has_key(
+                <a class="self" href="#647">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#647">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1886,19 +1886,19 @@
     ///
     /// [`true`] on success
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_file&quot;</span>)]
-    </span><span class="kw">pub fn </span>load_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
+    </span><span class="kw">pub fn </span>load_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">std::path::Path</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
             <span class="kw">let </span>is_ok = ffi::gtk_print_settings_load_file(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                file_name.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>error,
+                <a class="self" href="#666">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#666">file_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span><a href="#668">error</a>,
             );
-            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
+                <span class="prelude-val">Err</span>(from_glib_full(<a href="#668">error</a>))
             }
         }
     }
@@ -1918,22 +1918,22 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_load_key_file&quot;</span>)]
     </span><span class="kw">pub fn </span>load_key_file(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        key_file: <span class="kw-2">&amp;</span>glib::KeyFile,
-        group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
+        key_file: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/auto/key_file/struct.KeyFile.html">glib::KeyFile</a>,
+        group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
             <span class="kw">let </span>is_ok = ffi::gtk_print_settings_load_key_file(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key_file.to_glib_none().<span class="number">0</span>,
-                group_name.to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>error,
+                <a class="self" href="#697">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#698">key_file</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#699">group_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span><a href="#702">error</a>,
             );
-            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
+                <span class="prelude-val">Err</span>(from_glib_full(<a href="#702">error</a>))
             }
         }
     }
@@ -1944,12 +1944,12 @@
     /// ## `value`
     /// a string value, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set&quot;</span>)]
-    </span><span class="kw">pub fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    </span><span class="kw">pub fn </span>set(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                value.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#724">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#724">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#724">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1960,12 +1960,12 @@
     /// ## `value`
     /// a boolean
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_bool&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: bool) {
+    </span><span class="kw">pub fn </span>set_bool(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_bool(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                value.into_glib(),
+                <a class="self" href="#740">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#740">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#740">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -1974,9 +1974,9 @@
     /// ## `collate`
     /// whether to collate the output
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_collate&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_collate(<span class="kw-2">&amp;</span><span class="self">self</span>, collate: bool) {
+    </span><span class="kw">pub fn </span>set_collate(<span class="kw-2">&amp;</span><span class="self">self</span>, collate: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_collate(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, collate.into_glib());
+            ffi::gtk_print_settings_set_collate(<a class="self" href="#754">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#754">collate</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -1984,11 +1984,11 @@
     /// ## `default_source`
     /// the default source
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_default_source&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_default_source(<span class="kw-2">&amp;</span><span class="self">self</span>, default_source: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_default_source(<span class="kw-2">&amp;</span><span class="self">self</span>, default_source: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_default_source(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                default_source.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#764">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#764">default_source</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1997,9 +1997,9 @@
     /// ## `dither`
     /// the dithering that is used
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_dither&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_dither(<span class="kw-2">&amp;</span><span class="self">self</span>, dither: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_dither(<span class="kw-2">&amp;</span><span class="self">self</span>, dither: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_dither(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, dither.to_glib_none().<span class="number">0</span>);
+            ffi::gtk_print_settings_set_dither(<a class="self" href="#777">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#777">dither</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -2009,9 +2009,9 @@
     /// ## `value`
     /// a double value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_double&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: f64) {
+    </span><span class="kw">pub fn </span>set_double(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_double(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>, value);
+            ffi::gtk_print_settings_set_double(<a class="self" href="#789">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#789">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#789">value</a>);
         }
     }
 
@@ -2019,9 +2019,9 @@
     /// ## `duplex`
     /// a [`PrintDuplex`][crate::PrintDuplex] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_duplex&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_duplex(<span class="kw-2">&amp;</span><span class="self">self</span>, duplex: PrintDuplex) {
+    </span><span class="kw">pub fn </span>set_duplex(<span class="kw-2">&amp;</span><span class="self">self</span>, duplex: <a href="enums.rs.html#6203-6215">PrintDuplex</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_duplex(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, duplex.into_glib());
+            ffi::gtk_print_settings_set_duplex(<a class="self" href="#799">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#799">duplex</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2029,11 +2029,11 @@
     /// ## `finishings`
     /// the finishings
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_finishings&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_finishings(<span class="kw-2">&amp;</span><span class="self">self</span>, finishings: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_finishings(<span class="kw-2">&amp;</span><span class="self">self</span>, finishings: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_finishings(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                finishings.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#809">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#809">finishings</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2044,9 +2044,9 @@
     /// ## `value`
     /// an integer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_int&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: i32) {
+    </span><span class="kw">pub fn </span>set_int(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_int(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>, value);
+            ffi::gtk_print_settings_set_int(<a class="self" href="#824">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#824">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#824">value</a>);
         }
     }
 
@@ -2058,13 +2058,13 @@
     /// ## `unit`
     /// the unit of `length`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_length&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: f64, unit: Unit) {
+    </span><span class="kw">pub fn </span>set_length(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_length(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key.to_glib_none().<span class="number">0</span>,
-                value,
-                unit.into_glib(),
+                <a class="self" href="#838">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#838">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#838">value</a>,
+                <a href="#838">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -2075,11 +2075,11 @@
     /// ## `media_type`
     /// the media type
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_media_type&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_media_type(<span class="kw-2">&amp;</span><span class="self">self</span>, media_type: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_media_type(<span class="kw-2">&amp;</span><span class="self">self</span>, media_type: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_media_type(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                media_type.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#855">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#855">media_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2088,9 +2088,9 @@
     /// ## `num_copies`
     /// the number of copies
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_n_copies&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>, num_copies: i32) {
+    </span><span class="kw">pub fn </span>set_n_copies(<span class="kw-2">&amp;</span><span class="self">self</span>, num_copies: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_n_copies(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, num_copies);
+            ffi::gtk_print_settings_set_n_copies(<a class="self" href="#868">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#868">num_copies</a>);
         }
     }
 
@@ -2098,9 +2098,9 @@
     /// ## `number_up`
     /// the number of pages per sheet
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_number_up(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up: i32) {
+    </span><span class="kw">pub fn </span>set_number_up(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_number_up(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, number_up);
+            ffi::gtk_print_settings_set_number_up(<a class="self" href="#878">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#878">number_up</a>);
         }
     }
 
@@ -2108,11 +2108,11 @@
     /// ## `number_up_layout`
     /// a [`NumberUpLayout`][crate::NumberUpLayout] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_number_up_layout&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up_layout: NumberUpLayout) {
+    </span><span class="kw">pub fn </span>set_number_up_layout(<span class="kw-2">&amp;</span><span class="self">self</span>, number_up_layout: <a href="enums.rs.html#4848-4875">NumberUpLayout</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_number_up_layout(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                number_up_layout.into_glib(),
+                <a class="self" href="#888">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#888">number_up_layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -2121,9 +2121,9 @@
     /// ## `orientation`
     /// a page orientation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_orientation&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: PageOrientation) {
+    </span><span class="kw">pub fn </span>set_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: <a href="enums.rs.html#5466-5481">PageOrientation</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_orientation(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, orientation.into_glib());
+            ffi::gtk_print_settings_set_orientation(<a class="self" href="#901">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#901">orientation</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2131,11 +2131,11 @@
     /// ## `output_bin`
     /// the output bin
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_output_bin&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>, output_bin: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_output_bin(<span class="kw-2">&amp;</span><span class="self">self</span>, output_bin: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_output_bin(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                output_bin.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#911">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#911">output_bin</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2144,9 +2144,9 @@
     /// ## `page_set`
     /// a [`PageSet`][crate::PageSet] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_page_set&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_page_set(<span class="kw-2">&amp;</span><span class="self">self</span>, page_set: PageSet) {
+    </span><span class="kw">pub fn </span>set_page_set(<span class="kw-2">&amp;</span><span class="self">self</span>, page_set: <a href="enums.rs.html#5590-5602">PageSet</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_page_set(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, page_set.into_glib());
+            ffi::gtk_print_settings_set_page_set(<a class="self" href="#924">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#924">page_set</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2156,12 +2156,12 @@
     /// ## `unit`
     /// the units of `height`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_height&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: f64, unit: Unit) {
+    </span><span class="kw">pub fn </span>set_paper_height(<span class="kw-2">&amp;</span><span class="self">self</span>, height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_paper_height(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                height,
-                unit.into_glib(),
+                <a class="self" href="#936">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#936">height</a>,
+                <a href="#936">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -2172,11 +2172,11 @@
     /// ## `paper_size`
     /// a paper size
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_size&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>, paper_size: <span class="kw-2">&amp;</span>PaperSize) {
+    </span><span class="kw">pub fn </span>set_paper_size(<span class="kw-2">&amp;</span><span class="self">self</span>, paper_size: <span class="kw-2">&amp;</span><a href="paper_size.rs.html#9-29">PaperSize</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_paper_size(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                mut_override(paper_size.to_glib_none().<span class="number">0</span>),
+                <a class="self" href="#952">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#952">paper_size</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
             );
         }
     }
@@ -2187,9 +2187,9 @@
     /// ## `unit`
     /// the units of `width`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_paper_width&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: f64, unit: Unit) {
+    </span><span class="kw">pub fn </span>set_paper_width(<span class="kw-2">&amp;</span><span class="self">self</span>, width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, unit: <a href="enums.rs.html#10890-10905">Unit</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_paper_width(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, width, unit.into_glib());
+            ffi::gtk_print_settings_set_paper_width(<a class="self" href="#967">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#967">width</a>, <a href="#967">unit</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2197,9 +2197,9 @@
     /// ## `pages`
     /// a [`PrintPages`][crate::PrintPages] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_print_pages&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, pages: PrintPages) {
+    </span><span class="kw">pub fn </span>set_print_pages(<span class="kw-2">&amp;</span><span class="self">self</span>, pages: <a href="enums.rs.html#6723-6738">PrintPages</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_print_pages(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, pages.into_glib());
+            ffi::gtk_print_settings_set_print_pages(<a class="self" href="#977">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#977">pages</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2208,9 +2208,9 @@
     /// ## `printer`
     /// the printer name
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_printer(<span class="kw-2">&amp;</span><span class="self">self</span>, printer: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>set_printer(<span class="kw-2">&amp;</span><span class="self">self</span>, printer: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_printer(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, printer.to_glib_none().<span class="number">0</span>);
+            ffi::gtk_print_settings_set_printer(<a class="self" href="#988">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#988">printer</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -2218,9 +2218,9 @@
     /// ## `lpi`
     /// the resolution in lpi (lines per inch)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_printer_lpi&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>, lpi: f64) {
+    </span><span class="kw">pub fn </span>set_printer_lpi(<span class="kw-2">&amp;</span><span class="self">self</span>, lpi: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_printer_lpi(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, lpi);
+            ffi::gtk_print_settings_set_printer_lpi(<a class="self" href="#998">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#998">lpi</a>);
         }
     }
 
@@ -2228,9 +2228,9 @@
     /// ## `quality`
     /// a [`PrintQuality`][crate::PrintQuality] value
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_quality&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_quality(<span class="kw-2">&amp;</span><span class="self">self</span>, quality: PrintQuality) {
+    </span><span class="kw">pub fn </span>set_quality(<span class="kw-2">&amp;</span><span class="self">self</span>, quality: <a href="enums.rs.html#6847-6862">PrintQuality</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_quality(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, quality.into_glib());
+            ffi::gtk_print_settings_set_quality(<a class="self" href="#1008">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1008">quality</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2240,9 +2240,9 @@
     /// ## `resolution`
     /// the resolution in dpi
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_resolution(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution: i32) {
+    </span><span class="kw">pub fn </span>set_resolution(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_resolution(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, resolution);
+            ffi::gtk_print_settings_set_resolution(<a class="self" href="#1020">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1020">resolution</a>);
         }
     }
 
@@ -2254,12 +2254,12 @@
     /// ## `resolution_y`
     /// the vertical resolution in dpi
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_resolution_xy&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_resolution_xy(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution_x: i32, resolution_y: i32) {
+    </span><span class="kw">pub fn </span>set_resolution_xy(<span class="kw-2">&amp;</span><span class="self">self</span>, resolution_x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, resolution_y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_set_resolution_xy(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                resolution_x,
-                resolution_y,
+                <a class="self" href="#1034">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1034">resolution_x</a>,
+                <a href="#1034">resolution_y</a>,
             );
         }
     }
@@ -2268,9 +2268,9 @@
     /// ## `reverse`
     /// whether to reverse the output
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_reverse&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>, reverse: bool) {
+    </span><span class="kw">pub fn </span>set_reverse(<span class="kw-2">&amp;</span><span class="self">self</span>, reverse: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_reverse(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, reverse.into_glib());
+            ffi::gtk_print_settings_set_reverse(<a class="self" href="#1048">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1048">reverse</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2278,9 +2278,9 @@
     /// ## `scale`
     /// the scale in percent
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_scale&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: f64) {
+    </span><span class="kw">pub fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_scale(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, scale);
+            ffi::gtk_print_settings_set_scale(<a class="self" href="#1058">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1058">scale</a>);
         }
     }
 
@@ -2288,9 +2288,9 @@
     /// ## `use_color`
     /// whether to use color
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_set_use_color&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_use_color(<span class="kw-2">&amp;</span><span class="self">self</span>, use_color: bool) {
+    </span><span class="kw">pub fn </span>set_use_color(<span class="kw-2">&amp;</span><span class="self">self</span>, use_color: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_set_use_color(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, use_color.into_glib());
+            ffi::gtk_print_settings_set_use_color(<a class="self" href="#1068">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1068">use_color</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -2304,19 +2304,19 @@
     ///
     /// [`true`] on success
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_file&quot;</span>)]
-    </span><span class="kw">pub fn </span>to_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
+    </span><span class="kw">pub fn </span>to_file(<span class="kw-2">&amp;</span><span class="self">self</span>, file_name: <span class="kw">impl </span>AsRef&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">std::path::Path</a>&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
             <span class="kw">let </span>is_ok = ffi::gtk_print_settings_to_file(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                file_name.as_ref().to_glib_none().<span class="number">0</span>,
-                <span class="kw-2">&amp;mut </span>error,
+                <a class="self" href="#1084">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1084">file_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <span class="kw-2">&amp;mut </span><a href="#1086">error</a>,
             );
-            <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+            <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(from_glib_full(error))
+                <span class="prelude-val">Err</span>(from_glib_full(<a href="#1086">error</a>))
             }
         }
     }
@@ -2327,8 +2327,8 @@
     ///
     /// a new, floating, [`glib::Variant`][struct@crate::glib::Variant]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_gvariant&quot;</span>)]
-    </span><span class="kw">pub fn </span>to_gvariant(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;glib::Variant&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_print_settings_to_gvariant(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>to_gvariant(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/variant/struct.Variant.html">glib::Variant</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_print_settings_to_gvariant(<a class="self" href="#1107">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// This function adds the print settings from `self` to `key_file`.
@@ -2338,12 +2338,12 @@
     /// the group to add the settings to in `key_file`, or
     ///  [`None`] to use the default “Print Settings”
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_to_key_file&quot;</span>)]
-    </span><span class="kw">pub fn </span>to_key_file(<span class="kw-2">&amp;</span><span class="self">self</span>, key_file: <span class="kw-2">&amp;</span>glib::KeyFile, group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) {
+    </span><span class="kw">pub fn </span>to_key_file(<span class="kw-2">&amp;</span><span class="self">self</span>, key_file: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/auto/key_file/struct.KeyFile.html">glib::KeyFile</a>, group_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_print_settings_to_key_file(
-                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
-                key_file.to_glib_none().<span class="number">0</span>,
-                group_name.to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#1118">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1118">key_file</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1118">group_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -2353,22 +2353,22 @@
     /// ## `key`
     /// a key
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_settings_unset&quot;</span>)]
-    </span><span class="kw">pub fn </span>unset(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) {
+    </span><span class="kw">pub fn </span>unset(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_print_settings_unset(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, key.to_glib_none().<span class="number">0</span>);
+            ffi::gtk_print_settings_unset(<a class="self" href="#1133">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1133">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>PrintSettings {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#12-35">PrintSettings</a> {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new()
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>PrintSettings {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;PrintSettings&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#12-35">PrintSettings</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#1147">f</a>.write_str(<span class="string">&quot;PrintSettings&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

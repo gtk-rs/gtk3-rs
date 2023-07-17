@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/display.rs`."><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/display.rs`."><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -146,12 +146,12 @@
 <a href="#73" id="73">73</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::Display;
-<span class="kw">use </span>glib::object::IsA;
-<span class="kw">use </span>glib::ObjectExt;
+</span><span class="kw">use </span><a href="auto/display.rs.html#13-86"><span class="kw">crate</span>::Display</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">glib::ObjectExt</a>;
 
 <span class="attr">#[derive(Debug, PartialEq, Eq, Ord, PartialOrd)]
-</span><span class="kw">pub enum </span>Backend {
+</span><span class="kw">pub enum </span><a href="../../gdk/enum.Backend.html">Backend</a> {
     Wayland,
     X11,
     Win32,
@@ -159,62 +159,62 @@
     Broadway,
 }
 
-<span class="kw">impl </span>Backend {
+<span class="kw">impl </span><a href="#8-14">Backend</a> {
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Equivalent to the C macro `GDK_IS_WAYLAND_DISPLAY`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_IS_WAYLAND_DISPLAY&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_wayland(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::Wayland)
+    </span><span class="kw">pub fn </span>is_wayland(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.matches.html">matches!</a>(<span class="self">self</span>, <span class="self">Self</span>::Wayland)
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Equivalent to the C macro `GDK_IS_X11_DISPLAY`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_IS_X11_DISPLAY&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_x11(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::X11)
+    </span><span class="kw">pub fn </span>is_x11(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.matches.html">matches!</a>(<span class="self">self</span>, <span class="self">Self</span>::X11)
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Equivalent to the C macro `GDK_IS_WIN32_DISPLAY`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_IS_WIN32_DISPLAY&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_win32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::Win32)
+    </span><span class="kw">pub fn </span>is_win32(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.matches.html">matches!</a>(<span class="self">self</span>, <span class="self">Self</span>::Win32)
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Equivalent to the C macro `GDK_IS_QUARTZ_DISPLAY`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_IS_QUARTZ_DISPLAY&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_macos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::MacOS)
+    </span><span class="kw">pub fn </span>is_macos(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.matches.html">matches!</a>(<span class="self">self</span>, <span class="self">Self</span>::MacOS)
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Equivalent to the C macro `GDK_IS_BROADWAY_DISPLAY`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GDK_IS_BROADWAY_DISPLAY&quot;</span>)]
-    </span><span class="kw">pub fn </span>is_broadway(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span>::Broadway)
+    </span><span class="kw">pub fn </span>is_broadway(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.matches.html">matches!</a>(<span class="self">self</span>, <span class="self">Self</span>::Broadway)
     }
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: glib::IsA&lt;<span class="kw">crate</span>::Display&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: glib::IsA&lt;<a href="auto/display.rs.html#13-86"><span class="kw">crate</span>::Display</a>&gt;&gt; <a href="#54">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span>DisplayExtManual: IsA&lt;Display&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+<span class="kw">pub trait </span><a href="../../gdk/prelude/trait.DisplayExtManual.html">DisplayExtManual</a>: IsA&lt;<a href="auto/display.rs.html#13-86">Display</a>&gt; + <a href="#54">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Get the currently used display backend
-    </span><span class="kw">fn </span>backend(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Backend {
-        <span class="kw">match </span><span class="self">self</span>.as_ref().type_().name() {
-            <span class="string">&quot;GdkWaylandDisplay&quot; </span>=&gt; Backend::Wayland,
-            <span class="string">&quot;GdkX11Display&quot; </span>=&gt; Backend::X11,
-            <span class="string">&quot;GdkQuartzDisplay&quot; </span>=&gt; Backend::MacOS,
-            <span class="string">&quot;GdkWin32Display&quot; </span>=&gt; Backend::Win32,
-            <span class="string">&quot;GdkBroadwayDisplay&quot; </span>=&gt; Backend::Broadway,
-            e =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Unsupported display backend {e}&quot;</span>),
+    </span><span class="kw">fn </span>backend(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="#8-14">Backend</a> {
+        <span class="kw">match </span><a class="self" href="#61">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">type_</a>().name() {
+            <span class="string">&quot;GdkWaylandDisplay&quot; </span>=&gt; <a href="#9">Backend::Wayland</a>,
+            <span class="string">&quot;GdkX11Display&quot; </span>=&gt; <a href="#10">Backend::X11</a>,
+            <span class="string">&quot;GdkQuartzDisplay&quot; </span>=&gt; <a href="#12">Backend::MacOS</a>,
+            <span class="string">&quot;GdkWin32Display&quot; </span>=&gt; <a href="#11">Backend::Win32</a>,
+            <span class="string">&quot;GdkBroadwayDisplay&quot; </span>=&gt; <a href="#13">Backend::Broadway</a>,
+            e =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;Unsupported display backend {e}&quot;</span>),
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;Display&gt;&gt; DisplayExtManual <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="auto/display.rs.html#13-86">Display</a>&gt;&gt; <a href="#58-71">DisplayExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

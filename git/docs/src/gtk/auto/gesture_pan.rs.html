@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_pan.rs`."><title>gesture_pan.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/gesture_pan.rs`."><title>gesture_pan.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -459,17 +459,17 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{
-    EventController, Gesture, GestureDrag, GestureSingle, Orientation, PanDirection,
-    PropagationPhase, Widget,
+    <a href="event_controller.rs.html#13-43">EventController</a>, <a href="gesture.rs.html#13-198">Gesture</a>, <a href="gesture_drag.rs.html#13-104">GestureDrag</a>, <a href="gesture_single.rs.html#13-86">GestureSingle</a>, <a href="enums.rs.html#4998-5007">Orientation</a>, <a href="enums.rs.html#5708-5723">PanDirection</a>,
+    <a href="enums.rs.html#7132-7157">PropagationPhase</a>, <a href="widget.rs.html#17-1520">Widget</a>,
 };
 <span class="kw">use </span>glib::{
-    prelude::<span class="kw-2">*</span>,
-    signal::{connect_raw, SignalHandlerId},
-    translate::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`GesturePan`][crate::GesturePan] is a [`Gesture`][crate::Gesture] implementation able to recognize
     /// pan gestures, those are drags that are locked to happen along one
     /// axis. The axis that a [`GesturePan`][crate::GesturePan] handles is defined at
@@ -630,14 +630,14 @@
     ///
     /// [`GestureDragExt`][trait@crate::prelude::GestureDragExt], [`GestureSingleExt`][trait@crate::prelude::GestureSingleExt], [`GestureExt`][trait@crate::prelude::GestureExt], [`EventControllerExt`][trait@crate::prelude::EventControllerExt], [`trait@glib::ObjectExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkGesturePan&quot;</span>)]
-    </span><span class="kw">pub struct </span>GesturePan(Object&lt;ffi::GtkGesturePan, ffi::GtkGesturePanClass&gt;) @extends GestureDrag, GestureSingle, Gesture, EventController;
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.GesturePan.html">GesturePan</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkGesturePan.html">ffi::GtkGesturePan</a>, <a href="../../../gtk_sys/type.GtkGesturePanClass.html">ffi::GtkGesturePanClass</a>&gt;) @extends <a href="gesture_drag.rs.html#13-104">GestureDrag</a>, <a href="gesture_single.rs.html#13-86">GestureSingle</a>, <a href="gesture.rs.html#13-198">Gesture</a>, <a href="event_controller.rs.html#13-43">EventController</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_gesture_pan_get_type(),
     }
 }
 
-<span class="kw">impl </span>GesturePan {
+<span class="kw">impl </span><a href="#16-182">GesturePan</a> {
     <span class="doccomment">/// Returns a newly created [`Gesture`][crate::Gesture] that recognizes pan gestures.
     /// ## `widget`
     /// a [`Widget`][crate::Widget]
@@ -648,14 +648,14 @@
     ///
     /// a newly created [`GesturePan`][crate::GesturePan]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_pan_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, orientation: Orientation) -&gt; GesturePan {
+    </span><span class="kw">pub fn </span>new(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, orientation: <a href="enums.rs.html#4998-5007">Orientation</a>) -&gt; <a href="#16-182">GesturePan</a> {
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe </span>{
             Gesture::from_glib_full(ffi::gtk_gesture_pan_new(
-                widget.as_ref().to_glib_none().<span class="number">0</span>,
-                orientation.into_glib(),
+                <a href="#195">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#195">orientation</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
-            .unsafe_cast()
+            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 
@@ -663,7 +663,7 @@
     </span><span class="doccomment">/// Creates a new builder-pattern struct instance to construct [`GesturePan`] objects.
     ///
     /// This method returns an instance of [`GesturePanBuilder`](crate::builders::GesturePanBuilder) which can be used to create [`GesturePan`] objects.
-    </span><span class="kw">pub fn </span>builder() -&gt; GesturePanBuilder {
+    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#300-302">GesturePanBuilder</a> {
         GesturePanBuilder::new()
     }
 
@@ -674,17 +674,17 @@
     /// the expected orientation for pan gestures
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_pan_get_orientation&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_orientation&quot;</span>)]
-    </span><span class="kw">pub fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Orientation {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gtk_gesture_pan_get_orientation(<span class="self">self</span>.to_glib_none().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>orientation(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#4998-5007">Orientation</a> {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_gesture_pan_get_orientation(<a class="self" href="#221">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Sets the orientation to be expected on pan gestures.
     /// ## `orientation`
     /// expected orientation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_gesture_pan_set_orientation&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: Orientation) {
+    </span><span class="kw">pub fn </span>set_orientation(<span class="kw-2">&amp;</span><span class="self">self</span>, orientation: <a href="enums.rs.html#4998-5007">Orientation</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_gesture_pan_set_orientation(<span class="self">self</span>.to_glib_none().<span class="number">0</span>, orientation.into_glib());
+            ffi::gtk_gesture_pan_set_orientation(<a class="self" href="#229">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#229">orientation</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -695,54 +695,54 @@
     /// ## `offset`
     /// Offset along the gesture orientation
     </span><span class="attr">#[doc(alias = <span class="string">&quot;pan&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_pan&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, PanDirection, f64) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>pan_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>GesturePan, PanDirection, f64) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesturePan,
-            direction: ffi::GtkPanDirection,
+    </span><span class="kw">pub fn </span>connect_pan&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="enums.rs.html#5708-5723">PanDirection</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>pan_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-182">GesturePan</a>, <a href="enums.rs.html#5708-5723">PanDirection</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesturePan.html">ffi::GtkGesturePan</a>,
+            direction: <a href="../../../gtk_sys/type.GtkPanDirection.html">ffi::GtkPanDirection</a>,
             offset: libc::c_double,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(<span class="kw-2">&amp;</span>from_glib_borrow(this), from_glib(direction), offset)
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#247">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#249">f</a>(<span class="kw-2">&amp;</span>from_glib_borrow(<a href="#244">this</a>), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#245">direction</a>), <a href="#246">offset</a>)
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#242">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#242">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;pan\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     pan_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#253">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;orientation&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_orientation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_orientation_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span>GesturePan) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkGesturePan,
+    </span><span class="kw">pub fn </span>connect_orientation_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_orientation_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-182">GesturePan</a>) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkGesturePan.html">ffi::GtkGesturePan</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(<span class="kw-2">&amp;</span>from_glib_borrow(this))
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#270">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#272">f</a>(<span class="kw-2">&amp;</span>from_glib_borrow(<a href="#268">this</a>))
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#266">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#266">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::orientation\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_orientation_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#276">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>GesturePan {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#16-182">GesturePan</a> {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         glib::object::Object::new::&lt;<span class="self">Self</span>&gt;()
     }
@@ -753,11 +753,11 @@
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
-</span><span class="kw">pub struct </span>GesturePanBuilder {
-    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, GesturePan&gt;,
+</span><span class="kw">pub struct </span><a href="../../../gtk/builders/struct.GesturePanBuilder.html">GesturePanBuilder</a> {
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, <a href="#16-182">GesturePan</a>&gt;,
 }
 
-<span class="kw">impl </span>GesturePanBuilder {
+<span class="kw">impl </span><a href="#300-302">GesturePanBuilder</a> {
     <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: glib::object::Object::builder(),
@@ -765,76 +765,76 @@
     }
 
     <span class="doccomment">/// The expected orientation of pan gestures.
-    </span><span class="kw">pub fn </span>orientation(<span class="self">self</span>, orientation: Orientation) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>orientation(<span class="self">self</span>, orientation: <a href="enums.rs.html#4998-5007">Orientation</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;orientation&quot;</span>, orientation),
+            builder: <a class="self" href="#312">self</a>.builder.property(<span class="string">&quot;orientation&quot;</span>, <a href="#312">orientation</a>),
         }
     }
 
     <span class="doccomment">/// Mouse button number to listen to, or 0 to listen for any button.
-    </span><span class="kw">pub fn </span>button(<span class="self">self</span>, button: u32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>button(<span class="self">self</span>, button: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;button&quot;</span>, button),
+            builder: <a class="self" href="#319">self</a>.builder.property(<span class="string">&quot;button&quot;</span>, <a href="#319">button</a>),
         }
     }
 
     <span class="doccomment">/// Whether the gesture is exclusive. Exclusive gestures only listen to pointer
     /// and pointer emulated events.
-    </span><span class="kw">pub fn </span>exclusive(<span class="self">self</span>, exclusive: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>exclusive(<span class="self">self</span>, exclusive: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;exclusive&quot;</span>, exclusive),
+            builder: <a class="self" href="#327">self</a>.builder.property(<span class="string">&quot;exclusive&quot;</span>, <a href="#327">exclusive</a>),
         }
     }
 
     <span class="doccomment">/// Whether the gesture handles only touch events.
-    </span><span class="kw">pub fn </span>touch_only(<span class="self">self</span>, touch_only: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>touch_only(<span class="self">self</span>, touch_only: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;touch-only&quot;</span>, touch_only),
+            builder: <a class="self" href="#334">self</a>.builder.property(<span class="string">&quot;touch-only&quot;</span>, <a href="#334">touch_only</a>),
         }
     }
 
     <span class="doccomment">/// The number of touch points that trigger recognition on this gesture,
-    </span><span class="kw">pub fn </span>n_points(<span class="self">self</span>, n_points: u32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>n_points(<span class="self">self</span>, n_points: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;n-points&quot;</span>, n_points),
+            builder: <a class="self" href="#341">self</a>.builder.property(<span class="string">&quot;n-points&quot;</span>, <a href="#341">n_points</a>),
         }
     }
 
     <span class="doccomment">/// If non-[`None`], the gesture will only listen for events that happen on
     /// this [`gdk::Window`][crate::gdk::Window], or a child of it.
-    </span><span class="kw">pub fn </span>window(<span class="self">self</span>, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>window(<span class="self">self</span>, window: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/window/struct.Window.html">gdk::Window</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;window&quot;</span>, window.clone()),
+            builder: <a class="self" href="#349">self</a>.builder.property(<span class="string">&quot;window&quot;</span>, <a href="#349">window</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
     <span class="doccomment">/// The propagation phase at which this controller will handle events.
-    </span><span class="kw">pub fn </span>propagation_phase(<span class="self">self</span>, propagation_phase: PropagationPhase) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>propagation_phase(<span class="self">self</span>, propagation_phase: <a href="enums.rs.html#7132-7157">PropagationPhase</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#356">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;propagation-phase&quot;</span>, propagation_phase),
+                .property(<span class="string">&quot;propagation-phase&quot;</span>, <a href="#356">propagation_phase</a>),
         }
     }
 
     <span class="doccomment">/// The widget receiving the `GdkEvents` that the controller will handle.
-    </span><span class="kw">pub fn </span>widget(<span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>widget(<span class="self">self</span>, widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;widget&quot;</span>, widget.clone().upcast()),
+            builder: <a class="self" href="#365">self</a>.builder.property(<span class="string">&quot;widget&quot;</span>, <a href="#365">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`GesturePan`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; GesturePan {
-        <span class="self">self</span>.builder.build()
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#16-182">GesturePan</a> {
+        <a class="self" href="#374">self</a>.builder.build()
     }
 }
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>GesturePan {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;GesturePan&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#16-182">GesturePan</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#380">f</a>.write_str(<span class="string">&quot;GesturePan&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

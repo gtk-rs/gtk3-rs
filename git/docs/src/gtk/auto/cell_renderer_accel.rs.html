@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_accel.rs`."><title>cell_renderer_accel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_accel.rs`."><title>cell_renderer_accel.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1271,15 +1271,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{CellRenderer, CellRendererAccelMode, CellRendererMode, CellRendererText, TreePath};
+</span><span class="kw">use crate</span>::{<a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <a href="enums.rs.html#1347-1356">CellRendererAccelMode</a>, <a href="enums.rs.html#1459-1474">CellRendererMode</a>, <a href="cell_renderer_text.rs.html#13-400">CellRendererText</a>, <a href="tree_path.rs.html#8-17">TreePath</a>};
 <span class="kw">use </span>glib::{
-    prelude::<span class="kw-2">*</span>,
-    signal::{connect_raw, SignalHandlerId},
-    translate::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`CellRendererAccel`][crate::CellRendererAccel] displays a keyboard accelerator (i.e. a key
     /// combination like `Control + a`). If the cell renderer is editable,
     /// the accelerator can be changed by simply typing the new combination.
@@ -1705,15 +1705,15 @@
     ///
     /// [`CellRendererAccelExt`][trait@crate::prelude::CellRendererAccelExt], [`CellRendererTextExt`][trait@crate::prelude::CellRendererTextExt], [`CellRendererExt`][trait@crate::prelude::CellRendererExt], [`trait@glib::ObjectExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkCellRendererAccel&quot;</span>)]
-    </span><span class="kw">pub struct </span>CellRendererAccel(Object&lt;ffi::GtkCellRendererAccel, ffi::GtkCellRendererAccelClass&gt;) @extends CellRendererText, CellRenderer;
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.CellRendererAccel.html">CellRendererAccel</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>, <a href="../../../gtk_sys/struct.GtkCellRendererAccelClass.html">ffi::GtkCellRendererAccelClass</a>&gt;) @extends <a href="cell_renderer_text.rs.html#13-400">CellRendererText</a>, <a href="cell_renderer.rs.html#16-184">CellRenderer</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_cell_renderer_accel_get_type(),
     }
 }
 
-<span class="kw">impl </span>CellRendererAccel {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>CellRendererAccel&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#13-444">CellRendererAccel</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#13-444">CellRendererAccel</a>&gt; = <span class="prelude-val">None</span>;
 
     <span class="doccomment">/// Creates a new [`CellRendererAccel`][crate::CellRendererAccel].
     ///
@@ -1721,21 +1721,21 @@
     ///
     /// the new cell renderer
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_accel_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new() -&gt; CellRendererAccel {
-        <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe </span>{ CellRenderer::from_glib_none(ffi::gtk_cell_renderer_accel_new()).unsafe_cast() }
+    </span><span class="kw">pub fn </span>new() -&gt; <a href="#13-444">CellRendererAccel</a> {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+        <span class="kw">unsafe </span>{ CellRenderer::from_glib_none(ffi::gtk_cell_renderer_accel_new()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Creates a new builder-pattern struct instance to construct [`CellRendererAccel`] objects.
     ///
     /// This method returns an instance of [`CellRendererAccelBuilder`](crate::builders::CellRendererAccelBuilder) which can be used to create [`CellRendererAccel`] objects.
-    </span><span class="kw">pub fn </span>builder() -&gt; CellRendererAccelBuilder {
+    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#480-482">CellRendererAccelBuilder</a> {
         CellRendererAccelBuilder::new()
     }
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>CellRendererAccel {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#13-444">CellRendererAccel</a> {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new()
     }
@@ -1746,11 +1746,11 @@
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
-</span><span class="kw">pub struct </span>CellRendererAccelBuilder {
-    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, CellRendererAccel&gt;,
+</span><span class="kw">pub struct </span><a href="../../../gtk/builders/struct.CellRendererAccelBuilder.html">CellRendererAccelBuilder</a> {
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, <a href="#13-444">CellRendererAccel</a>&gt;,
 }
 
-<span class="kw">impl </span>CellRendererAccelBuilder {
+<span class="kw">impl </span><a href="#480-482">CellRendererAccelBuilder</a> {
     <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: glib::object::Object::builder(),
@@ -1758,9 +1758,9 @@
     }
 
     <span class="doccomment">/// The keyval of the accelerator.
-    </span><span class="kw">pub fn </span>accel_key(<span class="self">self</span>, accel_key: u32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>accel_key(<span class="self">self</span>, accel_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;accel-key&quot;</span>, accel_key),
+            builder: <a class="self" href="#492">self</a>.builder.property(<span class="string">&quot;accel-key&quot;</span>, <a href="#492">accel_key</a>),
         }
     }
 
@@ -1768,31 +1768,31 @@
     /// they are, consumed modifiers are suppressed, only accelerators
     /// accepted by GTK+ are allowed, and the accelerators are rendered
     /// in the same way as they are in menus.
-    </span><span class="kw">pub fn </span>accel_mode(<span class="self">self</span>, accel_mode: CellRendererAccelMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>accel_mode(<span class="self">self</span>, accel_mode: <a href="enums.rs.html#1347-1356">CellRendererAccelMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;accel-mode&quot;</span>, accel_mode),
+            builder: <a class="self" href="#502">self</a>.builder.property(<span class="string">&quot;accel-mode&quot;</span>, <a href="#502">accel_mode</a>),
         }
     }
 
     <span class="doccomment">/// The modifier mask of the accelerator.
-    </span><span class="kw">pub fn </span>accel_mods(<span class="self">self</span>, accel_mods: gdk::ModifierType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>accel_mods(<span class="self">self</span>, accel_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;accel-mods&quot;</span>, accel_mods),
+            builder: <a class="self" href="#509">self</a>.builder.property(<span class="string">&quot;accel-mods&quot;</span>, <a href="#509">accel_mods</a>),
         }
     }
 
     <span class="doccomment">/// The hardware keycode of the accelerator. Note that the hardware keycode is
     /// only relevant if the key does not have a keyval. Normally, the keyboard
     /// configuration should assign keyvals to all keys.
-    </span><span class="kw">pub fn </span>keycode(<span class="self">self</span>, keycode: u32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>keycode(<span class="self">self</span>, keycode: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;keycode&quot;</span>, keycode),
+            builder: <a class="self" href="#518">self</a>.builder.property(<span class="string">&quot;keycode&quot;</span>, <a href="#518">keycode</a>),
         }
     }
 
-    <span class="kw">pub fn </span>align_set(<span class="self">self</span>, align_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>align_set(<span class="self">self</span>, align_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;align-set&quot;</span>, align_set),
+            builder: <a class="self" href="#524">self</a>.builder.property(<span class="string">&quot;align-set&quot;</span>, <a href="#524">align_set</a>),
         }
     }
 
@@ -1801,46 +1801,46 @@
     /// Note that this property describes how to align the lines of text in
     /// case there are several of them. The &quot;xalign&quot; property of [`CellRenderer`][crate::CellRenderer],
     /// on the other hand, sets the horizontal alignment of the whole text.
-    </span><span class="kw">pub fn </span>alignment(<span class="self">self</span>, alignment: pango::Alignment) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>alignment(<span class="self">self</span>, alignment: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Alignment.html">pango::Alignment</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;alignment&quot;</span>, alignment),
+            builder: <a class="self" href="#535">self</a>.builder.property(<span class="string">&quot;alignment&quot;</span>, <a href="#535">alignment</a>),
         }
     }
 
-    <span class="kw">pub fn </span>attributes(<span class="self">self</span>, attributes: <span class="kw-2">&amp;</span>pango::AttrList) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>attributes(<span class="self">self</span>, attributes: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/attr_list/struct.AttrList.html">pango::AttrList</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;attributes&quot;</span>, attributes.clone()),
+            builder: <a class="self" href="#541">self</a>.builder.property(<span class="string">&quot;attributes&quot;</span>, <a href="#541">attributes</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>background(<span class="self">self</span>, background: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>background(<span class="self">self</span>, background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;background&quot;</span>, background.into()),
+            builder: <a class="self" href="#547">self</a>.builder.property(<span class="string">&quot;background&quot;</span>, <a href="#547">background</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// Background color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="kw">pub fn </span>background_rgba(<span class="self">self</span>, background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>background_rgba(<span class="self">self</span>, background_rgba: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/rgba/struct.RGBA.html">gdk::RGBA</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;background-rgba&quot;</span>, background_rgba),
+            builder: <a class="self" href="#554">self</a>.builder.property(<span class="string">&quot;background-rgba&quot;</span>, <a href="#554">background_rgba</a>),
         }
     }
 
-    <span class="kw">pub fn </span>background_set(<span class="self">self</span>, background_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>background_set(<span class="self">self</span>, background_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;background-set&quot;</span>, background_set),
+            builder: <a class="self" href="#560">self</a>.builder.property(<span class="string">&quot;background-set&quot;</span>, <a href="#560">background_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>editable(<span class="self">self</span>, editable: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>editable(<span class="self">self</span>, editable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;editable&quot;</span>, editable),
+            builder: <a class="self" href="#566">self</a>.builder.property(<span class="string">&quot;editable&quot;</span>, <a href="#566">editable</a>),
         }
     }
 
-    <span class="kw">pub fn </span>editable_set(<span class="self">self</span>, editable_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>editable_set(<span class="self">self</span>, editable_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;editable-set&quot;</span>, editable_set),
+            builder: <a class="self" href="#572">self</a>.builder.property(<span class="string">&quot;editable-set&quot;</span>, <a href="#572">editable_set</a>),
         }
     }
 
@@ -1848,76 +1848,76 @@
     /// does not have enough room to display the entire string. Setting it to
     /// [`pango::EllipsizeMode::None`][crate::pango::EllipsizeMode::None] turns off ellipsizing. See the wrap-width property
     /// for another way of making the text fit into a given width.
-    </span><span class="kw">pub fn </span>ellipsize(<span class="self">self</span>, ellipsize: pango::EllipsizeMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>ellipsize(<span class="self">self</span>, ellipsize: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.EllipsizeMode.html">pango::EllipsizeMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;ellipsize&quot;</span>, ellipsize),
+            builder: <a class="self" href="#582">self</a>.builder.property(<span class="string">&quot;ellipsize&quot;</span>, <a href="#582">ellipsize</a>),
         }
     }
 
-    <span class="kw">pub fn </span>ellipsize_set(<span class="self">self</span>, ellipsize_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>ellipsize_set(<span class="self">self</span>, ellipsize_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;ellipsize-set&quot;</span>, ellipsize_set),
+            builder: <a class="self" href="#588">self</a>.builder.property(<span class="string">&quot;ellipsize-set&quot;</span>, <a href="#588">ellipsize_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>family(<span class="self">self</span>, family: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>family(<span class="self">self</span>, family: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;family&quot;</span>, family.into()),
+            builder: <a class="self" href="#594">self</a>.builder.property(<span class="string">&quot;family&quot;</span>, <a href="#594">family</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>family_set(<span class="self">self</span>, family_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>family_set(<span class="self">self</span>, family_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;family-set&quot;</span>, family_set),
+            builder: <a class="self" href="#600">self</a>.builder.property(<span class="string">&quot;family-set&quot;</span>, <a href="#600">family_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>font(<span class="self">self</span>, font: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>font(<span class="self">self</span>, font: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;font&quot;</span>, font.into()),
+            builder: <a class="self" href="#606">self</a>.builder.property(<span class="string">&quot;font&quot;</span>, <a href="#606">font</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>font_desc(<span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span>pango::FontDescription) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>font_desc(<span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/font_description/struct.FontDescription.html">pango::FontDescription</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;font-desc&quot;</span>, font_desc),
+            builder: <a class="self" href="#612">self</a>.builder.property(<span class="string">&quot;font-desc&quot;</span>, <a href="#612">font_desc</a>),
         }
     }
 
-    <span class="kw">pub fn </span>foreground(<span class="self">self</span>, foreground: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>foreground(<span class="self">self</span>, foreground: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;foreground&quot;</span>, foreground.into()),
+            builder: <a class="self" href="#618">self</a>.builder.property(<span class="string">&quot;foreground&quot;</span>, <a href="#618">foreground</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// Foreground color as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="kw">pub fn </span>foreground_rgba(<span class="self">self</span>, foreground_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>foreground_rgba(<span class="self">self</span>, foreground_rgba: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/rgba/struct.RGBA.html">gdk::RGBA</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;foreground-rgba&quot;</span>, foreground_rgba),
+            builder: <a class="self" href="#625">self</a>.builder.property(<span class="string">&quot;foreground-rgba&quot;</span>, <a href="#625">foreground_rgba</a>),
         }
     }
 
-    <span class="kw">pub fn </span>foreground_set(<span class="self">self</span>, foreground_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>foreground_set(<span class="self">self</span>, foreground_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;foreground-set&quot;</span>, foreground_set),
+            builder: <a class="self" href="#631">self</a>.builder.property(<span class="string">&quot;foreground-set&quot;</span>, <a href="#631">foreground_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;language&quot;</span>, language.into()),
+            builder: <a class="self" href="#637">self</a>.builder.property(<span class="string">&quot;language&quot;</span>, <a href="#637">language</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>language_set(<span class="self">self</span>, language_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>language_set(<span class="self">self</span>, language_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;language-set&quot;</span>, language_set),
+            builder: <a class="self" href="#643">self</a>.builder.property(<span class="string">&quot;language-set&quot;</span>, <a href="#643">language_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>markup(<span class="self">self</span>, markup: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>markup(<span class="self">self</span>, markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;markup&quot;</span>, markup.into()),
+            builder: <a class="self" href="#649">self</a>.builder.property(<span class="string">&quot;markup&quot;</span>, <a href="#649">markup</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
@@ -1929,9 +1929,9 @@
     /// cell should not receive any greater allocation unless it is
     /// set to expand in its [`CellLayout`][crate::CellLayout] and all of the cell&#39;s siblings
     /// have received their natural width.
-    </span><span class="kw">pub fn </span>max_width_chars(<span class="self">self</span>, max_width_chars: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>max_width_chars(<span class="self">self</span>, max_width_chars: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;max-width-chars&quot;</span>, max_width_chars),
+            builder: <a class="self" href="#663">self</a>.builder.property(<span class="string">&quot;max-width-chars&quot;</span>, <a href="#663">max_width_chars</a>),
         }
     }
 
@@ -1939,273 +1939,273 @@
     /// [`editable`][struct@crate::CellRendererText#editable] is [`true`] and the cell is empty.
     ///
     /// Since 3.6
-    </span><span class="kw">pub fn </span>placeholder_text(<span class="self">self</span>, placeholder_text: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>placeholder_text(<span class="self">self</span>, placeholder_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#673">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;placeholder-text&quot;</span>, placeholder_text.into()),
+                .property(<span class="string">&quot;placeholder-text&quot;</span>, <a href="#673">placeholder_text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>rise(<span class="self">self</span>, rise: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>rise(<span class="self">self</span>, rise: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;rise&quot;</span>, rise),
+            builder: <a class="self" href="#681">self</a>.builder.property(<span class="string">&quot;rise&quot;</span>, <a href="#681">rise</a>),
         }
     }
 
-    <span class="kw">pub fn </span>rise_set(<span class="self">self</span>, rise_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>rise_set(<span class="self">self</span>, rise_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;rise-set&quot;</span>, rise_set),
+            builder: <a class="self" href="#687">self</a>.builder.property(<span class="string">&quot;rise-set&quot;</span>, <a href="#687">rise_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>scale(<span class="self">self</span>, scale: f64) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>scale(<span class="self">self</span>, scale: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;scale&quot;</span>, scale),
+            builder: <a class="self" href="#693">self</a>.builder.property(<span class="string">&quot;scale&quot;</span>, <a href="#693">scale</a>),
         }
     }
 
-    <span class="kw">pub fn </span>scale_set(<span class="self">self</span>, scale_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>scale_set(<span class="self">self</span>, scale_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;scale-set&quot;</span>, scale_set),
+            builder: <a class="self" href="#699">self</a>.builder.property(<span class="string">&quot;scale-set&quot;</span>, <a href="#699">scale_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>single_paragraph_mode(<span class="self">self</span>, single_paragraph_mode: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>single_paragraph_mode(<span class="self">self</span>, single_paragraph_mode: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#705">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;single-paragraph-mode&quot;</span>, single_paragraph_mode),
+                .property(<span class="string">&quot;single-paragraph-mode&quot;</span>, <a href="#705">single_paragraph_mode</a>),
         }
     }
 
-    <span class="kw">pub fn </span>size(<span class="self">self</span>, size: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>size(<span class="self">self</span>, size: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size&quot;</span>, size),
+            builder: <a class="self" href="#713">self</a>.builder.property(<span class="string">&quot;size&quot;</span>, <a href="#713">size</a>),
         }
     }
 
-    <span class="kw">pub fn </span>size_points(<span class="self">self</span>, size_points: f64) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>size_points(<span class="self">self</span>, size_points: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size-points&quot;</span>, size_points),
+            builder: <a class="self" href="#719">self</a>.builder.property(<span class="string">&quot;size-points&quot;</span>, <a href="#719">size_points</a>),
         }
     }
 
-    <span class="kw">pub fn </span>size_set(<span class="self">self</span>, size_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>size_set(<span class="self">self</span>, size_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;size-set&quot;</span>, size_set),
+            builder: <a class="self" href="#725">self</a>.builder.property(<span class="string">&quot;size-set&quot;</span>, <a href="#725">size_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>stretch(<span class="self">self</span>, stretch: pango::Stretch) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>stretch(<span class="self">self</span>, stretch: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Stretch.html">pango::Stretch</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;stretch&quot;</span>, stretch),
+            builder: <a class="self" href="#731">self</a>.builder.property(<span class="string">&quot;stretch&quot;</span>, <a href="#731">stretch</a>),
         }
     }
 
-    <span class="kw">pub fn </span>stretch_set(<span class="self">self</span>, stretch_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>stretch_set(<span class="self">self</span>, stretch_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;stretch-set&quot;</span>, stretch_set),
+            builder: <a class="self" href="#737">self</a>.builder.property(<span class="string">&quot;stretch-set&quot;</span>, <a href="#737">stretch_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>strikethrough(<span class="self">self</span>, strikethrough: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>strikethrough(<span class="self">self</span>, strikethrough: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;strikethrough&quot;</span>, strikethrough),
+            builder: <a class="self" href="#743">self</a>.builder.property(<span class="string">&quot;strikethrough&quot;</span>, <a href="#743">strikethrough</a>),
         }
     }
 
-    <span class="kw">pub fn </span>strikethrough_set(<span class="self">self</span>, strikethrough_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>strikethrough_set(<span class="self">self</span>, strikethrough_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#749">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;strikethrough-set&quot;</span>, strikethrough_set),
+                .property(<span class="string">&quot;strikethrough-set&quot;</span>, <a href="#749">strikethrough_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>style(<span class="self">self</span>, style: pango::Style) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>style(<span class="self">self</span>, style: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Style.html">pango::Style</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;style&quot;</span>, style),
+            builder: <a class="self" href="#757">self</a>.builder.property(<span class="string">&quot;style&quot;</span>, <a href="#757">style</a>),
         }
     }
 
-    <span class="kw">pub fn </span>style_set(<span class="self">self</span>, style_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>style_set(<span class="self">self</span>, style_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;style-set&quot;</span>, style_set),
+            builder: <a class="self" href="#763">self</a>.builder.property(<span class="string">&quot;style-set&quot;</span>, <a href="#763">style_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>text(<span class="self">self</span>, text: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>text(<span class="self">self</span>, text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;text&quot;</span>, text.into()),
+            builder: <a class="self" href="#769">self</a>.builder.property(<span class="string">&quot;text&quot;</span>, <a href="#769">text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>underline(<span class="self">self</span>, underline: pango::Underline) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>underline(<span class="self">self</span>, underline: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Underline.html">pango::Underline</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;underline&quot;</span>, underline),
+            builder: <a class="self" href="#775">self</a>.builder.property(<span class="string">&quot;underline&quot;</span>, <a href="#775">underline</a>),
         }
     }
 
-    <span class="kw">pub fn </span>underline_set(<span class="self">self</span>, underline_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>underline_set(<span class="self">self</span>, underline_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;underline-set&quot;</span>, underline_set),
+            builder: <a class="self" href="#781">self</a>.builder.property(<span class="string">&quot;underline-set&quot;</span>, <a href="#781">underline_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>variant(<span class="self">self</span>, variant: pango::Variant) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>variant(<span class="self">self</span>, variant: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Variant.html">pango::Variant</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;variant&quot;</span>, variant),
+            builder: <a class="self" href="#787">self</a>.builder.property(<span class="string">&quot;variant&quot;</span>, <a href="#787">variant</a>),
         }
     }
 
-    <span class="kw">pub fn </span>variant_set(<span class="self">self</span>, variant_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>variant_set(<span class="self">self</span>, variant_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;variant-set&quot;</span>, variant_set),
+            builder: <a class="self" href="#793">self</a>.builder.property(<span class="string">&quot;variant-set&quot;</span>, <a href="#793">variant_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>weight(<span class="self">self</span>, weight: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>weight(<span class="self">self</span>, weight: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;weight&quot;</span>, weight),
+            builder: <a class="self" href="#799">self</a>.builder.property(<span class="string">&quot;weight&quot;</span>, <a href="#799">weight</a>),
         }
     }
 
-    <span class="kw">pub fn </span>weight_set(<span class="self">self</span>, weight_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>weight_set(<span class="self">self</span>, weight_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;weight-set&quot;</span>, weight_set),
+            builder: <a class="self" href="#805">self</a>.builder.property(<span class="string">&quot;weight-set&quot;</span>, <a href="#805">weight_set</a>),
         }
     }
 
     <span class="doccomment">/// The desired width of the cell, in characters. If this property is set to
     /// -1, the width will be calculated automatically, otherwise the cell will
     /// request either 3 characters or the property value, whichever is greater.
-    </span><span class="kw">pub fn </span>width_chars(<span class="self">self</span>, width_chars: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>width_chars(<span class="self">self</span>, width_chars: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width-chars&quot;</span>, width_chars),
+            builder: <a class="self" href="#814">self</a>.builder.property(<span class="string">&quot;width-chars&quot;</span>, <a href="#814">width_chars</a>),
         }
     }
 
     <span class="doccomment">/// Specifies how to break the string into multiple lines, if the cell
     /// renderer does not have enough room to display the entire string.
     /// This property has no effect unless the wrap-width property is set.
-    </span><span class="kw">pub fn </span>wrap_mode(<span class="self">self</span>, wrap_mode: pango::WrapMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>wrap_mode(<span class="self">self</span>, wrap_mode: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.WrapMode.html">pango::WrapMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;wrap-mode&quot;</span>, wrap_mode),
+            builder: <a class="self" href="#823">self</a>.builder.property(<span class="string">&quot;wrap-mode&quot;</span>, <a href="#823">wrap_mode</a>),
         }
     }
 
     <span class="doccomment">/// Specifies the minimum width at which the text is wrapped. The wrap-mode property can
     /// be used to influence at what character positions the line breaks can be placed.
     /// Setting wrap-width to -1 turns wrapping off.
-    </span><span class="kw">pub fn </span>wrap_width(<span class="self">self</span>, wrap_width: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>wrap_width(<span class="self">self</span>, wrap_width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;wrap-width&quot;</span>, wrap_width),
+            builder: <a class="self" href="#832">self</a>.builder.property(<span class="string">&quot;wrap-width&quot;</span>, <a href="#832">wrap_width</a>),
         }
     }
 
-    <span class="kw">pub fn </span>cell_background(<span class="self">self</span>, cell_background: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>cell_background(<span class="self">self</span>, cell_background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#838">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;cell-background&quot;</span>, cell_background.into()),
+                .property(<span class="string">&quot;cell-background&quot;</span>, <a href="#838">cell_background</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// Cell background as a [`gdk::RGBA`][crate::gdk::RGBA]
-    </span><span class="kw">pub fn </span>cell_background_rgba(<span class="self">self</span>, cell_background_rgba: <span class="kw-2">&amp;</span>gdk::RGBA) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>cell_background_rgba(<span class="self">self</span>, cell_background_rgba: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/rgba/struct.RGBA.html">gdk::RGBA</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#847">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;cell-background-rgba&quot;</span>, cell_background_rgba),
+                .property(<span class="string">&quot;cell-background-rgba&quot;</span>, <a href="#847">cell_background_rgba</a>),
         }
     }
 
-    <span class="kw">pub fn </span>cell_background_set(<span class="self">self</span>, cell_background_set: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>cell_background_set(<span class="self">self</span>, cell_background_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#855">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;cell-background-set&quot;</span>, cell_background_set),
+                .property(<span class="string">&quot;cell-background-set&quot;</span>, <a href="#855">cell_background_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>height(<span class="self">self</span>, height: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>height(<span class="self">self</span>, height: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;height&quot;</span>, height),
+            builder: <a class="self" href="#863">self</a>.builder.property(<span class="string">&quot;height&quot;</span>, <a href="#863">height</a>),
         }
     }
 
-    <span class="kw">pub fn </span>is_expanded(<span class="self">self</span>, is_expanded: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>is_expanded(<span class="self">self</span>, is_expanded: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-expanded&quot;</span>, is_expanded),
+            builder: <a class="self" href="#869">self</a>.builder.property(<span class="string">&quot;is-expanded&quot;</span>, <a href="#869">is_expanded</a>),
         }
     }
 
-    <span class="kw">pub fn </span>is_expander(<span class="self">self</span>, is_expander: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>is_expander(<span class="self">self</span>, is_expander: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-expander&quot;</span>, is_expander),
+            builder: <a class="self" href="#875">self</a>.builder.property(<span class="string">&quot;is-expander&quot;</span>, <a href="#875">is_expander</a>),
         }
     }
 
-    <span class="kw">pub fn </span>mode(<span class="self">self</span>, mode: CellRendererMode) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>mode(<span class="self">self</span>, mode: <a href="enums.rs.html#1459-1474">CellRendererMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;mode&quot;</span>, mode),
+            builder: <a class="self" href="#881">self</a>.builder.property(<span class="string">&quot;mode&quot;</span>, <a href="#881">mode</a>),
         }
     }
 
-    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sensitive&quot;</span>, sensitive),
+            builder: <a class="self" href="#887">self</a>.builder.property(<span class="string">&quot;sensitive&quot;</span>, <a href="#887">sensitive</a>),
         }
     }
 
-    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+            builder: <a class="self" href="#893">self</a>.builder.property(<span class="string">&quot;visible&quot;</span>, <a href="#893">visible</a>),
         }
     }
 
-    <span class="kw">pub fn </span>width(<span class="self">self</span>, width: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>width(<span class="self">self</span>, width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width&quot;</span>, width),
+            builder: <a class="self" href="#899">self</a>.builder.property(<span class="string">&quot;width&quot;</span>, <a href="#899">width</a>),
         }
     }
 
-    <span class="kw">pub fn </span>xalign(<span class="self">self</span>, xalign: f32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>xalign(<span class="self">self</span>, xalign: <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;xalign&quot;</span>, xalign),
+            builder: <a class="self" href="#905">self</a>.builder.property(<span class="string">&quot;xalign&quot;</span>, <a href="#905">xalign</a>),
         }
     }
 
-    <span class="kw">pub fn </span>xpad(<span class="self">self</span>, xpad: u32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>xpad(<span class="self">self</span>, xpad: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;xpad&quot;</span>, xpad),
+            builder: <a class="self" href="#911">self</a>.builder.property(<span class="string">&quot;xpad&quot;</span>, <a href="#911">xpad</a>),
         }
     }
 
-    <span class="kw">pub fn </span>yalign(<span class="self">self</span>, yalign: f32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>yalign(<span class="self">self</span>, yalign: <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;yalign&quot;</span>, yalign),
+            builder: <a class="self" href="#917">self</a>.builder.property(<span class="string">&quot;yalign&quot;</span>, <a href="#917">yalign</a>),
         }
     }
 
-    <span class="kw">pub fn </span>ypad(<span class="self">self</span>, ypad: u32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>ypad(<span class="self">self</span>, ypad: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;ypad&quot;</span>, ypad),
+            builder: <a class="self" href="#923">self</a>.builder.property(<span class="string">&quot;ypad&quot;</span>, <a href="#923">ypad</a>),
         }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`CellRendererAccel`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; CellRendererAccel {
-        <span class="self">self</span>.builder.build()
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#13-444">CellRendererAccel</a> {
+        <a class="self" href="#932">self</a>.builder.build()
     }
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::CellRendererAccel&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<a href="#13-444"><span class="kw">super</span>::CellRendererAccel</a>&gt;&gt; <a href="#938">Sealed</a> <span class="kw">for </span>T {}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@CellRendererAccel`] methods.
@@ -2213,17 +2213,17 @@
 /// # Implementors
 ///
 /// [`CellRendererAccel`][struct@crate::CellRendererAccel]
-</span><span class="kw">pub trait </span>CellRendererAccelExt: IsA&lt;CellRendererAccel&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span><a href="../../../gtk/prelude/trait.CellRendererAccelExt.html">CellRendererAccelExt</a>: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt; + <a href="#938">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// The keyval of the accelerator.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-key&quot;</span>)]
-    </span><span class="kw">fn </span>accel_key(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-key&quot;</span>)
+    </span><span class="kw">fn </span>accel_key(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#950">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-key&quot;</span>)
     }
 
     <span class="doccomment">/// The keyval of the accelerator.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-key&quot;</span>)]
-    </span><span class="kw">fn </span>set_accel_key(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_key: u32) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-key&quot;</span>, accel_key)
+    </span><span class="kw">fn </span>set_accel_key(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#956">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-key&quot;</span>, <a href="#956">accel_key</a>)
     }
 
     <span class="doccomment">/// Determines if the edited accelerators are GTK+ accelerators. If
@@ -2231,8 +2231,8 @@
     /// accepted by GTK+ are allowed, and the accelerators are rendered
     /// in the same way as they are in menus.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-mode&quot;</span>)]
-    </span><span class="kw">fn </span>accel_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; CellRendererAccelMode {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-mode&quot;</span>)
+    </span><span class="kw">fn </span>accel_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#1347-1356">CellRendererAccelMode</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#965">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-mode&quot;</span>)
     }
 
     <span class="doccomment">/// Determines if the edited accelerators are GTK+ accelerators. If
@@ -2240,65 +2240,65 @@
     /// accepted by GTK+ are allowed, and the accelerators are rendered
     /// in the same way as they are in menus.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_accel_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_mode: CellRendererAccelMode) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-mode&quot;</span>, accel_mode)
+    </span><span class="kw">fn </span>set_accel_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_mode: <a href="enums.rs.html#1347-1356">CellRendererAccelMode</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#974">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-mode&quot;</span>, <a href="#974">accel_mode</a>)
     }
 
     <span class="doccomment">/// The modifier mask of the accelerator.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-mods&quot;</span>)]
-    </span><span class="kw">fn </span>accel_mods(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::ModifierType {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-mods&quot;</span>)
+    </span><span class="kw">fn </span>accel_mods(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#980">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-mods&quot;</span>)
     }
 
     <span class="doccomment">/// The modifier mask of the accelerator.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-mods&quot;</span>)]
-    </span><span class="kw">fn </span>set_accel_mods(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_mods: gdk::ModifierType) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;accel-mods&quot;</span>, accel_mods)
+    </span><span class="kw">fn </span>set_accel_mods(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#986">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;accel-mods&quot;</span>, <a href="#986">accel_mods</a>)
     }
 
     <span class="doccomment">/// The hardware keycode of the accelerator. Note that the hardware keycode is
     /// only relevant if the key does not have a keyval. Normally, the keyboard
     /// configuration should assign keyvals to all keys.
-    </span><span class="kw">fn </span>keycode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-        ObjectExt::property(<span class="self">self</span>.as_ref(), <span class="string">&quot;keycode&quot;</span>)
+    </span><span class="kw">fn </span>keycode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#993">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;keycode&quot;</span>)
     }
 
     <span class="doccomment">/// The hardware keycode of the accelerator. Note that the hardware keycode is
     /// only relevant if the key does not have a keyval. Normally, the keyboard
     /// configuration should assign keyvals to all keys.
-    </span><span class="kw">fn </span>set_keycode(<span class="kw-2">&amp;</span><span class="self">self</span>, keycode: u32) {
-        ObjectExt::set_property(<span class="self">self</span>.as_ref(), <span class="string">&quot;keycode&quot;</span>, keycode)
+    </span><span class="kw">fn </span>set_keycode(<span class="kw-2">&amp;</span><span class="self">self</span>, keycode: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#1000">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;keycode&quot;</span>, <a href="#1000">keycode</a>)
     }
 
     <span class="doccomment">/// Gets emitted when the user has removed the accelerator.
     /// ## `path_string`
     /// the path identifying the row of the edited cell
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-cleared&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accel_cleared&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TreePath) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accel_cleared&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="tree_path.rs.html#8-17">TreePath</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>accel_cleared_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, TreePath) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <a href="tree_path.rs.html#8-17">TreePath</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             path_string: <span class="kw-2">*mut </span>libc::c_char,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span>path = from_glib_full(<span class="kw">crate</span>::ffi::gtk_tree_path_new_from_string(path_string));
-            f(
-                CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref(),
-                path,
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1015">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <span class="kw">let </span>path = from_glib_full(<span class="kw">crate</span>::ffi::gtk_tree_path_new_from_string(<a href="#1014">path_string</a>));
+            <a href="#1017">f</a>(
+                CellRendererAccel::from_glib_borrow(<a href="#1013">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <a href="#1018">path</a>,
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1008">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1008">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;accel-cleared\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     accel_cleared_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1025">f</a>),
             )
         }
     }
@@ -2313,154 +2313,154 @@
     /// ## `hardware_keycode`
     /// the keycode of the new accelerator
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-edited&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accel_edited&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, TreePath, u32, gdk::ModifierType, u32) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_accel_edited&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="tree_path.rs.html#8-17">TreePath</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>accel_edited_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, TreePath, u32, gdk::ModifierType, u32) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <a href="tree_path.rs.html#8-17">TreePath</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             path_string: <span class="kw-2">*mut </span>libc::c_char,
             accel_key: libc::c_uint,
-            accel_mods: gdk::ffi::GdkModifierType,
+            accel_mods: <a href="../../../gdk_sys/type.GdkModifierType.html">gdk::ffi::GdkModifierType</a>,
             hardware_keycode: libc::c_uint,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span>path = from_glib_full(<span class="kw">crate</span>::ffi::gtk_tree_path_new_from_string(path_string));
-            f(
-                CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref(),
-                path,
-                accel_key,
-                from_glib(accel_mods),
-                hardware_keycode,
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1060">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <span class="kw">let </span>path = from_glib_full(<span class="kw">crate</span>::ffi::gtk_tree_path_new_from_string(<a href="#1056">path_string</a>));
+            <a href="#1062">f</a>(
+                CellRendererAccel::from_glib_borrow(<a href="#1055">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <a href="#1063">path</a>,
+                <a href="#1057">accel_key</a>,
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#1058">accel_mods</a>),
+                <a href="#1059">hardware_keycode</a>,
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1049">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1048">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;accel-edited\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     accel_edited_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1073">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accel-key&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accel_key_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accel_key_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accel_key_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1093">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1095">f</a>(CellRendererAccel::from_glib_borrow(<a href="#1091">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1086">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1086">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accel-key\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accel_key_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1099">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accel-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accel_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accel_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accel_mode_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1119">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1121">f</a>(CellRendererAccel::from_glib_borrow(<a href="#1117">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1112">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1112">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accel-mode\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accel_mode_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1125">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accel-mods&quot;</span>)]
-    </span><span class="kw">fn </span>connect_accel_mods_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_accel_mods_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accel_mods_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1145">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1147">f</a>(CellRendererAccel::from_glib_borrow(<a href="#1143">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1138">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1138">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accel-mods\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accel_mods_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1151">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;keycode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_keycode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_keycode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_keycode_trampoline&lt;
-            P: IsA&lt;CellRendererAccel&gt;,
+            P: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkCellRendererAccel,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererAccel.html">ffi::GtkCellRendererAccel</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(CellRendererAccel::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1171">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#1173">f</a>(CellRendererAccel::from_glib_borrow(<a href="#1169">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#1164">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#1164">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::keycode\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_keycode_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#1177">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;CellRendererAccel&gt;&gt; CellRendererAccelExt <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#13-444">CellRendererAccel</a>&gt;&gt; <a href="#947-1188">CellRendererAccelExt</a> <span class="kw">for </span>O {}
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>CellRendererAccel {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;CellRendererAccel&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#13-444">CellRendererAccel</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#1193">f</a>.write_str(<span class="string">&quot;CellRendererAccel&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

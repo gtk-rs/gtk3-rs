@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2387,11 +2387,11 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{
-    AccelGroup, Orientation, PageSetup, PositionType, PrintSettings, SelectionData, StyleContext,
-    TextBuffer, TextDirection, TreeModel, TreePath, Widget, Window,
+    <a href="accel_group.rs.html#12-68">AccelGroup</a>, <a href="enums.rs.html#4998-5007">Orientation</a>, <a href="page_setup.rs.html#9-67">PageSetup</a>, <a href="enums.rs.html#6079-6094">PositionType</a>, <a href="print_settings.rs.html#12-35">PrintSettings</a>, <a href="selection_data.rs.html#9-18">SelectionData</a>, <a href="style_context.rs.html#16-115">StyleContext</a>,
+    <a href="text_buffer.rs.html#13-239">TextBuffer</a>, <a href="enums.rs.html#9893-9905">TextDirection</a>, <a href="tree_model.rs.html#13-276">TreeModel</a>, <a href="tree_path.rs.html#8-17">TreePath</a>, <a href="widget.rs.html#17-1520">Widget</a>, <a href="window.rs.html#16-1427">Window</a>,
 };
-<span class="kw">use </span>glib::{prelude::<span class="kw-2">*</span>, translate::<span class="kw-2">*</span>};
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, mem, ptr};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
 
 <span class="doccomment">/// Finds the first accelerator in any [`AccelGroup`][crate::AccelGroup] attached
 /// to `object` that matches `accel_key` and `accel_mods`, and
@@ -2409,17 +2409,17 @@
 /// [`true`] if an accelerator was activated and handled
 ///  this keypress
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accel_groups_activate&quot;</span>)]
-</span><span class="kw">pub fn </span>accel_groups_activate(
-    object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;,
-    accel_key: u32,
-    accel_mods: gdk::ModifierType,
-) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accel_groups_activate.html">accel_groups_activate</a>(
+    object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt;,
+    accel_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    accel_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_accel_groups_activate(
-            object.as_ref().to_glib_none().<span class="number">0</span>,
-            accel_key,
-            accel_mods.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_accel_groups_activate(
+            <a href="#29">object</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#30">accel_key</a>,
+            <a href="#31">accel_mods</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2433,11 +2433,11 @@
 /// a list of
 ///  all accel groups which are attached to `object`
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accel_groups_from_object&quot;</span>)]
-</span><span class="kw">pub fn </span>accel_groups_from_object(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;) -&gt; Vec&lt;AccelGroup&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accel_groups_from_object.html">accel_groups_from_object</a>(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt;) -&gt; Vec&lt;<a href="accel_group.rs.html#12-68">AccelGroup</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        FromGlibPtrContainer::from_glib_none(ffi::gtk_accel_groups_from_object(
-            object.as_ref().to_glib_none().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_none</a>(ffi::gtk_accel_groups_from_object(
+            <a href="#52">object</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -2451,9 +2451,9 @@
 ///
 /// the default accelerator modifier mask
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_default_mod_mask&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_get_default_mod_mask() -&gt; gdk::ModifierType {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_accelerator_get_default_mod_mask()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_get_default_mod_mask.html">accelerator_get_default_mod_mask</a>() -&gt; <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_accelerator_get_default_mod_mask()) }
 }
 
 <span class="doccomment">/// Converts an accelerator keyval and modifier mask into a string
@@ -2467,15 +2467,15 @@
 ///
 /// a newly-allocated string representing the accelerator.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_get_label(
-    accelerator_key: u32,
-    accelerator_mods: gdk::ModifierType,
-) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_get_label.html">accelerator_get_label</a>(
+    accelerator_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    accelerator_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gtk_accelerator_get_label(
-            accelerator_key,
-            accelerator_mods.into_glib(),
+            <a href="#87">accelerator_key</a>,
+            <a href="#88">accelerator_mods</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2500,19 +2500,19 @@
 ///
 /// a newly-allocated string representing the accelerator.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_get_label_with_keycode&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_get_label_with_keycode(
-    display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Display&gt;,
-    accelerator_key: u32,
-    keycode: u32,
-    accelerator_mods: gdk::ModifierType,
-) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_get_label_with_keycode.html">accelerator_get_label_with_keycode</a>(
+    display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;,
+    accelerator_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    keycode: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    accelerator_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gtk_accelerator_get_label_with_keycode(
-            display.to_glib_none().<span class="number">0</span>,
-            accelerator_key,
-            keycode,
-            accelerator_mods.into_glib(),
+            <a href="#120">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#121">accelerator_key</a>,
+            <a href="#122">keycode</a>,
+            <a href="#123">accelerator_mods</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2532,15 +2532,15 @@
 ///
 /// a newly-allocated accelerator name
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_name&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_name(
-    accelerator_key: u32,
-    accelerator_mods: gdk::ModifierType,
-) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_name.html">accelerator_name</a>(
+    accelerator_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    accelerator_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gtk_accelerator_name(
-            accelerator_key,
-            accelerator_mods.into_glib(),
+            <a href="#152">accelerator_key</a>,
+            <a href="#153">accelerator_mods</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2563,19 +2563,19 @@
 ///
 /// a newly allocated accelerator name.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_name_with_keycode&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_name_with_keycode(
-    display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>gdk::Display&gt;,
-    accelerator_key: u32,
-    keycode: u32,
-    accelerator_mods: gdk::ModifierType,
-) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_name_with_keycode.html">accelerator_name_with_keycode</a>(
+    display: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;,
+    accelerator_key: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    keycode: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    accelerator_mods: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gtk_accelerator_name_with_keycode(
-            display.to_glib_none().<span class="number">0</span>,
-            accelerator_key,
-            keycode,
-            accelerator_mods.into_glib(),
+            <a href="#183">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#184">accelerator_key</a>,
+            <a href="#185">keycode</a>,
+            <a href="#186">accelerator_mods</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2606,19 +2606,19 @@
 /// return location for accelerator
 ///  modifier mask, [`None`]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_parse&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_parse(accelerator: <span class="kw-2">&amp;</span>str) -&gt; (u32, gdk::ModifierType) {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_parse.html">accelerator_parse</a>(accelerator: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; (<a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>) {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>accelerator_key = mem::MaybeUninit::uninit();
         <span class="kw">let </span><span class="kw-2">mut </span>accelerator_mods = mem::MaybeUninit::uninit();
         ffi::gtk_accelerator_parse(
-            accelerator.to_glib_none().<span class="number">0</span>,
-            accelerator_key.as_mut_ptr(),
-            accelerator_mods.as_mut_ptr(),
+            <a href="#225">accelerator</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#228">accelerator_key</a>.as_mut_ptr(),
+            <a href="#229">accelerator_mods</a>.as_mut_ptr(),
         );
         (
-            accelerator_key.assume_init(),
-            from_glib(accelerator_mods.assume_init()),
+            <a href="#228">accelerator_key</a>.assume_init(),
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#229">accelerator_mods</a>.assume_init()),
         )
     }
 }
@@ -2638,10 +2638,10 @@
 /// ## `default_mod_mask`
 /// accelerator modifier mask
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_set_default_mod_mask&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_set_default_mod_mask(default_mod_mask: gdk::ModifierType) {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_set_default_mod_mask.html">accelerator_set_default_mod_mask</a>(default_mod_mask: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>) {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_accelerator_set_default_mod_mask(default_mod_mask.into_glib());
+        ffi::gtk_accelerator_set_default_mod_mask(<a href="#257">default_mod_mask</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
     }
 }
 
@@ -2659,9 +2659,9 @@
 ///
 /// [`true`] if the accelerator is valid
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_accelerator_valid&quot;</span>)]
-</span><span class="kw">pub fn </span>accelerator_valid(keyval: u32, modifiers: gdk::ModifierType) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_accelerator_valid(keyval, modifiers.into_glib())) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.accelerator_valid.html">accelerator_valid</a>(keyval: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, modifiers: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_accelerator_valid(<a href="#278">keyval</a>, <a href="#278">modifiers</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>())) }
 }
 
 <span class="doccomment">/// Find a key binding matching `keyval` and `modifiers` and activate the
@@ -2677,17 +2677,17 @@
 ///
 /// [`true`] if a binding was found and activated
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_bindings_activate&quot;</span>)]
-</span><span class="kw">pub fn </span>bindings_activate(
-    object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;,
-    keyval: u32,
-    modifiers: gdk::ModifierType,
-) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.bindings_activate.html">bindings_activate</a>(
+    object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt;,
+    keyval: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    modifiers: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_bindings_activate(
-            object.as_ref().to_glib_none().<span class="number">0</span>,
-            keyval,
-            modifiers.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_bindings_activate(
+            <a href="#297">object</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#298">keyval</a>,
+            <a href="#299">modifiers</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -2703,12 +2703,12 @@
 ///
 /// [`true`] if a matching key binding was found
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_bindings_activate_event&quot;</span>)]
-</span><span class="kw">pub fn </span>bindings_activate_event(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;glib::Object&gt;, event: <span class="kw-2">&amp;mut </span>gdk::EventKey) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.bindings_activate_event.html">bindings_activate_event</a>(object: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt;, event: <span class="kw-2">&amp;mut </span><a href="../../../gdk/event_key/struct.EventKey.html">gdk::EventKey</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_bindings_activate_event(
-            object.as_ref().to_glib_none().<span class="number">0</span>,
-            event.to_glib_none_mut().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_bindings_activate_event(
+            <a href="#322">object</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#322">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -2732,12 +2732,12 @@
 ///
 /// [`true`] if `window` should be drawn
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cairo_should_draw_window&quot;</span>)]
-</span><span class="kw">pub fn </span>cairo_should_draw_window(cr: <span class="kw-2">&amp;</span>cairo::Context, window: <span class="kw-2">&amp;</span>gdk::Window) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.cairo_should_draw_window.html">cairo_should_draw_window</a>(cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>, window: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/window/struct.Window.html">gdk::Window</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_cairo_should_draw_window(
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            window.to_glib_none().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_cairo_should_draw_window(
+            mut_override(<a href="#351">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#351">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -2758,17 +2758,17 @@
 /// ## `window`
 /// the window to transform the context to
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cairo_transform_to_window&quot;</span>)]
-</span><span class="kw">pub fn </span>cairo_transform_to_window(
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    window: <span class="kw-2">&amp;</span>gdk::Window,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.cairo_transform_to_window.html">cairo_transform_to_window</a>(
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    window: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/window/struct.Window.html">gdk::Window</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_cairo_transform_to_window(
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            window.to_glib_none().<span class="number">0</span>,
+            mut_override(<a href="#378">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#379">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#380">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         );
     }
 }
@@ -2809,17 +2809,17 @@
 ///  The returned string is owned by GTK+ and should not be modified
 ///  or freed.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_check_version&quot;</span>)]
-</span><span class="kw">pub fn </span>check_version(
-    required_major: u32,
-    required_minor: u32,
-    required_micro: u32,
-) -&gt; <span class="prelude-ty">Option</span>&lt;glib::GString&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.check_version.html">check_version</a>(
+    required_major: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    required_minor: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    required_micro: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib_none(ffi::gtk_check_version(
-            required_major,
-            required_minor,
-            required_micro,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_check_version(
+            <a href="#429">required_major</a>,
+            <a href="#430">required_minor</a>,
+            <a href="#431">required_micro</a>,
         ))
     }
 }
@@ -2835,13 +2835,13 @@
 /// ## `block_others`
 /// [`true`] to prevent other devices to interact with `widget`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_device_grab_add&quot;</span>)]
-</span><span class="kw">pub fn </span>device_grab_add(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, device: <span class="kw-2">&amp;</span>gdk::Device, block_others: bool) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.device_grab_add.html">device_grab_add</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, device: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/device/struct.Device.html">gdk::Device</a>, block_others: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_device_grab_add(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            device.to_glib_none().<span class="number">0</span>,
-            block_others.into_glib(),
+            <a href="#454">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#454">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#454">block_others</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         );
     }
 }
@@ -2855,10 +2855,10 @@
 /// ## `device`
 /// a [`gdk::Device`][crate::gdk::Device]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_device_grab_remove&quot;</span>)]
-</span><span class="kw">pub fn </span>device_grab_remove(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, device: <span class="kw-2">&amp;</span>gdk::Device) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.device_grab_remove.html">device_grab_remove</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, device: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/device/struct.Device.html">gdk::Device</a>) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_device_grab_remove(widget.as_ref().to_glib_none().<span class="number">0</span>, device.to_glib_none().<span class="number">0</span>);
+        ffi::gtk_device_grab_remove(<a href="#474">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#474">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
     }
 }
 
@@ -2871,8 +2871,8 @@
 ///
 /// Most programs should not need to call this function.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_disable_setlocale&quot;</span>)]
-</span><span class="kw">pub fn </span>disable_setlocale() {
-    <span class="macro">assert_not_initialized!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.disable_setlocale.html">disable_setlocale</a>() {
+    <a class="macro" href="../rt.rs.html#38-44">assert_not_initialized!</a>();
     <span class="kw">unsafe </span>{
         ffi::gtk_disable_setlocale();
     }
@@ -2907,16 +2907,16 @@
 ///
 /// [`true`] if any events are pending, [`false`] otherwise
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_events_pending&quot;</span>)]
-</span><span class="kw">pub fn </span>events_pending() -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_events_pending()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.events_pending.html">events_pending</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_events_pending()) }
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gtk_false&quot;</span>)]
 #[doc(alias = <span class="string">&quot;false&quot;</span>)]
-</span><span class="kw">pub fn </span>false_() -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_false()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.false_.html">false_</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_false()) }
 }
 
 <span class="doccomment">/// Returns the binary age as passed to `libtool`
@@ -2929,7 +2929,7 @@
 /// the binary age of the GTK+ library
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_binary_age&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_binary_age&quot;</span>)]
-</span><span class="kw">pub fn </span>binary_age() -&gt; u32 {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.binary_age.html">binary_age</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_binary_age() }
 }
@@ -2947,8 +2947,8 @@
 ///  freed with `gdk_event_free()`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event&quot;</span>)]
-</span><span class="kw">pub fn </span>current_event() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Event&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.current_event.html">current_event</a>() -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/event/struct.Event.html">gdk::Event</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_get_current_event()) }
 }
 
@@ -2960,9 +2960,9 @@
 /// a [`gdk::Device`][crate::gdk::Device], or [`None`]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_device&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_device&quot;</span>)]
-</span><span class="kw">pub fn </span>current_event_device() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::Device&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_get_current_event_device()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.current_event_device.html">current_event_device</a>() -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/device/struct.Device.html">gdk::Device</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_get_current_event_device()) }
 }
 
 <span class="doccomment">/// If there is a current event and it has a state field, place
@@ -2978,13 +2978,13 @@
 /// a location to store the state of the current event
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_state&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_state&quot;</span>)]
-</span><span class="kw">pub fn </span>current_event_state() -&gt; <span class="prelude-ty">Option</span>&lt;gdk::ModifierType&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.current_event_state.html">current_event_state</a>() -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>state = mem::MaybeUninit::uninit();
-        <span class="kw">let </span>ret = from_glib(ffi::gtk_get_current_event_state(state.as_mut_ptr()));
+        <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_get_current_event_state(<a href="#600">state</a>.as_mut_ptr()));
         <span class="kw">if </span>ret {
-            <span class="prelude-val">Some</span>(from_glib(state.assume_init()))
+            <span class="prelude-val">Some</span>(<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#600">state</a>.assume_init()))
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>}
@@ -3000,8 +3000,8 @@
 ///  or `GDK_CURRENT_TIME`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_current_event_time&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_current_event_time&quot;</span>)]
-</span><span class="kw">pub fn </span>current_event_time() -&gt; u32 {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.current_event_time.html">current_event_time</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_current_event_time() }
 }
 
@@ -3015,8 +3015,8 @@
 /// the GTK+ debug flags.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_debug_flags&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_debug_flags&quot;</span>)]
-</span><span class="kw">pub fn </span>debug_flags() -&gt; u32 {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.debug_flags.html">debug_flags</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_debug_flags() }
 }
 
@@ -3035,9 +3035,9 @@
 ///  must not be freed
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_default_language&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_default_language&quot;</span>)]
-</span><span class="kw">pub fn </span>default_language() -&gt; <span class="prelude-ty">Option</span>&lt;pango::Language&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_get_default_language()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.default_language.html">default_language</a>() -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/language/struct.Language.html">pango::Language</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_get_default_language()) }
 }
 
 <span class="doccomment">/// If `event` is [`None`] or the event was not associated with any widget,
@@ -3052,9 +3052,9 @@
 ///  received `event`, or [`None`]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_event_widget&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_event_widget&quot;</span>)]
-</span><span class="kw">pub fn </span>event_widget(event: <span class="kw-2">&amp;mut </span>gdk::Event) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_get_event_widget(event.to_glib_none_mut().<span class="number">0</span>)) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.event_widget.html">event_widget</a>(event: <span class="kw-2">&amp;mut </span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_get_event_widget(<a href="#671">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>)) }
 }
 
 <span class="doccomment">/// Returns the interface age as passed to `libtool`
@@ -3067,7 +3067,7 @@
 /// the interface age of the GTK+ library
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_interface_age&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_interface_age&quot;</span>)]
-</span><span class="kw">pub fn </span>interface_age() -&gt; u32 {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.interface_age.html">interface_age</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_interface_age() }
 }
@@ -3103,9 +3103,9 @@
 /// the [`TextDirection`][crate::TextDirection] of the current locale
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_locale_direction&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_locale_direction&quot;</span>)]
-</span><span class="kw">pub fn </span>locale_direction() -&gt; TextDirection {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_get_locale_direction()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.locale_direction.html">locale_direction</a>() -&gt; <a href="enums.rs.html#9893-9905">TextDirection</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_get_locale_direction()) }
 }
 
 <span class="doccomment">/// Returns the major version number of the GTK+ library.
@@ -3121,7 +3121,7 @@
 /// the major version number of the GTK+ library
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_major_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_major_version&quot;</span>)]
-</span><span class="kw">pub fn </span>major_version() -&gt; u32 {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.major_version.html">major_version</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_major_version() }
 }
@@ -3139,7 +3139,7 @@
 /// the micro version number of the GTK+ library
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_micro_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_micro_version&quot;</span>)]
-</span><span class="kw">pub fn </span>micro_version() -&gt; u32 {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.micro_version.html">micro_version</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_micro_version() }
 }
@@ -3157,7 +3157,7 @@
 /// the minor version number of the GTK+ library
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_get_minor_version&quot;</span>)]
 #[doc(alias = <span class="string">&quot;get_minor_version&quot;</span>)]
-</span><span class="kw">pub fn </span>minor_version() -&gt; u32 {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.minor_version.html">minor_version</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{ ffi::gtk_get_minor_version() }
 }
@@ -3175,9 +3175,9 @@
 /// The widget which currently
 ///  has the grab or [`None`] if no grab is active
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_grab_get_current&quot;</span>)]
-</span><span class="kw">pub fn </span>grab_get_current() -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib_none(ffi::gtk_grab_get_current()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.grab_get_current.html">grab_get_current</a>() -&gt; <span class="prelude-ty">Option</span>&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_grab_get_current()) }
 }
 
 <span class="doccomment">/// Runs the main loop until `gtk_main_quit()` is called.
@@ -3185,8 +3185,8 @@
 /// You can nest calls to [`main()`][crate::main()]. In that case `gtk_main_quit()`
 /// will make the innermost invocation of the main loop return.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main&quot;</span>)]
-</span><span class="kw">pub fn </span>main() {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.main.html">main</a>() {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         ffi::gtk_main();
     }
@@ -3231,10 +3231,10 @@
 /// ## `event`
 /// An event to process (normally passed by GDK)
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_do_event&quot;</span>)]
-</span><span class="kw">pub fn </span>main_do_event(event: <span class="kw-2">&amp;mut </span>gdk::Event) {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.main_do_event.html">main_do_event</a>(event: <span class="kw-2">&amp;mut </span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_main_do_event(event.to_glib_none_mut().<span class="number">0</span>);
+        ffi::gtk_main_do_event(<a href="#850">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>);
     }
 }
 
@@ -3250,9 +3250,9 @@
 /// [`true`] if `gtk_main_quit()` has been called for the
 ///  innermost mainloop
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_iteration&quot;</span>)]
-</span><span class="kw">pub fn </span>main_iteration() -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_main_iteration()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.main_iteration.html">main_iteration</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_main_iteration()) }
 }
 
 <span class="doccomment">/// Runs a single iteration of the mainloop.
@@ -3266,9 +3266,9 @@
 /// [`true`] if `gtk_main_quit()` has been called for the
 ///  innermost mainloop
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_iteration_do&quot;</span>)]
-</span><span class="kw">pub fn </span>main_iteration_do(blocking: bool) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_main_iteration_do(blocking.into_glib())) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.main_iteration_do.html">main_iteration_do</a>(blocking: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_main_iteration_do(<a href="#885">blocking</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>())) }
 }
 
 <span class="doccomment">/// Asks for the current nesting level of the main loop.
@@ -3278,8 +3278,8 @@
 /// the nesting level of the current invocation
 ///  of the main loop
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_main_level&quot;</span>)]
-</span><span class="kw">pub fn </span>main_level() -&gt; u32 {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.main_level.html">main_level</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ ffi::gtk_main_level() }
 }
 
@@ -3302,17 +3302,17 @@
 ///
 /// a new [`PageSetup`][crate::PageSetup]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog&quot;</span>)]
-</span><span class="kw">pub fn </span>print_run_page_setup_dialog(
-    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
-    page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;,
-    settings: <span class="kw-2">&amp;</span>PrintSettings,
-) -&gt; <span class="prelude-ty">Option</span>&lt;PageSetup&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.print_run_page_setup_dialog.html">print_run_page_setup_dialog</a>(
+    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="window.rs.html#16-1427">Window</a>&gt;&gt;,
+    page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="page_setup.rs.html#9-67">PageSetup</a>&gt;,
+    settings: <span class="kw-2">&amp;</span><a href="print_settings.rs.html#12-35">PrintSettings</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="page_setup.rs.html#9-67">PageSetup</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gtk_print_run_page_setup_dialog(
-            parent.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            page_setup.to_glib_none().<span class="number">0</span>,
-            settings.to_glib_none().<span class="number">0</span>,
+            <a href="#922">parent</a>.map(|p| <a href="#929">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#923">page_setup</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#924">settings</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -3332,31 +3332,31 @@
 /// a function to call when the user saves
 ///  the modified page setup
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_print_run_page_setup_dialog_async&quot;</span>)]
-</span><span class="kw">pub fn </span>print_run_page_setup_dialog_async&lt;P: FnOnce(<span class="kw-2">&amp;</span>PageSetup) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;(
-    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
-    page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>PageSetup&gt;,
-    settings: <span class="kw-2">&amp;</span>PrintSettings,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.print_run_page_setup_dialog_async.html">print_run_page_setup_dialog_async</a>&lt;P: FnOnce(<span class="kw-2">&amp;</span><a href="page_setup.rs.html#9-67">PageSetup</a>) + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> + <span class="lifetime">&#39;static</span>&gt;(
+    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="window.rs.html#16-1427">Window</a>&gt;&gt;,
+    page_setup: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="page_setup.rs.html#9-67">PageSetup</a>&gt;,
+    settings: <span class="kw-2">&amp;</span><a href="print_settings.rs.html#12-35">PrintSettings</a>,
     done_cb: P,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">let </span>done_cb_data: Box_&lt;P&gt; = Box_::new(done_cb);
-    <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>done_cb_func&lt;P: FnOnce(<span class="kw-2">&amp;</span>PageSetup) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;(
-        page_setup: <span class="kw-2">*mut </span>ffi::GtkPageSetup,
+    <span class="kw">let </span>done_cb_data: Box_&lt;P&gt; = Box_::new(<a href="#955">done_cb</a>);
+    <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>done_cb_func&lt;P: FnOnce(<span class="kw-2">&amp;</span><a href="page_setup.rs.html#9-67">PageSetup</a>) + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html">Send</a> + <a href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html">Sync</a> + <span class="lifetime">&#39;static</span>&gt;(
+        page_setup: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkPageSetup.html">ffi::GtkPageSetup</a>,
         data: glib::ffi::gpointer,
     ) {
-        <span class="kw">let </span>page_setup = from_glib_borrow(page_setup);
-        <span class="kw">let </span>callback: Box_&lt;P&gt; = Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-        (<span class="kw-2">*</span>callback)(<span class="kw-2">&amp;</span>page_setup)
+        <span class="kw">let </span>page_setup = from_glib_borrow(<a href="#960">page_setup</a>);
+        <span class="kw">let </span>callback: Box_&lt;P&gt; = Box_::from_raw(<a href="#961">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+        (<span class="kw-2">*</span><a href="#964">callback</a>)(<span class="kw-2">&amp;</span><a href="#963">page_setup</a>)
     }
     <span class="kw">let </span>done_cb = <span class="prelude-val">Some</span>(done_cb_func::&lt;P&gt; <span class="kw">as _</span>);
-    <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = done_cb_data;
+    <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#958">done_cb_data</a>;
     <span class="kw">unsafe </span>{
         ffi::gtk_print_run_page_setup_dialog_async(
-            parent.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            page_setup.to_glib_none().<span class="number">0</span>,
-            settings.to_glib_none().<span class="number">0</span>,
-            done_cb,
-            Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="#952">parent</a>.map(|p| <a href="#971">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#953">page_setup</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#954">settings</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#967">done_cb</a>,
+            Box_::into_raw(<a href="#968">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
         );
     }
 }
@@ -3384,10 +3384,10 @@
 /// ## `event`
 /// an event
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_propagate_event&quot;</span>)]
-</span><span class="kw">pub fn </span>propagate_event(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, event: <span class="kw-2">&amp;mut </span>gdk::Event) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.propagate_event.html">propagate_event</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, event: <span class="kw-2">&amp;mut </span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_propagate_event(widget.as_ref().to_glib_none().<span class="number">0</span>, event.to_glib_none_mut().<span class="number">0</span>);
+        ffi::gtk_propagate_event(<a href="#1003">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#1003">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>);
     }
 }
 
@@ -3407,23 +3407,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_activity&quot;</span>)]
-</span><span class="kw">pub fn </span>render_activity(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_activity.html">render_activity</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_activity(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1027">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1028">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1029">x</a>,
+            <a href="#1030">y</a>,
+            <a href="#1031">width</a>,
+            <a href="#1032">height</a>,
         );
     }
 }
@@ -3446,23 +3446,23 @@
 /// ## `size`
 /// square side for render area
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_arrow&quot;</span>)]
-</span><span class="kw">pub fn </span>render_arrow(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    angle: f64,
-    x: f64,
-    y: f64,
-    size: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_arrow.html">render_arrow</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    angle: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    size: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_arrow(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            angle,
-            x,
-            y,
-            size,
+            <a href="#1066">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1067">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1068">angle</a>,
+            <a href="#1069">x</a>,
+            <a href="#1070">y</a>,
+            <a href="#1071">size</a>,
         );
     }
 }
@@ -3486,23 +3486,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_background&quot;</span>)]
-</span><span class="kw">pub fn </span>render_background(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_background.html">render_background</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_background(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1106">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1107">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1108">x</a>,
+            <a href="#1109">y</a>,
+            <a href="#1110">width</a>,
+            <a href="#1111">height</a>,
         );
     }
 }
@@ -3527,25 +3527,25 @@
 /// ## `out_clip`
 /// return location for the clip
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_background_get_clip&quot;</span>)]
-</span><span class="kw">pub fn </span>render_background_get_clip(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
-) -&gt; gdk::Rectangle {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_background_get_clip.html">render_background_get_clip</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+) -&gt; <a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>out_clip = gdk::Rectangle::uninitialized();
         ffi::gtk_render_background_get_clip(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            x,
-            y,
-            width,
-            height,
-            out_clip.to_glib_none_mut().<span class="number">0</span>,
+            <a href="#1147">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1148">x</a>,
+            <a href="#1149">y</a>,
+            <a href="#1150">width</a>,
+            <a href="#1151">height</a>,
+            <a href="#1155">out_clip</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
         );
-        out_clip
+        <a href="#1155">out_clip</a>
     }
 }
 
@@ -3571,23 +3571,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_check&quot;</span>)]
-</span><span class="kw">pub fn </span>render_check(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_check.html">render_check</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_check(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1191">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1192">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1193">x</a>,
+            <a href="#1194">y</a>,
+            <a href="#1195">width</a>,
+            <a href="#1196">height</a>,
         );
     }
 }
@@ -3612,23 +3612,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_expander&quot;</span>)]
-</span><span class="kw">pub fn </span>render_expander(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_expander.html">render_expander</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_expander(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1232">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1233">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1234">x</a>,
+            <a href="#1235">y</a>,
+            <a href="#1236">width</a>,
+            <a href="#1237">height</a>,
         );
     }
 }
@@ -3655,25 +3655,25 @@
 /// ## `gap_side`
 /// side where the gap is
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_extension&quot;</span>)]
-</span><span class="kw">pub fn </span>render_extension(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
-    gap_side: PositionType,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_extension.html">render_extension</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    gap_side: <a href="enums.rs.html#6079-6094">PositionType</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_extension(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
-            gap_side.into_glib(),
+            <a href="#1275">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1276">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1277">x</a>,
+            <a href="#1278">y</a>,
+            <a href="#1279">width</a>,
+            <a href="#1280">height</a>,
+            <a href="#1281">gap_side</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         );
     }
 }
@@ -3696,23 +3696,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_focus&quot;</span>)]
-</span><span class="kw">pub fn </span>render_focus(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_focus.html">render_focus</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_focus(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1316">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1317">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1318">x</a>,
+            <a href="#1319">y</a>,
+            <a href="#1320">width</a>,
+            <a href="#1321">height</a>,
         );
     }
 }
@@ -3736,23 +3736,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_frame&quot;</span>)]
-</span><span class="kw">pub fn </span>render_frame(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_frame.html">render_frame</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_frame(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1356">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1357">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1358">x</a>,
+            <a href="#1359">y</a>,
+            <a href="#1360">width</a>,
+            <a href="#1361">height</a>,
         );
     }
 }
@@ -3791,29 +3791,29 @@
 </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;v3_24&quot;</span>, deprecated = <span class="string">&quot;Since 3.24&quot;</span>)]
 #[allow(deprecated)]
 #[doc(alias = <span class="string">&quot;gtk_render_frame_gap&quot;</span>)]
-</span><span class="kw">pub fn </span>render_frame_gap(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
-    gap_side: PositionType,
-    xy0_gap: f64,
-    xy1_gap: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_frame_gap.html">render_frame_gap</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    gap_side: <a href="enums.rs.html#6079-6094">PositionType</a>,
+    xy0_gap: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    xy1_gap: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_frame_gap(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
-            gap_side.into_glib(),
-            xy0_gap,
-            xy1_gap,
+            <a href="#1411">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1412">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1413">x</a>,
+            <a href="#1414">y</a>,
+            <a href="#1415">width</a>,
+            <a href="#1416">height</a>,
+            <a href="#1417">gap_side</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="#1418">xy0_gap</a>,
+            <a href="#1419">xy1_gap</a>,
         );
     }
 }
@@ -3838,23 +3838,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_handle&quot;</span>)]
-</span><span class="kw">pub fn </span>render_handle(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_handle.html">render_handle</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_handle(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1458">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1459">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1460">x</a>,
+            <a href="#1461">y</a>,
+            <a href="#1462">width</a>,
+            <a href="#1463">height</a>,
         );
     }
 }
@@ -3878,21 +3878,21 @@
 /// ## `y`
 /// Y position for the `pixbuf`
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_icon&quot;</span>)]
-</span><span class="kw">pub fn </span>render_icon(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::Pixbuf,
-    x: f64,
-    y: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_icon.html">render_icon</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_icon(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            pixbuf.to_glib_none().<span class="number">0</span>,
-            x,
-            y,
+            <a href="#1498">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1499">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1500">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1501">x</a>,
+            <a href="#1502">y</a>,
         );
     }
 }
@@ -3909,21 +3909,21 @@
 /// ## `y`
 /// Y position for the `incon`
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_icon_surface&quot;</span>)]
-</span><span class="kw">pub fn </span>render_icon_surface(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    surface: <span class="kw-2">&amp;</span>cairo::Surface,
-    x: f64,
-    y: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_icon_surface.html">render_icon_surface</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    surface: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">cairo::Surface</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_icon_surface(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            mut_override(surface.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
+            <a href="#1529">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1530">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            mut_override(<a href="#1531">surface</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1532">x</a>,
+            <a href="#1533">y</a>,
         );
     }
 }
@@ -3944,25 +3944,25 @@
 /// ## `direction`
 /// the [`pango::Direction`][crate::pango::Direction] of the text
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_insertion_cursor&quot;</span>)]
-</span><span class="kw">pub fn </span>render_insertion_cursor(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    layout: <span class="kw-2">&amp;</span>pango::Layout,
-    index: i32,
-    direction: pango::Direction,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_insertion_cursor.html">render_insertion_cursor</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    layout: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout/struct.Layout.html">pango::Layout</a>,
+    index: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+    direction: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Direction.html">pango::Direction</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_insertion_cursor(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            layout.to_glib_none().<span class="number">0</span>,
-            index,
-            direction.into_glib(),
+            <a href="#1564">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1565">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1566">x</a>,
+            <a href="#1567">y</a>,
+            <a href="#1568">layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1569">index</a>,
+            <a href="#1570">direction</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         );
     }
 }
@@ -3979,21 +3979,21 @@
 /// ## `layout`
 /// the [`pango::Layout`][crate::pango::Layout] to render
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_layout&quot;</span>)]
-</span><span class="kw">pub fn </span>render_layout(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    layout: <span class="kw-2">&amp;</span>pango::Layout,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_layout.html">render_layout</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    layout: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout/struct.Layout.html">pango::Layout</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_layout(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            layout.to_glib_none().<span class="number">0</span>,
+            <a href="#1599">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1600">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1601">x</a>,
+            <a href="#1602">y</a>,
+            <a href="#1603">layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         );
     }
 }
@@ -4012,23 +4012,23 @@
 /// ## `y1`
 /// Y coordinate for the end of the line
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_line&quot;</span>)]
-</span><span class="kw">pub fn </span>render_line(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x0: f64,
-    y0: f64,
-    x1: f64,
-    y1: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_line.html">render_line</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x0: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y0: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    x1: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y1: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_line(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x0,
-            y0,
-            x1,
-            y1,
+            <a href="#1632">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1633">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1634">x0</a>,
+            <a href="#1635">y0</a>,
+            <a href="#1636">x1</a>,
+            <a href="#1637">y1</a>,
         );
     }
 }
@@ -4053,23 +4053,23 @@
 /// ## `height`
 /// rectangle height
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_option&quot;</span>)]
-</span><span class="kw">pub fn </span>render_option(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_option.html">render_option</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_option(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
+            <a href="#1673">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1674">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1675">x</a>,
+            <a href="#1676">y</a>,
+            <a href="#1677">width</a>,
+            <a href="#1678">height</a>,
         );
     }
 }
@@ -4096,25 +4096,25 @@
 /// ## `orientation`
 /// orientation of the slider
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_render_slider&quot;</span>)]
-</span><span class="kw">pub fn </span>render_slider(
-    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;StyleContext&gt;,
-    cr: <span class="kw-2">&amp;</span>cairo::Context,
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
-    orientation: Orientation,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.render_slider.html">render_slider</a>(
+    context: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="style_context.rs.html#16-115">StyleContext</a>&gt;,
+    cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+    x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    width: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    height: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
+    orientation: <a href="enums.rs.html#4998-5007">Orientation</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_render_slider(
-            context.as_ref().to_glib_none().<span class="number">0</span>,
-            mut_override(cr.to_glib_none().<span class="number">0</span>),
-            x,
-            y,
-            width,
-            height,
-            orientation.into_glib(),
+            <a href="#1716">context</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a href="#1717">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#1718">x</a>,
+            <a href="#1719">y</a>,
+            <a href="#1720">width</a>,
+            <a href="#1721">height</a>,
+            <a href="#1722">orientation</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         );
     }
 }
@@ -4142,14 +4142,14 @@
 /// ## `v`
 /// Return value for the value component
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_rgb_to_hsv&quot;</span>)]
-</span><span class="kw">pub fn </span>rgb_to_hsv(r: f64, g: f64, b: f64) -&gt; (f64, f64, f64) {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.rgb_to_hsv.html">rgb_to_hsv</a>(r: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, g: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, b: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; (<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>h = mem::MaybeUninit::uninit();
         <span class="kw">let </span><span class="kw-2">mut </span>s = mem::MaybeUninit::uninit();
         <span class="kw">let </span><span class="kw-2">mut </span>v = mem::MaybeUninit::uninit();
-        ffi::gtk_rgb_to_hsv(r, g, b, h.as_mut_ptr(), s.as_mut_ptr(), v.as_mut_ptr());
-        (h.assume_init(), s.assume_init(), v.assume_init())
+        ffi::gtk_rgb_to_hsv(<a href="#1761">r</a>, <a href="#1761">g</a>, <a href="#1761">b</a>, <a href="#1764">h</a>.as_mut_ptr(), <a href="#1765">s</a>.as_mut_ptr(), <a href="#1766">v</a>.as_mut_ptr());
+        (<a href="#1764">h</a>.assume_init(), <a href="#1765">s</a>.assume_init(), <a href="#1766">v</a>.assume_init())
     }
 }
 
@@ -4164,19 +4164,19 @@
 /// ## `info`
 /// A unsigned integer which will be passed back to the application.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_add_target&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_add_target(
-    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    selection: <span class="kw-2">&amp;</span>gdk::Atom,
-    target: <span class="kw-2">&amp;</span>gdk::Atom,
-    info: u32,
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_add_target.html">selection_add_target</a>(
+    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    target: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    info: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
 ) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_selection_add_target(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            selection.to_glib_none().<span class="number">0</span>,
-            target.to_glib_none().<span class="number">0</span>,
-            info,
+            <a href="#1784">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1785">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1786">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1787">info</a>,
         );
     }
 }
@@ -4188,12 +4188,12 @@
 /// ## `selection`
 /// an atom representing a selection
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_clear_targets&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_clear_targets(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, selection: <span class="kw-2">&amp;</span>gdk::Atom) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_clear_targets.html">selection_clear_targets</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gtk_selection_clear_targets(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            selection.to_glib_none().<span class="number">0</span>,
+            <a href="#1807">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1807">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         );
     }
 }
@@ -4216,19 +4216,19 @@
 ///  request. (e.g., there was already a request in process for
 ///  this widget).
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_convert&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_convert(
-    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    selection: <span class="kw-2">&amp;</span>gdk::Atom,
-    target: <span class="kw-2">&amp;</span>gdk::Atom,
-    time_: u32,
-) -&gt; bool {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_convert.html">selection_convert</a>(
+    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    target: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    time_: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_selection_convert(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            selection.to_glib_none().<span class="number">0</span>,
-            target.to_glib_none().<span class="number">0</span>,
-            time_,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_selection_convert(
+            <a href="#1836">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1837">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1838">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1839">time_</a>,
         ))
     }
 }
@@ -4246,17 +4246,17 @@
 ///
 /// [`true`] if the operation succeeded
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_owner_set(
-    widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;,
-    selection: <span class="kw-2">&amp;</span>gdk::Atom,
-    time_: u32,
-) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_owner_set.html">selection_owner_set</a>(
+    widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;&gt;,
+    selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    time_: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_selection_owner_set(
-            widget.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            selection.to_glib_none().<span class="number">0</span>,
-            time_,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_selection_owner_set(
+            <a href="#1866">widget</a>.map(|p| <a href="#1873">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1867">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1868">time_</a>,
         ))
     }
 }
@@ -4276,19 +4276,19 @@
 ///
 /// TRUE if the operation succeeded
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_owner_set_for_display&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_owner_set_for_display(
-    display: <span class="kw-2">&amp;</span>gdk::Display,
-    widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;,
-    selection: <span class="kw-2">&amp;</span>gdk::Atom,
-    time_: u32,
-) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_owner_set_for_display.html">selection_owner_set_for_display</a>(
+    display: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>,
+    widget: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;&gt;,
+    selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>,
+    time_: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_selection_owner_set_for_display(
-            display.to_glib_none().<span class="number">0</span>,
-            widget.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            selection.to_glib_none().<span class="number">0</span>,
-            time_,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_selection_owner_set_for_display(
+            <a href="#1896">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1897">widget</a>.map(|p| <a href="#1905">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1898">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1899">time_</a>,
         ))
     }
 }
@@ -4300,19 +4300,19 @@
 /// ## `widget`
 /// a [`Widget`][crate::Widget]
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_selection_remove_all&quot;</span>)]
-</span><span class="kw">pub fn </span>selection_remove_all(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.selection_remove_all.html">selection_remove_all</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_selection_remove_all(widget.as_ref().to_glib_none().<span class="number">0</span>);
+        ffi::gtk_selection_remove_all(<a href="#1919">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
     }
 }
 
 <span class="doccomment">/// Sets the GTK+ debug flags.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_set_debug_flags&quot;</span>)]
-</span><span class="kw">pub fn </span>set_debug_flags(flags: u32) {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.set_debug_flags.html">set_debug_flags</a>(flags: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_set_debug_flags(flags);
+        ffi::gtk_set_debug_flags(<a href="#1928">flags</a>);
     }
 }
 
@@ -4347,25 +4347,25 @@
 ///
 /// [`true`] on success, [`false`] on error
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_show_uri_on_window&quot;</span>)]
-</span><span class="kw">pub fn </span>show_uri_on_window(
-    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Window&gt;&gt;,
-    uri: <span class="kw-2">&amp;</span>str,
-    timestamp: u32,
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), glib::Error&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.show_uri_on_window.html">show_uri_on_window</a>(
+    parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="window.rs.html#16-1427">Window</a>&gt;&gt;,
+    uri: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    timestamp: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
         <span class="kw">let </span>is_ok = ffi::gtk_show_uri_on_window(
-            parent.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-            uri.to_glib_none().<span class="number">0</span>,
-            timestamp,
-            <span class="kw-2">&amp;mut </span>error,
+            <a href="#1967">parent</a>.map(|p| <a href="#1975">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1968">uri</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#1969">timestamp</a>,
+            <span class="kw-2">&amp;mut </span><a href="#1973">error</a>,
         );
-        <span class="macro">debug_assert_eq!</span>(is_ok == glib::ffi::GFALSE, !error.is_null());
+        <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(is_ok == glib::ffi::GFALSE, !error.is_null());
         <span class="kw">if </span>error.is_null() {
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(from_glib_full(error))
+            <span class="prelude-val">Err</span>(from_glib_full(<a href="#1973">error</a>))
         }
     }
 }
@@ -4383,14 +4383,14 @@
 /// [`true`] if `targets` include a suitable target for images,
 ///  otherwise [`false`].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_image&quot;</span>)]
-</span><span class="kw">pub fn </span>targets_include_image(targets: <span class="kw-2">&amp;</span>[gdk::Atom], writable: bool) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.targets_include_image.html">targets_include_image</a>(targets: <span class="kw-2">&amp;</span>[<a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>], writable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">let </span>n_targets = <a href="#2002">targets</a>.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_targets_include_image(
-            targets.to_glib_none().<span class="number">0</span>,
-            n_targets,
-            writable.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_targets_include_image(
+            <a href="#2002">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2004">n_targets</a>,
+            <a href="#2002">writable</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -4407,14 +4407,14 @@
 /// [`true`] if `targets` include a suitable target for rich text,
 ///  otherwise [`false`].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_rich_text&quot;</span>)]
-</span><span class="kw">pub fn </span>targets_include_rich_text(targets: <span class="kw-2">&amp;</span>[gdk::Atom], buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TextBuffer&gt;) -&gt; bool {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.targets_include_rich_text.html">targets_include_rich_text</a>(targets: <span class="kw-2">&amp;</span>[<a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>], buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="text_buffer.rs.html#13-239">TextBuffer</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
+    <span class="kw">let </span>n_targets = <a href="#2026">targets</a>.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_targets_include_rich_text(
-            targets.to_glib_none().<span class="number">0</span>,
-            n_targets,
-            buffer.as_ref().to_glib_none().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_targets_include_rich_text(
+            <a href="#2026">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2028">n_targets</a>,
+            <a href="#2026">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -4429,13 +4429,13 @@
 /// [`true`] if `targets` include a suitable target for text,
 ///  otherwise [`false`].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_text&quot;</span>)]
-</span><span class="kw">pub fn </span>targets_include_text(targets: <span class="kw-2">&amp;</span>[gdk::Atom]) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.targets_include_text.html">targets_include_text</a>(targets: <span class="kw-2">&amp;</span>[<a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">let </span>n_targets = <a href="#2048">targets</a>.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_targets_include_text(
-            targets.to_glib_none().<span class="number">0</span>,
-            n_targets,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_targets_include_text(
+            <a href="#2048">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2050">n_targets</a>,
         ))
     }
 }
@@ -4450,13 +4450,13 @@
 /// [`true`] if `targets` include a suitable target for uri lists,
 ///  otherwise [`false`].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_targets_include_uri&quot;</span>)]
-</span><span class="kw">pub fn </span>targets_include_uri(targets: <span class="kw-2">&amp;</span>[gdk::Atom]) -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">let </span>n_targets = targets.len() <span class="kw">as _</span>;
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.targets_include_uri.html">targets_include_uri</a>(targets: <span class="kw-2">&amp;</span>[<a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">let </span>n_targets = <a href="#2069">targets</a>.len() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_targets_include_uri(
-            targets.to_glib_none().<span class="number">0</span>,
-            n_targets,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_targets_include_uri(
+            <a href="#2069">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2071">n_targets</a>,
         ))
     }
 }
@@ -4477,12 +4477,12 @@
 ///
 /// a GtkLabel widget if any is found.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_label&quot;</span>)]
-</span><span class="kw">pub fn </span>test_find_label(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, label_pattern: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_find_label.html">test_find_label</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, label_pattern: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib_none(ffi::gtk_test_find_label(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            label_pattern.to_glib_none().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_test_find_label(
+            <a href="#2096">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2096">label_pattern</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         ))
     }
 }
@@ -4503,15 +4503,15 @@
 ///
 /// a widget of type `widget_type` if any is found.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_sibling&quot;</span>)]
-</span><span class="kw">pub fn </span>test_find_sibling(
-    base_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    widget_type: glib::types::Type,
-) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_find_sibling.html">test_find_sibling</a>(
+    base_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    widget_type: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::types::Type</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib_none(ffi::gtk_test_find_sibling(
-            base_widget.as_ref().to_glib_none().<span class="number">0</span>,
-            widget_type.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_test_find_sibling(
+            <a href="#2123">base_widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2124">widget_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -4534,17 +4534,17 @@
 ///
 /// a valid widget if any is found or [`None`].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_find_widget&quot;</span>)]
-</span><span class="kw">pub fn </span>test_find_widget(
-    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    label_pattern: <span class="kw-2">&amp;</span>str,
-    widget_type: glib::types::Type,
-) -&gt; <span class="prelude-ty">Option</span>&lt;Widget&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_find_widget.html">test_find_widget</a>(
+    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    label_pattern: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    widget_type: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::types::Type</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib_none(ffi::gtk_test_find_widget(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            label_pattern.to_glib_none().<span class="number">0</span>,
-            widget_type.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_test_find_widget(
+            <a href="#2154">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2155">label_pattern</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2156">widget_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -4558,8 +4558,8 @@
 /// This allowes to refer to any of those object types via
 /// `g_type_from_name()` after calling this function.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_register_all_types&quot;</span>)]
-</span><span class="kw">pub fn </span>test_register_all_types() {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_register_all_types.html">test_register_all_types</a>() {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         ffi::gtk_test_register_all_types();
     }
@@ -4584,17 +4584,17 @@
 ///
 /// whether all actions neccessary for the key event simulation were carried out successfully.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_widget_send_key&quot;</span>)]
-</span><span class="kw">pub fn </span>test_widget_send_key(
-    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;,
-    keyval: u32,
-    modifiers: gdk::ModifierType,
-) -&gt; bool {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_widget_send_key.html">test_widget_send_key</a>(
+    widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;,
+    keyval: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+    modifiers: <a href="../../../gdk/auto/flags/struct.ModifierType.html">gdk::ModifierType</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_test_widget_send_key(
-            widget.as_ref().to_glib_none().<span class="number">0</span>,
-            keyval,
-            modifiers.into_glib(),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_test_widget_send_key(
+            <a href="#2204">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2205">keyval</a>,
+            <a href="#2206">modifiers</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         ))
     }
 }
@@ -4609,10 +4609,10 @@
 /// ## `widget`
 /// the widget to wait for
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_test_widget_wait_for_draw&quot;</span>)]
-</span><span class="kw">pub fn </span>test_widget_wait_for_draw(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.test_widget_wait_for_draw.html">test_widget_wait_for_draw</a>(widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gtk_test_widget_wait_for_draw(widget.as_ref().to_glib_none().<span class="number">0</span>);
+        ffi::gtk_test_widget_wait_for_draw(<a href="#2228">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
     }
 }
 
@@ -4639,20 +4639,20 @@
 /// ## `path`
 /// row in `tree_model`
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_get_row_drag_data&quot;</span>)]
-</span><span class="kw">pub fn </span>tree_get_row_drag_data(
-    selection_data: <span class="kw-2">&amp;</span>SelectionData,
-) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="prelude-ty">Option</span>&lt;TreeModel&gt;, <span class="prelude-ty">Option</span>&lt;TreePath&gt;)&gt; {
-    <span class="macro">assert_initialized_main_thread!</span>();
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.tree_get_row_drag_data.html">tree_get_row_drag_data</a>(
+    selection_data: <span class="kw-2">&amp;</span><a href="selection_data.rs.html#9-18">SelectionData</a>,
+) -&gt; <span class="prelude-ty">Option</span>&lt;(<span class="prelude-ty">Option</span>&lt;<a href="tree_model.rs.html#13-276">TreeModel</a>&gt;, <span class="prelude-ty">Option</span>&lt;<a href="tree_path.rs.html#8-17">TreePath</a>&gt;)&gt; {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>tree_model = ptr::null_mut();
         <span class="kw">let </span><span class="kw-2">mut </span>path = ptr::null_mut();
-        <span class="kw">let </span>ret = from_glib(ffi::gtk_tree_get_row_drag_data(
-            mut_override(selection_data.to_glib_none().<span class="number">0</span>),
-            <span class="kw-2">&amp;mut </span>tree_model,
-            <span class="kw-2">&amp;mut </span>path,
+        <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_tree_get_row_drag_data(
+            mut_override(<a href="#2259">selection_data</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <span class="kw-2">&amp;mut </span><a href="#2263">tree_model</a>,
+            <span class="kw-2">&amp;mut </span><a href="#2264">path</a>,
         ));
         <span class="kw">if </span>ret {
-            <span class="prelude-val">Some</span>((from_glib_none(tree_model), from_glib_full(path)))
+            <span class="prelude-val">Some</span>((<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#2263">tree_model</a>), from_glib_full(<a href="#2264">path</a>)))
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>}
@@ -4672,25 +4672,25 @@
 ///
 /// [`true`] if the [`SelectionData`][crate::SelectionData] had the proper target type to allow us to set a tree row
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_tree_set_row_drag_data&quot;</span>)]
-</span><span class="kw">pub fn </span>tree_set_row_drag_data(
-    selection_data: <span class="kw-2">&amp;</span>SelectionData,
-    tree_model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;TreeModel&gt;,
-    path: <span class="kw-2">&amp;mut </span>TreePath,
-) -&gt; bool {
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.tree_set_row_drag_data.html">tree_set_row_drag_data</a>(
+    selection_data: <span class="kw-2">&amp;</span><a href="selection_data.rs.html#9-18">SelectionData</a>,
+    tree_model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="tree_model.rs.html#13-276">TreeModel</a>&gt;,
+    path: <span class="kw-2">&amp;mut </span><a href="tree_path.rs.html#8-17">TreePath</a>,
+) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        from_glib(ffi::gtk_tree_set_row_drag_data(
-            mut_override(selection_data.to_glib_none().<span class="number">0</span>),
-            tree_model.as_ref().to_glib_none().<span class="number">0</span>,
-            path.to_glib_none_mut().<span class="number">0</span>,
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_tree_set_row_drag_data(
+            mut_override(<a href="#2292">selection_data</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#2293">tree_model</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#2294">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
         ))
     }
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gtk_true&quot;</span>)]
 #[doc(alias = <span class="string">&quot;true&quot;</span>)]
-</span><span class="kw">pub fn </span>true_() -&gt; bool {
-    <span class="macro">assert_initialized_main_thread!</span>();
-    <span class="kw">unsafe </span>{ from_glib(ffi::gtk_true()) }
+</span><span class="kw">pub fn </span><a href="../../../gtk/fn.true_.html">true_</a>() -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+    <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_true()) }
 }
 </code></pre></div></section></main></body></html>

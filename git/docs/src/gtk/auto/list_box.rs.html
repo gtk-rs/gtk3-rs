@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/list_box.rs`."><title>list_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/list_box.rs`."><title>list_box.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2564,17 +2564,17 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{
-    Adjustment, Align, Buildable, Container, ListBoxRow, MovementStep, ResizeMode, SelectionMode,
-    Widget,
+    <a href="adjustment.rs.html#12-89">Adjustment</a>, <a href="enums.rs.html#27-49">Align</a>, <a href="buildable.rs.html#9-32">Buildable</a>, <a href="container.rs.html#14-1335">Container</a>, <a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <a href="enums.rs.html#4578-4611">MovementStep</a>, <a href="enums.rs.html#7818-7830">ResizeMode</a>, <a href="enums.rs.html#8515-8538">SelectionMode</a>,
+    <a href="widget.rs.html#17-1520">Widget</a>,
 };
 <span class="kw">use </span>glib::{
-    prelude::<span class="kw-2">*</span>,
-    signal::{connect_raw, SignalHandlerId},
-    translate::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
-<span class="kw">use </span>std::{boxed::Box <span class="kw">as </span>Box_, fmt, mem::transmute};
+<span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<span class="macro">glib::wrapper! </span>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// A GtkListBox is a vertical container that contains GtkListBoxRow
     /// children. These rows can be dynamically sorted and filtered, and
     /// headers can be added dynamically depending on the row content.
@@ -3785,15 +3785,15 @@
     ///
     /// [`ListBoxExt`][trait@crate::prelude::ListBoxExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`ListBoxExtManual`][trait@crate::prelude::ListBoxExtManual], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkListBox&quot;</span>)]
-    </span><span class="kw">pub struct </span>ListBox(Object&lt;ffi::GtkListBox, ffi::GtkListBoxClass&gt;) @extends Container, Widget, @implements Buildable;
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.ListBox.html">ListBox</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>, <a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>&gt;) @extends <a href="container.rs.html#14-1335">Container</a>, <a href="widget.rs.html#17-1520">Widget</a>, @implements <a href="buildable.rs.html#9-32">Buildable</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_list_box_get_type(),
     }
 }
 
-<span class="kw">impl </span>ListBox {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>ListBox&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#16-1232">ListBox</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#16-1232">ListBox</a>&gt; = <span class="prelude-val">None</span>;
 
     <span class="doccomment">/// Creates a new [`ListBox`][crate::ListBox] container.
     ///
@@ -3801,21 +3801,21 @@
     ///
     /// a new [`ListBox`][crate::ListBox]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new() -&gt; ListBox {
-        <span class="macro">assert_initialized_main_thread!</span>();
-        <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_list_box_new()).unsafe_cast() }
+    </span><span class="kw">pub fn </span>new() -&gt; <a href="#16-1232">ListBox</a> {
+        <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+        <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_list_box_new()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Creates a new builder-pattern struct instance to construct [`ListBox`] objects.
     ///
     /// This method returns an instance of [`ListBoxBuilder`](crate::builders::ListBoxBuilder) which can be used to create [`ListBox`] objects.
-    </span><span class="kw">pub fn </span>builder() -&gt; ListBoxBuilder {
+    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#1268-1270">ListBoxBuilder</a> {
         ListBoxBuilder::new()
     }
 }
 
-<span class="kw">impl </span>Default <span class="kw">for </span>ListBox {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#16-1232">ListBox</a> {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::new()
     }
@@ -3826,77 +3826,77 @@
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
-</span><span class="kw">pub struct </span>ListBoxBuilder {
-    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, ListBox&gt;,
+</span><span class="kw">pub struct </span><a href="../../../gtk/builders/struct.ListBoxBuilder.html">ListBoxBuilder</a> {
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, <a href="#16-1232">ListBox</a>&gt;,
 }
 
-<span class="kw">impl </span>ListBoxBuilder {
+<span class="kw">impl </span><a href="#1268-1270">ListBoxBuilder</a> {
     <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: glib::object::Object::builder(),
         }
     }
 
-    <span class="kw">pub fn </span>activate_on_single_click(<span class="self">self</span>, activate_on_single_click: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>activate_on_single_click(<span class="self">self</span>, activate_on_single_click: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#1279">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;activate-on-single-click&quot;</span>, activate_on_single_click),
+                .property(<span class="string">&quot;activate-on-single-click&quot;</span>, <a href="#1279">activate_on_single_click</a>),
         }
     }
 
-    <span class="kw">pub fn </span>selection_mode(<span class="self">self</span>, selection_mode: SelectionMode) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>selection_mode(<span class="self">self</span>, selection_mode: <a href="enums.rs.html#8515-8538">SelectionMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;selection-mode&quot;</span>, selection_mode),
+            builder: <a class="self" href="#1287">self</a>.builder.property(<span class="string">&quot;selection-mode&quot;</span>, <a href="#1287">selection_mode</a>),
         }
     }
 
-    <span class="kw">pub fn </span>border_width(<span class="self">self</span>, border_width: u32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>border_width(<span class="self">self</span>, border_width: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;border-width&quot;</span>, border_width),
+            builder: <a class="self" href="#1293">self</a>.builder.property(<span class="string">&quot;border-width&quot;</span>, <a href="#1293">border_width</a>),
         }
     }
 
-    <span class="kw">pub fn </span>child(<span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>child(<span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;child&quot;</span>, child.clone().upcast()),
+            builder: <a class="self" href="#1299">self</a>.builder.property(<span class="string">&quot;child&quot;</span>, <a href="#1299">child</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: ResizeMode) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: <a href="enums.rs.html#7818-7830">ResizeMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, resize_mode),
+            builder: <a class="self" href="#1305">self</a>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, <a href="#1305">resize_mode</a>),
         }
     }
 
-    <span class="kw">pub fn </span>app_paintable(<span class="self">self</span>, app_paintable: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>app_paintable(<span class="self">self</span>, app_paintable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, app_paintable),
+            builder: <a class="self" href="#1311">self</a>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, <a href="#1311">app_paintable</a>),
         }
     }
 
-    <span class="kw">pub fn </span>can_default(<span class="self">self</span>, can_default: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>can_default(<span class="self">self</span>, can_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-default&quot;</span>, can_default),
+            builder: <a class="self" href="#1317">self</a>.builder.property(<span class="string">&quot;can-default&quot;</span>, <a href="#1317">can_default</a>),
         }
     }
 
-    <span class="kw">pub fn </span>can_focus(<span class="self">self</span>, can_focus: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>can_focus(<span class="self">self</span>, can_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;can-focus&quot;</span>, can_focus),
+            builder: <a class="self" href="#1323">self</a>.builder.property(<span class="string">&quot;can-focus&quot;</span>, <a href="#1323">can_focus</a>),
         }
     }
 
-    <span class="kw">pub fn </span>events(<span class="self">self</span>, events: gdk::EventMask) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>events(<span class="self">self</span>, events: <a href="../../../gdk/auto/flags/struct.EventMask.html">gdk::EventMask</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;events&quot;</span>, events),
+            builder: <a class="self" href="#1329">self</a>.builder.property(<span class="string">&quot;events&quot;</span>, <a href="#1329">events</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`hexpand`][struct@crate::Widget#hexpand] and [`vexpand`][struct@crate::Widget#vexpand]
-    </span><span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;expand&quot;</span>, expand),
+            builder: <a class="self" href="#1336">self</a>.builder.property(<span class="string">&quot;expand&quot;</span>, <a href="#1336">expand</a>),
         }
     }
 
@@ -3906,28 +3906,28 @@
     ///
     /// Before 3.20, several widgets (GtkButton, GtkFileChooserButton,
     /// GtkComboBox) implemented this property individually.
-    </span><span class="kw">pub fn </span>focus_on_click(<span class="self">self</span>, focus_on_click: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>focus_on_click(<span class="self">self</span>, focus_on_click: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, focus_on_click),
+            builder: <a class="self" href="#1348">self</a>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, <a href="#1348">focus_on_click</a>),
         }
     }
 
     <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: Align) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: <a href="enums.rs.html#27-49">Align</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;halign&quot;</span>, halign),
+            builder: <a class="self" href="#1355">self</a>.builder.property(<span class="string">&quot;halign&quot;</span>, <a href="#1355">halign</a>),
         }
     }
 
-    <span class="kw">pub fn </span>has_default(<span class="self">self</span>, has_default: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>has_default(<span class="self">self</span>, has_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-default&quot;</span>, has_default),
+            builder: <a class="self" href="#1361">self</a>.builder.property(<span class="string">&quot;has-default&quot;</span>, <a href="#1361">has_default</a>),
         }
     }
 
-    <span class="kw">pub fn </span>has_focus(<span class="self">self</span>, has_focus: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>has_focus(<span class="self">self</span>, has_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-focus&quot;</span>, has_focus),
+            builder: <a class="self" href="#1367">self</a>.builder.property(<span class="string">&quot;has-focus&quot;</span>, <a href="#1367">has_focus</a>),
         }
     }
 
@@ -3940,43 +3940,43 @@
     /// the event masks of the GdkWindows of this widget to include leave-notify
     /// and motion-notify events. This cannot and will not be undone when the
     /// property is set to [`false`] again.
-    </span><span class="kw">pub fn </span>has_tooltip(<span class="self">self</span>, has_tooltip: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>has_tooltip(<span class="self">self</span>, has_tooltip: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, has_tooltip),
+            builder: <a class="self" href="#1382">self</a>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, <a href="#1382">has_tooltip</a>),
         }
     }
 
-    <span class="kw">pub fn </span>height_request(<span class="self">self</span>, height_request: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>height_request(<span class="self">self</span>, height_request: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;height-request&quot;</span>, height_request),
+            builder: <a class="self" href="#1388">self</a>.builder.property(<span class="string">&quot;height-request&quot;</span>, <a href="#1388">height_request</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].
-    </span><span class="kw">pub fn </span>hexpand(<span class="self">self</span>, hexpand: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>hexpand(<span class="self">self</span>, hexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand&quot;</span>, hexpand),
+            builder: <a class="self" href="#1395">self</a>.builder.property(<span class="string">&quot;hexpand&quot;</span>, <a href="#1395">hexpand</a>),
         }
     }
 
     <span class="doccomment">/// Whether to use the [`hexpand`][struct@crate::Widget#hexpand] property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].
-    </span><span class="kw">pub fn </span>hexpand_set(<span class="self">self</span>, hexpand_set: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>hexpand_set(<span class="self">self</span>, hexpand_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, hexpand_set),
+            builder: <a class="self" href="#1402">self</a>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, <a href="#1402">hexpand_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>is_focus(<span class="self">self</span>, is_focus: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>is_focus(<span class="self">self</span>, is_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;is-focus&quot;</span>, is_focus),
+            builder: <a class="self" href="#1408">self</a>.builder.property(<span class="string">&quot;is-focus&quot;</span>, <a href="#1408">is_focus</a>),
         }
     }
 
     <span class="doccomment">/// Sets all four sides&#39; margin at once. If read, returns max
     /// margin on any side.
-    </span><span class="kw">pub fn </span>margin(<span class="self">self</span>, margin: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>margin(<span class="self">self</span>, margin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin&quot;</span>, margin),
+            builder: <a class="self" href="#1416">self</a>.builder.property(<span class="string">&quot;margin&quot;</span>, <a href="#1416">margin</a>),
         }
     }
 
@@ -3985,9 +3985,9 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_bottom(<span class="self">self</span>, margin_bottom: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>margin_bottom(<span class="self">self</span>, margin_bottom: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, margin_bottom),
+            builder: <a class="self" href="#1427">self</a>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, <a href="#1427">margin_bottom</a>),
         }
     }
 
@@ -3997,9 +3997,9 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_end(<span class="self">self</span>, margin_end: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>margin_end(<span class="self">self</span>, margin_end: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-end&quot;</span>, margin_end),
+            builder: <a class="self" href="#1439">self</a>.builder.property(<span class="string">&quot;margin-end&quot;</span>, <a href="#1439">margin_end</a>),
         }
     }
 
@@ -4009,9 +4009,9 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_start(<span class="self">self</span>, margin_start: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>margin_start(<span class="self">self</span>, margin_start: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-start&quot;</span>, margin_start),
+            builder: <a class="self" href="#1451">self</a>.builder.property(<span class="string">&quot;margin-start&quot;</span>, <a href="#1451">margin_start</a>),
         }
     }
 
@@ -4020,21 +4020,21 @@
     /// This property adds margin outside of the widget&#39;s normal size
     /// request, the margin will be added in addition to the size from
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
-    </span><span class="kw">pub fn </span>margin_top(<span class="self">self</span>, margin_top: i32) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>margin_top(<span class="self">self</span>, margin_top: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;margin-top&quot;</span>, margin_top),
+            builder: <a class="self" href="#1462">self</a>.builder.property(<span class="string">&quot;margin-top&quot;</span>, <a href="#1462">margin_top</a>),
         }
     }
 
-    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;name&quot;</span>, name.into()),
+            builder: <a class="self" href="#1468">self</a>.builder.property(<span class="string">&quot;name&quot;</span>, <a href="#1468">name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>no_show_all(<span class="self">self</span>, no_show_all: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>no_show_all(<span class="self">self</span>, no_show_all: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, no_show_all),
+            builder: <a class="self" href="#1474">self</a>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, <a href="#1474">no_show_all</a>),
         }
     }
 
@@ -4042,27 +4042,27 @@
     /// more details about window opacity.
     ///
     /// Before 3.8 this was only available in GtkWindow
-    </span><span class="kw">pub fn </span>opacity(<span class="self">self</span>, opacity: f64) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>opacity(<span class="self">self</span>, opacity: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;opacity&quot;</span>, opacity),
+            builder: <a class="self" href="#1484">self</a>.builder.property(<span class="string">&quot;opacity&quot;</span>, <a href="#1484">opacity</a>),
         }
     }
 
-    <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Container&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="container.rs.html#14-1335">Container</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;parent&quot;</span>, parent.clone().upcast()),
+            builder: <a class="self" href="#1490">self</a>.builder.property(<span class="string">&quot;parent&quot;</span>, <a href="#1490">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>receives_default(<span class="self">self</span>, receives_default: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>receives_default(<span class="self">self</span>, receives_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;receives-default&quot;</span>, receives_default),
+            builder: <a class="self" href="#1496">self</a>.builder.property(<span class="string">&quot;receives-default&quot;</span>, <a href="#1496">receives_default</a>),
         }
     }
 
-    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;sensitive&quot;</span>, sensitive),
+            builder: <a class="self" href="#1502">self</a>.builder.property(<span class="string">&quot;sensitive&quot;</span>, <a href="#1502">sensitive</a>),
         }
     }
 
@@ -4077,11 +4077,11 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self
+            builder: <span class="self"><a href="#1519">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;tooltip-markup&quot;</span>, tooltip_markup.into()),
+                .property(<span class="string">&quot;tooltip-markup&quot;</span>, <a href="#1519">tooltip_markup</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
@@ -4096,56 +4096,56 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;glib::GString&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, tooltip_text.into()),
+            builder: <a class="self" href="#1538">self</a>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, <a href="#1538">tooltip_text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: Align) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: <a href="enums.rs.html#27-49">Align</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;valign&quot;</span>, valign),
+            builder: <a class="self" href="#1545">self</a>.builder.property(<span class="string">&quot;valign&quot;</span>, <a href="#1545">valign</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].
-    </span><span class="kw">pub fn </span>vexpand(<span class="self">self</span>, vexpand: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>vexpand(<span class="self">self</span>, vexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand&quot;</span>, vexpand),
+            builder: <a class="self" href="#1552">self</a>.builder.property(<span class="string">&quot;vexpand&quot;</span>, <a href="#1552">vexpand</a>),
         }
     }
 
     <span class="doccomment">/// Whether to use the [`vexpand`][struct@crate::Widget#vexpand] property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].
-    </span><span class="kw">pub fn </span>vexpand_set(<span class="self">self</span>, vexpand_set: bool) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>vexpand_set(<span class="self">self</span>, vexpand_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;vexpand-set&quot;</span>, vexpand_set),
+            builder: <a class="self" href="#1559">self</a>.builder.property(<span class="string">&quot;vexpand-set&quot;</span>, <a href="#1559">vexpand_set</a>),
         }
     }
 
-    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: bool) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;visible&quot;</span>, visible),
+            builder: <a class="self" href="#1565">self</a>.builder.property(<span class="string">&quot;visible&quot;</span>, <a href="#1565">visible</a>),
         }
     }
 
-    <span class="kw">pub fn </span>width_request(<span class="self">self</span>, width_request: i32) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>width_request(<span class="self">self</span>, width_request: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self">self</span>.builder.property(<span class="string">&quot;width-request&quot;</span>, width_request),
+            builder: <a class="self" href="#1571">self</a>.builder.property(<span class="string">&quot;width-request&quot;</span>, <a href="#1571">width_request</a>),
         }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`ListBox`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; ListBox {
-        <span class="self">self</span>.builder.build()
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#16-1232">ListBox</a> {
+        <a class="self" href="#1580">self</a>.builder.build()
     }
 }
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
-    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<span class="kw">super</span>::ListBox&gt;&gt; Sealed <span class="kw">for </span>T {}
+    <span class="kw">impl</span>&lt;T: <span class="kw">super</span>::IsA&lt;<a href="#16-1232"><span class="kw">super</span>::ListBox</a>&gt;&gt; <a href="#1586">Sealed</a> <span class="kw">for </span>T {}
 }
 
 <span class="doccomment">/// Trait containing all [`struct@ListBox`] methods.
@@ -4153,7 +4153,7 @@
 /// # Implementors
 ///
 /// [`ListBox`][struct@crate::ListBox]
-</span><span class="kw">pub trait </span>ListBoxExt: IsA&lt;ListBox&gt; + sealed::Sealed + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span><a href="../../../gtk/prelude/trait.ListBoxExt.html">ListBoxExt</a>: IsA&lt;<a href="#16-1232">ListBox</a>&gt; + <a href="#1586">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="doccomment">/// Binds `model` to `self`.
     ///
     /// If `self` was already bound to a model, that previous binding is
@@ -4176,35 +4176,35 @@
     /// a function that creates widgets for items
     ///  or [`None`] in case you also passed [`None`] as `model`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_bind_model&quot;</span>)]
-    </span><span class="kw">fn </span>bind_model&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>bind_model&lt;P: Fn(<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>) -&gt; <a href="widget.rs.html#17-1520">Widget</a> + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;gio::ListModel&gt;&gt;,
+        model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/list_model/struct.ListModel.html">gio::ListModel</a>&gt;&gt;,
         create_widget_func: P,
     ) {
-        <span class="kw">let </span>create_widget_func_data: Box_&lt;P&gt; = Box_::new(create_widget_func);
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>create_widget_func_func&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
+        <span class="kw">let </span>create_widget_func_data: Box_&lt;P&gt; = Box_::new(<a href="#1621">create_widget_func</a>);
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>create_widget_func_func&lt;P: Fn(<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>) -&gt; <a href="widget.rs.html#17-1520">Widget</a> + <span class="lifetime">&#39;static</span>&gt;(
             item: <span class="kw-2">*mut </span>glib::gobject_ffi::GObject,
             user_data: glib::ffi::gpointer,
-        ) -&gt; <span class="kw-2">*mut </span>ffi::GtkWidget {
-            <span class="kw">let </span>item = from_glib_borrow(item);
-            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;*</span>(user_data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-            (<span class="kw-2">*</span>callback)(<span class="kw-2">&amp;</span>item).to_glib_full()
+        ) -&gt; <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a> {
+            <span class="kw">let </span>item = from_glib_borrow(<a href="#1625">item</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;*</span>(<a href="#1626">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            (<span class="kw-2">*</span><a href="#1629">callback</a>)(<span class="kw-2">&amp;</span><a href="#1628">item</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_full</a>()
         }
         <span class="kw">let </span>create_widget_func = <span class="prelude-val">Some</span>(create_widget_func_func::&lt;P&gt; <span class="kw">as _</span>);
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>user_data_free_func_func&lt;P: Fn(<span class="kw-2">&amp;</span>glib::Object) -&gt; Widget + <span class="lifetime">&#39;static</span>&gt;(
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>user_data_free_func_func&lt;P: Fn(<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>) -&gt; <a href="widget.rs.html#17-1520">Widget</a> + <span class="lifetime">&#39;static</span>&gt;(
             data: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>_callback: Box_&lt;P&gt; = Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">let </span>_callback: Box_&lt;P&gt; = Box_::from_raw(<a href="#1634">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
         }
         <span class="kw">let </span>destroy_call4 = <span class="prelude-val">Some</span>(user_data_free_func_func::&lt;P&gt; <span class="kw">as _</span>);
-        <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = create_widget_func_data;
+        <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#1623">create_widget_func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_bind_model(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                model.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
-                create_widget_func,
-                Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                destroy_call4,
+                <a class="self" href="#1619">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1620">model</a>.map(|p| <a href="#1643">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1632">create_widget_func</a>,
+                Box_::into_raw(<a href="#1639">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#1638">destroy_call4</a>,
             );
         }
     }
@@ -4218,11 +4218,11 @@
     /// ## `row`
     /// a [`ListBoxRow`][crate::ListBoxRow]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_highlight_row&quot;</span>)]
-    </span><span class="kw">fn </span>drag_highlight_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;) {
+    </span><span class="kw">fn </span>drag_highlight_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_drag_highlight_row(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                row.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#1660">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1660">row</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -4232,7 +4232,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_drag_unhighlight_row&quot;</span>)]
     </span><span class="kw">fn </span>drag_unhighlight_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_drag_unhighlight_row(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_drag_unhighlight_row(<a class="self" href="#1672">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4243,10 +4243,10 @@
     /// [`true`] if rows are activated on single click, [`false`] otherwise
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_activate_on_single_click&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+    </span><span class="kw">fn </span>activates_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_list_box_get_activate_on_single_click(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_list_box_get_activate_on_single_click(
+                <a class="self" href="#1685">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -4259,10 +4259,10 @@
     /// the adjustment
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_adjustment&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;Adjustment&gt; {
+    </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="adjustment.rs.html#12-89">Adjustment</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_list_box_get_adjustment(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_list_box_get_adjustment(
+                <a class="self" href="#1701">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -4278,11 +4278,11 @@
     /// the child [`Widget`][crate::Widget] or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_index&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_at_index&quot;</span>)]
-    </span><span class="kw">fn </span>row_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt; {
+    </span><span class="kw">fn </span>row_at_index(<span class="kw-2">&amp;</span><span class="self">self</span>, index_: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_list_box_get_row_at_index(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                index_,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_list_box_get_row_at_index(
+                <a class="self" href="#1720">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1720">index_</a>,
             ))
         }
     }
@@ -4297,11 +4297,11 @@
     ///  in case no row exists for the given y coordinate.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_row_at_y&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_row_at_y&quot;</span>)]
-    </span><span class="kw">fn </span>row_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: i32) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt; {
+    </span><span class="kw">fn </span>row_at_y(<span class="kw-2">&amp;</span><span class="self">self</span>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_list_box_get_row_at_y(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                y,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_list_box_get_row_at_y(
+                <a class="self" href="#1739">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1739">y</a>,
             ))
         }
     }
@@ -4317,10 +4317,10 @@
     /// the selected row
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_row&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_row&quot;</span>)]
-    </span><span class="kw">fn </span>selected_row(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;ListBoxRow&gt; {
+    </span><span class="kw">fn </span>selected_row(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::gtk_list_box_get_selected_row(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_list_box_get_selected_row(
+                <a class="self" href="#1759">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -4334,10 +4334,10 @@
     ///  Free with `g_list_free()` when done.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selected_rows&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selected_rows&quot;</span>)]
-    </span><span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;ListBoxRow&gt; {
+    </span><span class="kw">fn </span>selected_rows(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt; {
         <span class="kw">unsafe </span>{
-            FromGlibPtrContainer::from_glib_container(ffi::gtk_list_box_get_selected_rows(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_container</a>(ffi::gtk_list_box_get_selected_rows(
+                <a class="self" href="#1776">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -4349,10 +4349,10 @@
     /// a [`SelectionMode`][crate::SelectionMode]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_get_selection_mode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SelectionMode {
+    </span><span class="kw">fn </span>selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#8515-8538">SelectionMode</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::gtk_list_box_get_selection_mode(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_list_box_get_selection_mode(
+                <a class="self" href="#1791">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -4368,12 +4368,12 @@
     /// ## `position`
     /// the position to insert `child` in
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_insert&quot;</span>)]
-    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;, position: i32) {
+    </span><span class="kw">fn </span>insert(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;, position: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_insert(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
-                position,
+                <a class="self" href="#1810">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1810">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1810">position</a>,
             );
         }
     }
@@ -4386,7 +4386,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_filter&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_filter(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_invalidate_filter(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_invalidate_filter(<a class="self" href="#1826">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4396,7 +4396,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_headers&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_headers(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_invalidate_headers(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_invalidate_headers(<a class="self" href="#1836">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4406,7 +4406,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_invalidate_sort&quot;</span>)]
     </span><span class="kw">fn </span>invalidate_sort(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_invalidate_sort(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_invalidate_sort(<a class="self" href="#1846">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4416,11 +4416,11 @@
     /// ## `child`
     /// the [`Widget`][crate::Widget] to add
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_prepend&quot;</span>)]
-    </span><span class="kw">fn </span>prepend(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;) {
+    </span><span class="kw">fn </span>prepend(<span class="kw-2">&amp;</span><span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_prepend(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                child.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#1858">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1858">child</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -4429,7 +4429,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_select_all&quot;</span>)]
     </span><span class="kw">fn </span>select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_select_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_select_all(<a class="self" href="#1869">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4437,11 +4437,11 @@
     /// ## `row`
     /// The row to select or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_select_row&quot;</span>)]
-    </span><span class="kw">fn </span>select_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;&gt;) {
+    </span><span class="kw">fn </span>select_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_select_row(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                row.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#1879">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1879">row</a>.map(|p| <a href="#1883">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -4452,25 +4452,25 @@
     /// ## `func`
     /// the function to call for each selected child
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_selected_foreach&quot;</span>)]
-    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span>ListBox, <span class="kw-2">&amp;</span>ListBoxRow)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
-        <span class="kw">let </span>func_data: P = func;
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span>ListBox, <span class="kw-2">&amp;</span>ListBoxRow)&gt;(
-            box_: <span class="kw-2">*mut </span>ffi::GtkListBox,
-            row: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+    </span><span class="kw">fn </span>selected_foreach&lt;P: FnMut(<span class="kw-2">&amp;</span><a href="#16-1232">ListBox</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>)&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, func: P) {
+        <span class="kw">let </span>func_data: P = <a href="#1894">func</a>;
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>func_func&lt;P: FnMut(<span class="kw-2">&amp;</span><a href="#16-1232">ListBox</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>)&gt;(
+            box_: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
+            row: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             user_data: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>box_ = from_glib_borrow(box_);
-            <span class="kw">let </span>row = from_glib_borrow(row);
-            <span class="kw">let </span>callback: <span class="kw-2">*mut </span>P = user_data <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize <span class="kw">as </span><span class="kw-2">*mut </span>P;
-            (<span class="kw-2">*</span>callback)(<span class="kw-2">&amp;</span>box_, <span class="kw-2">&amp;</span>row)
+            <span class="kw">let </span>box_ = from_glib_borrow(<a href="#1897">box_</a>);
+            <span class="kw">let </span>row = from_glib_borrow(<a href="#1898">row</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">*mut </span>P = <a href="#1899">user_data</a> <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> <span class="kw">as </span><span class="kw-2">*mut </span>P;
+            (<span class="kw-2">*</span><a href="#1903">callback</a>)(<span class="kw-2">&amp;</span><a href="#1901">box_</a>, <span class="kw-2">&amp;</span><a href="#1902">row</a>)
         }
         <span class="kw">let </span>func = <span class="prelude-val">Some</span>(func_func::&lt;P&gt; <span class="kw">as _</span>);
-        <span class="kw">let </span>super_callback0: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;</span>func_data;
+        <span class="kw">let </span>super_callback0: <span class="kw-2">&amp;</span>P = <span class="kw-2">&amp;</span><a href="#1895">func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_selected_foreach(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                func,
-                super_callback0 <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span>usize <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a class="self" href="#1894">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1906">func</a>,
+                <a href="#1907">super_callback0</a> <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
         }
     }
@@ -4480,11 +4480,11 @@
     /// ## `single`
     /// a boolean
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_activate_on_single_click&quot;</span>)]
-    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: bool) {
+    </span><span class="kw">fn </span>set_activate_on_single_click(<span class="kw-2">&amp;</span><span class="self">self</span>, single: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_activate_on_single_click(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                single.into_glib(),
+                <a class="self" href="#1922">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1922">single</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -4500,11 +4500,11 @@
     /// ## `adjustment`
     /// the adjustment, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Adjustment&gt;&gt;) {
+    </span><span class="kw">fn </span>set_adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="adjustment.rs.html#12-89">Adjustment</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_adjustment(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                adjustment.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#1942">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1942">adjustment</a>.map(|p| <a href="#1946">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -4522,41 +4522,41 @@
     /// ## `filter_func`
     /// callback that lets you filter which rows to show
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_filter_func&quot;</span>)]
-    </span><span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;) {
-        <span class="kw">let </span>filter_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-            Box_::new(filter_func);
+    </span><span class="kw">fn </span>set_filter_func(<span class="kw-2">&amp;</span><span class="self">self</span>, filter_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>&gt;&gt;) {
+        <span class="kw">let </span>filter_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+            Box_::new(<a href="#1964">filter_func</a>);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>filter_func_func(
-            row: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+            row: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             user_data: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
-            <span class="kw">let </span>row = from_glib_borrow(row);
-            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt; =
-                <span class="kw-2">&amp;*</span>(user_data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span>callback {
-                callback(<span class="kw-2">&amp;</span>row)
+            <span class="kw">let </span>row = from_glib_borrow(<a href="#1968">row</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>&gt;&gt; =
+                <span class="kw-2">&amp;*</span>(<a href="#1969">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span><a href="#1972">callback</a> {
+                <a href="#1974">callback</a>(<span class="kw-2">&amp;</span><a href="#1971">row</a>)
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;cannot get closure...&quot;</span>)
             }
-            .into_glib()
+            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
         }
         <span class="kw">let </span>filter_func = <span class="kw">if </span>filter_func_data.is_some() {
-            <span class="prelude-val">Some</span>(filter_func_func <span class="kw">as _</span>)
+            <span class="prelude-val">Some</span>(<a href="#1967-1980">filter_func_func</a> <span class="kw">as _</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>};
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>destroy_func(data: glib::ffi::gpointer) {
-            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-                Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+                Box_::from_raw(<a href="#1986">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
         }
-        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(destroy_func <span class="kw">as _</span>);
-        <span class="kw">let </span>super_callback0: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow) -&gt; bool + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-            filter_func_data;
+        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(<a href="#1986-1989">destroy_func</a> <span class="kw">as _</span>);
+        <span class="kw">let </span>super_callback0: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+            <a href="#1965">filter_func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_filter_func(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                filter_func,
-                Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                destroy_call3,
+                <a class="self" href="#1964">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#1981">filter_func</a>,
+                Box_::into_raw(<a href="#1991">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#1990">destroy_call3</a>,
             );
         }
     }
@@ -4584,45 +4584,45 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_header_func&quot;</span>)]
     </span><span class="kw">fn </span>set_header_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        update_header: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        update_header: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
         <span class="kw">let </span>update_header_data: Box_&lt;
-            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-        &gt; = Box_::new(update_header);
+            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        &gt; = Box_::new(<a href="#2026">update_header</a>);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>update_header_func(
-            row: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
-            before: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+            row: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
+            before: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             user_data: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>row = from_glib_borrow(row);
-            <span class="kw">let </span>before: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;ListBoxRow&gt;&gt; = from_glib_borrow(before);
-            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt; =
-                <span class="kw-2">&amp;*</span>(user_data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span>callback {
-                callback(<span class="kw-2">&amp;</span>row, before.as_ref().as_ref())
+            <span class="kw">let </span>row = from_glib_borrow(<a href="#2032">row</a>);
+            <span class="kw">let </span>before: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;&gt; = from_glib_borrow(<a href="#2033">before</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt; =
+                <span class="kw-2">&amp;*</span>(<a href="#2034">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span><a href="#2038">callback</a> {
+                <a href="#2040">callback</a>(<span class="kw-2">&amp;</span><a href="#2036">row</a>, <a href="#2037">before</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().as_ref())
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;cannot get closure...&quot;</span>)
             }
         }
         <span class="kw">let </span>update_header = <span class="kw">if </span>update_header_data.is_some() {
-            <span class="prelude-val">Some</span>(update_header_func <span class="kw">as _</span>)
+            <span class="prelude-val">Some</span>(<a href="#2031-2045">update_header_func</a> <span class="kw">as _</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>};
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>destroy_func(data: glib::ffi::gpointer) {
-            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-                Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+                Box_::from_raw(<a href="#2051">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
         }
-        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(destroy_func <span class="kw">as _</span>);
+        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(<a href="#2051-2054">destroy_func</a> <span class="kw">as _</span>);
         <span class="kw">let </span>super_callback0: Box_&lt;
-            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
-        &gt; = update_header_data;
+            <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        &gt; = <a href="#2028">update_header_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_header_func(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                update_header,
-                Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                destroy_call3,
+                <a class="self" href="#2025">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#2046">update_header</a>,
+                Box_::into_raw(<a href="#2056">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#2055">destroy_call3</a>,
             );
         }
     }
@@ -4632,11 +4632,11 @@
     /// ## `placeholder`
     /// a [`Widget`][crate::Widget] or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_placeholder&quot;</span>)]
-    </span><span class="kw">fn </span>set_placeholder(<span class="kw-2">&amp;</span><span class="self">self</span>, placeholder: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;Widget&gt;&gt;) {
+    </span><span class="kw">fn </span>set_placeholder(<span class="kw-2">&amp;</span><span class="self">self</span>, placeholder: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_placeholder(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                placeholder.map(|p| p.as_ref()).to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#2074">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#2074">placeholder</a>.map(|p| <a href="#2078">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -4646,9 +4646,9 @@
     /// ## `mode`
     /// The [`SelectionMode`][crate::SelectionMode]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_selection_mode&quot;</span>)]
-    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: SelectionMode) {
+    </span><span class="kw">fn </span>set_selection_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: <a href="enums.rs.html#8515-8538">SelectionMode</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_set_selection_mode(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>, mode.into_glib());
+            ffi::gtk_list_box_set_selection_mode(<a class="self" href="#2088">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#2088">mode</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -4666,43 +4666,43 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_set_sort_func&quot;</span>)]
     </span><span class="kw">fn </span>set_sort_func(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        sort_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;,
+        sort_func: <span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + <span class="lifetime">&#39;static</span>&gt;&gt;,
     ) {
-        <span class="kw">let </span>sort_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-            Box_::new(sort_func);
+        <span class="kw">let </span>sort_func_data: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+            Box_::new(<a href="#2108">sort_func</a>);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>sort_func_func(
-            row1: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
-            row2: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+            row1: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
+            row2: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             user_data: glib::ffi::gpointer,
         ) -&gt; libc::c_int {
-            <span class="kw">let </span>row1 = from_glib_borrow(row1);
-            <span class="kw">let </span>row2 = from_glib_borrow(row2);
-            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt; =
-                <span class="kw-2">&amp;*</span>(user_data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span>callback {
-                callback(<span class="kw-2">&amp;</span>row1, <span class="kw-2">&amp;</span>row2)
+            <span class="kw">let </span>row1 = from_glib_borrow(<a href="#2113">row1</a>);
+            <span class="kw">let </span>row2 = from_glib_borrow(<a href="#2114">row2</a>);
+            <span class="kw">let </span>callback: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + <span class="lifetime">&#39;static</span>&gt;&gt; =
+                <span class="kw-2">&amp;*</span>(<a href="#2115">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>callback) = <span class="kw-2">*</span><a href="#2119">callback</a> {
+                <a href="#2121">callback</a>(<span class="kw-2">&amp;</span><a href="#2117">row1</a>, <span class="kw-2">&amp;</span><a href="#2118">row2</a>)
             } <span class="kw">else </span>{
-                <span class="macro">panic!</span>(<span class="string">&quot;cannot get closure...&quot;</span>)
+                <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">&quot;cannot get closure...&quot;</span>)
             }
         }
         <span class="kw">let </span>sort_func = <span class="kw">if </span>sort_func_data.is_some() {
-            <span class="prelude-val">Some</span>(sort_func_func <span class="kw">as _</span>)
+            <span class="prelude-val">Some</span>(<a href="#2112-2126">sort_func_func</a> <span class="kw">as _</span>)
         } <span class="kw">else </span>{
             <span class="prelude-val">None
         </span>};
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>destroy_func(data: glib::ffi::gpointer) {
-            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-                Box_::from_raw(data <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
+            <span class="kw">let </span>_callback: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+                Box_::from_raw(<a href="#2132">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
         }
-        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(destroy_func <span class="kw">as _</span>);
-        <span class="kw">let </span>super_callback0: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>ListBoxRow, <span class="kw-2">&amp;</span>ListBoxRow) -&gt; i32 + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
-            sort_func_data;
+        <span class="kw">let </span>destroy_call3 = <span class="prelude-val">Some</span>(<a href="#2132-2135">destroy_func</a> <span class="kw">as _</span>);
+        <span class="kw">let </span>super_callback0: Box_&lt;<span class="prelude-ty">Option</span>&lt;Box_&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + <span class="lifetime">&#39;static</span>&gt;&gt;&gt; =
+            <a href="#2110">sort_func_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_set_sort_func(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                sort_func,
-                Box_::into_raw(super_callback0) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                destroy_call3,
+                <a class="self" href="#2107">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#2127">sort_func</a>,
+                Box_::into_raw(<a href="#2137">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <a href="#2136">destroy_call3</a>,
             );
         }
     }
@@ -4711,7 +4711,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_all&quot;</span>)]
     </span><span class="kw">fn </span>unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_list_box_unselect_all(<span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>);
+            ffi::gtk_list_box_unselect_all(<a class="self" href="#2151">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -4719,110 +4719,110 @@
     /// ## `row`
     /// the row to unselected
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_list_box_unselect_row&quot;</span>)]
-    </span><span class="kw">fn </span>unselect_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;ListBoxRow&gt;) {
+    </span><span class="kw">fn </span>unselect_row(<span class="kw-2">&amp;</span><span class="self">self</span>, row: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gtk_list_box_unselect_row(
-                <span class="self">self</span>.as_ref().to_glib_none().<span class="number">0</span>,
-                row.as_ref().to_glib_none().<span class="number">0</span>,
+                <a class="self" href="#2161">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#2161">row</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;activate-cursor-row&quot;</span>)]
-    </span><span class="kw">fn </span>connect_activate_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_activate_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>activate_cursor_row_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2177">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2179">f</a>(ListBox::from_glib_borrow(<a href="#2176">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2171">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2171">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;activate-cursor-row\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     activate_cursor_row_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2183">f</a>),
             )
         }
     }
 
     <span class="kw">fn </span>emit_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;activate-cursor-row&quot;</span>, <span class="kw-2">&amp;</span>[]);
+        <a class="self" href="#2195">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">emit_by_name</a>::&lt;()&gt;(<span class="string">&quot;activate-cursor-row&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;move-cursor&quot;</span>)]
-    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, MovementStep, i32) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_move_cursor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="enums.rs.html#4578-4611">MovementStep</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>move_cursor_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, MovementStep, i32) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <a href="enums.rs.html#4578-4611">MovementStep</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
-            object: ffi::GtkMovementStep,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
+            object: <a href="../../../gtk_sys/type.GtkMovementStep.html">ffi::GtkMovementStep</a>,
             p0: libc::c_int,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                ListBox::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(object),
-                p0,
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2211">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2213">f</a>(
+                ListBox::from_glib_borrow(<a href="#2208">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#2209">object</a>),
+                <a href="#2210">p0</a>,
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2202">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2201">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;move-cursor\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     move_cursor_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2221">f</a>),
             )
         }
     }
 
-    <span class="kw">fn </span>emit_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, object: MovementStep, p0: i32) {
-        <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;move-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>object, <span class="kw-2">&amp;</span>p0]);
+    <span class="kw">fn </span>emit_move_cursor(<span class="kw-2">&amp;</span><span class="self">self</span>, object: <a href="enums.rs.html#4578-4611">MovementStep</a>, p0: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
+        <a class="self" href="#2233">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">emit_by_name</a>::&lt;()&gt;(<span class="string">&quot;move-cursor&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><a href="#2233">object</a>, <span class="kw-2">&amp;</span><a href="#2233">p0</a>]);
     }
 
     <span class="doccomment">/// The ::row-activated signal is emitted when a row has been activated by the user.
     /// ## `row`
     /// the activated row
     </span><span class="attr">#[doc(alias = <span class="string">&quot;row-activated&quot;</span>)]
-    </span><span class="kw">fn </span>connect_row_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span>ListBoxRow) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_row_activated&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>row_activated_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span>ListBoxRow) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
-            row: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
+            row: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                ListBox::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="kw-2">&amp;</span>from_glib_borrow(row),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2248">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2250">f</a>(
+                ListBox::from_glib_borrow(<a href="#2246">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#2247">row</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2241">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2241">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;row-activated\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     row_activated_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2257">f</a>),
             )
         }
     }
@@ -4836,35 +4836,35 @@
     /// ## `row`
     /// the selected row
     </span><span class="attr">#[doc(alias = <span class="string">&quot;row-selected&quot;</span>)]
-    </span><span class="kw">fn </span>connect_row_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_row_selected&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>row_selected_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ListBoxRow&gt;) + <span class="lifetime">&#39;static</span>,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
-            row: <span class="kw-2">*mut </span>ffi::GtkListBoxRow,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
+            row: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(
-                ListBox::from_glib_borrow(this).unsafe_cast_ref(),
-                <span class="prelude-ty">Option</span>::&lt;ListBoxRow&gt;::from_glib_borrow(row)
-                    .as_ref()
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2288">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2290">f</a>(
+                ListBox::from_glib_borrow(<a href="#2286">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                <span class="prelude-ty">Option</span>::&lt;<a href="list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;::from_glib_borrow(<a href="#2287">row</a>)
+                    .<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()
                     .as_ref(),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2280">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2279">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;row-selected\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     row_selected_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2299">f</a>),
             )
         }
     }
@@ -4875,82 +4875,82 @@
     ///
     /// The default bindings for this signal is Ctrl-a.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;select-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_all_trampoline&lt;P: IsA&lt;ListBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+    </span><span class="kw">fn </span>connect_select_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>select_all_trampoline&lt;P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2320">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2322">f</a>(ListBox::from_glib_borrow(<a href="#2319">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2317">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2317">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;select-all\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     select_all_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2326">f</a>),
             )
         }
     }
 
     <span class="kw">fn </span>emit_select_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;select-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
+        <a class="self" href="#2338">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">emit_by_name</a>::&lt;()&gt;(<span class="string">&quot;select-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
     <span class="doccomment">/// The ::selected-rows-changed signal is emitted when the
     /// set of selected rows changes.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;selected-rows-changed&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selected_rows_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_selected_rows_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>selected_rows_changed_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2351">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2353">f</a>(ListBox::from_glib_borrow(<a href="#2350">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2345">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2345">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;selected-rows-changed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     selected_rows_changed_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2357">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;toggle-cursor-row&quot;</span>)]
-    </span><span class="kw">fn </span>connect_toggle_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_cursor_row_trampoline&lt;P: IsA&lt;ListBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+    </span><span class="kw">fn </span>connect_toggle_cursor_row&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>toggle_cursor_row_trampoline&lt;P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2373">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2375">f</a>(ListBox::from_glib_borrow(<a href="#2372">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2370">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2370">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;toggle-cursor-row\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     toggle_cursor_row_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2379">f</a>),
             )
         }
     }
 
     <span class="kw">fn </span>emit_toggle_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;toggle-cursor-row&quot;</span>, <span class="kw-2">&amp;</span>[]);
+        <a class="self" href="#2391">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">emit_by_name</a>::&lt;()&gt;(<span class="string">&quot;toggle-cursor-row&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
     <span class="doccomment">/// The ::unselect-all signal is a [keybinding signal][GtkBindingSignal]
@@ -4959,92 +4959,92 @@
     ///
     /// The default bindings for this signal is Ctrl-Shift-a.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;unselect-all&quot;</span>)]
-    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
-        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>unselect_all_trampoline&lt;P: IsA&lt;ListBox&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+    </span><span class="kw">fn </span>connect_unselect_all&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+        <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>unselect_all_trampoline&lt;P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;, F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>&gt;(
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2404">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2406">f</a>(ListBox::from_glib_borrow(<a href="#2403">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2401">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2401">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;unselect-all\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     unselect_all_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2410">f</a>),
             )
         }
     }
 
     <span class="kw">fn </span>emit_unselect_all(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="self">self</span>.emit_by_name::&lt;()&gt;(<span class="string">&quot;unselect-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
+        <a class="self" href="#2422">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">emit_by_name</a>::&lt;()&gt;(<span class="string">&quot;unselect-all&quot;</span>, <span class="kw-2">&amp;</span>[]);
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;activate-on-single-click&quot;</span>)]
     </span><span class="kw">fn </span>connect_activate_on_single_click_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; SignalHandlerId {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_activate_on_single_click_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2437">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2439">f</a>(ListBox::from_glib_borrow(<a href="#2435">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2429">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2428">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::activate-on-single-click\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_activate_on_single_click_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2443">f</a>),
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;selection-mode&quot;</span>)]
-    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; SignalHandlerId {
+    </span><span class="kw">fn </span>connect_selection_mode_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_selection_mode_trampoline&lt;
-            P: IsA&lt;ListBox&gt;,
+            P: IsA&lt;<a href="#16-1232">ListBox</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
         &gt;(
-            this: <span class="kw-2">*mut </span>ffi::GtkListBox,
+            this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(f <span class="kw">as </span><span class="kw-2">*const </span>F);
-            f(ListBox::from_glib_borrow(this).unsafe_cast_ref())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#2463">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#2465">f</a>(ListBox::from_glib_borrow(<a href="#2461">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(f);
-            connect_raw(
-                <span class="self">self</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#2456">f</a>);
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#2456">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::selection-mode\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_selection_mode_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(f),
+                Box_::into_raw(<a href="#2469">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;ListBox&gt;&gt; ListBoxExt <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#16-1232">ListBox</a>&gt;&gt; <a href="#1595-2480">ListBoxExt</a> <span class="kw">for </span>O {}
 
-<span class="kw">impl </span>fmt::Display <span class="kw">for </span>ListBox {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter) -&gt; fmt::Result {
-        f.write_str(<span class="string">&quot;ListBox&quot;</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#16-1232">ListBox</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
+        <a href="#2485">f</a>.write_str(<span class="string">&quot;ListBox&quot;</span>)
     }
 }
 </code></pre></div></section></main></body></html>

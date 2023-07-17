@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkwayland/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9bb858ba049f1f21.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_wayland_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (8ca44ef9c 2023-07-10)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ><script src="../../static.files/storage-59fd9b8ccb335783.js"></script><script defer src="../../static.files/source-script-106908c7a7964ba4.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkwayland/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-07416f8512e0e04c.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk_wayland_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (0e8e857b1 2023-07-16)" data-channel="nightly" data-search-js="search-f6292fe389d70017.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -262,12 +262,12 @@
     };
 }
 
-<span class="macro">opaque!</span>(GdkWaylandDevice);
-<span class="macro">opaque!</span>(GdkWaylandDisplay);
-<span class="macro">opaque!</span>(GdkWaylandGLContext);
-<span class="macro">opaque!</span>(GdkWaylandMonitor);
-<span class="macro">opaque!</span>(GdkWaylandWindow);
-<span class="macro">opaque!</span>(GdkWaylandSeat);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandDevice.html">GdkWaylandDevice</a>);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandDisplay.html">GdkWaylandDisplay</a>);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandGLContext.html">GdkWaylandGLContext</a>);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandMonitor.html">GdkWaylandMonitor</a>);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandWindow.html">GdkWaylandWindow</a>);
+<a class="macro" href="#7-24">opaque!</a>(<a href="../../gdk_wayland_sys/struct.GdkWaylandSeat.html">GdkWaylandSeat</a>);
 
 <span class="kw">extern </span><span class="string">&quot;C&quot; </span>{
     <span class="comment">//=========================================================================
@@ -275,12 +275,12 @@
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_wayland_window_get_type() -&gt; GType;
 
-    <span class="kw">pub fn </span>gdk_wayland_window_get_wl_surface(window: <span class="kw-2">*mut </span>GdkWaylandWindow) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_window_get_wl_surface(window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>) -&gt; gpointer;
 
-    <span class="kw">pub fn </span>gdk_wayland_window_set_use_custom_surface(window: <span class="kw-2">*mut </span>GdkWaylandWindow);
+    <span class="kw">pub fn </span>gdk_wayland_window_set_use_custom_surface(window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>);
 
     <span class="kw">pub fn </span>gdk_wayland_window_set_dbus_properties_libgtk_only(
-        window: <span class="kw-2">*mut </span>GdkWaylandWindow,
+        window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>,
         application_id: <span class="kw-2">*const </span>c_char,
         app_menu_path: <span class="kw-2">*const </span>c_char,
         menubar_path: <span class="kw-2">*const </span>c_char,
@@ -290,23 +290,23 @@
     );
 
     <span class="kw">pub fn </span>gdk_wayland_selection_add_targets(
-        window: <span class="kw-2">*mut </span>GdkWaylandWindow,
+        window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>,
         selection: GdkAtom,
         ntargets: c_uint,
         targets: <span class="kw-2">*mut </span>GdkAtom,
     );
 
-    <span class="kw">pub fn </span>gdk_wayland_window_unexport_handle(window: <span class="kw-2">*mut </span>GdkWaylandWindow);
+    <span class="kw">pub fn </span>gdk_wayland_window_unexport_handle(window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>);
 
     <span class="kw">pub fn </span>gdk_wayland_window_export_handle(
-        window: <span class="kw-2">*mut </span>GdkWaylandWindow,
-        cb: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span>GdkWaylandWindow, <span class="kw-2">*const </span>c_char, <span class="kw-2">*mut </span>libc::c_void)&gt;,
-        user_data: <span class="kw-2">*mut </span>libc::c_void,
-        destroy_notify: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span>libc::c_void)&gt;,
+        window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>,
+        cb: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>, <span class="kw-2">*const </span>c_char, <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/enum.c_void.html">libc::c_void</a>)&gt;,
+        user_data: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/enum.c_void.html">libc::c_void</a>,
+        destroy_notify: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/enum.c_void.html">libc::c_void</a>)&gt;,
     ) -&gt; glib::gboolean;
 
     <span class="kw">pub fn </span>gdk_wayland_window_set_transient_for_exported(
-        window: <span class="kw-2">*mut </span>GdkWaylandWindow,
+        window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>,
         parent_handle: <span class="kw-2">*const </span>c_char,
     ) -&gt; glib::gboolean;
 
@@ -317,7 +317,7 @@
         application_id: <span class="kw-2">*const </span>c_char,
     ) -&gt; glib::gboolean;
 
-    <span class="kw">pub fn </span>gdk_wayland_window_announce_csd(window: <span class="kw-2">*mut </span>GdkWaylandWindow);
+    <span class="kw">pub fn </span>gdk_wayland_window_announce_csd(window: <span class="kw-2">*mut </span><a href="#30">GdkWaylandWindow</a>);
 
     <span class="attr">#[cfg(any(feature = <span class="string">&quot;v3_24&quot;</span>, docsrs))]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
@@ -342,16 +342,16 @@
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_wayland_device_get_type() -&gt; GType;
 
-    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_seat(device: <span class="kw-2">*mut </span>GdkWaylandDevice) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_seat(device: <span class="kw-2">*mut </span><a href="#26">GdkWaylandDevice</a>) -&gt; gpointer;
 
-    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_pointer(device: <span class="kw-2">*mut </span>GdkWaylandDevice) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_pointer(device: <span class="kw-2">*mut </span><a href="#26">GdkWaylandDevice</a>) -&gt; gpointer;
 
-    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_keyboard(device: <span class="kw-2">*mut </span>GdkWaylandDevice) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_device_get_wl_keyboard(device: <span class="kw-2">*mut </span><a href="#26">GdkWaylandDevice</a>) -&gt; gpointer;
 
-    <span class="kw">pub fn </span>gdk_wayland_device_get_node_path(device: <span class="kw-2">*mut </span>GdkWaylandDevice) -&gt; <span class="kw-2">*const </span>c_char;
+    <span class="kw">pub fn </span>gdk_wayland_device_get_node_path(device: <span class="kw-2">*mut </span><a href="#26">GdkWaylandDevice</a>) -&gt; <span class="kw-2">*const </span>c_char;
 
     <span class="kw">pub fn </span>gdk_wayland_device_pad_set_feedback(
-        device: <span class="kw-2">*mut </span>GdkWaylandDevice,
+        device: <span class="kw-2">*mut </span><a href="#26">GdkWaylandDevice</a>,
         element: GdkDevicePadFeature,
         idx: c_uint,
         label: <span class="kw-2">*const </span>c_char,
@@ -363,24 +363,24 @@
     </span><span class="kw">pub fn </span>gdk_wayland_display_get_type() -&gt; GType;
 
     <span class="kw">pub fn </span>gdk_wayland_display_set_cursor_theme(
-        display: <span class="kw-2">*mut </span>GdkWaylandDisplay,
+        display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>,
         theme: <span class="kw-2">*const </span>c_char,
         size: c_int,
     );
 
-    <span class="kw">pub fn </span>gdk_wayland_display_get_wl_display(display: <span class="kw-2">*mut </span>GdkWaylandDisplay) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_display_get_wl_display(display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>) -&gt; gpointer;
 
-    <span class="kw">pub fn </span>gdk_wayland_display_get_wl_compositor(display: <span class="kw-2">*mut </span>GdkWaylandDisplay) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_display_get_wl_compositor(display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>) -&gt; gpointer;
 
     <span class="kw">pub fn </span>gdk_wayland_display_set_startup_notification_id(
-        display: <span class="kw-2">*mut </span>GdkWaylandDisplay,
+        display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>,
         startup_id: <span class="kw-2">*const </span>c_char,
     );
 
-    <span class="kw">pub fn </span>gdk_wayland_display_prefers_ssd(display: <span class="kw-2">*mut </span>GdkWaylandDisplay) -&gt; glib::gboolean;
+    <span class="kw">pub fn </span>gdk_wayland_display_prefers_ssd(display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>) -&gt; glib::gboolean;
 
     <span class="kw">pub fn </span>gdk_wayland_display_query_registry(
-        display: <span class="kw-2">*mut </span>GdkWaylandDisplay,
+        display: <span class="kw-2">*mut </span><a href="#27">GdkWaylandDisplay</a>,
         global: <span class="kw-2">*const </span>c_char,
     ) -&gt; glib::gboolean;
 
@@ -394,13 +394,13 @@
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_wayland_seat_get_type() -&gt; GType;
 
-    <span class="kw">pub fn </span>gdk_wayland_seat_get_wl_seat(seat: <span class="kw-2">*mut </span>GdkWaylandSeat) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_seat_get_wl_seat(seat: <span class="kw-2">*mut </span><a href="#31">GdkWaylandSeat</a>) -&gt; gpointer;
 
     <span class="comment">//=========================================================================
     // GdkWaylandMonitor
     //=========================================================================
     </span><span class="kw">pub fn </span>gdk_wayland_monitor_get_type() -&gt; GType;
 
-    <span class="kw">pub fn </span>gdk_wayland_monitor_get_wl_output(monitor: <span class="kw-2">*mut </span>GdkWaylandMonitor) -&gt; gpointer;
+    <span class="kw">pub fn </span>gdk_wayland_monitor_get_wl_output(monitor: <span class="kw-2">*mut </span><a href="#29">GdkWaylandMonitor</a>) -&gt; gpointer;
 }
 </code></pre></div></section></main></body></html>
