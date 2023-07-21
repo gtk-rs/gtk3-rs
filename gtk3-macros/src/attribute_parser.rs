@@ -1,6 +1,5 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use anyhow::{bail, Result};
 use proc_macro2::Span;
 use syn::spanned::Spanned;
 use syn::{
@@ -45,13 +44,40 @@ impl Parse for TemplateSource {
     }
 }
 
-pub fn parse_template_source(input: &DeriveInput) -> Result<TemplateSource> {
-    let attr = match input.attrs.iter().find(|a| a.path().is_ident("template")) {
-        Some(attr) => attr,
-        _ => bail!("Missing 'template' attribute"),
-    };
+#[derive(Debug)]
+pub enum ParseTemplateSourceError {
+    MissingAttribute,
+    Parse(syn::Error),
+}
 
-    Ok(attr.parse_args()?)
+impl std::fmt::Display for ParseTemplateSourceError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::MissingAttribute => write!(f, "Missing 'template' attribute"),
+            Self::Parse(err) => write!(f, "{}", err),
+        }
+    }
+}
+
+impl std::error::Error for ParseTemplateSourceError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::MissingAttribute => None,
+            Self::Parse(err) => Some(err),
+        }
+    }
+}
+
+pub fn parse_template_source(
+    input: &DeriveInput,
+) -> Result<TemplateSource, ParseTemplateSourceError> {
+    input
+        .attrs
+        .iter()
+        .find(|a| a.path().is_ident("template"))
+        .ok_or(ParseTemplateSourceError::MissingAttribute)?
+        .parse_args()
+        .map_err(ParseTemplateSourceError::Parse)
 }
 
 pub enum FieldAttributeArg {
