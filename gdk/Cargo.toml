@@ -13,7 +13,7 @@ exclude = [
     "gir-files/*",
 ]
 edition = "2021"
-rust-version = "1.65"
+rust-version = "1.70"
 
 [lib]
 name = "gdk"

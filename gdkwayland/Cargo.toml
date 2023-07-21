@@ -10,7 +10,7 @@ name = "gdkwayland"
 readme = "README.md"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.18.0"
-rust-version = "1.65"
+rust-version = "1.70"
 
 [features]
 v3_24 = ["ffi/v3_24", "gdk/v3_24"]
