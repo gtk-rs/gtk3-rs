@@ -257,10 +257,35 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span>anyhow::{<a href="https://docs.rs/anyhow/1.0.72/anyhow/macro.bail.html">bail</a>, <span class="prelude-ty">Result</span>};
-<span class="kw">use </span><a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.Span.html">proc_macro2::Span</a>;
+</span><span class="kw">use </span><a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.Span.html">proc_macro2::Span</a>;
 <span class="kw">use </span><a href="https://docs.rs/syn/2.0.27/syn/spanned/trait.Spanned.html">syn::spanned::Spanned</a>;
 <span class="kw">use </span>syn::{
     parse::{<a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>, <a href="https://docs.rs/syn/2.0.27/syn/parse/trait.Parse.html">Parse</a>, <a href="https://docs.rs/syn/2.0.27/syn/parse/type.ParseStream.html">ParseStream</a>},
@@ -282,51 +307,78 @@
     String(<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>),
 }
 
-<span class="kw">impl </span><a href="https://docs.rs/syn/2.0.27/syn/parse/trait.Parse.html">Parse</a> <span class="kw">for </span><a href="#20-24">TemplateSource</a> {
+<span class="kw">impl </span><a href="https://docs.rs/syn/2.0.27/syn/parse/trait.Parse.html">Parse</a> <span class="kw">for </span><a href="#19-23">TemplateSource</a> {
     <span class="kw">fn </span>parse(input: ParseStream&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; syn::Result&lt;<span class="self">Self</span>&gt; {
-        <span class="kw">let </span>lookahead = <a href="#27">input</a>.lookahead1();
+        <span class="kw">let </span>lookahead = <a href="#26">input</a>.lookahead1();
         <span class="kw">let </span>variant = <span class="kw">if </span>lookahead.peek(kw::file) {
-            <span class="kw">let _</span>: <a href="#13">kw::file</a> = input.parse()<span class="question-mark">?</span>;
-            <a href="#21">TemplateSource::File</a>
+            <span class="kw">let _</span>: <a href="#12">kw::file</a> = input.parse()<span class="question-mark">?</span>;
+            <a href="#20">TemplateSource::File</a>
         } <span class="kw">else if </span>lookahead.peek(kw::resource) {
-            <span class="kw">let _</span>: <a href="#14">kw::resource</a> = input.parse()<span class="question-mark">?</span>;
-            <a href="#22">TemplateSource::Resource</a>
+            <span class="kw">let _</span>: <a href="#13">kw::resource</a> = input.parse()<span class="question-mark">?</span>;
+            <a href="#21">TemplateSource::Resource</a>
         } <span class="kw">else if </span>lookahead.peek(kw::string) {
-            <span class="kw">let _</span>: <a href="#15">kw::string</a> = input.parse()<span class="question-mark">?</span>;
-            <a href="#23">TemplateSource::String</a>
+            <span class="kw">let _</span>: <a href="#14">kw::string</a> = input.parse()<span class="question-mark">?</span>;
+            <a href="#22">TemplateSource::String</a>
         } <span class="kw">else </span>{
-            <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="#28">lookahead</a>.error());
+            <span class="kw">return </span><span class="prelude-val">Err</span>(<a href="#27">lookahead</a>.error());
         };
 
         <span class="kw">let _</span>: <a class="macro" href="https://docs.rs/syn/2.0.27/syn/macro.Token.html">Token!</a>[=] = input.parse()<span class="question-mark">?</span>;
         <span class="kw">let </span>lit: <a href="https://docs.rs/syn/2.0.27/syn/lit/struct.LitStr.html">LitStr</a> = input.parse()<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<a href="#29">variant</a>(<a href="#43">lit</a>.value()))
+        <span class="prelude-val">Ok</span>(<a href="#28">variant</a>(<a href="#42">lit</a>.value()))
     }
 }
 
-<span class="kw">pub fn </span>parse_template_source(input: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/derive/struct.DeriveInput.html">DeriveInput</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<a href="#20-24">TemplateSource</a>&gt; {
-    <span class="kw">let </span>attr = <span class="kw">match </span><a href="#48">input</a>.attrs.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">find</a>(|a| <a href="#49">a</a>.path().is_ident(<span class="string">&quot;template&quot;</span>)) {
-        <span class="prelude-val">Some</span>(attr) =&gt; <a href="#50">attr</a>,
-        <span class="kw">_ </span>=&gt; <a class="macro" href="https://docs.rs/anyhow/1.0.72/anyhow/macro.bail.html">bail!</a>(<span class="string">&quot;Missing &#39;template&#39; attribute&quot;</span>),
-    };
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub enum </span>ParseTemplateSourceError {
+    MissingAttribute,
+    Parse(<a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">syn::Error</a>),
+}
 
-    <span class="prelude-val">Ok</span>(attr.parse_args()<span class="question-mark">?</span>)
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">std::fmt::Display</a> <span class="kw">for </span><a href="#48-51">ParseTemplateSourceError</a> {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">std::fmt::Result</a> {
+        <span class="kw">match </span><span class="self"><a href="#54">self</a> </span>{
+            <span class="self">Self</span>::MissingAttribute =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a href="#54">f</a>, <span class="string">&quot;Missing &#39;template&#39; attribute&quot;</span>),
+            <span class="self">Self</span>::Parse(err) =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.write.html">write!</a>(<a href="#54">f</a>, <span class="string">&quot;{}&quot;</span>, err),
+        }
+    }
+}
+
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/error/trait.Error.html">std::error::Error</a> <span class="kw">for </span><a href="#48-51">ParseTemplateSourceError</a> {
+    <span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>(<span class="kw">dyn </span><a href="https://doc.rust-lang.org/nightly/core/error/trait.Error.html">std::error::Error</a> + <span class="lifetime">&#39;static</span>)&gt; {
+        <span class="kw">match </span><span class="self"><a href="#63">self</a> </span>{
+            <span class="self">Self</span>::MissingAttribute =&gt; <span class="prelude-val">None</span>,
+            <span class="self">Self</span>::Parse(err) =&gt; <span class="prelude-val">Some</span>(<a href="#66">err</a>),
+        }
+    }
+}
+
+<span class="kw">pub fn </span>parse_template_source(
+    input: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/derive/struct.DeriveInput.html">DeriveInput</a>,
+) -&gt; <span class="prelude-ty">Result</span>&lt;<a href="#19-23">TemplateSource</a>, <a href="#48-51">ParseTemplateSourceError</a>&gt; {
+    input
+        .attrs
+        .iter()
+        .find(|a| a.path().is_ident(<span class="string">&quot;template&quot;</span>))
+        .ok_or(ParseTemplateSourceError::MissingAttribute)<span class="question-mark">?
+        </span>.parse_args()
+        .map_err(<a href="#50">ParseTemplateSourceError::Parse</a>)
 }
 
 <span class="kw">pub enum </span>FieldAttributeArg {
     Id(<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>),
 }
 
-<span class="kw">impl </span><a href="https://docs.rs/syn/2.0.27/syn/parse/trait.Parse.html">Parse</a> <span class="kw">for </span><a href="#57-59">FieldAttributeArg</a> {
+<span class="kw">impl </span><a href="https://docs.rs/syn/2.0.27/syn/parse/trait.Parse.html">Parse</a> <span class="kw">for </span><a href="#83-85">FieldAttributeArg</a> {
     <span class="kw">fn </span>parse(input: ParseStream&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; syn::Result&lt;<span class="self">Self</span>&gt; {
-        <span class="kw">let </span>lookahead = <a href="#62">input</a>.lookahead1();
+        <span class="kw">let </span>lookahead = <a href="#88">input</a>.lookahead1();
         <span class="kw">if </span>lookahead.peek(kw::id) {
-            <span class="kw">let _</span>: <a href="#17">kw::id</a> = input.parse()<span class="question-mark">?</span>;
+            <span class="kw">let _</span>: <a href="#16">kw::id</a> = input.parse()<span class="question-mark">?</span>;
             <span class="kw">let _</span>: <a class="macro" href="https://docs.rs/syn/2.0.27/syn/macro.Token.html">Token!</a>[=] = input.parse()<span class="question-mark">?</span>;
             <span class="kw">let </span>lit: <a href="https://docs.rs/syn/2.0.27/syn/lit/struct.LitStr.html">LitStr</a> = input.parse()<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::Id(<a href="#67">lit</a>.value()))
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>::Id(<a href="#93">lit</a>.value()))
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<a href="#63">lookahead</a>.error())
+            <span class="prelude-val">Err</span>(<a href="#89">lookahead</a>.error())
         }
     }
 }
@@ -337,8 +389,8 @@
 }
 
 <span class="kw">pub struct </span>FieldAttribute {
-    <span class="kw">pub </span>ty: <a href="#76-78">FieldAttributeType</a>,
-    <span class="kw">pub </span>args: Vec&lt;<a href="#57-59">FieldAttributeArg</a>&gt;,
+    <span class="kw">pub </span>ty: <a href="#102-104">FieldAttributeType</a>,
+    <span class="kw">pub </span>args: Vec&lt;<a href="#83-85">FieldAttributeArg</a>&gt;,
     <span class="kw">pub </span>path_span: <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.Span.html">Span</a>,
     <span class="kw">pub </span>span: <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.Span.html">Span</a>,
 }
@@ -346,12 +398,12 @@
 <span class="kw">pub struct </span>AttributedField {
     <span class="kw">pub </span>ident: <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.Ident.html">Ident</a>,
     <span class="kw">pub </span>ty: <a href="https://docs.rs/syn/2.0.27/syn/ty/enum.Type.html">Type</a>,
-    <span class="kw">pub </span>attr: <a href="#80-85">FieldAttribute</a>,
+    <span class="kw">pub </span>attr: <a href="#106-111">FieldAttribute</a>,
 }
 
-<span class="kw">fn </span>parse_field_attr_args(attr: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/attr/struct.Attribute.html">Attribute</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<a href="#57-59">FieldAttributeArg</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
+<span class="kw">fn </span>parse_field_attr_args(attr: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/attr/struct.Attribute.html">Attribute</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<a href="#83-85">FieldAttributeArg</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>field_attribute_args = Vec::new();
-    <span class="kw">match </span><span class="kw-2">&amp;</span><a href="#93">attr</a>.meta {
+    <span class="kw">match </span><span class="kw-2">&amp;</span><a href="#119">attr</a>.meta {
         Meta::List(list) =&gt; {
             <span class="kw">let </span>args =
                 list.parse_args_with(Punctuated::&lt;FieldAttributeArg, <span class="macro">Token!</span>[,]&gt;::parse_terminated)<span class="question-mark">?</span>;
@@ -372,23 +424,23 @@
         Meta::Path(<span class="kw">_</span>) =&gt; (),
         meta =&gt; {
             <span class="kw">return </span><span class="prelude-val">Err</span>(Error::new(
-                <a href="#114">meta</a>.<a href="https://docs.rs/syn/2.0.27/syn/spanned/trait.Spanned.html">span</a>(),
+                <a href="#140">meta</a>.<a href="https://docs.rs/syn/2.0.27/syn/spanned/trait.Spanned.html">span</a>(),
                 <span class="string">&quot;invalid attribute argument type, expected `name = value` list or nothing&quot;</span>,
             ))
         }
     }
 
-    <span class="prelude-val">Ok</span>(<a href="#94">field_attribute_args</a>)
+    <span class="prelude-val">Ok</span>(<a href="#120">field_attribute_args</a>)
 }
 
-<span class="kw">fn </span>parse_field(field: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/data/struct.Field.html">Field</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<a href="#87-91">AttributedField</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
-    <span class="kw">let </span>field_attrs = <span class="kw-2">&amp;</span><a href="#125">field</a>.attrs;
-    <span class="kw">let </span>ident = <span class="kw">match </span><span class="kw-2">&amp;</span><a href="#125">field</a>.ident {
-        <span class="prelude-val">Some</span>(ident) =&gt; <a href="#128">ident</a>,
-        <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::new(<a href="#125">field</a>.<a href="https://docs.rs/syn/2.0.27/syn/spanned/trait.Spanned.html">span</a>(), <span class="string">&quot;expected identifier&quot;</span>)),
+<span class="kw">fn </span>parse_field(field: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/data/struct.Field.html">Field</a>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;<a href="#113-117">AttributedField</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
+    <span class="kw">let </span>field_attrs = <span class="kw-2">&amp;</span><a href="#151">field</a>.attrs;
+    <span class="kw">let </span>ident = <span class="kw">match </span><span class="kw-2">&amp;</span><a href="#151">field</a>.ident {
+        <span class="prelude-val">Some</span>(ident) =&gt; <a href="#154">ident</a>,
+        <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(Error::new(<a href="#151">field</a>.<a href="https://docs.rs/syn/2.0.27/syn/spanned/trait.Spanned.html">span</a>(), <span class="string">&quot;expected identifier&quot;</span>)),
     };
 
-    <span class="kw">let </span>ty = <span class="kw-2">&amp;</span><a href="#125">field</a>.ty;
+    <span class="kw">let </span>ty = <span class="kw-2">&amp;</span><a href="#151">field</a>.ty;
     <span class="kw">let </span><span class="kw-2">mut </span>attr = <span class="prelude-val">None</span>;
 
     <span class="kw">for </span>field_attr <span class="kw">in </span>field_attrs {
@@ -419,18 +471,18 @@
         }
     }
 
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(attr) = <a href="#133">attr</a> {
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<a href="#87-91">AttributedField</a> {
-            ident: <a href="#127">ident</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
-            ty: <a href="#132">ty</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
-            <a href="#163">attr</a>,
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(attr) = <a href="#159">attr</a> {
+        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<a href="#113-117">AttributedField</a> {
+            ident: <a href="#153">ident</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            ty: <a href="#158">ty</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>(),
+            <a href="#189">attr</a>,
         }))
     } <span class="kw">else </span>{
         <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
     }
 }
 
-<span class="kw">pub fn </span>parse_fields(fields: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/data/enum.Fields.html">Fields</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<a href="#87-91">AttributedField</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
+<span class="kw">pub fn </span>parse_fields(fields: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/data/enum.Fields.html">Fields</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;<a href="#113-117">AttributedField</a>&gt;, <a href="https://docs.rs/syn/2.0.27/syn/error/struct.Error.html">Error</a>&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>attributed_fields = Vec::new();
 
     <span class="kw">for </span>field <span class="kw">in </span>fields {
@@ -441,6 +493,6 @@
         }
     }
 
-    <span class="prelude-val">Ok</span>(<a href="#175">attributed_fields</a>)
+    <span class="prelude-val">Ok</span>(<a href="#201">attributed_fields</a>)
 }
 </code></pre></div></section></main></body></html>

@@ -174,16 +174,16 @@
 <span class="kw">use </span><a href="lib.rs.html#3"><span class="kw">crate</span>::attribute_parser</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="lib.rs.html#5"><span class="kw">crate</span>::util</a>::<span class="kw-2">*</span>;
 
-<span class="kw">fn </span>gen_set_template(source: <a href="attribute_parser.rs.html#20-24">TemplateSource</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
+<span class="kw">fn </span>gen_set_template(source: <a href="attribute_parser.rs.html#19-23">TemplateSource</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">match </span><a href="#13">source</a> {
-        <a href="attribute_parser.rs.html#21">TemplateSource::File</a>(file) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#20">TemplateSource::File</a>(file) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
             <span class="kw">let </span>t = <span class="macro">include_bytes!</span>(#file);
             klass.set_template(t);
         },
-        <a href="attribute_parser.rs.html#22">TemplateSource::Resource</a>(resource) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#21">TemplateSource::Resource</a>(resource) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
             klass.set_template_from_resource(<span class="kw-2">&amp;</span>#resource);
         },
-        <a href="attribute_parser.rs.html#23">TemplateSource::String</a>(template) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#22">TemplateSource::String</a>(template) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
             klass.set_template(<span class="kw-2">&amp;</span>#template);
         },
     }
@@ -191,17 +191,17 @@
 
 <span class="kw">fn </span>gen_template_child_bindings(fields: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.27/syn/data/enum.Fields.html">syn::Fields</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">let </span>crate_ident = <a href="util.rs.html#6-15">crate_ident_new</a>();
-    <span class="kw">let </span>attributed_fields = <span class="kw">match </span><a href="attribute_parser.rs.html#174-186">parse_fields</a>(<a href="#28">fields</a>) {
+    <span class="kw">let </span>attributed_fields = <span class="kw">match </span><a href="attribute_parser.rs.html#200-212">parse_fields</a>(<a href="#28">fields</a>) {
         <span class="prelude-val">Ok</span>(fields) =&gt; <a href="#31">fields</a>,
         <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">abort!</span>(err.span(), err.to_string()),
     };
 
     <span class="kw">let </span>recurse = <a href="#30">attributed_fields</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|field| <span class="kw">match </span><a href="#35">field</a>.attr.ty {
-        <a href="attribute_parser.rs.html#77">FieldAttributeType::TemplateChild</a> =&gt; {
+        <a href="attribute_parser.rs.html#103">FieldAttributeType::TemplateChild</a> =&gt; {
             <span class="kw">let </span><span class="kw-2">mut </span>value_id = <span class="kw-2">&amp;</span><a href="#35">field</a>.ident.<a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">to_string</a>();
             <span class="kw">let </span>ident = <span class="kw-2">&amp;</span><a href="#35">field</a>.ident;
             <a href="#35">field</a>.attr.args.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">for_each</a>(|arg| <span class="kw">match </span><a href="#39">arg</a> {
-                <a href="attribute_parser.rs.html#58">FieldAttributeArg::Id</a>(value) =&gt; {
+                <a href="attribute_parser.rs.html#84">FieldAttributeArg::Id</a>(value) =&gt; {
                     <a href="#37">value_id</a> = <a href="#40">value</a>;
                 }
             });
@@ -224,7 +224,7 @@
     <span class="kw">let </span>name = <span class="kw-2">&amp;</span><a href="#59">input</a>.ident;
     <span class="kw">let </span>crate_ident = <a href="util.rs.html#6-15">crate_ident_new</a>();
 
-    <span class="kw">let </span>source = <span class="kw">match </span><a href="attribute_parser.rs.html#48-55">parse_template_source</a>(<a href="#59">input</a>) {
+    <span class="kw">let </span>source = <span class="kw">match </span><a href="attribute_parser.rs.html#71-81">parse_template_source</a>(<a href="#59">input</a>) {
         <span class="prelude-val">Ok</span>(v) =&gt; <a href="#64">v</a>,
         <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">abort_call_site!</span>(
             <span class="string">&quot;{}: derive(CompositeTemplate) requires #[template(...)] to specify &#39;file&#39;, &#39;resource&#39;, or &#39;string&#39;&quot;</span>,
