@@ -20,9 +20,9 @@ v3_24_22 = ["v3_24", "ffi/v3_24_22"]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [dependencies]
-ffi = { path = "./sys", package = "gdkwayland-sys" }
-gdk = { path = "../gdk" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+ffi = { version = "0.18", path = "./sys", package = "gdkwayland-sys" }
+gdk = { version = "0.18", path = "../gdk" }
+glib = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
 libc = "0.2"
 wayland-client = "0.30"
 wayland-backend = { version = "0.1", features = ["client_system"] }

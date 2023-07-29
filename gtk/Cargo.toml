@@ -38,15 +38,15 @@ pkg-config = "0.3.7"
 libc = "0.2"
 field-offset = "0.3"
 futures-channel = "0.3"
-atk = { path = "../atk" }
-ffi = { package = "gtk-sys", path = "sys" }
-gtk3-macros = { path = "../gtk3-macros" }
-cairo-rs = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-gio = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-gdk = { path = "../gdk" }
-gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-pango = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+atk = { version = "0.18", path = "../atk" }
+ffi = { package = "gtk-sys", version = "0.18", path = "sys" }
+gtk3-macros = { version = "0.18", path = "../gtk3-macros" }
+cairo-rs = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
+gio = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
+glib = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
+gdk = { version = "0.18", path = "../gdk" }
+gdk-pixbuf = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
+pango = { branch = "0.18", version = "0.18", git = "https://github.com/gtk-rs/gtk-rs-core" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
