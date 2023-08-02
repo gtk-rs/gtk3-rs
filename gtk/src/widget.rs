@@ -88,13 +88,13 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         }
     }
 
-    fn connect_map_event<F: Fn(&Self, &Event) -> glib::ControlFlow + 'static>(
+    fn connect_map_event<F: Fn(&Self, &Event) -> glib::Propagation + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<
             T,
-            F: Fn(&T, &Event) -> glib::ControlFlow + 'static,
+            F: Fn(&T, &Event) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventAny,
@@ -122,13 +122,13 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         }
     }
 
-    fn connect_unmap_event<F: Fn(&Self, &Event) -> glib::ControlFlow + 'static>(
+    fn connect_unmap_event<F: Fn(&Self, &Event) -> glib::Propagation + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn event_any_trampoline<
             T,
-            F: Fn(&T, &Event) -> glib::ControlFlow + 'static,
+            F: Fn(&T, &Event) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkWidget,
             event: *mut gdk::ffi::GdkEventAny,
@@ -237,9 +237,9 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_widget_hide_on_delete")]
-    fn hide_on_delete(&self) -> glib::ControlFlow {
+    fn hide_on_delete(&self) -> glib::Propagation {
         unsafe {
-            glib::ControlFlow::from_glib(ffi::gtk_widget_hide_on_delete(
+            glib::Propagation::from_glib(ffi::gtk_widget_hide_on_delete(
                 self.as_ref().to_glib_none().0,
             ))
         }
