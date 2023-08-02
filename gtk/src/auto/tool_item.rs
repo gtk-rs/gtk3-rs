@@ -567,13 +567,13 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "create-menu-proxy")]
-    fn connect_create_menu_proxy<F: Fn(&Self) -> glib::ControlFlow + 'static>(
+    fn connect_create_menu_proxy<F: Fn(&Self) -> glib::Propagation + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn create_menu_proxy_trampoline<
             P: IsA<ToolItem>,
-            F: Fn(&P) -> glib::ControlFlow + 'static,
+            F: Fn(&P) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkToolItem,
             f: glib::ffi::gpointer,

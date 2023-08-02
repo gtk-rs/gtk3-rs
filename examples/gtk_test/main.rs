@@ -155,7 +155,7 @@ fn build_ui(application: &gtk::Application) {
     button_about.connect_clicked(move |x| about_clicked(x, &dialog));
 
     window.connect_key_press_event(
-        glib::clone!(@weak entry => @default-return glib::ControlFlow::Break, move |_, key| {
+        glib::clone!(@weak entry => @default-return glib::Propagation::Stop, move |_, key| {
             let keyval = key.keyval();
             let keystate = key.state();
 
@@ -166,7 +166,7 @@ fn build_ui(application: &gtk::Application) {
                 println!("You pressed Ctrl!");
             }
 
-            glib::ControlFlow::Break
+            glib::Propagation::Stop
         }),
     );
 
@@ -182,7 +182,7 @@ fn about_clicked(button: &Button, dialog: &AboutDialog) {
     // as otherwise we can't show it again a second time.
     dialog.connect_delete_event(|dialog, _| {
         dialog.hide();
-        glib::ControlFlow::Continue
+        glib::Propagation::Proceed
     });
 
     println!("Authors: {:?}", dialog.authors());

@@ -41,10 +41,10 @@ fn set_visual(window: &ApplicationWindow, _screen: Option<&gdk::Screen>) {
     }
 }
 
-fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> glib::ControlFlow {
+fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> glib::Propagation {
     // crucial for transparency
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
     ctx.set_operator(cairo::Operator::Screen);
     ctx.paint().expect("Invalid cairo surface state");
-    glib::ControlFlow::Break
+    glib::Propagation::Stop
 }
