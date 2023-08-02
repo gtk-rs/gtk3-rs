@@ -346,13 +346,13 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "state-set")]
-    fn connect_state_set<F: Fn(&Self, bool) -> glib::ControlFlow + 'static>(
+    fn connect_state_set<F: Fn(&Self, bool) -> glib::Propagation + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn state_set_trampoline<
             P: IsA<Switch>,
-            F: Fn(&P, bool) -> glib::ControlFlow + 'static,
+            F: Fn(&P, bool) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkSwitch,
             state: glib::ffi::gboolean,

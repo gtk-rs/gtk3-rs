@@ -14,7 +14,7 @@ pub trait SocketImpl: SocketImplExt + ContainerImpl {
         self.parent_plug_added()
     }
 
-    fn plug_removed(&self) -> glib::ControlFlow {
+    fn plug_removed(&self) -> glib::Propagation {
         self.parent_plug_removed()
     }
 }
@@ -34,18 +34,18 @@ pub trait SocketImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_plug_removed(&self) -> glib::ControlFlow {
+    fn parent_plug_removed(&self) -> glib::Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkSocketClass;
             if let Some(f) = (*parent_class).plug_removed {
-                glib::ControlFlow::from_glib(f(self
+                glib::Propagation::from_glib(f(self
                     .obj()
                     .unsafe_cast_ref::<Socket>()
                     .to_glib_none()
                     .0))
             } else {
-                glib::ControlFlow::Break
+                glib::Propagation::Stop
             }
         }
     }
