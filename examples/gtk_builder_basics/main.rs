@@ -26,7 +26,7 @@ fn build_ui(application: &gtk::Application) {
 
     dialog.connect_delete_event(|dialog, _| {
         dialog.hide();
-        glib::ControlFlow::Continue
+        glib::Propagation::Proceed
     });
 
     bigbutton.connect_clicked(glib::clone!(@weak dialog => move |_| dialog.show_all()));

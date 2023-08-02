@@ -6,7 +6,7 @@ use std::mem;
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::ControlFlow;
+use glib::Propagation;
 
 use crate::prelude::*;
 use crate::Allocation;
@@ -54,11 +54,11 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_adjust_size_request(orientation, minimum_size, natural_size)
     }
 
-    fn button_press_event(&self, event: &gdk::EventButton) -> ControlFlow {
+    fn button_press_event(&self, event: &gdk::EventButton) -> Propagation {
         self.parent_button_press_event(event)
     }
 
-    fn button_release_event(&self, event: &gdk::EventButton) -> ControlFlow {
+    fn button_release_event(&self, event: &gdk::EventButton) -> Propagation {
         self.parent_button_release_event(event)
     }
 
@@ -74,19 +74,19 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_compute_expand(hexpand, vexpand)
     }
 
-    fn configure_event(&self, event: &gdk::EventConfigure) -> ControlFlow {
+    fn configure_event(&self, event: &gdk::EventConfigure) -> Propagation {
         self.parent_configure_event(event)
     }
 
-    fn window_state_event(&self, event: &gdk::EventWindowState) -> ControlFlow {
+    fn window_state_event(&self, event: &gdk::EventWindowState) -> Propagation {
         self.parent_window_state_event(event)
     }
 
-    fn damage_event(&self, event: &gdk::EventExpose) -> ControlFlow {
+    fn damage_event(&self, event: &gdk::EventExpose) -> Propagation {
         self.parent_damage_event(event)
     }
 
-    fn delete_event(&self, event: &gdk::Event) -> ControlFlow {
+    fn delete_event(&self, event: &gdk::Event) -> Propagation {
         self.parent_delete_event(event)
     }
 
@@ -94,7 +94,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_destroy()
     }
 
-    fn destroy_event(&self, event: &gdk::Event) -> ControlFlow {
+    fn destroy_event(&self, event: &gdk::Event) -> Propagation {
         self.parent_destroy_event(event)
     }
 
@@ -138,7 +138,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_drag_data_received(context, x, y, selection_data, info, time)
     }
 
-    fn drag_drop(&self, context: &gdk::DragContext, x: i32, y: i32, time: u32) -> ControlFlow {
+    fn drag_drop(&self, context: &gdk::DragContext, x: i32, y: i32, time: u32) -> Propagation {
         self.parent_drag_drop(context, x, y, time)
     }
 
@@ -146,7 +146,7 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_drag_end(context)
     }
 
-    fn drag_failed(&self, context: &gdk::DragContext, result: DragResult) -> ControlFlow {
+    fn drag_failed(&self, context: &gdk::DragContext, result: DragResult) -> Propagation {
         self.parent_drag_failed(context, result)
     }
 
@@ -154,11 +154,11 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_drag_leave(context, time)
     }
 
-    fn drag_motion(&self, context: &gdk::DragContext, x: i32, y: i32, time: u32) -> ControlFlow {
+    fn drag_motion(&self, context: &gdk::DragContext, x: i32, y: i32, time: u32) -> Propagation {
         self.parent_drag_motion(context, x, y, time)
     }
 
-    fn draw(&self, cr: &cairo::Context) -> ControlFlow {
+    fn draw(&self, cr: &cairo::Context) -> Propagation {
         self.parent_draw(cr)
     }
 
@@ -207,19 +207,19 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_unmap();
     }
 
-    fn motion_notify_event(&self, event: &gdk::EventMotion) -> ControlFlow {
+    fn motion_notify_event(&self, event: &gdk::EventMotion) -> Propagation {
         self.parent_motion_notify_event(event)
     }
 
-    fn scroll_event(&self, event: &gdk::EventScroll) -> ControlFlow {
+    fn scroll_event(&self, event: &gdk::EventScroll) -> Propagation {
         self.parent_scroll_event(event)
     }
 
-    fn enter_notify_event(&self, event: &gdk::EventCrossing) -> ControlFlow {
+    fn enter_notify_event(&self, event: &gdk::EventCrossing) -> Propagation {
         self.parent_enter_notify_event(event)
     }
 
-    fn leave_notify_event(&self, event: &gdk::EventCrossing) -> ControlFlow {
+    fn leave_notify_event(&self, event: &gdk::EventCrossing) -> Propagation {
         self.parent_leave_notify_event(event)
     }
 }
@@ -308,33 +308,33 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             )
         }
     }
-    fn parent_button_press_event(&self, event: &gdk::EventButton) -> ControlFlow {
+    fn parent_button_press_event(&self, event: &gdk::EventButton) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).button_press_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_button_release_event(&self, event: &gdk::EventButton) -> ControlFlow {
+    fn parent_button_release_event(&self, event: &gdk::EventButton) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).button_release_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -380,63 +380,63 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_configure_event(&self, event: &gdk::EventConfigure) -> ControlFlow {
+    fn parent_configure_event(&self, event: &gdk::EventConfigure) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).configure_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_window_state_event(&self, event: &gdk::EventWindowState) -> ControlFlow {
+    fn parent_window_state_event(&self, event: &gdk::EventWindowState) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).window_state_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_damage_event(&self, event: &gdk::EventExpose) -> ControlFlow {
+    fn parent_damage_event(&self, event: &gdk::EventExpose) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).damage_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_delete_event(&self, event: &gdk::Event) -> ControlFlow {
+    fn parent_delete_event(&self, event: &gdk::Event) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).delete_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -449,18 +449,18 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_destroy_event(&self, event: &gdk::Event) -> ControlFlow {
+    fn parent_destroy_event(&self, event: &gdk::Event) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).destroy_event {
                 let ev_glib = glib::translate::mut_override(event.to_glib_none().0);
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     ev_glib,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -574,12 +574,12 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
         x: i32,
         y: i32,
         time: u32,
-    ) -> ControlFlow {
+    ) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_drop {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     context.to_glib_none().0,
                     x,
@@ -587,7 +587,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     time,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -603,18 +603,18 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_drag_failed(&self, context: &gdk::DragContext, result: DragResult) -> ControlFlow {
+    fn parent_drag_failed(&self, context: &gdk::DragContext, result: DragResult) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_failed {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     context.to_glib_none().0,
                     result.into_glib(),
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -637,12 +637,12 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
         x: i32,
         y: i32,
         time: u32,
-    ) -> ControlFlow {
+    ) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).drag_motion {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     context.to_glib_none().0,
                     x,
@@ -650,21 +650,21 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     time,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_draw(&self, cr: &cairo::Context) -> ControlFlow {
+    fn parent_draw(&self, cr: &cairo::Context) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).draw {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     cr.to_glib_none().0,
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
@@ -789,59 +789,59 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    fn parent_motion_notify_event(&self, event: &gdk::EventMotion) -> ControlFlow {
+    fn parent_motion_notify_event(&self, event: &gdk::EventMotion) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).motion_notify_event {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_scroll_event(&self, event: &gdk::EventScroll) -> ControlFlow {
+    fn parent_scroll_event(&self, event: &gdk::EventScroll) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).scroll_event {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_enter_notify_event(&self, event: &gdk::EventCrossing) -> ControlFlow {
+    fn parent_enter_notify_event(&self, event: &gdk::EventCrossing) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).enter_notify_event {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }
-    fn parent_leave_notify_event(&self, event: &gdk::EventCrossing) -> ControlFlow {
+    fn parent_leave_notify_event(&self, event: &gdk::EventCrossing) -> Propagation {
         unsafe {
             let data = Self::type_data();
             let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
             if let Some(f) = (*parent_class).leave_notify_event {
-                ControlFlow::from_glib(f(
+                Propagation::from_glib(f(
                     self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                ControlFlow::Break
+                Propagation::Stop
             }
         }
     }

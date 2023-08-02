@@ -841,13 +841,13 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "activate-link")]
-    fn connect_activate_link<F: Fn(&Self, &str) -> glib::ControlFlow + 'static>(
+    fn connect_activate_link<F: Fn(&Self, &str) -> glib::Propagation + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn activate_link_trampoline<
             P: IsA<Label>,
-            F: Fn(&P, &str) -> glib::ControlFlow + 'static,
+            F: Fn(&P, &str) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkLabel,
             uri: *mut libc::c_char,

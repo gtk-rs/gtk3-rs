@@ -140,7 +140,7 @@ pub trait SpinButtonSignals: 'static {
         F: Fn(&Self) -> Option<Result<f64, ()>> + 'static;
     fn connect_output<F>(&self, output_func: F) -> SignalHandlerId
     where
-        F: Fn(&Self) -> glib::ControlFlow + 'static;
+        F: Fn(&Self) -> glib::Propagation + 'static;
     fn connect_value_changed<F>(&self, value_changed_func: F) -> SignalHandlerId
     where
         F: Fn(&Self) + 'static;
@@ -200,7 +200,7 @@ mod spin_button {
 
         fn connect_output<F>(&self, output_func: F) -> SignalHandlerId
         where
-            F: Fn(&Self) -> glib::ControlFlow + 'static,
+            F: Fn(&Self) -> glib::Propagation + 'static,
         {
             unsafe {
                 let f: Box<F> = Box::new(output_func);
@@ -281,7 +281,7 @@ mod spin_button {
         }
     }
 
-    unsafe extern "C" fn output_trampoline<T, F: Fn(&T) -> glib::ControlFlow + 'static>(
+    unsafe extern "C" fn output_trampoline<T, F: Fn(&T) -> glib::Propagation + 'static>(
         this: *mut GtkSpinButton,
         f: &F,
     ) -> gboolean

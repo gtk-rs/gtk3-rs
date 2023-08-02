@@ -14,7 +14,7 @@ fn build_ui(application: &gtk::Application) {
         .expect("Couldn't get messagedialog1");
     dialog.connect_delete_event(|dialog, _| {
         dialog.hide();
-        glib::ControlFlow::Continue
+        glib::Propagation::Proceed
     });
 
     builder.connect_signals(move |_, handler_name| {
