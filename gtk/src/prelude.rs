@@ -33,7 +33,7 @@ pub use crate::entry_completion::EntryCompletionExtManual;
 pub use crate::file_chooser::FileChooserExtManual;
 pub use crate::fixed::FixedExtManual;
 pub use crate::flow_box::FlowBoxExtManual;
-#[cfg(any(feature = "v3_24", docsrs))]
+#[cfg(feature = "v3_24")]
 pub use crate::gesture_stylus::GestureStylusExtManual;
 pub use crate::im_context_simple::IMContextSimpleExtManual;
 pub use crate::image::ImageExtManual;

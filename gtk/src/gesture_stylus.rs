@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-#[cfg(any(feature = "v3_24", docsrs))]
+#[cfg(feature = "v3_24")]
 use crate::GestureStylus;
 use gdk::AxisUse;
 use glib::object::IsA;
@@ -12,7 +12,7 @@ mod sealed {
 }
 
 pub trait GestureStylusExtManual: IsA<GestureStylus> + sealed::Sealed + 'static {
-    #[cfg(any(feature = "v3_24", docsrs))]
+    #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     #[doc(alias = "gtk_gesture_stylus_get_axes")]
     #[doc(alias = "get_axes")]
