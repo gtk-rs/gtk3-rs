@@ -43,7 +43,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: doc
-          args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys --no-deps
+          args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys --no-deps --all-features
       - run: echo "RELEASE=$(echo '${{ github.event.release.tag_name }}' | grep -Po '(\d+)\.(\d+)')" >> ${GITHUB_ENV}
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ env.RELEASE }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
       - name: Grab gtk-rs LOGO
