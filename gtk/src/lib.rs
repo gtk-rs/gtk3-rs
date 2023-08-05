@@ -86,7 +86,7 @@ mod file_filter_info;
 mod fixed;
 mod flow_box;
 mod functions;
-#[cfg(any(feature = "v3_24", docsrs))]
+#[cfg(feature = "v3_24")]
 mod gesture_stylus;
 mod im_context_simple;
 mod image;
