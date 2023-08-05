@@ -71,7 +71,7 @@ extern "C" {
         parent_handle: *const c_char,
     ) -> glib::gboolean;
 
-    #[cfg(any(feature = "v3_24_22", docsrs))]
+    #[cfg(feature = "v3_24_22")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_22")))]
     pub fn gdk_wayland_window_set_application_id(
         window: *mut GdkWaylandWindow,
@@ -80,18 +80,18 @@ extern "C" {
 
     pub fn gdk_wayland_window_announce_csd(window: *mut GdkWaylandWindow);
 
-    #[cfg(any(feature = "v3_24", docsrs))]
+    #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_announce_ssd(window: *mut GdkWaylandWindow);
 
-    #[cfg(any(feature = "v3_24", docsrs))]
+    #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_add_frame_callback_surface(
         window: *mut GdkWaylandWindow,
         surface: glib::gconstpointer,
     );
 
-    #[cfg(any(feature = "v3_24", docsrs))]
+    #[cfg(feature = "v3_24")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
     pub fn gdk_wayland_window_remove_frame_callback_surface(
         window: *mut GdkWaylandWindow,

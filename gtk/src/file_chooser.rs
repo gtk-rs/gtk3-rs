@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::FileChooser;
-#[cfg(any(feature = "v3_22", docsrs))]
+#[cfg(feature = "v3_22")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
 use glib::translate::*;
 use glib::IsA;
@@ -14,7 +14,7 @@ mod sealed {
 }
 
 pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
-    #[cfg(any(feature = "v3_22", docsrs))]
+    #[cfg(feature = "v3_22")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_add_choice")]
     fn add_choice(&self, id: &str, label: &str, options: &[(&str, &str)]) {
