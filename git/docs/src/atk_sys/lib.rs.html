@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (d12c6e947 2023-08-01)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (e4c144684 2023-08-04)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2918,7 +2918,7 @@
 <span class="kw">pub const </span><a href="../../atk_sys/constant.ATK_STATE_READ_ONLY.html">ATK_STATE_READ_ONLY</a>: <a href="#212">AtkStateType</a> = <span class="number">42</span>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v2_38&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_38&quot;</span>)))]
-</span><span class="kw">pub const </span>ATK_STATE_COLLAPSED: AtkStateType = <span class="number">43</span>;
+</span><span class="kw">pub const </span><a href="../../atk_sys/constant.ATK_STATE_COLLAPSED.html">ATK_STATE_COLLAPSED</a>: <a href="#212">AtkStateType</a> = <span class="number">43</span>;
 
 <span class="kw">pub type </span><a href="../../atk_sys/type.AtkTextAttribute.html">AtkTextAttribute</a> = c_int;
 <span class="kw">pub const </span><a href="../../atk_sys/constant.ATK_TEXT_ATTR_INVALID.html">ATK_TEXT_ATTR_INVALID</a>: <a href="#260">AtkTextAttribute</a> = <span class="number">0</span>;
@@ -4642,7 +4642,7 @@
     ) -&gt; c_uint;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_34&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
-    </span><span class="kw">pub fn </span>atk_object_get_accessible_id(accessible: <span class="kw-2">*mut </span>AtkObject) -&gt; <span class="kw-2">*const </span>c_char;
+    </span><span class="kw">pub fn </span>atk_object_get_accessible_id(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>) -&gt; <span class="kw-2">*const </span>c_char;
     <span class="kw">pub fn </span>atk_object_get_attributes(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>) -&gt; <span class="kw-2">*mut </span><a href="#24">AtkAttributeSet</a>;
     <span class="kw">pub fn </span>atk_object_get_description(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>) -&gt; <span class="kw-2">*const </span>c_char;
     <span class="kw">pub fn </span>atk_object_get_index_in_parent(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>) -&gt; c_int;
@@ -4674,7 +4674,7 @@
     ) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_34&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_34&quot;</span>)))]
-    </span><span class="kw">pub fn </span>atk_object_set_accessible_id(accessible: <span class="kw-2">*mut </span>AtkObject, name: <span class="kw-2">*const </span>c_char);
+    </span><span class="kw">pub fn </span>atk_object_set_accessible_id(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>, name: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>atk_object_set_description(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>, description: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>atk_object_set_name(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>, name: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>atk_object_set_parent(accessible: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>, parent: <span class="kw-2">*mut </span><a href="#1476-1484">AtkObject</a>);
@@ -4866,12 +4866,12 @@
     <span class="kw">pub fn </span>atk_component_remove_focus_handler(component: <span class="kw-2">*mut </span><a href="#1637-1640">AtkComponent</a>, handler_id: c_uint);
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
-    </span><span class="kw">pub fn </span>atk_component_scroll_to(component: <span class="kw-2">*mut </span>AtkComponent, type_: AtkScrollType) -&gt; gboolean;
+    </span><span class="kw">pub fn </span>atk_component_scroll_to(component: <span class="kw-2">*mut </span><a href="#1637-1640">AtkComponent</a>, type_: <a href="#203">AtkScrollType</a>) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_30&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_component_scroll_to_point(
-        component: <span class="kw-2">*mut </span>AtkComponent,
-        coords: AtkCoordType,
+        component: <span class="kw-2">*mut </span><a href="#1637-1640">AtkComponent</a>,
+        coords: <a href="#28">AtkCoordType</a>,
         x: c_int,
         y: c_int,
     ) -&gt; gboolean;
@@ -5174,18 +5174,18 @@
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_32&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_text_scroll_substring_to(
-        text: <span class="kw-2">*mut </span>AtkText,
+        text: <span class="kw-2">*mut </span><a href="#1769-1772">AtkText</a>,
         start_offset: c_int,
         end_offset: c_int,
-        type_: AtkScrollType,
+        type_: <a href="#203">AtkScrollType</a>,
     ) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v2_32&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v2_32&quot;</span>)))]
     </span><span class="kw">pub fn </span>atk_text_scroll_substring_to_point(
-        text: <span class="kw-2">*mut </span>AtkText,
+        text: <span class="kw-2">*mut </span><a href="#1769-1772">AtkText</a>,
         start_offset: c_int,
         end_offset: c_int,
-        coords: AtkCoordType,
+        coords: <a href="#28">AtkCoordType</a>,
         x: c_int,
         y: c_int,
     ) -&gt; gboolean;

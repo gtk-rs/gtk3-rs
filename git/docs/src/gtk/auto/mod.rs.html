@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (d12c6e947 2023-08-01)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (e4c144684 2023-08-04)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -1509,24 +1509,24 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">mod </span>event_controller_key;
+</span><span class="kw">mod </span><a href="event_controller_key.rs.html#5-294">event_controller_key</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::event_controller_key::EventControllerKey;
+</span><span class="kw">pub use </span><a href="event_controller_key.rs.html#13-58"><span class="self">self</span>::event_controller_key::EventControllerKey</a>;
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">mod </span>event_controller_motion;
+</span><span class="kw">mod </span><a href="event_controller_motion.rs.html#5-158">event_controller_motion</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::event_controller_motion::EventControllerMotion;
+</span><span class="kw">pub use </span><a href="event_controller_motion.rs.html#13-48"><span class="self">self</span>::event_controller_motion::EventControllerMotion</a>;
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">mod </span>event_controller_scroll;
+</span><span class="kw">mod </span><a href="event_controller_scroll.rs.html#5-309">event_controller_scroll</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::event_controller_scroll::EventControllerScroll;
+</span><span class="kw">pub use </span><a href="event_controller_scroll.rs.html#13-112"><span class="self">self</span>::event_controller_scroll::EventControllerScroll</a>;
 
 <span class="kw">mod </span><a href="expander.rs.html#5-2114">expander</a>;
 <span class="kw">pub use </span><a href="expander.rs.html#13-1263"><span class="self">self</span>::expander::Expander</a>;
@@ -1548,10 +1548,10 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">mod </span>file_chooser_widget_accessible;
+</span><span class="kw">mod </span><a href="file_chooser_widget_accessible.rs.html#5-29">file_chooser_widget_accessible</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::file_chooser_widget_accessible::FileChooserWidgetAccessible;
+</span><span class="kw">pub use </span><a href="file_chooser_widget_accessible.rs.html#7-19"><span class="self">self</span>::file_chooser_widget_accessible::FileChooserWidgetAccessible</a>;
 
 <span class="kw">mod </span><a href="file_filter.rs.html#5-273">file_filter</a>;
 <span class="kw">pub use </span><a href="file_filter.rs.html#9-63"><span class="self">self</span>::file_filter::FileFilter</a>;
@@ -1606,10 +1606,10 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">mod </span>gesture_stylus;
+</span><span class="kw">mod </span><a href="gesture_stylus.rs.html#5-269">gesture_stylus</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::gesture_stylus::GestureStylus;
+</span><span class="kw">pub use </span><a href="gesture_stylus.rs.html#13-98"><span class="self">self</span>::gesture_stylus::GestureStylus</a>;
 
 <span class="kw">mod </span><a href="gesture_swipe.rs.html#5-274">gesture_swipe</a>;
 <span class="kw">pub use </span><a href="gesture_swipe.rs.html#13-97"><span class="self">self</span>::gesture_swipe::GestureSwipe</a>;
@@ -1625,10 +1625,10 @@
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)))]
-</span><span class="kw">mod </span>header_bar_accessible;
+</span><span class="kw">mod </span><a href="header_bar_accessible.rs.html#5-199">header_bar_accessible</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::header_bar_accessible::HeaderBarAccessible;
+</span><span class="kw">pub use </span><a href="header_bar_accessible.rs.html#8-20"><span class="self">self</span>::header_bar_accessible::HeaderBarAccessible</a>;
 
 <span class="kw">mod </span><a href="im_context.rs.html#5-698">im_context</a>;
 <span class="kw">pub use </span><a href="im_context.rs.html#13-167"><span class="self">self</span>::im_context::IMContext</a>;
@@ -1749,12 +1749,12 @@
 #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">mod </span>plug_accessible;
+</span><span class="kw">mod </span><a href="plug_accessible.rs.html#5-223">plug_accessible</a>;
 <span class="attr">#[cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::plug_accessible::PlugAccessible;
+</span><span class="kw">pub use </span><a href="plug_accessible.rs.html#8-20"><span class="self">self</span>::plug_accessible::PlugAccessible</a>;
 
 <span class="kw">mod </span><a href="popover.rs.html#5-2063">popover</a>;
 <span class="kw">pub use </span><a href="popover.rs.html#15-1231"><span class="self">self</span>::popover::Popover</a>;
@@ -1872,12 +1872,12 @@
 #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">mod </span>socket_accessible;
+</span><span class="kw">mod </span><a href="socket_accessible.rs.html#5-220">socket_accessible</a>;
 <span class="attr">#[cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
 #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::socket_accessible::SocketAccessible;
+</span><span class="kw">pub use </span><a href="socket_accessible.rs.html#8-20"><span class="self">self</span>::socket_accessible::SocketAccessible</a>;
 
 <span class="kw">mod </span><a href="spin_button.rs.html#5-3324">spin_button</a>;
 <span class="kw">pub use </span><a href="spin_button.rs.html#17-1931"><span class="self">self</span>::spin_button::SpinButton</a>;
@@ -2128,11 +2128,11 @@
 <span class="kw">pub use </span><a href="flags.rs.html#536-554"><span class="self">self</span>::flags::DialogFlags</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::flags::EventControllerScrollFlags;
+</span><span class="kw">pub use </span><a href="flags.rs.html#637-663"><span class="self">self</span>::flags::EventControllerScrollFlags</a>;
 <span class="kw">pub use </span><a href="flags.rs.html#763-783"><span class="self">self</span>::flags::FileFilterFlags</a>;
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-</span><span class="kw">pub use </span><span class="self">self</span>::flags::FontChooserLevel;
+</span><span class="kw">pub use </span><a href="flags.rs.html#866-891"><span class="self">self</span>::flags::FontChooserLevel</a>;
 <span class="kw">pub use </span><a href="flags.rs.html#991-1038"><span class="self">self</span>::flags::IconLookupFlags</a>;
 <span class="kw">pub use </span><a href="flags.rs.html#1120-1173"><span class="self">self</span>::flags::InputHints</a>;
 <span class="kw">pub use </span><a href="flags.rs.html#1255-1288"><span class="self">self</span>::flags::JunctionSides</a>;
@@ -2391,7 +2391,7 @@
     #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::plug_accessible::PlugAccessibleExt;
+    </span><span class="kw">pub use </span><a href="plug_accessible.rs.html#205-215"><span class="kw">super</span>::plug_accessible::PlugAccessibleExt</a>;
     <span class="kw">pub use </span><a href="popover.rs.html#1659-2055"><span class="kw">super</span>::popover::PopoverExt</a>;
     <span class="kw">pub use </span><a href="print_operation.rs.html#727-2354"><span class="kw">super</span>::print_operation::PrintOperationExt</a>;
     <span class="kw">pub use </span><a href="print_operation_preview.rs.html#63-188"><span class="kw">super</span>::print_operation_preview::PrintOperationPreviewExt</a>;
@@ -2421,7 +2421,7 @@
     #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::socket_accessible::SocketAccessibleExt;
+    </span><span class="kw">pub use </span><a href="socket_accessible.rs.html#205-212"><span class="kw">super</span>::socket_accessible::SocketAccessibleExt</a>;
     <span class="kw">pub use </span><a href="spin_button.rs.html#2784-3316"><span class="kw">super</span>::spin_button::SpinButtonExt</a>;
     <span class="kw">pub use </span><a href="spinner.rs.html#646-693"><span class="kw">super</span>::spinner::SpinnerExt</a>;
     <span class="kw">pub use </span><a href="stack.rs.html#769-1439"><span class="kw">super</span>::stack::StackExt</a>;
@@ -2524,7 +2524,7 @@
     <span class="kw">pub use </span><a href="header_bar.rs.html#410-412"><span class="kw">super</span>::header_bar::HeaderBarBuilder</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_11&quot;</span>)))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::header_bar_accessible::HeaderBarAccessibleBuilder;
+    </span><span class="kw">pub use </span><a href="header_bar_accessible.rs.html#39-41"><span class="kw">super</span>::header_bar_accessible::HeaderBarAccessibleBuilder</a>;
     <span class="kw">pub use </span><a href="icon_view.rs.html#1489-1491"><span class="kw">super</span>::icon_view::IconViewBuilder</a>;
     <span class="kw">pub use </span><a href="im_context_simple.rs.html#72-74"><span class="kw">super</span>::im_context_simple::IMContextSimpleBuilder</a>;
     <span class="kw">pub use </span><a href="im_multicontext.rs.html#57-59"><span class="kw">super</span>::im_multicontext::IMMulticontextBuilder</a>;
@@ -2558,7 +2558,7 @@
     #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::plug_accessible::PlugAccessibleBuilder;
+    </span><span class="kw">pub use </span><a href="plug_accessible.rs.html#39-41"><span class="kw">super</span>::plug_accessible::PlugAccessibleBuilder</a>;
     <span class="kw">pub use </span><a href="popover.rs.html#1308-1310"><span class="kw">super</span>::popover::PopoverBuilder</a>;
     <span class="kw">pub use </span><a href="popover_menu.rs.html#540-542"><span class="kw">super</span>::popover_menu::PopoverMenuBuilder</a>;
     <span class="kw">pub use </span><a href="print_operation.rs.html#518-520"><span class="kw">super</span>::print_operation::PrintOperationBuilder</a>;
@@ -2592,7 +2592,7 @@
     #[cfg_attr(docsrs, doc(cfg(gdk_backend = <span class="string">&quot;x11&quot;</span>)))]
     #[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub use </span><span class="kw">super</span>::socket_accessible::SocketAccessibleBuilder;
+    </span><span class="kw">pub use </span><a href="socket_accessible.rs.html#39-41"><span class="kw">super</span>::socket_accessible::SocketAccessibleBuilder</a>;
     <span class="kw">pub use </span><a href="spin_button.rs.html#2015-2017"><span class="kw">super</span>::spin_button::SpinButtonBuilder</a>;
     <span class="kw">pub use </span><a href="spinner.rs.html#345-347"><span class="kw">super</span>::spinner::SpinnerBuilder</a>;
     <span class="kw">pub use </span><a href="stack.rs.html#400-402"><span class="kw">super</span>::stack::StackBuilder</a>;

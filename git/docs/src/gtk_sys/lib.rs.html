@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (d12c6e947 2023-08-01)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/sys/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk_sys" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (e4c144684 2023-08-04)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -47852,26 +47852,26 @@
     </span><span class="kw">pub fn </span>gtk_event_controller_key_get_type() -&gt; GType;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_event_controller_key_new(widget: <span class="kw-2">*mut </span>GtkWidget) -&gt; <span class="kw-2">*mut </span>GtkEventController;
+    </span><span class="kw">pub fn </span>gtk_event_controller_key_new(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span><a href="#12428-12431">GtkEventController</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_key_forward(
-        controller: <span class="kw-2">*mut </span>GtkEventControllerKey,
-        widget: <span class="kw-2">*mut </span>GtkWidget,
+        controller: <span class="kw-2">*mut </span><a href="#12441-12444">GtkEventControllerKey</a>,
+        widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>,
     ) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_event_controller_key_get_group(controller: <span class="kw-2">*mut </span>GtkEventControllerKey) -&gt; c_uint;
+    </span><span class="kw">pub fn </span>gtk_event_controller_key_get_group(controller: <span class="kw-2">*mut </span><a href="#12441-12444">GtkEventControllerKey</a>) -&gt; c_uint;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_key_get_im_context(
-        controller: <span class="kw-2">*mut </span>GtkEventControllerKey,
-    ) -&gt; <span class="kw-2">*mut </span>GtkIMContext;
+        controller: <span class="kw-2">*mut </span><a href="#12441-12444">GtkEventControllerKey</a>,
+    ) -&gt; <span class="kw-2">*mut </span><a href="#13077-13079">GtkIMContext</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_key_set_im_context(
-        controller: <span class="kw-2">*mut </span>GtkEventControllerKey,
-        im_context: <span class="kw-2">*mut </span>GtkIMContext,
+        controller: <span class="kw-2">*mut </span><a href="#12441-12444">GtkEventControllerKey</a>,
+        im_context: <span class="kw-2">*mut </span><a href="#13077-13079">GtkIMContext</a>,
     );
 
     <span class="comment">//=========================================================================
@@ -47882,7 +47882,7 @@
     </span><span class="kw">pub fn </span>gtk_event_controller_motion_get_type() -&gt; GType;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_event_controller_motion_new(widget: <span class="kw-2">*mut </span>GtkWidget) -&gt; <span class="kw-2">*mut </span>GtkEventController;
+    </span><span class="kw">pub fn </span>gtk_event_controller_motion_new(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span><a href="#12428-12431">GtkEventController</a>;
 
     <span class="comment">//=========================================================================
     // GtkEventControllerScroll
@@ -47893,19 +47893,19 @@
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_scroll_new(
-        widget: <span class="kw-2">*mut </span>GtkWidget,
-        flags: GtkEventControllerScrollFlags,
-    ) -&gt; <span class="kw-2">*mut </span>GtkEventController;
+        widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>,
+        flags: <a href="#1066">GtkEventControllerScrollFlags</a>,
+    ) -&gt; <span class="kw-2">*mut </span><a href="#12428-12431">GtkEventController</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_scroll_get_flags(
-        scroll: <span class="kw-2">*mut </span>GtkEventControllerScroll,
-    ) -&gt; GtkEventControllerScrollFlags;
+        scroll: <span class="kw-2">*mut </span><a href="#12467-12470">GtkEventControllerScroll</a>,
+    ) -&gt; <a href="#1066">GtkEventControllerScrollFlags</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_event_controller_scroll_set_flags(
-        scroll: <span class="kw-2">*mut </span>GtkEventControllerScroll,
-        flags: GtkEventControllerScrollFlags,
+        scroll: <span class="kw-2">*mut </span><a href="#12467-12470">GtkEventControllerScroll</a>,
+        flags: <a href="#1066">GtkEventControllerScrollFlags</a>,
     );
 
     <span class="comment">//=========================================================================
@@ -48404,25 +48404,25 @@
     </span><span class="kw">pub fn </span>gtk_gesture_stylus_get_type() -&gt; GType;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_gesture_stylus_new(widget: <span class="kw-2">*mut </span>GtkWidget) -&gt; <span class="kw-2">*mut </span>GtkGesture;
+    </span><span class="kw">pub fn </span>gtk_gesture_stylus_new(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span><a href="#12792-12795">GtkGesture</a>;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_gesture_stylus_get_axes(
-        gesture: <span class="kw-2">*mut </span>GtkGestureStylus,
+        gesture: <span class="kw-2">*mut </span><a href="#12882-12885">GtkGestureStylus</a>,
         axes: <span class="kw-2">*mut </span>gdk::GdkAxisUse,
         values: <span class="kw-2">*mut *mut </span>c_double,
     ) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_gesture_stylus_get_axis(
-        gesture: <span class="kw-2">*mut </span>GtkGestureStylus,
+        gesture: <span class="kw-2">*mut </span><a href="#12882-12885">GtkGestureStylus</a>,
         axis: gdk::GdkAxisUse,
         value: <span class="kw-2">*mut </span>c_double,
     ) -&gt; gboolean;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     </span><span class="kw">pub fn </span>gtk_gesture_stylus_get_device_tool(
-        gesture: <span class="kw-2">*mut </span>GtkGestureStylus,
+        gesture: <span class="kw-2">*mut </span><a href="#12882-12885">GtkGestureStylus</a>,
     ) -&gt; <span class="kw-2">*mut </span>gdk::GdkDeviceTool;
 
     <span class="comment">//=========================================================================
@@ -50305,7 +50305,7 @@
     </span><span class="kw">pub fn </span>gtk_plug_accessible_get_type() -&gt; GType;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_plug_accessible_get_id(plug: <span class="kw-2">*mut </span>GtkPlugAccessible) -&gt; <span class="kw-2">*mut </span>c_char;
+    </span><span class="kw">pub fn </span>gtk_plug_accessible_get_id(plug: <span class="kw-2">*mut </span><a href="#13896-13899">GtkPlugAccessible</a>) -&gt; <span class="kw-2">*mut </span>c_char;
 
     <span class="comment">//=========================================================================
     // GtkPopover
@@ -51376,7 +51376,7 @@
     </span><span class="kw">pub fn </span>gtk_socket_accessible_get_type() -&gt; GType;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24_30&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_socket_accessible_embed(socket: <span class="kw-2">*mut </span>GtkSocketAccessible, path: <span class="kw-2">*mut </span>c_char);
+    </span><span class="kw">pub fn </span>gtk_socket_accessible_embed(socket: <span class="kw-2">*mut </span><a href="#14595-14598">GtkSocketAccessible</a>, path: <span class="kw-2">*mut </span>c_char);
 
     <span class="comment">//=========================================================================
     // GtkSpinButton
@@ -55000,17 +55000,17 @@
     ) -&gt; <span class="kw-2">*mut </span>pango::PangoFontFamily;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_font_chooser_get_font_features(fontchooser: <span class="kw-2">*mut </span>GtkFontChooser) -&gt; <span class="kw-2">*mut </span>c_char;
+    </span><span class="kw">pub fn </span>gtk_font_chooser_get_font_features(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; <span class="kw-2">*mut </span>c_char;
     <span class="kw">pub fn </span>gtk_font_chooser_get_font_map(
         fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>,
     ) -&gt; <span class="kw-2">*mut </span>pango::PangoFontMap;
     <span class="kw">pub fn </span>gtk_font_chooser_get_font_size(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; c_int;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_font_chooser_get_language(fontchooser: <span class="kw-2">*mut </span>GtkFontChooser) -&gt; <span class="kw-2">*mut </span>c_char;
+    </span><span class="kw">pub fn </span>gtk_font_chooser_get_language(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; <span class="kw-2">*mut </span>c_char;
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_font_chooser_get_level(fontchooser: <span class="kw-2">*mut </span>GtkFontChooser) -&gt; GtkFontChooserLevel;
+    </span><span class="kw">pub fn </span>gtk_font_chooser_get_level(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; <a href="#1080">GtkFontChooserLevel</a>;
     <span class="kw">pub fn </span>gtk_font_chooser_get_preview_text(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; <span class="kw-2">*mut </span>c_char;
     <span class="kw">pub fn </span>gtk_font_chooser_get_show_preview_entry(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>) -&gt; gboolean;
     <span class="kw">pub fn </span>gtk_font_chooser_set_filter_func(
@@ -55030,10 +55030,10 @@
     );
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_font_chooser_set_language(fontchooser: <span class="kw-2">*mut </span>GtkFontChooser, language: <span class="kw-2">*const </span>c_char);
+    </span><span class="kw">pub fn </span>gtk_font_chooser_set_language(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>, language: <span class="kw-2">*const </span>c_char);
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
-    </span><span class="kw">pub fn </span>gtk_font_chooser_set_level(fontchooser: <span class="kw-2">*mut </span>GtkFontChooser, level: GtkFontChooserLevel);
+    </span><span class="kw">pub fn </span>gtk_font_chooser_set_level(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>, level: <a href="#1080">GtkFontChooserLevel</a>);
     <span class="kw">pub fn </span>gtk_font_chooser_set_preview_text(fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>, text: <span class="kw-2">*const </span>c_char);
     <span class="kw">pub fn </span>gtk_font_chooser_set_show_preview_entry(
         fontchooser: <span class="kw-2">*mut </span><a href="#15646-15649">GtkFontChooser</a>,
