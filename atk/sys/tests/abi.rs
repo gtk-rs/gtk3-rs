@@ -324,6 +324,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "AtkLive",
+        Layout {
+            size: size_of::<AtkLive>(),
+            alignment: align_of::<AtkLive>(),
+        },
+    ),
+    (
         "AtkMisc",
         Layout {
             size: size_of::<AtkMisc>(),
@@ -653,6 +660,9 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_LAYER_POPUP", "5"),
     ("(gint) ATK_LAYER_WIDGET", "3"),
     ("(gint) ATK_LAYER_WINDOW", "7"),
+    ("(gint) ATK_LIVE_ASSERTIVE", "2"),
+    ("(gint) ATK_LIVE_NONE", "0"),
+    ("(gint) ATK_LIVE_POLITE", "1"),
     ("(gint) ATK_RELATION_CONTROLLED_BY", "1"),
     ("(gint) ATK_RELATION_CONTROLLER_FOR", "2"),
     ("(gint) ATK_RELATION_DESCRIBED_BY", "14"),

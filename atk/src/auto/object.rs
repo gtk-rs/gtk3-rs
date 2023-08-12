@@ -507,6 +507,39 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
         }
     }
 
+    #[cfg(feature = "v2_50")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+    #[doc(alias = "notification")]
+    fn connect_notification<F: Fn(&Self, &str, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notification_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P, &str, i32) + 'static,
+        >(
+            this: *mut ffi::AtkObject,
+            arg1: *mut libc::c_char,
+            arg2: libc::c_int,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(
+                Object::from_glib_borrow(this).unsafe_cast_ref(),
+                &glib::GString::from_glib_borrow(arg1),
+                arg2,
+            )
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notification\0".as_ptr() as *const _,
+                Some(transmute::<_, unsafe extern "C" fn()>(
+                    notification_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
     //#[doc(alias = "property-change")]
     //fn connect_property_change<Unsupported or ignored types>(&self, detail: Option<&str>, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
