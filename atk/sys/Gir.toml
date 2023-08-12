@@ -25,6 +25,11 @@ extra_versions = [
 ]
 
 [[object]]
+name = "Atk.Live"
+status = "generate"
+version = "2.50"
+
+[[object]]
 name = "Atk.StateType"
 status = "generate"
     [[object.member]]
