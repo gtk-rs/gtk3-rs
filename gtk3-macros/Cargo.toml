@@ -27,4 +27,4 @@ syn = { version = "2.0", features = ["full"] }
 proc-macro-crate = "1.0"
 
 [dev-dependencies]
-gtk = { path = "../gtk" }
+gtk = { version = "0.18", path = "../gtk" }
