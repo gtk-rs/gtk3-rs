@@ -48,7 +48,7 @@ pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
     }
 
     //#[doc(alias = "atk_state_set_add_states")]
-    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) {
+    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 69 }) {
     //    unsafe { TODO: call ffi:atk_state_set_add_states() }
     //}
 
@@ -81,7 +81,7 @@ pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
     }
 
     //#[doc(alias = "atk_state_set_contains_states")]
-    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) -> bool {
+    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 69 }) -> bool {
     //    unsafe { TODO: call ffi:atk_state_set_contains_states() }
     //}
 

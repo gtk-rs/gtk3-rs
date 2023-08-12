@@ -26,6 +26,7 @@ v2_32 = ["v2_30"]
 v2_34 = ["v2_32"]
 v2_38 = ["v2_34"]
 v2_46 = ["v2_38"]
+v2_50 = ["v2_46"]
 
 [lib]
 name = "atk_sys"
@@ -47,6 +48,7 @@ rust-version = "1.70"
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
 features = []
+rustc-args = ["--cfg", "docsrs"]
 
 [package.metadata.system-deps.atk]
 name = "atk"
@@ -66,3 +68,6 @@ version = "2.38"
 
 [package.metadata.system-deps.atk.v2_46]
 version = "2.46"
+
+[package.metadata.system-deps.atk.v2_50]
+version = "2.50"
