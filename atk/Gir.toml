@@ -88,6 +88,11 @@ status = "generate"
 trait_name = "AtkImageExt" # duplicate with gtk
 
 [[object]]
+name = "Atk.Live"
+status = "generate"
+version = "2.50"
+
+[[object]]
 name = "Atk.Misc"
 status = "generate"
 trait_name = "AtkMiscExt" # duplicate with gtk
