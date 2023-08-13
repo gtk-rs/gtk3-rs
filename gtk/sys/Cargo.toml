@@ -15,6 +15,7 @@ rust-version = "1.70"
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
 features = []
+rustc-args = ["--cfg", "docsrs"]
 
 [package.metadata.system-deps."gtk+_3_0"]
 name = "gtk+-3.0"
