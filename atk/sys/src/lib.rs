@@ -45,6 +45,11 @@ pub const ATK_LAYER_POPUP: AtkLayer = 5;
 pub const ATK_LAYER_OVERLAY: AtkLayer = 6;
 pub const ATK_LAYER_WINDOW: AtkLayer = 7;
 
+pub type AtkLive = c_int;
+pub const ATK_LIVE_NONE: AtkLive = 0;
+pub const ATK_LIVE_POLITE: AtkLive = 1;
+pub const ATK_LIVE_ASSERTIVE: AtkLive = 2;
+
 pub type AtkRelationType = c_int;
 pub const ATK_RELATION_NULL: AtkRelationType = 0;
 pub const ATK_RELATION_CONTROLLED_BY: AtkRelationType = 1;
@@ -1818,6 +1823,13 @@ extern "C" {
     // AtkLayer
     //=========================================================================
     pub fn atk_layer_get_type() -> GType;
+
+    //=========================================================================
+    // AtkLive
+    //=========================================================================
+    #[cfg(feature = "v2_50")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+    pub fn atk_live_get_type() -> GType;
 
     //=========================================================================
     // AtkRelationType

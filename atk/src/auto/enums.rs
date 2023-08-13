@@ -258,6 +258,140 @@ impl From<Layer> for glib::Value {
     }
 }
 
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "AtkLive")]
+pub enum Live {
+    #[doc(alias = "ATK_LIVE_NONE")]
+    None,
+    #[doc(alias = "ATK_LIVE_POLITE")]
+    Polite,
+    #[doc(alias = "ATK_LIVE_ASSERTIVE")]
+    Assertive,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl fmt::Display for Live {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Live::{}",
+            match *self {
+                Self::None => "None",
+                Self::Polite => "Polite",
+                Self::Assertive => "Assertive",
+                _ => "Unknown",
+            }
+        )
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+#[doc(hidden)]
+impl IntoGlib for Live {
+    type GlibType = ffi::AtkLive;
+
+    #[inline]
+    fn into_glib(self) -> ffi::AtkLive {
+        match self {
+            Self::None => ffi::ATK_LIVE_NONE,
+            Self::Polite => ffi::ATK_LIVE_POLITE,
+            Self::Assertive => ffi::ATK_LIVE_ASSERTIVE,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+#[doc(hidden)]
+impl FromGlib<ffi::AtkLive> for Live {
+    #[inline]
+    unsafe fn from_glib(value: ffi::AtkLive) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::ATK_LIVE_NONE => Self::None,
+            ffi::ATK_LIVE_POLITE => Self::Polite,
+            ffi::ATK_LIVE_ASSERTIVE => Self::Assertive,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl StaticType for Live {
+    #[inline]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::atk_live_get_type()) }
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl glib::HasParamSpec for Live {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl glib::value::ValueType for Live {
+    type Type = Self;
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+unsafe impl<'a> glib::value::FromValue<'a> for Live {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl ToValue for Live {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+impl From<Live> for glib::Value {
+    #[inline]
+    fn from(v: Live) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "AtkRelationType")]

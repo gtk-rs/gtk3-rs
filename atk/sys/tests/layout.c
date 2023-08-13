@@ -25,6 +25,7 @@ int main() {
     printf("%s;%zu;%zu\n", "AtkKeyEventStruct", sizeof(AtkKeyEventStruct), alignof(AtkKeyEventStruct));
     printf("%s;%zu;%zu\n", "AtkKeyEventType", sizeof(AtkKeyEventType), alignof(AtkKeyEventType));
     printf("%s;%zu;%zu\n", "AtkLayer", sizeof(AtkLayer), alignof(AtkLayer));
+    printf("%s;%zu;%zu\n", "AtkLive", sizeof(AtkLive), alignof(AtkLive));
     printf("%s;%zu;%zu\n", "AtkMisc", sizeof(AtkMisc), alignof(AtkMisc));
     printf("%s;%zu;%zu\n", "AtkMiscClass", sizeof(AtkMiscClass), alignof(AtkMiscClass));
     printf("%s;%zu;%zu\n", "AtkNoOpObject", sizeof(AtkNoOpObject), alignof(AtkNoOpObject));

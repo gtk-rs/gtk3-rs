@@ -98,6 +98,9 @@ pub use self::text_range::TextRange;
 mod enums;
 pub use self::enums::CoordType;
 pub use self::enums::Layer;
+#[cfg(feature = "v2_50")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
+pub use self::enums::Live;
 pub use self::enums::RelationType;
 pub use self::enums::Role;
 #[cfg(feature = "v2_30")]
