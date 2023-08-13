@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -132,7 +132,7 @@
 
 </span><span class="kw">use </span><a href="auto/text_attributes.rs.html#7-20"><span class="kw">crate</span>::TextAttributes</a>;
 <span class="kw">use </span><a href="auto/text_iter.rs.html#9-22"><span class="kw">crate</span>::TextIter</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html">std::convert::TryFrom</a>;
 
 <span class="kw">impl </span><a href="auto/text_iter.rs.html#9-22">TextIter</a> {
@@ -155,9 +155,9 @@
     #[doc(alias = <span class="string">&quot;get_attributes&quot;</span>)]
     </span><span class="kw">pub fn </span>is_attributes(<span class="kw-2">&amp;</span><span class="self">self</span>, values: <span class="kw-2">&amp;</span><a href="auto/text_attributes.rs.html#7-20">TextAttributes</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_text_iter_get_attributes(
-                <a class="self" href="#26">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                mut_override(<a href="#26">values</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_text_iter_get_attributes(
+                <a class="self" href="#26">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                mut_override(<a href="#26">values</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
             ))
         }
     }
@@ -176,7 +176,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_text_iter_get_char&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_char&quot;</span>)]
     </span><span class="kw">pub fn </span>char(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>&gt; {
-        <span class="kw">let </span>ret = <span class="kw">unsafe </span>{ ffi::gtk_text_iter_get_char(<a class="self" href="#48">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
+        <span class="kw">let </span>ret = <span class="kw">unsafe </span>{ ffi::gtk_text_iter_get_char(<a class="self" href="#48">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
 
         <span class="kw">if </span>ret == <span class="number">0 </span>{
             <span class="kw">return </span><span class="prelude-val">None</span>;

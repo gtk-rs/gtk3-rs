@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -104,7 +104,7 @@
 
 </span><span class="kw">use </span><a href="target_entry.rs.html#14-18"><span class="kw">crate</span>::TargetEntry</a>;
 <span class="kw">use </span><a href="auto/target_list.rs.html#9-21"><span class="kw">crate</span>::TargetList</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 
 <span class="kw">impl </span><a href="auto/target_list.rs.html#9-21">TargetList</a> {
@@ -119,7 +119,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_target_list_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new(targets: <span class="kw-2">&amp;</span>[<a href="target_entry.rs.html#14-18">TargetEntry</a>]) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = <a href="#18">targets</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|e| <a href="#20">e</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
+        <span class="kw">let </span>stashes: Vec&lt;<span class="kw">_</span>&gt; = <a href="#18">targets</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|e| <a href="#20">e</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
         <span class="kw">let </span>t: Vec&lt;<span class="kw">_</span>&gt; = <a href="#20">stashes</a>.iter().<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">map</a>(|stash| <span class="kw">unsafe </span>{ <span class="kw-2">*</span><a href="#21">stash</a>.<span class="number">0 </span>}).<a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">collect</a>();
         <span class="kw">let </span>t_ptr: <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTargetEntry.html">ffi::GtkTargetEntry</a> = <span class="kw">if </span>!t.is_empty() {
             <a href="#21">t</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_

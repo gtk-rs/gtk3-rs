@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -274,10 +274,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// # Implements
@@ -319,7 +319,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>accessible_description(<span class="self">self</span>, accessible_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>accessible_description(<span class="self">self</span>, accessible_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#50">self</a>
                 </span>.builder
@@ -327,7 +327,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>accessible_name(<span class="self">self</span>, accessible_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>accessible_name(<span class="self">self</span>, accessible_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#58">self</a>
                 </span>.builder
@@ -339,7 +339,7 @@
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#66">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;accessible-parent&quot;</span>, <a href="#66">accessible_parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;accessible-parent&quot;</span>, <a href="#66">accessible_parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -353,7 +353,7 @@
     /// Since 1.3. Use table-caption-object instead.
     </span><span class="kw">pub fn </span>accessible_table_caption(
         <span class="self">self</span>,
-        accessible_table_caption: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
+        accessible_table_caption: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#83">self</a>
@@ -369,7 +369,7 @@
         <span class="self">Self </span>{
             builder: <a class="self" href="#94">self</a>.builder.property(
                 <span class="string">&quot;accessible-table-caption-object&quot;</span>,
-                <a href="#95">accessible_table_caption_object</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>(),
+                <a href="#95">accessible_table_caption_object</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>(),
             ),
         }
     }
@@ -379,7 +379,7 @@
     /// and `atk_table_set_column_description()` instead.
     </span><span class="kw">pub fn </span>accessible_table_column_description(
         <span class="self">self</span>,
-        accessible_table_column_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
+        accessible_table_column_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#109">self</a>.builder.property(
@@ -399,7 +399,7 @@
         <span class="self">Self </span>{
             builder: <a class="self" href="#124">self</a>.builder.property(
                 <span class="string">&quot;accessible-table-column-header&quot;</span>,
-                <a href="#125">accessible_table_column_header</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>(),
+                <a href="#125">accessible_table_column_header</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>(),
             ),
         }
     }
@@ -409,7 +409,7 @@
     /// `atk_table_set_row_description()` instead.
     </span><span class="kw">pub fn </span>accessible_table_row_description(
         <span class="self">self</span>,
-        accessible_table_row_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
+        accessible_table_row_description: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#139">self</a>.builder.property(
@@ -429,7 +429,7 @@
         <span class="self">Self </span>{
             builder: <a class="self" href="#154">self</a>.builder.property(
                 <span class="string">&quot;accessible-table-row-header&quot;</span>,
-                <a href="#155">accessible_table_row_header</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>(),
+                <a href="#155">accessible_table_row_header</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>(),
             ),
         }
     }
@@ -441,7 +441,7 @@
         <span class="self">Self </span>{
             builder: <a class="self" href="#166">self</a>.builder.property(
                 <span class="string">&quot;accessible-table-summary&quot;</span>,
-                <a href="#167">accessible_table_summary</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>(),
+                <a href="#167">accessible_table_summary</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>(),
             ),
         }
     }

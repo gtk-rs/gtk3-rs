@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -80,7 +80,7 @@ XInput 2), but calling this function on any slave devices (i.e.
 those managed via XInput 1.x), will return 0.</p>
 </blockquote>
 <h3 id="device"><a href="#device"><code>device</code></a></h3>
-<p>a <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/struct.Device.html" title="struct gdk::auto::device::Device"><code>gdk::Device</code></a></p>
+<p>a <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/device/struct.Device.html" title="struct gdk::auto::device::Device"><code>gdk::Device</code></a></p>
 <h2 id="returns"><a href="#returns">Returns</a></h2>
 <p>the XInput2 device ID.</p>
 </div></details></section></div></main></body></html>

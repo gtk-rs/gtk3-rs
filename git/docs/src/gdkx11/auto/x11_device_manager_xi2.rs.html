@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -193,10 +193,10 @@
 // DO NOT EDIT
 
 </span><span class="kw">use </span><a href="x11_device_manager_core.rs.html#7-19"><span class="kw">crate</span>::X11DeviceManagerCore</a>;
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// ## Properties
@@ -223,7 +223,7 @@
     ///
     /// [`X11DeviceManagerCoreExt`][trait@crate::prelude::X11DeviceManagerCoreExt], [`trait@gdk::prelude::DeviceManagerExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11DeviceManagerXI2&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11DeviceManagerXI2.html">X11DeviceManagerXI2</a>(Object&lt;ffi::GdkX11DeviceManagerXI2, ffi::GdkX11DeviceManagerXI2Class&gt;) @extends <a href="x11_device_manager_core.rs.html#7-19">X11DeviceManagerCore</a>, <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device_manager/struct.DeviceManager.html">gdk::DeviceManager</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11DeviceManagerXI2.html">X11DeviceManagerXI2</a>(Object&lt;ffi::GdkX11DeviceManagerXI2, ffi::GdkX11DeviceManagerXI2Class&gt;) @extends <a href="x11_device_manager_core.rs.html#7-19">X11DeviceManagerCore</a>, <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/device_manager/struct.DeviceManager.html">gdk::DeviceManager</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_device_manager_xi2_get_type(),
@@ -240,15 +240,15 @@
     }
 
     <span class="kw">pub fn </span>major(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#52">self</a>, <span class="string">&quot;major&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#52">self</a>, <span class="string">&quot;major&quot;</span>)
     }
 
     <span class="kw">pub fn </span>minor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#56">self</a>, <span class="string">&quot;minor&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#56">self</a>, <span class="string">&quot;minor&quot;</span>)
     }
 
     <span class="kw">pub fn </span>opcode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#60">self</a>, <span class="string">&quot;opcode&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#60">self</a>, <span class="string">&quot;opcode&quot;</span>)
     }
 }
 
@@ -286,9 +286,9 @@
         }
     }
 
-    <span class="kw">pub fn </span>display(<span class="self">self</span>, display: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>display(<span class="self">self</span>, display: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#99">self</a>.builder.property(<span class="string">&quot;display&quot;</span>, <a href="#99">display</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#99">self</a>.builder.property(<span class="string">&quot;display&quot;</span>, <a href="#99">display</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 

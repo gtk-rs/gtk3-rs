@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -458,10 +458,10 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{<a href="display.rs.html#13-86">Display</a>, <a href="window.rs.html#20-101">Window</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`GLContext`][crate::GLContext] is an object representing the platform-specific
     /// OpenGL drawing context.
     ///
@@ -556,7 +556,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_get_debug_enabled&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_debug_enabled&quot;</span>)]
     </span><span class="kw">pub fn </span>is_debug_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_get_debug_enabled(<a class="self" href="#103">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_get_debug_enabled(<a class="self" href="#103">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Retrieves the [`Display`][crate::Display] the `self` is created for
@@ -567,7 +567,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="display.rs.html#13-86">Display</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_gl_context_get_display(<a class="self" href="#114">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_gl_context_get_display(<a class="self" href="#114">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Retrieves the value set using [`set_forward_compatible()`][Self::set_forward_compatible()].
@@ -580,7 +580,7 @@
     </span><span class="kw">pub fn </span>is_forward_compatible(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_gl_context_get_forward_compatible(
-                <a class="self" href="#125">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#125">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -603,7 +603,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>major = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>minor = mem::MaybeUninit::uninit();
             ffi::gdk_gl_context_get_required_version(
-                <a class="self" href="#146">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#146">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#148">major</a>.as_mut_ptr(),
                 <a href="#149">minor</a>.as_mut_ptr(),
             );
@@ -622,7 +622,7 @@
     </span><span class="kw">pub fn </span>shared_context(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#9-93">GLContext</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_gl_context_get_shared_context(
-                <a class="self" href="#167">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#167">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -635,7 +635,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_get_use_es&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_use_es&quot;</span>)]
     </span><span class="kw">pub fn </span>uses_es(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_get_use_es(<a class="self" href="#182">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_get_use_es(<a class="self" href="#182">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Retrieves the OpenGL version of the `self`.
@@ -657,7 +657,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>major = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>minor = mem::MaybeUninit::uninit();
             ffi::gdk_gl_context_get_version(
-                <a class="self" href="#200">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#200">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#202">major</a>.as_mut_ptr(),
                 <a href="#203">minor</a>.as_mut_ptr(),
             );
@@ -673,7 +673,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
     </span><span class="kw">pub fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="window.rs.html#20-101">Window</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_gl_context_get_window(<a class="self" href="#220">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_gl_context_get_window(<a class="self" href="#220">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Whether the [`GLContext`][crate::GLContext] is in legacy mode or not.
@@ -698,14 +698,14 @@
     /// [`true`] if the GL context is in legacy mode
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_is_legacy&quot;</span>)]
     </span><span class="kw">pub fn </span>is_legacy(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_is_legacy(<a class="self" href="#245">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_gl_context_is_legacy(<a class="self" href="#245">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Makes the `self` the current one.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_make_current&quot;</span>)]
     </span><span class="kw">pub fn </span>make_current(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_gl_context_make_current(<a class="self" href="#251">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_gl_context_make_current(<a class="self" href="#251">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -717,10 +717,10 @@
     ///
     /// [`true`] if the context is realized
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_realize&quot;</span>)]
-    </span><span class="kw">pub fn </span>realize(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
+    </span><span class="kw">pub fn </span>realize(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/error/struct.Error.html">glib::Error</a>&gt; {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
-            <span class="kw">let </span>is_ok = ffi::gdk_gl_context_realize(<a class="self" href="#265">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#267">error</a>);
+            <span class="kw">let </span>is_ok = ffi::gdk_gl_context_realize(<a class="self" href="#265">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#267">error</a>);
             <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.debug_assert_eq.html">debug_assert_eq!</a>(is_ok == glib::ffi::GFALSE, !error.is_null());
             <span class="kw">if </span>error.is_null() {
                 <span class="prelude-val">Ok</span>(())
@@ -741,7 +741,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_set_debug_enabled&quot;</span>)]
     </span><span class="kw">pub fn </span>set_debug_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, enabled: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_gl_context_set_debug_enabled(<a class="self" href="#287">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#287">enabled</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
+            ffi::gdk_gl_context_set_debug_enabled(<a class="self" href="#287">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#287">enabled</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>());
         }
     }
 
@@ -760,8 +760,8 @@
     </span><span class="kw">pub fn </span>set_forward_compatible(<span class="kw-2">&amp;</span><span class="self">self</span>, compatible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_gl_context_set_forward_compatible(
-                <a class="self" href="#305">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#305">compatible</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a class="self" href="#305">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#305">compatible</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -779,7 +779,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_set_required_version&quot;</span>)]
     </span><span class="kw">pub fn </span>set_required_version(<span class="kw-2">&amp;</span><span class="self">self</span>, major: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, minor: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_gl_context_set_required_version(<a class="self" href="#325">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#325">major</a>, <a href="#325">minor</a>);
+            ffi::gdk_gl_context_set_required_version(<a class="self" href="#325">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#325">major</a>, <a href="#325">minor</a>);
         }
     }
 
@@ -801,7 +801,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_gl_context_set_use_es&quot;</span>)]
     </span><span class="kw">pub fn </span>set_use_es(<span class="kw-2">&amp;</span><span class="self">self</span>, use_es: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_gl_context_set_use_es(<a class="self" href="#347">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#347">use_es</a>);
+            ffi::gdk_gl_context_set_use_es(<a class="self" href="#347">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#347">use_es</a>);
         }
     }
 

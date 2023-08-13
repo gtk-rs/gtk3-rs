@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -235,22 +235,22 @@
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use crate</span>::{<a href="auto/rectangle.rs.html#7-17">Rectangle</a>, <a href="auto/window.rs.html#20-101">Window</a>, <a href="auto/rgba.rs.html#8-18">RGBA</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">cairo::Surface</a>;
-<span class="kw">use </span>cairo::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">Context</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">Region</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/surface/struct.Surface.html">cairo::Surface</a>;
+<span class="kw">use </span>cairo::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">Context</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">Region</a>};
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="kw">pub trait </span><a href="../../gdk/prelude/trait.GdkSurfaceExt.html">GdkSurfaceExt</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_cairo_region_create_from_surface&quot;</span>)]
-    </span><span class="kw">fn </span>create_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">Region</a>&gt;;
+    </span><span class="kw">fn </span>create_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">Region</a>&gt;;
 }
 
-<span class="kw">impl </span><a href="#10-13">GdkSurfaceExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">Surface</a> {
-    <span class="kw">fn </span>create_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">Region</a>&gt; {
+<span class="kw">impl </span><a href="#10-13">GdkSurfaceExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/surface/struct.Surface.html">Surface</a> {
+    <span class="kw">fn </span>create_region(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">Region</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gdk_cairo_region_create_from_surface(
-                <a class="self" href="#16">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#16">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -259,27 +259,27 @@
 <span class="kw">pub trait </span><a href="../../gdk/prelude/trait.GdkPixbufExt.html">GdkPixbufExt</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_cairo_surface_create_from_pixbuf&quot;</span>)]
     </span><span class="kw">fn </span>create_surface&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, for_window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>W&gt;)
-        -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">Surface</a>&gt;;
+        -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/surface/struct.Surface.html">Surface</a>&gt;;
 }
 
-<span class="kw">impl </span><a href="#25-29">GdkPixbufExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a> {
+<span class="kw">impl </span><a href="#25-29">GdkPixbufExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a> {
     <span class="kw">fn </span>create_surface&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         scale: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         for_window: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>W&gt;,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">Surface</a>&gt; {
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/surface/struct.Surface.html">Surface</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gdk_cairo_surface_create_from_pixbuf(
-                <a class="self" href="#33">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#33">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#34">scale</a>,
-                <a href="#35">for_window</a>.map(<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">std::convert::AsRef::as_ref</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#35">for_window</a>.map(<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">std::convert::AsRef::as_ref</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
 }
 
 <span class="kw">pub trait </span><a href="../../gdk/prelude/trait.GdkContextExt.html">GdkContextExt</a> {
-    <span class="kw">fn </span>create_from_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(window: <span class="kw-2">&amp;</span>W) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">Context</a>;
+    <span class="kw">fn </span>create_from_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(window: <span class="kw-2">&amp;</span>W) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">Context</a>;
 
     <span class="attr">#[allow(clippy::too_many_arguments)]
     </span><span class="kw">unsafe fn </span>draw_from_gl&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(
@@ -302,7 +302,7 @@
     </span><span class="kw">fn </span>set_source_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, rgba: <span class="kw-2">&amp;</span><a href="auto/rgba.rs.html#8-18">RGBA</a>);
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_cairo_set_source_pixbuf&quot;</span>)]
-    </span><span class="kw">fn </span>set_source_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>);
+    </span><span class="kw">fn </span>set_source_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>);
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_cairo_set_source_window&quot;</span>)]
     </span><span class="kw">fn </span>set_source_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>W, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>);
@@ -310,13 +310,13 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_cairo_rectangle&quot;</span>)]
     </span><span class="kw">fn </span>rectangle(<span class="kw-2">&amp;</span><span class="self">self</span>, rectangle: <span class="kw-2">&amp;</span><a href="auto/rectangle.rs.html#7-17">Rectangle</a>);
 
-    <span class="kw">fn </span>add_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">Region</a>);
+    <span class="kw">fn </span>add_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">Region</a>);
 }
 
-<span class="kw">impl </span><a href="#47-80">GdkContextExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">Context</a> {
-    <span class="kw">fn </span>create_from_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(window: <span class="kw-2">&amp;</span>W) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">Context</a> {
+<span class="kw">impl </span><a href="#47-80">GdkContextExt</a> <span class="kw">for </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">Context</a> {
+    <span class="kw">fn </span>create_from_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(window: <span class="kw-2">&amp;</span>W) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">Context</a> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_cairo_create(<a href="#83">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gdk_cairo_create(<a href="#83">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="kw">unsafe fn </span>draw_from_gl&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(
@@ -332,8 +332,8 @@
     ) {
         <span class="macro">skip_assert_initialized!</span>();
         ffi::gdk_cairo_draw_from_gl(
-            mut_override(<a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-            <a href="#90">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            mut_override(<a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="#90">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#91">source</a>,
             <a href="#92">source_type</a>,
             <a href="#93">buffer_scale</a>,
@@ -360,21 +360,21 @@
 
     <span class="kw">fn </span>set_source_rgba(<span class="kw-2">&amp;</span><span class="self">self</span>, rgba: <span class="kw-2">&amp;</span><a href="auto/rgba.rs.html#8-18">RGBA</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_cairo_set_source_rgba(<a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#127">rgba</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_cairo_set_source_rgba(<a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#127">rgba</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>set_source_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
+    <span class="kw">fn </span>set_source_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_cairo_set_source_pixbuf(<a class="self" href="#133">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#133">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#133">x</a>, <a href="#133">y</a>);
+            ffi::gdk_cairo_set_source_pixbuf(<a class="self" href="#133">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#133">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#133">x</a>, <a href="#133">y</a>);
         }
     }
 
     <span class="kw">fn </span>set_source_window&lt;W: IsA&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, window: <span class="kw-2">&amp;</span>W, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_cairo_set_source_window(
-                <a class="self" href="#139">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#139">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#139">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#139">window</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#139">x</a>,
                 <a href="#139">y</a>,
             );
@@ -383,13 +383,13 @@
 
     <span class="kw">fn </span>rectangle(<span class="kw-2">&amp;</span><span class="self">self</span>, rectangle: <span class="kw-2">&amp;</span><a href="auto/rectangle.rs.html#7-17">Rectangle</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_cairo_rectangle(<a class="self" href="#150">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#150">rectangle</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_cairo_rectangle(<a class="self" href="#150">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#150">rectangle</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
-    <span class="kw">fn </span>add_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">Region</a>) {
+    <span class="kw">fn </span>add_region(<span class="kw-2">&amp;</span><span class="self">self</span>, region: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">Region</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_cairo_region(<a class="self" href="#156">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#156">region</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_cairo_region(<a class="self" href="#156">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#156">region</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 }

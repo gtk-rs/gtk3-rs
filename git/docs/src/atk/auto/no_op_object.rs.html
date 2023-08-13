@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -135,10 +135,10 @@
     <a href="action.rs.html#8-39">Action</a>, <a href="component.rs.html#16-50">Component</a>, <a href="document.rs.html#12-78">Document</a>, <a href="editable_text.rs.html#8-30">EditableText</a>, <a href="hypertext.rs.html#13-44">Hypertext</a>, <a href="image.rs.html#9-36">Image</a>, <a href="object.rs.html#13-195">Object</a>, <a href="selection.rs.html#13-45">Selection</a>, <a href="table.rs.html#13-108">Table</a>,
     <a href="table_cell.rs.html#9-27">TableCell</a>, <a href="text.rs.html#16-101">Text</a>, <a href="value.rs.html#13-185">Value</a>, <a href="window.rs.html#13-171">Window</a>,
 };
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// An AtkObject which purports to implement all ATK interfaces.
     ///
     /// An AtkNoOpObject is an AtkObject which purports to implement all
@@ -169,11 +169,11 @@
     ///
     /// a default (non-functioning stub) [`Object`][crate::Object]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;atk_no_op_object_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new(obj: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt;) -&gt; <a href="#12-29">NoOpObject</a> {
+    </span><span class="kw">pub fn </span>new(obj: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/struct.Object.html">glib::Object</a>&gt;) -&gt; <a href="#12-29">NoOpObject</a> {
         <span class="macro">assert_initialized_main_thread!</span>();
         <span class="kw">unsafe </span>{
-            Object::from_glib_full(ffi::atk_no_op_object_new(<a href="#43">obj</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
-                .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
+            Object::from_glib_full(ffi::atk_no_op_object_new(<a href="#43">obj</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
+                .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 }

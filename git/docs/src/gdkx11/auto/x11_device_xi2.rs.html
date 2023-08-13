@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -324,10 +324,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+</span><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// ## Properties
@@ -432,7 +432,7 @@
     ///
     /// [`trait@gdk::prelude::DeviceExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11DeviceXI2&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11DeviceXI2.html">X11DeviceXI2</a>(Object&lt;ffi::GdkX11DeviceXI2, ffi::GdkX11DeviceXI2Class&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/struct.Device.html">gdk::Device</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11DeviceXI2.html">X11DeviceXI2</a>(Object&lt;ffi::GdkX11DeviceXI2, ffi::GdkX11DeviceXI2Class&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/device/struct.Device.html">gdk::Device</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_device_xi2_get_type(),
@@ -450,7 +450,7 @@
 
     <span class="attr">#[doc(alias = <span class="string">&quot;device-id&quot;</span>)]
     </span><span class="kw">pub fn </span>device_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#130">self</a>, <span class="string">&quot;device-id&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#130">self</a>, <span class="string">&quot;device-id&quot;</span>)
     }
 }
 
@@ -477,18 +477,18 @@
     }
 
     <span class="doccomment">/// The [`gdk::DeviceManager`][crate::gdk::DeviceManager] the [`gdk::Device`][crate::gdk::Device] pertains to.
-    </span><span class="kw">pub fn </span>device_manager(<span class="self">self</span>, device_manager: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device_manager/struct.DeviceManager.html">gdk::DeviceManager</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>device_manager(<span class="self">self</span>, device_manager: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/device_manager/struct.DeviceManager.html">gdk::DeviceManager</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#158">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;device-manager&quot;</span>, <a href="#158">device_manager</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;device-manager&quot;</span>, <a href="#158">device_manager</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="doccomment">/// The [`gdk::Display`][crate::gdk::Display] the [`gdk::Device`][crate::gdk::Device] pertains to.
-    </span><span class="kw">pub fn </span>display(<span class="self">self</span>, display: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>display(<span class="self">self</span>, display: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/display/struct.Display.html">gdk::Display</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#167">self</a>.builder.property(<span class="string">&quot;display&quot;</span>, <a href="#167">display</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#167">self</a>.builder.property(<span class="string">&quot;display&quot;</span>, <a href="#167">display</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -500,21 +500,21 @@
         }
     }
 
-    <span class="kw">pub fn </span>input_mode(<span class="self">self</span>, input_mode: <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/enums/enum.InputMode.html">gdk::InputMode</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>input_mode(<span class="self">self</span>, input_mode: <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/enums/enum.InputMode.html">gdk::InputMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#181">self</a>.builder.property(<span class="string">&quot;input-mode&quot;</span>, <a href="#181">input_mode</a>),
         }
     }
 
     <span class="doccomment">/// Source type for the device.
-    </span><span class="kw">pub fn </span>input_source(<span class="self">self</span>, input_source: <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/enums/enum.InputSource.html">gdk::InputSource</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>input_source(<span class="self">self</span>, input_source: <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/enums/enum.InputSource.html">gdk::InputSource</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#188">self</a>.builder.property(<span class="string">&quot;input-source&quot;</span>, <a href="#188">input_source</a>),
         }
     }
 
     <span class="doccomment">/// The device name.
-    </span><span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#195">self</a>.builder.property(<span class="string">&quot;name&quot;</span>, <a href="#195">name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -530,27 +530,27 @@
     }
 
     <span class="doccomment">/// Product ID of this device, see [`DeviceExtManual::product_id()`][crate::gdk::prelude::DeviceExtManual::product_id()].
-    </span><span class="kw">pub fn </span>product_id(<span class="self">self</span>, product_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>product_id(<span class="self">self</span>, product_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#211">self</a>.builder.property(<span class="string">&quot;product-id&quot;</span>, <a href="#211">product_id</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// [`gdk::Seat`][crate::gdk::Seat] of this device.
-    </span><span class="kw">pub fn </span>seat(<span class="self">self</span>, seat: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/seat/struct.Seat.html">gdk::Seat</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>seat(<span class="self">self</span>, seat: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/seat/struct.Seat.html">gdk::Seat</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#218">self</a>.builder.property(<span class="string">&quot;seat&quot;</span>, <a href="#218">seat</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>type_(<span class="self">self</span>, type_: <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/enums/enum.DeviceType.html">gdk::DeviceType</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>type_(<span class="self">self</span>, type_: <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/enums/enum.DeviceType.html">gdk::DeviceType</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#224">self</a>.builder.property(<span class="string">&quot;type&quot;</span>, <a href="#224">type_</a>),
         }
     }
 
     <span class="doccomment">/// Vendor ID of this device, see [`DeviceExtManual::vendor_id()`][crate::gdk::prelude::DeviceExtManual::vendor_id()].
-    </span><span class="kw">pub fn </span>vendor_id(<span class="self">self</span>, vendor_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>vendor_id(<span class="self">self</span>, vendor_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#231">self</a>.builder.property(<span class="string">&quot;vendor-id&quot;</span>, <a href="#231">vendor_id</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }

@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -192,7 +192,7 @@
 <a href="#119" id="119">119</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="attr">#[repr(packed)]
 </span><span class="kw">pub struct </span><a href="../../gdk/struct.GRange.html">GRange</a>(<span class="kw">pub </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="kw">pub </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>);
@@ -229,17 +229,17 @@
 /// a clip region containing the given ranges
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_layout_line_get_clip_region&quot;</span>)]
 </span><span class="kw">pub fn </span><a href="../../gdk/fn.pango_layout_line_get_clip_region.html">pango_layout_line_get_clip_region</a>(
-    line: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout_line/struct.LayoutLine.html">pango::LayoutLine</a>,
+    line: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/layout_line/struct.LayoutLine.html">pango::LayoutLine</a>,
     x_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     y_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     index_ranges: <span class="kw-2">&amp;</span>[<a href="#6">GRange</a>],
-) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
     <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
 
     <span class="kw">let </span>ptr: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> = <a href="#43">index_ranges</a>.as_ptr() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gdk_pango_layout_line_get_clip_region(
-            <a href="#40">line</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#40">line</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#41">x_origin</a>,
             <a href="#42">y_origin</a>,
             mut_override(<a href="#47">ptr</a>),
@@ -250,17 +250,17 @@
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gdk_pango_layout_get_clip_region&quot;</span>)]
 </span><span class="kw">pub fn </span><a href="../../gdk/fn.pango_layout_get_clip_region.html">pango_layout_get_clip_region</a>(
-    layout: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/layout/struct.Layout.html">pango::Layout</a>,
+    layout: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/layout/struct.Layout.html">pango::Layout</a>,
     x_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     y_origin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     index_ranges: <span class="kw-2">&amp;</span>[<a href="#6">GRange</a>],
-) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/region/struct.Region.html">cairo::Region</a>&gt; {
     <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
 
     <span class="kw">let </span>ptr: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> = <a href="#64">index_ranges</a>.as_ptr() <span class="kw">as _</span>;
     <span class="kw">unsafe </span>{
         from_glib_full(ffi::gdk_pango_layout_get_clip_region(
-            <a href="#61">layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#61">layout</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#62">x_origin</a>,
             <a href="#63">y_origin</a>,
             <a href="#68">ptr</a>,
@@ -270,13 +270,13 @@
 }
 
 <span class="attr">#[doc(alias = <span class="string">&quot;gdk_setting_get&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../gdk/fn.setting_get.html">setting_get</a>(name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">glib::Value</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../gdk/fn.setting_get.html">setting_get</a>(name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/value/struct.Value.html">glib::Value</a>&gt; {
     <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>value = glib::Value::uninitialized();
         <span class="kw">let </span>done: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = from_glib(ffi::gdk_setting_get(
-            <a href="#81">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#84">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+            <a href="#81">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#84">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
         ));
         <span class="kw">if </span>done {
             <span class="prelude-val">Some</span>(<a href="#84">value</a>)
@@ -299,11 +299,11 @@
     <span class="kw">let </span>nelements = <a href="#104">data</a>.<a href="change_data.rs.html#26-33">len</a>();
     <span class="kw">unsafe </span>{
         ffi::gdk_property_change(
-            <a href="#99">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#100">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#101">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#99">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#100">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#101">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#102">format</a>,
-            <a href="#103">mode</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="#103">mode</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             <a href="#104">data</a>.<a href="change_data.rs.html#15-24">to_glib</a>(),
             <a href="#107">nelements</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         );

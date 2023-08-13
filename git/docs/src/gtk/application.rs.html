@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -120,22 +120,22 @@
 
 </span><span class="kw">use </span><a href="lib.rs.html#65"><span class="kw">crate</span>::rt</a>;
 <span class="kw">use </span><a href="auto/application.rs.html#13-318"><span class="kw">crate</span>::Application</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/index.html">gio::prelude</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/flags/struct.ApplicationFlags.html">gio::ApplicationFlags</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">glib::signal::SignalHandlerId</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/prelude/index.html">gio::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/flags/struct.ApplicationFlags.html">gio::ApplicationFlags</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">glib::signal::SignalHandlerId</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/cell/struct.RefCell.html">std::cell::RefCell</a>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/rc/struct.Rc.html">std::rc::Rc</a>;
 
 <span class="kw">impl </span><a href="auto/application.rs.html#13-318">Application</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gtk_application_new&quot;</span>)]
-    </span><span class="kw">pub fn </span>new(application_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, flags: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/flags/struct.ApplicationFlags.html">ApplicationFlags</a>) -&gt; <a href="auto/application.rs.html#13-318">Application</a> {
+    </span><span class="kw">pub fn </span>new(application_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, flags: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/flags/struct.ApplicationFlags.html">ApplicationFlags</a>) -&gt; <a href="auto/application.rs.html#13-318">Application</a> {
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">let </span>app: <a href="auto/application.rs.html#13-318">Application</a> = <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_application_new(
-                <a href="#15">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#15">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#15">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#15">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             ))
         };
         Application::register_startup_hook(<span class="kw-2">&amp;</span><a href="#17">app</a>);
@@ -144,12 +144,12 @@
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>register_startup_hook(app: <span class="kw-2">&amp;</span><a href="auto/application.rs.html#13-318">Application</a>) {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">let </span>signalid: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>&gt;&gt;&gt; = Rc::new(RefCell::new(<span class="prelude-val">None</span>));
+        <span class="kw">let </span>signalid: Rc&lt;RefCell&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>&gt;&gt;&gt; = Rc::new(RefCell::new(<span class="prelude-val">None</span>));
         {
             <span class="kw">let </span>signalid_ = <a href="#29">signalid</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>();
 
-            <span class="kw">let </span>id = <a href="#27">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/application/trait.ApplicationExt.html">connect_startup</a>(<span class="kw">move </span>|app| {
-                <a href="#33">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">disconnect</a>(
+            <span class="kw">let </span>id = <a href="#27">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/application/trait.ApplicationExt.html">connect_startup</a>(<span class="kw">move </span>|app| {
+                <a href="#33">app</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">disconnect</a>(
                     <a href="#31">signalid_</a>
                         .borrow_mut()
                         .take()

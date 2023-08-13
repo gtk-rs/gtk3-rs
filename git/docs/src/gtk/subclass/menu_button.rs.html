@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -96,7 +96,7 @@
 <a href="#23" id="23">23</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
 
 <span class="kw">use </span><a href="toggle_button.rs.html#10-17"><span class="kw">super</span>::toggle_button::ToggleButtonImpl</a>;
 <span class="kw">use </span><a href="../auto/menu_button.rs.html#16-544"><span class="kw">crate</span>::MenuButton</a>;
@@ -108,7 +108,7 @@
     <span class="kw">impl</span>&lt;T: <a href="#8"><span class="kw">super</span>::MenuButtonImpl</a>&gt; <a href="#11">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span><a href="../../../gtk/subclass/menu_button/trait.MenuButtonImplExt.html">MenuButtonImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#11">sealed::Sealed</a> {}
+<span class="kw">pub trait </span><a href="../../../gtk/subclass/menu_button/trait.MenuButtonImplExt.html">MenuButtonImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#11">sealed::Sealed</a> {}
 
 <span class="kw">impl</span>&lt;T: <a href="#8">MenuButtonImpl</a>&gt; <a href="#15">MenuButtonImplExt</a> <span class="kw">for </span>T {}
 

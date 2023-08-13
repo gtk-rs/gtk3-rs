@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -84,7 +84,7 @@ is unlikely to change). On other platforms, all actions except for
 <p>If this is set before <a href="../prelude/trait.PrintOperationExt.html#method.run" title="method gtk::prelude::PrintOperationExt::run"><code>PrintOperationExt::run()</code></a>,
 the user will be able to select to print only the current page.</p>
 <p>Note that this only makes sense for pre-paginated documents.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.custom_tab_label" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#561-567">source</a><h4 class="code-header">pub fn <a href="#method.custom_tab_label" class="fn">custom_tab_label</a>(self, custom_tab_label: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>Used as the label of the tab containing custom widgets.
+</div></details><details class="toggle method-toggle" open><summary><section id="method.custom_tab_label" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#561-567">source</a><h4 class="code-header">pub fn <a href="#method.custom_tab_label" class="fn">custom_tab_label</a>(self, custom_tab_label: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>Used as the label of the tab containing custom widgets.
 Note that this property may be ignored on some platforms.</p>
 <p>If this is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>, GTK+ uses a default label.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.default_page_setup" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#574-580">source</a><h4 class="code-header">pub fn <a href="#method.default_page_setup" class="fn">default_page_setup</a>(self, default_page_setup: &amp;<a class="struct" href="../struct.PageSetup.html" title="struct gtk::PageSetup">PageSetup</a>) -&gt; Self</h4></section></summary><div class="docblock"><p>The <a href="../struct.PageSetup.html" title="struct gtk::PageSetup"><code>PageSetup</code></a> used by default.</p>
@@ -92,7 +92,7 @@ Note that this property may be ignored on some platforms.</p>
 but it can be overridden on a per-page basis by connecting
 to the <a href="../struct.PrintOperation.html#request-page-setup" title="struct gtk::PrintOperation"><code>request-page-setup</code></a> signal.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.embed_page_setup" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#583-587">source</a><h4 class="code-header">pub fn <a href="#method.embed_page_setup" class="fn">embed_page_setup</a>(self, embed_page_setup: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</h4></section></summary><div class="docblock"><p>If <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>, page size combo box and orientation combo box are embedded into page setup page.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.export_filename" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#598-604">source</a><h4 class="code-header">pub fn <a href="#method.export_filename" class="fn">export_filename</a>(self, export_filename: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>The name of a file to generate instead of showing the print dialog.
+</div></details><details class="toggle method-toggle" open><summary><section id="method.export_filename" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#598-604">source</a><h4 class="code-header">pub fn <a href="#method.export_filename" class="fn">export_filename</a>(self, export_filename: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>The name of a file to generate instead of showing the print dialog.
 Currently, PDF is the only supported format.</p>
 <p>The intended use of this property is for implementing
 “Export to PDF” actions.</p>
@@ -102,7 +102,7 @@ list of printers in the print dialog.</p>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.has_selection" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#609-613">source</a><h4 class="code-header">pub fn <a href="#method.has_selection" class="fn">has_selection</a>(self, has_selection: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</h4></section></summary><div class="docblock"><p>Determines whether there is a selection in your application.
 This can allow your application to print the selection.
 This is typically used to make a “Selection” button sensitive.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.job_name" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#620-624">source</a><h4 class="code-header">pub fn <a href="#method.job_name" class="fn">job_name</a>(self, job_name: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>A string used to identify the job (e.g. in monitoring
+</div></details><details class="toggle method-toggle" open><summary><section id="method.job_name" class="method"><a class="src rightside" href="../../src/gtk/auto/print_operation.rs.html#620-624">source</a><h4 class="code-header">pub fn <a href="#method.job_name" class="fn">job_name</a>(self, job_name: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;) -&gt; Self</h4></section></summary><div class="docblock"><p>A string used to identify the job (e.g. in monitoring
 applications like eggcups).</p>
 <p>If you don’t set a job name, GTK+ picks a default one
 by numbering successive print jobs.</p>

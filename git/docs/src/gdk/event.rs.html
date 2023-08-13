@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -623,7 +623,7 @@
 <a href="#550" id="550">550</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ffi/enum.c_void.html">libc::c_void</a>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
@@ -640,7 +640,7 @@
 <span class="kw">use </span><a href="auto/seat.rs.html#13-70"><span class="kw">crate</span>::Seat</a>;
 <span class="kw">use </span><a href="auto/window.rs.html#20-101"><span class="kw">crate</span>::Window</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// A generic GDK event.
     </span><span class="attr">#[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     #[doc(alias = <span class="string">&quot;GdkEvent&quot;</span>)]
@@ -658,7 +658,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new(type_: <a href="auto/enums.rs.html#1711-1881">EventType</a>) -&gt; <a href="#20-31">Event</a> {
         <a class="macro" href="rt.rs.html#16-26">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_new(<a href="#36">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>())) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_new(<a href="#36">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>())) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get&quot;</span>)]
@@ -669,7 +669,7 @@
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_put&quot;</span>)]
     </span><span class="kw">pub fn </span>put(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{ ffi::gdk_event_put(<a class="self" href="#48">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_event_put(<a class="self" href="#48">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Set the event handler.
@@ -867,7 +867,7 @@
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_is_scroll_stop_event&quot;</span>)]
     </span><span class="kw">pub fn </span>is_scroll_stop_event(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_event_is_scroll_stop_event(<a class="self" href="#246">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_event_is_scroll_stop_event(<a class="self" href="#246">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_state&quot;</span>)]
@@ -889,37 +889,37 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_time&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_time&quot;</span>)]
     </span><span class="kw">pub fn </span>time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_event_get_time(<a class="self" href="#268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_event_get_time(<a class="self" href="#268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the associated `Window` if applicable.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_window&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window&quot;</span>)]
     </span><span class="kw">pub fn </span>window(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/window.rs.html#20-101">Window</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_window(<a class="self" href="#275">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_window(<a class="self" href="#275">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_event_sequence&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_event_sequence&quot;</span>)]
     </span><span class="kw">pub fn </span>event_sequence(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/event_sequence.rs.html#5-14">EventSequence</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_event_sequence(<a class="self" href="#281">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_event_sequence(<a class="self" href="#281">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_triggers_context_menu&quot;</span>)]
     </span><span class="kw">pub fn </span>triggers_context_menu(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_event_triggers_context_menu(<a class="self" href="#286">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_event_triggers_context_menu(<a class="self" href="#286">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_seat&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_seat&quot;</span>)]
     </span><span class="kw">pub fn </span>seat(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/seat.rs.html#13-70">Seat</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_seat(<a class="self" href="#292">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_seat(<a class="self" href="#292">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_scancode&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_scancode&quot;</span>)]
     </span><span class="kw">pub fn </span>scancode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_event_get_scancode(mut_override(<a class="self" href="#298">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ ffi::gdk_event_get_scancode(mut_override(<a class="self" href="#298">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_pointer_emulated&quot;</span>)]
@@ -927,57 +927,57 @@
     </span><span class="kw">pub fn </span>is_pointer_emulated(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_event_get_pointer_emulated(mut_override(
-                <a class="self" href="#304">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#304">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_set_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>set_screen(<span class="kw-2">&amp;mut </span><span class="self">self</span>, screen: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="auto/screen.rs.html#13-67">Screen</a>&gt;) {
-        <span class="kw">unsafe </span>{ ffi::gdk_event_set_screen(<a class="self" href="#313">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#313">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_event_set_screen(<a class="self" href="#313">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#313">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/screen.rs.html#13-67">Screen</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_screen(<a class="self" href="#319">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_screen(<a class="self" href="#319">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_set_device&quot;</span>)]
     </span><span class="kw">pub fn </span>set_device(<span class="kw-2">&amp;mut </span><span class="self">self</span>, device: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="auto/device.rs.html#16-148">Device</a>&gt;) {
-        <span class="kw">unsafe </span>{ ffi::gdk_event_set_device(<a class="self" href="#324">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#324">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_event_set_device(<a class="self" href="#324">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#324">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_device&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device&quot;</span>)]
     </span><span class="kw">pub fn </span>device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/device.rs.html#16-148">Device</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_device(<a class="self" href="#330">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_device(<a class="self" href="#330">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_set_source_device&quot;</span>)]
     </span><span class="kw">pub fn </span>set_source_device(<span class="kw-2">&amp;mut </span><span class="self">self</span>, device: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="auto/device.rs.html#16-148">Device</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_event_set_source_device(<a class="self" href="#335">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#335">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+            ffi::gdk_event_set_source_device(<a class="self" href="#335">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#335">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_source_device&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_source_device&quot;</span>)]
     </span><span class="kw">pub fn </span>source_device(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/device.rs.html#16-148">Device</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_source_device(<a class="self" href="#343">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_source_device(<a class="self" href="#343">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_set_device_tool&quot;</span>)]
     </span><span class="kw">pub fn </span>set_device_tool(<span class="kw-2">&amp;mut </span><span class="self">self</span>, device: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="auto/device_tool.rs.html#9-35">DeviceTool</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_event_set_device_tool(<a class="self" href="#348">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#348">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+            ffi::gdk_event_set_device_tool(<a class="self" href="#348">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#348">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_event_get_device_tool&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_device_tool&quot;</span>)]
     </span><span class="kw">pub fn </span>device_tool(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/device_tool.rs.html#9-35">DeviceTool</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_device_tool(<a class="self" href="#356">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_event_get_device_tool(<a class="self" href="#356">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the event type.

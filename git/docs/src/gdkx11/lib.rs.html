@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -98,9 +98,9 @@
 #![doc = <span class="macro">include_str!</span>(<span class="string">&quot;../README.md&quot;</span>)]
 
 </span><span class="kw">pub use </span>ffi;
-<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/index.html">gdk</a>;
-<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/index.html">gio</a>;
-<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/index.html">glib</a>;
+<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/index.html">gdk</a>;
+<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/index.html">gio</a>;
+<span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/index.html">glib</a>;
 <span class="kw">pub use </span>x11;
 
 <span class="attr">#[macro_use]

@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -207,7 +207,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><a href="auto/flags.rs.html#1933-1956"><span class="kw">crate</span>::TargetFlags</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>libc::c_char;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html">std::ffi::CStr</a>;
 
@@ -267,7 +267,7 @@
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*const </span><a href="../../gtk_sys/struct.GtkTargetEntry.html">ffi::GtkTargetEntry</a>, <span class="self">Self</span>&gt; {
-        <span class="kw">let </span>target = <a class="self" href="#63">self</a>.target.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>target = <a class="self" href="#63">self</a>.target.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
 
         <span class="kw">let </span>target_entry = Box::new(<a href="../../gtk_sys/struct.GtkTargetEntry.html">ffi::GtkTargetEntry</a> {
             target: <a href="#64">target</a>.<span class="number">0</span>,
@@ -284,7 +284,7 @@
 
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_glib_none_mut(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; StashMut&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTargetEntry.html">ffi::GtkTargetEntry</a>, <span class="self">Self</span>&gt; {
-        <span class="kw">let </span>target = <a class="self" href="#80">self</a>.target.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>target = <a class="self" href="#80">self</a>.target.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
 
         <span class="kw">let </span><span class="kw-2">mut </span>target_entry = Box::new(<a href="../../gtk_sys/struct.GtkTargetEntry.html">ffi::GtkTargetEntry</a> {
             target: <a href="#81">target</a>.<span class="number">0</span>,
@@ -331,10 +331,10 @@
     }
 }
 
-<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/trait.StaticType.html">glib::StaticType</a> <span class="kw">for </span><a href="#14-18">TargetEntry</a> {
-    <span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">glib::types::Type</a> {
+<span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/types/trait.StaticType.html">glib::StaticType</a> <span class="kw">for </span><a href="#14-18">TargetEntry</a> {
+    <span class="kw">fn </span>static_type() -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/types/struct.Type.html">glib::types::Type</a> {
         <span class="macro">skip_assert_initialized!</span>();
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_target_entry_get_type()) }
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_target_entry_get_type()) }
     }
 }
 </code></pre></div></section></main></body></html>
