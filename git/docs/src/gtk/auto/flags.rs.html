@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (e4c144684 2023-08-04)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-6d2c9675f3d09c26.css" data-theme-dark-css="dark-45ceb8f2e522f4d1.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-6d2c9675f3d09c26.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-45ceb8f2e522f4d1.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/flags.rs`."><title>flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -2410,10 +2410,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::{<a href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags::bitflags</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+</span><span class="kw">use </span>glib::{bitflags::bitflags, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Accelerator flags used with [`AccelGroupExtManual::connect_accel_group()`][crate::prelude::AccelGroupExtManual::connect_accel_group()].
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkAccelFlags&quot;</span>)]
@@ -2510,7 +2510,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Types of user actions that may be blocked by [`GtkApplicationExt::inhibit()`][crate::prelude::GtkApplicationExt::inhibit()].
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkApplicationInhibitFlags&quot;</span>)]
@@ -2613,7 +2613,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// These options can be used to influence the display and behaviour of a [`Calendar`][crate::Calendar].
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkCalendarDisplayOptions&quot;</span>)]
@@ -2718,7 +2718,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Tells how a cell is to be rendered.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkCellRendererState&quot;</span>)]
@@ -2828,7 +2828,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// The [`DestDefaults`][crate::DestDefaults] enumeration specifies the various
     /// types of action that will be taken on behalf
     /// of the user for a drag destination site.
@@ -2941,7 +2941,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to influence dialog construction.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkDialogFlags&quot;</span>)]
@@ -3042,7 +3042,7 @@
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
-</span><a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+</span><span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes the behavior of a [`EventControllerScroll`][crate::EventControllerScroll].
     </span><span class="attr">#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -3168,7 +3168,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a [`FileFilterInfo`][crate::FileFilterInfo] struct
     /// are filled or need to be filled.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -3271,7 +3271,7 @@
 }
 
 <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
-</span><a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+</span><span class="macro">bitflags! </span>{
     <span class="doccomment">/// This enumeration specifies the granularity of font selection
     /// that is desired in a font chooser.
     ///
@@ -3396,7 +3396,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Used to specify options for [`IconThemeExt::lookup_icon()`][crate::prelude::IconThemeExt::lookup_icon()]
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkIconLookupFlags&quot;</span>)]
@@ -3525,7 +3525,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes hints that might be taken into account by input methods
     /// or applications. Note that input methods may already tailor their
     /// behaviour according to the [`InputPurpose`][crate::InputPurpose] of the entry.
@@ -3660,7 +3660,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes how a rendered element connects to adjacent elements.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkJunctionSides&quot;</span>)]
@@ -3775,7 +3775,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags serve two purposes. First, the application can call [`PlacesSidebar::set_open_flags()`][crate::PlacesSidebar::set_open_flags()]
     /// using these flags as a bitmask. This tells the sidebar that the application is able to open
     /// folders selected from the sidebar in various ways, for example, in new tabs or in new windows in
@@ -3891,7 +3891,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate what parts of a `GtkRecentFilterInfo` struct
     /// are filled or need to be filled.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -4001,7 +4001,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes a region within a widget.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkRegionFlags&quot;</span>)]
@@ -4107,7 +4107,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Describes a widget state. Widget states are used to match the widget
     /// against CSS pseudo-classes. Note that GTK extends the regular CSS
     /// classes and sometimes uses different names.
@@ -4239,7 +4239,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags that modify the behavior of [`StyleContextExt::to_string()`][crate::prelude::StyleContextExt::to_string()].
     /// New values may be added to this enumeration.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -4338,7 +4338,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// The [`TargetFlags`][crate::TargetFlags] enumeration is used to specify
     /// constraints on a [`TargetEntry`][crate::TargetEntry].
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -4443,7 +4443,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags affecting how a search is done.
     ///
     /// If neither [`VISIBLE_ONLY`][Self::VISIBLE_ONLY] nor [`TEXT_ONLY`][Self::TEXT_ONLY] are
@@ -4547,7 +4547,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// Flags used to specify the supported drag targets.
     </span><span class="attr">#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = <span class="string">&quot;GtkToolPaletteDragTargets&quot;</span>)]
@@ -4641,7 +4641,7 @@
     }
 }
 
-<a class="macro" href="https://docs.rs/bitflags/2.3.3/bitflags/macro.bitflags.html">bitflags! </a>{
+<span class="macro">bitflags! </span>{
     <span class="doccomment">/// These flags indicate various properties of a [`TreeModel`][crate::TreeModel].
     ///
     /// They are returned by [`TreeModelExt::flags()`][crate::prelude::TreeModelExt::flags()], and must be
