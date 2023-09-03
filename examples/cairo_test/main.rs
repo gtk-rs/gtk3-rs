@@ -57,7 +57,7 @@ fn build_ui(application: &gtk::Application) {
         cr.arc(0.5 + eye_dx, eye_y, 0.05, 0.0, PI * 2.);
         cr.fill().expect("Invalid cairo surface state");
 
-        glib::Propagation::Stop
+        glib::Propagation::Proceed
     });
 
     drawable(application, 500, 500, |_, cr| {
@@ -82,7 +82,7 @@ fn build_ui(application: &gtk::Application) {
         cr.arc(0.27, 0.65, 0.02, 0.0, PI * 2.);
         cr.fill().expect("Invalid cairo surface state");
 
-        glib::Propagation::Stop
+        glib::Propagation::Proceed
     });
 }
 

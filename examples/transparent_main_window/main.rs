@@ -46,5 +46,5 @@ fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> glib::Propagation 
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
     ctx.set_operator(cairo::Operator::Screen);
     ctx.paint().expect("Invalid cairo surface state");
-    glib::Propagation::Stop
+    glib::Propagation::Proceed
 }

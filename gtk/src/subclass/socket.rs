@@ -45,7 +45,7 @@ pub trait SocketImplExt: ObjectSubclass + sealed::Sealed {
                     .to_glib_none()
                     .0))
             } else {
-                glib::Propagation::Stop
+                glib::Propagation::Proceed
             }
         }
     }
