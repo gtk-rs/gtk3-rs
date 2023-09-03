@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk3-macros/src/composite_template_derive.rs`."><title>composite_template_derive.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk3_macros" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk3-macros/src/composite_template_derive.rs`."><title>composite_template_derive.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk3_macros" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -166,8 +166,8 @@
 
 </span><span class="kw">use </span><a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">proc_macro2::TokenStream</a>;
 <span class="kw">use </span>proc_macro_error::{abort, abort_call_site};
-<span class="kw">use </span><a href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote::quote</a>;
-<span class="kw">use </span><a href="https://docs.rs/syn/2.0.28/syn/derive/enum.Data.html">syn::Data</a>;
+<span class="kw">use </span><a href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote::quote</a>;
+<span class="kw">use </span><a href="https://docs.rs/syn/2.0.30/syn/derive/enum.Data.html">syn::Data</a>;
 
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/string/trait.ToString.html">std::string::ToString</a>;
 
@@ -176,20 +176,20 @@
 
 <span class="kw">fn </span>gen_set_template(source: <a href="attribute_parser.rs.html#19-23">TemplateSource</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">match </span><a href="#13">source</a> {
-        <a href="attribute_parser.rs.html#20">TemplateSource::File</a>(file) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#20">TemplateSource::File</a>(file) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
             <span class="kw">let </span>t = <span class="macro">include_bytes!</span>(#file);
             klass.set_template(t);
         },
-        <a href="attribute_parser.rs.html#21">TemplateSource::Resource</a>(resource) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#21">TemplateSource::Resource</a>(resource) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
             klass.set_template_from_resource(<span class="kw-2">&amp;</span>#resource);
         },
-        <a href="attribute_parser.rs.html#22">TemplateSource::String</a>(template) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+        <a href="attribute_parser.rs.html#22">TemplateSource::String</a>(template) =&gt; <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
             klass.set_template(<span class="kw-2">&amp;</span>#template);
         },
     }
 }
 
-<span class="kw">fn </span>gen_template_child_bindings(fields: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.28/syn/data/enum.Fields.html">syn::Fields</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
+<span class="kw">fn </span>gen_template_child_bindings(fields: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.30/syn/data/enum.Fields.html">syn::Fields</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">let </span>crate_ident = <a href="util.rs.html#6-15">crate_ident_new</a>();
     <span class="kw">let </span>attributed_fields = <span class="kw">match </span><a href="attribute_parser.rs.html#200-212">parse_fields</a>(<a href="#28">fields</a>) {
         <span class="prelude-val">Ok</span>(fields) =&gt; <a href="#31">fields</a>,
@@ -206,7 +206,7 @@
                 }
             });
 
-            <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+            <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
                 klass.bind_template_child_with_offset(
                     <span class="kw-2">&amp;</span>#value_id,
                     #<span class="macro">crate_ident::offset_of!</span>(<span class="self">Self </span>=&gt; #ident),
@@ -215,12 +215,12 @@
         }
     });
 
-    <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+    <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
         #(#recurse)*
     }
 }
 
-<span class="kw">pub fn </span>impl_composite_template(input: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.28/syn/derive/struct.DeriveInput.html">syn::DeriveInput</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
+<span class="kw">pub fn </span>impl_composite_template(input: <span class="kw-2">&amp;</span><a href="https://docs.rs/syn/2.0.30/syn/derive/struct.DeriveInput.html">syn::DeriveInput</a>) -&gt; <a href="https://docs.rs/proc-macro2/1.0.66/proc_macro2/struct.TokenStream.html">TokenStream</a> {
     <span class="kw">let </span>name = <span class="kw-2">&amp;</span><a href="#59">input</a>.ident;
     <span class="kw">let </span>crate_ident = <a href="util.rs.html#6-15">crate_ident_new</a>();
 
@@ -241,7 +241,7 @@
 
     <span class="kw">let </span>template_children = <a href="#28-57">gen_template_child_bindings</a>(<a href="#73">fields</a>);
 
-    <a class="macro" href="https://docs.rs/quote/1.0.32/quote/macro.quote.html">quote! </a>{
+    <a class="macro" href="https://docs.rs/quote/1.0.33/quote/macro.quote.html">quote! </a>{
         <span class="kw">impl </span>#crate_ident::subclass::widget::CompositeTemplate <span class="kw">for </span>#name {
             <span class="kw">fn </span>bind_template(klass: <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Class) {
                 #set_template

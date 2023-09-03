@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/clipboard.rs`."><title>clipboard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/clipboard.rs`."><title>clipboard.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -778,10 +778,10 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{<a href="selection_data.rs.html#9-18">SelectionData</a>, <a href="text_buffer.rs.html#13-239">TextBuffer</a>};
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// The [`Clipboard`][crate::Clipboard] object represents a clipboard of data shared
     /// between different processes or between different widgets in
     /// the same process. Each clipboard is identified by a name encoded as a
@@ -870,7 +870,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_clear&quot;</span>)]
     </span><span class="kw">pub fn </span>clear(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_clipboard_clear(<a class="self" href="#96">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gtk_clipboard_clear(<a class="self" href="#96">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -882,7 +882,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_display&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_display&quot;</span>)]
     </span><span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>&gt; {
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_display(<a class="self" href="#109">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_display(<a class="self" href="#109">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// If the clipboard contents callbacks were set with
@@ -896,8 +896,8 @@
     ///  otherwise [`None`].
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_owner&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_owner&quot;</span>)]
-    </span><span class="kw">pub fn </span>owner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/struct.Object.html">glib::Object</a>&gt; {
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_owner(<a class="self" href="#124">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>owner(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">glib::Object</a>&gt; {
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_owner(<a class="self" href="#124">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Gets the selection that this clipboard is for.
@@ -908,7 +908,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get_selection&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_selection&quot;</span>)]
     </span><span class="kw">pub fn </span>selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>&gt; {
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_selection(<a class="self" href="#135">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_selection(<a class="self" href="#135">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Requests the contents of clipboard as the given target.
@@ -942,8 +942,8 @@
         <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#155">callback_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_request_contents(
-                <a class="self" href="#151">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#152">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#151">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#152">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#166">callback</a>,
                 Box_::into_raw(<a href="#167">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
@@ -963,20 +963,20 @@
     /// a function to call when the image is received,
     ///  or the retrieval fails. (It will always be called one way or the other.)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_request_image&quot;</span>)]
-    </span><span class="kw">pub fn </span>request_image&lt;P: FnOnce(<span class="kw-2">&amp;</span><a href="#9-87">Clipboard</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">pub fn </span>request_image&lt;P: FnOnce(<span class="kw-2">&amp;</span><a href="#9-87">Clipboard</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         callback: P,
     ) {
         <span class="kw">let </span>callback_data: Box_&lt;P&gt; = Box_::new(<a href="#193">callback</a>);
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>callback_func&lt;
-            P: FnOnce(<span class="kw-2">&amp;</span><a href="#9-87">Clipboard</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;) + <span class="lifetime">&#39;static</span>,
+            P: FnOnce(<span class="kw-2">&amp;</span><a href="#9-87">Clipboard</a>, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
             clipboard: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkClipboard.html">ffi::GtkClipboard</a>,
             pixbuf: <span class="kw-2">*mut </span>gdk_pixbuf::ffi::GdkPixbuf,
             data: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>clipboard = from_glib_borrow(<a href="#199">clipboard</a>);
-            <span class="kw">let </span>pixbuf: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;&gt; = from_glib_borrow(<a href="#200">pixbuf</a>);
+            <span class="kw">let </span>pixbuf: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt;&gt; = from_glib_borrow(<a href="#200">pixbuf</a>);
             <span class="kw">let </span>callback: Box_&lt;P&gt; = Box_::from_raw(<a href="#201">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
             (<span class="kw-2">*</span><a href="#205">callback</a>)(<span class="kw-2">&amp;</span><a href="#203">clipboard</a>, <a href="#204">pixbuf</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().as_ref())
         }
@@ -984,7 +984,7 @@
         <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#195">callback_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_request_image(
-                <a class="self" href="#192">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#192">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#208">callback</a>,
                 Box_::into_raw(<a href="#209">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
@@ -1022,7 +1022,7 @@
         ) {
             <span class="kw">let </span>clipboard = from_glib_borrow(<a href="#242">clipboard</a>);
             <span class="kw">let </span>format = from_glib_borrow(<a href="#243">format</a>);
-            <span class="kw">let </span>text: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;&gt; = from_glib_borrow(<a href="#244">text</a>);
+            <span class="kw">let </span>text: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;&gt; = from_glib_borrow(<a href="#244">text</a>);
             <span class="kw">let </span>callback: Box_&lt;P&gt; = Box_::from_raw(<a href="#246">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
             (<span class="kw-2">*</span><a href="#251">callback</a>)(
                 <span class="kw-2">&amp;</span><a href="#248">clipboard</a>,
@@ -1035,8 +1035,8 @@
         <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#238">callback_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_request_rich_text(
-                <a class="self" href="#234">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#235">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#234">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#235">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#259">callback</a>,
                 Box_::into_raw(<a href="#260">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
@@ -1063,7 +1063,7 @@
             data: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>clipboard = from_glib_borrow(<a href="#286">clipboard</a>);
-            <span class="kw">let </span>text: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;&gt; = from_glib_borrow(<a href="#287">text</a>);
+            <span class="kw">let </span>text: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;&gt; = from_glib_borrow(<a href="#287">text</a>);
             <span class="kw">let </span>callback: Box_&lt;P&gt; = Box_::from_raw(<a href="#288">data</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>);
             (<span class="kw-2">*</span><a href="#292">callback</a>)(<span class="kw-2">&amp;</span><a href="#290">clipboard</a>, (<span class="kw-2">*</span><a href="#291">text</a>).as_ref().map(|s| <a href="#293">s</a>.as_str()))
         }
@@ -1071,7 +1071,7 @@
         <span class="kw">let </span>super_callback0: Box_&lt;P&gt; = <a href="#284">callback_data</a>;
         <span class="kw">unsafe </span>{
             ffi::gtk_clipboard_request_text(
-                <a class="self" href="#283">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#283">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#295">callback</a>,
                 Box_::into_raw(<a href="#296">super_callback0</a>) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
             );
@@ -1085,9 +1085,9 @@
     /// ## `pixbuf`
     /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_set_image&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) {
+    </span><span class="kw">pub fn </span>set_image(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_clipboard_set_image(<a class="self" href="#313">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#313">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gtk_clipboard_set_image(<a class="self" href="#313">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#313">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -1104,7 +1104,7 @@
     </span><span class="kw">pub fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, text: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">let </span>len = <a href="#329">text</a>.len() <span class="kw">as _</span>;
         <span class="kw">unsafe </span>{
-            ffi::gtk_clipboard_set_text(<a class="self" href="#329">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#329">text</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#330">len</a>);
+            ffi::gtk_clipboard_set_text(<a class="self" href="#329">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#329">text</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#330">len</a>);
         }
     }
 
@@ -1113,7 +1113,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_store&quot;</span>)]
     </span><span class="kw">pub fn </span>store(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gtk_clipboard_store(<a class="self" href="#339">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gtk_clipboard_store(<a class="self" href="#339">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -1134,8 +1134,8 @@
     </span><span class="kw">pub fn </span>wait_for_contents(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="selection_data.rs.html#9-18">SelectionData</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_full(ffi::gtk_clipboard_wait_for_contents(
-                <a class="self" href="#359">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#359">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#359">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#359">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1154,8 +1154,8 @@
     ///  was empty or if the contents of the clipboard could not be
     ///  converted into an image.)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_image&quot;</span>)]
-    </span><span class="kw">pub fn </span>wait_for_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_image(<a class="self" href="#382">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>wait_for_image(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_image(<a class="self" href="#382">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Requests the contents of the clipboard as rich text. This function
@@ -1181,11 +1181,11 @@
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>format = gdk::Atom::uninitialized();
             <span class="kw">let </span><span class="kw-2">mut </span>length = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.FromGlibContainer.html">FromGlibContainer::from_glib_full_num</a>(
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainer.html">FromGlibContainer::from_glib_full_num</a>(
                 ffi::gtk_clipboard_wait_for_rich_text(
-                    <a class="self" href="#405">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#405">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#407">format</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+                    <a class="self" href="#405">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#405">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#407">format</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
                     <a href="#408">length</a>.as_mut_ptr(),
                 ),
                 <a href="#408">length</a>.assume_init() <span class="kw">as _</span>,
@@ -1214,13 +1214,13 @@
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>targets = ptr::null_mut();
             <span class="kw">let </span><span class="kw-2">mut </span>n_targets = mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_for_targets(
-                <a class="self" href="#438">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_for_targets(
+                <a class="self" href="#438">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span><a href="#440">targets</a>,
                 <a href="#441">n_targets</a>.as_mut_ptr(),
             ));
             <span class="kw">if </span>ret {
-                <span class="prelude-val">Some</span>(<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.FromGlibContainer.html">FromGlibContainer::from_glib_container_num</a>(
+                <span class="prelude-val">Some</span>(<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibContainer.html">FromGlibContainer::from_glib_container_num</a>(
                     <a href="#440">targets</a>,
                     <a href="#441">n_targets</a>.assume_init() <span class="kw">as _</span>,
                 ))
@@ -1244,8 +1244,8 @@
     ///  clipboard was empty or if the contents of the
     ///  clipboard could not be converted into text form.)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_text&quot;</span>)]
-    </span><span class="kw">pub fn </span>wait_for_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_text(<a class="self" href="#472">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+    </span><span class="kw">pub fn </span>wait_for_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <span class="kw">unsafe </span>{ from_glib_full(ffi::gtk_clipboard_wait_for_text(<a class="self" href="#472">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Requests the contents of the clipboard as URIs. This function waits
@@ -1261,10 +1261,10 @@
     ///  in particular if the clipboard was empty or if the contents of
     ///  the clipboard could not be converted into URI form.)
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_for_uris&quot;</span>)]
-    </span><span class="kw">pub fn </span>wait_for_uris(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    </span><span class="kw">pub fn </span>wait_for_uris(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_full</a>(ffi::gtk_clipboard_wait_for_uris(
-                <a class="self" href="#489">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_full</a>(ffi::gtk_clipboard_wait_for_uris(
+                <a class="self" href="#489">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1285,8 +1285,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_image_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_image_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_image_available(
-                <a class="self" href="#511">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_image_available(
+                <a class="self" href="#511">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1309,9 +1309,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_rich_text_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_rich_text_available(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="text_buffer.rs.html#13-239">TextBuffer</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_rich_text_available(
-                <a class="self" href="#535">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#535">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_rich_text_available(
+                <a class="self" href="#535">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#535">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1331,9 +1331,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_target_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_target_available(<span class="kw-2">&amp;</span><span class="self">self</span>, target: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_target_available(
-                <a class="self" href="#557">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#557">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_target_available(
+                <a class="self" href="#557">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#557">target</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1354,8 +1354,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_text_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_text_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_text_available(
-                <a class="self" href="#580">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_text_available(
+                <a class="self" href="#580">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1376,8 +1376,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_wait_is_uris_available&quot;</span>)]
     </span><span class="kw">pub fn </span>wait_is_uris_available(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_uris_available(
-                <a class="self" href="#602">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::gtk_clipboard_wait_is_uris_available(
+                <a class="self" href="#602">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1396,7 +1396,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_clipboard_get&quot;</span>)]
     </span><span class="kw">pub fn </span>get(selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <a href="#9-87">Clipboard</a> {
         <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get(<a href="#622">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get(<a href="#622">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the default clipboard object for use with cut/copy/paste menu items
@@ -1412,7 +1412,7 @@
     #[allow(clippy::should_implement_trait)]
     </span><span class="kw">pub fn </span>default(display: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="#9-87">Clipboard</a>&gt; {
         <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_default(<a href="#638">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_default(<a href="#638">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the clipboard object for the given selection.
@@ -1457,9 +1457,9 @@
     </span><span class="kw">pub fn </span>for_display(display: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/display/struct.Display.html">gdk::Display</a>, selection: <span class="kw-2">&amp;</span><a href="../../../gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <a href="#9-87">Clipboard</a> {
         <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_for_display(
-                <a href="#682">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#682">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::gtk_clipboard_get_for_display(
+                <a href="#682">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#682">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }

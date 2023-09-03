@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/src/auto/x11_screen.rs`."><title>x11_screen.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/src/auto/x11_screen.rs`."><title>x11_screen.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -283,14 +283,14 @@
 
 </span><span class="kw">use </span><a href="x11_visual.rs.html#7-19"><span class="kw">crate</span>::X11Visual</a>;
 <span class="kw">use </span>glib::{
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
-    signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 <span class="kw">use </span>x11::xlib;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// ## Signals
@@ -329,7 +329,7 @@
     ///
     /// [`trait@gdk::prelude::ScreenExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11Screen&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Screen.html">X11Screen</a>(Object&lt;ffi::GdkX11Screen, ffi::GdkX11ScreenClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/screen/struct.Screen.html">gdk::Screen</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Screen.html">X11Screen</a>(Object&lt;ffi::GdkX11Screen, ffi::GdkX11ScreenClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/screen/struct.Screen.html">gdk::Screen</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_screen_get_type(),
@@ -348,7 +348,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_get_current_desktop&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_current_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>current_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_current_desktop(<a class="self" href="#71">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_current_desktop(<a class="self" href="#71">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the XID of the specified output/monitor.
@@ -363,7 +363,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_get_monitor_output&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_monitor_output&quot;</span>)]
     </span><span class="kw">pub fn </span>monitor_output(<span class="kw-2">&amp;</span><span class="self">self</span>, monitor_num: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; xlib::XID {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_monitor_output(<a class="self" href="#86">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#86">monitor_num</a>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_monitor_output(<a class="self" href="#86">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#86">monitor_num</a>) }
     }
 
     <span class="doccomment">/// Returns the number of workspaces for `self` when running under a
@@ -377,7 +377,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_get_number_of_desktops&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_number_of_desktops&quot;</span>)]
     </span><span class="kw">pub fn </span>number_of_desktops(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_number_of_desktops(<a class="self" href="#100">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_number_of_desktops(<a class="self" href="#100">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the index of a [`gdk::Screen`][crate::gdk::Screen].
@@ -389,7 +389,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_get_screen_number&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen_number&quot;</span>)]
     </span><span class="kw">pub fn </span>screen_number(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_screen_number(<a class="self" href="#112">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_screen_get_screen_number(<a class="self" href="#112">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the name of the window manager for `self`.
@@ -401,10 +401,10 @@
     /// and should not be freed.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_get_window_manager_name&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_window_manager_name&quot;</span>)]
-    </span><span class="kw">pub fn </span>window_manager_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+    </span><span class="kw">pub fn </span>window_manager_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_x11_screen_get_window_manager_name(
-                <a class="self" href="#125">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#125">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -421,7 +421,7 @@
     </span><span class="kw">pub fn </span>lookup_visual(<span class="kw-2">&amp;</span><span class="self">self</span>, xvisualid: xlib::VisualID) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="x11_visual.rs.html#7-19">X11Visual</a>&gt; {
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_x11_screen_lookup_visual(
-                <a class="self" href="#142">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#142">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#142">xvisualid</a>,
             ))
         }
@@ -446,17 +446,17 @@
     ///
     /// [`true`] if the window manager supports `property`
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_screen_supports_net_wm_hint&quot;</span>)]
-    </span><span class="kw">pub fn </span>supports_net_wm_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    </span><span class="kw">pub fn </span>supports_net_wm_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_x11_screen_supports_net_wm_hint(
-                <a class="self" href="#170">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#170">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#170">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#170">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;window-manager-changed&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_window_manager_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_window_manager_changed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>window_manager_changed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#14-58">X11Screen</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span>ffi::GdkX11Screen,
             f: glib::ffi::gpointer,
@@ -466,8 +466,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#180">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#180">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#180">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;window-manager-changed\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     window_manager_changed_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),

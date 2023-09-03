@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/text_buffer.rs`."><title>text_buffer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/text_buffer.rs`."><title>text_buffer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -438,9 +438,9 @@
 <span class="kw">use </span><a href="auto/text_child_anchor.rs.html#9-23"><span class="kw">crate</span>::TextChildAnchor</a>;
 <span class="kw">use </span><a href="auto/text_iter.rs.html#9-22"><span class="kw">crate</span>::TextIter</a>;
 <span class="kw">use </span><a href="auto/text_tag.rs.html#13-407"><span class="kw">crate</span>::TextTag</a>;
-<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.IsA.html">IsA</a>};
-<span class="kw">use </span>glib::signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>};
+<span class="kw">use </span>glib::signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>};
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>libc::{c_char, c_int};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">std::boxed::Box</a> <span class="kw">as </span>Box_;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">std::mem::transmute</a>;
@@ -472,7 +472,7 @@
     </span><span class="kw">fn </span>connect_apply_tag&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="auto/text_tag.rs.html#13-407">TextTag</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>apply_tag_trampoline&lt;
             P,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="auto/text_tag.rs.html#13-407">TextTag</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>,
@@ -486,23 +486,23 @@
             </span>P: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#50">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#48">start</a>);
-            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#49">end</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#48">start</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#49">end</a>);
 
             <a href="#54">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#46">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#46">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#47">tag</a>),
                 <span class="kw-2">&amp;mut </span><a href="#55">start_copy</a>,
                 <span class="kw-2">&amp;mut </span><a href="#56">end_copy</a>,
             );
 
-            <span class="kw-2">*</span><a href="#48">start</a> = <span class="kw-2">*</span><a href="#55">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
-            <span class="kw-2">*</span><a href="#49">end</a> = <span class="kw-2">*</span><a href="#56">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#48">start</a> = <span class="kw-2">*</span><a href="#55">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#49">end</a> = <span class="kw-2">*</span><a href="#56">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#40">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#39">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#39">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;apply-tag\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     apply_tag_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -530,7 +530,7 @@
     </span><span class="kw">fn </span>connect_delete_range&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>delete_range_trampoline&lt;
             P,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>,
@@ -543,22 +543,22 @@
             </span>P: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#107">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#105">start</a>);
-            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#106">end</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#105">start</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#106">end</a>);
 
             <a href="#111">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#104">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#104">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;mut </span><a href="#112">start_copy</a>,
                 <span class="kw-2">&amp;mut </span><a href="#113">end_copy</a>,
             );
 
-            <span class="kw-2">*</span><a href="#105">start</a> = <span class="kw-2">*</span><a href="#112">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
-            <span class="kw-2">*</span><a href="#106">end</a> = <span class="kw-2">*</span><a href="#113">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#105">start</a> = <span class="kw-2">*</span><a href="#112">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#106">end</a> = <span class="kw-2">*</span><a href="#113">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#98">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#97">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#97">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;delete-range\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     delete_range_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -585,7 +585,7 @@
     </span><span class="kw">fn </span>connect_insert_child_anchor&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="auto/text_child_anchor.rs.html#9-23">TextChildAnchor</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>insert_child_anchor_trampoline&lt;
             P,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="auto/text_child_anchor.rs.html#9-23">TextChildAnchor</a>) + <span class="lifetime">&#39;static</span>,
@@ -598,20 +598,20 @@
             </span>P: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#162">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#160">location</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#160">location</a>);
 
             <a href="#166">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#159">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#159">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;mut </span><a href="#167">location_copy</a>,
                 <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#161">anchor</a>),
             );
 
-            <span class="kw-2">*</span><a href="#160">location</a> = <span class="kw-2">*</span><a href="#167">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#160">location</a> = <span class="kw-2">*</span><a href="#167">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#153">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#152">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#152">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;insert-child-anchor\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     insert_child_anchor_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -634,13 +634,13 @@
     /// position to insert `pixbuf` in `textbuffer`
     /// ## `pixbuf`
     /// the [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf] to be inserted
-    </span><span class="kw">fn </span>connect_insert_pixbuf&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) + <span class="lifetime">&#39;static</span>&gt;(
+    </span><span class="kw">fn </span>connect_insert_pixbuf&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>insert_pixbuf_trampoline&lt;
             P,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) + <span class="lifetime">&#39;static</span>,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTextBuffer.html">ffi::GtkTextBuffer</a>,
             location: <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTextIter.html">ffi::GtkTextIter</a>,
@@ -650,20 +650,20 @@
             </span>P: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#214">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#212">location</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#212">location</a>);
 
             <a href="#218">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#211">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#211">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;mut </span><a href="#219">location_copy</a>,
                 <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#213">pixbuf</a>),
             );
 
-            <span class="kw-2">*</span><a href="#212">location</a> = <span class="kw-2">*</span><a href="#219">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#212">location</a> = <span class="kw-2">*</span><a href="#219">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#205">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#204">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#204">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;insert-pixbuf\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     insert_pixbuf_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -693,7 +693,7 @@
     </span><span class="kw">fn </span>connect_insert_text&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>insert_text_trampoline&lt;T, F: Fn(<span class="kw-2">&amp;</span>T, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTextBuffer.html">ffi::GtkTextBuffer</a>,
             location: <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkTextIter.html">ffi::GtkTextIter</a>,
@@ -704,7 +704,7 @@
             </span>T: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#268">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#265">location</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>location_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#265">location</a>);
 
             <span class="kw">let </span>text = <span class="kw">if </span>len &lt;= <span class="number">0 </span>{
                 <span class="kw-2">&amp;</span>[]
@@ -713,17 +713,17 @@
             };
 
             <a href="#272">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#264">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#264">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;mut </span><a href="#273">location_copy</a>,
                 <a href="https://doc.rust-lang.org/nightly/core/str/converts/fn.from_utf8.html">str::from_utf8</a>(<a href="#275">text</a>).unwrap(),
             );
 
-            <span class="kw-2">*</span><a href="#265">location</a> = <span class="kw-2">*</span><a href="#273">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#265">location</a> = <span class="kw-2">*</span><a href="#273">location_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#261">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#260">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#260">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;insert-text\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     insert_text_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -751,7 +751,7 @@
     </span><span class="kw">fn </span>connect_remove_tag&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="auto/text_tag.rs.html#13-407">TextTag</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
-    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>remove_tag_trampoline&lt;
             P,
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="auto/text_tag.rs.html#13-407">TextTag</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>, <span class="kw-2">&amp;mut </span><a href="auto/text_iter.rs.html#9-22">TextIter</a>) + <span class="lifetime">&#39;static</span>,
@@ -765,23 +765,23 @@
             </span>P: IsA&lt;<a href="auto/text_buffer.rs.html#13-239">TextBuffer</a>&gt;,
         {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#329">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#327">start</a>);
-            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#328">end</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>start_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#327">start</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>end_copy = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#328">end</a>);
 
             <a href="#333">f</a>(
-                TextBuffer::from_glib_borrow(<a href="#325">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
+                TextBuffer::from_glib_borrow(<a href="#325">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
                 <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#326">tag</a>),
                 <span class="kw-2">&amp;mut </span><a href="#334">start_copy</a>,
                 <span class="kw-2">&amp;mut </span><a href="#335">end_copy</a>,
             );
 
-            <span class="kw-2">*</span><a href="#327">start</a> = <span class="kw-2">*</span><a href="#334">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
-            <span class="kw-2">*</span><a href="#328">end</a> = <span class="kw-2">*</span><a href="#335">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#327">start</a> = <span class="kw-2">*</span><a href="#334">start_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+            <span class="kw-2">*</span><a href="#328">end</a> = <span class="kw-2">*</span><a href="#335">end_copy</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#319">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#318">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#318">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;remove-tag\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     remove_tag_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),

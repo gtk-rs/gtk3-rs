@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/shortcuts_shortcut.rs`."><title>shortcuts_shortcut.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/shortcuts_shortcut.rs`."><title>shortcuts_shortcut.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -1416,13 +1416,13 @@
     <a href="enums.rs.html#8902-8931">ShortcutType</a>, <a href="size_group.rs.html#13-107">SizeGroup</a>, <a href="enums.rs.html#9893-9905">TextDirection</a>, <a href="widget.rs.html#17-1520">Widget</a>,
 };
 <span class="kw">use </span>glib::{
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
-    signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// A GtkShortcutsShortcut represents a single keyboard shortcut or gesture
     /// with a short text. This widget is only meant to be used with [`ShortcutsWindow`][crate::ShortcutsWindow].
     ///
@@ -1861,7 +1861,7 @@
     /// This is used internally by GTK+, and must not be modified by applications.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;accel-size-group&quot;</span>)]
     </span><span class="kw">pub fn </span>set_accel_size_group&lt;P: IsA&lt;<a href="size_group.rs.html#13-107">SizeGroup</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, accel_size_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#454">self</a>, <span class="string">&quot;accel-size-group&quot;</span>, <a href="#454">accel_size_group</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#454">self</a>, <span class="string">&quot;accel-size-group&quot;</span>, <a href="#454">accel_size_group</a>)
     }
 
     <span class="doccomment">/// The accelerator(s) represented by this object. This property is used
@@ -1886,8 +1886,8 @@
     ///
     /// Note that `&lt;`, `&gt;` and `&amp;` need to be escaped as &amp;lt;, &amp;gt; and &amp;amp; when used
     /// in .ui files.
-    </span><span class="kw">pub fn </span>accelerator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#480">self</a>, <span class="string">&quot;accelerator&quot;</span>)
+    </span><span class="kw">pub fn </span>accelerator(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#480">self</a>, <span class="string">&quot;accelerator&quot;</span>)
     }
 
     <span class="doccomment">/// The accelerator(s) represented by this object. This property is used
@@ -1913,7 +1913,7 @@
     /// Note that `&lt;`, `&gt;` and `&amp;` need to be escaped as &amp;lt;, &amp;gt; and &amp;amp; when used
     /// in .ui files.
     </span><span class="kw">pub fn </span>set_accelerator(<span class="kw-2">&amp;</span><span class="self">self</span>, accelerator: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#506">self</a>, <span class="string">&quot;accelerator&quot;</span>, <a href="#506">accelerator</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#506">self</a>, <span class="string">&quot;accelerator&quot;</span>, <a href="#506">accelerator</a>)
     }
 
     <span class="doccomment">/// A detailed action name. If this is set for a shortcut
@@ -1922,8 +1922,8 @@
     /// via [`GtkApplicationExt::set_accels_for_action()`][crate::prelude::GtkApplicationExt::set_accels_for_action()], and setting
     /// [`accelerator`][struct@crate::ShortcutsShortcut#accelerator] is not necessary.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;action-name&quot;</span>)]
-    </span><span class="kw">pub fn </span>action_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#516">self</a>, <span class="string">&quot;action-name&quot;</span>)
+    </span><span class="kw">pub fn </span>action_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#516">self</a>, <span class="string">&quot;action-name&quot;</span>)
     }
 
     <span class="doccomment">/// A detailed action name. If this is set for a shortcut
@@ -1933,45 +1933,45 @@
     /// [`accelerator`][struct@crate::ShortcutsShortcut#accelerator] is not necessary.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;action-name&quot;</span>)]
     </span><span class="kw">pub fn </span>set_action_name(<span class="kw-2">&amp;</span><span class="self">self</span>, action_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#526">self</a>, <span class="string">&quot;action-name&quot;</span>, <a href="#526">action_name</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#526">self</a>, <span class="string">&quot;action-name&quot;</span>, <a href="#526">action_name</a>)
     }
 
     <span class="doccomment">/// An icon to represent the shortcut or gesture. This property is used if
     /// [`shortcut-type`][struct@crate::ShortcutsShortcut#shortcut-type] is set to [`ShortcutType::Gesture`][crate::ShortcutType::Gesture].
     /// For the other predefined gesture types, GTK+ provides an icon on its own.
-    </span><span class="kw">pub fn </span>icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#533">self</a>, <span class="string">&quot;icon&quot;</span>)
+    </span><span class="kw">pub fn </span>icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#533">self</a>, <span class="string">&quot;icon&quot;</span>)
     }
 
     <span class="doccomment">/// An icon to represent the shortcut or gesture. This property is used if
     /// [`shortcut-type`][struct@crate::ShortcutsShortcut#shortcut-type] is set to [`ShortcutType::Gesture`][crate::ShortcutType::Gesture].
     /// For the other predefined gesture types, GTK+ provides an icon on its own.
-    </span><span class="kw">pub fn </span>set_icon&lt;P: IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#540">self</a>, <span class="string">&quot;icon&quot;</span>, <a href="#540">icon</a>)
+    </span><span class="kw">pub fn </span>set_icon&lt;P: IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#540">self</a>, <span class="string">&quot;icon&quot;</span>, <a href="#540">icon</a>)
     }
 
     <span class="doccomment">/// [`true`] if an icon has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-set&quot;</span>)]
     </span><span class="kw">pub fn </span>is_icon_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#546">self</a>, <span class="string">&quot;icon-set&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#546">self</a>, <span class="string">&quot;icon-set&quot;</span>)
     }
 
     <span class="doccomment">/// [`true`] if an icon has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;icon-set&quot;</span>)]
     </span><span class="kw">pub fn </span>set_icon_set(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#552">self</a>, <span class="string">&quot;icon-set&quot;</span>, <a href="#552">icon_set</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#552">self</a>, <span class="string">&quot;icon-set&quot;</span>, <a href="#552">icon_set</a>)
     }
 
     <span class="doccomment">/// The type of shortcut that is represented.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;shortcut-type&quot;</span>)]
     </span><span class="kw">pub fn </span>shortcut_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#8902-8931">ShortcutType</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#558">self</a>, <span class="string">&quot;shortcut-type&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#558">self</a>, <span class="string">&quot;shortcut-type&quot;</span>)
     }
 
     <span class="doccomment">/// The type of shortcut that is represented.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;shortcut-type&quot;</span>)]
     </span><span class="kw">pub fn </span>set_shortcut_type(<span class="kw-2">&amp;</span><span class="self">self</span>, shortcut_type: <a href="enums.rs.html#8902-8931">ShortcutType</a>) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#564">self</a>, <span class="string">&quot;shortcut-type&quot;</span>, <a href="#564">shortcut_type</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#564">self</a>, <span class="string">&quot;shortcut-type&quot;</span>, <a href="#564">shortcut_type</a>)
     }
 
     <span class="doccomment">/// The subtitle for the shortcut or gesture.
@@ -1979,8 +1979,8 @@
     /// This is typically used for gestures and should be a short, one-line
     /// text that describes the gesture itself. For the predefined gesture
     /// types, GTK+ provides a subtitle on its own.
-    </span><span class="kw">pub fn </span>subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#573">self</a>, <span class="string">&quot;subtitle&quot;</span>)
+    </span><span class="kw">pub fn </span>subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#573">self</a>, <span class="string">&quot;subtitle&quot;</span>)
     }
 
     <span class="doccomment">/// The subtitle for the shortcut or gesture.
@@ -1989,31 +1989,31 @@
     /// text that describes the gesture itself. For the predefined gesture
     /// types, GTK+ provides a subtitle on its own.
     </span><span class="kw">pub fn </span>set_subtitle(<span class="kw-2">&amp;</span><span class="self">self</span>, subtitle: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#582">self</a>, <span class="string">&quot;subtitle&quot;</span>, <a href="#582">subtitle</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#582">self</a>, <span class="string">&quot;subtitle&quot;</span>, <a href="#582">subtitle</a>)
     }
 
     <span class="doccomment">/// [`true`] if a subtitle has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;subtitle-set&quot;</span>)]
     </span><span class="kw">pub fn </span>is_subtitle_set(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#588">self</a>, <span class="string">&quot;subtitle-set&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#588">self</a>, <span class="string">&quot;subtitle-set&quot;</span>)
     }
 
     <span class="doccomment">/// [`true`] if a subtitle has been set.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;subtitle-set&quot;</span>)]
     </span><span class="kw">pub fn </span>set_subtitle_set(<span class="kw-2">&amp;</span><span class="self">self</span>, subtitle_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#594">self</a>, <span class="string">&quot;subtitle-set&quot;</span>, <a href="#594">subtitle_set</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#594">self</a>, <span class="string">&quot;subtitle-set&quot;</span>, <a href="#594">subtitle_set</a>)
     }
 
     <span class="doccomment">/// The textual description for the shortcut or gesture represented by
     /// this object. This should be a short string that can fit in a single line.
-    </span><span class="kw">pub fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#600">self</a>, <span class="string">&quot;title&quot;</span>)
+    </span><span class="kw">pub fn </span>title(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#600">self</a>, <span class="string">&quot;title&quot;</span>)
     }
 
     <span class="doccomment">/// The textual description for the shortcut or gesture represented by
     /// this object. This should be a short string that can fit in a single line.
     </span><span class="kw">pub fn </span>set_title(<span class="kw-2">&amp;</span><span class="self">self</span>, title: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#606">self</a>, <span class="string">&quot;title&quot;</span>, <a href="#606">title</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#606">self</a>, <span class="string">&quot;title&quot;</span>, <a href="#606">title</a>)
     }
 
     <span class="doccomment">/// The size group for the textual portion of this shortcut.
@@ -2021,11 +2021,11 @@
     /// This is used internally by GTK+, and must not be modified by applications.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;title-size-group&quot;</span>)]
     </span><span class="kw">pub fn </span>set_title_size_group&lt;P: IsA&lt;<a href="size_group.rs.html#13-107">SizeGroup</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, title_size_group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#614">self</a>, <span class="string">&quot;title-size-group&quot;</span>, <a href="#614">title_size_group</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#614">self</a>, <span class="string">&quot;title-size-group&quot;</span>, <a href="#614">title_size_group</a>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accel-size-group&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_accel_size_group_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_accel_size_group_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accel_size_group_trampoline&lt;
             F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
@@ -2038,8 +2038,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#619">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#619">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#619">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accel-size-group\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accel_size_group_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2050,7 +2050,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;accelerator&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_accelerator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_accelerator_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_accelerator_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2061,8 +2061,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#644">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#644">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#644">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::accelerator\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_accelerator_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2073,7 +2073,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;action-name&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_action_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_action_name_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_action_name_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2084,8 +2084,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#667">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#667">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#667">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::action-name\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_action_name_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2096,7 +2096,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;direction&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_direction_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_direction_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2107,8 +2107,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#690">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#690">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#690">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::direction\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_direction_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2119,7 +2119,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;icon&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_icon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_icon_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icon_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2130,8 +2130,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#713">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#713">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#713">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::icon\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_icon_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2142,7 +2142,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;icon-set&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_icon_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_icon_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_icon_set_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2153,8 +2153,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#736">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#736">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#736">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::icon-set\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_icon_set_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2165,7 +2165,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;shortcut-type&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_shortcut_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_shortcut_type_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_shortcut_type_trampoline&lt;
             F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
@@ -2178,8 +2178,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#759">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#759">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#759">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::shortcut-type\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_shortcut_type_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2190,7 +2190,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;subtitle&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_subtitle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_subtitle_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_subtitle_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2201,8 +2201,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#784">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#784">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#784">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::subtitle\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_subtitle_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2213,7 +2213,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;subtitle-set&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_subtitle_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_subtitle_set_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_subtitle_set_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2224,8 +2224,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#807">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#807">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#807">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::subtitle-set\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_subtitle_set_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2236,7 +2236,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;title&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_title_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_title_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>&gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkShortcutsShortcut.html">ffi::GtkShortcutsShortcut</a>,
             _param_spec: glib::ffi::gpointer,
@@ -2247,8 +2247,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#830">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#830">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#830">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::title\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_title_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2259,7 +2259,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;title-size-group&quot;</span>)]
-    </span><span class="kw">pub fn </span>connect_title_size_group_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">pub fn </span>connect_title_size_group_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_title_size_group_trampoline&lt;
             F: Fn(<span class="kw-2">&amp;</span><a href="#16-439">ShortcutsShortcut</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
@@ -2272,8 +2272,8 @@
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#853">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#853">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#853">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::title-size-group\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_title_size_group_trampoline::&lt;F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2307,7 +2307,7 @@
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#897">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;accel-size-group&quot;</span>, <a href="#897">accel_size_group</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;accel-size-group&quot;</span>, <a href="#897">accel_size_group</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -2333,7 +2333,7 @@
     ///
     /// Note that `&lt;`, `&gt;` and `&amp;` need to be escaped as &amp;lt;, &amp;gt; and &amp;amp; when used
     /// in .ui files.
-    </span><span class="kw">pub fn </span>accelerator(<span class="self">self</span>, accelerator: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>accelerator(<span class="self">self</span>, accelerator: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#927">self</a>.builder.property(<span class="string">&quot;accelerator&quot;</span>, <a href="#927">accelerator</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -2344,7 +2344,7 @@
     /// the accelerators that are associated with the action
     /// via [`GtkApplicationExt::set_accels_for_action()`][crate::prelude::GtkApplicationExt::set_accels_for_action()], and setting
     /// [`accelerator`][struct@crate::ShortcutsShortcut#accelerator] is not necessary.
-    </span><span class="kw">pub fn </span>action_name(<span class="self">self</span>, action_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>action_name(<span class="self">self</span>, action_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#938">self</a>.builder.property(<span class="string">&quot;action-name&quot;</span>, <a href="#938">action_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -2362,9 +2362,9 @@
     <span class="doccomment">/// An icon to represent the shortcut or gesture. This property is used if
     /// [`shortcut-type`][struct@crate::ShortcutsShortcut#shortcut-type] is set to [`ShortcutType::Gesture`][crate::ShortcutType::Gesture].
     /// For the other predefined gesture types, GTK+ provides an icon on its own.
-    </span><span class="kw">pub fn </span>icon(<span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>icon(<span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#956">self</a>.builder.property(<span class="string">&quot;icon&quot;</span>, <a href="#956">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#956">self</a>.builder.property(<span class="string">&quot;icon&quot;</span>, <a href="#956">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -2387,7 +2387,7 @@
     /// This is typically used for gestures and should be a short, one-line
     /// text that describes the gesture itself. For the predefined gesture
     /// types, GTK+ provides a subtitle on its own.
-    </span><span class="kw">pub fn </span>subtitle(<span class="self">self</span>, subtitle: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>subtitle(<span class="self">self</span>, subtitle: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#981">self</a>.builder.property(<span class="string">&quot;subtitle&quot;</span>, <a href="#981">subtitle</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -2402,7 +2402,7 @@
 
     <span class="doccomment">/// The textual description for the shortcut or gesture represented by
     /// this object. This should be a short string that can fit in a single line.
-    </span><span class="kw">pub fn </span>title(<span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>title(<span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#996">self</a>.builder.property(<span class="string">&quot;title&quot;</span>, <a href="#996">title</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -2415,7 +2415,7 @@
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#1005">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;title-size-group&quot;</span>, <a href="#1005">title_size_group</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;title-size-group&quot;</span>, <a href="#1005">title_size_group</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -2447,7 +2447,7 @@
 
     <span class="kw">pub fn </span>child(<span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#1039">self</a>.builder.property(<span class="string">&quot;child&quot;</span>, <a href="#1039">child</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#1039">self</a>.builder.property(<span class="string">&quot;child&quot;</span>, <a href="#1039">child</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -2614,7 +2614,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#1208">self</a>.builder.property(<span class="string">&quot;name&quot;</span>, <a href="#1208">name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -2638,7 +2638,7 @@
 
     <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="container.rs.html#14-1335">Container</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#1230">self</a>.builder.property(<span class="string">&quot;parent&quot;</span>, <a href="#1230">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#1230">self</a>.builder.property(<span class="string">&quot;parent&quot;</span>, <a href="#1230">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -2665,7 +2665,7 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#1259">self</a>
                 </span>.builder
@@ -2684,7 +2684,7 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#1278">self</a>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, <a href="#1278">tooltip_text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }

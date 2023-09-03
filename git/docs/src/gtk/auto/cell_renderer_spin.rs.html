@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spin.rs`."><title>cell_renderer_spin.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spin.rs`."><title>cell_renderer_spin.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -1058,13 +1058,13 @@
 
 </span><span class="kw">use crate</span>::{<a href="adjustment.rs.html#12-89">Adjustment</a>, <a href="cell_renderer.rs.html#16-184">CellRenderer</a>, <a href="enums.rs.html#1459-1474">CellRendererMode</a>, <a href="cell_renderer_text.rs.html#13-400">CellRendererText</a>};
 <span class="kw">use </span>glib::{
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
-    signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
-    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
 };
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`CellRendererSpin`][crate::CellRendererSpin] renders text in a cell like [`CellRendererText`][crate::CellRendererText] from
     /// which it is derived. But while [`CellRendererText`][crate::CellRendererText] offers a simple entry to
     /// edit the text, [`CellRendererSpin`][crate::CellRendererSpin] offers a [`SpinButton`][crate::SpinButton] widget. Of course,
@@ -1431,7 +1431,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_cell_renderer_spin_new&quot;</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; <a href="#13-367">CellRendererSpin</a> {
         <a class="macro" href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ CellRenderer::from_glib_none(ffi::gtk_cell_renderer_spin_new()).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
+        <span class="kw">unsafe </span>{ CellRenderer::from_glib_none(ffi::gtk_cell_renderer_spin_new()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
@@ -1471,7 +1471,7 @@
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#416">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;adjustment&quot;</span>, <a href="#416">adjustment</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;adjustment&quot;</span>, <a href="#416">adjustment</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -1500,19 +1500,19 @@
     /// Note that this property describes how to align the lines of text in
     /// case there are several of them. The &quot;xalign&quot; property of [`CellRenderer`][crate::CellRenderer],
     /// on the other hand, sets the horizontal alignment of the whole text.
-    </span><span class="kw">pub fn </span>alignment(<span class="self">self</span>, alignment: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.Alignment.html">pango::Alignment</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>alignment(<span class="self">self</span>, alignment: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Alignment.html">pango::Alignment</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#449">self</a>.builder.property(<span class="string">&quot;alignment&quot;</span>, <a href="#449">alignment</a>),
         }
     }
 
-    <span class="kw">pub fn </span>attributes(<span class="self">self</span>, attributes: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/attr_list/struct.AttrList.html">pango::AttrList</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>attributes(<span class="self">self</span>, attributes: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/attr_list/struct.AttrList.html">pango::AttrList</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#455">self</a>.builder.property(<span class="string">&quot;attributes&quot;</span>, <a href="#455">attributes</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>background(<span class="self">self</span>, background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>background(<span class="self">self</span>, background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#461">self</a>.builder.property(<span class="string">&quot;background&quot;</span>, <a href="#461">background</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -1547,7 +1547,7 @@
     /// does not have enough room to display the entire string. Setting it to
     /// [`pango::EllipsizeMode::None`][crate::pango::EllipsizeMode::None] turns off ellipsizing. See the wrap-width property
     /// for another way of making the text fit into a given width.
-    </span><span class="kw">pub fn </span>ellipsize(<span class="self">self</span>, ellipsize: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.EllipsizeMode.html">pango::EllipsizeMode</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>ellipsize(<span class="self">self</span>, ellipsize: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.EllipsizeMode.html">pango::EllipsizeMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#496">self</a>.builder.property(<span class="string">&quot;ellipsize&quot;</span>, <a href="#496">ellipsize</a>),
         }
@@ -1559,7 +1559,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>family(<span class="self">self</span>, family: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>family(<span class="self">self</span>, family: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#508">self</a>.builder.property(<span class="string">&quot;family&quot;</span>, <a href="#508">family</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -1571,19 +1571,19 @@
         }
     }
 
-    <span class="kw">pub fn </span>font(<span class="self">self</span>, font: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>font(<span class="self">self</span>, font: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#520">self</a>.builder.property(<span class="string">&quot;font&quot;</span>, <a href="#520">font</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>font_desc(<span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/font_description/struct.FontDescription.html">pango::FontDescription</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>font_desc(<span class="self">self</span>, font_desc: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/font_description/struct.FontDescription.html">pango::FontDescription</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#526">self</a>.builder.property(<span class="string">&quot;font-desc&quot;</span>, <a href="#526">font_desc</a>),
         }
     }
 
-    <span class="kw">pub fn </span>foreground(<span class="self">self</span>, foreground: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>foreground(<span class="self">self</span>, foreground: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#532">self</a>.builder.property(<span class="string">&quot;foreground&quot;</span>, <a href="#532">foreground</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -1602,7 +1602,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>language(<span class="self">self</span>, language: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#551">self</a>.builder.property(<span class="string">&quot;language&quot;</span>, <a href="#551">language</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -1614,7 +1614,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>markup(<span class="self">self</span>, markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>markup(<span class="self">self</span>, markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#563">self</a>.builder.property(<span class="string">&quot;markup&quot;</span>, <a href="#563">markup</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
@@ -1638,7 +1638,7 @@
     /// [`editable`][struct@crate::CellRendererText#editable] is [`true`] and the cell is empty.
     ///
     /// Since 3.6
-    </span><span class="kw">pub fn </span>placeholder_text(<span class="self">self</span>, placeholder_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>placeholder_text(<span class="self">self</span>, placeholder_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#587">self</a>
                 </span>.builder
@@ -1696,7 +1696,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>stretch(<span class="self">self</span>, stretch: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.Stretch.html">pango::Stretch</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>stretch(<span class="self">self</span>, stretch: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Stretch.html">pango::Stretch</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#645">self</a>.builder.property(<span class="string">&quot;stretch&quot;</span>, <a href="#645">stretch</a>),
         }
@@ -1722,7 +1722,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>style(<span class="self">self</span>, style: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.Style.html">pango::Style</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>style(<span class="self">self</span>, style: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Style.html">pango::Style</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#671">self</a>.builder.property(<span class="string">&quot;style&quot;</span>, <a href="#671">style</a>),
         }
@@ -1734,13 +1734,13 @@
         }
     }
 
-    <span class="kw">pub fn </span>text(<span class="self">self</span>, text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>text(<span class="self">self</span>, text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#683">self</a>.builder.property(<span class="string">&quot;text&quot;</span>, <a href="#683">text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>underline(<span class="self">self</span>, underline: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.Underline.html">pango::Underline</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>underline(<span class="self">self</span>, underline: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Underline.html">pango::Underline</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#689">self</a>.builder.property(<span class="string">&quot;underline&quot;</span>, <a href="#689">underline</a>),
         }
@@ -1752,7 +1752,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>variant(<span class="self">self</span>, variant: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.Variant.html">pango::Variant</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>variant(<span class="self">self</span>, variant: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.Variant.html">pango::Variant</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#701">self</a>.builder.property(<span class="string">&quot;variant&quot;</span>, <a href="#701">variant</a>),
         }
@@ -1788,7 +1788,7 @@
     <span class="doccomment">/// Specifies how to break the string into multiple lines, if the cell
     /// renderer does not have enough room to display the entire string.
     /// This property has no effect unless the wrap-width property is set.
-    </span><span class="kw">pub fn </span>wrap_mode(<span class="self">self</span>, wrap_mode: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/enums/enum.WrapMode.html">pango::WrapMode</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>wrap_mode(<span class="self">self</span>, wrap_mode: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/enums/enum.WrapMode.html">pango::WrapMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <a class="self" href="#737">self</a>.builder.property(<span class="string">&quot;wrap-mode&quot;</span>, <a href="#737">wrap_mode</a>),
         }
@@ -1803,7 +1803,7 @@
         }
     }
 
-    <span class="kw">pub fn </span>cell_background(<span class="self">self</span>, cell_background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>cell_background(<span class="self">self</span>, cell_background: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: <span class="self"><a href="#752">self</a>
                 </span>.builder
@@ -1916,39 +1916,39 @@
     <span class="doccomment">/// The adjustment that holds the value of the spinbutton.
     /// This must be non-[`None`] for the cell renderer to be editable.
     </span><span class="kw">fn </span>adjustment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="adjustment.rs.html#12-89">Adjustment</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#864">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;adjustment&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#864">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;adjustment&quot;</span>)
     }
 
     <span class="doccomment">/// The adjustment that holds the value of the spinbutton.
     /// This must be non-[`None`] for the cell renderer to be editable.
     </span><span class="kw">fn </span>set_adjustment&lt;P: IsA&lt;<a href="adjustment.rs.html#12-89">Adjustment</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, adjustment: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>P&gt;) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#870">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;adjustment&quot;</span>, <a href="#870">adjustment</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#870">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;adjustment&quot;</span>, <a href="#870">adjustment</a>)
     }
 
     <span class="doccomment">/// The acceleration rate when you hold down a button.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;climb-rate&quot;</span>)]
     </span><span class="kw">fn </span>climb_rate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#876">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;climb-rate&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#876">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;climb-rate&quot;</span>)
     }
 
     <span class="doccomment">/// The acceleration rate when you hold down a button.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;climb-rate&quot;</span>)]
     </span><span class="kw">fn </span>set_climb_rate(<span class="kw-2">&amp;</span><span class="self">self</span>, climb_rate: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#882">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;climb-rate&quot;</span>, <a href="#882">climb_rate</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#882">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;climb-rate&quot;</span>, <a href="#882">climb_rate</a>)
     }
 
     <span class="doccomment">/// The number of decimal places to display.
     </span><span class="kw">fn </span>digits(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#887">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;digits&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#887">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;digits&quot;</span>)
     }
 
     <span class="doccomment">/// The number of decimal places to display.
     </span><span class="kw">fn </span>set_digits(<span class="kw-2">&amp;</span><span class="self">self</span>, digits: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#892">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;digits&quot;</span>, <a href="#892">digits</a>)
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::set_property</a>(<a class="self" href="#892">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>(), <span class="string">&quot;digits&quot;</span>, <a href="#892">digits</a>)
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;adjustment&quot;</span>)]
-    </span><span class="kw">fn </span>connect_adjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">fn </span>connect_adjustment_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_adjustment_trampoline&lt;
             P: IsA&lt;<a href="#13-367">CellRendererSpin</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1958,12 +1958,12 @@
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#904">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#906">f</a>(CellRendererSpin::from_glib_borrow(<a href="#902">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <a href="#906">f</a>(CellRendererSpin::from_glib_borrow(<a href="#902">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#897">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#897">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#897">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::adjustment\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_adjustment_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -1974,7 +1974,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;climb-rate&quot;</span>)]
-    </span><span class="kw">fn </span>connect_climb_rate_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">fn </span>connect_climb_rate_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_climb_rate_trampoline&lt;
             P: IsA&lt;<a href="#13-367">CellRendererSpin</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -1984,12 +1984,12 @@
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#930">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#932">f</a>(CellRendererSpin::from_glib_borrow(<a href="#928">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <a href="#932">f</a>(CellRendererSpin::from_glib_borrow(<a href="#928">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#923">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#923">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#923">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::climb-rate\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_climb_rate_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
@@ -2000,7 +2000,7 @@
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;digits&quot;</span>)]
-    </span><span class="kw">fn </span>connect_digits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">fn </span>connect_digits_notify&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>notify_digits_trampoline&lt;
             P: IsA&lt;<a href="#13-367">CellRendererSpin</a>&gt;,
             F: Fn(<span class="kw-2">&amp;</span>P) + <span class="lifetime">&#39;static</span>,
@@ -2010,12 +2010,12 @@
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#956">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#958">f</a>(CellRendererSpin::from_glib_borrow(<a href="#954">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <a href="#958">f</a>(CellRendererSpin::from_glib_borrow(<a href="#954">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#949">f</a>);
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#949">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+                <a class="self" href="#949">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="string">b&quot;notify::digits\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>()&gt;(
                     notify_digits_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),

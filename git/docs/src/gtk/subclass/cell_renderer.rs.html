@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/cell_renderer.rs`."><title>cell_renderer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/cell_renderer.rs`."><title>cell_renderer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -773,11 +773,11 @@
 </span><span class="kw">use </span>libc::{c_char, c_int};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
 
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">glib::Cast</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">glib::Cast</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>;
 
 <span class="kw">use </span><a href="../auto/cell_editable.rs.html#13-1133"><span class="kw">crate</span>::CellEditable</a>;
 <span class="kw">use </span><a href="../auto/cell_renderer.rs.html#16-184"><span class="kw">crate</span>::CellRenderer</a>;
@@ -785,7 +785,7 @@
 <span class="kw">use </span><a href="../auto/enums.rs.html#9182-9194"><span class="kw">crate</span>::SizeRequestMode</a>;
 <span class="kw">use </span><a href="../auto/widget.rs.html#17-1520"><span class="kw">crate</span>::Widget</a>;
 
-<span class="kw">pub trait </span><a href="../../../gtk/subclass/cell_renderer/trait.CellRendererImpl.html">CellRendererImpl</a>: <a href="#234-474">CellRendererImplExt</a> + <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/object/trait.ObjectImpl.html">ObjectImpl</a> {
+<span class="kw">pub trait </span><a href="../../../gtk/subclass/cell_renderer/trait.CellRendererImpl.html">CellRendererImpl</a>: <a href="#234-474">CellRendererImplExt</a> + <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/object/trait.ObjectImpl.html">ObjectImpl</a> {
     <span class="doccomment">/// Gets whether the cell renderer prefers a height-for-width layout
     /// or a width-for-height layout.
     ///
@@ -914,7 +914,7 @@
     /// flags that affect rendering
     </span><span class="kw">fn </span>render&lt;P: IsA&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+        cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
         widget: <span class="kw-2">&amp;</span>P,
         background_area: <span class="kw-2">&amp;</span><a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a>,
         cell_area: <span class="kw-2">&amp;</span><a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a>,
@@ -1001,16 +1001,16 @@
     <span class="kw">impl</span>&lt;T: <a href="#18-227"><span class="kw">super</span>::CellRendererImpl</a>&gt; <a href="#230">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span><a href="../../../gtk/subclass/cell_renderer/trait.CellRendererImplExt.html">CellRendererImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#230">sealed::Sealed</a> {
+<span class="kw">pub trait </span><a href="../../../gtk/subclass/cell_renderer/trait.CellRendererImplExt.html">CellRendererImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#230">sealed::Sealed</a> {
     <span class="kw">fn </span>parent_request_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../auto/enums.rs.html#9182-9194">SizeRequestMode</a> {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#237">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">let </span>f = (<span class="kw-2">*</span><a href="#238">parent_class</a>).get_request_mode.unwrap();
-            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#239">f</a>(<span class="self"><a href="#235">self</a>
-                </span>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#239">f</a>(<span class="self"><a href="#235">self</a>
+                </span>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                 .<span class="number">0</span>))
         }
     }
@@ -1023,11 +1023,11 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             <a href="#251">f</a>(
-                <a class="self" href="#247">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a class="self" href="#247">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>,
-                <a href="#247">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#247">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#253">minimum_size</a>.as_mut_ptr(),
                 <a href="#254">natural_size</a>.as_mut_ptr(),
             );
@@ -1047,11 +1047,11 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             <a href="#275">f</a>(
-                <a class="self" href="#268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a class="self" href="#268">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>,
-                <a href="#269">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#269">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#270">height</a>,
                 <a href="#277">minimum_size</a>.as_mut_ptr(),
                 <a href="#278">natural_size</a>.as_mut_ptr(),
@@ -1067,11 +1067,11 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             <a href="#296">f</a>(
-                <a class="self" href="#292">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a class="self" href="#292">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>,
-                <a href="#292">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#292">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#297">minimum_size</a>.as_mut_ptr(),
                 <a href="#298">natural_size</a>.as_mut_ptr(),
             );
@@ -1090,11 +1090,11 @@
             <span class="kw">let </span><span class="kw-2">mut </span>minimum_size = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>natural_size = mem::MaybeUninit::uninit();
             <a href="#319">f</a>(
-                <a class="self" href="#312">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a class="self" href="#312">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>,
-                <a href="#313">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#313">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#314">width</a>,
                 <a href="#320">minimum_size</a>.as_mut_ptr(),
                 <a href="#321">natural_size</a>.as_mut_ptr(),
@@ -1114,21 +1114,21 @@
             <span class="kw">let </span><span class="kw-2">mut </span>aligned_area = gdk::Rectangle::uninitialized();
             <span class="kw">let </span>f = (<span class="kw-2">*</span><a href="#343">parent_class</a>).get_aligned_area.unwrap();
             <a href="#345">f</a>(
-                <a class="self" href="#336">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a class="self" href="#336">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>,
-                <a href="#337">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#338">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
-                <a href="#339">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#344">aligned_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+                <a href="#337">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#338">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#339">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#344">aligned_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
             );
             <a href="#344">aligned_area</a>
         }
     }
     <span class="kw">fn </span>parent_render&lt;P: IsA&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt;&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">cairo::Context</a>,
+        cr: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>,
         widget: <span class="kw-2">&amp;</span>P,
         background_area: <span class="kw-2">&amp;</span><a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a>,
         cell_area: <span class="kw-2">&amp;</span><a href="../../../gtk/struct.Rectangle.html">gdk::Rectangle</a>,
@@ -1139,15 +1139,15 @@
             <span class="kw">let </span>parent_class = <a href="#368">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#369">parent_class</a>).render {
                 <a href="#370">f</a>(
-                    <a class="self" href="#360">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                    <a class="self" href="#360">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    <a href="#361">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#362">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#363">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#364">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#365">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    <a href="#361">cr</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#362">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#363">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#364">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#365">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 )
             }
         }
@@ -1165,17 +1165,17 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#395">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#396">parent_class</a>).activate {
-                <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#397">f</a>(
-                    <a class="self" href="#386">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#397">f</a>(
+                    <a class="self" href="#386">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    mut_override(<a href="#387">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                    <a href="#388">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#389">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#390">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#391">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#392">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    mut_override(<a href="#387">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+                    <a href="#388">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#389">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#390">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#391">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#392">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 ))
             } <span class="kw">else </span>{
                 <span class="bool-val">false
@@ -1195,17 +1195,17 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#425">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#426">parent_class</a>).start_editing {
-                <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#427">f</a>(
-                    <a class="self" href="#416">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="#427">f</a>(
+                    <a class="self" href="#416">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    mut_override(<a href="#417">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                    <a href="#418">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#419">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#420">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#421">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#422">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    mut_override(<a href="#417">event</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+                    <a href="#418">widget</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#419">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#420">background_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#421">cell_area</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#422">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 ))
             } <span class="kw">else </span>{
                 <span class="prelude-val">None
@@ -1218,9 +1218,9 @@
             <span class="kw">let </span>parent_class = <a href="#447">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#448">parent_class</a>).editing_canceled {
                 <a href="#449">f</a>(<span class="self"><a href="#445">self</a>
-                    </span>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                    </span>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                     .<span class="number">0</span>)
             }
         }
@@ -1231,12 +1231,12 @@
             <span class="kw">let </span>parent_class = <a href="#460">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRendererClass.html">ffi::GtkCellRendererClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#461">parent_class</a>).editing_started {
                 <a href="#462">f</a>(
-                    <a class="self" href="#458">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                    <a class="self" href="#458">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/cell_renderer.rs.html#16-184">CellRenderer</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    <a href="#458">editable</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#458">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#458">editable</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#458">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 )
             }
         }
@@ -1274,9 +1274,9 @@
     ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRenderer.html">ffi::GtkCellRenderer</a>,
 ) -&gt; <a href="../../../gtk_sys/type.GtkSizeRequestMode.html">ffi::GtkSizeRequestMode</a> {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#504">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#506">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#506">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
-    <a href="#507">imp</a>.<a href="#25-27">request_mode</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
+    <a href="#507">imp</a>.<a href="#25-27">request_mode</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cell_renderer_get_preferred_width&lt;T: <a href="#18-227">CellRendererImpl</a>&gt;(
@@ -1286,7 +1286,7 @@
     natptr: <span class="kw-2">*mut </span>c_int,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#513">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#518">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#518">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#514">wdgtptr</a>);
 
     <span class="kw">let </span>(min_size, nat_size) = <a href="#519">imp</a>.<a href="#41-43">preferred_width</a>(<span class="kw-2">&amp;*</span><a href="#520">widget</a>);
@@ -1306,7 +1306,7 @@
     nat_height_ptr: <span class="kw-2">*mut </span>c_int,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#532">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#538">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#538">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#533">wdgtptr</a>);
 
     <span class="kw">let </span>(min_height, nat_height) = <a href="#539">imp</a>.<a href="#98-100">preferred_height_for_width</a>(<span class="kw-2">&amp;*</span><a href="#540">widget</a>, <a href="#534">width</a>);
@@ -1325,7 +1325,7 @@
     natptr: <span class="kw-2">*mut </span>c_int,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#552">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#557">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#557">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#553">wdgtptr</a>);
 
     <span class="kw">let </span>(min_size, nat_size) = <a href="#558">imp</a>.<a href="#78-80">preferred_height</a>(<span class="kw-2">&amp;*</span><a href="#559">widget</a>);
@@ -1345,7 +1345,7 @@
     nat_width_ptr: <span class="kw-2">*mut </span>c_int,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#571">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#577">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#577">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#572">wdgtptr</a>);
 
     <span class="kw">let </span>(min_width, nat_width) = <a href="#578">imp</a>.<a href="#61-63">preferred_width_for_height</a>(<span class="kw-2">&amp;*</span><a href="#579">widget</a>, <a href="#573">height</a>);
@@ -1365,11 +1365,11 @@
     alignedptr: <span class="kw-2">*mut </span>gdk::ffi::GdkRectangle,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#591">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#597">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#597">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#592">wdgtptr</a>);
 
-    <span class="kw">let </span>rectangle = <a href="#598">imp</a>.<a href="#118-125">aligned_area</a>(<span class="kw-2">&amp;*</span><a href="#599">widget</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#593">flags</a>), <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#594">cellarea</a>));
-    <span class="kw-2">*</span><a href="#595">alignedptr</a> = <span class="kw-2">*</span><a href="#601">rectangle</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
+    <span class="kw">let </span>rectangle = <a href="#598">imp</a>.<a href="#118-125">aligned_area</a>(<span class="kw-2">&amp;*</span><a href="#599">widget</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#593">flags</a>), <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#594">cellarea</a>));
+    <span class="kw-2">*</span><a href="#595">alignedptr</a> = <span class="kw-2">*</span><a href="#601">rectangle</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>;
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cell_renderer_render&lt;T: <a href="#18-227">CellRendererImpl</a>&gt;(
@@ -1381,16 +1381,16 @@
     flags: <a href="../../../gtk_sys/type.GtkCellRendererState.html">ffi::GtkCellRendererState</a>,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#606">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#613">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#613">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#608">wdgtptr</a>);
-    <span class="kw">let </span>cr: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/cairo/context/struct.Context.html">cairo::Context</a>&gt; = from_glib_borrow(<a href="#607">crptr</a>);
+    <span class="kw">let </span>cr: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/context/struct.Context.html">cairo::Context</a>&gt; = from_glib_borrow(<a href="#607">crptr</a>);
 
     <a href="#614">imp</a>.<a href="#145-154">render</a>(
         <span class="kw-2">&amp;</span><a href="#616">cr</a>,
         <span class="kw-2">&amp;*</span><a href="#615">widget</a>,
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#609">bgptr</a>),
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#610">cellptr</a>),
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#611">flags</a>),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#611">flags</a>),
     );
 }
 
@@ -1404,7 +1404,7 @@
     flags: <a href="../../../gtk_sys/type.GtkCellRendererState.html">ffi::GtkCellRendererState</a>,
 ) -&gt; glib::ffi::gboolean {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#628">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#636">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#636">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#630">wdgtptr</a>);
     <span class="kw">let </span>evt: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/event/struct.Event.html">gdk::Event</a>&gt;&gt; = from_glib_borrow(<a href="#629">evtptr</a>);
 
@@ -1414,9 +1414,9 @@
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(<a href="#631">pathptr</a>),
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#632">bgptr</a>),
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#633">cellptr</a>),
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#634">flags</a>),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#634">flags</a>),
     )
-    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
+    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>cell_renderer_start_editing&lt;T: <a href="#18-227">CellRendererImpl</a>&gt;(
@@ -1429,7 +1429,7 @@
     flags: <a href="../../../gtk_sys/type.GtkCellRendererState.html">ffi::GtkCellRendererState</a>,
 ) -&gt; <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellEditable.html">ffi::GtkCellEditable</a> {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#653">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#661">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#661">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>widget: Borrowed&lt;<a href="../auto/widget.rs.html#17-1520">Widget</a>&gt; = from_glib_borrow(<a href="#655">wdgtptr</a>);
     <span class="kw">let </span>evt: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="../../../gdk/event/struct.Event.html">gdk::Event</a>&gt;&gt; = from_glib_borrow(<a href="#654">evtptr</a>);
 
@@ -1439,9 +1439,9 @@
         <span class="kw-2">&amp;</span>GString::from_glib_borrow(<a href="#656">pathptr</a>),
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#657">bgptr</a>),
         <span class="kw-2">&amp;</span>from_glib_borrow(<a href="#658">cellptr</a>),
-        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#659">flags</a>),
+        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#659">flags</a>),
     )
-    .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+    .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
     .<span class="number">0
 </span>}
 
@@ -1449,7 +1449,7 @@
     ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkCellRenderer.html">ffi::GtkCellRenderer</a>,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#679">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#681">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#681">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#682">imp</a>.<a href="#220-222">editing_canceled</a>();
 }
@@ -1460,7 +1460,7 @@
     pathptr: <span class="kw-2">*const </span>c_char,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#688">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#692">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#692">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>editable = from_glib_borrow(<a href="#689">editableptr</a>);
 
     <a href="#693">imp</a>.<a href="#224-226">editing_started</a>(<span class="kw-2">&amp;</span><a href="#694">editable</a>, <span class="kw-2">&amp;</span>GString::from_glib_borrow(<a href="#690">pathptr</a>));

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/src/auto/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0-nightly (28eb857b9 2023-08-12)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkx11/src/auto/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdkx11" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -391,7 +391,7 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{<a href="x11_device_core.rs.html#7-19">X11DeviceCore</a>, <a href="x11_device_manager_core.rs.html#7-19">X11DeviceManagerCore</a>, <a href="x11_display.rs.html#8-20">X11Display</a>, <a href="x11_window.rs.html#10-22">X11Window</a>};
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span>x11::xlib;
 
 <span class="doccomment">/// Converts from a [`gdk::Atom`][crate::gdk::Atom] to the X atom for the default GDK display
@@ -403,9 +403,9 @@
 ///
 /// the X atom corresponding to `atom`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_atom_to_xatom&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_atom_to_xatom.html">x11_atom_to_xatom</a>(atom: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; xlib::Atom {
+</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_atom_to_xatom.html">x11_atom_to_xatom</a>(atom: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; xlib::Atom {
     <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
-    <span class="kw">unsafe </span>{ ffi::gdk_x11_atom_to_xatom(<a href="#18">atom</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+    <span class="kw">unsafe </span>{ ffi::gdk_x11_atom_to_xatom(<a href="#18">atom</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
 }
 
 <span class="doccomment">/// Converts from a [`gdk::Atom`][crate::gdk::Atom] to the X atom for a [`gdk::Display`][crate::gdk::Display]
@@ -420,10 +420,10 @@
 ///
 /// the X atom corresponding to `atom`, or `None`
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_atom_to_xatom_for_display&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_atom_to_xatom_for_display.html">x11_atom_to_xatom_for_display</a>(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, atom: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; xlib::Atom {
+</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_atom_to_xatom_for_display.html">x11_atom_to_xatom_for_display</a>(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, atom: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>) -&gt; xlib::Atom {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gdk_x11_atom_to_xatom_for_display(<a href="#35">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#35">atom</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+        ffi::gdk_x11_atom_to_xatom_for_display(<a href="#35">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#35">atom</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
     }
 }
 
@@ -443,7 +443,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_device_get_id&quot;</span>)]
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_device_get_id.html">x11_device_get_id</a>(device: <span class="kw-2">&amp;</span><a href="x11_device_core.rs.html#7-19">X11DeviceCore</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">unsafe </span>{ ffi::gdk_x11_device_get_id(<a href="#56">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+    <span class="kw">unsafe </span>{ ffi::gdk_x11_device_get_id(<a href="#56">device</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
 }
 
 <span class="doccomment">/// Returns the [`gdk::Device`][crate::gdk::Device] that wraps the given device ID.
@@ -464,7 +464,7 @@
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         from_glib_none(ffi::gdk_x11_device_manager_lookup(
-            <a href="#73">device_manager</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#73">device_manager</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#74">device_id</a>,
         ))
     }
@@ -517,7 +517,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_get_server_time&quot;</span>)]
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_get_server_time.html">x11_get_server_time</a>(window: <span class="kw-2">&amp;</span><a href="x11_window.rs.html#10-22">X11Window</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
     <span class="macro">skip_assert_initialized!</span>();
-    <span class="kw">unsafe </span>{ ffi::gdk_x11_get_server_time(<a href="#130">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+    <span class="kw">unsafe </span>{ ffi::gdk_x11_get_server_time(<a href="#130">window</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
 }
 
 <span class="doccomment">/// Returns the X atom for GDK’s default display corresponding to `atom_name`.
@@ -532,7 +532,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_get_xatom_by_name&quot;</span>)]
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_get_xatom_by_name.html">x11_get_xatom_by_name</a>(atom_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; xlib::Atom {
     <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
-    <span class="kw">unsafe </span>{ ffi::gdk_x11_get_xatom_by_name(<a href="#145">atom_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+    <span class="kw">unsafe </span>{ ffi::gdk_x11_get_xatom_by_name(<a href="#145">atom_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
 }
 
 <span class="doccomment">/// Returns the X atom for a [`gdk::Display`][crate::gdk::Display] corresponding to `atom_name`.
@@ -551,8 +551,8 @@
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         ffi::gdk_x11_get_xatom_by_name_for_display(
-            <a href="#162">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#162">atom_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#162">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#162">atom_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
         )
     }
 }
@@ -570,7 +570,7 @@
 /// name of the X atom; this string is owned by GTK+,
 ///  so it shouldn’t be modifed or freed.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_get_xatom_name&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_get_xatom_name.html">x11_get_xatom_name</a>(xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_get_xatom_name.html">x11_get_xatom_name</a>(xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
     <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_x11_get_xatom_name(<a href="#185">xatom</a>)) }
 }
@@ -592,11 +592,11 @@
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_get_xatom_name_for_display.html">x11_get_xatom_name_for_display</a>(
     display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>,
     xatom: xlib::Atom,
-) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
+) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         from_glib_none(ffi::gdk_x11_get_xatom_name_for_display(
-            <a href="#205">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#205">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#206">xatom</a>,
         ))
     }
@@ -636,7 +636,7 @@
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_register_standard_event_type.html">x11_register_standard_event_type</a>(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, event_base: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, n_events: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
-        ffi::gdk_x11_register_standard_event_type(<a href="#248">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#248">event_base</a>, <a href="#248">n_events</a>);
+        ffi::gdk_x11_register_standard_event_type(<a href="#248">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#248">event_base</a>, <a href="#248">n_events</a>);
     }
 }
 
@@ -653,7 +653,7 @@
 </span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_set_sm_client_id.html">x11_set_sm_client_id</a>(sm_client_id: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
     <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{
-        ffi::gdk_x11_set_sm_client_id(<a href="#265">sm_client_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+        ffi::gdk_x11_set_sm_client_id(<a href="#265">sm_client_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
     }
 }
 
@@ -676,7 +676,7 @@
 ///
 /// the corresponding G`dkAtom`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_xatom_to_atom&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_xatom_to_atom.html">x11_xatom_to_atom</a>(xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_xatom_to_atom.html">x11_xatom_to_atom</a>(xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>&gt; {
     <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
     <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_x11_xatom_to_atom(<a href="#291">xatom</a>)) }
 }
@@ -692,11 +692,11 @@
 ///
 /// the corresponding [`gdk::Atom`][crate::gdk::Atom].
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_xatom_to_atom_for_display&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_xatom_to_atom_for_display.html">x11_xatom_to_atom_for_display</a>(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../../gdkx11/functions/fn.x11_xatom_to_atom_for_display.html">x11_xatom_to_atom_for_display</a>(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, xatom: xlib::Atom) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">unsafe </span>{
         from_glib_none(ffi::gdk_x11_xatom_to_atom_for_display(
-            <a href="#307">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#307">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             <a href="#307">xatom</a>,
         ))
     }
