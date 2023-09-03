@@ -98,9 +98,9 @@ fn create_sub_window(
     window.set_default_size(400, 200);
 
     window.connect_delete_event(
-        glib::clone!(@weak windows => @default-return glib::Propagation::Stop, move |_, _| {
+        glib::clone!(@weak windows => @default-return glib::Propagation::Proceed, move |_, _| {
             windows.borrow_mut().remove(&id);
-            glib::Propagation::Stop
+            glib::Propagation::Proceed
         }),
     );
 
