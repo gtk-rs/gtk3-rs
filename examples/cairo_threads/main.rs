@@ -104,7 +104,7 @@ fn build_ui(application: &gtk::Application) {
     // Whenever the drawing area has to be redrawn, render the latest images in the correct
     // locations
     area.connect_draw(
-        glib::clone!(@weak workspace => @default-return glib::Propagation::Stop, move |_, cr| {
+        glib::clone!(@weak workspace => @default-return glib::Propagation::Proceed, move |_, cr| {
             let (ref images, ref origins, _) = *workspace;
 
             for (image, origin) in images.iter().zip(origins.iter()) {
@@ -113,7 +113,7 @@ fn build_ui(application: &gtk::Application) {
                 });
             }
 
-            glib::Propagation::Stop
+            glib::Propagation::Proceed
         }),
     );
 
