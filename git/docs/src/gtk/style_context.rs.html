@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -98,7 +98,7 @@
 </span><span class="kw">use </span><a href="lib.rs.html#154"><span class="kw">crate</span>::prelude</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="auto/flags.rs.html#1702-1752"><span class="kw">crate</span>::StateFlags</a>;
 <span class="kw">use </span><a href="auto/style_context.rs.html#16-115"><span class="kw">crate</span>::StyleContext</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/font_description/struct.FontDescription.html">pango::FontDescription</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/font_description/struct.FontDescription.html">pango::FontDescription</a>;
 
 <span class="kw">mod </span>sealed {
     <span class="kw">pub trait </span>Sealed {}
@@ -107,7 +107,7 @@
 
 <span class="kw">pub trait </span><a href="../../gtk/prelude/trait.StyleContextExtManual.html">StyleContextExtManual</a>: IsA&lt;<a href="auto/style_context.rs.html#16-115">StyleContext</a>&gt; + <a href="#9">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="attr">#[doc(alias = <span class="string">&quot;get_font&quot;</span>)]
-    </span><span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="auto/flags.rs.html#1702-1752">StateFlags</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/auto/font_description/struct.FontDescription.html">FontDescription</a> {
+    </span><span class="kw">fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="auto/flags.rs.html#1702-1752">StateFlags</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/auto/font_description/struct.FontDescription.html">FontDescription</a> {
         <a class="self" href="#15">self</a>.<a href="auto/style_context.rs.html#535-546">style_property_for_state</a>(<span class="string">&quot;font&quot;</span>, <a href="#15">state</a>)
             .get()
             .expect(<span class="string">&quot;font property is not pango::FontDescription&quot;</span>)

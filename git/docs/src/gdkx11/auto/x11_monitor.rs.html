@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -111,18 +111,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+</span><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 <span class="kw">use </span>x11::xlib;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// # Implements
     ///
     /// [`trait@gdk::prelude::MonitorExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11Monitor&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Monitor.html">X11Monitor</a>(Object&lt;ffi::GdkX11Monitor, ffi::GdkX11MonitorClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/monitor/struct.Monitor.html">gdk::Monitor</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Monitor.html">X11Monitor</a>(Object&lt;ffi::GdkX11Monitor, ffi::GdkX11MonitorClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/monitor/struct.Monitor.html">gdk::Monitor</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_monitor_get_type(),
@@ -132,9 +132,9 @@
 <span class="kw">impl </span><a href="#9-21">X11Monitor</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_monitor_get_output&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_output&quot;</span>)]
-    </span><span class="kw">pub fn </span>output(monitor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/monitor/struct.Monitor.html">gdk::Monitor</a>&gt;) -&gt; xlib::XID {
+    </span><span class="kw">pub fn </span>output(monitor: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/monitor/struct.Monitor.html">gdk::Monitor</a>&gt;) -&gt; xlib::XID {
         <a class="macro" href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_monitor_get_output(<a href="#26">monitor</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_monitor_get_output(<a href="#26">monitor</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 }
 

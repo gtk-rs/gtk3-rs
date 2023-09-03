@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -193,9 +193,9 @@
 
 <span class="kw">pub mod </span><a href="../../../gtk/subclass/prelude/index.html">prelude</a> {
     <span class="attr">#[doc(hidden)]
-    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/subclass/prelude/index.html">gio::subclass::prelude</a>::<span class="kw-2">*</span>;
+    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/subclass/prelude/index.html">gio::subclass::prelude</a>::<span class="kw-2">*</span>;
     <span class="attr">#[doc(hidden)]
-    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
+    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
 
     <span class="kw">pub use </span><span class="kw">super</span>::application::{<a href="application.rs.html#12-22">GtkApplicationImpl</a>, <a href="application.rs.html#29-54">GtkApplicationImplExt</a>};
     <span class="kw">pub use </span><a href="application_window.rs.html#8"><span class="kw">super</span>::application_window::ApplicationWindowImpl</a>;

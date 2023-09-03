@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -245,7 +245,7 @@
 <a href="#172" id="172">172</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/cell/struct.Cell.html">std::cell::Cell</a>;
 <span class="kw">use </span>std::sync::atomic::{<a href="https://doc.rust-lang.org/nightly/core/sync/atomic/struct.AtomicBool.html">AtomicBool</a>, <a href="https://doc.rust-lang.org/nightly/core/sync/atomic/enum.Ordering.html">Ordering</a>};
 
@@ -359,7 +359,7 @@
 /// Instead, an Ok is returned if the windowing system was successfully
 /// initialized otherwise an Err is returned.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_init&quot;</span>)]
-</span><span class="kw">pub fn </span><a href="../../gtk/fn.init.html">init</a>() -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/error/struct.BoolError.html">glib::BoolError</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../gtk/fn.init.html">init</a>() -&gt; <span class="prelude-ty">Result</span>&lt;(), <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/error/struct.BoolError.html">glib::BoolError</a>&gt; {
     <span class="macro">skip_assert_initialized!</span>();
     <span class="kw">if </span>is_initialized_main_thread() {
         <span class="kw">return </span><span class="prelude-val">Ok</span>(());
@@ -374,16 +374,16 @@
         <span class="kw">if </span>from_glib(ffi::gtk_init_check(<span class="kw-2">&amp;mut </span><span class="number">1</span>, <span class="kw-2">&amp;mut </span>argv.to_glib_none().<span class="number">0</span>)) {
             <span class="comment">// See https://github.com/gtk-rs/gtk-rs-core/issues/186 for reasoning behind
             // acquiring and leaking the main context here.
-            </span><span class="kw">let </span>result: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(glib::ffi::g_main_context_acquire(
+            </span><span class="kw">let </span>result: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(glib::ffi::g_main_context_acquire(
                 glib::ffi::g_main_context_default(),
             ));
             <span class="kw">if </span>!result {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.bool_error.html">glib::bool_error!</a>(<span class="string">&quot;Failed to acquire default main context&quot;</span>));
+                <span class="kw">return </span><span class="prelude-val">Err</span>(<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.bool_error.html">glib::bool_error!</a>(<span class="string">&quot;Failed to acquire default main context&quot;</span>));
             }
             <a href="#82-103">set_initialized</a>();
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.bool_error.html">glib::bool_error!</a>(<span class="string">&quot;Failed to initialize GTK&quot;</span>))
+            <span class="prelude-val">Err</span>(<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.bool_error.html">glib::bool_error!</a>(<span class="string">&quot;Failed to initialize GTK&quot;</span>))
         }
     }
 }

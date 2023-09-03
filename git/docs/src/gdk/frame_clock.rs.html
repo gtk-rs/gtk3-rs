@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -116,7 +116,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><a href="auto/frame_clock.rs.html#13-117"><span class="kw">crate</span>::FrameClock</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="kw">impl </span><a href="auto/frame_clock.rs.html#13-117">FrameClock</a> {
     <span class="doccomment">/// Using the frame history stored in the frame clock, finds the last
@@ -146,7 +146,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>refresh_interval = <span class="number">0</span>;
             <span class="kw">let </span><span class="kw-2">mut </span>presentation_time = <span class="number">0</span>;
             ffi::gdk_frame_clock_get_refresh_info(
-                <a class="self" href="#29">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#29">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#29">base_time</a>,
                 <span class="kw-2">&amp;mut </span><a href="#31">refresh_interval</a>,
                 <span class="kw-2">&amp;mut </span><a href="#32">presentation_time</a>,

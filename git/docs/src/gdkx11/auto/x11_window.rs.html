@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -296,18 +296,18 @@
 // DO NOT EDIT
 
 </span><span class="kw">use </span><a href="x11_display.rs.html#8-20"><span class="kw">crate</span>::X11Display</a>;
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 <span class="kw">use </span>x11::xlib;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// # Implements
     ///
     /// [`trait@gdk::prelude::WindowExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11Window&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Window.html">X11Window</a>(Object&lt;ffi::GdkX11Window, ffi::GdkX11WindowClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/window/struct.Window.html">gdk::Window</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Window.html">X11Window</a>(Object&lt;ffi::GdkX11Window, ffi::GdkX11WindowClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/window/struct.Window.html">gdk::Window</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_window_get_type(),
@@ -337,10 +337,10 @@
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe </span>{
             gdk::Window::from_glib_full(ffi::gdk_x11_window_foreign_new_for_display(
-                <a href="#43">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#43">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#43">window</a>,
             ))
-            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
+            .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 
@@ -352,7 +352,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_get_desktop&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>desktop(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_window_get_desktop(<a class="self" href="#61">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_window_get_desktop(<a class="self" href="#61">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Returns the X resource (window) belonging to a [`gdk::Window`][crate::gdk::Window].
@@ -363,7 +363,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_get_xid&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_xid&quot;</span>)]
     </span><span class="kw">pub fn </span>xid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; xlib::Window {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_window_get_xid(<a class="self" href="#72">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_window_get_xid(<a class="self" href="#72">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Moves the window to the correct workspace when running under a
@@ -373,7 +373,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_move_to_current_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>move_to_current_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_x11_window_move_to_current_desktop(<a class="self" href="#81">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_x11_window_move_to_current_desktop(<a class="self" href="#81">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -385,7 +385,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_move_to_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>move_to_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>, desktop: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_x11_window_move_to_desktop(<a class="self" href="#93">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#93">desktop</a>);
+            ffi::gdk_x11_window_move_to_desktop(<a class="self" href="#93">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#93">desktop</a>);
         }
     }
 
@@ -401,8 +401,8 @@
     </span><span class="kw">pub fn </span>set_frame_sync_enabled(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_sync_enabled: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_x11_window_set_frame_sync_enabled(
-                <a class="self" href="#108">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#108">frame_sync_enabled</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a class="self" href="#108">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#108">frame_sync_enabled</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -420,8 +420,8 @@
     </span><span class="kw">pub fn </span>set_hide_titlebar_when_maximized(<span class="kw-2">&amp;</span><span class="self">self</span>, hide_titlebar_when_maximized: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_x11_window_set_hide_titlebar_when_maximized(
-                <a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#127">hide_titlebar_when_maximized</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#127">hide_titlebar_when_maximized</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
             );
         }
     }
@@ -440,7 +440,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_set_theme_variant&quot;</span>)]
     </span><span class="kw">pub fn </span>set_theme_variant(<span class="kw-2">&amp;</span><span class="self">self</span>, variant: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_x11_window_set_theme_variant(<a class="self" href="#148">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#148">variant</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_x11_window_set_theme_variant(<a class="self" href="#148">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#148">variant</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -461,7 +461,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_window_set_user_time&quot;</span>)]
     </span><span class="kw">pub fn </span>set_user_time(<span class="kw-2">&amp;</span><span class="self">self</span>, timestamp: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_x11_window_set_user_time(<a class="self" href="#169">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#169">timestamp</a>);
+            ffi::gdk_x11_window_set_user_time(<a class="self" href="#169">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#169">timestamp</a>);
         }
     }
 
@@ -476,9 +476,9 @@
     </span><span class="kw">pub fn </span>set_utf8_property(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_x11_window_set_utf8_property(
-                <a class="self" href="#183">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#183">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#183">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#183">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#183">name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#183">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -499,7 +499,7 @@
         <span class="macro">skip_assert_initialized!</span>();
         <span class="kw">unsafe </span>{
             from_glib_none(ffi::gdk_x11_window_lookup_for_display(
-                <a href="#205">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#205">display</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#205">window</a>,
             ))
         }

@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -120,9 +120,9 @@
 
 </span><span class="kw">use </span><a href="auto/color_button.rs.html#16-1356"><span class="kw">crate</span>::ColorButton</a>;
 <span class="kw">use </span><a href="auto/widget.rs.html#17-1520"><span class="kw">crate</span>::Widget</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">glib::object::Cast</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">glib::object::Cast</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
 
 <span class="kw">mod </span>sealed {
@@ -132,17 +132,17 @@
 
 <span class="kw">pub trait </span><a href="../../gtk/prelude/trait.ColorButtonExtManual.html">ColorButtonExtManual</a>: IsA&lt;<a href="auto/color_button.rs.html#16-1356">ColorButton</a>&gt; + <a href="#11">sealed::Sealed</a> + <span class="lifetime">&#39;static </span>{
     <span class="attr">#[doc(alias = <span class="string">&quot;gtk_color_button_new_with_color&quot;</span>)]
-    </span><span class="kw">fn </span>with_color(color: <span class="kw-2">&amp;</span>gdk::Color) -&gt; <a href="auto/color_button.rs.html#16-1356">ColorButton</a> {
+    </span><span class="kw">fn </span>with_color(color: <span class="kw-2">&amp;</span><a href="../../gdk_sys/struct.GdkColor.html">gdk::Color</a>) -&gt; <a href="auto/color_button.rs.html#16-1356">ColorButton</a> {
         <a class="macro" href="rt.rs.html#19-29">assert_initialized_main_thread!</a>();
-        <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_color_button_new_with_color(<a href="#17">color</a>)).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
+        <span class="kw">unsafe </span>{ Widget::from_glib_none(ffi::gtk_color_button_new_with_color(<a href="#17">color</a>)).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>() }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gtk_color_button_get_color&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_color&quot;</span>)]
-    </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; gdk::Color {
+    </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../../gdk_sys/struct.GdkColor.html">gdk::Color</a> {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span><span class="kw-2">mut </span>color = mem::MaybeUninit::uninit();
-            ffi::gtk_color_button_get_color(<a class="self" href="#24">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#26">color</a>.as_mut_ptr());
+            ffi::gtk_color_button_get_color(<a class="self" href="#24">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#26">color</a>.as_mut_ptr());
             <a href="#26">color</a>.assume_init()
         }
     }
@@ -155,8 +155,8 @@
     /// ## `color`
     /// A `GdkColor` to set the current color with
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gtk_color_button_set_color&quot;</span>)]
-    </span><span class="kw">fn </span>set_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color: <span class="kw-2">&amp;</span>gdk::Color) {
-        <span class="kw">unsafe </span>{ ffi::gtk_color_button_set_color(<a class="self" href="#40">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#40">color</a>) }
+    </span><span class="kw">fn </span>set_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color: <span class="kw-2">&amp;</span><a href="../../gdk_sys/struct.GdkColor.html">gdk::Color</a>) {
+        <span class="kw">unsafe </span>{ ffi::gtk_color_button_set_color(<a class="self" href="#40">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#40">color</a>) }
     }
 }
 

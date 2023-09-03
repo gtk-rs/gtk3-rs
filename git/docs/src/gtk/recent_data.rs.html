@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -128,7 +128,7 @@
 <a href="#55" id="55">55</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>libc::c_char;
 
 <span class="doccomment">/// Meta-data to be passed to [`RecentManagerExt::add_full()`][crate::prelude::RecentManagerExt::add_full()] when
@@ -153,12 +153,12 @@
     );
 
     <span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">*mut </span><a href="../../gtk_sys/struct.GtkRecentData.html">ffi::GtkRecentData</a>, <span class="self">Self</span>&gt; {
-        <span class="kw">let </span>display_name = <a class="self" href="#27">self</a>.display_name.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-        <span class="kw">let </span>description = <a class="self" href="#27">self</a>.description.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-        <span class="kw">let </span>mime_type = <a class="self" href="#27">self</a>.mime_type.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-        <span class="kw">let </span>app_name = <a class="self" href="#27">self</a>.app_name.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-        <span class="kw">let </span>app_exec = <a class="self" href="#27">self</a>.app_exec.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-        <span class="kw">let </span>groups = <a class="self" href="#27">self</a>.groups.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>display_name = <a class="self" href="#27">self</a>.display_name.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>description = <a class="self" href="#27">self</a>.description.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>mime_type = <a class="self" href="#27">self</a>.mime_type.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>app_name = <a class="self" href="#27">self</a>.app_name.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>app_exec = <a class="self" href="#27">self</a>.app_exec.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+        <span class="kw">let </span>groups = <a class="self" href="#27">self</a>.groups.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
 
         <span class="kw">let </span><span class="kw-2">mut </span>data = Box::new(<a href="../../gtk_sys/struct.GtkRecentData.html">ffi::GtkRecentData</a> {
             display_name: <a href="#28">display_name</a>.<span class="number">0</span>,
@@ -167,7 +167,7 @@
             app_name: <a href="#31">app_name</a>.<span class="number">0</span>,
             app_exec: <a href="#32">app_exec</a>.<span class="number">0</span>,
             groups: <a href="#33">groups</a>.<span class="number">0</span>,
-            is_private: <a class="self" href="#27">self</a>.is_private.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            is_private: <a class="self" href="#27">self</a>.is_private.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
         });
 
         Stash(

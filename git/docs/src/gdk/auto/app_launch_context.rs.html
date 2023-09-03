@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -228,10 +228,10 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{<a href="display.rs.html#13-86">Display</a>, <a href="screen.rs.html#13-67">Screen</a>};
-<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
+<span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// GdkAppLaunchContext is an implementation of [`gio::AppLaunchContext`][crate::gio::AppLaunchContext] that
     /// handles launching an application in a graphical context. It provides
     /// startup notification and allows to launch applications on a specific
@@ -267,7 +267,7 @@
     ///
     /// [`trait@gio::prelude::AppLaunchContextExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkAppLaunchContext&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.AppLaunchContext.html">AppLaunchContext</a>(Object&lt;ffi::GdkAppLaunchContext&gt;) @extends <a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/app_launch_context/struct.AppLaunchContext.html">gio::AppLaunchContext</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.AppLaunchContext.html">AppLaunchContext</a>(Object&lt;ffi::GdkAppLaunchContext&gt;) @extends <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/app_launch_context/struct.AppLaunchContext.html">gio::AppLaunchContext</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_app_launch_context_get_type(),
@@ -288,7 +288,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_app_launch_context_set_desktop&quot;</span>)]
     </span><span class="kw">pub fn </span>set_desktop(<span class="kw-2">&amp;</span><span class="self">self</span>, desktop: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_app_launch_context_set_desktop(<a class="self" href="#64">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#64">desktop</a>);
+            ffi::gdk_app_launch_context_set_desktop(<a class="self" href="#64">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#64">desktop</a>);
         }
     }
 
@@ -302,11 +302,11 @@
     /// ## `icon`
     /// a [`gio::Icon`][crate::gio::Icon], or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_app_launch_context_set_icon&quot;</span>)]
-    </span><span class="kw">pub fn </span>set_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;&gt;) {
+    </span><span class="kw">pub fn </span>set_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/auto/icon/struct.Icon.html">gio::Icon</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_app_launch_context_set_icon(
-                <a class="self" href="#80">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#80">icon</a>.map(|p| <a href="#84">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#80">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#80">icon</a>.map(|p| <a href="#84">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -325,8 +325,8 @@
     </span><span class="kw">pub fn </span>set_icon_name(<span class="kw-2">&amp;</span><span class="self">self</span>, icon_name: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
             ffi::gdk_app_launch_context_set_icon_name(
-                <a class="self" href="#100">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#100">icon_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#100">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#100">icon_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -345,7 +345,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_app_launch_context_set_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span><a href="screen.rs.html#13-67">Screen</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_app_launch_context_set_screen(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#121">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            ffi::gdk_app_launch_context_set_screen(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#121">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -361,12 +361,12 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_app_launch_context_set_timestamp&quot;</span>)]
     </span><span class="kw">pub fn </span>set_timestamp(<span class="kw-2">&amp;</span><span class="self">self</span>, timestamp: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::gdk_app_launch_context_set_timestamp(<a class="self" href="#137">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#137">timestamp</a>);
+            ffi::gdk_app_launch_context_set_timestamp(<a class="self" href="#137">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#137">timestamp</a>);
         }
     }
 
     <span class="kw">pub fn </span>display(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="display.rs.html#13-86">Display</a>&gt; {
-        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#143">self</a>, <span class="string">&quot;display&quot;</span>)
+        <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt::property</a>(<a class="self" href="#143">self</a>, <span class="string">&quot;display&quot;</span>)
     }
 }
 

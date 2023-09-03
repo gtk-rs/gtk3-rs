@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -186,8 +186,8 @@
 <span class="kw">use </span><a href="auto/enums.rs.html#4449-4467"><span class="kw">crate</span>::MessageType</a>;
 <span class="kw">use </span><a href="auto/widget.rs.html#17-1520"><span class="kw">crate</span>::Widget</a>;
 <span class="kw">use </span><a href="auto/window.rs.html#16-1427"><span class="kw">crate</span>::Window</a>;
-<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.IsA.html">IsA</a>};
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>libc::c_char;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 
@@ -220,17 +220,17 @@
     ) -&gt; <a href="auto/message_dialog.rs.html#16-628">MessageDialog</a> {
         <a class="macro" href="rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#39">message</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+            <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#39">message</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
             Widget::from_glib_none(ffi::gtk_message_dialog_new(
-                <a href="#35">parent</a>.map(|p| <a href="#45">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#36">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
-                <a href="#37">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
-                <a href="#38">buttons</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#35">parent</a>.map(|p| <a href="#45">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#36">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#37">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#38">buttons</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 <span class="string">b&quot;%s\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_char,
                 <a href="#43">message</a>.<span class="number">0</span>,
                 ptr::null::&lt;c_char&gt;(),
             ))
-            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
+            .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 }
@@ -245,9 +245,9 @@
     </span><span class="kw">fn </span>set_secondary_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">match </span><a href="#65">message</a> {
             <span class="prelude-val">Some</span>(m) =&gt; <span class="kw">unsafe </span>{
-                <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#67">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+                <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#67">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
                 ffi::gtk_message_dialog_format_secondary_markup(
-                    <a class="self" href="#65">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a class="self" href="#65">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                     <span class="string">b&quot;%s\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_char,
                     <a href="#68">message</a>.<span class="number">0</span>,
                     ptr::null::&lt;c_char&gt;(),
@@ -255,7 +255,7 @@
             },
             <span class="prelude-val">None </span>=&gt; <span class="kw">unsafe </span>{
                 ffi::gtk_message_dialog_format_secondary_markup(
-                    <a class="self" href="#65">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a class="self" href="#65">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                     ptr::null::&lt;c_char&gt;(),
                 )
             },
@@ -266,9 +266,9 @@
     </span><span class="kw">fn </span>set_secondary_text(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">match </span><a href="#86">message</a> {
             <span class="prelude-val">Some</span>(m) =&gt; <span class="kw">unsafe </span>{
-                <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#88">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
+                <span class="kw">let </span>message: Stash&lt;<span class="kw-2">*const </span>c_char, <span class="kw">_</span>&gt; = <a href="#88">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
                 ffi::gtk_message_dialog_format_secondary_text(
-                    <a class="self" href="#86">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a class="self" href="#86">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                     <span class="string">b&quot;%s\0&quot;</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span>c_char,
                     <a href="#89">message</a>.<span class="number">0</span>,
                     ptr::null::&lt;c_char&gt;(),
@@ -276,7 +276,7 @@
             },
             <span class="prelude-val">None </span>=&gt; <span class="kw">unsafe </span>{
                 ffi::gtk_message_dialog_format_secondary_text(
-                    <a class="self" href="#86">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a class="self" href="#86">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                     ptr::null::&lt;c_char&gt;(),
                 )
             },

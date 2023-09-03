@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -147,7 +147,7 @@
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><a href="auto/frame_timings.rs.html#7-22"><span class="kw">crate</span>::FrameTimings</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU64.html">std::num::NonZeroU64</a>;
 
 <span class="kw">impl </span><a href="auto/frame_timings.rs.html#7-22">FrameTimings</a> {
@@ -170,7 +170,7 @@
     #[doc(alias = <span class="string">&quot;get_predicted_presentation_time&quot;</span>)]
     </span><span class="kw">pub fn </span>predicted_presentation_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU64.html">NonZeroU64</a>&gt; {
         <span class="kw">let </span>predicted_presentation_time = <span class="kw">unsafe </span>{
-            ffi::gdk_frame_timings_get_predicted_presentation_time(<a class="self" href="#25">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+            ffi::gdk_frame_timings_get_predicted_presentation_time(<a class="self" href="#25">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
         };
         <span class="comment">// assuming presentation time is always positive
         </span><a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(predicted_presentation_time &gt;= <span class="number">0</span>);
@@ -190,7 +190,7 @@
     #[doc(alias = <span class="string">&quot;get_presentation_time&quot;</span>)]
     </span><span class="kw">pub fn </span>presentation_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU64.html">NonZeroU64</a>&gt; {
         <span class="kw">let </span>presentation_time =
-            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_presentation_time(<a class="self" href="#45">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
+            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_presentation_time(<a class="self" href="#45">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
         <span class="comment">// assuming presentation time is always positive
         </span><a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(presentation_time &gt;= <span class="number">0</span>);
         <span class="comment">// `0` means the value is not available
@@ -210,7 +210,7 @@
     #[doc(alias = <span class="string">&quot;get_refresh_interval&quot;</span>)]
     </span><span class="kw">pub fn </span>refresh_interval(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/core/num/nonzero/struct.NonZeroU64.html">NonZeroU64</a>&gt; {
         <span class="kw">let </span>refresh_interval =
-            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_refresh_interval(<a class="self" href="#65">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
+            <span class="kw">unsafe </span>{ ffi::gdk_frame_timings_get_refresh_interval(<a class="self" href="#65">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
         <span class="comment">// assuming refresh interval is always positive
         </span><a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(refresh_interval &gt;= <span class="number">0</span>);
         <span class="comment">// `0` means the value is not available

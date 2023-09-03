@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -249,10 +249,10 @@
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{<a href="screen.rs.html#13-67">Screen</a>, <a href="enums.rs.html#4240-4273">VisualType</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>};
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// A [`Visual`][crate::Visual] contains information about
     /// a particular visual.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkVisual&quot;</span>)]
@@ -289,7 +289,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>shift = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>precision = mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_blue_pixel_details(
-                <a class="self" href="#40">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#40">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#42">mask</a>.as_mut_ptr(),
                 <a href="#43">shift</a>.as_mut_ptr(),
                 <a href="#44">precision</a>.as_mut_ptr(),
@@ -310,7 +310,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_visual_get_depth&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_depth&quot;</span>)]
     </span><span class="kw">pub fn </span>depth(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <span class="kw">unsafe </span>{ ffi::gdk_visual_get_depth(<a class="self" href="#66">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_visual_get_depth(<a class="self" href="#66">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Obtains values that are needed to calculate green pixel values in TrueColor
@@ -338,7 +338,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>shift = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>precision = mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_green_pixel_details(
-                <a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#91">mask</a>.as_mut_ptr(),
                 <a href="#92">shift</a>.as_mut_ptr(),
                 <a href="#93">precision</a>.as_mut_ptr(),
@@ -376,7 +376,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>shift = mem::MaybeUninit::uninit();
             <span class="kw">let </span><span class="kw-2">mut </span>precision = mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_red_pixel_details(
-                <a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#127">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#129">mask</a>.as_mut_ptr(),
                 <a href="#130">shift</a>.as_mut_ptr(),
                 <a href="#131">precision</a>.as_mut_ptr(),
@@ -397,7 +397,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_visual_get_screen&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_screen&quot;</span>)]
     </span><span class="kw">pub fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="screen.rs.html#13-67">Screen</a> {
-        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_visual_get_screen(<a class="self" href="#153">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::gdk_visual_get_screen(<a class="self" href="#153">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 
     <span class="doccomment">/// Returns the type of visual this is (PseudoColor, TrueColor, etc).
@@ -408,7 +408,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_visual_get_visual_type&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_visual_type&quot;</span>)]
     </span><span class="kw">pub fn </span>visual_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#4240-4273">VisualType</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_visual_get_visual_type(<a class="self" href="#164">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ from_glib(ffi::gdk_visual_get_visual_type(<a class="self" href="#164">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)) }
     }
 }
 

@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -122,8 +122,8 @@
 
 </span><span class="kw">use </span><a href="auto/radio_tool_button.rs.html#12-414"><span class="kw">crate</span>::RadioToolButton</a>;
 <span class="kw">use </span><a href="auto/tool_item.rs.html#16-1213"><span class="kw">crate</span>::ToolItem</a>;
-<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">ObjectExt</a>};
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span>glib::object::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">Cast</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">ObjectExt</a>};
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 
 <span class="kw">impl </span><a href="auto/radio_tool_button.rs.html#12-414">RadioToolButton</a> {
@@ -139,7 +139,7 @@
     </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         <a class="macro" href="rt.rs.html#19-29">assert_initialized_main_thread!</a>();
         <span class="kw">unsafe </span>{
-            ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new(ptr::null_mut())).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
+            ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new(ptr::null_mut())).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 
@@ -149,14 +149,14 @@
         <span class="kw">unsafe </span>{
             ToolItem::from_glib_none(ffi::gtk_radio_tool_button_new_from_stock(
                 ptr::null_mut(),
-                <a href="#27">stock_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#27">stock_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
-            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
+            .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast</a>()
         }
     }
 
     <span class="kw">pub fn </span>join_group(<span class="kw-2">&amp;</span><span class="self">self</span>, group: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="auto/radio_tool_button.rs.html#12-414">RadioToolButton</a>&gt;) {
-        <a class="self" href="#38">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">set_property</a>(<span class="string">&quot;group&quot;</span>, <a href="#38">group</a>);
+        <a class="self" href="#38">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">set_property</a>(<span class="string">&quot;group&quot;</span>, <a href="#38">group</a>);
     }
 }
 

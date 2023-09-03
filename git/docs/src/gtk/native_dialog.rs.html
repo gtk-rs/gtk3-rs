@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -168,7 +168,7 @@
 
             <span class="kw">if let </span><span class="prelude-val">Ok</span>(response) = receiver.<span class="kw">await </span>{
                 <span class="kw">if </span>response != ResponseType::DeleteEvent {
-                    <a class="self" href="#28">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html">disconnect</a>(<a href="#34">response_handler</a>);
+                    <a class="self" href="#28">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.ObjectExt.html">disconnect</a>(<a href="#34">response_handler</a>);
                 }
                 <a href="#42">response</a>
             } <span class="kw">else </span>{

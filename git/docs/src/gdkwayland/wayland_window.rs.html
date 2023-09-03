@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -194,12 +194,12 @@
 <a href="#121" id="121">121</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">gdk::Atom</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="attr">#[doc(alias = <span class="string">&quot;GdkWaylandWindow&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandWindow.html">WaylandWindow</a>(Object&lt;ffi::GdkWaylandWindow&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/window/struct.Window.html">gdk::Window</a>;
+    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandWindow.html">WaylandWindow</a>(Object&lt;ffi::GdkWaylandWindow&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/window/struct.Window.html">gdk::Window</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_wayland_window_get_type(),
@@ -208,25 +208,25 @@
 
 <span class="kw">impl </span><a href="#6-13">WaylandWindow</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_selection_add_targets&quot;</span>)]
-    </span><span class="kw">pub fn </span>selection_add_targets(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">Atom</a>, targets: <span class="kw-2">&amp;</span>[<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/atom/struct.Atom.html">Atom</a>]) {
+    </span><span class="kw">pub fn </span>selection_add_targets(<span class="kw-2">&amp;</span><span class="self">self</span>, selection: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">Atom</a>, targets: <span class="kw-2">&amp;</span>[<a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/atom/struct.Atom.html">Atom</a>]) {
         <span class="kw">unsafe </span>{
             ffi::gdk_wayland_selection_add_targets(
-                <a class="self" href="#17">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#17">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#17">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#17">selection</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#17">targets</a>.len() <span class="kw">as _</span>,
-                <a href="#17">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#17">targets</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             )
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_window_set_use_custom_surface&quot;</span>)]
     </span><span class="kw">pub fn </span>set_use_custom_surface(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_set_use_custom_surface(<a class="self" href="#29">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_set_use_custom_surface(<a class="self" href="#29">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_window_unexport_handle&quot;</span>)]
     </span><span class="kw">pub fn </span>unexport_handle(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_unexport_handle(<a class="self" href="#34">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_unexport_handle(<a class="self" href="#34">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_window_export_handle&quot;</span>)]
@@ -237,7 +237,7 @@
             user_data: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>window = from_glib_borrow(<a href="#41">window</a>);
-            <span class="kw">let </span>handle: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; = from_glib_borrow(<a href="#42">handle</a>);
+            <span class="kw">let </span>handle: Borrowed&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt; = from_glib_borrow(<a href="#42">handle</a>);
             <span class="kw">let </span>callback = <span class="kw-2">&amp;*</span>(<a href="#43">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span>P);
             (<span class="kw-2">*</span><a href="#47">callback</a>)(<span class="kw-2">&amp;</span><a href="#45">window</a>, <a href="#46">handle</a>.as_str());
         }
@@ -248,7 +248,7 @@
         }
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_wayland_window_export_handle(
-                <a class="self" href="#39">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#39">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <span class="prelude-val">Some</span>(callback_trampoline::&lt;P&gt; <span class="kw">as _</span>),
                 Box::into_raw(Box::new(<a href="#39">callback</a>)) <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
                 <span class="prelude-val">Some</span>(destroy_notify::&lt;P&gt; <span class="kw">as _</span>),
@@ -268,13 +268,13 @@
     ) {
         <span class="kw">unsafe </span>{
             ffi::gdk_wayland_window_set_dbus_properties_libgtk_only(
-                <a class="self" href="#67">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#68">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#69">app_menu_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#70">menubar_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#71">window_object_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#72">application_object_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#73">unique_bus_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#67">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#68">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#69">app_menu_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#70">menubar_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#71">window_object_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#72">application_object_path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#73">unique_bus_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             )
         }
     }
@@ -283,8 +283,8 @@
     </span><span class="kw">pub fn </span>set_transient_for_exported(<span class="kw-2">&amp;</span><span class="self">self</span>, parent_handle: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_wayland_window_set_transient_for_exported(
-                <a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#89">parent_handle</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#89">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#89">parent_handle</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -295,22 +295,22 @@
     </span><span class="kw">pub fn </span>set_application_id(<span class="kw-2">&amp;</span><span class="self">self</span>, application_id: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             from_glib(ffi::gdk_wayland_window_set_application_id(
-                <a class="self" href="#101">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#101">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#101">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#101">application_id</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_window_announce_csd&quot;</span>)]
     </span><span class="kw">pub fn </span>announce_csd(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_csd(<a class="self" href="#111">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_csd(<a class="self" href="#111">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="attr">#[cfg(feature = <span class="string">&quot;v3_24&quot;</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;v3_24&quot;</span>)))]
     #[doc(alias = <span class="string">&quot;gdk_wayland_window_announce_ssd&quot;</span>)]
     </span><span class="kw">pub fn </span>announce_ssd(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_ssd(<a class="self" href="#118">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_wayland_window_announce_ssd(<a class="self" href="#118">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 }
 </code></pre></div></section></main></body></html>

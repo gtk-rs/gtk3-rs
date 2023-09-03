@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -115,18 +115,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 <span class="kw">use </span>x11::xlib;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">///
     ///
     /// # Implements
     ///
     /// [`trait@gdk::prelude::CursorExt`]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkX11Cursor&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Cursor.html">X11Cursor</a>(Object&lt;ffi::GdkX11Cursor, ffi::GdkX11CursorClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/cursor/struct.Cursor.html">gdk::Cursor</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gdkx11/struct.X11Cursor.html">X11Cursor</a>(Object&lt;ffi::GdkX11Cursor, ffi::GdkX11CursorClass&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/cursor/struct.Cursor.html">gdk::Cursor</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_x11_cursor_get_type(),
@@ -142,7 +142,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_x11_cursor_get_xcursor&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_xcursor&quot;</span>)]
     </span><span class="kw">pub fn </span>xcursor(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; xlib::Cursor {
-        <span class="kw">unsafe </span>{ ffi::gdk_x11_cursor_get_xcursor(<a class="self" href="#31">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ ffi::gdk_x11_cursor_get_xcursor(<a class="self" href="#31">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
     }
 }
 

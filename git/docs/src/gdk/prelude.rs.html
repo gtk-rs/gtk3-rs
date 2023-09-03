@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -100,11 +100,11 @@
 <span class="kw">pub use </span><a href="window.rs.html#260-359"><span class="kw">crate</span>::window::WindowExtManual</a>;
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/prelude/index.html">gdk_pixbuf::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/prelude/index.html">gdk_pixbuf::prelude</a>::<span class="kw-2">*</span>;
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/prelude/index.html">gio::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gio/prelude/index.html">gio::prelude</a>::<span class="kw-2">*</span>;
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/pango/prelude/index.html">pango::prelude</a>::<span class="kw-2">*</span>;
+</span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/pango/prelude/index.html">pango::prelude</a>::<span class="kw-2">*</span>;
 </code></pre></div></section></main></body></html>

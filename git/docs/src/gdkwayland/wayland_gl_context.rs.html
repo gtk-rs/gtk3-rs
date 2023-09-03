@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -83,9 +83,9 @@
 <a href="#10" id="10">10</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+</span><a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="attr">#[doc(alias = <span class="string">&quot;GdkWaylandGLContext&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandGLContext.html">WaylandGLContext</a>(Object&lt;ffi::GdkWaylandGLContext&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/gl_context/struct.GLContext.html">gdk::GLContext</a>;
+    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandGLContext.html">WaylandGLContext</a>(Object&lt;ffi::GdkWaylandGLContext&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/stable/0.18/docs/gdk/auto/gl_context/struct.GLContext.html">gdk::GLContext</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_wayland_gl_context_get_type(),

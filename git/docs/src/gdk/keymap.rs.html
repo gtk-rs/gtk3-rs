@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -255,7 +255,7 @@
 <span class="kw">use </span><a href="auto/keymap.rs.html#13-50"><span class="kw">crate</span>::Keymap</a>;
 <span class="kw">use </span><a href="keymap_key.rs.html#5-9"><span class="kw">crate</span>::KeymapKey</a>;
 <span class="kw">use </span><a href="auto/flags.rs.html#668-795"><span class="kw">crate</span>::ModifierType</a>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/mem/index.html">std::mem</a>;
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 
@@ -288,7 +288,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>keyvals = ptr::null_mut();
             <span class="kw">let </span><span class="kw-2">mut </span>n_entries = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = from_glib(ffi::gdk_keymap_get_entries_for_keycode(
-                <a class="self" href="#34">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#34">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#34">hardware_keycode</a>,
                 <span class="kw-2">&amp;mut </span><a href="#36">keys</a>,
                 <span class="kw-2">&amp;mut </span><a href="#37">keyvals</a>,
@@ -337,7 +337,7 @@
             <span class="kw">let </span><span class="kw-2">mut </span>keys = ptr::null_mut();
             <span class="kw">let </span><span class="kw-2">mut </span>n_keys = mem::MaybeUninit::uninit();
             <span class="kw">let </span>ret = from_glib(ffi::gdk_keymap_get_entries_for_keyval(
-                <a class="self" href="#84">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#84">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#84">keyval</a>,
                 <span class="kw-2">&amp;mut </span><a href="#86">keys</a>,
                 <a href="#87">n_keys</a>.as_mut_ptr(),
@@ -371,8 +371,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_add_virtual_modifiers&quot;</span>)]
     </span><span class="kw">pub fn </span>add_virtual_modifiers(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span><a href="auto/flags.rs.html#668-795">ModifierType</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>s = <a href="#121">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>();
-            ffi::gdk_keymap_add_virtual_modifiers(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#123">s</a>);
+            <span class="kw">let </span><span class="kw-2">mut </span>s = <a href="#121">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>();
+            ffi::gdk_keymap_add_virtual_modifiers(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#123">s</a>);
             <span class="kw-2">*</span><a href="#121">state</a> = from_glib(<a href="#123">s</a>);
         }
     }
@@ -395,9 +395,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_map_virtual_modifiers&quot;</span>)]
     </span><span class="kw">pub fn </span>map_virtual_modifiers(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <span class="kw-2">&amp;mut </span><a href="auto/flags.rs.html#668-795">ModifierType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>s = <a href="#145">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>();
+            <span class="kw">let </span><span class="kw-2">mut </span>s = <a href="#145">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>();
             <span class="kw">let </span>ret = from_glib(ffi::gdk_keymap_map_virtual_modifiers(
-                <a class="self" href="#145">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                <a class="self" href="#145">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 <span class="kw-2">&amp;mut </span><a href="#147">s</a>,
             ));
             <span class="kw-2">*</span><a href="#145">state</a> = from_glib(<a href="#147">s</a>);
@@ -419,7 +419,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;gdk_keymap_lookup_key&quot;</span>)]
     </span><span class="kw">pub fn </span>lookup_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key: <span class="kw-2">&amp;</span><a href="keymap_key.rs.html#5-9">KeymapKey</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="keys.rs.html#9">Key</a>&gt; {
         <span class="kw">let </span>key =
-            <span class="kw">unsafe </span>{ ffi::gdk_keymap_lookup_key(<a class="self" href="#169">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#169">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
+            <span class="kw">unsafe </span>{ ffi::gdk_keymap_lookup_key(<a class="self" href="#169">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#169">key</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) };
         <span class="kw">if </span>key != <span class="number">0 </span>{
             <span class="prelude-val">Some</span>(Key::from(<a href="#170">key</a>))
         } <span class="kw">else </span>{

@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("master" == "master") {
+        if ("0.18" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "master") {
+                    if (latest_branch.trim() != "0.18") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -302,9 +302,9 @@
 <a href="#229" id="229">229</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">glib::Cast</a>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">glib::Cast</a>;
 
 <span class="kw">use super</span>::{<a href="container.rs.html#14-107">container::ContainerImpl</a>, <a href="widget.rs.html#20-358">widget::WidgetImpl</a>};
 
@@ -355,13 +355,13 @@
     <span class="kw">impl</span>&lt;T: <a href="#15-49"><span class="kw">super</span>::ListBoxImpl</a>&gt; <a href="#52">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span><a href="../../../gtk/subclass/list_box/trait.ListBoxImplExt.html">ListBoxImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#52">sealed::Sealed</a> {
+<span class="kw">pub trait </span><a href="../../../gtk/subclass/list_box/trait.ListBoxImplExt.html">ListBoxImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#52">sealed::Sealed</a> {
     <span class="kw">fn </span>list_box_activate_cursor_row(<span class="kw-2">&amp;</span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#59">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#60">parent_class</a>).activate_cursor_row {
-                <a href="#61">f</a>(<a class="self" href="#57">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+                <a href="#61">f</a>(<a class="self" href="#57">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
             }
         }
     }
@@ -371,8 +371,8 @@
             <span class="kw">let </span>parent_class = <a href="#68">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#69">parent_class</a>).move_cursor {
                 <a href="#70">f</a>(
-                    <a class="self" href="#66">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#66">step</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    <a class="self" href="#66">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#66">step</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                     <a href="#66">count</a>,
                 );
             }
@@ -384,8 +384,8 @@
             <span class="kw">let </span>parent_class = <a href="#81">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#82">parent_class</a>).row_activated {
                 <a href="#83">f</a>(
-                    <a class="self" href="#79">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    <a href="#79">row</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a class="self" href="#79">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    <a href="#79">row</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
                 )
             }
         }
@@ -396,8 +396,8 @@
             <span class="kw">let </span>parent_class = <a href="#93">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#94">parent_class</a>).row_selected {
                 <a href="#95">f</a>(
-                    <a class="self" href="#91">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                    mut_override(<a href="#91">row</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+                    <a class="self" href="#91">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+                    mut_override(<a href="#91">row</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
                 )
             }
         }
@@ -407,7 +407,7 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#105">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#106">parent_class</a>).select_all {
-                <a href="#107">f</a>(<a class="self" href="#103">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+                <a href="#107">f</a>(<a class="self" href="#103">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
             }
         }
     }
@@ -416,7 +416,7 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#114">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#115">parent_class</a>).selected_rows_changed {
-                <a href="#116">f</a>(<a class="self" href="#112">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+                <a href="#116">f</a>(<a class="self" href="#112">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
             }
         }
     }
@@ -425,7 +425,7 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#123">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#124">parent_class</a>).toggle_cursor_row {
-                <a href="#125">f</a>(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+                <a href="#125">f</a>(<a class="self" href="#121">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
             }
         }
     }
@@ -434,7 +434,7 @@
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#132">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxClass.html">ffi::GtkListBoxClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#133">parent_class</a>).unselect_all {
-                <a href="#134">f</a>(<a class="self" href="#130">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+                <a href="#134">f</a>(<a class="self" href="#130">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/list_box.rs.html#16-1232">ListBox</a>&gt;().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
             }
         }
     }
@@ -464,7 +464,7 @@
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_activate_cursor_row&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#163">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#164">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#164">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#165">imp</a>.<a href="#16-18">activate_cursor_row</a>()
 }
@@ -475,9 +475,9 @@
     count: c_int,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#171">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#175">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#175">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
-    <a href="#176">imp</a>.<a href="#20-22">move_cursor</a>(<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#172">step</a>), <a href="#173">count</a>)
+    <a href="#176">imp</a>.<a href="#20-22">move_cursor</a>(<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#172">step</a>), <a href="#173">count</a>)
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_row_activated&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(
@@ -485,7 +485,7 @@
     rowptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#182">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#185">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#185">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>row: Borrowed&lt;<a href="../auto/list_box_row.rs.html#13-1156">ListBoxRow</a>&gt; = from_glib_borrow(<a href="#183">rowptr</a>);
 
     <a href="#186">imp</a>.<a href="#24-26">row_activated</a>(<span class="kw-2">&amp;</span><a href="#187">row</a>)
@@ -496,7 +496,7 @@
     rowptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBoxRow.html">ffi::GtkListBoxRow</a>,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#193">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#196">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#196">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
     <span class="kw">let </span>row: Borrowed&lt;<span class="prelude-ty">Option</span>&lt;<a href="../auto/list_box_row.rs.html#13-1156">ListBoxRow</a>&gt;&gt; = from_glib_borrow(<a href="#194">rowptr</a>);
 
     <a href="#197">imp</a>.<a href="#28-30">row_selected</a>(<a href="#198">row</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().as_ref())
@@ -504,28 +504,28 @@
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_select_all&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#203">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#204">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#204">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#205">imp</a>.<a href="#33-35">select_all</a>()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_selected_rows_changed&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#210">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#211">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#211">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#212">imp</a>.<a href="#37-39">selected_rows_changed</a>()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_toggle_cursor_row&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#217">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#218">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#218">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#219">imp</a>.<a href="#41-43">toggle_cursor_row</a>()
 }
 
 <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>list_box_unselect_all&lt;T: <a href="#15-49">ListBoxImpl</a>&gt;(ptr: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkListBox.html">ffi::GtkListBox</a>) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#224">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#225">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>imp = <a href="#225">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
 
     <a href="#226">imp</a>.<a href="#46-48">unselect_all</a>()
 }
