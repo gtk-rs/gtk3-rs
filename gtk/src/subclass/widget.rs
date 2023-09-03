@@ -319,7 +319,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -334,7 +334,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -391,7 +391,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -406,7 +406,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -421,7 +421,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -436,7 +436,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -460,7 +460,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     ev_glib,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -587,7 +587,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     time,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -614,7 +614,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     result.into_glib(),
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -650,7 +650,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     time,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -664,7 +664,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     cr.to_glib_none().0,
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -799,7 +799,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -813,7 +813,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -827,7 +827,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
@@ -841,7 +841,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
                     mut_override(event.to_glib_none().0),
                 ))
             } else {
-                Propagation::Stop
+                Propagation::Proceed
             }
         }
     }
