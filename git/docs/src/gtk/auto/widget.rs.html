@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/widget.rs`."><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-47e7ab555ef2818a.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (9f5fc1bd4 2023-09-02)" data-channel="nightly" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-f194925aa375ae96.css" data-theme-dark-css="dark-1dd4d1ce031e15de.css" data-theme-ayu-css="ayu-49e58d069f567085.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-ef3a2de404864b0b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-f194925aa375ae96.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1dd4d1ce031e15de.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/widget.rs`."><title>widget.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-085727c29c2fa99e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (203c57dbe 2023-09-17)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f6ec288034ea164c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -14854,7 +14854,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_button/struct.EventButton.html">gdk::EventButton</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventButton.html">gdk::ffi::GdkEventButton</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventButton,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5620">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -14904,7 +14904,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_button/struct.EventButton.html">gdk::EventButton</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventButton.html">gdk::ffi::GdkEventButton</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventButton,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5670">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15033,7 +15033,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_configure/struct.EventConfigure.html">gdk::EventConfigure</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventConfigure.html">gdk::ffi::GdkEventConfigure</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventConfigure,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5799">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15076,7 +15076,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_expose/struct.EventExpose.html">gdk::EventExpose</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventExpose.html">gdk::ffi::GdkEventExpose</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventExpose,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5842">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15121,7 +15121,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/union.GdkEvent.html">gdk::ffi::GdkEvent</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5887">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15196,7 +15196,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/union.GdkEvent.html">gdk::ffi::GdkEvent</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#5962">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15274,7 +15274,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6040">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15312,7 +15312,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6078">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15360,7 +15360,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <span class="kw-2">&amp;</span><a href="selection_data.rs.html#9-18">SelectionData</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             data: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkSelectionData.html">ffi::GtkSelectionData</a>,
             info: libc::c_uint,
             time: libc::c_uint,
@@ -15477,7 +15477,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="kw-2">&amp;</span><a href="selection_data.rs.html#9-18">SelectionData</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
             data: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkSelectionData.html">ffi::GtkSelectionData</a>,
@@ -15541,7 +15541,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
             time: libc::c_uint,
@@ -15582,7 +15582,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6348">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15629,7 +15629,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <a href="enums.rs.html#2328-2351">DragResult</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             result: <a href="../../../gtk_sys/type.GtkDragResult.html">ffi::GtkDragResult</a>,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
@@ -15677,7 +15677,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             time: libc::c_uint,
             f: glib::ffi::gpointer,
         ) {
@@ -15813,7 +15813,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/auto/drag_context/struct.DragContext.html">gdk::DragContext</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            context: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDragContext.html">gdk::ffi::GdkDragContext</a>,
+            context: <span class="kw-2">*mut </span>gdk::ffi::GdkDragContext,
             x: libc::c_int,
             y: libc::c_int,
             time: libc::c_uint,
@@ -15926,7 +15926,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_crossing/struct.EventCrossing.html">gdk::EventCrossing</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventCrossing.html">gdk::ffi::GdkEventCrossing</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventCrossing,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6692">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -15974,7 +15974,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/union.GdkEvent.html">gdk::ffi::GdkEvent</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6740">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16009,7 +16009,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/union.GdkEvent.html">gdk::ffi::GdkEvent</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6775">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16091,7 +16091,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_focus/struct.EventFocus.html">gdk::EventFocus</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventFocus.html">gdk::ffi::GdkEventFocus</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventFocus,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6857">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16137,7 +16137,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_focus/struct.EventFocus.html">gdk::EventFocus</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventFocus.html">gdk::ffi::GdkEventFocus</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventFocus,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6903">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16185,7 +16185,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_grab_broken/struct.EventGrabBroken.html">gdk::EventGrabBroken</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventGrabBroken.html">gdk::ffi::GdkEventGrabBroken</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventGrabBroken,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#6951">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16361,7 +16361,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_key/struct.EventKey.html">gdk::EventKey</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventKey.html">gdk::ffi::GdkEventKey</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventKey,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7127">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16407,7 +16407,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_key/struct.EventKey.html">gdk::EventKey</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventKey.html">gdk::ffi::GdkEventKey</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventKey,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7173">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16500,7 +16500,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_crossing/struct.EventCrossing.html">gdk::EventCrossing</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventCrossing.html">gdk::ffi::GdkEventCrossing</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventCrossing,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7266">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16623,7 +16623,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_motion/struct.EventMotion.html">gdk::EventMotion</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventMotion.html">gdk::ffi::GdkEventMotion</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventMotion,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7389">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16777,7 +16777,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_property/struct.EventProperty.html">gdk::EventProperty</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventProperty.html">gdk::ffi::GdkEventProperty</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventProperty,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7543">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16824,7 +16824,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_proximity/struct.EventProximity.html">gdk::EventProximity</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventProximity.html">gdk::ffi::GdkEventProximity</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventProximity,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7590">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16871,7 +16871,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_proximity/struct.EventProximity.html">gdk::EventProximity</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventProximity.html">gdk::ffi::GdkEventProximity</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventProximity,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7637">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -16999,7 +16999,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../gdk/auto/screen/struct.Screen.html">gdk::Screen</a>&gt;) + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            previous_screen: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkScreen.html">gdk::ffi::GdkScreen</a>,
+            previous_screen: <span class="kw-2">*mut </span>gdk::ffi::GdkScreen,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7765">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17049,7 +17049,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_scroll/struct.EventScroll.html">gdk::EventScroll</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventScroll.html">gdk::ffi::GdkEventScroll</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventScroll,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7815">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17094,7 +17094,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_selection/struct.EventSelection.html">gdk::EventSelection</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSelection.html">gdk::ffi::GdkEventSelection</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7860">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17169,7 +17169,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_selection/struct.EventSelection.html">gdk::EventSelection</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSelection.html">gdk::ffi::GdkEventSelection</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#7935">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17249,7 +17249,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_selection/struct.EventSelection.html">gdk::EventSelection</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventSelection.html">gdk::ffi::GdkEventSelection</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventSelection,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#8015">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17444,7 +17444,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event/struct.Event.html">gdk::Event</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            object: <span class="kw-2">*mut </span><a href="../../../gdk_sys/union.GdkEvent.html">gdk::ffi::GdkEvent</a>,
+            object: <span class="kw-2">*mut </span>gdk::ffi::GdkEvent,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#8210">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -17547,7 +17547,7 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="../../../gdk/event_window_state/struct.EventWindowState.html">gdk::EventWindowState</a>) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/signal/enum.Propagation.html">glib::Propagation</a> + <span class="lifetime">&#39;static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkWidget.html">ffi::GtkWidget</a>,
-            event: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkEventWindowState.html">gdk::ffi::GdkEventWindowState</a>,
+            event: <span class="kw-2">*mut </span>gdk::ffi::GdkEventWindowState,
             f: glib::ffi::gpointer,
         ) -&gt; glib::ffi::gboolean {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#8313">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
