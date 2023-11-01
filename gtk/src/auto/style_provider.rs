@@ -4,7 +4,6 @@
 
 use crate::{StateFlags, WidgetPath};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkStyleProvider")]
@@ -52,9 +51,3 @@ pub trait StyleProviderExt: IsA<StyleProvider> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<StyleProvider>> StyleProviderExt for O {}
-
-impl fmt::Display for StyleProvider {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("StyleProvider")
-    }
-}

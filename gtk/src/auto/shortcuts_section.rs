@@ -10,7 +10,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkShortcutsSection")]
@@ -88,7 +88,7 @@ impl ShortcutsSection {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"change-current-page\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     change_current_page_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -115,7 +115,7 @@ impl ShortcutsSection {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_max_height_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -138,7 +138,7 @@ impl ShortcutsSection {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::section-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_section_name_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -161,7 +161,7 @@ impl ShortcutsSection {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_title_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -184,7 +184,7 @@ impl ShortcutsSection {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::view-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_view_name_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -476,11 +476,5 @@ impl ShortcutsSectionBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ShortcutsSection {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for ShortcutsSection {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ShortcutsSection")
     }
 }

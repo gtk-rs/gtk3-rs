@@ -4,7 +4,7 @@
 
 use crate::{SelectionData, TextBuffer};
 use glib::{prelude::*, translate::*};
-use std::{boxed::Box as Box_, fmt, mem, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkClipboard")]
@@ -203,7 +203,7 @@ impl Clipboard {
     pub fn wait_for_rich_text(&self, buffer: &impl IsA<TextBuffer>) -> (Vec<u8>, gdk::Atom) {
         unsafe {
             let mut format = gdk::Atom::uninitialized();
-            let mut length = mem::MaybeUninit::uninit();
+            let mut length = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
                 ffi::gtk_clipboard_wait_for_rich_text(
                     self.to_glib_none().0,
@@ -220,8 +220,8 @@ impl Clipboard {
     #[doc(alias = "gtk_clipboard_wait_for_targets")]
     pub fn wait_for_targets(&self) -> Option<Vec<gdk::Atom>> {
         unsafe {
-            let mut targets = ptr::null_mut();
-            let mut n_targets = mem::MaybeUninit::uninit();
+            let mut targets = std::ptr::null_mut();
+            let mut n_targets = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_clipboard_wait_for_targets(
                 self.to_glib_none().0,
                 &mut targets,
@@ -329,10 +329,4 @@ impl Clipboard {
     //pub fn connect_owner_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Ignored event: Gdk.EventOwnerChange
     //}
-}
-
-impl fmt::Display for Clipboard {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Clipboard")
-    }
 }

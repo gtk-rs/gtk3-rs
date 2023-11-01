@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkScreen")]
@@ -120,7 +120,7 @@ impl Screen {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"composited-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     composited_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -142,7 +142,7 @@ impl Screen {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"monitors-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     monitors_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -164,7 +164,7 @@ impl Screen {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"size-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     size_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -187,7 +187,7 @@ impl Screen {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-options\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_options_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -210,17 +210,11 @@ impl Screen {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::resolution\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_resolution_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for Screen {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Screen")
     }
 }

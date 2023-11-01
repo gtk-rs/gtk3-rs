@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkPlacesSidebar")]
@@ -292,7 +292,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drag-action-ask\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     drag_action_ask_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -320,7 +320,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mount\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     mount_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -353,7 +353,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"open-location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     open_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -380,7 +380,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-enter-location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     show_enter_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -413,7 +413,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-error-message\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     show_error_message_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -441,7 +441,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-other-locations-with-flags\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     show_other_locations_with_flags_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -469,7 +469,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-starred-location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     show_starred_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -497,7 +497,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"unmount\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     unmount_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -520,7 +520,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::local-only\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -543,7 +543,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -566,7 +566,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::open-flags\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_open_flags_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -589,7 +589,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::populate-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_populate_all_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -617,7 +617,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-connect-to-server\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_connect_to_server_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -640,7 +640,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-desktop\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_desktop_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -668,7 +668,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-enter-location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_enter_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -696,7 +696,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-other-locations\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_other_locations_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -719,7 +719,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-recent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_recent_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -747,7 +747,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-starred-location\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_starred_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -770,7 +770,7 @@ impl PlacesSidebar {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-trash\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_trash_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1200,11 +1200,5 @@ impl PlacesSidebarBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PlacesSidebar {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for PlacesSidebar {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("PlacesSidebar")
     }
 }

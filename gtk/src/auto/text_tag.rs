@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkTextTag")]
@@ -1286,7 +1286,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"event\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     event_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1312,7 +1312,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accumulative-margin\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accumulative_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1335,7 +1335,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1364,7 +1364,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-full-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_full_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1393,7 +1393,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-full-height-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_full_height_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1419,7 +1419,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1445,7 +1445,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1468,7 +1468,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::direction\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1491,7 +1491,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::editable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_editable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1517,7 +1517,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::editable-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_editable_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1540,7 +1540,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fallback\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_fallback_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1566,7 +1566,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fallback-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_fallback_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1589,7 +1589,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::family\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_family_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1612,7 +1612,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::family-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_family_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1635,7 +1635,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1658,7 +1658,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-desc\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_desc_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1684,7 +1684,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-features\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_features_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1710,7 +1710,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-features-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_features_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1733,7 +1733,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::foreground\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_foreground_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1759,7 +1759,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::foreground-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_foreground_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1785,7 +1785,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::foreground-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_foreground_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1808,7 +1808,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::indent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_indent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1831,7 +1831,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::indent-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_indent_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1854,7 +1854,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::invisible\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_invisible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1880,7 +1880,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::invisible-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_invisible_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1906,7 +1906,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::justification\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_justification_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1932,7 +1932,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::justification-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_justification_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1955,7 +1955,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::language\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_language_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1981,7 +1981,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::language-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_language_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2004,7 +2004,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::left-margin\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_left_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2030,7 +2030,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::left-margin-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_left_margin_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2056,7 +2056,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::letter-spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_letter_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2082,7 +2082,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::letter-spacing-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_letter_spacing_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2108,7 +2108,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::paragraph-background\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_paragraph_background_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2137,7 +2137,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::paragraph-background-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_paragraph_background_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2166,7 +2166,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::paragraph-background-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_paragraph_background_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2192,7 +2192,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-above-lines\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_above_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2221,7 +2221,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-above-lines-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_above_lines_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2247,7 +2247,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-below-lines\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_below_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2276,7 +2276,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-below-lines-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_below_lines_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2302,7 +2302,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-inside-wrap\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_inside_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2331,7 +2331,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixels-inside-wrap-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixels_inside_wrap_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2357,7 +2357,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::right-margin\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_right_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2383,7 +2383,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::right-margin-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_right_margin_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2406,7 +2406,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rise\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_rise_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2429,7 +2429,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rise-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_rise_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2452,7 +2452,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::scale\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_scale_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2475,7 +2475,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::scale-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_scale_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2498,7 +2498,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2521,7 +2521,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::size-points\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_size_points_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2544,7 +2544,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::size-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_size_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2567,7 +2567,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::stretch\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_stretch_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2590,7 +2590,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::stretch-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_stretch_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2616,7 +2616,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::strikethrough\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_strikethrough_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2642,7 +2642,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::strikethrough-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_strikethrough_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2671,7 +2671,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::strikethrough-rgba-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_strikethrough_rgba_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2697,7 +2697,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::strikethrough-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_strikethrough_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2720,7 +2720,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::style\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2743,7 +2743,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::style-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_style_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2766,7 +2766,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tabs\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_tabs_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2789,7 +2789,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tabs-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_tabs_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2812,7 +2812,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::underline\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2838,7 +2838,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::underline-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_underline_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2864,7 +2864,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::underline-rgba-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_underline_rgba_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2890,7 +2890,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::underline-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_underline_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2913,7 +2913,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::variant\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_variant_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2936,7 +2936,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::variant-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_variant_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2959,7 +2959,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::weight\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_weight_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2982,7 +2982,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::weight-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_weight_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -3005,7 +3005,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::wrap-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_wrap_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -3031,7 +3031,7 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::wrap-mode-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_wrap_mode_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -3041,9 +3041,3 @@ pub trait TextTagExt: IsA<TextTag> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TextTag>> TextTagExt for O {}
-
-impl fmt::Display for TextTag {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TextTag")
-    }
-}

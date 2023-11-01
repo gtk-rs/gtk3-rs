@@ -57,17 +57,19 @@ impl Application {
 
                 active.set(true);
 
-                let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
+                let (tx, rx) = async_channel::bounded(10);
+
                 thread::spawn(move || {
                     for v in 1..=10 {
-                        let _ = tx.send(Some(v));
+                        let _ = tx.send_blocking(Some(v));
                         thread::sleep(Duration::from_millis(500));
                     }
-                    let _ = tx.send(None);
+                    let _ = tx.send_blocking(None);
                 });
 
-                rx.attach(None, glib::clone!(@weak active, @weak widgets => @default-return glib::ControlFlow::Break, move |value| match value {
-                    Some(value) => {
+                let active = active.clone();
+                glib::MainContext::default().spawn_local(async move {
+                    while let Ok(Some(value)) = rx.recv().await {
                         widgets
                             .main_view
                             .progress
@@ -86,14 +88,10 @@ impl Application {
                                 glib::ControlFlow::Break
                             }));
                         }
+                    }
 
-                        glib::ControlFlow::Continue
-                    }
-                    None => {
-                        active.set(false);
-                        glib::ControlFlow::Break
-                    }
-                }));
+                    active.set(false);
+                });
             }),
         );
     }

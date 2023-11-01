@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellRenderer")]
@@ -80,8 +80,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_alignment")]
     fn alignment(&self) -> (f32, f32) {
         unsafe {
-            let mut xalign = mem::MaybeUninit::uninit();
-            let mut yalign = mem::MaybeUninit::uninit();
+            let mut xalign = std::mem::MaybeUninit::uninit();
+            let mut yalign = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_alignment(
                 self.as_ref().to_glib_none().0,
                 xalign.as_mut_ptr(),
@@ -95,8 +95,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_fixed_size")]
     fn fixed_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_fixed_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -110,8 +110,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_padding")]
     fn padding(&self) -> (i32, i32) {
         unsafe {
-            let mut xpad = mem::MaybeUninit::uninit();
-            let mut ypad = mem::MaybeUninit::uninit();
+            let mut xpad = std::mem::MaybeUninit::uninit();
+            let mut ypad = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_padding(
                 self.as_ref().to_glib_none().0,
                 xpad.as_mut_ptr(),
@@ -125,8 +125,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_preferred_height")]
     fn preferred_height(&self, widget: &impl IsA<Widget>) -> (i32, i32) {
         unsafe {
-            let mut minimum_size = mem::MaybeUninit::uninit();
-            let mut natural_size = mem::MaybeUninit::uninit();
+            let mut minimum_size = std::mem::MaybeUninit::uninit();
+            let mut natural_size = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_preferred_height(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
@@ -141,8 +141,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_preferred_height_for_width")]
     fn preferred_height_for_width(&self, widget: &impl IsA<Widget>, width: i32) -> (i32, i32) {
         unsafe {
-            let mut minimum_height = mem::MaybeUninit::uninit();
-            let mut natural_height = mem::MaybeUninit::uninit();
+            let mut minimum_height = std::mem::MaybeUninit::uninit();
+            let mut natural_height = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_preferred_height_for_width(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
@@ -174,8 +174,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_preferred_width")]
     fn preferred_width(&self, widget: &impl IsA<Widget>) -> (i32, i32) {
         unsafe {
-            let mut minimum_size = mem::MaybeUninit::uninit();
-            let mut natural_size = mem::MaybeUninit::uninit();
+            let mut minimum_size = std::mem::MaybeUninit::uninit();
+            let mut natural_size = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_preferred_width(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
@@ -190,8 +190,8 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
     #[doc(alias = "get_preferred_width_for_height")]
     fn preferred_width_for_height(&self, widget: &impl IsA<Widget>, height: i32) -> (i32, i32) {
         unsafe {
-            let mut minimum_width = mem::MaybeUninit::uninit();
-            let mut natural_width = mem::MaybeUninit::uninit();
+            let mut minimum_width = std::mem::MaybeUninit::uninit();
+            let mut natural_width = std::mem::MaybeUninit::uninit();
             ffi::gtk_cell_renderer_get_preferred_width_for_height(
                 self.as_ref().to_glib_none().0,
                 widget.as_ref().to_glib_none().0,
@@ -472,7 +472,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"editing-canceled\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     editing_canceled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -507,7 +507,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"editing-started\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     editing_started_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -533,7 +533,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cell-background\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cell_background_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -559,7 +559,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cell-background-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cell_background_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -585,7 +585,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cell-background-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cell_background_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -611,7 +611,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::editing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_editing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -634,7 +634,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -660,7 +660,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-expanded\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_expanded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -686,7 +686,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-expander\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_expander_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -709,7 +709,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -735,7 +735,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::sensitive\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_sensitive_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -761,7 +761,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::visible\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -784,7 +784,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -807,7 +807,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::xalign\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_xalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -830,7 +830,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::xpad\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_xpad_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -853,7 +853,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::yalign\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_yalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -876,7 +876,7 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::ypad\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_ypad_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -886,9 +886,3 @@ pub trait CellRendererExt: IsA<CellRenderer> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<CellRenderer>> CellRendererExt for O {}
-
-impl fmt::Display for CellRenderer {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellRenderer")
-    }
-}

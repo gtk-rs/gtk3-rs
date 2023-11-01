@@ -4,7 +4,6 @@
 
 use crate::{Display, Screen};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GdkAppLaunchContext")]
@@ -59,11 +58,5 @@ impl AppLaunchContext {
 
     pub fn display(&self) -> Option<Display> {
         ObjectExt::property(self, "display")
-    }
-}
-
-impl fmt::Display for AppLaunchContext {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AppLaunchContext")
     }
 }

@@ -12,7 +12,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkIconView")]
@@ -444,8 +444,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_icon_view_convert_widget_to_bin_window_coords")]
     fn convert_widget_to_bin_window_coords(&self, wx: i32, wy: i32) -> (i32, i32) {
         unsafe {
-            let mut bx = mem::MaybeUninit::uninit();
-            let mut by = mem::MaybeUninit::uninit();
+            let mut bx = std::mem::MaybeUninit::uninit();
+            let mut by = std::mem::MaybeUninit::uninit();
             ffi::gtk_icon_view_convert_widget_to_bin_window_coords(
                 self.as_ref().to_glib_none().0,
                 wx,
@@ -516,8 +516,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "get_cursor")]
     fn cursor(&self) -> Option<(TreePath, CellRenderer)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut cell = ptr::null_mut();
+            let mut path = std::ptr::null_mut();
+            let mut cell = std::ptr::null_mut();
             let ret = from_glib(ffi::gtk_icon_view_get_cursor(
                 self.as_ref().to_glib_none().0,
                 &mut path,
@@ -539,8 +539,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
         drag_y: i32,
     ) -> Option<(TreePath, IconViewDropPosition)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut pos = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut pos = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_icon_view_get_dest_item_at_pos(
                 self.as_ref().to_glib_none().0,
                 drag_x,
@@ -560,8 +560,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "get_drag_dest_item")]
     fn drag_dest_item(&self) -> (TreePath, IconViewDropPosition) {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut pos = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut pos = std::mem::MaybeUninit::uninit();
             ffi::gtk_icon_view_get_drag_dest_item(
                 self.as_ref().to_glib_none().0,
                 &mut path,
@@ -575,8 +575,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "get_item_at_pos")]
     fn item_at_pos(&self, x: i32, y: i32) -> Option<(TreePath, CellRenderer)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut cell = ptr::null_mut();
+            let mut path = std::ptr::null_mut();
+            let mut cell = std::ptr::null_mut();
             let ret = from_glib(ffi::gtk_icon_view_get_item_at_pos(
                 self.as_ref().to_glib_none().0,
                 x,
@@ -735,8 +735,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
         keyboard_tip: bool,
     ) -> Option<(TreeModel, TreePath, TreeIter)> {
         unsafe {
-            let mut model = ptr::null_mut();
-            let mut path = ptr::null_mut();
+            let mut model = std::ptr::null_mut();
+            let mut path = std::ptr::null_mut();
             let mut iter = TreeIter::uninitialized();
             let ret = from_glib(ffi::gtk_icon_view_get_tooltip_context(
                 self.as_ref().to_glib_none().0,
@@ -759,8 +759,8 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     #[doc(alias = "get_visible_range")]
     fn visible_range(&self) -> Option<(TreePath, TreePath)> {
         unsafe {
-            let mut start_path = ptr::null_mut();
-            let mut end_path = ptr::null_mut();
+            let mut start_path = std::ptr::null_mut();
+            let mut end_path = std::ptr::null_mut();
             let ret = from_glib(ffi::gtk_icon_view_get_visible_range(
                 self.as_ref().to_glib_none().0,
                 &mut start_path,
@@ -1084,7 +1084,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-cursor-item\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1117,7 +1117,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"item-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1152,7 +1152,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-cursor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1178,7 +1178,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"select-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     select_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1207,7 +1207,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"select-cursor-item\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     select_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1233,7 +1233,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1258,7 +1258,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"toggle-cursor-item\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     toggle_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1284,7 +1284,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"unselect-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     unselect_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1317,7 +1317,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::activate-on-single-click\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_activate_on_single_click_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1343,7 +1343,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::column-spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_column_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1366,7 +1366,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::columns\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_columns_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1392,7 +1392,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::item-orientation\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_item_orientation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1418,7 +1418,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::item-padding\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_item_padding_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1441,7 +1441,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::item-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_item_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1467,7 +1467,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::markup-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_markup_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1490,7 +1490,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1516,7 +1516,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1542,7 +1542,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::reorderable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_reorderable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1568,7 +1568,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::row-spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_row_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1594,7 +1594,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::selection-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_selection_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1617,7 +1617,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1643,7 +1643,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::text-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_text_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1669,7 +1669,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tooltip-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_tooltip_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1679,9 +1679,3 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<IconView>> IconViewExt for O {}
-
-impl fmt::Display for IconView {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("IconView")
-    }
-}

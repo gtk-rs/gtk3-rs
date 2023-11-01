@@ -7,7 +7,6 @@ use crate::{
     ToolButton, ToolItem, Widget,
 };
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkRadioToolButton")]
@@ -370,9 +369,3 @@ pub trait RadioToolButtonExt: IsA<RadioToolButton> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<RadioToolButton>> RadioToolButtonExt for O {}
-
-impl fmt::Display for RadioToolButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RadioToolButton")
-    }
-}

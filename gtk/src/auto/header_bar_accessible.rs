@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::prelude::*;
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkHeaderBarAccessible")]
@@ -166,11 +165,5 @@ impl HeaderBarAccessibleBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> HeaderBarAccessible {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for HeaderBarAccessible {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("HeaderBarAccessible")
     }
 }

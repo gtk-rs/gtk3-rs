@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkComponent")]
@@ -54,10 +54,10 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
     #[doc(alias = "get_extents")]
     fn extents(&self, coord_type: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::atk_component_get_extents(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -91,8 +91,8 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
     #[doc(alias = "get_position")]
     fn position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::atk_component_get_position(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -107,8 +107,8 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
     #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::atk_component_get_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -223,7 +223,7 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"bounds-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     bounds_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -233,9 +233,3 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Component>> ComponentExt for O {}
-
-impl fmt::Display for Component {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Component")
-    }
-}

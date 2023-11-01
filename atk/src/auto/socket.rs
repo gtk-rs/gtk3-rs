@@ -4,7 +4,6 @@
 
 use crate::{Component, Object};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkSocket")]
@@ -51,9 +50,3 @@ pub trait AtkSocketExt: IsA<Socket> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Socket>> AtkSocketExt for O {}
-
-impl fmt::Display for Socket {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Socket")
-    }
-}

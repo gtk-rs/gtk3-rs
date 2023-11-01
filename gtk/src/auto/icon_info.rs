@@ -4,7 +4,7 @@
 
 use crate::{IconTheme, StyleContext};
 use glib::{prelude::*, translate::*};
-use std::{boxed::Box as Box_, fmt, mem, pin::Pin, ptr};
+use std::{boxed::Box as Box_, pin::Pin};
 
 glib::wrapper! {
     #[doc(alias = "GtkIconInfo")]
@@ -54,7 +54,7 @@ impl IconInfo {
     #[doc(alias = "gtk_icon_info_load_icon")]
     pub fn load_icon(&self) -> Result<gdk_pixbuf::Pixbuf, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_info_load_icon(self.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
@@ -89,7 +89,7 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret =
                 ffi::gtk_icon_info_load_icon_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() {
@@ -131,7 +131,7 @@ impl IconInfo {
         for_window: Option<&gdk::Window>,
     ) -> Result<cairo::Surface, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_info_load_surface(
                 self.to_glib_none().0,
                 for_window.to_glib_none().0,
@@ -154,8 +154,8 @@ impl IconInfo {
         error_color: Option<&gdk::RGBA>,
     ) -> Result<(gdk_pixbuf::Pixbuf, bool), glib::Error> {
         unsafe {
-            let mut was_symbolic = mem::MaybeUninit::uninit();
-            let mut error = ptr::null_mut();
+            let mut was_symbolic = std::mem::MaybeUninit::uninit();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_info_load_symbolic(
                 self.to_glib_none().0,
                 fg.to_glib_none().0,
@@ -204,8 +204,8 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = ptr::null_mut();
-            let mut was_symbolic = mem::MaybeUninit::uninit();
+            let mut error = std::ptr::null_mut();
+            let mut was_symbolic = std::mem::MaybeUninit::uninit();
             let ret = ffi::gtk_icon_info_load_symbolic_finish(
                 _source_object as *mut _,
                 res,
@@ -273,8 +273,8 @@ impl IconInfo {
         context: &impl IsA<StyleContext>,
     ) -> Result<(gdk_pixbuf::Pixbuf, bool), glib::Error> {
         unsafe {
-            let mut was_symbolic = mem::MaybeUninit::uninit();
-            let mut error = ptr::null_mut();
+            let mut was_symbolic = std::mem::MaybeUninit::uninit();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_info_load_symbolic_for_context(
                 self.to_glib_none().0,
                 context.as_ref().to_glib_none().0,
@@ -317,8 +317,8 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = ptr::null_mut();
-            let mut was_symbolic = mem::MaybeUninit::uninit();
+            let mut error = std::ptr::null_mut();
+            let mut was_symbolic = std::mem::MaybeUninit::uninit();
             let ret = ffi::gtk_icon_info_load_symbolic_for_context_finish(
                 _source_object as *mut _,
                 res,
@@ -362,11 +362,5 @@ impl IconInfo {
                 send.resolve(res);
             });
         }))
-    }
-}
-
-impl fmt::Display for IconInfo {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("IconInfo")
     }
 }

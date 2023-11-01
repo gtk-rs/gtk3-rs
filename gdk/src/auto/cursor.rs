@@ -4,7 +4,6 @@
 
 use crate::{CursorType, Display};
 use glib::translate::*;
-use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GdkCursor")]
@@ -90,8 +89,8 @@ impl Cursor {
     #[doc(alias = "get_surface")]
     pub fn surface(&self) -> (Option<cairo::Surface>, f64, f64) {
         unsafe {
-            let mut x_hot = mem::MaybeUninit::uninit();
-            let mut y_hot = mem::MaybeUninit::uninit();
+            let mut x_hot = std::mem::MaybeUninit::uninit();
+            let mut y_hot = std::mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::gdk_cursor_get_surface(
                 self.to_glib_none().0,
                 x_hot.as_mut_ptr(),
@@ -99,11 +98,5 @@ impl Cursor {
             ));
             (ret, x_hot.assume_init(), y_hot.assume_init())
         }
-    }
-}
-
-impl fmt::Display for Cursor {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Cursor")
     }
 }

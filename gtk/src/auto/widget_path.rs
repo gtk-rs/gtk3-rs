@@ -4,7 +4,6 @@
 
 use crate::{StateFlags, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -278,9 +277,9 @@ impl Default for WidgetPath {
     }
 }
 
-impl fmt::Display for WidgetPath {
+impl std::fmt::Display for WidgetPath {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.write_str(&self.to_str())
     }
 }

@@ -10,7 +10,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkMenuToolButton")]
@@ -421,7 +421,7 @@ pub trait MenuToolButtonExt: IsA<MenuToolButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"show-menu\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     show_menu_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -444,7 +444,7 @@ pub trait MenuToolButtonExt: IsA<MenuToolButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::menu\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_menu_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -454,9 +454,3 @@ pub trait MenuToolButtonExt: IsA<MenuToolButton> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<MenuToolButton>> MenuToolButtonExt for O {}
-
-impl fmt::Display for MenuToolButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MenuToolButton")
-    }
-}

@@ -10,7 +10,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkLayout")]
@@ -350,8 +350,8 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
     #[doc(alias = "get_size")]
     fn size(&self) -> (u32, u32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gtk_layout_get_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -458,7 +458,7 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -481,7 +481,7 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -491,9 +491,3 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Layout>> LayoutExt for O {}
-
-impl fmt::Display for Layout {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Layout")
-    }
-}

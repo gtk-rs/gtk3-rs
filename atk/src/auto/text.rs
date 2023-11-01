@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkText")]
@@ -91,10 +91,10 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
     #[doc(alias = "get_character_extents")]
     fn character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::atk_text_get_character_extents(
                 self.as_ref().to_glib_none().0,
                 offset,
@@ -169,8 +169,8 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
     #[doc(alias = "get_selection")]
     fn selection(&self, selection_num: i32) -> (glib::GString, i32, i32) {
         unsafe {
-            let mut start_offset = mem::MaybeUninit::uninit();
-            let mut end_offset = mem::MaybeUninit::uninit();
+            let mut start_offset = std::mem::MaybeUninit::uninit();
+            let mut end_offset = std::mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::atk_text_get_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
@@ -189,8 +189,8 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
         granularity: TextGranularity,
     ) -> (Option<glib::GString>, i32, i32) {
         unsafe {
-            let mut start_offset = mem::MaybeUninit::uninit();
-            let mut end_offset = mem::MaybeUninit::uninit();
+            let mut start_offset = std::mem::MaybeUninit::uninit();
+            let mut end_offset = std::mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::atk_text_get_string_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
@@ -222,8 +222,8 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
         boundary_type: TextBoundary,
     ) -> (glib::GString, i32, i32) {
         unsafe {
-            let mut start_offset = mem::MaybeUninit::uninit();
-            let mut end_offset = mem::MaybeUninit::uninit();
+            let mut start_offset = std::mem::MaybeUninit::uninit();
+            let mut end_offset = std::mem::MaybeUninit::uninit();
             let ret = from_glib_full(ffi::atk_text_get_text_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
@@ -321,7 +321,7 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-attributes-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     text_attributes_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -344,7 +344,7 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-caret-moved\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     text_caret_moved_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -385,7 +385,7 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     text_insert_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -426,7 +426,7 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     text_remove_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -451,7 +451,7 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"text-selection-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     text_selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -461,9 +461,3 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Text>> TextExt for O {}
-
-impl fmt::Display for Text {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Text")
-    }
-}

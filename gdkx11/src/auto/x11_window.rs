@@ -4,7 +4,6 @@
 
 use crate::X11Display;
 use glib::{prelude::*, translate::*};
-use std::fmt;
 use x11::xlib;
 
 glib::wrapper! {
@@ -109,11 +108,5 @@ impl X11Window {
                 window,
             ))
         }
-    }
-}
-
-impl fmt::Display for X11Window {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Window")
     }
 }

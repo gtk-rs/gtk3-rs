@@ -4,7 +4,6 @@
 
 use crate::Object;
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "AtkTableCell")]
@@ -45,8 +44,8 @@ pub trait TableCellExt: IsA<TableCell> + sealed::Sealed + 'static {
     #[doc(alias = "get_position")]
     fn position(&self) -> Option<(i32, i32)> {
         unsafe {
-            let mut row = mem::MaybeUninit::uninit();
-            let mut column = mem::MaybeUninit::uninit();
+            let mut row = std::mem::MaybeUninit::uninit();
+            let mut column = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::atk_table_cell_get_position(
                 self.as_ref().to_glib_none().0,
                 row.as_mut_ptr(),
@@ -64,10 +63,10 @@ pub trait TableCellExt: IsA<TableCell> + sealed::Sealed + 'static {
     #[doc(alias = "get_row_column_span")]
     fn row_column_span(&self) -> Option<(i32, i32, i32, i32)> {
         unsafe {
-            let mut row = mem::MaybeUninit::uninit();
-            let mut column = mem::MaybeUninit::uninit();
-            let mut row_span = mem::MaybeUninit::uninit();
-            let mut column_span = mem::MaybeUninit::uninit();
+            let mut row = std::mem::MaybeUninit::uninit();
+            let mut column = std::mem::MaybeUninit::uninit();
+            let mut row_span = std::mem::MaybeUninit::uninit();
+            let mut column_span = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::atk_table_cell_get_row_column_span(
                 self.as_ref().to_glib_none().0,
                 row.as_mut_ptr(),
@@ -116,9 +115,3 @@ pub trait TableCellExt: IsA<TableCell> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TableCell>> TableCellExt for O {}
-
-impl fmt::Display for TableCell {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TableCell")
-    }
-}

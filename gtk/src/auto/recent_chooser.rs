@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkRecentChooser")]
@@ -159,7 +159,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     #[doc(alias = "get_uris")]
     fn uris(&self) -> Vec<glib::GString> {
         unsafe {
-            let mut length = mem::MaybeUninit::uninit();
+            let mut length = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
                 ffi::gtk_recent_chooser_get_uris(
                     self.as_ref().to_glib_none().0,
@@ -200,7 +200,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_recent_chooser_select_uri")]
     fn select_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_recent_chooser_select_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
@@ -218,7 +218,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_recent_chooser_set_current_uri")]
     fn set_current_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_recent_chooser_set_current_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
@@ -385,7 +385,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"item-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -410,7 +410,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -436,7 +436,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::filter\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_filter_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -459,7 +459,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::limit\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_limit_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -485,7 +485,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::local-only\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -511,7 +511,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::select-multiple\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_select_multiple_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -537,7 +537,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-icons\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_icons_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -563,7 +563,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-not-found\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_not_found_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -589,7 +589,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-private\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_private_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -615,7 +615,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-tips\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_tips_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -641,7 +641,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::sort-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_sort_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -651,9 +651,3 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<RecentChooser>> RecentChooserExt for O {}
-
-impl fmt::Display for RecentChooser {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RecentChooser")
-    }
-}

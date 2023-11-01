@@ -4,7 +4,6 @@
 
 use crate::{Buildable, IconSize, Orientation, ReliefStyle, SizeGroup, ToolbarStyle, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkToolShell")]
@@ -110,9 +109,3 @@ pub trait ToolShellExt: IsA<ToolShell> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ToolShell>> ToolShellExt for O {}
-
-impl fmt::Display for ToolShell {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ToolShell")
-    }
-}

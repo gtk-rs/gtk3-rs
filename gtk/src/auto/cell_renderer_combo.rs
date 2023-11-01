@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellRendererCombo")]
@@ -518,7 +518,7 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -544,7 +544,7 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-entry\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_has_entry_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -570,7 +570,7 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -596,7 +596,7 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::text-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_text_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -606,9 +606,3 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
 }
 
 impl<O: IsA<CellRendererCombo>> CellRendererComboExt for O {}
-
-impl fmt::Display for CellRendererCombo {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellRendererCombo")
-    }
-}

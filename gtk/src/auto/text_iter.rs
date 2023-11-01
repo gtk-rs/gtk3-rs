@@ -4,7 +4,6 @@
 
 use crate::{TextBuffer, TextChildAnchor, TextMark, TextSearchFlags, TextTag};
 use glib::{prelude::*, translate::*};
-use std::cmp;
 
 glib::wrapper! {
     #[derive(Debug)]
@@ -797,14 +796,14 @@ impl TextIter {
 
 impl PartialOrd for TextIter {
     #[inline]
-    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
-        self.compare(other).partial_cmp(&0)
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
     }
 }
 
 impl Ord for TextIter {
     #[inline]
-    fn cmp(&self, other: &Self) -> cmp::Ordering {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         self.compare(other).cmp(&0)
     }
 }

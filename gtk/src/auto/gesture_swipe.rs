@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkGestureSwipe")]
@@ -41,8 +41,8 @@ impl GestureSwipe {
     #[doc(alias = "get_velocity")]
     pub fn velocity(&self) -> Option<(f64, f64)> {
         unsafe {
-            let mut velocity_x = mem::MaybeUninit::uninit();
-            let mut velocity_y = mem::MaybeUninit::uninit();
+            let mut velocity_x = std::mem::MaybeUninit::uninit();
+            let mut velocity_y = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_gesture_swipe_get_velocity(
                 self.to_glib_none().0,
                 velocity_x.as_mut_ptr(),
@@ -72,7 +72,7 @@ impl GestureSwipe {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"swipe\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     swipe_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -152,11 +152,5 @@ impl GestureSwipeBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> GestureSwipe {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for GestureSwipe {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("GestureSwipe")
     }
 }

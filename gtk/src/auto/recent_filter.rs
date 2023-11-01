@@ -4,7 +4,6 @@
 
 use crate::{Buildable, RecentFilterFlags};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkRecentFilter")]
@@ -95,11 +94,5 @@ impl RecentFilter {
 impl Default for RecentFilter {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for RecentFilter {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RecentFilter")
     }
 }

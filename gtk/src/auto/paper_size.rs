@@ -4,7 +4,6 @@
 
 use crate::Unit;
 use glib::translate::*;
-use std::ptr;
 
 glib::wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -76,7 +75,7 @@ impl PaperSize {
     ) -> Result<PaperSize, glib::Error> {
         assert_initialized_main_thread!();
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_paper_size_new_from_key_file(
                 key_file.to_glib_none().0,
                 group_name.to_glib_none().0,

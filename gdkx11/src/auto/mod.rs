@@ -47,10 +47,9 @@ pub use self::x11_visual::X11Visual;
 mod x11_window;
 pub use self::x11_window::X11Window;
 
-pub mod functions;
+pub(crate) mod functions;
 
-#[doc(hidden)]
-pub mod builders {
+pub(crate) mod builders {
     pub use super::x11_device_manager_xi2::X11DeviceManagerXI2Builder;
     pub use super::x11_device_xi2::X11DeviceXI2Builder;
 }

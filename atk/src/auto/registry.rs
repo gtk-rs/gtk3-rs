@@ -4,7 +4,6 @@
 
 use crate::ObjectFactory;
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkRegistry")]
@@ -60,9 +59,3 @@ pub trait RegistryExt: IsA<Registry> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Registry>> RegistryExt for O {}
-
-impl fmt::Display for Registry {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Registry")
-    }
-}

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkIconTheme")]
@@ -123,7 +123,7 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<gdk_pixbuf::Pixbuf>, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_theme_load_icon(
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
@@ -148,7 +148,7 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<gdk_pixbuf::Pixbuf>, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_theme_load_icon_for_scale(
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
@@ -175,7 +175,7 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
         flags: IconLookupFlags,
     ) -> Result<Option<cairo::Surface>, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gtk_icon_theme_load_surface(
                 self.as_ref().to_glib_none().0,
                 icon_name.to_glib_none().0,
@@ -310,7 +310,7 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -320,9 +320,3 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<IconTheme>> IconThemeExt for O {}
-
-impl fmt::Display for IconTheme {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("IconTheme")
-    }
-}

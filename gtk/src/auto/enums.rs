@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem};
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
@@ -21,23 +20,6 @@ pub enum Align {
     Baseline,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for Align {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Align::{}",
-            match *self {
-                Self::Fill => "Fill",
-                Self::Start => "Start",
-                Self::End => "End",
-                Self::Center => "Center",
-                Self::Baseline => "Baseline",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -76,6 +58,7 @@ impl FromGlib<ffi::GtkAlign> for Align {
 
 impl StaticType for Align {
     #[inline]
+    #[doc(alias = "gtk_align_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_align_get_type()) }
     }
@@ -87,7 +70,7 @@ impl glib::HasParamSpec for Align {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -147,23 +130,6 @@ pub enum ArrowType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ArrowType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ArrowType::{}",
-            match *self {
-                Self::Up => "Up",
-                Self::Down => "Down",
-                Self::Left => "Left",
-                Self::Right => "Right",
-                Self::None => "None",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ArrowType {
     type GlibType = ffi::GtkArrowType;
@@ -200,6 +166,7 @@ impl FromGlib<ffi::GtkArrowType> for ArrowType {
 
 impl StaticType for ArrowType {
     #[inline]
+    #[doc(alias = "gtk_arrow_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_arrow_type_get_type()) }
     }
@@ -211,7 +178,7 @@ impl glib::HasParamSpec for ArrowType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -273,24 +240,6 @@ pub enum AssistantPageType {
     __Unknown(i32),
 }
 
-impl fmt::Display for AssistantPageType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "AssistantPageType::{}",
-            match *self {
-                Self::Content => "Content",
-                Self::Intro => "Intro",
-                Self::Confirm => "Confirm",
-                Self::Summary => "Summary",
-                Self::Progress => "Progress",
-                Self::Custom => "Custom",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for AssistantPageType {
     type GlibType = ffi::GtkAssistantPageType;
@@ -329,6 +278,7 @@ impl FromGlib<ffi::GtkAssistantPageType> for AssistantPageType {
 
 impl StaticType for AssistantPageType {
     #[inline]
+    #[doc(alias = "gtk_assistant_page_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_assistant_page_type_get_type()) }
     }
@@ -340,7 +290,7 @@ impl glib::HasParamSpec for AssistantPageType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -396,21 +346,6 @@ pub enum BaselinePosition {
     __Unknown(i32),
 }
 
-impl fmt::Display for BaselinePosition {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "BaselinePosition::{}",
-            match *self {
-                Self::Top => "Top",
-                Self::Center => "Center",
-                Self::Bottom => "Bottom",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for BaselinePosition {
     type GlibType = ffi::GtkBaselinePosition;
@@ -443,6 +378,7 @@ impl FromGlib<ffi::GtkBaselinePosition> for BaselinePosition {
 
 impl StaticType for BaselinePosition {
     #[inline]
+    #[doc(alias = "gtk_baseline_position_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_baseline_position_get_type()) }
     }
@@ -454,7 +390,7 @@ impl glib::HasParamSpec for BaselinePosition {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -524,28 +460,6 @@ pub enum BorderStyle {
     __Unknown(i32),
 }
 
-impl fmt::Display for BorderStyle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "BorderStyle::{}",
-            match *self {
-                Self::None => "None",
-                Self::Solid => "Solid",
-                Self::Inset => "Inset",
-                Self::Outset => "Outset",
-                Self::Hidden => "Hidden",
-                Self::Dotted => "Dotted",
-                Self::Dashed => "Dashed",
-                Self::Double => "Double",
-                Self::Groove => "Groove",
-                Self::Ridge => "Ridge",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for BorderStyle {
     type GlibType = ffi::GtkBorderStyle;
@@ -592,6 +506,7 @@ impl FromGlib<ffi::GtkBorderStyle> for BorderStyle {
 
 impl StaticType for BorderStyle {
     #[inline]
+    #[doc(alias = "gtk_border_style_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_border_style_get_type()) }
     }
@@ -603,7 +518,7 @@ impl glib::HasParamSpec for BorderStyle {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -681,32 +596,6 @@ pub enum BuilderError {
     __Unknown(i32),
 }
 
-impl fmt::Display for BuilderError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "BuilderError::{}",
-            match *self {
-                Self::InvalidTypeFunction => "InvalidTypeFunction",
-                Self::UnhandledTag => "UnhandledTag",
-                Self::MissingAttribute => "MissingAttribute",
-                Self::InvalidAttribute => "InvalidAttribute",
-                Self::InvalidTag => "InvalidTag",
-                Self::MissingPropertyValue => "MissingPropertyValue",
-                Self::InvalidValue => "InvalidValue",
-                Self::VersionMismatch => "VersionMismatch",
-                Self::DuplicateId => "DuplicateId",
-                Self::ObjectTypeRefused => "ObjectTypeRefused",
-                Self::TemplateMismatch => "TemplateMismatch",
-                Self::InvalidProperty => "InvalidProperty",
-                Self::InvalidSignal => "InvalidSignal",
-                Self::InvalidId => "InvalidId",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for BuilderError {
     type GlibType = ffi::GtkBuilderError;
@@ -782,6 +671,7 @@ impl glib::error::ErrorDomain for BuilderError {
 
 impl StaticType for BuilderError {
     #[inline]
+    #[doc(alias = "gtk_builder_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_builder_error_get_type()) }
     }
@@ -793,7 +683,7 @@ impl glib::HasParamSpec for BuilderError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -855,24 +745,6 @@ pub enum ButtonBoxStyle {
     __Unknown(i32),
 }
 
-impl fmt::Display for ButtonBoxStyle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ButtonBoxStyle::{}",
-            match *self {
-                Self::Spread => "Spread",
-                Self::Edge => "Edge",
-                Self::Start => "Start",
-                Self::End => "End",
-                Self::Center => "Center",
-                Self::Expand => "Expand",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ButtonBoxStyle {
     type GlibType = ffi::GtkButtonBoxStyle;
@@ -911,6 +783,7 @@ impl FromGlib<ffi::GtkButtonBoxStyle> for ButtonBoxStyle {
 
 impl StaticType for ButtonBoxStyle {
     #[inline]
+    #[doc(alias = "gtk_button_box_style_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_button_box_style_get_type()) }
     }
@@ -922,7 +795,7 @@ impl glib::HasParamSpec for ButtonBoxStyle {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -978,21 +851,6 @@ pub enum ButtonRole {
     __Unknown(i32),
 }
 
-impl fmt::Display for ButtonRole {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ButtonRole::{}",
-            match *self {
-                Self::Normal => "Normal",
-                Self::Check => "Check",
-                Self::Radio => "Radio",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ButtonRole {
     type GlibType = ffi::GtkButtonRole;
@@ -1025,6 +883,7 @@ impl FromGlib<ffi::GtkButtonRole> for ButtonRole {
 
 impl StaticType for ButtonRole {
     #[inline]
+    #[doc(alias = "gtk_button_role_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_button_role_get_type()) }
     }
@@ -1036,7 +895,7 @@ impl glib::HasParamSpec for ButtonRole {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1098,24 +957,6 @@ pub enum ButtonsType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ButtonsType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ButtonsType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Ok => "Ok",
-                Self::Close => "Close",
-                Self::Cancel => "Cancel",
-                Self::YesNo => "YesNo",
-                Self::OkCancel => "OkCancel",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ButtonsType {
     type GlibType = ffi::GtkButtonsType;
@@ -1154,6 +995,7 @@ impl FromGlib<ffi::GtkButtonsType> for ButtonsType {
 
 impl StaticType for ButtonsType {
     #[inline]
+    #[doc(alias = "gtk_buttons_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_buttons_type_get_type()) }
     }
@@ -1165,7 +1007,7 @@ impl glib::HasParamSpec for ButtonsType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1219,20 +1061,6 @@ pub enum CellRendererAccelMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for CellRendererAccelMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CellRendererAccelMode::{}",
-            match *self {
-                Self::Gtk => "Gtk",
-                Self::Other => "Other",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for CellRendererAccelMode {
     type GlibType = ffi::GtkCellRendererAccelMode;
@@ -1263,6 +1091,7 @@ impl FromGlib<ffi::GtkCellRendererAccelMode> for CellRendererAccelMode {
 
 impl StaticType for CellRendererAccelMode {
     #[inline]
+    #[doc(alias = "gtk_cell_renderer_accel_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_cell_renderer_accel_mode_get_type()) }
     }
@@ -1274,7 +1103,7 @@ impl glib::HasParamSpec for CellRendererAccelMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1330,21 +1159,6 @@ pub enum CellRendererMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for CellRendererMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CellRendererMode::{}",
-            match *self {
-                Self::Inert => "Inert",
-                Self::Activatable => "Activatable",
-                Self::Editable => "Editable",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for CellRendererMode {
     type GlibType = ffi::GtkCellRendererMode;
@@ -1377,6 +1191,7 @@ impl FromGlib<ffi::GtkCellRendererMode> for CellRendererMode {
 
 impl StaticType for CellRendererMode {
     #[inline]
+    #[doc(alias = "gtk_cell_renderer_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_cell_renderer_mode_get_type()) }
     }
@@ -1388,7 +1203,7 @@ impl glib::HasParamSpec for CellRendererMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1446,22 +1261,6 @@ pub enum CornerType {
     __Unknown(i32),
 }
 
-impl fmt::Display for CornerType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CornerType::{}",
-            match *self {
-                Self::TopLeft => "TopLeft",
-                Self::BottomLeft => "BottomLeft",
-                Self::TopRight => "TopRight",
-                Self::BottomRight => "BottomRight",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for CornerType {
     type GlibType = ffi::GtkCornerType;
@@ -1496,6 +1295,7 @@ impl FromGlib<ffi::GtkCornerType> for CornerType {
 
 impl StaticType for CornerType {
     #[inline]
+    #[doc(alias = "gtk_corner_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_corner_type_get_type()) }
     }
@@ -1507,7 +1307,7 @@ impl glib::HasParamSpec for CornerType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1567,24 +1367,6 @@ pub enum CssProviderError {
     UnknownValue,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for CssProviderError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CssProviderError::{}",
-            match *self {
-                Self::Failed => "Failed",
-                Self::Syntax => "Syntax",
-                Self::Import => "Import",
-                Self::Name => "Name",
-                Self::Deprecated => "Deprecated",
-                Self::UnknownValue => "UnknownValue",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -1649,6 +1431,7 @@ impl glib::error::ErrorDomain for CssProviderError {
 
 impl StaticType for CssProviderError {
     #[inline]
+    #[doc(alias = "gtk_css_provider_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_css_provider_error_get_type()) }
     }
@@ -1660,7 +1443,7 @@ impl glib::HasParamSpec for CssProviderError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1728,27 +1511,6 @@ pub enum CssSectionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for CssSectionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CssSectionType::{}",
-            match *self {
-                Self::Document => "Document",
-                Self::Import => "Import",
-                Self::ColorDefinition => "ColorDefinition",
-                Self::BindingSet => "BindingSet",
-                Self::Ruleset => "Ruleset",
-                Self::Selector => "Selector",
-                Self::Declaration => "Declaration",
-                Self::Value => "Value",
-                Self::Keyframes => "Keyframes",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for CssSectionType {
     type GlibType = ffi::GtkCssSectionType;
@@ -1793,6 +1555,7 @@ impl FromGlib<ffi::GtkCssSectionType> for CssSectionType {
 
 impl StaticType for CssSectionType {
     #[inline]
+    #[doc(alias = "gtk_css_section_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_css_section_type_get_type()) }
     }
@@ -1804,7 +1567,7 @@ impl glib::HasParamSpec for CssSectionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1870,26 +1633,6 @@ pub enum DeleteType {
     __Unknown(i32),
 }
 
-impl fmt::Display for DeleteType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "DeleteType::{}",
-            match *self {
-                Self::Chars => "Chars",
-                Self::WordEnds => "WordEnds",
-                Self::Words => "Words",
-                Self::DisplayLines => "DisplayLines",
-                Self::DisplayLineEnds => "DisplayLineEnds",
-                Self::ParagraphEnds => "ParagraphEnds",
-                Self::Paragraphs => "Paragraphs",
-                Self::Whitespace => "Whitespace",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for DeleteType {
     type GlibType = ffi::GtkDeleteType;
@@ -1932,6 +1675,7 @@ impl FromGlib<ffi::GtkDeleteType> for DeleteType {
 
 impl StaticType for DeleteType {
     #[inline]
+    #[doc(alias = "gtk_delete_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_delete_type_get_type()) }
     }
@@ -1943,7 +1687,7 @@ impl glib::HasParamSpec for DeleteType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2005,24 +1749,6 @@ pub enum DirectionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for DirectionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "DirectionType::{}",
-            match *self {
-                Self::TabForward => "TabForward",
-                Self::TabBackward => "TabBackward",
-                Self::Up => "Up",
-                Self::Down => "Down",
-                Self::Left => "Left",
-                Self::Right => "Right",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for DirectionType {
     type GlibType = ffi::GtkDirectionType;
@@ -2061,6 +1787,7 @@ impl FromGlib<ffi::GtkDirectionType> for DirectionType {
 
 impl StaticType for DirectionType {
     #[inline]
+    #[doc(alias = "gtk_direction_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_direction_type_get_type()) }
     }
@@ -2072,7 +1799,7 @@ impl glib::HasParamSpec for DirectionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2134,24 +1861,6 @@ pub enum DragResult {
     __Unknown(i32),
 }
 
-impl fmt::Display for DragResult {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "DragResult::{}",
-            match *self {
-                Self::Success => "Success",
-                Self::NoTarget => "NoTarget",
-                Self::UserCancelled => "UserCancelled",
-                Self::TimeoutExpired => "TimeoutExpired",
-                Self::GrabBroken => "GrabBroken",
-                Self::Error => "Error",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for DragResult {
     type GlibType = ffi::GtkDragResult;
@@ -2190,6 +1899,7 @@ impl FromGlib<ffi::GtkDragResult> for DragResult {
 
 impl StaticType for DragResult {
     #[inline]
+    #[doc(alias = "gtk_drag_result_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_drag_result_get_type()) }
     }
@@ -2201,7 +1911,7 @@ impl glib::HasParamSpec for DragResult {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2255,20 +1965,6 @@ pub enum EntryIconPosition {
     __Unknown(i32),
 }
 
-impl fmt::Display for EntryIconPosition {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "EntryIconPosition::{}",
-            match *self {
-                Self::Primary => "Primary",
-                Self::Secondary => "Secondary",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for EntryIconPosition {
     type GlibType = ffi::GtkEntryIconPosition;
@@ -2299,6 +1995,7 @@ impl FromGlib<ffi::GtkEntryIconPosition> for EntryIconPosition {
 
 impl StaticType for EntryIconPosition {
     #[inline]
+    #[doc(alias = "gtk_entry_icon_position_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_entry_icon_position_get_type()) }
     }
@@ -2310,7 +2007,7 @@ impl glib::HasParamSpec for EntryIconPosition {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2366,21 +2063,6 @@ pub enum EventSequenceState {
     __Unknown(i32),
 }
 
-impl fmt::Display for EventSequenceState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "EventSequenceState::{}",
-            match *self {
-                Self::None => "None",
-                Self::Claimed => "Claimed",
-                Self::Denied => "Denied",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for EventSequenceState {
     type GlibType = ffi::GtkEventSequenceState;
@@ -2413,6 +2095,7 @@ impl FromGlib<ffi::GtkEventSequenceState> for EventSequenceState {
 
 impl StaticType for EventSequenceState {
     #[inline]
+    #[doc(alias = "gtk_event_sequence_state_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_event_sequence_state_get_type()) }
     }
@@ -2424,7 +2107,7 @@ impl glib::HasParamSpec for EventSequenceState {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2482,22 +2165,6 @@ pub enum FileChooserAction {
     __Unknown(i32),
 }
 
-impl fmt::Display for FileChooserAction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "FileChooserAction::{}",
-            match *self {
-                Self::Open => "Open",
-                Self::Save => "Save",
-                Self::SelectFolder => "SelectFolder",
-                Self::CreateFolder => "CreateFolder",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for FileChooserAction {
     type GlibType = ffi::GtkFileChooserAction;
@@ -2532,6 +2199,7 @@ impl FromGlib<ffi::GtkFileChooserAction> for FileChooserAction {
 
 impl StaticType for FileChooserAction {
     #[inline]
+    #[doc(alias = "gtk_file_chooser_action_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_file_chooser_action_get_type()) }
     }
@@ -2543,7 +2211,7 @@ impl glib::HasParamSpec for FileChooserAction {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2599,21 +2267,6 @@ pub enum FileChooserConfirmation {
     __Unknown(i32),
 }
 
-impl fmt::Display for FileChooserConfirmation {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "FileChooserConfirmation::{}",
-            match *self {
-                Self::Confirm => "Confirm",
-                Self::AcceptFilename => "AcceptFilename",
-                Self::SelectAgain => "SelectAgain",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for FileChooserConfirmation {
     type GlibType = ffi::GtkFileChooserConfirmation;
@@ -2646,6 +2299,7 @@ impl FromGlib<ffi::GtkFileChooserConfirmation> for FileChooserConfirmation {
 
 impl StaticType for FileChooserConfirmation {
     #[inline]
+    #[doc(alias = "gtk_file_chooser_confirmation_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_file_chooser_confirmation_get_type()) }
     }
@@ -2657,7 +2311,7 @@ impl glib::HasParamSpec for FileChooserConfirmation {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2713,22 +2367,6 @@ pub enum FileChooserError {
     IncompleteHostname,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for FileChooserError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "FileChooserError::{}",
-            match *self {
-                Self::Nonexistent => "Nonexistent",
-                Self::BadFilename => "BadFilename",
-                Self::AlreadyExists => "AlreadyExists",
-                Self::IncompleteHostname => "IncompleteHostname",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -2788,6 +2426,7 @@ impl glib::error::ErrorDomain for FileChooserError {
 
 impl StaticType for FileChooserError {
     #[inline]
+    #[doc(alias = "gtk_file_chooser_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_file_chooser_error_get_type()) }
     }
@@ -2799,7 +2438,7 @@ impl glib::HasParamSpec for FileChooserError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2868,8 +2507,8 @@ impl IconSize {
     pub fn lookup(self) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_icon_size_lookup(
                 self.into_glib(),
                 width.as_mut_ptr(),
@@ -2881,25 +2520,6 @@ impl IconSize {
                 None
             }
         }
-    }
-}
-
-impl fmt::Display for IconSize {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "IconSize::{}",
-            match *self {
-                Self::Invalid => "Invalid",
-                Self::Menu => "Menu",
-                Self::SmallToolbar => "SmallToolbar",
-                Self::LargeToolbar => "LargeToolbar",
-                Self::Button => "Button",
-                Self::Dnd => "Dnd",
-                Self::Dialog => "Dialog",
-                _ => "Unknown",
-            }
-        )
     }
 }
 
@@ -2943,6 +2563,7 @@ impl FromGlib<ffi::GtkIconSize> for IconSize {
 
 impl StaticType for IconSize {
     #[inline]
+    #[doc(alias = "gtk_icon_size_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_icon_size_get_type()) }
     }
@@ -2954,7 +2575,7 @@ impl glib::HasParamSpec for IconSize {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3006,20 +2627,6 @@ pub enum IconThemeError {
     Failed,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for IconThemeError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "IconThemeError::{}",
-            match *self {
-                Self::NotFound => "NotFound",
-                Self::Failed => "Failed",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -3076,6 +2683,7 @@ impl glib::error::ErrorDomain for IconThemeError {
 
 impl StaticType for IconThemeError {
     #[inline]
+    #[doc(alias = "gtk_icon_theme_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_icon_theme_error_get_type()) }
     }
@@ -3087,7 +2695,7 @@ impl glib::HasParamSpec for IconThemeError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3149,24 +2757,6 @@ pub enum IconViewDropPosition {
     __Unknown(i32),
 }
 
-impl fmt::Display for IconViewDropPosition {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "IconViewDropPosition::{}",
-            match *self {
-                Self::NoDrop => "NoDrop",
-                Self::DropInto => "DropInto",
-                Self::DropLeft => "DropLeft",
-                Self::DropRight => "DropRight",
-                Self::DropAbove => "DropAbove",
-                Self::DropBelow => "DropBelow",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for IconViewDropPosition {
     type GlibType = ffi::GtkIconViewDropPosition;
@@ -3205,6 +2795,7 @@ impl FromGlib<ffi::GtkIconViewDropPosition> for IconViewDropPosition {
 
 impl StaticType for IconViewDropPosition {
     #[inline]
+    #[doc(alias = "gtk_icon_view_drop_position_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_icon_view_drop_position_get_type()) }
     }
@@ -3216,7 +2807,7 @@ impl glib::HasParamSpec for IconViewDropPosition {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3282,26 +2873,6 @@ pub enum ImageType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ImageType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ImageType::{}",
-            match *self {
-                Self::Empty => "Empty",
-                Self::Pixbuf => "Pixbuf",
-                Self::Stock => "Stock",
-                Self::IconSet => "IconSet",
-                Self::Animation => "Animation",
-                Self::IconName => "IconName",
-                Self::Gicon => "Gicon",
-                Self::Surface => "Surface",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ImageType {
     type GlibType = ffi::GtkImageType;
@@ -3344,6 +2915,7 @@ impl FromGlib<ffi::GtkImageType> for ImageType {
 
 impl StaticType for ImageType {
     #[inline]
+    #[doc(alias = "gtk_image_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_image_type_get_type()) }
     }
@@ -3355,7 +2927,7 @@ impl glib::HasParamSpec for ImageType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3427,29 +2999,6 @@ pub enum InputPurpose {
     __Unknown(i32),
 }
 
-impl fmt::Display for InputPurpose {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "InputPurpose::{}",
-            match *self {
-                Self::FreeForm => "FreeForm",
-                Self::Alpha => "Alpha",
-                Self::Digits => "Digits",
-                Self::Number => "Number",
-                Self::Phone => "Phone",
-                Self::Url => "Url",
-                Self::Email => "Email",
-                Self::Name => "Name",
-                Self::Password => "Password",
-                Self::Pin => "Pin",
-                Self::Terminal => "Terminal",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for InputPurpose {
     type GlibType = ffi::GtkInputPurpose;
@@ -3498,6 +3047,7 @@ impl FromGlib<ffi::GtkInputPurpose> for InputPurpose {
 
 impl StaticType for InputPurpose {
     #[inline]
+    #[doc(alias = "gtk_input_purpose_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_input_purpose_get_type()) }
     }
@@ -3509,7 +3059,7 @@ impl glib::HasParamSpec for InputPurpose {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3567,22 +3117,6 @@ pub enum Justification {
     __Unknown(i32),
 }
 
-impl fmt::Display for Justification {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Justification::{}",
-            match *self {
-                Self::Left => "Left",
-                Self::Right => "Right",
-                Self::Center => "Center",
-                Self::Fill => "Fill",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for Justification {
     type GlibType = ffi::GtkJustification;
@@ -3617,6 +3151,7 @@ impl FromGlib<ffi::GtkJustification> for Justification {
 
 impl StaticType for Justification {
     #[inline]
+    #[doc(alias = "gtk_justification_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_justification_get_type()) }
     }
@@ -3628,7 +3163,7 @@ impl glib::HasParamSpec for Justification {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3682,20 +3217,6 @@ pub enum LevelBarMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for LevelBarMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "LevelBarMode::{}",
-            match *self {
-                Self::Continuous => "Continuous",
-                Self::Discrete => "Discrete",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for LevelBarMode {
     type GlibType = ffi::GtkLevelBarMode;
@@ -3726,6 +3247,7 @@ impl FromGlib<ffi::GtkLevelBarMode> for LevelBarMode {
 
 impl StaticType for LevelBarMode {
     #[inline]
+    #[doc(alias = "gtk_level_bar_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_level_bar_mode_get_type()) }
     }
@@ -3737,7 +3259,7 @@ impl glib::HasParamSpec for LevelBarMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3823,36 +3345,6 @@ pub enum License {
     __Unknown(i32),
 }
 
-impl fmt::Display for License {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "License::{}",
-            match *self {
-                Self::Unknown => "Unknown",
-                Self::Custom => "Custom",
-                Self::Gpl20 => "Gpl20",
-                Self::Gpl30 => "Gpl30",
-                Self::Lgpl21 => "Lgpl21",
-                Self::Lgpl30 => "Lgpl30",
-                Self::Bsd => "Bsd",
-                Self::MitX11 => "MitX11",
-                Self::Artistic => "Artistic",
-                Self::Gpl20Only => "Gpl20Only",
-                Self::Gpl30Only => "Gpl30Only",
-                Self::Lgpl21Only => "Lgpl21Only",
-                Self::Lgpl30Only => "Lgpl30Only",
-                Self::Agpl30 => "Agpl30",
-                Self::Agpl30Only => "Agpl30Only",
-                Self::Bsd3 => "Bsd3",
-                Self::Apache20 => "Apache20",
-                Self::Mpl20 => "Mpl20",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for License {
     type GlibType = ffi::GtkLicense;
@@ -3913,6 +3405,7 @@ impl FromGlib<ffi::GtkLicense> for License {
 
 impl StaticType for License {
     #[inline]
+    #[doc(alias = "gtk_license_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_license_get_type()) }
     }
@@ -3924,7 +3417,7 @@ impl glib::HasParamSpec for License {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -3982,22 +3475,6 @@ pub enum MenuDirectionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for MenuDirectionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "MenuDirectionType::{}",
-            match *self {
-                Self::Parent => "Parent",
-                Self::Child => "Child",
-                Self::Next => "Next",
-                Self::Prev => "Prev",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for MenuDirectionType {
     type GlibType = ffi::GtkMenuDirectionType;
@@ -4032,6 +3509,7 @@ impl FromGlib<ffi::GtkMenuDirectionType> for MenuDirectionType {
 
 impl StaticType for MenuDirectionType {
     #[inline]
+    #[doc(alias = "gtk_menu_direction_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_menu_direction_type_get_type()) }
     }
@@ -4043,7 +3521,7 @@ impl glib::HasParamSpec for MenuDirectionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4103,23 +3581,6 @@ pub enum MessageType {
     __Unknown(i32),
 }
 
-impl fmt::Display for MessageType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "MessageType::{}",
-            match *self {
-                Self::Info => "Info",
-                Self::Warning => "Warning",
-                Self::Question => "Question",
-                Self::Error => "Error",
-                Self::Other => "Other",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for MessageType {
     type GlibType = ffi::GtkMessageType;
@@ -4156,6 +3617,7 @@ impl FromGlib<ffi::GtkMessageType> for MessageType {
 
 impl StaticType for MessageType {
     #[inline]
+    #[doc(alias = "gtk_message_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_message_type_get_type()) }
     }
@@ -4167,7 +3629,7 @@ impl glib::HasParamSpec for MessageType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4237,28 +3699,6 @@ pub enum MovementStep {
     __Unknown(i32),
 }
 
-impl fmt::Display for MovementStep {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "MovementStep::{}",
-            match *self {
-                Self::LogicalPositions => "LogicalPositions",
-                Self::VisualPositions => "VisualPositions",
-                Self::Words => "Words",
-                Self::DisplayLines => "DisplayLines",
-                Self::DisplayLineEnds => "DisplayLineEnds",
-                Self::Paragraphs => "Paragraphs",
-                Self::ParagraphEnds => "ParagraphEnds",
-                Self::Pages => "Pages",
-                Self::BufferEnds => "BufferEnds",
-                Self::HorizontalPages => "HorizontalPages",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for MovementStep {
     type GlibType = ffi::GtkMovementStep;
@@ -4305,6 +3745,7 @@ impl FromGlib<ffi::GtkMovementStep> for MovementStep {
 
 impl StaticType for MovementStep {
     #[inline]
+    #[doc(alias = "gtk_movement_step_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_movement_step_get_type()) }
     }
@@ -4316,7 +3757,7 @@ impl glib::HasParamSpec for MovementStep {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4370,20 +3811,6 @@ pub enum NotebookTab {
     __Unknown(i32),
 }
 
-impl fmt::Display for NotebookTab {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "NotebookTab::{}",
-            match *self {
-                Self::First => "First",
-                Self::Last => "Last",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for NotebookTab {
     type GlibType = ffi::GtkNotebookTab;
@@ -4414,6 +3841,7 @@ impl FromGlib<ffi::GtkNotebookTab> for NotebookTab {
 
 impl StaticType for NotebookTab {
     #[inline]
+    #[doc(alias = "gtk_notebook_tab_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_notebook_tab_get_type()) }
     }
@@ -4425,7 +3853,7 @@ impl glib::HasParamSpec for NotebookTab {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4491,26 +3919,6 @@ pub enum NumberUpLayout {
     __Unknown(i32),
 }
 
-impl fmt::Display for NumberUpLayout {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "NumberUpLayout::{}",
-            match *self {
-                Self::Lrtb => "Lrtb",
-                Self::Lrbt => "Lrbt",
-                Self::Rltb => "Rltb",
-                Self::Rlbt => "Rlbt",
-                Self::Tblr => "Tblr",
-                Self::Tbrl => "Tbrl",
-                Self::Btlr => "Btlr",
-                Self::Btrl => "Btrl",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for NumberUpLayout {
     type GlibType = ffi::GtkNumberUpLayout;
@@ -4553,6 +3961,7 @@ impl FromGlib<ffi::GtkNumberUpLayout> for NumberUpLayout {
 
 impl StaticType for NumberUpLayout {
     #[inline]
+    #[doc(alias = "gtk_number_up_layout_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_number_up_layout_get_type()) }
     }
@@ -4564,7 +3973,7 @@ impl glib::HasParamSpec for NumberUpLayout {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4618,20 +4027,6 @@ pub enum Orientation {
     __Unknown(i32),
 }
 
-impl fmt::Display for Orientation {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Orientation::{}",
-            match *self {
-                Self::Horizontal => "Horizontal",
-                Self::Vertical => "Vertical",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for Orientation {
     type GlibType = ffi::GtkOrientation;
@@ -4662,6 +4057,7 @@ impl FromGlib<ffi::GtkOrientation> for Orientation {
 
 impl StaticType for Orientation {
     #[inline]
+    #[doc(alias = "gtk_orientation_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_orientation_get_type()) }
     }
@@ -4673,7 +4069,7 @@ impl glib::HasParamSpec for Orientation {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4731,22 +4127,6 @@ pub enum PackDirection {
     __Unknown(i32),
 }
 
-impl fmt::Display for PackDirection {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PackDirection::{}",
-            match *self {
-                Self::Ltr => "Ltr",
-                Self::Rtl => "Rtl",
-                Self::Ttb => "Ttb",
-                Self::Btt => "Btt",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PackDirection {
     type GlibType = ffi::GtkPackDirection;
@@ -4781,6 +4161,7 @@ impl FromGlib<ffi::GtkPackDirection> for PackDirection {
 
 impl StaticType for PackDirection {
     #[inline]
+    #[doc(alias = "gtk_pack_direction_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_pack_direction_get_type()) }
     }
@@ -4792,7 +4173,7 @@ impl glib::HasParamSpec for PackDirection {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4846,20 +4227,6 @@ pub enum PackType {
     __Unknown(i32),
 }
 
-impl fmt::Display for PackType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PackType::{}",
-            match *self {
-                Self::Start => "Start",
-                Self::End => "End",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PackType {
     type GlibType = ffi::GtkPackType;
@@ -4890,6 +4257,7 @@ impl FromGlib<ffi::GtkPackType> for PackType {
 
 impl StaticType for PackType {
     #[inline]
+    #[doc(alias = "gtk_pack_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_pack_type_get_type()) }
     }
@@ -4901,7 +4269,7 @@ impl glib::HasParamSpec for PackType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -4957,21 +4325,6 @@ pub enum PadActionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for PadActionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PadActionType::{}",
-            match *self {
-                Self::Button => "Button",
-                Self::Ring => "Ring",
-                Self::Strip => "Strip",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PadActionType {
     type GlibType = ffi::GtkPadActionType;
@@ -5004,6 +4357,7 @@ impl FromGlib<ffi::GtkPadActionType> for PadActionType {
 
 impl StaticType for PadActionType {
     #[inline]
+    #[doc(alias = "gtk_pad_action_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_pad_action_type_get_type()) }
     }
@@ -5015,7 +4369,7 @@ impl glib::HasParamSpec for PadActionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5073,22 +4427,6 @@ pub enum PageOrientation {
     __Unknown(i32),
 }
 
-impl fmt::Display for PageOrientation {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PageOrientation::{}",
-            match *self {
-                Self::Portrait => "Portrait",
-                Self::Landscape => "Landscape",
-                Self::ReversePortrait => "ReversePortrait",
-                Self::ReverseLandscape => "ReverseLandscape",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PageOrientation {
     type GlibType = ffi::GtkPageOrientation;
@@ -5123,6 +4461,7 @@ impl FromGlib<ffi::GtkPageOrientation> for PageOrientation {
 
 impl StaticType for PageOrientation {
     #[inline]
+    #[doc(alias = "gtk_page_orientation_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_page_orientation_get_type()) }
     }
@@ -5134,7 +4473,7 @@ impl glib::HasParamSpec for PageOrientation {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5190,21 +4529,6 @@ pub enum PageSet {
     __Unknown(i32),
 }
 
-impl fmt::Display for PageSet {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PageSet::{}",
-            match *self {
-                Self::All => "All",
-                Self::Even => "Even",
-                Self::Odd => "Odd",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PageSet {
     type GlibType = ffi::GtkPageSet;
@@ -5237,6 +4561,7 @@ impl FromGlib<ffi::GtkPageSet> for PageSet {
 
 impl StaticType for PageSet {
     #[inline]
+    #[doc(alias = "gtk_page_set_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_page_set_get_type()) }
     }
@@ -5248,7 +4573,7 @@ impl glib::HasParamSpec for PageSet {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5306,22 +4631,6 @@ pub enum PanDirection {
     __Unknown(i32),
 }
 
-impl fmt::Display for PanDirection {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PanDirection::{}",
-            match *self {
-                Self::Left => "Left",
-                Self::Right => "Right",
-                Self::Up => "Up",
-                Self::Down => "Down",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PanDirection {
     type GlibType = ffi::GtkPanDirection;
@@ -5356,6 +4665,7 @@ impl FromGlib<ffi::GtkPanDirection> for PanDirection {
 
 impl StaticType for PanDirection {
     #[inline]
+    #[doc(alias = "gtk_pan_direction_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_pan_direction_get_type()) }
     }
@@ -5367,7 +4677,7 @@ impl glib::HasParamSpec for PanDirection {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5425,22 +4735,6 @@ pub enum PolicyType {
     __Unknown(i32),
 }
 
-impl fmt::Display for PolicyType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PolicyType::{}",
-            match *self {
-                Self::Always => "Always",
-                Self::Automatic => "Automatic",
-                Self::Never => "Never",
-                Self::External => "External",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PolicyType {
     type GlibType = ffi::GtkPolicyType;
@@ -5475,6 +4769,7 @@ impl FromGlib<ffi::GtkPolicyType> for PolicyType {
 
 impl StaticType for PolicyType {
     #[inline]
+    #[doc(alias = "gtk_policy_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_policy_type_get_type()) }
     }
@@ -5486,7 +4781,7 @@ impl glib::HasParamSpec for PolicyType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5540,20 +4835,6 @@ pub enum PopoverConstraint {
     __Unknown(i32),
 }
 
-impl fmt::Display for PopoverConstraint {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PopoverConstraint::{}",
-            match *self {
-                Self::None => "None",
-                Self::Window => "Window",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PopoverConstraint {
     type GlibType = ffi::GtkPopoverConstraint;
@@ -5584,6 +4865,7 @@ impl FromGlib<ffi::GtkPopoverConstraint> for PopoverConstraint {
 
 impl StaticType for PopoverConstraint {
     #[inline]
+    #[doc(alias = "gtk_popover_constraint_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_popover_constraint_get_type()) }
     }
@@ -5595,7 +4877,7 @@ impl glib::HasParamSpec for PopoverConstraint {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5653,22 +4935,6 @@ pub enum PositionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for PositionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PositionType::{}",
-            match *self {
-                Self::Left => "Left",
-                Self::Right => "Right",
-                Self::Top => "Top",
-                Self::Bottom => "Bottom",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PositionType {
     type GlibType = ffi::GtkPositionType;
@@ -5703,6 +4969,7 @@ impl FromGlib<ffi::GtkPositionType> for PositionType {
 
 impl StaticType for PositionType {
     #[inline]
+    #[doc(alias = "gtk_position_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_position_type_get_type()) }
     }
@@ -5714,7 +4981,7 @@ impl glib::HasParamSpec for PositionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5770,21 +5037,6 @@ pub enum PrintDuplex {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintDuplex {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintDuplex::{}",
-            match *self {
-                Self::Simplex => "Simplex",
-                Self::Horizontal => "Horizontal",
-                Self::Vertical => "Vertical",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintDuplex {
     type GlibType = ffi::GtkPrintDuplex;
@@ -5817,6 +5069,7 @@ impl FromGlib<ffi::GtkPrintDuplex> for PrintDuplex {
 
 impl StaticType for PrintDuplex {
     #[inline]
+    #[doc(alias = "gtk_print_duplex_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_duplex_get_type()) }
     }
@@ -5828,7 +5081,7 @@ impl glib::HasParamSpec for PrintDuplex {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -5884,22 +5137,6 @@ pub enum PrintError {
     InvalidFile,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for PrintError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintError::{}",
-            match *self {
-                Self::General => "General",
-                Self::InternalError => "InternalError",
-                Self::Nomem => "Nomem",
-                Self::InvalidFile => "InvalidFile",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -5959,6 +5196,7 @@ impl glib::error::ErrorDomain for PrintError {
 
 impl StaticType for PrintError {
     #[inline]
+    #[doc(alias = "gtk_print_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_error_get_type()) }
     }
@@ -5970,7 +5208,7 @@ impl glib::HasParamSpec for PrintError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6028,22 +5266,6 @@ pub enum PrintOperationAction {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintOperationAction {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintOperationAction::{}",
-            match *self {
-                Self::PrintDialog => "PrintDialog",
-                Self::Print => "Print",
-                Self::Preview => "Preview",
-                Self::Export => "Export",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintOperationAction {
     type GlibType = ffi::GtkPrintOperationAction;
@@ -6078,6 +5300,7 @@ impl FromGlib<ffi::GtkPrintOperationAction> for PrintOperationAction {
 
 impl StaticType for PrintOperationAction {
     #[inline]
+    #[doc(alias = "gtk_print_operation_action_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_operation_action_get_type()) }
     }
@@ -6089,7 +5312,7 @@ impl glib::HasParamSpec for PrintOperationAction {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6147,22 +5370,6 @@ pub enum PrintOperationResult {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintOperationResult {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintOperationResult::{}",
-            match *self {
-                Self::Error => "Error",
-                Self::Apply => "Apply",
-                Self::Cancel => "Cancel",
-                Self::InProgress => "InProgress",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintOperationResult {
     type GlibType = ffi::GtkPrintOperationResult;
@@ -6197,6 +5404,7 @@ impl FromGlib<ffi::GtkPrintOperationResult> for PrintOperationResult {
 
 impl StaticType for PrintOperationResult {
     #[inline]
+    #[doc(alias = "gtk_print_operation_result_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_operation_result_get_type()) }
     }
@@ -6208,7 +5416,7 @@ impl glib::HasParamSpec for PrintOperationResult {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6266,22 +5474,6 @@ pub enum PrintPages {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintPages {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintPages::{}",
-            match *self {
-                Self::All => "All",
-                Self::Current => "Current",
-                Self::Ranges => "Ranges",
-                Self::Selection => "Selection",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintPages {
     type GlibType = ffi::GtkPrintPages;
@@ -6316,6 +5508,7 @@ impl FromGlib<ffi::GtkPrintPages> for PrintPages {
 
 impl StaticType for PrintPages {
     #[inline]
+    #[doc(alias = "gtk_print_pages_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_pages_get_type()) }
     }
@@ -6327,7 +5520,7 @@ impl glib::HasParamSpec for PrintPages {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6385,22 +5578,6 @@ pub enum PrintQuality {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintQuality {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintQuality::{}",
-            match *self {
-                Self::Low => "Low",
-                Self::Normal => "Normal",
-                Self::High => "High",
-                Self::Draft => "Draft",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintQuality {
     type GlibType = ffi::GtkPrintQuality;
@@ -6435,6 +5612,7 @@ impl FromGlib<ffi::GtkPrintQuality> for PrintQuality {
 
 impl StaticType for PrintQuality {
     #[inline]
+    #[doc(alias = "gtk_print_quality_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_quality_get_type()) }
     }
@@ -6446,7 +5624,7 @@ impl glib::HasParamSpec for PrintQuality {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6514,27 +5692,6 @@ pub enum PrintStatus {
     __Unknown(i32),
 }
 
-impl fmt::Display for PrintStatus {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PrintStatus::{}",
-            match *self {
-                Self::Initial => "Initial",
-                Self::Preparing => "Preparing",
-                Self::GeneratingData => "GeneratingData",
-                Self::SendingData => "SendingData",
-                Self::Pending => "Pending",
-                Self::PendingIssue => "PendingIssue",
-                Self::Printing => "Printing",
-                Self::Finished => "Finished",
-                Self::FinishedAborted => "FinishedAborted",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PrintStatus {
     type GlibType = ffi::GtkPrintStatus;
@@ -6579,6 +5736,7 @@ impl FromGlib<ffi::GtkPrintStatus> for PrintStatus {
 
 impl StaticType for PrintStatus {
     #[inline]
+    #[doc(alias = "gtk_print_status_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_print_status_get_type()) }
     }
@@ -6590,7 +5748,7 @@ impl glib::HasParamSpec for PrintStatus {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6648,22 +5806,6 @@ pub enum PropagationPhase {
     __Unknown(i32),
 }
 
-impl fmt::Display for PropagationPhase {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "PropagationPhase::{}",
-            match *self {
-                Self::None => "None",
-                Self::Capture => "Capture",
-                Self::Bubble => "Bubble",
-                Self::Target => "Target",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for PropagationPhase {
     type GlibType = ffi::GtkPropagationPhase;
@@ -6698,6 +5840,7 @@ impl FromGlib<ffi::GtkPropagationPhase> for PropagationPhase {
 
 impl StaticType for PropagationPhase {
     #[inline]
+    #[doc(alias = "gtk_propagation_phase_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_propagation_phase_get_type()) }
     }
@@ -6709,7 +5852,7 @@ impl glib::HasParamSpec for PropagationPhase {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6761,20 +5904,6 @@ pub enum RecentChooserError {
     InvalidUri,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for RecentChooserError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "RecentChooserError::{}",
-            match *self {
-                Self::NotFound => "NotFound",
-                Self::InvalidUri => "InvalidUri",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -6830,6 +5959,7 @@ impl glib::error::ErrorDomain for RecentChooserError {
 
 impl StaticType for RecentChooserError {
     #[inline]
+    #[doc(alias = "gtk_recent_chooser_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_recent_chooser_error_get_type()) }
     }
@@ -6841,7 +5971,7 @@ impl glib::HasParamSpec for RecentChooserError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -6903,25 +6033,6 @@ pub enum RecentManagerError {
     Unknown,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for RecentManagerError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "RecentManagerError::{}",
-            match *self {
-                Self::NotFound => "NotFound",
-                Self::InvalidUri => "InvalidUri",
-                Self::InvalidEncoding => "InvalidEncoding",
-                Self::NotRegistered => "NotRegistered",
-                Self::Read => "Read",
-                Self::Write => "Write",
-                Self::Unknown => "Unknown",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -6987,6 +6098,7 @@ impl glib::error::ErrorDomain for RecentManagerError {
 
 impl StaticType for RecentManagerError {
     #[inline]
+    #[doc(alias = "gtk_recent_manager_error_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_recent_manager_error_get_type()) }
     }
@@ -6998,7 +6110,7 @@ impl glib::HasParamSpec for RecentManagerError {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7056,22 +6168,6 @@ pub enum RecentSortType {
     __Unknown(i32),
 }
 
-impl fmt::Display for RecentSortType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "RecentSortType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Mru => "Mru",
-                Self::Lru => "Lru",
-                Self::Custom => "Custom",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for RecentSortType {
     type GlibType = ffi::GtkRecentSortType;
@@ -7106,6 +6202,7 @@ impl FromGlib<ffi::GtkRecentSortType> for RecentSortType {
 
 impl StaticType for RecentSortType {
     #[inline]
+    #[doc(alias = "gtk_recent_sort_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_recent_sort_type_get_type()) }
     }
@@ -7117,7 +6214,7 @@ impl glib::HasParamSpec for RecentSortType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7173,21 +6270,6 @@ pub enum ReliefStyle {
     __Unknown(i32),
 }
 
-impl fmt::Display for ReliefStyle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ReliefStyle::{}",
-            match *self {
-                Self::Normal => "Normal",
-                Self::Half => "Half",
-                Self::None => "None",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ReliefStyle {
     type GlibType = ffi::GtkReliefStyle;
@@ -7220,6 +6302,7 @@ impl FromGlib<ffi::GtkReliefStyle> for ReliefStyle {
 
 impl StaticType for ReliefStyle {
     #[inline]
+    #[doc(alias = "gtk_relief_style_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_relief_style_get_type()) }
     }
@@ -7231,7 +6314,7 @@ impl glib::HasParamSpec for ReliefStyle {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7287,21 +6370,6 @@ pub enum ResizeMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for ResizeMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ResizeMode::{}",
-            match *self {
-                Self::Parent => "Parent",
-                Self::Queue => "Queue",
-                Self::Immediate => "Immediate",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ResizeMode {
     type GlibType = ffi::GtkResizeMode;
@@ -7334,6 +6402,7 @@ impl FromGlib<ffi::GtkResizeMode> for ResizeMode {
 
 impl StaticType for ResizeMode {
     #[inline]
+    #[doc(alias = "gtk_resize_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_resize_mode_get_type()) }
     }
@@ -7345,7 +6414,7 @@ impl glib::HasParamSpec for ResizeMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7407,24 +6476,6 @@ pub enum RevealerTransitionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for RevealerTransitionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "RevealerTransitionType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Crossfade => "Crossfade",
-                Self::SlideRight => "SlideRight",
-                Self::SlideLeft => "SlideLeft",
-                Self::SlideUp => "SlideUp",
-                Self::SlideDown => "SlideDown",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for RevealerTransitionType {
     type GlibType = ffi::GtkRevealerTransitionType;
@@ -7463,6 +6514,7 @@ impl FromGlib<ffi::GtkRevealerTransitionType> for RevealerTransitionType {
 
 impl StaticType for RevealerTransitionType {
     #[inline]
+    #[doc(alias = "gtk_revealer_transition_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_revealer_transition_type_get_type()) }
     }
@@ -7474,7 +6526,7 @@ impl glib::HasParamSpec for RevealerTransitionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7536,24 +6588,6 @@ pub enum ScrollStep {
     __Unknown(i32),
 }
 
-impl fmt::Display for ScrollStep {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ScrollStep::{}",
-            match *self {
-                Self::Steps => "Steps",
-                Self::Pages => "Pages",
-                Self::Ends => "Ends",
-                Self::HorizontalSteps => "HorizontalSteps",
-                Self::HorizontalPages => "HorizontalPages",
-                Self::HorizontalEnds => "HorizontalEnds",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ScrollStep {
     type GlibType = ffi::GtkScrollStep;
@@ -7592,6 +6626,7 @@ impl FromGlib<ffi::GtkScrollStep> for ScrollStep {
 
 impl StaticType for ScrollStep {
     #[inline]
+    #[doc(alias = "gtk_scroll_step_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_scroll_step_get_type()) }
     }
@@ -7603,7 +6638,7 @@ impl glib::HasParamSpec for ScrollStep {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7685,34 +6720,6 @@ pub enum ScrollType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ScrollType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ScrollType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Jump => "Jump",
-                Self::StepBackward => "StepBackward",
-                Self::StepForward => "StepForward",
-                Self::PageBackward => "PageBackward",
-                Self::PageForward => "PageForward",
-                Self::StepUp => "StepUp",
-                Self::StepDown => "StepDown",
-                Self::PageUp => "PageUp",
-                Self::PageDown => "PageDown",
-                Self::StepLeft => "StepLeft",
-                Self::StepRight => "StepRight",
-                Self::PageLeft => "PageLeft",
-                Self::PageRight => "PageRight",
-                Self::Start => "Start",
-                Self::End => "End",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ScrollType {
     type GlibType = ffi::GtkScrollType;
@@ -7769,6 +6776,7 @@ impl FromGlib<ffi::GtkScrollType> for ScrollType {
 
 impl StaticType for ScrollType {
     #[inline]
+    #[doc(alias = "gtk_scroll_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_scroll_type_get_type()) }
     }
@@ -7780,7 +6788,7 @@ impl glib::HasParamSpec for ScrollType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7834,20 +6842,6 @@ pub enum ScrollablePolicy {
     __Unknown(i32),
 }
 
-impl fmt::Display for ScrollablePolicy {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ScrollablePolicy::{}",
-            match *self {
-                Self::Minimum => "Minimum",
-                Self::Natural => "Natural",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ScrollablePolicy {
     type GlibType = ffi::GtkScrollablePolicy;
@@ -7878,6 +6872,7 @@ impl FromGlib<ffi::GtkScrollablePolicy> for ScrollablePolicy {
 
 impl StaticType for ScrollablePolicy {
     #[inline]
+    #[doc(alias = "gtk_scrollable_policy_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_scrollable_policy_get_type()) }
     }
@@ -7889,7 +6884,7 @@ impl glib::HasParamSpec for ScrollablePolicy {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -7947,22 +6942,6 @@ pub enum SelectionMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for SelectionMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SelectionMode::{}",
-            match *self {
-                Self::None => "None",
-                Self::Single => "Single",
-                Self::Browse => "Browse",
-                Self::Multiple => "Multiple",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SelectionMode {
     type GlibType = ffi::GtkSelectionMode;
@@ -7997,6 +6976,7 @@ impl FromGlib<ffi::GtkSelectionMode> for SelectionMode {
 
 impl StaticType for SelectionMode {
     #[inline]
+    #[doc(alias = "gtk_selection_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_selection_mode_get_type()) }
     }
@@ -8008,7 +6988,7 @@ impl glib::HasParamSpec for SelectionMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8064,21 +7044,6 @@ pub enum SensitivityType {
     __Unknown(i32),
 }
 
-impl fmt::Display for SensitivityType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SensitivityType::{}",
-            match *self {
-                Self::Auto => "Auto",
-                Self::On => "On",
-                Self::Off => "Off",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SensitivityType {
     type GlibType = ffi::GtkSensitivityType;
@@ -8111,6 +7076,7 @@ impl FromGlib<ffi::GtkSensitivityType> for SensitivityType {
 
 impl StaticType for SensitivityType {
     #[inline]
+    #[doc(alias = "gtk_sensitivity_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_sensitivity_type_get_type()) }
     }
@@ -8122,7 +7088,7 @@ impl glib::HasParamSpec for SensitivityType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8182,23 +7148,6 @@ pub enum ShadowType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ShadowType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ShadowType::{}",
-            match *self {
-                Self::None => "None",
-                Self::In => "In",
-                Self::Out => "Out",
-                Self::EtchedIn => "EtchedIn",
-                Self::EtchedOut => "EtchedOut",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ShadowType {
     type GlibType = ffi::GtkShadowType;
@@ -8235,6 +7184,7 @@ impl FromGlib<ffi::GtkShadowType> for ShadowType {
 
 impl StaticType for ShadowType {
     #[inline]
+    #[doc(alias = "gtk_shadow_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_shadow_type_get_type()) }
     }
@@ -8246,7 +7196,7 @@ impl glib::HasParamSpec for ShadowType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8312,26 +7262,6 @@ pub enum ShortcutType {
     __Unknown(i32),
 }
 
-impl fmt::Display for ShortcutType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ShortcutType::{}",
-            match *self {
-                Self::Accelerator => "Accelerator",
-                Self::GesturePinch => "GesturePinch",
-                Self::GestureStretch => "GestureStretch",
-                Self::GestureRotateClockwise => "GestureRotateClockwise",
-                Self::GestureRotateCounterclockwise => "GestureRotateCounterclockwise",
-                Self::GestureTwoFingerSwipeLeft => "GestureTwoFingerSwipeLeft",
-                Self::GestureTwoFingerSwipeRight => "GestureTwoFingerSwipeRight",
-                Self::Gesture => "Gesture",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ShortcutType {
     type GlibType = ffi::GtkShortcutType;
@@ -8378,6 +7308,7 @@ impl FromGlib<ffi::GtkShortcutType> for ShortcutType {
 
 impl StaticType for ShortcutType {
     #[inline]
+    #[doc(alias = "gtk_shortcut_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_shortcut_type_get_type()) }
     }
@@ -8389,7 +7320,7 @@ impl glib::HasParamSpec for ShortcutType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8447,22 +7378,6 @@ pub enum SizeGroupMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for SizeGroupMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SizeGroupMode::{}",
-            match *self {
-                Self::None => "None",
-                Self::Horizontal => "Horizontal",
-                Self::Vertical => "Vertical",
-                Self::Both => "Both",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SizeGroupMode {
     type GlibType = ffi::GtkSizeGroupMode;
@@ -8497,6 +7412,7 @@ impl FromGlib<ffi::GtkSizeGroupMode> for SizeGroupMode {
 
 impl StaticType for SizeGroupMode {
     #[inline]
+    #[doc(alias = "gtk_size_group_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_size_group_mode_get_type()) }
     }
@@ -8508,7 +7424,7 @@ impl glib::HasParamSpec for SizeGroupMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8564,21 +7480,6 @@ pub enum SizeRequestMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for SizeRequestMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SizeRequestMode::{}",
-            match *self {
-                Self::HeightForWidth => "HeightForWidth",
-                Self::WidthForHeight => "WidthForHeight",
-                Self::ConstantSize => "ConstantSize",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SizeRequestMode {
     type GlibType = ffi::GtkSizeRequestMode;
@@ -8611,6 +7512,7 @@ impl FromGlib<ffi::GtkSizeRequestMode> for SizeRequestMode {
 
 impl StaticType for SizeRequestMode {
     #[inline]
+    #[doc(alias = "gtk_size_request_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_size_request_mode_get_type()) }
     }
@@ -8622,7 +7524,7 @@ impl glib::HasParamSpec for SizeRequestMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8676,20 +7578,6 @@ pub enum SortType {
     __Unknown(i32),
 }
 
-impl fmt::Display for SortType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SortType::{}",
-            match *self {
-                Self::Ascending => "Ascending",
-                Self::Descending => "Descending",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SortType {
     type GlibType = ffi::GtkSortType;
@@ -8720,6 +7608,7 @@ impl FromGlib<ffi::GtkSortType> for SortType {
 
 impl StaticType for SortType {
     #[inline]
+    #[doc(alias = "gtk_sort_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_sort_type_get_type()) }
     }
@@ -8731,7 +7620,7 @@ impl glib::HasParamSpec for SortType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8785,20 +7674,6 @@ pub enum SpinButtonUpdatePolicy {
     __Unknown(i32),
 }
 
-impl fmt::Display for SpinButtonUpdatePolicy {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SpinButtonUpdatePolicy::{}",
-            match *self {
-                Self::Always => "Always",
-                Self::IfValid => "IfValid",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SpinButtonUpdatePolicy {
     type GlibType = ffi::GtkSpinButtonUpdatePolicy;
@@ -8829,6 +7704,7 @@ impl FromGlib<ffi::GtkSpinButtonUpdatePolicy> for SpinButtonUpdatePolicy {
 
 impl StaticType for SpinButtonUpdatePolicy {
     #[inline]
+    #[doc(alias = "gtk_spin_button_update_policy_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_spin_button_update_policy_get_type()) }
     }
@@ -8840,7 +7716,7 @@ impl glib::HasParamSpec for SpinButtonUpdatePolicy {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -8904,25 +7780,6 @@ pub enum SpinType {
     __Unknown(i32),
 }
 
-impl fmt::Display for SpinType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "SpinType::{}",
-            match *self {
-                Self::StepForward => "StepForward",
-                Self::StepBackward => "StepBackward",
-                Self::PageForward => "PageForward",
-                Self::PageBackward => "PageBackward",
-                Self::Home => "Home",
-                Self::End => "End",
-                Self::UserDefined => "UserDefined",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for SpinType {
     type GlibType = ffi::GtkSpinType;
@@ -8963,6 +7820,7 @@ impl FromGlib<ffi::GtkSpinType> for SpinType {
 
 impl StaticType for SpinType {
     #[inline]
+    #[doc(alias = "gtk_spin_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_spin_type_get_type()) }
     }
@@ -8974,7 +7832,7 @@ impl glib::HasParamSpec for SpinType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9064,38 +7922,6 @@ pub enum StackTransitionType {
     __Unknown(i32),
 }
 
-impl fmt::Display for StackTransitionType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "StackTransitionType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Crossfade => "Crossfade",
-                Self::SlideRight => "SlideRight",
-                Self::SlideLeft => "SlideLeft",
-                Self::SlideUp => "SlideUp",
-                Self::SlideDown => "SlideDown",
-                Self::SlideLeftRight => "SlideLeftRight",
-                Self::SlideUpDown => "SlideUpDown",
-                Self::OverUp => "OverUp",
-                Self::OverDown => "OverDown",
-                Self::OverLeft => "OverLeft",
-                Self::OverRight => "OverRight",
-                Self::UnderUp => "UnderUp",
-                Self::UnderDown => "UnderDown",
-                Self::UnderLeft => "UnderLeft",
-                Self::UnderRight => "UnderRight",
-                Self::OverUpDown => "OverUpDown",
-                Self::OverDownUp => "OverDownUp",
-                Self::OverLeftRight => "OverLeftRight",
-                Self::OverRightLeft => "OverRightLeft",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for StackTransitionType {
     type GlibType = ffi::GtkStackTransitionType;
@@ -9160,6 +7986,7 @@ impl FromGlib<ffi::GtkStackTransitionType> for StackTransitionType {
 
 impl StaticType for StackTransitionType {
     #[inline]
+    #[doc(alias = "gtk_stack_transition_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_stack_transition_type_get_type()) }
     }
@@ -9171,7 +7998,7 @@ impl glib::HasParamSpec for StackTransitionType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9227,21 +8054,6 @@ pub enum TextDirection {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextDirection {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextDirection::{}",
-            match *self {
-                Self::None => "None",
-                Self::Ltr => "Ltr",
-                Self::Rtl => "Rtl",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextDirection {
     type GlibType = ffi::GtkTextDirection;
@@ -9274,6 +8086,7 @@ impl FromGlib<ffi::GtkTextDirection> for TextDirection {
 
 impl StaticType for TextDirection {
     #[inline]
+    #[doc(alias = "gtk_text_direction_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_text_direction_get_type()) }
     }
@@ -9285,7 +8098,7 @@ impl glib::HasParamSpec for TextDirection {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9339,20 +8152,6 @@ pub enum TextExtendSelection {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextExtendSelection {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextExtendSelection::{}",
-            match *self {
-                Self::Word => "Word",
-                Self::Line => "Line",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextExtendSelection {
     type GlibType = ffi::GtkTextExtendSelection;
@@ -9383,6 +8182,7 @@ impl FromGlib<ffi::GtkTextExtendSelection> for TextExtendSelection {
 
 impl StaticType for TextExtendSelection {
     #[inline]
+    #[doc(alias = "gtk_text_extend_selection_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_text_extend_selection_get_type()) }
     }
@@ -9394,7 +8194,7 @@ impl glib::HasParamSpec for TextExtendSelection {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9452,22 +8252,6 @@ pub enum TextViewLayer {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextViewLayer {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextViewLayer::{}",
-            match *self {
-                Self::Below => "Below",
-                Self::Above => "Above",
-                Self::BelowText => "BelowText",
-                Self::AboveText => "AboveText",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextViewLayer {
     type GlibType = ffi::GtkTextViewLayer;
@@ -9502,6 +8286,7 @@ impl FromGlib<ffi::GtkTextViewLayer> for TextViewLayer {
 
 impl StaticType for TextViewLayer {
     #[inline]
+    #[doc(alias = "gtk_text_view_layer_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_text_view_layer_get_type()) }
     }
@@ -9513,7 +8298,7 @@ impl glib::HasParamSpec for TextViewLayer {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9577,25 +8362,6 @@ pub enum TextWindowType {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextWindowType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextWindowType::{}",
-            match *self {
-                Self::Private => "Private",
-                Self::Widget => "Widget",
-                Self::Text => "Text",
-                Self::Left => "Left",
-                Self::Right => "Right",
-                Self::Top => "Top",
-                Self::Bottom => "Bottom",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextWindowType {
     type GlibType = ffi::GtkTextWindowType;
@@ -9636,6 +8402,7 @@ impl FromGlib<ffi::GtkTextWindowType> for TextWindowType {
 
 impl StaticType for TextWindowType {
     #[inline]
+    #[doc(alias = "gtk_text_window_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_text_window_type_get_type()) }
     }
@@ -9647,7 +8414,7 @@ impl glib::HasParamSpec for TextWindowType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9705,22 +8472,6 @@ pub enum ToolbarStyle {
     __Unknown(i32),
 }
 
-impl fmt::Display for ToolbarStyle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ToolbarStyle::{}",
-            match *self {
-                Self::Icons => "Icons",
-                Self::Text => "Text",
-                Self::Both => "Both",
-                Self::BothHoriz => "BothHoriz",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ToolbarStyle {
     type GlibType = ffi::GtkToolbarStyle;
@@ -9755,6 +8506,7 @@ impl FromGlib<ffi::GtkToolbarStyle> for ToolbarStyle {
 
 impl StaticType for ToolbarStyle {
     #[inline]
+    #[doc(alias = "gtk_toolbar_style_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_toolbar_style_get_type()) }
     }
@@ -9766,7 +8518,7 @@ impl glib::HasParamSpec for ToolbarStyle {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9822,21 +8574,6 @@ pub enum TreeViewColumnSizing {
     __Unknown(i32),
 }
 
-impl fmt::Display for TreeViewColumnSizing {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TreeViewColumnSizing::{}",
-            match *self {
-                Self::GrowOnly => "GrowOnly",
-                Self::Autosize => "Autosize",
-                Self::Fixed => "Fixed",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TreeViewColumnSizing {
     type GlibType = ffi::GtkTreeViewColumnSizing;
@@ -9869,6 +8606,7 @@ impl FromGlib<ffi::GtkTreeViewColumnSizing> for TreeViewColumnSizing {
 
 impl StaticType for TreeViewColumnSizing {
     #[inline]
+    #[doc(alias = "gtk_tree_view_column_sizing_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_tree_view_column_sizing_get_type()) }
     }
@@ -9880,7 +8618,7 @@ impl glib::HasParamSpec for TreeViewColumnSizing {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -9938,22 +8676,6 @@ pub enum TreeViewDropPosition {
     __Unknown(i32),
 }
 
-impl fmt::Display for TreeViewDropPosition {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TreeViewDropPosition::{}",
-            match *self {
-                Self::Before => "Before",
-                Self::After => "After",
-                Self::IntoOrBefore => "IntoOrBefore",
-                Self::IntoOrAfter => "IntoOrAfter",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TreeViewDropPosition {
     type GlibType = ffi::GtkTreeViewDropPosition;
@@ -9988,6 +8710,7 @@ impl FromGlib<ffi::GtkTreeViewDropPosition> for TreeViewDropPosition {
 
 impl StaticType for TreeViewDropPosition {
     #[inline]
+    #[doc(alias = "gtk_tree_view_drop_position_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_tree_view_drop_position_get_type()) }
     }
@@ -9999,7 +8722,7 @@ impl glib::HasParamSpec for TreeViewDropPosition {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10057,22 +8780,6 @@ pub enum TreeViewGridLines {
     __Unknown(i32),
 }
 
-impl fmt::Display for TreeViewGridLines {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TreeViewGridLines::{}",
-            match *self {
-                Self::None => "None",
-                Self::Horizontal => "Horizontal",
-                Self::Vertical => "Vertical",
-                Self::Both => "Both",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TreeViewGridLines {
     type GlibType = ffi::GtkTreeViewGridLines;
@@ -10107,6 +8814,7 @@ impl FromGlib<ffi::GtkTreeViewGridLines> for TreeViewGridLines {
 
 impl StaticType for TreeViewGridLines {
     #[inline]
+    #[doc(alias = "gtk_tree_view_grid_lines_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_tree_view_grid_lines_get_type()) }
     }
@@ -10118,7 +8826,7 @@ impl glib::HasParamSpec for TreeViewGridLines {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10176,22 +8884,6 @@ pub enum Unit {
     __Unknown(i32),
 }
 
-impl fmt::Display for Unit {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Unit::{}",
-            match *self {
-                Self::None => "None",
-                Self::Points => "Points",
-                Self::Inch => "Inch",
-                Self::Mm => "Mm",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for Unit {
     type GlibType = ffi::GtkUnit;
@@ -10226,6 +8918,7 @@ impl FromGlib<ffi::GtkUnit> for Unit {
 
 impl StaticType for Unit {
     #[inline]
+    #[doc(alias = "gtk_unit_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_unit_get_type()) }
     }
@@ -10237,7 +8930,7 @@ impl glib::HasParamSpec for Unit {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10291,20 +8984,6 @@ pub enum WidgetHelpType {
     __Unknown(i32),
 }
 
-impl fmt::Display for WidgetHelpType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "WidgetHelpType::{}",
-            match *self {
-                Self::Tooltip => "Tooltip",
-                Self::WhatsThis => "WhatsThis",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for WidgetHelpType {
     type GlibType = ffi::GtkWidgetHelpType;
@@ -10335,6 +9014,7 @@ impl FromGlib<ffi::GtkWidgetHelpType> for WidgetHelpType {
 
 impl StaticType for WidgetHelpType {
     #[inline]
+    #[doc(alias = "gtk_widget_help_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_widget_help_type_get_type()) }
     }
@@ -10346,7 +9026,7 @@ impl glib::HasParamSpec for WidgetHelpType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10406,23 +9086,6 @@ pub enum WindowPosition {
     __Unknown(i32),
 }
 
-impl fmt::Display for WindowPosition {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "WindowPosition::{}",
-            match *self {
-                Self::None => "None",
-                Self::Center => "Center",
-                Self::Mouse => "Mouse",
-                Self::CenterAlways => "CenterAlways",
-                Self::CenterOnParent => "CenterOnParent",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for WindowPosition {
     type GlibType = ffi::GtkWindowPosition;
@@ -10459,6 +9122,7 @@ impl FromGlib<ffi::GtkWindowPosition> for WindowPosition {
 
 impl StaticType for WindowPosition {
     #[inline]
+    #[doc(alias = "gtk_window_position_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_window_position_get_type()) }
     }
@@ -10470,7 +9134,7 @@ impl glib::HasParamSpec for WindowPosition {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10524,20 +9188,6 @@ pub enum WindowType {
     __Unknown(i32),
 }
 
-impl fmt::Display for WindowType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "WindowType::{}",
-            match *self {
-                Self::Toplevel => "Toplevel",
-                Self::Popup => "Popup",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for WindowType {
     type GlibType = ffi::GtkWindowType;
@@ -10568,6 +9218,7 @@ impl FromGlib<ffi::GtkWindowType> for WindowType {
 
 impl StaticType for WindowType {
     #[inline]
+    #[doc(alias = "gtk_window_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_window_type_get_type()) }
     }
@@ -10579,7 +9230,7 @@ impl glib::HasParamSpec for WindowType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -10637,22 +9288,6 @@ pub enum WrapMode {
     __Unknown(i32),
 }
 
-impl fmt::Display for WrapMode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "WrapMode::{}",
-            match *self {
-                Self::None => "None",
-                Self::Char => "Char",
-                Self::Word => "Word",
-                Self::WordChar => "WordChar",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for WrapMode {
     type GlibType = ffi::GtkWrapMode;
@@ -10687,6 +9322,7 @@ impl FromGlib<ffi::GtkWrapMode> for WrapMode {
 
 impl StaticType for WrapMode {
     #[inline]
+    #[doc(alias = "gtk_wrap_mode_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::gtk_wrap_mode_get_type()) }
     }
@@ -10698,7 +9334,7 @@ impl glib::HasParamSpec for WrapMode {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 

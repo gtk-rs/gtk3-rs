@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkWindow")]
@@ -83,7 +83,7 @@ impl Window {
     ) -> Result<(), glib::Error> {
         assert_initialized_main_thread!();
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_window_set_default_icon_from_file(
                 filename.as_ref().to_glib_none().0,
                 &mut error,
@@ -711,8 +711,8 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "get_default_size")]
     fn default_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gtk_window_get_default_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -856,8 +856,8 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "get_position")]
     fn position(&self) -> (i32, i32) {
         unsafe {
-            let mut root_x = mem::MaybeUninit::uninit();
-            let mut root_y = mem::MaybeUninit::uninit();
+            let mut root_x = std::mem::MaybeUninit::uninit();
+            let mut root_y = std::mem::MaybeUninit::uninit();
             ffi::gtk_window_get_position(
                 self.as_ref().to_glib_none().0,
                 root_x.as_mut_ptr(),
@@ -893,8 +893,8 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "get_size")]
     fn size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gtk_window_get_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -1232,7 +1232,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_window_set_icon_from_file")]
     fn set_icon_from_file(&self, filename: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_window_set_icon_from_file(
                 self.as_ref().to_glib_none().0,
                 filename.as_ref().to_glib_none().0,
@@ -1478,7 +1478,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-default\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_default_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1504,7 +1504,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1541,7 +1541,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"enable-debugging\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     enable_debugging_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1567,7 +1567,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"keys-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     keys_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1596,7 +1596,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"set-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     set_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1619,7 +1619,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accept-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accept_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1642,7 +1642,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::application\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_application_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1665,7 +1665,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::attached-to\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_attached_to_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1688,7 +1688,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::decorated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_decorated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1714,7 +1714,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::default-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_default_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1740,7 +1740,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::default-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_default_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1763,7 +1763,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::deletable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_deletable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1789,7 +1789,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::destroy-with-parent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_destroy_with_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1812,7 +1812,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::focus-on-map\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_focus_on_map_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1838,7 +1838,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::focus-visible\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_focus_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1861,7 +1861,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::gravity\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_gravity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1887,7 +1887,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-toplevel-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_has_toplevel_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1916,7 +1916,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::hide-titlebar-when-maximized\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_hide_titlebar_when_maximized_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1939,7 +1939,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1962,7 +1962,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1985,7 +1985,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-active\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2008,7 +2008,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-maximized\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_maximized_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2034,7 +2034,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::mnemonics-visible\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_mnemonics_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2057,7 +2057,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::modal\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_modal_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2080,7 +2080,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::resizable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_resizable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2103,7 +2103,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::role\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_role_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2126,7 +2126,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::screen\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_screen_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2152,7 +2152,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::skip-pager-hint\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_skip_pager_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2178,7 +2178,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::skip-taskbar-hint\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_skip_taskbar_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2201,7 +2201,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::startup-id\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_startup_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2224,7 +2224,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2250,7 +2250,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::transient-for\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_transient_for_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2273,7 +2273,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::type-hint\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_type_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2296,7 +2296,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::urgency-hint\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_urgency_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2322,7 +2322,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::window-position\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_window_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2332,9 +2332,3 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Window>> GtkWindowExt for O {}
-
-impl fmt::Display for Window {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Window")
-    }
-}

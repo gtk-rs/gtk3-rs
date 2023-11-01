@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkFileChooser")]
@@ -42,7 +42,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_add_shortcut_folder")]
     fn add_shortcut_folder(&self, folder: impl AsRef<std::path::Path>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_add_shortcut_folder(
                 self.as_ref().to_glib_none().0,
                 folder.as_ref().to_glib_none().0,
@@ -60,7 +60,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_add_shortcut_folder_uri")]
     fn add_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_add_shortcut_folder_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
@@ -379,7 +379,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
         folder: impl AsRef<std::path::Path>,
     ) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_remove_shortcut_folder(
                 self.as_ref().to_glib_none().0,
                 folder.as_ref().to_glib_none().0,
@@ -397,7 +397,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_remove_shortcut_folder_uri")]
     fn remove_shortcut_folder_uri(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_remove_shortcut_folder_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
@@ -422,7 +422,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_select_file")]
     fn select_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_select_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
@@ -498,7 +498,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_set_current_folder_file")]
     fn set_current_folder_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_set_current_folder_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
@@ -556,7 +556,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_file_chooser_set_file")]
     fn set_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_file_chooser_set_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
@@ -718,7 +718,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"confirm-overwrite\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     confirm_overwrite_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -743,7 +743,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"current-folder-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     current_folder_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -765,7 +765,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"file-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     file_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -790,7 +790,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -812,7 +812,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"update-preview\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     update_preview_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -835,7 +835,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::action\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_action_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -861,7 +861,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::create-folders\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_create_folders_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -890,7 +890,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::do-overwrite-confirmation\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_do_overwrite_confirmation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -916,7 +916,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::extra-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_extra_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -939,7 +939,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::filter\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_filter_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -965,7 +965,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::local-only\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -991,7 +991,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::preview-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_preview_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1020,7 +1020,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::preview-widget-active\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_preview_widget_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1046,7 +1046,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::select-multiple\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_select_multiple_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1072,7 +1072,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-hidden\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_hidden_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1098,7 +1098,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-preview-label\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_preview_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1108,9 +1108,3 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<FileChooser>> FileChooserExt for O {}
-
-impl fmt::Display for FileChooser {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("FileChooser")
-    }
-}

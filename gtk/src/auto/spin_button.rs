@@ -12,7 +12,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkSpinButton")]
@@ -695,8 +695,8 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     #[doc(alias = "get_increments")]
     fn increments(&self) -> (f64, f64) {
         unsafe {
-            let mut step = mem::MaybeUninit::uninit();
-            let mut page = mem::MaybeUninit::uninit();
+            let mut step = std::mem::MaybeUninit::uninit();
+            let mut page = std::mem::MaybeUninit::uninit();
             ffi::gtk_spin_button_get_increments(
                 self.as_ref().to_glib_none().0,
                 step.as_mut_ptr(),
@@ -720,8 +720,8 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     #[doc(alias = "get_range")]
     fn range(&self) -> (f64, f64) {
         unsafe {
-            let mut min = mem::MaybeUninit::uninit();
-            let mut max = mem::MaybeUninit::uninit();
+            let mut min = std::mem::MaybeUninit::uninit();
+            let mut max = std::mem::MaybeUninit::uninit();
             ffi::gtk_spin_button_get_range(
                 self.as_ref().to_glib_none().0,
                 min.as_mut_ptr(),
@@ -891,7 +891,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::adjustment\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -917,7 +917,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::climb-rate\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_climb_rate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -940,7 +940,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::digits\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_digits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -963,7 +963,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::numeric\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_numeric_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -989,7 +989,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::snap-to-ticks\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_snap_to_ticks_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1015,7 +1015,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::update-policy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_update_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1038,7 +1038,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1061,7 +1061,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::wrap\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1071,9 +1071,3 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<SpinButton>> SpinButtonExt for O {}
-
-impl fmt::Display for SpinButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SpinButton")
-    }
-}

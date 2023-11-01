@@ -4,7 +4,6 @@
 
 use crate::{Align, Buildable, Container, Orientable, Orientation, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkSeparator")]
@@ -262,11 +261,5 @@ impl SeparatorBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Separator {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for Separator {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Separator")
     }
 }

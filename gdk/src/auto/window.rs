@@ -15,7 +15,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkWindow")]
@@ -130,8 +130,8 @@ impl Window {
     #[doc(alias = "gdk_window_coords_from_parent")]
     pub fn coords_from_parent(&self, parent_x: f64, parent_y: f64) -> (f64, f64) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_coords_from_parent(
                 self.to_glib_none().0,
                 parent_x,
@@ -146,8 +146,8 @@ impl Window {
     #[doc(alias = "gdk_window_coords_to_parent")]
     pub fn coords_to_parent(&self, x: f64, y: f64) -> (f64, f64) {
         unsafe {
-            let mut parent_x = mem::MaybeUninit::uninit();
-            let mut parent_y = mem::MaybeUninit::uninit();
+            let mut parent_x = std::mem::MaybeUninit::uninit();
+            let mut parent_y = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_coords_to_parent(
                 self.to_glib_none().0,
                 x,
@@ -162,7 +162,7 @@ impl Window {
     #[doc(alias = "gdk_window_create_gl_context")]
     pub fn create_gl_context(&self) -> Result<GLContext, glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let ret = ffi::gdk_window_create_gl_context(self.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ret))
@@ -285,7 +285,7 @@ impl Window {
     #[doc(alias = "get_decorations")]
     pub fn decorations(&self) -> Option<WMDecoration> {
         unsafe {
-            let mut decorations = mem::MaybeUninit::uninit();
+            let mut decorations = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gdk_window_get_decorations(
                 self.to_glib_none().0,
                 decorations.as_mut_ptr(),
@@ -327,9 +327,9 @@ impl Window {
         device: &impl IsA<Device>,
     ) -> (Option<Window>, i32, i32, ModifierType) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
-            let mut mask = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            let mut mask = std::mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_window_get_device_position(
                 self.to_glib_none().0,
                 device.as_ref().to_glib_none().0,
@@ -353,9 +353,9 @@ impl Window {
         device: &impl IsA<Device>,
     ) -> (Option<Window>, f64, f64, ModifierType) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
-            let mut mask = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            let mut mask = std::mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_window_get_device_position_double(
                 self.to_glib_none().0,
                 device.as_ref().to_glib_none().0,
@@ -382,7 +382,7 @@ impl Window {
     #[doc(alias = "get_drag_protocol")]
     pub fn drag_protocol(&self) -> (DragProtocol, Window) {
         unsafe {
-            let mut target = ptr::null_mut();
+            let mut target = std::ptr::null_mut();
             let ret = from_glib(ffi::gdk_window_get_drag_protocol(
                 self.to_glib_none().0,
                 &mut target,
@@ -453,10 +453,10 @@ impl Window {
     #[doc(alias = "get_geometry")]
     pub fn geometry(&self) -> (i32, i32, i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_get_geometry(
                 self.to_glib_none().0,
                 x.as_mut_ptr(),
@@ -496,8 +496,8 @@ impl Window {
     #[doc(alias = "get_origin")]
     pub fn origin(&self) -> (i32, i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             let ret =
                 ffi::gdk_window_get_origin(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
             (ret, x.assume_init(), y.assume_init())
@@ -521,8 +521,8 @@ impl Window {
     #[doc(alias = "get_position")]
     pub fn position(&self) -> (i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_get_position(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
             (x.assume_init(), y.assume_init())
         }
@@ -532,8 +532,8 @@ impl Window {
     #[doc(alias = "get_root_coords")]
     pub fn root_coords(&self, x: i32, y: i32) -> (i32, i32) {
         unsafe {
-            let mut root_x = mem::MaybeUninit::uninit();
-            let mut root_y = mem::MaybeUninit::uninit();
+            let mut root_x = std::mem::MaybeUninit::uninit();
+            let mut root_y = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_get_root_coords(
                 self.to_glib_none().0,
                 x,
@@ -549,8 +549,8 @@ impl Window {
     #[doc(alias = "get_root_origin")]
     pub fn root_origin(&self) -> (i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_get_root_origin(self.to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
             (x.assume_init(), y.assume_init())
         }
@@ -1266,8 +1266,8 @@ impl Window {
     ) -> (i32, i32) {
         assert_initialized_main_thread!();
         unsafe {
-            let mut new_width = mem::MaybeUninit::uninit();
-            let mut new_height = mem::MaybeUninit::uninit();
+            let mut new_width = std::mem::MaybeUninit::uninit();
+            let mut new_height = std::mem::MaybeUninit::uninit();
             ffi::gdk_window_constrain_size(
                 geometry.to_glib_none_mut().0,
                 flags.into_glib(),
@@ -1301,7 +1301,7 @@ impl Window {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"create-surface\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     create_surface_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1344,7 +1344,7 @@ impl Window {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"pick-embedded-child\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     pick_embedded_child_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1373,17 +1373,11 @@ impl Window {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cursor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cursor_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for Window {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Window")
     }
 }

@@ -114,10 +114,9 @@ pub use self::flags::WMFunction;
 pub use self::flags::WindowHints;
 pub use self::flags::WindowState;
 
-pub mod functions;
+pub(crate) mod functions;
 
-#[doc(hidden)]
-pub mod traits {
+pub(crate) mod traits {
     pub use super::device::DeviceExt;
     pub use super::device_pad::DevicePadExt;
     pub use super::monitor::MonitorExt;

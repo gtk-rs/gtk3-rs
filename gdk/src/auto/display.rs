@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkDisplay")]
@@ -95,8 +95,8 @@ impl Display {
     #[doc(alias = "get_maximal_cursor_size")]
     pub fn maximal_cursor_size(&self) -> (u32, u32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::gdk_display_get_maximal_cursor_size(
                 self.to_glib_none().0,
                 width.as_mut_ptr(),
@@ -323,7 +323,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"closed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     closed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -346,7 +346,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"monitor-added\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     monitor_added_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -372,7 +372,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"monitor-removed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     monitor_removed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -394,7 +394,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"opened\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     opened_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -417,7 +417,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"seat-added\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     seat_added_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -440,7 +440,7 @@ impl Display {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"seat-removed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     seat_removed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -449,9 +449,9 @@ impl Display {
     }
 }
 
-impl fmt::Display for Display {
+impl std::fmt::Display for Display {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.write_str(&self.name())
     }
 }

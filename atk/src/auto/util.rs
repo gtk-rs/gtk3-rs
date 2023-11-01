@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use std::fmt;
-
 glib::wrapper! {
     #[doc(alias = "AtkUtil")]
     pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass>);
@@ -15,10 +13,4 @@ glib::wrapper! {
 
 impl Util {
     pub const NONE: Option<&'static Util> = None;
-}
-
-impl fmt::Display for Util {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Util")
-    }
 }

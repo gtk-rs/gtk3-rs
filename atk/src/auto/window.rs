@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkWindow")]
@@ -43,7 +43,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -65,7 +65,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"create\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     create_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -87,7 +87,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"deactivate\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     deactivate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -109,7 +109,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"destroy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     destroy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -131,7 +131,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"maximize\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     maximize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -153,7 +153,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"minimize\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     minimize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -175,7 +175,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -197,7 +197,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"resize\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     resize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -219,7 +219,7 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"restore\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     restore_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -229,9 +229,3 @@ pub trait AtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Window>> AtkWindowExt for O {}
-
-impl fmt::Display for Window {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Window")
-    }
-}

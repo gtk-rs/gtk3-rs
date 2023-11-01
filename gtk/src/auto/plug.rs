@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkPlug")]
@@ -537,7 +537,7 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"embedded\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     embedded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -560,7 +560,7 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::embedded\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_embedded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -583,7 +583,7 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::socket-window\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_socket_window_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -593,9 +593,3 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Plug>> PlugExt for O {}
-
-impl fmt::Display for Plug {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Plug")
-    }
-}

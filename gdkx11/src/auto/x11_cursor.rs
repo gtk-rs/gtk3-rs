@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use std::fmt;
 use x11::xlib;
 
 glib::wrapper! {
@@ -20,11 +19,5 @@ impl X11Cursor {
     #[doc(alias = "get_xcursor")]
     pub fn xcursor(&self) -> xlib::Cursor {
         unsafe { ffi::gdk_x11_cursor_get_xcursor(self.to_glib_none().0) }
-    }
-}
-
-impl fmt::Display for X11Cursor {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Cursor")
     }
 }

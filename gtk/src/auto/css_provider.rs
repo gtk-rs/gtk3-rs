@@ -9,7 +9,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCssProvider")]
@@ -58,9 +58,9 @@ impl Default for CssProvider {
     }
 }
 
-impl fmt::Display for CssProvider {
+impl std::fmt::Display for CssProvider {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.write_str(&CssProviderExt::to_str(self))
     }
 }
@@ -75,7 +75,7 @@ pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error> {
         let length = data.len() as _;
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_css_provider_load_from_data(
                 self.as_ref().to_glib_none().0,
                 data.to_glib_none().0,
@@ -94,7 +94,7 @@ pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_css_provider_load_from_file")]
     fn load_from_file(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_css_provider_load_from_file(
                 self.as_ref().to_glib_none().0,
                 file.as_ref().to_glib_none().0,
@@ -112,7 +112,7 @@ pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_css_provider_load_from_path")]
     fn load_from_path(&self, path: &str) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_css_provider_load_from_path(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
@@ -173,7 +173,7 @@ pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"parsing-error\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     parsing_error_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

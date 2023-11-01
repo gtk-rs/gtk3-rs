@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkDragContext")]
@@ -137,7 +137,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"action-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     action_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -163,7 +163,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cancel\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     cancel_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -185,7 +185,7 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"dnd-finished\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     dnd_finished_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -208,17 +208,11 @@ impl DragContext {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drop-performed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     drop_performed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for DragContext {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("DragContext")
     }
 }

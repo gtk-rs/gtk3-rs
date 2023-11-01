@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellRendererToggle")]
@@ -293,7 +293,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"toggled\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     toggled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -319,7 +319,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::activatable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_activatable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -345,7 +345,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::active\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -371,7 +371,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::inconsistent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_inconsistent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -397,7 +397,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::indicator-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_indicator_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -423,7 +423,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::radio\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_radio_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -433,9 +433,3 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
 }
 
 impl<O: IsA<CellRendererToggle>> CellRendererToggleExt for O {}
-
-impl fmt::Display for CellRendererToggle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellRendererToggle")
-    }
-}

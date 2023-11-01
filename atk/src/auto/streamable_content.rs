@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkStreamableContent")]
@@ -60,9 +59,3 @@ pub trait StreamableContentExt: IsA<StreamableContent> + sealed::Sealed + 'stati
 }
 
 impl<O: IsA<StreamableContent>> StreamableContentExt for O {}
-
-impl fmt::Display for StreamableContent {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("StreamableContent")
-    }
-}

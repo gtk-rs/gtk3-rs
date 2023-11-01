@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use std::fmt;
-
 glib::wrapper! {
     #[doc(alias = "GdkX11Visual")]
     pub struct X11Visual(Object<ffi::GdkX11Visual, ffi::GdkX11VisualClass>) @extends gdk::Visual;
@@ -14,9 +12,3 @@ glib::wrapper! {
 }
 
 impl X11Visual {}
-
-impl fmt::Display for X11Visual {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Visual")
-    }
-}

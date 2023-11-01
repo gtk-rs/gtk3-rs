@@ -10,7 +10,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkMenu")]
@@ -736,7 +736,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-scroll\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_scroll_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -769,7 +769,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accel-group\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accel_group_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -792,7 +792,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accel-path\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accel_path_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -815,7 +815,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::active\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -838,7 +838,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::anchor-hints\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_anchor_hints_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -861,7 +861,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::attach-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_attach_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -884,7 +884,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::menu-type-hint\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_menu_type_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -907,7 +907,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::monitor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_monitor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -930,7 +930,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rect-anchor-dx\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_rect_anchor_dx_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -953,7 +953,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rect-anchor-dy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_rect_anchor_dy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -979,7 +979,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::reserve-toggle-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_reserve_toggle_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -989,9 +989,3 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Menu>> GtkMenuExt for O {}
-
-impl fmt::Display for Menu {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Menu")
-    }
-}

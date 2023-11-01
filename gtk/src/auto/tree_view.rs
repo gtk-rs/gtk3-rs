@@ -12,7 +12,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkTreeView")]
@@ -482,8 +482,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_bin_window_to_tree_coords")]
     fn convert_bin_window_to_tree_coords(&self, bx: i32, by: i32) -> (i32, i32) {
         unsafe {
-            let mut tx = mem::MaybeUninit::uninit();
-            let mut ty = mem::MaybeUninit::uninit();
+            let mut tx = std::mem::MaybeUninit::uninit();
+            let mut ty = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_bin_window_to_tree_coords(
                 self.as_ref().to_glib_none().0,
                 bx,
@@ -498,8 +498,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_bin_window_to_widget_coords")]
     fn convert_bin_window_to_widget_coords(&self, bx: i32, by: i32) -> (i32, i32) {
         unsafe {
-            let mut wx = mem::MaybeUninit::uninit();
-            let mut wy = mem::MaybeUninit::uninit();
+            let mut wx = std::mem::MaybeUninit::uninit();
+            let mut wy = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_bin_window_to_widget_coords(
                 self.as_ref().to_glib_none().0,
                 bx,
@@ -514,8 +514,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_tree_to_bin_window_coords")]
     fn convert_tree_to_bin_window_coords(&self, tx: i32, ty: i32) -> (i32, i32) {
         unsafe {
-            let mut bx = mem::MaybeUninit::uninit();
-            let mut by = mem::MaybeUninit::uninit();
+            let mut bx = std::mem::MaybeUninit::uninit();
+            let mut by = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_tree_to_bin_window_coords(
                 self.as_ref().to_glib_none().0,
                 tx,
@@ -530,8 +530,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_tree_to_widget_coords")]
     fn convert_tree_to_widget_coords(&self, tx: i32, ty: i32) -> (i32, i32) {
         unsafe {
-            let mut wx = mem::MaybeUninit::uninit();
-            let mut wy = mem::MaybeUninit::uninit();
+            let mut wx = std::mem::MaybeUninit::uninit();
+            let mut wy = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_tree_to_widget_coords(
                 self.as_ref().to_glib_none().0,
                 tx,
@@ -546,8 +546,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_widget_to_bin_window_coords")]
     fn convert_widget_to_bin_window_coords(&self, wx: i32, wy: i32) -> (i32, i32) {
         unsafe {
-            let mut bx = mem::MaybeUninit::uninit();
-            let mut by = mem::MaybeUninit::uninit();
+            let mut bx = std::mem::MaybeUninit::uninit();
+            let mut by = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_widget_to_bin_window_coords(
                 self.as_ref().to_glib_none().0,
                 wx,
@@ -562,8 +562,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_tree_view_convert_widget_to_tree_coords")]
     fn convert_widget_to_tree_coords(&self, wx: i32, wy: i32) -> (i32, i32) {
         unsafe {
-            let mut tx = mem::MaybeUninit::uninit();
-            let mut ty = mem::MaybeUninit::uninit();
+            let mut tx = std::mem::MaybeUninit::uninit();
+            let mut ty = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_convert_widget_to_tree_coords(
                 self.as_ref().to_glib_none().0,
                 wx,
@@ -696,8 +696,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "get_cursor")]
     fn cursor(&self) -> (Option<TreePath>, Option<TreeViewColumn>) {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut focus_column = ptr::null_mut();
+            let mut path = std::ptr::null_mut();
+            let mut focus_column = std::ptr::null_mut();
             ffi::gtk_tree_view_get_cursor(
                 self.as_ref().to_glib_none().0,
                 &mut path,
@@ -715,8 +715,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
         drag_y: i32,
     ) -> Option<(Option<TreePath>, TreeViewDropPosition)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut pos = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut pos = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_tree_view_get_dest_row_at_pos(
                 self.as_ref().to_glib_none().0,
                 drag_x,
@@ -736,8 +736,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "get_drag_dest_row")]
     fn drag_dest_row(&self) -> (Option<TreePath>, TreeViewDropPosition) {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut pos = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut pos = std::mem::MaybeUninit::uninit();
             ffi::gtk_tree_view_get_drag_dest_row(
                 self.as_ref().to_glib_none().0,
                 &mut path,
@@ -863,10 +863,10 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
         y: i32,
     ) -> Option<(Option<TreePath>, Option<TreeViewColumn>, i32, i32)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut column = ptr::null_mut();
-            let mut cell_x = mem::MaybeUninit::uninit();
-            let mut cell_y = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut column = std::ptr::null_mut();
+            let mut cell_x = std::mem::MaybeUninit::uninit();
+            let mut cell_y = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_tree_view_get_path_at_pos(
                 self.as_ref().to_glib_none().0,
                 x,
@@ -978,8 +978,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
         keyboard_tip: bool,
     ) -> Option<(Option<TreeModel>, TreePath, TreeIter)> {
         unsafe {
-            let mut model = ptr::null_mut();
-            let mut path = ptr::null_mut();
+            let mut model = std::ptr::null_mut();
+            let mut path = std::ptr::null_mut();
             let mut iter = TreeIter::uninitialized();
             let ret = from_glib(ffi::gtk_tree_view_get_tooltip_context(
                 self.as_ref().to_glib_none().0,
@@ -1002,8 +1002,8 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
     #[doc(alias = "get_visible_range")]
     fn visible_range(&self) -> Option<(TreePath, TreePath)> {
         unsafe {
-            let mut start_path = ptr::null_mut();
-            let mut end_path = ptr::null_mut();
+            let mut start_path = std::ptr::null_mut();
+            let mut end_path = std::ptr::null_mut();
             let ret = from_glib(ffi::gtk_tree_view_get_visible_range(
                 self.as_ref().to_glib_none().0,
                 &mut start_path,
@@ -1103,10 +1103,10 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
         y: i32,
     ) -> Option<(Option<TreePath>, Option<TreeViewColumn>, i32, i32)> {
         unsafe {
-            let mut path = ptr::null_mut();
-            let mut column = ptr::null_mut();
-            let mut cell_x = mem::MaybeUninit::uninit();
-            let mut cell_y = mem::MaybeUninit::uninit();
+            let mut path = std::ptr::null_mut();
+            let mut column = std::ptr::null_mut();
+            let mut cell_x = std::mem::MaybeUninit::uninit();
+            let mut cell_y = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_tree_view_is_blank_at_pos(
                 self.as_ref().to_glib_none().0,
                 x,
@@ -1720,7 +1720,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"columns-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     columns_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1742,7 +1742,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cursor-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     cursor_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1779,7 +1779,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"expand-collapse-cursor-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     expand_collapse_cursor_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1818,7 +1818,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-cursor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1856,7 +1856,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     row_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1894,7 +1894,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-collapsed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     row_collapsed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1928,7 +1928,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"row-expanded\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     row_expanded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1953,7 +1953,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"select-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     select_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1985,7 +1985,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"select-cursor-parent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     select_cursor_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2022,7 +2022,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"select-cursor-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     select_cursor_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2054,7 +2054,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"start-interactive-search\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     start_interactive_search_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2095,7 +2095,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"test-collapse-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     test_collapse_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2132,7 +2132,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"test-expand-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     test_expand_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2157,7 +2157,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"toggle-cursor-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     toggle_cursor_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2186,7 +2186,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"unselect-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     unselect_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2219,7 +2219,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::activate-on-single-click\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_activate_on_single_click_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2245,7 +2245,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enable-grid-lines\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_enable_grid_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2271,7 +2271,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enable-search\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_enable_search_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2297,7 +2297,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enable-tree-lines\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_enable_tree_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2323,7 +2323,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::expander-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_expander_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2349,7 +2349,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fixed-height-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_fixed_height_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2375,7 +2375,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::headers-clickable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_headers_clickable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2401,7 +2401,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::headers-visible\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_headers_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2427,7 +2427,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::hover-expand\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_hover_expand_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2453,7 +2453,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::hover-selection\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_hover_selection_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2479,7 +2479,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::level-indentation\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_level_indentation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2502,7 +2502,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2528,7 +2528,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::reorderable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_reorderable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2554,7 +2554,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rubber-banding\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_rubber_banding_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2580,7 +2580,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::search-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_search_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2606,7 +2606,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-expanders\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_expanders_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2632,7 +2632,7 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tooltip-column\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_tooltip_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2642,9 +2642,3 @@ pub trait TreeViewExt: IsA<TreeView> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TreeView>> TreeViewExt for O {}
-
-impl fmt::Display for TreeView {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TreeView")
-    }
-}

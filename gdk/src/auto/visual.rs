@@ -4,7 +4,6 @@
 
 use crate::{Screen, VisualType};
 use glib::translate::*;
-use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GdkVisual")]
@@ -20,9 +19,9 @@ impl Visual {
     #[doc(alias = "get_blue_pixel_details")]
     pub fn blue_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::MaybeUninit::uninit();
-            let mut shift = mem::MaybeUninit::uninit();
-            let mut precision = mem::MaybeUninit::uninit();
+            let mut mask = std::mem::MaybeUninit::uninit();
+            let mut shift = std::mem::MaybeUninit::uninit();
+            let mut precision = std::mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_blue_pixel_details(
                 self.to_glib_none().0,
                 mask.as_mut_ptr(),
@@ -47,9 +46,9 @@ impl Visual {
     #[doc(alias = "get_green_pixel_details")]
     pub fn green_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::MaybeUninit::uninit();
-            let mut shift = mem::MaybeUninit::uninit();
-            let mut precision = mem::MaybeUninit::uninit();
+            let mut mask = std::mem::MaybeUninit::uninit();
+            let mut shift = std::mem::MaybeUninit::uninit();
+            let mut precision = std::mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_green_pixel_details(
                 self.to_glib_none().0,
                 mask.as_mut_ptr(),
@@ -68,9 +67,9 @@ impl Visual {
     #[doc(alias = "get_red_pixel_details")]
     pub fn red_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::MaybeUninit::uninit();
-            let mut shift = mem::MaybeUninit::uninit();
-            let mut precision = mem::MaybeUninit::uninit();
+            let mut mask = std::mem::MaybeUninit::uninit();
+            let mut shift = std::mem::MaybeUninit::uninit();
+            let mut precision = std::mem::MaybeUninit::uninit();
             ffi::gdk_visual_get_red_pixel_details(
                 self.to_glib_none().0,
                 mask.as_mut_ptr(),
@@ -95,11 +94,5 @@ impl Visual {
     #[doc(alias = "get_visual_type")]
     pub fn visual_type(&self) -> VisualType {
         unsafe { from_glib(ffi::gdk_visual_get_visual_type(self.to_glib_none().0)) }
-    }
-}
-
-impl fmt::Display for Visual {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Visual")
     }
 }

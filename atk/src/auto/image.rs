@@ -4,7 +4,6 @@
 
 use crate::CoordType;
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "AtkImage")]
@@ -49,8 +48,8 @@ pub trait AtkImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "get_image_position")]
     fn image_position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::atk_image_get_image_position(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -65,8 +64,8 @@ pub trait AtkImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "get_image_size")]
     fn image_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::MaybeUninit::uninit();
-            let mut height = mem::MaybeUninit::uninit();
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
             ffi::atk_image_get_image_size(
                 self.as_ref().to_glib_none().0,
                 width.as_mut_ptr(),
@@ -88,9 +87,3 @@ pub trait AtkImageExt: IsA<Image> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Image>> AtkImageExt for O {}
-
-impl fmt::Display for Image {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Image")
-    }
-}

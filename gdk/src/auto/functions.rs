@@ -4,7 +4,6 @@
 
 use crate::{Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState};
 use glib::translate::*;
-use std::{mem, ptr};
 
 #[doc(alias = "gdk_beep")]
 pub fn beep() {
@@ -40,7 +39,7 @@ pub fn error_trap_push() {
 pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut angle = mem::MaybeUninit::uninit();
+        let mut angle = std::mem::MaybeUninit::uninit();
         let ret = from_glib(ffi::gdk_events_get_angle(
             event1.to_glib_none_mut().0,
             event2.to_glib_none_mut().0,
@@ -58,8 +57,8 @@ pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
 pub fn events_get_center(event1: &mut Event, event2: &mut Event) -> Option<(f64, f64)> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut x = mem::MaybeUninit::uninit();
-        let mut y = mem::MaybeUninit::uninit();
+        let mut x = std::mem::MaybeUninit::uninit();
+        let mut y = std::mem::MaybeUninit::uninit();
         let ret = from_glib(ffi::gdk_events_get_center(
             event1.to_glib_none_mut().0,
             event2.to_glib_none_mut().0,
@@ -78,7 +77,7 @@ pub fn events_get_center(event1: &mut Event, event2: &mut Event) -> Option<(f64,
 pub fn events_get_distance(event1: &mut Event, event2: &mut Event) -> Option<f64> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut distance = mem::MaybeUninit::uninit();
+        let mut distance = std::mem::MaybeUninit::uninit();
         let ret = from_glib(ffi::gdk_events_get_distance(
             event1.to_glib_none_mut().0,
             event2.to_glib_none_mut().0,
@@ -214,9 +213,9 @@ pub fn property_get(
     skip_assert_initialized!();
     unsafe {
         let mut actual_property_type = Atom::uninitialized();
-        let mut actual_format = mem::MaybeUninit::uninit();
-        let mut actual_length = mem::MaybeUninit::uninit();
-        let mut data = ptr::null_mut();
+        let mut actual_format = std::mem::MaybeUninit::uninit();
+        let mut actual_length = std::mem::MaybeUninit::uninit();
+        let mut data = std::ptr::null_mut();
         let ret = from_glib(ffi::gdk_property_get(
             window.to_glib_none().0,
             property.to_glib_none().0,
@@ -457,7 +456,7 @@ pub fn text_property_to_utf8_list_for_display(
     skip_assert_initialized!();
     let length = text.len() as _;
     unsafe {
-        let mut list = ptr::null_mut();
+        let mut list = std::ptr::null_mut();
         let ret = ffi::gdk_text_property_to_utf8_list_for_display(
             display.to_glib_none().0,
             encoding.to_glib_none().0,

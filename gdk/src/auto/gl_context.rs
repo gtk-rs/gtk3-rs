@@ -4,7 +4,6 @@
 
 use crate::{Display, Window};
 use glib::translate::*;
-use std::{fmt, mem, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GdkGLContext")]
@@ -42,8 +41,8 @@ impl GLContext {
     #[doc(alias = "get_required_version")]
     pub fn required_version(&self) -> (i32, i32) {
         unsafe {
-            let mut major = mem::MaybeUninit::uninit();
-            let mut minor = mem::MaybeUninit::uninit();
+            let mut major = std::mem::MaybeUninit::uninit();
+            let mut minor = std::mem::MaybeUninit::uninit();
             ffi::gdk_gl_context_get_required_version(
                 self.to_glib_none().0,
                 major.as_mut_ptr(),
@@ -74,8 +73,8 @@ impl GLContext {
     #[doc(alias = "get_version")]
     pub fn version(&self) -> (i32, i32) {
         unsafe {
-            let mut major = mem::MaybeUninit::uninit();
-            let mut minor = mem::MaybeUninit::uninit();
+            let mut major = std::mem::MaybeUninit::uninit();
+            let mut minor = std::mem::MaybeUninit::uninit();
             ffi::gdk_gl_context_get_version(
                 self.to_glib_none().0,
                 major.as_mut_ptr(),
@@ -106,7 +105,7 @@ impl GLContext {
     #[doc(alias = "gdk_gl_context_realize")]
     pub fn realize(&self) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gdk_gl_context_realize(self.to_glib_none().0, &mut error);
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
@@ -161,11 +160,5 @@ impl GLContext {
     pub fn current() -> Option<GLContext> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_gl_context_get_current()) }
-    }
-}
-
-impl fmt::Display for GLContext {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("GLContext")
     }
 }

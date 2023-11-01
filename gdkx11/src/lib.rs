@@ -17,4 +17,5 @@ mod auto;
 
 pub mod builders;
 
+pub use crate::auto::functions::*;
 pub use crate::auto::*;

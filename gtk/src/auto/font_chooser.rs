@@ -10,7 +10,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkFontChooser")]
@@ -284,7 +284,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"font-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     font_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -307,7 +307,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -333,7 +333,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-desc\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_desc_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -361,7 +361,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::font-features\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_font_features_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -389,7 +389,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::language\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_language_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -414,7 +414,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::level\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -440,7 +440,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::preview-text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_preview_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -466,7 +466,7 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-preview-entry\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_preview_entry_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -476,9 +476,3 @@ pub trait FontChooserExt: IsA<FontChooser> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<FontChooser>> FontChooserExt for O {}
-
-impl fmt::Display for FontChooser {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("FontChooser")
-    }
-}

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkMenuShell")]
@@ -190,7 +190,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-current\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_current_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -216,7 +216,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cancel\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     cancel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -249,7 +249,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cycle-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     cycle_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -275,7 +275,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"deactivate\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     deactivate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -306,7 +306,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"insert\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     insert_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -338,7 +338,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-current\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_current_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -375,7 +375,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-selected\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -397,7 +397,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-done\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     selection_done_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -423,7 +423,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::take-focus\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_take_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -433,9 +433,3 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<MenuShell>> MenuShellExt for O {}
-
-impl fmt::Display for MenuShell {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MenuShell")
-    }
-}

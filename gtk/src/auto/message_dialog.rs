@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkMessageDialog")]
@@ -617,7 +617,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::message-area\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_message_area_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -643,7 +643,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::message-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_message_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -669,7 +669,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::secondary-text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_secondary_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -695,7 +695,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::secondary-use-markup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_secondary_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -718,7 +718,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -744,7 +744,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-markup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -754,9 +754,3 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<MessageDialog>> MessageDialogExt for O {}
-
-impl fmt::Display for MessageDialog {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MessageDialog")
-    }
-}

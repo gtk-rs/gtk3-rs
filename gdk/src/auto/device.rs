@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkDevice")]
@@ -102,8 +102,8 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "get_key")]
     fn key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
-            let mut keyval = mem::MaybeUninit::uninit();
-            let mut modifiers = mem::MaybeUninit::uninit();
+            let mut keyval = std::mem::MaybeUninit::uninit();
+            let mut modifiers = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gdk_device_get_key(
                 self.as_ref().to_glib_none().0,
                 index_,
@@ -156,9 +156,9 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "get_position")]
     fn position(&self) -> (Screen, i32, i32) {
         unsafe {
-            let mut screen = ptr::null_mut();
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut screen = std::ptr::null_mut();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gdk_device_get_position(
                 self.as_ref().to_glib_none().0,
                 &mut screen,
@@ -173,9 +173,9 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "get_position_double")]
     fn position_double(&self) -> (Screen, f64, f64) {
         unsafe {
-            let mut screen = ptr::null_mut();
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut screen = std::ptr::null_mut();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gdk_device_get_position_double(
                 self.as_ref().to_glib_none().0,
                 &mut screen,
@@ -228,8 +228,8 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "get_window_at_position")]
     fn window_at_position(&self) -> (Option<Window>, i32, i32) {
         unsafe {
-            let mut win_x = mem::MaybeUninit::uninit();
-            let mut win_y = mem::MaybeUninit::uninit();
+            let mut win_x = std::mem::MaybeUninit::uninit();
+            let mut win_y = std::mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_device_get_window_at_position(
                 self.as_ref().to_glib_none().0,
                 win_x.as_mut_ptr(),
@@ -243,8 +243,8 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
     #[doc(alias = "get_window_at_position_double")]
     fn window_at_position_double(&self) -> (Option<Window>, f64, f64) {
         unsafe {
-            let mut win_x = mem::MaybeUninit::uninit();
-            let mut win_y = mem::MaybeUninit::uninit();
+            let mut win_x = std::mem::MaybeUninit::uninit();
+            let mut win_y = std::mem::MaybeUninit::uninit();
             let ret = from_glib_none(ffi::gdk_device_get_window_at_position_double(
                 self.as_ref().to_glib_none().0,
                 win_x.as_mut_ptr(),
@@ -365,7 +365,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -394,7 +394,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"tool-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     tool_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -420,7 +420,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::associated-device\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_associated_device_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -443,7 +443,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::axes\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_axes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -466,7 +466,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::input-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_input_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -489,7 +489,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::n-axes\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_n_axes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -512,7 +512,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::seat\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_seat_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -535,7 +535,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::tool\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_tool_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -558,7 +558,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -568,9 +568,3 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Device>> DeviceExt for O {}
-
-impl fmt::Display for Device {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Device")
-    }
-}

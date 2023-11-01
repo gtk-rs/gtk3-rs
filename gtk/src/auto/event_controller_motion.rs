@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkEventControllerMotion")]
@@ -47,7 +47,7 @@ impl EventControllerMotion {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"enter\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     enter_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -69,7 +69,7 @@ impl EventControllerMotion {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"leave\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     leave_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -95,17 +95,11 @@ impl EventControllerMotion {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"motion\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     motion_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for EventControllerMotion {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("EventControllerMotion")
     }
 }

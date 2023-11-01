@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GdkX11Keymap")]
@@ -29,11 +28,5 @@ impl X11Keymap {
                 keycode,
             ))
         }
-    }
-}
-
-impl fmt::Display for X11Keymap {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Keymap")
     }
 }

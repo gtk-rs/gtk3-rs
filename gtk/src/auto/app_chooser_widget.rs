@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkAppChooserWidget")]
@@ -505,7 +505,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"application-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     application_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -537,7 +537,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"application-selected\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     application_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -571,7 +571,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"populate-popup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     populate_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -597,7 +597,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::default-text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_default_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -623,7 +623,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-all\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -649,7 +649,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-default\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_default_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -675,7 +675,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-fallback\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_fallback_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -701,7 +701,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-other\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_other_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -727,7 +727,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-recommended\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_recommended_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -737,9 +737,3 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 }
 
 impl<O: IsA<AppChooserWidget>> AppChooserWidgetExt for O {}
-
-impl fmt::Display for AppChooserWidget {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AppChooserWidget")
-    }
-}

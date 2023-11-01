@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkEventControllerKey")]
@@ -81,7 +81,7 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"focus-in\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     focus_in_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -103,7 +103,7 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"focus-out\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     focus_out_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -125,7 +125,7 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"im-update\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     im_update_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -157,7 +157,7 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"key-pressed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     key_pressed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -189,7 +189,7 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"key-released\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     key_released_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -217,17 +217,11 @@ impl EventControllerKey {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"modifiers\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     modifiers_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for EventControllerKey {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("EventControllerKey")
     }
 }

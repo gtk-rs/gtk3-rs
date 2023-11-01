@@ -4,7 +4,6 @@
 
 use crate::{Object, Relation, RelationType};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkRelationSet")]
@@ -119,9 +118,3 @@ pub trait RelationSetExt: IsA<RelationSet> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<RelationSet>> RelationSetExt for O {}
-
-impl fmt::Display for RelationSet {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RelationSet")
-    }
-}

@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem};
 
 glib::wrapper! {
     #[doc(alias = "GtkEditable")]
@@ -84,8 +83,8 @@ pub trait EditableExt: IsA<Editable> + sealed::Sealed + 'static {
     #[doc(alias = "get_selection_bounds")]
     fn selection_bounds(&self) -> Option<(i32, i32)> {
         unsafe {
-            let mut start_pos = mem::MaybeUninit::uninit();
-            let mut end_pos = mem::MaybeUninit::uninit();
+            let mut start_pos = std::mem::MaybeUninit::uninit();
+            let mut end_pos = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_editable_get_selection_bounds(
                 self.as_ref().to_glib_none().0,
                 start_pos.as_mut_ptr(),
@@ -142,9 +141,3 @@ pub trait EditableExt: IsA<Editable> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Editable>> EditableExt for O {}
-
-impl fmt::Display for Editable {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Editable")
-    }
-}

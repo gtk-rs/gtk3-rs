@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use std::fmt;
-
 glib::wrapper! {
     #[doc(alias = "GdkX11DragContext")]
     pub struct X11DragContext(Object<ffi::GdkX11DragContext, ffi::GdkX11DragContextClass>) @extends gdk::DragContext;
@@ -14,9 +12,3 @@ glib::wrapper! {
 }
 
 impl X11DragContext {}
-
-impl fmt::Display for X11DragContext {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11DragContext")
-    }
-}
