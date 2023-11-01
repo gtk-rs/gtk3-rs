@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/scrolled_window.rs`."><title>scrolled_window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-085727c29c2fa99e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (203c57dbe 2023-09-17)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f6ec288034ea164c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/scrolled_window.rs`."><title>scrolled_window.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -172,23 +172,23 @@
 <a href="#99" id="99">99</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/prelude/index.html">glib::subclass::prelude</a>::<span class="kw-2">*</span>;
 
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">glib::Cast</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">glib::Cast</a>;
 
 <span class="kw">use </span><a href="bin.rs.html#8"><span class="kw">super</span>::bin::BinImpl</a>;
-<span class="kw">use </span><a href="../auto/enums.rs.html#2190-2211"><span class="kw">crate</span>::DirectionType</a>;
-<span class="kw">use </span><a href="../auto/enums.rs.html#8208-8259"><span class="kw">crate</span>::ScrollType</a>;
+<span class="kw">use </span><a href="../auto/enums.rs.html#1934-1955"><span class="kw">crate</span>::DirectionType</a>;
+<span class="kw">use </span><a href="../auto/enums.rs.html#7243-7294"><span class="kw">crate</span>::ScrollType</a>;
 <span class="kw">use </span><a href="../auto/scrolled_window.rs.html#16-1351"><span class="kw">crate</span>::ScrolledWindow</a>;
 
 <span class="kw">pub trait </span><a href="../../../gtk/subclass/scrolled_window/trait.ScrolledWindowImpl.html">ScrolledWindowImpl</a>: <a href="#29-63">ScrolledWindowImplExt</a> + <a href="bin.rs.html#8">BinImpl</a> {
-    <span class="kw">fn </span>move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: <a href="../auto/enums.rs.html#2190-2211">DirectionType</a>) {
+    <span class="kw">fn </span>move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: <a href="../auto/enums.rs.html#1934-1955">DirectionType</a>) {
         <a class="self" href="#15">self</a>.<a href="#30-44">parent_move_focus_out</a>(<a href="#15">direction_type</a>)
     }
 
-    <span class="kw">fn </span>scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: <a href="../auto/enums.rs.html#8208-8259">ScrollType</a>, horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <span class="kw">fn </span>scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: <a href="../auto/enums.rs.html#7243-7294">ScrollType</a>, horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <a class="self" href="#19">self</a>.<a href="#45-62">parent_scroll_child</a>(<a href="#19">scroll</a>, <a href="#19">horizontal</a>)
     }
 }
@@ -198,34 +198,34 @@
     <span class="kw">impl</span>&lt;T: <a href="#14-22"><span class="kw">super</span>::ScrolledWindowImpl</a>&gt; <a href="#25">Sealed</a> <span class="kw">for </span>T {}
 }
 
-<span class="kw">pub trait </span><a href="../../../gtk/subclass/scrolled_window/trait.ScrolledWindowImplExt.html">ScrolledWindowImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#25">sealed::Sealed</a> {
-    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: <a href="../auto/enums.rs.html#2190-2211">DirectionType</a>) {
+<span class="kw">pub trait </span><a href="../../../gtk/subclass/scrolled_window/trait.ScrolledWindowImplExt.html">ScrolledWindowImplExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclass.html">ObjectSubclass</a> + <a href="#25">sealed::Sealed</a> {
+    <span class="kw">fn </span>parent_move_focus_out(<span class="kw-2">&amp;</span><span class="self">self</span>, direction_type: <a href="../auto/enums.rs.html#1934-1955">DirectionType</a>) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#32">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkScrolledWindowClass.html">ffi::GtkScrolledWindowClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#33">parent_class</a>).move_focus_out {
                 <a href="#34">f</a>(
-                    <a class="self" href="#30">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/scrolled_window.rs.html#16-1351">ScrolledWindow</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                    <a class="self" href="#30">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/scrolled_window.rs.html#16-1351">ScrolledWindow</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    <a href="#30">direction_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    <a href="#30">direction_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 )
             }
         }
     }
-    <span class="kw">fn </span>parent_scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: <a href="../auto/enums.rs.html#8208-8259">ScrollType</a>, horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+    <span class="kw">fn </span>parent_scroll_child(<span class="kw-2">&amp;</span><span class="self">self</span>, scroll: <a href="../auto/enums.rs.html#7243-7294">ScrollType</a>, horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>data = <span class="self">Self</span>::type_data();
             <span class="kw">let </span>parent_class = <a href="#47">data</a>.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span><a href="../../../gtk_sys/struct.GtkScrolledWindowClass.html">ffi::GtkScrolledWindowClass</a>;
             <span class="kw">if let </span><span class="prelude-val">Some</span>(f) = (<span class="kw-2">*</span><a href="#48">parent_class</a>).scroll_child {
-                <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#49">f</a>(
-                    <a class="self" href="#45">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/scrolled_window.rs.html#16-1351">ScrolledWindow</a>&gt;()
-                        .<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
+                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#49">f</a>(
+                    <a class="self" href="#45">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html">obj</a>()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<a href="../auto/scrolled_window.rs.html#16-1351">ScrolledWindow</a>&gt;()
+                        .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>()
                         .<span class="number">0</span>,
-                    <a href="#45">scroll</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
-                    <a href="#45">horizontal</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    <a href="#45">scroll</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                    <a href="#45">horizontal</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>(),
                 ))
             } <span class="kw">else </span>{
                 <span class="bool-val">false
@@ -251,8 +251,8 @@
     directiontypeptr: <a href="../../../gtk_sys/type.GtkDirectionType.html">ffi::GtkDirectionType</a>,
 ) {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#78">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#81">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
-    <span class="kw">let </span>direction_type: <a href="../auto/enums.rs.html#2190-2211">DirectionType</a> = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#79">directiontypeptr</a>);
+    <span class="kw">let </span>imp = <a href="#81">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>direction_type: <a href="../auto/enums.rs.html#1934-1955">DirectionType</a> = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#79">directiontypeptr</a>);
 
     <a href="#82">imp</a>.<a href="#15-17">move_focus_out</a>(<a href="#83">direction_type</a>)
 }
@@ -263,10 +263,10 @@
     horizontalptr: glib::ffi::gboolean,
 ) -&gt; glib::ffi::gboolean {
     <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#89">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
-    <span class="kw">let </span>imp = <a href="#93">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
-    <span class="kw">let </span>scroll: <a href="../auto/enums.rs.html#8208-8259">ScrollType</a> = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#90">scrollptr</a>);
-    <span class="kw">let </span>horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#91">horizontalptr</a>);
+    <span class="kw">let </span>imp = <a href="#93">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html">imp</a>();
+    <span class="kw">let </span>scroll: <a href="../auto/enums.rs.html#7243-7294">ScrollType</a> = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#90">scrollptr</a>);
+    <span class="kw">let </span>horizontal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a href="#91">horizontalptr</a>);
 
-    <a href="#94">imp</a>.<a href="#19-21">scroll_child</a>(<a href="#95">scroll</a>, <a href="#96">horizontal</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
+    <a href="#94">imp</a>.<a href="#19-21">scroll_child</a>(<a href="#95">scroll</a>, <a href="#96">horizontal</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">into_glib</a>()
 }
 </code></pre></div></section></main></body></html>

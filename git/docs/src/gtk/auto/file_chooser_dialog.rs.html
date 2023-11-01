@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser_dialog.rs`."><title>file_chooser_dialog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-085727c29c2fa99e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (203c57dbe 2023-09-17)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f6ec288034ea164c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/file_chooser_dialog.rs`."><title>file_chooser_dialog.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gtk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -894,25 +894,17 @@
 <a href="#821" id="821">821</a>
 <a href="#822" id="822">822</a>
 <a href="#823" id="823">823</a>
-<a href="#824" id="824">824</a>
-<a href="#825" id="825">825</a>
-<a href="#826" id="826">826</a>
-<a href="#827" id="827">827</a>
-<a href="#828" id="828">828</a>
-<a href="#829" id="829">829</a>
-<a href="#830" id="830">830</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
 </span><span class="kw">use crate</span>::{
-    <a href="enums.rs.html#27-49">Align</a>, <a href="application.rs.html#13-318">Application</a>, <a href="bin.rs.html#9-28">Bin</a>, <a href="buildable.rs.html#9-32">Buildable</a>, <a href="container.rs.html#14-1335">Container</a>, <a href="dialog.rs.html#16-1523">Dialog</a>, <a href="file_chooser.rs.html#13-358">FileChooser</a>, <a href="enums.rs.html#2697-2719">FileChooserAction</a>,
-    <a href="file_filter.rs.html#9-63">FileFilter</a>, <a href="enums.rs.html#7818-7830">ResizeMode</a>, <a href="widget.rs.html#17-1520">Widget</a>, <a href="window.rs.html#16-1427">Window</a>, <a href="enums.rs.html#11128-11147">WindowPosition</a>, <a href="enums.rs.html#11271-11280">WindowType</a>,
+    <a href="enums.rs.html#26-48">Align</a>, <a href="application.rs.html#13-318">Application</a>, <a href="bin.rs.html#8-27">Bin</a>, <a href="buildable.rs.html#8-31">Buildable</a>, <a href="container.rs.html#14-1335">Container</a>, <a href="dialog.rs.html#16-1523">Dialog</a>, <a href="file_chooser.rs.html#13-358">FileChooser</a>, <a href="enums.rs.html#2380-2402">FileChooserAction</a>,
+    <a href="file_filter.rs.html#9-63">FileFilter</a>, <a href="enums.rs.html#6901-6913">ResizeMode</a>, <a href="widget.rs.html#17-1520">Widget</a>, <a href="window.rs.html#16-1427">Window</a>, <a href="enums.rs.html#9808-9827">WindowPosition</a>, <a href="enums.rs.html#9935-9944">WindowType</a>,
 };
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
+<span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">glib::prelude</a>::<span class="kw-2">*</span>;
 
-<a class="macro" href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="doccomment">/// [`FileChooserDialog`][crate::FileChooserDialog] is a dialog box suitable for use with
     /// “File/Open” or “File/Save as” commands. This widget works by
     /// putting a [`FileChooserWidget`][crate::FileChooserWidget] inside a [`Dialog`][crate::Dialog]. It exposes
@@ -1076,15 +1068,15 @@
     ///
     /// [`DialogExt`][trait@crate::prelude::DialogExt], [`GtkWindowExt`][trait@crate::prelude::GtkWindowExt], [`BinExt`][trait@crate::prelude::BinExt], [`ContainerExt`][trait@crate::prelude::ContainerExt], [`WidgetExt`][trait@crate::prelude::WidgetExt], [`trait@glib::ObjectExt`], [`BuildableExt`][trait@crate::prelude::BuildableExt], [`FileChooserExt`][trait@crate::prelude::FileChooserExt], [`DialogExtManual`][trait@crate::prelude::DialogExtManual], [`GtkWindowExtManual`][trait@crate::prelude::GtkWindowExtManual], [`ContainerExtManual`][trait@crate::prelude::ContainerExtManual], [`WidgetExtManual`][trait@crate::prelude::WidgetExtManual], [`BuildableExtManual`][trait@crate::prelude::BuildableExtManual], [`FileChooserExtManual`][trait@crate::prelude::FileChooserExtManual]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GtkFileChooserDialog&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.FileChooserDialog.html">FileChooserDialog</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkFileChooserDialog.html">ffi::GtkFileChooserDialog</a>, <a href="../../../gtk_sys/struct.GtkFileChooserDialogClass.html">ffi::GtkFileChooserDialogClass</a>&gt;) @extends <a href="dialog.rs.html#16-1523">Dialog</a>, <a href="window.rs.html#16-1427">Window</a>, <a href="bin.rs.html#9-28">Bin</a>, <a href="container.rs.html#14-1335">Container</a>, <a href="widget.rs.html#17-1520">Widget</a>, @implements <a href="buildable.rs.html#9-32">Buildable</a>, <a href="file_chooser.rs.html#13-358">FileChooser</a>;
+    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.FileChooserDialog.html">FileChooserDialog</a>(Object&lt;<a href="../../../gtk_sys/struct.GtkFileChooserDialog.html">ffi::GtkFileChooserDialog</a>, <a href="../../../gtk_sys/struct.GtkFileChooserDialogClass.html">ffi::GtkFileChooserDialogClass</a>&gt;) @extends <a href="dialog.rs.html#16-1523">Dialog</a>, <a href="window.rs.html#16-1427">Window</a>, <a href="bin.rs.html#8-27">Bin</a>, <a href="container.rs.html#14-1335">Container</a>, <a href="widget.rs.html#17-1520">Widget</a>, @implements <a href="buildable.rs.html#8-31">Buildable</a>, <a href="file_chooser.rs.html#13-358">FileChooser</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gtk_file_chooser_dialog_get_type(),
     }
 }
 
-<span class="kw">impl </span><a href="#12-181">FileChooserDialog</a> {
-    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#12-181">FileChooserDialog</a>&gt; = <span class="prelude-val">None</span>;
+<span class="kw">impl </span><a href="#11-180">FileChooserDialog</a> {
+    <span class="kw">pub const </span>NONE: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span><a href="#11-180">FileChooserDialog</a>&gt; = <span class="prelude-val">None</span>;
 
     <span class="comment">//#[doc(alias = &quot;gtk_file_chooser_dialog_new&quot;)]
     //pub fn new(title: Option&lt;&amp;str&gt;, parent: Option&lt;&amp;impl IsA&lt;Window&gt;&gt;, action: FileChooserAction, first_button_text: Option&lt;&amp;str&gt;, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -&gt; FileChooserDialog {
@@ -1095,12 +1087,12 @@
     </span><span class="doccomment">/// Creates a new builder-pattern struct instance to construct [`FileChooserDialog`] objects.
     ///
     /// This method returns an instance of [`FileChooserDialogBuilder`](crate::builders::FileChooserDialogBuilder) which can be used to create [`FileChooserDialog`] objects.
-    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#211-213">FileChooserDialogBuilder</a> {
+    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#210-212">FileChooserDialogBuilder</a> {
         FileChooserDialogBuilder::new()
     }
 }
 
-<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#12-181">FileChooserDialog</a> {
+<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#11-180">FileChooserDialog</a> {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         glib::object::Object::new::&lt;<span class="self">Self</span>&gt;()
     }
@@ -1112,10 +1104,10 @@
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 </span><span class="attr">#[must_use = <span class="string">&quot;The builder must be built to be used&quot;</span>]
 </span><span class="kw">pub struct </span><a href="../../../gtk/builders/struct.FileChooserDialogBuilder.html">FileChooserDialogBuilder</a> {
-    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, <a href="#12-181">FileChooserDialog</a>&gt;,
+    builder: glib::object::ObjectBuilder&lt;<span class="lifetime">&#39;static</span>, <a href="#11-180">FileChooserDialog</a>&gt;,
 }
 
-<span class="kw">impl </span><a href="#211-213">FileChooserDialogBuilder</a> {
+<span class="kw">impl </span><a href="#210-212">FileChooserDialogBuilder</a> {
     <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             builder: glib::object::Object::builder(),
@@ -1129,14 +1121,14 @@
     /// property, but you should only set it to [`true`] or [`false`].
     </span><span class="kw">pub fn </span>use_header_bar(<span class="self">self</span>, use_header_bar: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#227">self</a>.builder.property(<span class="string">&quot;use-header-bar&quot;</span>, <a href="#227">use_header_bar</a>),
+            builder: <a class="self" href="#226">self</a>.builder.property(<span class="string">&quot;use-header-bar&quot;</span>, <a href="#226">use_header_bar</a>),
         }
     }
 
     <span class="doccomment">/// Whether the window should receive the input focus.
     </span><span class="kw">pub fn </span>accept_focus(<span class="self">self</span>, accept_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#234">self</a>.builder.property(<span class="string">&quot;accept-focus&quot;</span>, <a href="#234">accept_focus</a>),
+            builder: <a class="self" href="#233">self</a>.builder.property(<span class="string">&quot;accept-focus&quot;</span>, <a href="#233">accept_focus</a>),
         }
     }
 
@@ -1151,9 +1143,9 @@
     /// remove it by setting the :application property to [`None`].
     </span><span class="kw">pub fn </span>application(<span class="self">self</span>, application: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="application.rs.html#13-318">Application</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#249">self</a>
+            builder: <span class="self"><a href="#248">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;application&quot;</span>, <a href="#249">application</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;application&quot;</span>, <a href="#248">application</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
@@ -1166,50 +1158,50 @@
     /// created by [`TreeView`][crate::TreeView].
     </span><span class="kw">pub fn </span>attached_to(<span class="self">self</span>, attached_to: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#264">self</a>
+            builder: <span class="self"><a href="#263">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;attached-to&quot;</span>, <a href="#264">attached_to</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;attached-to&quot;</span>, <a href="#263">attached_to</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="doccomment">/// Whether the window should be decorated by the window manager.
     </span><span class="kw">pub fn </span>decorated(<span class="self">self</span>, decorated: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#273">self</a>.builder.property(<span class="string">&quot;decorated&quot;</span>, <a href="#273">decorated</a>),
+            builder: <a class="self" href="#272">self</a>.builder.property(<span class="string">&quot;decorated&quot;</span>, <a href="#272">decorated</a>),
         }
     }
 
     <span class="kw">pub fn </span>default_height(<span class="self">self</span>, default_height: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#279">self</a>.builder.property(<span class="string">&quot;default-height&quot;</span>, <a href="#279">default_height</a>),
+            builder: <a class="self" href="#278">self</a>.builder.property(<span class="string">&quot;default-height&quot;</span>, <a href="#278">default_height</a>),
         }
     }
 
     <span class="kw">pub fn </span>default_width(<span class="self">self</span>, default_width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#285">self</a>.builder.property(<span class="string">&quot;default-width&quot;</span>, <a href="#285">default_width</a>),
+            builder: <a class="self" href="#284">self</a>.builder.property(<span class="string">&quot;default-width&quot;</span>, <a href="#284">default_width</a>),
         }
     }
 
     <span class="doccomment">/// Whether the window frame should have a close button.
     </span><span class="kw">pub fn </span>deletable(<span class="self">self</span>, deletable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#292">self</a>.builder.property(<span class="string">&quot;deletable&quot;</span>, <a href="#292">deletable</a>),
+            builder: <a class="self" href="#291">self</a>.builder.property(<span class="string">&quot;deletable&quot;</span>, <a href="#291">deletable</a>),
         }
     }
 
     <span class="kw">pub fn </span>destroy_with_parent(<span class="self">self</span>, destroy_with_parent: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#298">self</a>
+            builder: <span class="self"><a href="#297">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;destroy-with-parent&quot;</span>, <a href="#298">destroy_with_parent</a>),
+                .property(<span class="string">&quot;destroy-with-parent&quot;</span>, <a href="#297">destroy_with_parent</a>),
         }
     }
 
     <span class="doccomment">/// Whether the window should receive the input focus when mapped.
     </span><span class="kw">pub fn </span>focus_on_map(<span class="self">self</span>, focus_on_map: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#307">self</a>.builder.property(<span class="string">&quot;focus-on-map&quot;</span>, <a href="#307">focus_on_map</a>),
+            builder: <a class="self" href="#306">self</a>.builder.property(<span class="string">&quot;focus-on-map&quot;</span>, <a href="#306">focus_on_map</a>),
         }
     }
 
@@ -1219,7 +1211,7 @@
     /// and should not be set by applications.
     </span><span class="kw">pub fn </span>focus_visible(<span class="self">self</span>, focus_visible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#317">self</a>.builder.property(<span class="string">&quot;focus-visible&quot;</span>, <a href="#317">focus_visible</a>),
+            builder: <a class="self" href="#316">self</a>.builder.property(<span class="string">&quot;focus-visible&quot;</span>, <a href="#316">focus_visible</a>),
         }
     }
 
@@ -1227,30 +1219,30 @@
     /// more details about window gravity.
     </span><span class="kw">pub fn </span>gravity(<span class="self">self</span>, gravity: <a href="../../../gdk/auto/enums/enum.Gravity.html">gdk::Gravity</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#325">self</a>.builder.property(<span class="string">&quot;gravity&quot;</span>, <a href="#325">gravity</a>),
+            builder: <a class="self" href="#324">self</a>.builder.property(<span class="string">&quot;gravity&quot;</span>, <a href="#324">gravity</a>),
         }
     }
 
     <span class="doccomment">/// Whether the titlebar should be hidden during maximization.
     </span><span class="kw">pub fn </span>hide_titlebar_when_maximized(<span class="self">self</span>, hide_titlebar_when_maximized: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#332">self</a>
+            builder: <span class="self"><a href="#331">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;hide-titlebar-when-maximized&quot;</span>, <a href="#332">hide_titlebar_when_maximized</a>),
+                .property(<span class="string">&quot;hide-titlebar-when-maximized&quot;</span>, <a href="#331">hide_titlebar_when_maximized</a>),
         }
     }
 
-    <span class="kw">pub fn </span>icon(<span class="self">self</span>, icon: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>icon(<span class="self">self</span>, icon: <span class="kw-2">&amp;</span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">gdk_pixbuf::Pixbuf</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#340">self</a>.builder.property(<span class="string">&quot;icon&quot;</span>, <a href="#340">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
+            builder: <a class="self" href="#339">self</a>.builder.property(<span class="string">&quot;icon&quot;</span>, <a href="#339">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
     <span class="doccomment">/// The :icon-name property specifies the name of the themed icon to
     /// use as the window icon. See [`IconTheme`][crate::IconTheme] for more details.
-    </span><span class="kw">pub fn </span>icon_name(<span class="self">self</span>, icon_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>icon_name(<span class="self">self</span>, icon_name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#348">self</a>.builder.property(<span class="string">&quot;icon-name&quot;</span>, <a href="#348">icon_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#347">self</a>.builder.property(<span class="string">&quot;icon-name&quot;</span>, <a href="#347">icon_name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
@@ -1260,62 +1252,62 @@
     /// and should not be set by applications.
     </span><span class="kw">pub fn </span>mnemonics_visible(<span class="self">self</span>, mnemonics_visible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#358">self</a>
+            builder: <span class="self"><a href="#357">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;mnemonics-visible&quot;</span>, <a href="#358">mnemonics_visible</a>),
+                .property(<span class="string">&quot;mnemonics-visible&quot;</span>, <a href="#357">mnemonics_visible</a>),
         }
     }
 
     <span class="kw">pub fn </span>modal(<span class="self">self</span>, modal: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#366">self</a>.builder.property(<span class="string">&quot;modal&quot;</span>, <a href="#366">modal</a>),
+            builder: <a class="self" href="#365">self</a>.builder.property(<span class="string">&quot;modal&quot;</span>, <a href="#365">modal</a>),
         }
     }
 
     <span class="kw">pub fn </span>resizable(<span class="self">self</span>, resizable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#372">self</a>.builder.property(<span class="string">&quot;resizable&quot;</span>, <a href="#372">resizable</a>),
+            builder: <a class="self" href="#371">self</a>.builder.property(<span class="string">&quot;resizable&quot;</span>, <a href="#371">resizable</a>),
         }
     }
 
-    <span class="kw">pub fn </span>role(<span class="self">self</span>, role: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>role(<span class="self">self</span>, role: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#378">self</a>.builder.property(<span class="string">&quot;role&quot;</span>, <a href="#378">role</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#377">self</a>.builder.property(<span class="string">&quot;role&quot;</span>, <a href="#377">role</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="kw">pub fn </span>screen(<span class="self">self</span>, screen: <span class="kw-2">&amp;</span><a href="../../../gdk/auto/screen/struct.Screen.html">gdk::Screen</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#384">self</a>.builder.property(<span class="string">&quot;screen&quot;</span>, <a href="#384">screen</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
+            builder: <a class="self" href="#383">self</a>.builder.property(<span class="string">&quot;screen&quot;</span>, <a href="#383">screen</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
     <span class="kw">pub fn </span>skip_pager_hint(<span class="self">self</span>, skip_pager_hint: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#390">self</a>.builder.property(<span class="string">&quot;skip-pager-hint&quot;</span>, <a href="#390">skip_pager_hint</a>),
+            builder: <a class="self" href="#389">self</a>.builder.property(<span class="string">&quot;skip-pager-hint&quot;</span>, <a href="#389">skip_pager_hint</a>),
         }
     }
 
     <span class="kw">pub fn </span>skip_taskbar_hint(<span class="self">self</span>, skip_taskbar_hint: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#396">self</a>
+            builder: <span class="self"><a href="#395">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;skip-taskbar-hint&quot;</span>, <a href="#396">skip_taskbar_hint</a>),
+                .property(<span class="string">&quot;skip-taskbar-hint&quot;</span>, <a href="#395">skip_taskbar_hint</a>),
         }
     }
 
     <span class="doccomment">/// The :startup-id is a write-only property for setting window&#39;s
     /// startup notification identifier. See [`GtkWindowExt::set_startup_id()`][crate::prelude::GtkWindowExt::set_startup_id()]
     /// for more details.
-    </span><span class="kw">pub fn </span>startup_id(<span class="self">self</span>, startup_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>startup_id(<span class="self">self</span>, startup_id: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#407">self</a>.builder.property(<span class="string">&quot;startup-id&quot;</span>, <a href="#407">startup_id</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#406">self</a>.builder.property(<span class="string">&quot;startup-id&quot;</span>, <a href="#406">startup_id</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>title(<span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>title(<span class="self">self</span>, title: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#413">self</a>.builder.property(<span class="string">&quot;title&quot;</span>, <a href="#413">title</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#412">self</a>.builder.property(<span class="string">&quot;title&quot;</span>, <a href="#412">title</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
@@ -1323,82 +1315,82 @@
     /// more details about transient windows.
     </span><span class="kw">pub fn </span>transient_for(<span class="self">self</span>, transient_for: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="window.rs.html#16-1427">Window</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#421">self</a>
+            builder: <span class="self"><a href="#420">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;transient-for&quot;</span>, <a href="#421">transient_for</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;transient-for&quot;</span>, <a href="#420">transient_for</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>type_(<span class="self">self</span>, type_: <a href="enums.rs.html#11271-11280">WindowType</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>type_(<span class="self">self</span>, type_: <a href="enums.rs.html#9935-9944">WindowType</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#429">self</a>.builder.property(<span class="string">&quot;type&quot;</span>, <a href="#429">type_</a>),
+            builder: <a class="self" href="#428">self</a>.builder.property(<span class="string">&quot;type&quot;</span>, <a href="#428">type_</a>),
         }
     }
 
     <span class="kw">pub fn </span>type_hint(<span class="self">self</span>, type_hint: <a href="../../../gdk/auto/enums/enum.WindowTypeHint.html">gdk::WindowTypeHint</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#435">self</a>.builder.property(<span class="string">&quot;type-hint&quot;</span>, <a href="#435">type_hint</a>),
+            builder: <a class="self" href="#434">self</a>.builder.property(<span class="string">&quot;type-hint&quot;</span>, <a href="#434">type_hint</a>),
         }
     }
 
     <span class="kw">pub fn </span>urgency_hint(<span class="self">self</span>, urgency_hint: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#441">self</a>.builder.property(<span class="string">&quot;urgency-hint&quot;</span>, <a href="#441">urgency_hint</a>),
+            builder: <a class="self" href="#440">self</a>.builder.property(<span class="string">&quot;urgency-hint&quot;</span>, <a href="#440">urgency_hint</a>),
         }
     }
 
-    <span class="kw">pub fn </span>window_position(<span class="self">self</span>, window_position: <a href="enums.rs.html#11128-11147">WindowPosition</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>window_position(<span class="self">self</span>, window_position: <a href="enums.rs.html#9808-9827">WindowPosition</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#447">self</a>.builder.property(<span class="string">&quot;window-position&quot;</span>, <a href="#447">window_position</a>),
+            builder: <a class="self" href="#446">self</a>.builder.property(<span class="string">&quot;window-position&quot;</span>, <a href="#446">window_position</a>),
         }
     }
 
     <span class="kw">pub fn </span>border_width(<span class="self">self</span>, border_width: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#453">self</a>.builder.property(<span class="string">&quot;border-width&quot;</span>, <a href="#453">border_width</a>),
+            builder: <a class="self" href="#452">self</a>.builder.property(<span class="string">&quot;border-width&quot;</span>, <a href="#452">border_width</a>),
         }
     }
 
     <span class="kw">pub fn </span>child(<span class="self">self</span>, child: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#459">self</a>.builder.property(<span class="string">&quot;child&quot;</span>, <a href="#459">child</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#458">self</a>.builder.property(<span class="string">&quot;child&quot;</span>, <a href="#458">child</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
-    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: <a href="enums.rs.html#7818-7830">ResizeMode</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>resize_mode(<span class="self">self</span>, resize_mode: <a href="enums.rs.html#6901-6913">ResizeMode</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#465">self</a>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, <a href="#465">resize_mode</a>),
+            builder: <a class="self" href="#464">self</a>.builder.property(<span class="string">&quot;resize-mode&quot;</span>, <a href="#464">resize_mode</a>),
         }
     }
 
     <span class="kw">pub fn </span>app_paintable(<span class="self">self</span>, app_paintable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#471">self</a>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, <a href="#471">app_paintable</a>),
+            builder: <a class="self" href="#470">self</a>.builder.property(<span class="string">&quot;app-paintable&quot;</span>, <a href="#470">app_paintable</a>),
         }
     }
 
     <span class="kw">pub fn </span>can_default(<span class="self">self</span>, can_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#477">self</a>.builder.property(<span class="string">&quot;can-default&quot;</span>, <a href="#477">can_default</a>),
+            builder: <a class="self" href="#476">self</a>.builder.property(<span class="string">&quot;can-default&quot;</span>, <a href="#476">can_default</a>),
         }
     }
 
     <span class="kw">pub fn </span>can_focus(<span class="self">self</span>, can_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#483">self</a>.builder.property(<span class="string">&quot;can-focus&quot;</span>, <a href="#483">can_focus</a>),
+            builder: <a class="self" href="#482">self</a>.builder.property(<span class="string">&quot;can-focus&quot;</span>, <a href="#482">can_focus</a>),
         }
     }
 
     <span class="kw">pub fn </span>events(<span class="self">self</span>, events: <a href="../../../gdk/auto/flags/struct.EventMask.html">gdk::EventMask</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#489">self</a>.builder.property(<span class="string">&quot;events&quot;</span>, <a href="#489">events</a>),
+            builder: <a class="self" href="#488">self</a>.builder.property(<span class="string">&quot;events&quot;</span>, <a href="#488">events</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand in both directions. Setting this sets both [`hexpand`][struct@crate::Widget#hexpand] and [`vexpand`][struct@crate::Widget#vexpand]
     </span><span class="kw">pub fn </span>expand(<span class="self">self</span>, expand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#496">self</a>.builder.property(<span class="string">&quot;expand&quot;</span>, <a href="#496">expand</a>),
+            builder: <a class="self" href="#495">self</a>.builder.property(<span class="string">&quot;expand&quot;</span>, <a href="#495">expand</a>),
         }
     }
 
@@ -1410,26 +1402,26 @@
     /// GtkComboBox) implemented this property individually.
     </span><span class="kw">pub fn </span>focus_on_click(<span class="self">self</span>, focus_on_click: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#508">self</a>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, <a href="#508">focus_on_click</a>),
+            builder: <a class="self" href="#507">self</a>.builder.property(<span class="string">&quot;focus-on-click&quot;</span>, <a href="#507">focus_on_click</a>),
         }
     }
 
     <span class="doccomment">/// How to distribute horizontal space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: <a href="enums.rs.html#27-49">Align</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>halign(<span class="self">self</span>, halign: <a href="enums.rs.html#26-48">Align</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#515">self</a>.builder.property(<span class="string">&quot;halign&quot;</span>, <a href="#515">halign</a>),
+            builder: <a class="self" href="#514">self</a>.builder.property(<span class="string">&quot;halign&quot;</span>, <a href="#514">halign</a>),
         }
     }
 
     <span class="kw">pub fn </span>has_default(<span class="self">self</span>, has_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#521">self</a>.builder.property(<span class="string">&quot;has-default&quot;</span>, <a href="#521">has_default</a>),
+            builder: <a class="self" href="#520">self</a>.builder.property(<span class="string">&quot;has-default&quot;</span>, <a href="#520">has_default</a>),
         }
     }
 
     <span class="kw">pub fn </span>has_focus(<span class="self">self</span>, has_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#527">self</a>.builder.property(<span class="string">&quot;has-focus&quot;</span>, <a href="#527">has_focus</a>),
+            builder: <a class="self" href="#526">self</a>.builder.property(<span class="string">&quot;has-focus&quot;</span>, <a href="#526">has_focus</a>),
         }
     }
 
@@ -1444,33 +1436,33 @@
     /// property is set to [`false`] again.
     </span><span class="kw">pub fn </span>has_tooltip(<span class="self">self</span>, has_tooltip: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#542">self</a>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, <a href="#542">has_tooltip</a>),
+            builder: <a class="self" href="#541">self</a>.builder.property(<span class="string">&quot;has-tooltip&quot;</span>, <a href="#541">has_tooltip</a>),
         }
     }
 
     <span class="kw">pub fn </span>height_request(<span class="self">self</span>, height_request: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#548">self</a>.builder.property(<span class="string">&quot;height-request&quot;</span>, <a href="#548">height_request</a>),
+            builder: <a class="self" href="#547">self</a>.builder.property(<span class="string">&quot;height-request&quot;</span>, <a href="#547">height_request</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand horizontally. See [`WidgetExt::set_hexpand()`][crate::prelude::WidgetExt::set_hexpand()].
     </span><span class="kw">pub fn </span>hexpand(<span class="self">self</span>, hexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#555">self</a>.builder.property(<span class="string">&quot;hexpand&quot;</span>, <a href="#555">hexpand</a>),
+            builder: <a class="self" href="#554">self</a>.builder.property(<span class="string">&quot;hexpand&quot;</span>, <a href="#554">hexpand</a>),
         }
     }
 
     <span class="doccomment">/// Whether to use the [`hexpand`][struct@crate::Widget#hexpand] property. See [`WidgetExt::is_hexpand_set()`][crate::prelude::WidgetExt::is_hexpand_set()].
     </span><span class="kw">pub fn </span>hexpand_set(<span class="self">self</span>, hexpand_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#562">self</a>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, <a href="#562">hexpand_set</a>),
+            builder: <a class="self" href="#561">self</a>.builder.property(<span class="string">&quot;hexpand-set&quot;</span>, <a href="#561">hexpand_set</a>),
         }
     }
 
     <span class="kw">pub fn </span>is_focus(<span class="self">self</span>, is_focus: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#568">self</a>.builder.property(<span class="string">&quot;is-focus&quot;</span>, <a href="#568">is_focus</a>),
+            builder: <a class="self" href="#567">self</a>.builder.property(<span class="string">&quot;is-focus&quot;</span>, <a href="#567">is_focus</a>),
         }
     }
 
@@ -1478,7 +1470,7 @@
     /// margin on any side.
     </span><span class="kw">pub fn </span>margin(<span class="self">self</span>, margin: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#576">self</a>.builder.property(<span class="string">&quot;margin&quot;</span>, <a href="#576">margin</a>),
+            builder: <a class="self" href="#575">self</a>.builder.property(<span class="string">&quot;margin&quot;</span>, <a href="#575">margin</a>),
         }
     }
 
@@ -1489,7 +1481,7 @@
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
     </span><span class="kw">pub fn </span>margin_bottom(<span class="self">self</span>, margin_bottom: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#587">self</a>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, <a href="#587">margin_bottom</a>),
+            builder: <a class="self" href="#586">self</a>.builder.property(<span class="string">&quot;margin-bottom&quot;</span>, <a href="#586">margin_bottom</a>),
         }
     }
 
@@ -1501,7 +1493,7 @@
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
     </span><span class="kw">pub fn </span>margin_end(<span class="self">self</span>, margin_end: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#599">self</a>.builder.property(<span class="string">&quot;margin-end&quot;</span>, <a href="#599">margin_end</a>),
+            builder: <a class="self" href="#598">self</a>.builder.property(<span class="string">&quot;margin-end&quot;</span>, <a href="#598">margin_end</a>),
         }
     }
 
@@ -1513,7 +1505,7 @@
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
     </span><span class="kw">pub fn </span>margin_start(<span class="self">self</span>, margin_start: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#611">self</a>.builder.property(<span class="string">&quot;margin-start&quot;</span>, <a href="#611">margin_start</a>),
+            builder: <a class="self" href="#610">self</a>.builder.property(<span class="string">&quot;margin-start&quot;</span>, <a href="#610">margin_start</a>),
         }
     }
 
@@ -1524,19 +1516,19 @@
     /// [`WidgetExt::set_size_request()`][crate::prelude::WidgetExt::set_size_request()] for example.
     </span><span class="kw">pub fn </span>margin_top(<span class="self">self</span>, margin_top: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#622">self</a>.builder.property(<span class="string">&quot;margin-top&quot;</span>, <a href="#622">margin_top</a>),
+            builder: <a class="self" href="#621">self</a>.builder.property(<span class="string">&quot;margin-top&quot;</span>, <a href="#621">margin_top</a>),
         }
     }
 
-    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>name(<span class="self">self</span>, name: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#628">self</a>.builder.property(<span class="string">&quot;name&quot;</span>, <a href="#628">name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#627">self</a>.builder.property(<span class="string">&quot;name&quot;</span>, <a href="#627">name</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="kw">pub fn </span>no_show_all(<span class="self">self</span>, no_show_all: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#634">self</a>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, <a href="#634">no_show_all</a>),
+            builder: <a class="self" href="#633">self</a>.builder.property(<span class="string">&quot;no-show-all&quot;</span>, <a href="#633">no_show_all</a>),
         }
     }
 
@@ -1546,25 +1538,25 @@
     /// Before 3.8 this was only available in GtkWindow
     </span><span class="kw">pub fn </span>opacity(<span class="self">self</span>, opacity: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#644">self</a>.builder.property(<span class="string">&quot;opacity&quot;</span>, <a href="#644">opacity</a>),
+            builder: <a class="self" href="#643">self</a>.builder.property(<span class="string">&quot;opacity&quot;</span>, <a href="#643">opacity</a>),
         }
     }
 
     <span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="container.rs.html#14-1335">Container</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#650">self</a>.builder.property(<span class="string">&quot;parent&quot;</span>, <a href="#650">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+            builder: <a class="self" href="#649">self</a>.builder.property(<span class="string">&quot;parent&quot;</span>, <a href="#649">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="kw">pub fn </span>receives_default(<span class="self">self</span>, receives_default: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#656">self</a>.builder.property(<span class="string">&quot;receives-default&quot;</span>, <a href="#656">receives_default</a>),
+            builder: <a class="self" href="#655">self</a>.builder.property(<span class="string">&quot;receives-default&quot;</span>, <a href="#655">receives_default</a>),
         }
     }
 
     <span class="kw">pub fn </span>sensitive(<span class="self">self</span>, sensitive: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#662">self</a>.builder.property(<span class="string">&quot;sensitive&quot;</span>, <a href="#662">sensitive</a>),
+            builder: <a class="self" href="#661">self</a>.builder.property(<span class="string">&quot;sensitive&quot;</span>, <a href="#661">sensitive</a>),
         }
     }
 
@@ -1579,11 +1571,11 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_markup(<span class="self">self</span>, tooltip_markup: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#679">self</a>
+            builder: <span class="self"><a href="#678">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;tooltip-markup&quot;</span>, <a href="#679">tooltip_markup</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+                .property(<span class="string">&quot;tooltip-markup&quot;</span>, <a href="#678">tooltip_markup</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
@@ -1598,48 +1590,48 @@
     ///
     /// Note that if both [`tooltip-text`][struct@crate::Widget#tooltip-text] and [`tooltip-markup`][struct@crate::Widget#tooltip-markup]
     /// are set, the last one wins.
-    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>tooltip_text(<span class="self">self</span>, tooltip_text: <span class="kw">impl </span>Into&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">glib::GString</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#698">self</a>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, <a href="#698">tooltip_text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
+            builder: <a class="self" href="#697">self</a>.builder.property(<span class="string">&quot;tooltip-text&quot;</span>, <a href="#697">tooltip_text</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()),
         }
     }
 
     <span class="doccomment">/// How to distribute vertical space if widget gets extra space, see [`Align`][crate::Align]
-    </span><span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: <a href="enums.rs.html#27-49">Align</a>) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>valign(<span class="self">self</span>, valign: <a href="enums.rs.html#26-48">Align</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#705">self</a>.builder.property(<span class="string">&quot;valign&quot;</span>, <a href="#705">valign</a>),
+            builder: <a class="self" href="#704">self</a>.builder.property(<span class="string">&quot;valign&quot;</span>, <a href="#704">valign</a>),
         }
     }
 
     <span class="doccomment">/// Whether to expand vertically. See [`WidgetExt::set_vexpand()`][crate::prelude::WidgetExt::set_vexpand()].
     </span><span class="kw">pub fn </span>vexpand(<span class="self">self</span>, vexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#712">self</a>.builder.property(<span class="string">&quot;vexpand&quot;</span>, <a href="#712">vexpand</a>),
+            builder: <a class="self" href="#711">self</a>.builder.property(<span class="string">&quot;vexpand&quot;</span>, <a href="#711">vexpand</a>),
         }
     }
 
     <span class="doccomment">/// Whether to use the [`vexpand`][struct@crate::Widget#vexpand] property. See [`WidgetExt::is_vexpand_set()`][crate::prelude::WidgetExt::is_vexpand_set()].
     </span><span class="kw">pub fn </span>vexpand_set(<span class="self">self</span>, vexpand_set: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#719">self</a>.builder.property(<span class="string">&quot;vexpand-set&quot;</span>, <a href="#719">vexpand_set</a>),
+            builder: <a class="self" href="#718">self</a>.builder.property(<span class="string">&quot;vexpand-set&quot;</span>, <a href="#718">vexpand_set</a>),
         }
     }
 
     <span class="kw">pub fn </span>visible(<span class="self">self</span>, visible: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#725">self</a>.builder.property(<span class="string">&quot;visible&quot;</span>, <a href="#725">visible</a>),
+            builder: <a class="self" href="#724">self</a>.builder.property(<span class="string">&quot;visible&quot;</span>, <a href="#724">visible</a>),
         }
     }
 
     <span class="kw">pub fn </span>width_request(<span class="self">self</span>, width_request: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#731">self</a>.builder.property(<span class="string">&quot;width-request&quot;</span>, <a href="#731">width_request</a>),
+            builder: <a class="self" href="#730">self</a>.builder.property(<span class="string">&quot;width-request&quot;</span>, <a href="#730">width_request</a>),
         }
     }
 
-    <span class="kw">pub fn </span>action(<span class="self">self</span>, action: <a href="enums.rs.html#2697-2719">FileChooserAction</a>) -&gt; <span class="self">Self </span>{
+    <span class="kw">pub fn </span>action(<span class="self">self</span>, action: <a href="enums.rs.html#2380-2402">FileChooserAction</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#737">self</a>.builder.property(<span class="string">&quot;action&quot;</span>, <a href="#737">action</a>),
+            builder: <a class="self" href="#736">self</a>.builder.property(<span class="string">&quot;action&quot;</span>, <a href="#736">action</a>),
         }
     }
 
@@ -1647,7 +1639,7 @@
     /// will offer the user to create new folders.
     </span><span class="kw">pub fn </span>create_folders(<span class="self">self</span>, create_folders: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#745">self</a>.builder.property(<span class="string">&quot;create-folders&quot;</span>, <a href="#745">create_folders</a>),
+            builder: <a class="self" href="#744">self</a>.builder.property(<span class="string">&quot;create-folders&quot;</span>, <a href="#744">create_folders</a>),
         }
     }
 
@@ -1656,79 +1648,73 @@
     /// selects a file name that already exists.
     </span><span class="kw">pub fn </span>do_overwrite_confirmation(<span class="self">self</span>, do_overwrite_confirmation: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#754">self</a>
+            builder: <span class="self"><a href="#753">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;do-overwrite-confirmation&quot;</span>, <a href="#754">do_overwrite_confirmation</a>),
+                .property(<span class="string">&quot;do-overwrite-confirmation&quot;</span>, <a href="#753">do_overwrite_confirmation</a>),
         }
     }
 
     <span class="kw">pub fn </span>extra_widget(<span class="self">self</span>, extra_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#762">self</a>
+            builder: <span class="self"><a href="#761">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;extra-widget&quot;</span>, <a href="#762">extra_widget</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;extra-widget&quot;</span>, <a href="#761">extra_widget</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="kw">pub fn </span>filter(<span class="self">self</span>, filter: <span class="kw-2">&amp;</span><a href="file_filter.rs.html#9-63">FileFilter</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#770">self</a>.builder.property(<span class="string">&quot;filter&quot;</span>, <a href="#770">filter</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
+            builder: <a class="self" href="#769">self</a>.builder.property(<span class="string">&quot;filter&quot;</span>, <a href="#769">filter</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>()),
         }
     }
 
     <span class="kw">pub fn </span>local_only(<span class="self">self</span>, local_only: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#776">self</a>.builder.property(<span class="string">&quot;local-only&quot;</span>, <a href="#776">local_only</a>),
+            builder: <a class="self" href="#775">self</a>.builder.property(<span class="string">&quot;local-only&quot;</span>, <a href="#775">local_only</a>),
         }
     }
 
     <span class="kw">pub fn </span>preview_widget(<span class="self">self</span>, preview_widget: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="widget.rs.html#17-1520">Widget</a>&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#782">self</a>
+            builder: <span class="self"><a href="#781">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;preview-widget&quot;</span>, <a href="#782">preview_widget</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.19/docs/glib/object/trait.Cast.html">upcast</a>()),
+                .property(<span class="string">&quot;preview-widget&quot;</span>, <a href="#781">preview_widget</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">upcast</a>()),
         }
     }
 
     <span class="kw">pub fn </span>preview_widget_active(<span class="self">self</span>, preview_widget_active: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#790">self</a>
+            builder: <span class="self"><a href="#789">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;preview-widget-active&quot;</span>, <a href="#790">preview_widget_active</a>),
+                .property(<span class="string">&quot;preview-widget-active&quot;</span>, <a href="#789">preview_widget_active</a>),
         }
     }
 
     <span class="kw">pub fn </span>select_multiple(<span class="self">self</span>, select_multiple: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#798">self</a>.builder.property(<span class="string">&quot;select-multiple&quot;</span>, <a href="#798">select_multiple</a>),
+            builder: <a class="self" href="#797">self</a>.builder.property(<span class="string">&quot;select-multiple&quot;</span>, <a href="#797">select_multiple</a>),
         }
     }
 
     <span class="kw">pub fn </span>show_hidden(<span class="self">self</span>, show_hidden: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <a class="self" href="#804">self</a>.builder.property(<span class="string">&quot;show-hidden&quot;</span>, <a href="#804">show_hidden</a>),
+            builder: <a class="self" href="#803">self</a>.builder.property(<span class="string">&quot;show-hidden&quot;</span>, <a href="#803">show_hidden</a>),
         }
     }
 
     <span class="kw">pub fn </span>use_preview_label(<span class="self">self</span>, use_preview_label: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            builder: <span class="self"><a href="#810">self</a>
+            builder: <span class="self"><a href="#809">self</a>
                 </span>.builder
-                .property(<span class="string">&quot;use-preview-label&quot;</span>, <a href="#810">use_preview_label</a>),
+                .property(<span class="string">&quot;use-preview-label&quot;</span>, <a href="#809">use_preview_label</a>),
         }
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Build the [`FileChooserDialog`].
     </span><span class="attr">#[must_use = <span class="string">&quot;Building the object from the builder is usually expensive and is not expected to have side effects&quot;</span>]
-    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#12-181">FileChooserDialog</a> {
-        <a class="self" href="#821">self</a>.builder.build()
-    }
-}
-
-<span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#12-181">FileChooserDialog</a> {
-    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span><a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">fmt::Formatter</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">fmt::Result</a> {
-        <a href="#827">f</a>.write_str(<span class="string">&quot;FileChooserDialog&quot;</span>)
+    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#11-180">FileChooserDialog</a> {
+        <a class="self" href="#820">self</a>.builder.build()
     }
 }
 </code></pre></div></section></main></body></html>

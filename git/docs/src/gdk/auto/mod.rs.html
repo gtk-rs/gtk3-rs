@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-085727c29c2fa99e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.0-nightly (203c57dbe 2023-09-17)" data-channel="nightly" data-search-js="search-5d3eaacf19ebf04f.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f6ec288034ea164c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/mod.rs`."><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -50,7 +50,7 @@
             </section>
         ` };
 
-        if ("0.18" == "master") {
+        if ("master" == "master") {
             document.body.insertAdjacentHTML(
                 'beforeend',
                 popup("This is the development version. Go to latest stable version.", "stable/latest")
@@ -59,7 +59,7 @@
             fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
                 .then(response => response.text())
                 .then(latest_branch => {
-                    if (latest_branch.trim() != "0.18") {
+                    if (latest_branch.trim() != "master") {
                         document.body.insertAdjacentHTML(
                             'beforeend',
                             popup("This version is outdated. Go to latest version.", "stable/latest")
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../gdk/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -195,63 +195,62 @@
 <a href="#122" id="122">122</a>
 <a href="#123" id="123">123</a>
 <a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
 </pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">mod </span><a href="app_launch_context.rs.html#5-152">app_launch_context</a>;
-<span class="kw">pub use </span><a href="app_launch_context.rs.html#9-50"><span class="self">self</span>::app_launch_context::AppLaunchContext</a>;
+</span><span class="kw">mod </span><a href="app_launch_context.rs.html#5-145">app_launch_context</a>;
+<span class="kw">pub use </span><a href="app_launch_context.rs.html#8-49"><span class="self">self</span>::app_launch_context::AppLaunchContext</a>;
 
-<span class="kw">mod </span><a href="cursor.rs.html#5-273">cursor</a>;
-<span class="kw">pub use </span><a href="cursor.rs.html#9-29"><span class="self">self</span>::cursor::Cursor</a>;
+<span class="kw">mod </span><a href="cursor.rs.html#5-266">cursor</a>;
+<span class="kw">pub use </span><a href="cursor.rs.html#8-28"><span class="self">self</span>::cursor::Cursor</a>;
 
-<span class="kw">mod </span><a href="device.rs.html#5-991">device</a>;
+<span class="kw">mod </span><a href="device.rs.html#5-985">device</a>;
 <span class="kw">pub use </span><a href="device.rs.html#16-148"><span class="self">self</span>::device::Device</a>;
 
-<span class="kw">mod </span><a href="device_manager.rs.html#5-288">device_manager</a>;
+<span class="kw">mod </span><a href="device_manager.rs.html#5-282">device_manager</a>;
 <span class="kw">pub use </span><a href="device_manager.rs.html#13-176"><span class="self">self</span>::device_manager::DeviceManager</a>;
 
-<span class="kw">mod </span><a href="device_pad.rs.html#5-125">device_pad</a>;
-<span class="kw">pub use </span><a href="device_pad.rs.html#9-37"><span class="self">self</span>::device_pad::DevicePad</a>;
+<span class="kw">mod </span><a href="device_pad.rs.html#5-118">device_pad</a>;
+<span class="kw">pub use </span><a href="device_pad.rs.html#8-36"><span class="self">self</span>::device_pad::DevicePad</a>;
 
-<span class="kw">mod </span><a href="device_tool.rs.html#5-90">device_tool</a>;
-<span class="kw">pub use </span><a href="device_tool.rs.html#9-35"><span class="self">self</span>::device_tool::DeviceTool</a>;
+<span class="kw">mod </span><a href="device_tool.rs.html#5-83">device_tool</a>;
+<span class="kw">pub use </span><a href="device_tool.rs.html#8-34"><span class="self">self</span>::device_tool::DeviceTool</a>;
 
 <span class="kw">mod </span><a href="display.rs.html#5-806">display</a>;
 <span class="kw">pub use </span><a href="display.rs.html#13-86"><span class="self">self</span>::display::Display</a>;
 
-<span class="kw">mod </span><a href="display_manager.rs.html#5-221">display_manager</a>;
+<span class="kw">mod </span><a href="display_manager.rs.html#5-215">display_manager</a>;
 <span class="kw">pub use </span><a href="display_manager.rs.html#13-77"><span class="self">self</span>::display_manager::DisplayManager</a>;
 
-<span class="kw">mod </span><a href="drag_context.rs.html#5-383">drag_context</a>;
+<span class="kw">mod </span><a href="drag_context.rs.html#5-377">drag_context</a>;
 <span class="kw">pub use </span><a href="drag_context.rs.html#13-65"><span class="self">self</span>::drag_context::DragContext</a>;
 
-<span class="kw">mod </span><a href="drawing_context.rs.html#5-102">drawing_context</a>;
-<span class="kw">pub use </span><a href="drawing_context.rs.html#9-40"><span class="self">self</span>::drawing_context::DrawingContext</a>;
+<span class="kw">mod </span><a href="drawing_context.rs.html#5-95">drawing_context</a>;
+<span class="kw">pub use </span><a href="drawing_context.rs.html#8-39"><span class="self">self</span>::drawing_context::DrawingContext</a>;
 
-<span class="kw">mod </span><a href="frame_clock.rs.html#5-435">frame_clock</a>;
+<span class="kw">mod </span><a href="frame_clock.rs.html#5-429">frame_clock</a>;
 <span class="kw">pub use </span><a href="frame_clock.rs.html#13-117"><span class="self">self</span>::frame_clock::FrameClock</a>;
 
-<span class="kw">mod </span><a href="gl_context.rs.html#5-382">gl_context</a>;
-<span class="kw">pub use </span><a href="gl_context.rs.html#9-93"><span class="self">self</span>::gl_context::GLContext</a>;
+<span class="kw">mod </span><a href="gl_context.rs.html#5-375">gl_context</a>;
+<span class="kw">pub use </span><a href="gl_context.rs.html#8-92"><span class="self">self</span>::gl_context::GLContext</a>;
 
-<span class="kw">mod </span><a href="keymap.rs.html#5-353">keymap</a>;
+<span class="kw">mod </span><a href="keymap.rs.html#5-347">keymap</a>;
 <span class="kw">pub use </span><a href="keymap.rs.html#13-50"><span class="self">self</span>::keymap::Keymap</a>;
 
-<span class="kw">mod </span><a href="monitor.rs.html#5-521">monitor</a>;
+<span class="kw">mod </span><a href="monitor.rs.html#5-515">monitor</a>;
 <span class="kw">pub use </span><a href="monitor.rs.html#13-80"><span class="self">self</span>::monitor::Monitor</a>;
 
-<span class="kw">mod </span><a href="screen.rs.html#5-400">screen</a>;
+<span class="kw">mod </span><a href="screen.rs.html#5-394">screen</a>;
 <span class="kw">pub use </span><a href="screen.rs.html#13-67"><span class="self">self</span>::screen::Screen</a>;
 
-<span class="kw">mod </span><a href="seat.rs.html#5-405">seat</a>;
+<span class="kw">mod </span><a href="seat.rs.html#5-399">seat</a>;
 <span class="kw">pub use </span><a href="seat.rs.html#13-70"><span class="self">self</span>::seat::Seat</a>;
 
-<span class="kw">mod </span><a href="visual.rs.html#5-173">visual</a>;
-<span class="kw">pub use </span><a href="visual.rs.html#9-18"><span class="self">self</span>::visual::Visual</a>;
+<span class="kw">mod </span><a href="visual.rs.html#5-166">visual</a>;
+<span class="kw">pub use </span><a href="visual.rs.html#8-17"><span class="self">self</span>::visual::Visual</a>;
 
-<span class="kw">mod </span><a href="window.rs.html#5-2902">window</a>;
+<span class="kw">mod </span><a href="window.rs.html#5-2896">window</a>;
 <span class="kw">pub use </span><a href="window.rs.html#20-101"><span class="self">self</span>::window::Window</a>;
 
 <span class="kw">mod </span><a href="event_sequence.rs.html#5-14">event_sequence</a>;
@@ -260,64 +259,63 @@
 <span class="kw">mod </span><a href="frame_timings.rs.html#5-70">frame_timings</a>;
 <span class="kw">pub use </span><a href="frame_timings.rs.html#7-22"><span class="self">self</span>::frame_timings::FrameTimings</a>;
 
-<span class="kw">mod </span><a href="rgba.rs.html#5-90">rgba</a>;
-<span class="kw">pub use </span><a href="rgba.rs.html#8-18"><span class="self">self</span>::rgba::RGBA</a>;
+<span class="kw">mod </span><a href="rgba.rs.html#5-89">rgba</a>;
+<span class="kw">pub use </span><a href="rgba.rs.html#7-17"><span class="self">self</span>::rgba::RGBA</a>;
 
 <span class="kw">mod </span><a href="rectangle.rs.html#5-100">rectangle</a>;
 <span class="kw">pub use </span><a href="rectangle.rs.html#7-17"><span class="self">self</span>::rectangle::Rectangle</a>;
 
-<span class="kw">mod </span><a href="enums.rs.html#5-4986">enums</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#18-54"><span class="self">self</span>::enums::AxisUse</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#185-198"><span class="self">self</span>::enums::ByteOrder</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#301-336"><span class="self">self</span>::enums::CrossingMode</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#465-709"><span class="self">self</span>::enums::CursorType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1044-1056"><span class="self">self</span>::enums::DevicePadFeature</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1163-1190"><span class="self">self</span>::enums::DeviceToolType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1312-1326"><span class="self">self</span>::enums::DeviceType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1432-1444"><span class="self">self</span>::enums::DragCancelReason</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1551-1579"><span class="self">self</span>::enums::DragProtocol</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#1711-1881"><span class="self">self</span>::enums::EventType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2121-2130"><span class="self">self</span>::enums::FullscreenMode</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2233-2245"><span class="self">self</span>::enums::GLError</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2374-2386"><span class="self">self</span>::enums::GrabOwnership</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2493-2516"><span class="self">self</span>::enums::GrabStatus</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2635-2669"><span class="self">self</span>::enums::Gravity</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2796-2812"><span class="self">self</span>::enums::InputMode</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#2918-2955"><span class="self">self</span>::enums::InputSource</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3085-3121"><span class="self">self</span>::enums::ModifierIntent</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3242-3270"><span class="self">self</span>::enums::NotifyType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3385-3397"><span class="self">self</span>::enums::OwnerChange</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3504-3516"><span class="self">self</span>::enums::PropMode</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3622-3631"><span class="self">self</span>::enums::PropertyState</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3734-3753"><span class="self">self</span>::enums::ScrollDirection</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3866-3878"><span class="self">self</span>::enums::SettingAction</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#3985-4006"><span class="self">self</span>::enums::SubpixelLayout</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4121-4133"><span class="self">self</span>::enums::VisibilityState</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4240-4273"><span class="self">self</span>::enums::VisualType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4388-4415"><span class="self">self</span>::enums::WindowEdge</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4536-4565"><span class="self">self</span>::enums::WindowType</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4688-4739"><span class="self">self</span>::enums::WindowTypeHint</a>;
-<span class="kw">pub use </span><a href="enums.rs.html#4880-4889"><span class="self">self</span>::enums::WindowWindowClass</a>;
+<span class="kw">mod </span><a href="enums.rs.html#5-4358">enums</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#17-53"><span class="self">self</span>::enums::AxisUse</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#162-175"><span class="self">self</span>::enums::ByteOrder</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#265-300"><span class="self">self</span>::enums::CrossingMode</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#409-653"><span class="self">self</span>::enums::CursorType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#897-909"><span class="self">self</span>::enums::DevicePadFeature</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1002-1029"><span class="self">self</span>::enums::DeviceToolType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1132-1146"><span class="self">self</span>::enums::DeviceType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1238-1250"><span class="self">self</span>::enums::DragCancelReason</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1343-1371"><span class="self">self</span>::enums::DragProtocol</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1484-1654"><span class="self">self</span>::enums::EventType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1835-1844"><span class="self">self</span>::enums::FullscreenMode</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#1934-1946"><span class="self">self</span>::enums::GLError</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2061-2073"><span class="self">self</span>::enums::GrabOwnership</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2166-2189"><span class="self">self</span>::enums::GrabStatus</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2291-2325"><span class="self">self</span>::enums::Gravity</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2431-2447"><span class="self">self</span>::enums::InputMode</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2539-2576"><span class="self">self</span>::enums::InputSource</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2686-2722"><span class="self">self</span>::enums::ModifierIntent</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2825-2853"><span class="self">self</span>::enums::NotifyType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#2951-2963"><span class="self">self</span>::enums::OwnerChange</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3056-3068"><span class="self">self</span>::enums::PropMode</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3160-3169"><span class="self">self</span>::enums::PropertyState</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3259-3278"><span class="self">self</span>::enums::ScrollDirection</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3375-3387"><span class="self">self</span>::enums::SettingAction</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3480-3501"><span class="self">self</span>::enums::SubpixelLayout</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3599-3611"><span class="self">self</span>::enums::VisibilityState</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3704-3737"><span class="self">self</span>::enums::VisualType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3835-3862"><span class="self">self</span>::enums::WindowEdge</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#3964-3993"><span class="self">self</span>::enums::WindowType</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#4098-4149"><span class="self">self</span>::enums::WindowTypeHint</a>;
+<span class="kw">pub use </span><a href="enums.rs.html#4265-4274"><span class="self">self</span>::enums::WindowWindowClass</a>;
 
-<span class="kw">mod </span><a href="flags.rs.html#5-1468">flags</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#8-55"><span class="self">self</span>::flags::AnchorHints</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#137-170"><span class="self">self</span>::flags::AxisFlags</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#252-280"><span class="self">self</span>::flags::DragAction</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#362-472"><span class="self">self</span>::flags::EventMask</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#554-586"><span class="self">self</span>::flags::FrameClockPhase</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#668-795"><span class="self">self</span>::flags::ModifierType</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#877-904"><span class="self">self</span>::flags::SeatCapabilities</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#986-1015"><span class="self">self</span>::flags::WMDecoration</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#1097-1123"><span class="self">self</span>::flags::WMFunction</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#1205-1247"><span class="self">self</span>::flags::WindowHints</a>;
-<span class="kw">pub use </span><a href="flags.rs.html#1329-1388"><span class="self">self</span>::flags::WindowState</a>;
+<span class="kw">mod </span><a href="flags.rs.html#5-1412">flags</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#7-54"><span class="self">self</span>::flags::AnchorHints</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#131-164"><span class="self">self</span>::flags::AxisFlags</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#241-269"><span class="self">self</span>::flags::DragAction</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#346-456"><span class="self">self</span>::flags::EventMask</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#533-565"><span class="self">self</span>::flags::FrameClockPhase</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#642-769"><span class="self">self</span>::flags::ModifierType</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#846-873"><span class="self">self</span>::flags::SeatCapabilities</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#950-979"><span class="self">self</span>::flags::WMDecoration</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#1056-1082"><span class="self">self</span>::flags::WMFunction</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#1159-1201"><span class="self">self</span>::flags::WindowHints</a>;
+<span class="kw">pub use </span><a href="flags.rs.html#1278-1337"><span class="self">self</span>::flags::WindowState</a>;
 
-<span class="kw">pub mod </span><a href="functions.rs.html#5-1017">functions</a>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span><a href="functions.rs.html#5-1016">functions</a>;
 
-<span class="attr">#[doc(hidden)]
-</span><span class="kw">pub mod </span>traits {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>traits {
     <span class="kw">pub use </span><a href="device.rs.html#164-983"><span class="kw">super</span>::device::DeviceExt</a>;
-    <span class="kw">pub use </span><a href="device_pad.rs.html#53-117"><span class="kw">super</span>::device_pad::DevicePadExt</a>;
+    <span class="kw">pub use </span><a href="device_pad.rs.html#52-116"><span class="kw">super</span>::device_pad::DevicePadExt</a>;
     <span class="kw">pub use </span><a href="monitor.rs.html#96-513"><span class="kw">super</span>::monitor::MonitorExt</a>;
     <span class="kw">pub use </span><a href="seat.rs.html#86-397"><span class="kw">super</span>::seat::SeatExt</a>;
 }
