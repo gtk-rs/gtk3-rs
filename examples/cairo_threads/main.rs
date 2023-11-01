@@ -39,7 +39,7 @@ fn build_ui(application: &gtk::Application) {
 
     // This is the channel for sending results from the worker thread to the main thread
     // For every received image, queue the corresponding part of the DrawingArea for redrawing
-    let (ready_tx, ready_rx) = glib::MainContext::channel(glib::Priority::default());
+    let (ready_tx, ready_rx) = async_channel::bounded(10);
 
     let mut images = Vec::new();
     let mut origins = Vec::new();
@@ -92,7 +92,7 @@ fn build_ui(application: &gtk::Application) {
                 });
 
                 // Send the finished image back to the GUI thread
-                let _ = ready_tx.send((thread_num, image));
+                let _ = ready_tx.send_blocking((thread_num, image));
             }
         }));
     }
@@ -117,18 +117,18 @@ fn build_ui(application: &gtk::Application) {
         }),
     );
 
-    ready_rx.attach(None, move |(thread_num, image)| {
-        let (ref images, ref origins, ref workers) = *workspace;
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok((thread_num, image)) = ready_rx.recv().await {
+            let (ref images, ref origins, ref workers) = *workspace;
 
-        // Swap the newly received image with the old stored one and send the old one back to
-        // the worker thread
-        let tx = &workers[thread_num];
-        let image = images[thread_num].replace(image);
-        let _ = tx.send(image);
+            // Swap the newly received image with the old stored one and send the old one back to
+            // the worker thread
+            let tx = &workers[thread_num];
+            let image = images[thread_num].replace(image);
+            let _ = tx.send(image);
 
-        area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, WIDTH, HEIGHT);
-
-        glib::ControlFlow::Continue
+            area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, WIDTH, HEIGHT);
+        }
     });
 
     window.show_all();
