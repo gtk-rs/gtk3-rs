@@ -119,8 +119,7 @@ pub use self::flags::HyperlinkStateFlags;
 mod alias;
 pub use self::alias::State;
 
-#[doc(hidden)]
-pub mod traits {
+pub(crate) mod traits {
     pub use super::action::AtkActionExt;
     pub use super::component::ComponentExt;
     pub use super::document::DocumentExt;

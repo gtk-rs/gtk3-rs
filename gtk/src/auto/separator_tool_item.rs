@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkSeparatorToolItem")]
@@ -346,7 +346,7 @@ pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::draw\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_draw_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -356,9 +356,3 @@ pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'stati
 }
 
 impl<O: IsA<SeparatorToolItem>> SeparatorToolItemExt for O {}
-
-impl fmt::Display for SeparatorToolItem {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SeparatorToolItem")
-    }
-}

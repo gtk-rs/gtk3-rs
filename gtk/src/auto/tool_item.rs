@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkToolItem")]
@@ -586,7 +586,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"create-menu-proxy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     create_menu_proxy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -611,7 +611,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"toolbar-reconfigured\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     toolbar_reconfigured_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -637,7 +637,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-important\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_important_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -663,7 +663,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::visible-horizontal\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_visible_horizontal_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -689,7 +689,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::visible-vertical\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_visible_vertical_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -699,9 +699,3 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ToolItem>> ToolItemExt for O {}
-
-impl fmt::Display for ToolItem {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ToolItem")
-    }
-}

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkFrame")]
@@ -327,8 +327,8 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
     #[doc(alias = "get_label_align")]
     fn label_align(&self) -> (f32, f32) {
         unsafe {
-            let mut xalign = mem::MaybeUninit::uninit();
-            let mut yalign = mem::MaybeUninit::uninit();
+            let mut xalign = std::mem::MaybeUninit::uninit();
+            let mut yalign = std::mem::MaybeUninit::uninit();
             ffi::gtk_frame_get_label_align(
                 self.as_ref().to_glib_none().0,
                 xalign.as_mut_ptr(),
@@ -424,7 +424,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -447,7 +447,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_label_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -470,7 +470,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label-xalign\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_label_xalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -493,7 +493,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label-yalign\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_label_yalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -516,7 +516,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -526,9 +526,3 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Frame>> FrameExt for O {}
-
-impl fmt::Display for Frame {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Frame")
-    }
-}

@@ -4,7 +4,6 @@
 
 use crate::Hyperlink;
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkHyperlinkImpl")]
@@ -37,9 +36,3 @@ pub trait HyperlinkImplExt: IsA<HyperlinkImpl> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {}
-
-impl fmt::Display for HyperlinkImpl {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("HyperlinkImpl")
-    }
-}

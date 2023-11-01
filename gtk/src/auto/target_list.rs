@@ -4,7 +4,6 @@
 
 use crate::TextBuffer;
 use glib::{prelude::*, translate::*};
-use std::mem;
 
 glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -70,7 +69,7 @@ impl TargetList {
     #[doc(alias = "gtk_target_list_find")]
     pub fn find(&self, target: &gdk::Atom) -> Option<u32> {
         unsafe {
-            let mut info = mem::MaybeUninit::uninit();
+            let mut info = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_target_list_find(
                 self.to_glib_none().0,
                 target.to_glib_none().0,

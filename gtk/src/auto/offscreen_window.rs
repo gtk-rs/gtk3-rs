@@ -7,7 +7,6 @@ use crate::{
     WindowType,
 };
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkOffscreenWindow")]
@@ -488,9 +487,3 @@ pub trait OffscreenWindowExt: IsA<OffscreenWindow> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<OffscreenWindow>> OffscreenWindowExt for O {}
-
-impl fmt::Display for OffscreenWindow {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("OffscreenWindow")
-    }
-}

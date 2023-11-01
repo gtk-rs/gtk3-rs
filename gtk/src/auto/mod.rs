@@ -800,7 +800,7 @@ pub use self::flags::TextSearchFlags;
 pub use self::flags::ToolPaletteDragTargets;
 pub use self::flags::TreeModelFlags;
 
-pub mod functions;
+pub(crate) mod functions;
 
 mod constants;
 pub use self::constants::LEVEL_BAR_OFFSET_FULL;
@@ -940,8 +940,7 @@ pub use self::constants::STYLE_PROPERTY_FONT;
 pub use self::constants::STYLE_PROPERTY_MARGIN;
 pub use self::constants::STYLE_PROPERTY_PADDING;
 
-#[doc(hidden)]
-pub mod traits {
+pub(crate) mod traits {
     pub use super::about_dialog::AboutDialogExt;
     pub use super::accel_group::AccelGroupExt;
     pub use super::accel_label::AccelLabelExt;
@@ -1115,8 +1114,7 @@ pub mod traits {
     pub use super::window::GtkWindowExt;
     pub use super::window_group::WindowGroupExt;
 }
-#[doc(hidden)]
-pub mod builders {
+pub(crate) mod builders {
     pub use super::about_dialog::AboutDialogBuilder;
     pub use super::accel_label::AccelLabelBuilder;
     pub use super::action_bar::ActionBarBuilder;

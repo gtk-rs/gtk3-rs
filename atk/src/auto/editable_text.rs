@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkEditableText")]
@@ -69,9 +68,3 @@ pub trait EditableTextExt: IsA<EditableText> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<EditableText>> EditableTextExt for O {}
-
-impl fmt::Display for EditableText {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("EditableText")
-    }
-}

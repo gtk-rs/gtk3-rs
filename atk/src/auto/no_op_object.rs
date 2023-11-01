@@ -7,7 +7,6 @@ use crate::{
     TableCell, Text, Value, Window,
 };
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkNoOpObject")]
@@ -28,11 +27,5 @@ impl NoOpObject {
             Object::from_glib_full(ffi::atk_no_op_object_new(obj.as_ref().to_glib_none().0))
                 .unsafe_cast()
         }
-    }
-}
-
-impl fmt::Display for NoOpObject {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("NoOpObject")
     }
 }

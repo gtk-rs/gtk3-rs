@@ -7,7 +7,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkDocument")]
@@ -92,7 +92,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-complete\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     load_complete_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -114,7 +114,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"load-stopped\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     load_stopped_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -140,7 +140,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"page-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     page_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -162,7 +162,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"reload\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     reload_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -172,9 +172,3 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Document>> DocumentExt for O {}
-
-impl fmt::Display for Document {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Document")
-    }
-}

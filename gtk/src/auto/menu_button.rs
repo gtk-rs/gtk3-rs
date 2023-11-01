@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkMenuButton")]
@@ -536,7 +536,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::align-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_align_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -562,7 +562,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::direction\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -588,7 +588,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::menu-model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_menu_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -611,7 +611,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::popover\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_popover_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -634,7 +634,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::popup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -660,7 +660,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-popover\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_popover_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -670,9 +670,3 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<MenuButton>> MenuButtonExt for O {}
-
-impl fmt::Display for MenuButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MenuButton")
-    }
-}

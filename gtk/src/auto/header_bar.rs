@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkHeaderBar")]
@@ -554,7 +554,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::custom-title\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_custom_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -580,7 +580,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::decoration-layout\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_decoration_layout_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -609,7 +609,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::decoration-layout-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_decoration_layout_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -635,7 +635,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-subtitle\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_has_subtitle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -661,7 +661,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-close-button\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_close_button_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -684,7 +684,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -707,7 +707,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::subtitle\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_subtitle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -730,7 +730,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -740,9 +740,3 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<HeaderBar>> HeaderBarExt for O {}
-
-impl fmt::Display for HeaderBar {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("HeaderBar")
-    }
-}

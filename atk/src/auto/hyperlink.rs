@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkHyperlink")]
@@ -98,7 +98,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"link-activated\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     link_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -121,7 +121,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::end-index\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_end_index_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -147,7 +147,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::number-of-anchors\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_number_of_anchors_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -173,7 +173,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::start-index\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_start_index_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -183,9 +183,3 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Hyperlink>> HyperlinkExt for O {}
-
-impl fmt::Display for Hyperlink {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Hyperlink")
-    }
-}

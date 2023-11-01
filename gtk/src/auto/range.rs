@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkRange")]
@@ -110,8 +110,8 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     #[doc(alias = "get_slider_range")]
     fn slider_range(&self) -> (i32, i32) {
         unsafe {
-            let mut slider_start = mem::MaybeUninit::uninit();
-            let mut slider_end = mem::MaybeUninit::uninit();
+            let mut slider_start = std::mem::MaybeUninit::uninit();
+            let mut slider_end = std::mem::MaybeUninit::uninit();
             ffi::gtk_range_get_slider_range(
                 self.as_ref().to_glib_none().0,
                 slider_start.as_mut_ptr(),
@@ -271,7 +271,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"adjust-bounds\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     adjust_bounds_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -306,7 +306,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"change-value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     change_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -335,7 +335,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-slider\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_slider_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -361,7 +361,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"value-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     value_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -384,7 +384,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::adjustment\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -407,7 +407,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fill-level\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -430,7 +430,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::inverted\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -459,7 +459,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::lower-stepper-sensitivity\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_lower_stepper_sensitivity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -488,7 +488,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::restrict-to-fill-level\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_restrict_to_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -511,7 +511,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::round-digits\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_round_digits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -537,7 +537,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-fill-level\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -566,7 +566,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::upper-stepper-sensitivity\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_upper_stepper_sensitivity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -576,9 +576,3 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Range>> RangeExt for O {}
-
-impl fmt::Display for Range {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Range")
-    }
-}

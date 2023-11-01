@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkValue")]
@@ -107,8 +107,8 @@ pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
     #[doc(alias = "get_value_and_text")]
     fn value_and_text(&self) -> (f64, glib::GString) {
         unsafe {
-            let mut value = mem::MaybeUninit::uninit();
-            let mut text = ptr::null_mut();
+            let mut value = std::mem::MaybeUninit::uninit();
+            let mut text = std::ptr::null_mut();
             ffi::atk_value_get_value_and_text(
                 self.as_ref().to_glib_none().0,
                 value.as_mut_ptr(),
@@ -158,7 +158,7 @@ pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"value-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     value_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -168,9 +168,3 @@ pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Value>> ValueExt for O {}
-
-impl fmt::Display for Value {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Value")
-    }
-}

@@ -7,7 +7,7 @@ use crate::{
     TextBuffer, TextDirection, TreeModel, TreePath, Widget, Window,
 };
 use glib::{prelude::*, translate::*};
-use std::{boxed::Box as Box_, mem, ptr};
+use std::boxed::Box as Box_;
 
 #[doc(alias = "gtk_accel_groups_activate")]
 pub fn accel_groups_activate(
@@ -109,8 +109,8 @@ pub fn accelerator_name_with_keycode(
 pub fn accelerator_parse(accelerator: &str) -> (u32, gdk::ModifierType) {
     assert_initialized_main_thread!();
     unsafe {
-        let mut accelerator_key = mem::MaybeUninit::uninit();
-        let mut accelerator_mods = mem::MaybeUninit::uninit();
+        let mut accelerator_key = std::mem::MaybeUninit::uninit();
+        let mut accelerator_mods = std::mem::MaybeUninit::uninit();
         ffi::gtk_accelerator_parse(
             accelerator.to_glib_none().0,
             accelerator_key.as_mut_ptr(),
@@ -279,7 +279,7 @@ pub fn current_event_device() -> Option<gdk::Device> {
 pub fn current_event_state() -> Option<gdk::ModifierType> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut state = mem::MaybeUninit::uninit();
+        let mut state = std::mem::MaybeUninit::uninit();
         let ret = from_glib(ffi::gtk_get_current_event_state(state.as_mut_ptr()));
         if ret {
             Some(from_glib(state.assume_init()))
@@ -861,9 +861,9 @@ pub fn render_slider(
 pub fn rgb_to_hsv(r: f64, g: f64, b: f64) -> (f64, f64, f64) {
     assert_initialized_main_thread!();
     unsafe {
-        let mut h = mem::MaybeUninit::uninit();
-        let mut s = mem::MaybeUninit::uninit();
-        let mut v = mem::MaybeUninit::uninit();
+        let mut h = std::mem::MaybeUninit::uninit();
+        let mut s = std::mem::MaybeUninit::uninit();
+        let mut v = std::mem::MaybeUninit::uninit();
         ffi::gtk_rgb_to_hsv(r, g, b, h.as_mut_ptr(), s.as_mut_ptr(), v.as_mut_ptr());
         (h.assume_init(), s.assume_init(), v.assume_init())
     }
@@ -979,7 +979,7 @@ pub fn show_uri_on_window(
 ) -> Result<(), glib::Error> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut error = ptr::null_mut();
+        let mut error = std::ptr::null_mut();
         let is_ok = ffi::gtk_show_uri_on_window(
             parent.map(|p| p.as_ref()).to_glib_none().0,
             uri.to_glib_none().0,
@@ -1129,8 +1129,8 @@ pub fn tree_get_row_drag_data(
 ) -> Option<(Option<TreeModel>, Option<TreePath>)> {
     assert_initialized_main_thread!();
     unsafe {
-        let mut tree_model = ptr::null_mut();
-        let mut path = ptr::null_mut();
+        let mut tree_model = std::ptr::null_mut();
+        let mut path = std::ptr::null_mut();
         let ret = from_glib(ffi::gtk_tree_get_row_drag_data(
             mut_override(selection_data.to_glib_none().0),
             &mut tree_model,

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkLevelBar")]
@@ -356,7 +356,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     #[doc(alias = "get_offset_value")]
     fn offset_value(&self, name: Option<&str>) -> Option<f64> {
         unsafe {
-            let mut value = mem::MaybeUninit::uninit();
+            let mut value = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_level_bar_get_offset_value(
                 self.as_ref().to_glib_none().0,
                 name.to_glib_none().0,
@@ -450,7 +450,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     offset_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -473,7 +473,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::inverted\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -496,7 +496,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_max_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -519,7 +519,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::min-value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_min_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -542,7 +542,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -565,7 +565,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -575,9 +575,3 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<LevelBar>> LevelBarExt for O {}
-
-impl fmt::Display for LevelBar {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("LevelBar")
-    }
-}

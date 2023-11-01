@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkImage")]
@@ -142,8 +142,8 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "get_gicon")]
     fn gicon(&self) -> (gio::Icon, IconSize) {
         unsafe {
-            let mut gicon = ptr::null_mut();
-            let mut size = mem::MaybeUninit::uninit();
+            let mut gicon = std::ptr::null_mut();
+            let mut size = std::mem::MaybeUninit::uninit();
             ffi::gtk_image_get_gicon(
                 self.as_ref().to_glib_none().0,
                 &mut gicon,
@@ -331,7 +331,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::file\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_file_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -354,7 +354,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::gicon\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_gicon_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -377,7 +377,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -400,7 +400,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -426,7 +426,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf-animation\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_animation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -449,7 +449,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixel-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixel_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -472,7 +472,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::resource\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_resource_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -495,7 +495,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::storage-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_storage_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -518,7 +518,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::surface\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_surface_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -541,7 +541,7 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-fallback\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_fallback_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -551,9 +551,3 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Image>> ImageExt for O {}
-
-impl fmt::Display for Image {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Image")
-    }
-}

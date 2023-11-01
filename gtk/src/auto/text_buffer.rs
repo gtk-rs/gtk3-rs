@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkTextBuffer")]
@@ -272,7 +272,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
     ) -> Result<(), glib::Error> {
         let length = data.len() as _;
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_text_buffer_deserialize(
                 self.as_ref().to_glib_none().0,
                 content_buffer.as_ref().to_glib_none().0,
@@ -354,7 +354,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
     #[doc(alias = "get_deserialize_formats")]
     fn deserialize_formats(&self) -> Vec<gdk::Atom> {
         unsafe {
-            let mut n_formats = mem::MaybeUninit::uninit();
+            let mut n_formats = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(
                 ffi::gtk_text_buffer_get_deserialize_formats(
                     self.as_ref().to_glib_none().0,
@@ -554,7 +554,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
     #[doc(alias = "get_serialize_formats")]
     fn serialize_formats(&self) -> Vec<gdk::Atom> {
         unsafe {
-            let mut n_formats = mem::MaybeUninit::uninit();
+            let mut n_formats = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_container_num(
                 ffi::gtk_text_buffer_get_serialize_formats(
                     self.as_ref().to_glib_none().0,
@@ -882,7 +882,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
         end: &TextIter,
     ) -> Vec<u8> {
         unsafe {
-            let mut length = mem::MaybeUninit::uninit();
+            let mut length = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
                 ffi::gtk_text_buffer_serialize(
                     self.as_ref().to_glib_none().0,
@@ -959,7 +959,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"begin-user-action\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     begin_user_action_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -981,7 +981,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1003,7 +1003,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"end-user-action\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     end_user_action_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1032,7 +1032,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mark-deleted\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     mark_deleted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1066,7 +1066,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"mark-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     mark_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1091,7 +1091,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"modified-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     modified_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1120,7 +1120,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"paste-done\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     paste_done_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1146,7 +1146,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::copy-target-list\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_copy_target_list_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1172,7 +1172,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cursor-position\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cursor_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1198,7 +1198,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-selection\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_has_selection_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1224,7 +1224,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::paste-target-list\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_paste_target_list_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1247,7 +1247,7 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1257,9 +1257,3 @@ pub trait TextBufferExt: IsA<TextBuffer> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TextBuffer>> TextBufferExt for O {}
-
-impl fmt::Display for TextBuffer {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TextBuffer")
-    }
-}

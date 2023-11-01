@@ -4,7 +4,6 @@
 
 use crate::{Align, Buildable, Container, ResizeMode, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkFixed")]
@@ -308,9 +307,3 @@ pub trait FixedExt: IsA<Fixed> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Fixed>> FixedExt for O {}
-
-impl fmt::Display for Fixed {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Fixed")
-    }
-}

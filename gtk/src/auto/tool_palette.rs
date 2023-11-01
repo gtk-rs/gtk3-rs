@@ -12,7 +12,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkToolPalette")]
@@ -574,7 +574,7 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -600,7 +600,7 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-size-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_size_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -626,7 +626,7 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::toolbar-style\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_toolbar_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -636,9 +636,3 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ToolPalette>> ToolPaletteExt for O {}
-
-impl fmt::Display for ToolPalette {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ToolPalette")
-    }
-}

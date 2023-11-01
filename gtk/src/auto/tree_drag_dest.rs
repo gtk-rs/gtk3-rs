@@ -4,7 +4,6 @@
 
 use crate::{SelectionData, TreePath};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkTreeDragDest")]
@@ -53,9 +52,3 @@ pub trait TreeDragDestExt: IsA<TreeDragDest> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TreeDragDest>> TreeDragDestExt for O {}
-
-impl fmt::Display for TreeDragDest {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TreeDragDest")
-    }
-}

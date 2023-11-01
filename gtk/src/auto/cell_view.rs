@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellView")]
@@ -501,7 +501,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -527,7 +527,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-rgba\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -553,7 +553,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::background-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_background_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -579,7 +579,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::draw-sensitive\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_draw_sensitive_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -602,7 +602,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fit-model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_fit_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -625,7 +625,7 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::model\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -635,9 +635,3 @@ pub trait CellViewExt: IsA<CellView> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<CellView>> CellViewExt for O {}
-
-impl fmt::Display for CellView {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellView")
-    }
-}

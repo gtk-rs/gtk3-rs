@@ -9,7 +9,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkContainer")]
@@ -323,7 +323,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"add\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     add_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -345,7 +345,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"check-resize\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     check_resize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -371,7 +371,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"remove\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     remove_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -400,7 +400,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"set-focus-child\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     set_focus_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -426,7 +426,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::border-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_border_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -449,7 +449,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::child\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -475,7 +475,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::resize-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_resize_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -485,9 +485,3 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Container>> ContainerExt for O {}
-
-impl fmt::Display for Container {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Container")
-    }
-}

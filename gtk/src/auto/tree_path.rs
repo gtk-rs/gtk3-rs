@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use std::{cmp, fmt, mem};
 
 glib::wrapper! {
     #[derive(Debug, Hash)]
@@ -84,7 +83,7 @@ impl TreePath {
     #[doc(alias = "get_indices_with_depth")]
     pub fn indices_with_depth(&mut self) -> Vec<i32> {
         unsafe {
-            let mut depth = mem::MaybeUninit::uninit();
+            let mut depth = std::mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_none_num(
                 ffi::gtk_tree_path_get_indices_with_depth(
                     self.to_glib_none_mut().0,
@@ -168,21 +167,21 @@ impl Eq for TreePath {}
 
 impl PartialOrd for TreePath {
     #[inline]
-    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
-        self.compare(other).partial_cmp(&0)
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
     }
 }
 
 impl Ord for TreePath {
     #[inline]
-    fn cmp(&self, other: &Self) -> cmp::Ordering {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         self.compare(other).cmp(&0)
     }
 }
 
-impl fmt::Display for TreePath {
+impl std::fmt::Display for TreePath {
     #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.write_str(&self.to_str())
     }
 }

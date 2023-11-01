@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkAction")]
@@ -87,9 +86,3 @@ pub trait AtkActionExt: IsA<Action> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Action>> AtkActionExt for O {}
-
-impl fmt::Display for Action {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Action")
-    }
-}

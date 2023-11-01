@@ -4,7 +4,6 @@
 
 use crate::{Buildable, TreeDragDest, TreeDragSource, TreeIter, TreeModel, TreeSortable};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkTreeStore")]
@@ -211,9 +210,3 @@ pub trait TreeStoreExt: IsA<TreeStore> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<TreeStore>> TreeStoreExt for O {}
-
-impl fmt::Display for TreeStore {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TreeStore")
-    }
-}

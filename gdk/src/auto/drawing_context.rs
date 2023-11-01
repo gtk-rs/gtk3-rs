@@ -4,7 +4,6 @@
 
 use crate::Window;
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GdkDrawingContext")]
@@ -41,11 +40,5 @@ impl DrawingContext {
     #[doc(alias = "gdk_drawing_context_is_valid")]
     pub fn is_valid(&self) -> bool {
         unsafe { from_glib(ffi::gdk_drawing_context_is_valid(self.to_glib_none().0)) }
-    }
-}
-
-impl fmt::Display for DrawingContext {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("DrawingContext")
     }
 }

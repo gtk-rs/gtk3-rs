@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkRevealer")]
@@ -386,7 +386,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::child-revealed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_child_revealed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -412,7 +412,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::reveal-child\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_reveal_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -438,7 +438,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::transition-duration\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_transition_duration_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -464,7 +464,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::transition-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_transition_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -474,9 +474,3 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Revealer>> RevealerExt for O {}
-
-impl fmt::Display for Revealer {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Revealer")
-    }
-}

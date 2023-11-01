@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellRendererAccel")]
@@ -529,7 +529,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"accel-cleared\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     accel_cleared_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -568,7 +568,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"accel-edited\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     accel_edited_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -594,7 +594,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accel-key\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accel_key_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -620,7 +620,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accel-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accel_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -646,7 +646,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accel-mods\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accel_mods_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -672,7 +672,7 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::keycode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_keycode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -682,9 +682,3 @@ pub trait CellRendererAccelExt: IsA<CellRendererAccel> + sealed::Sealed + 'stati
 }
 
 impl<O: IsA<CellRendererAccel>> CellRendererAccelExt for O {}
-
-impl fmt::Display for CellRendererAccel {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellRendererAccel")
-    }
-}

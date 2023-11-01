@@ -4,7 +4,6 @@
 
 use crate::StateType;
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkStateSet")]
@@ -124,9 +123,3 @@ pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<StateSet>> StateSetExt for O {}
-
-impl fmt::Display for StateSet {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("StateSet")
-    }
-}

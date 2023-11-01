@@ -4,7 +4,6 @@
 
 use crate::TextBuffer;
 use glib::{prelude::*, translate::*};
-use std::{mem, ptr};
 
 glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -64,8 +63,8 @@ impl SelectionData {
     #[doc(alias = "get_targets")]
     pub fn targets(&self) -> Option<Vec<gdk::Atom>> {
         unsafe {
-            let mut targets = ptr::null_mut();
-            let mut n_atoms = mem::MaybeUninit::uninit();
+            let mut targets = std::ptr::null_mut();
+            let mut n_atoms = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_selection_data_get_targets(
                 self.to_glib_none().0,
                 &mut targets,

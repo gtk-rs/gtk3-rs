@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use std::fmt;
-
 glib::wrapper! {
     #[doc(alias = "GdkX11DeviceManagerCore")]
     pub struct X11DeviceManagerCore(Object<ffi::GdkX11DeviceManagerCore, ffi::GdkX11DeviceManagerCoreClass>) @extends gdk::DeviceManager;
@@ -15,10 +13,4 @@ glib::wrapper! {
 
 impl X11DeviceManagerCore {
     pub const NONE: Option<&'static X11DeviceManagerCore> = None;
-}
-
-impl fmt::Display for X11DeviceManagerCore {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11DeviceManagerCore")
-    }
 }

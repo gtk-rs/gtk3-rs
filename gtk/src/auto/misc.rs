@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use crate::{Buildable, Widget};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkMisc")]
@@ -16,10 +15,4 @@ glib::wrapper! {
 
 impl Misc {
     pub const NONE: Option<&'static Misc> = None;
-}
-
-impl fmt::Display for Misc {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Misc")
-    }
 }

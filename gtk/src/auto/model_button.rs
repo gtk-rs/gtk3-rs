@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkModelButton")]
@@ -132,7 +132,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::active\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_active_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -155,7 +155,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::centered\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_centered_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -178,7 +178,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -201,7 +201,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::iconic\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_iconic_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -224,7 +224,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::inverted\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -247,7 +247,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::menu-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_menu_name_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -270,7 +270,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::role\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_role_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -293,7 +293,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::text\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_text_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -318,7 +318,7 @@ impl ModelButton {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-markup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -674,11 +674,5 @@ impl ModelButtonBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ModelButton {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for ModelButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ModelButton")
     }
 }

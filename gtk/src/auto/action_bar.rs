@@ -4,7 +4,6 @@
 
 use crate::{Align, Bin, Buildable, Container, PackType, ResizeMode, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkActionBar")]
@@ -359,9 +358,3 @@ pub trait ActionBarExt: IsA<ActionBar> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ActionBar>> ActionBarExt for O {}
-
-impl fmt::Display for ActionBar {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ActionBar")
-    }
-}

@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use std::fmt;
-
 glib::wrapper! {
     #[doc(alias = "GdkX11DisplayManager")]
     pub struct X11DisplayManager(Object<ffi::GdkX11DisplayManager, ffi::GdkX11DisplayManagerClass>) @extends gdk::DisplayManager;
@@ -14,9 +12,3 @@ glib::wrapper! {
 }
 
 impl X11DisplayManager {}
-
-impl fmt::Display for X11DisplayManager {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11DisplayManager")
-    }
-}

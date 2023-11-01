@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkBox")]
@@ -377,10 +377,10 @@ pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
     #[doc(alias = "gtk_box_query_child_packing")]
     fn query_child_packing(&self, child: &impl IsA<Widget>) -> (bool, bool, u32, PackType) {
         unsafe {
-            let mut expand = mem::MaybeUninit::uninit();
-            let mut fill = mem::MaybeUninit::uninit();
-            let mut padding = mem::MaybeUninit::uninit();
-            let mut pack_type = mem::MaybeUninit::uninit();
+            let mut expand = std::mem::MaybeUninit::uninit();
+            let mut fill = std::mem::MaybeUninit::uninit();
+            let mut padding = std::mem::MaybeUninit::uninit();
+            let mut pack_type = std::mem::MaybeUninit::uninit();
             ffi::gtk_box_query_child_packing(
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
@@ -569,7 +569,7 @@ pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::baseline-position\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_baseline_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -592,7 +592,7 @@ pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::homogeneous\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_homogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -615,7 +615,7 @@ pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -625,9 +625,3 @@ pub trait BoxExt: IsA<Box> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Box>> BoxExt for O {}
-
-impl fmt::Display for Box {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Box")
-    }
-}

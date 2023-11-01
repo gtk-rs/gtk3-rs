@@ -5,4 +5,5 @@
 #[allow(unused_imports)]
 use crate::auto::*;
 
+#[doc(alias = "AtkState")]
 pub type State = u64;

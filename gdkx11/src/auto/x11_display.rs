@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem, ptr};
 
 glib::wrapper! {
     #[doc(alias = "GdkX11Display")]
@@ -94,9 +93,9 @@ impl X11Display {
     pub fn string_to_compound_text(&self, str: &str) -> (i32, gdk::Atom, i32, Vec<u8>) {
         unsafe {
             let mut encoding = gdk::Atom::uninitialized();
-            let mut format = mem::MaybeUninit::uninit();
-            let mut ctext = ptr::null_mut();
-            let mut length = mem::MaybeUninit::uninit();
+            let mut format = std::mem::MaybeUninit::uninit();
+            let mut ctext = std::ptr::null_mut();
+            let mut length = std::mem::MaybeUninit::uninit();
             let ret = ffi::gdk_x11_display_string_to_compound_text(
                 self.to_glib_none().0,
                 str.to_glib_none().0,
@@ -125,9 +124,9 @@ impl X11Display {
     pub fn utf8_to_compound_text(&self, str: &str) -> Option<(gdk::Atom, i32, Vec<u8>)> {
         unsafe {
             let mut encoding = gdk::Atom::uninitialized();
-            let mut format = mem::MaybeUninit::uninit();
-            let mut ctext = ptr::null_mut();
-            let mut length = mem::MaybeUninit::uninit();
+            let mut format = std::mem::MaybeUninit::uninit();
+            let mut ctext = std::ptr::null_mut();
+            let mut length = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gdk_x11_display_utf8_to_compound_text(
                 self.to_glib_none().0,
                 str.to_glib_none().0,
@@ -153,8 +152,8 @@ impl X11Display {
     pub fn glx_version(display: &impl IsA<gdk::Display>) -> Option<(i32, i32)> {
         assert_initialized_main_thread!();
         unsafe {
-            let mut major = mem::MaybeUninit::uninit();
-            let mut minor = mem::MaybeUninit::uninit();
+            let mut major = std::mem::MaybeUninit::uninit();
+            let mut minor = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gdk_x11_display_get_glx_version(
                 display.as_ref().to_glib_none().0,
                 major.as_mut_ptr(),
@@ -166,11 +165,5 @@ impl X11Display {
                 None
             }
         }
-    }
-}
-
-impl fmt::Display for X11Display {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Display")
     }
 }

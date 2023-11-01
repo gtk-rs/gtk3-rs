@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkToolbar")]
@@ -524,7 +524,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"focus-home-or-end\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     focus_home_or_end_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -560,7 +560,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"orientation-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     orientation_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -597,7 +597,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"popup-context-menu\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     popup_context_menu_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -626,7 +626,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"style-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     style_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -649,7 +649,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -675,7 +675,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-size-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_size_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -698,7 +698,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-arrow\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_arrow_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -724,7 +724,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::toolbar-style\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_toolbar_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -734,9 +734,3 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Toolbar>> ToolbarExt for O {}
-
-impl fmt::Display for Toolbar {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Toolbar")
-    }
-}

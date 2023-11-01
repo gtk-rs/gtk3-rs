@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkBuilder")]
@@ -165,7 +165,7 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
     ) -> Result<glib::Value, glib::Error> {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_builder_value_from_string(
                 self.as_ref().to_glib_none().0,
                 pspec.as_ref().to_glib_none().0,
@@ -190,7 +190,7 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
     ) -> Result<glib::Value, glib::Error> {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::gtk_builder_value_from_string_type(
                 self.as_ref().to_glib_none().0,
                 type_.into_glib(),
@@ -225,7 +225,7 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::translation-domain\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_translation_domain_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -235,9 +235,3 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Builder>> BuilderExt for O {}
-
-impl fmt::Display for Builder {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Builder")
-    }
-}

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GdkKeymap")]
@@ -74,10 +74,10 @@ impl Keymap {
         group: i32,
     ) -> Option<(u32, i32, i32, ModifierType)> {
         unsafe {
-            let mut keyval = mem::MaybeUninit::uninit();
-            let mut effective_group = mem::MaybeUninit::uninit();
-            let mut level = mem::MaybeUninit::uninit();
-            let mut consumed_modifiers = mem::MaybeUninit::uninit();
+            let mut keyval = std::mem::MaybeUninit::uninit();
+            let mut effective_group = std::mem::MaybeUninit::uninit();
+            let mut level = std::mem::MaybeUninit::uninit();
+            let mut consumed_modifiers = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gdk_keymap_translate_keyboard_state(
                 self.to_glib_none().0,
                 hardware_keycode,
@@ -122,7 +122,7 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"direction-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     direction_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -144,7 +144,7 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"keys-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     keys_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -166,17 +166,11 @@ impl Keymap {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"state-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     state_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
-    }
-}
-
-impl fmt::Display for Keymap {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Keymap")
     }
 }

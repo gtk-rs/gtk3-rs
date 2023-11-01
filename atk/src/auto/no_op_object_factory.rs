@@ -4,7 +4,6 @@
 
 use crate::ObjectFactory;
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "AtkNoOpObjectFactory")]
@@ -28,11 +27,5 @@ impl NoOpObjectFactory {
 impl Default for NoOpObjectFactory {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for NoOpObjectFactory {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("NoOpObjectFactory")
     }
 }

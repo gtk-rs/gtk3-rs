@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "AtkObject")]
@@ -432,7 +432,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     active_descendant_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -460,7 +460,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"announcement\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     announcement_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -499,7 +499,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     children_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -532,7 +532,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notification\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notification_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -576,7 +576,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     state_change_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -601,7 +601,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"visible-data-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     visible_data_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -630,7 +630,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-component-layer\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_component_layer_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -659,7 +659,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-component-mdi-zorder\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_component_mdi_zorder_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -688,7 +688,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-description\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_description_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -717,7 +717,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-hypertext-nlinks\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_hypertext_nlinks_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -743,7 +743,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -769,7 +769,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-parent\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -795,7 +795,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-role\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_role_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -824,7 +824,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-caption\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_caption_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -853,7 +853,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-caption-object\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_caption_object_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -882,7 +882,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-column-description\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_column_description_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -911,7 +911,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-column-header\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_column_header_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -940,7 +940,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-row-description\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_row_description_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -969,7 +969,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-row-header\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_row_header_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -998,7 +998,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-table-summary\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_table_summary_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1024,7 +1024,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::accessible-value\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_accessible_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1034,9 +1034,3 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Object>> AtkObjectExt for O {}
-
-impl fmt::Display for Object {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Object")
-    }
-}

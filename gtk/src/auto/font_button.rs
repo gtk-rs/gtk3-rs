@@ -14,7 +14,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkFontButton")]
@@ -532,7 +532,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"font-set\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     font_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -558,7 +558,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -584,7 +584,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-style\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -607,7 +607,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -630,7 +630,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-font\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_font_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -653,7 +653,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -663,9 +663,3 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<FontButton>> FontButtonExt for O {}
-
-impl fmt::Display for FontButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("FontButton")
-    }
-}

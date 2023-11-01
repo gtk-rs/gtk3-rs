@@ -7,7 +7,6 @@ use crate::{
     SensitivityType, TreeModel, Widget,
 };
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkComboBoxText")]
@@ -476,9 +475,3 @@ pub trait ComboBoxTextExt: IsA<ComboBoxText> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ComboBoxText>> ComboBoxTextExt for O {}
-
-impl fmt::Display for ComboBoxText {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ComboBoxText")
-    }
-}

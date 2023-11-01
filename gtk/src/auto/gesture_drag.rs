@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkGestureDrag")]
@@ -124,8 +124,8 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
     #[doc(alias = "get_offset")]
     fn offset(&self) -> Option<(f64, f64)> {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_gesture_drag_get_offset(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -143,8 +143,8 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
     #[doc(alias = "get_start_point")]
     fn start_point(&self) -> Option<(f64, f64)> {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_gesture_drag_get_start_point(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -181,7 +181,7 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drag-begin\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     drag_begin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -212,7 +212,7 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drag-end\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     drag_end_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -243,7 +243,7 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"drag-update\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     drag_update_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -253,9 +253,3 @@ pub trait GestureDragExt: IsA<GestureDrag> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<GestureDrag>> GestureDragExt for O {}
-
-impl fmt::Display for GestureDrag {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("GestureDrag")
-    }
-}

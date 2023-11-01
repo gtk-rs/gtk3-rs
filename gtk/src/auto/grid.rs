@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkGrid")]
@@ -600,7 +600,7 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::baseline-row\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_baseline_row_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -626,7 +626,7 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::column-homogeneous\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_column_homogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -649,7 +649,7 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::column-spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_column_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -675,7 +675,7 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::row-homogeneous\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_row_homogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -698,7 +698,7 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::row-spacing\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_row_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -708,9 +708,3 @@ pub trait GridExt: IsA<Grid> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Grid>> GridExt for O {}
-
-impl fmt::Display for Grid {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Grid")
-    }
-}

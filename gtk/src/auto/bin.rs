@@ -4,7 +4,6 @@
 
 use crate::{Buildable, Container, Widget};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkBin")]
@@ -33,9 +32,3 @@ pub trait BinExt: IsA<Bin> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Bin>> BinExt for O {}
-
-impl fmt::Display for Bin {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Bin")
-    }
-}

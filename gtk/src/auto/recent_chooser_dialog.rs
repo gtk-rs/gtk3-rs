@@ -7,7 +7,6 @@ use crate::{
     RecentManager, RecentSortType, ResizeMode, Widget, Window, WindowPosition, WindowType,
 };
 use glib::prelude::*;
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkRecentChooserDialog")]
@@ -530,11 +529,5 @@ impl RecentChooserDialogBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentChooserDialog {
         self.builder.build()
-    }
-}
-
-impl fmt::Display for RecentChooserDialog {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RecentChooserDialog")
     }
 }

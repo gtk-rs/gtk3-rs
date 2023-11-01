@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkScrolledWindow")]
@@ -493,8 +493,8 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     #[doc(alias = "get_policy")]
     fn policy(&self) -> (PolicyType, PolicyType) {
         unsafe {
-            let mut hscrollbar_policy = mem::MaybeUninit::uninit();
-            let mut vscrollbar_policy = mem::MaybeUninit::uninit();
+            let mut hscrollbar_policy = std::mem::MaybeUninit::uninit();
+            let mut vscrollbar_policy = std::mem::MaybeUninit::uninit();
             ffi::gtk_scrolled_window_get_policy(
                 self.as_ref().to_glib_none().0,
                 hscrollbar_policy.as_mut_ptr(),
@@ -744,7 +744,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"edge-overshot\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     edge_overshot_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -773,7 +773,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"edge-reached\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     edge_reached_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -805,7 +805,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-focus-out\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_focus_out_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -844,7 +844,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"scroll-child\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     scroll_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -874,7 +874,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::hadjustment\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_hadjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -900,7 +900,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::hscrollbar-policy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_hscrollbar_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -926,7 +926,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::kinetic-scrolling\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_kinetic_scrolling_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -952,7 +952,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-content-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_max_content_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -978,7 +978,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-content-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_max_content_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1004,7 +1004,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::min-content-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_min_content_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1030,7 +1030,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::min-content-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_min_content_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1056,7 +1056,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::overlay-scrolling\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_overlay_scrolling_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1085,7 +1085,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::propagate-natural-height\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_propagate_natural_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1114,7 +1114,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::propagate-natural-width\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_propagate_natural_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1140,7 +1140,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1166,7 +1166,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::vadjustment\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_vadjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1192,7 +1192,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::vscrollbar-policy\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_vscrollbar_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1218,7 +1218,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::window-placement\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_window_placement_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1228,9 +1228,3 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<ScrolledWindow>> ScrolledWindowExt for O {}
-
-impl fmt::Display for ScrolledWindow {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("ScrolledWindow")
-    }
-}

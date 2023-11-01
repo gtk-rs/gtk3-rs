@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 use x11::xlib;
 
 glib::wrapper! {
@@ -21,11 +20,5 @@ impl X11Monitor {
     pub fn output(monitor: &impl IsA<gdk::Monitor>) -> xlib::XID {
         assert_initialized_main_thread!();
         unsafe { ffi::gdk_x11_monitor_get_output(monitor.as_ref().to_glib_none().0) }
-    }
-}
-
-impl fmt::Display for X11Monitor {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("X11Monitor")
     }
 }

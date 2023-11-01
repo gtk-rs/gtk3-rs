@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkSearchEntry")]
@@ -609,7 +609,7 @@ pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"next-match\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     next_match_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -635,7 +635,7 @@ pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"previous-match\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     previous_match_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -661,7 +661,7 @@ pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"search-changed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     search_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -683,7 +683,7 @@ pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"stop-search\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     stop_search_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -697,9 +697,3 @@ pub trait SearchEntryExt: IsA<SearchEntry> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<SearchEntry>> SearchEntryExt for O {}
-
-impl fmt::Display for SearchEntry {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SearchEntry")
-    }
-}

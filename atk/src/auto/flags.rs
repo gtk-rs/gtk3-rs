@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{bitflags::bitflags, prelude::*, translate::*};
-use std::fmt;
 
 bitflags! {
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -11,12 +10,6 @@ bitflags! {
     pub struct HyperlinkStateFlags: u32 {
         #[doc(alias = "ATK_HYPERLINK_IS_INLINE")]
         const INLINE = ffi::ATK_HYPERLINK_IS_INLINE as _;
-    }
-}
-
-impl fmt::Display for HyperlinkStateFlags {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        <Self as fmt::Debug>::fmt(self, f)
     }
 }
 
@@ -41,6 +34,7 @@ impl FromGlib<ffi::AtkHyperlinkStateFlags> for HyperlinkStateFlags {
 
 impl StaticType for HyperlinkStateFlags {
     #[inline]
+    #[doc(alias = "atk_hyperlink_state_flags_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_hyperlink_state_flags_get_type()) }
     }
@@ -52,7 +46,7 @@ impl glib::HasParamSpec for HyperlinkStateFlags {
     type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name| Self::ParamSpec::builder(name)
+        Self::ParamSpec::builder
     }
 }
 

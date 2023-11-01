@@ -4,7 +4,6 @@
 
 use crate::{AxisFlags, DeviceToolType};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GdkDeviceTool")]
@@ -36,11 +35,5 @@ impl DeviceTool {
 
     pub fn axes(&self) -> AxisFlags {
         ObjectExt::property(self, "axes")
-    }
-}
-
-impl fmt::Display for DeviceTool {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("DeviceTool")
     }
 }

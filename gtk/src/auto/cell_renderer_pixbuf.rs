@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkCellRendererPixbuf")]
@@ -301,7 +301,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::gicon\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_gicon_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -327,7 +327,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon-name\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -353,7 +353,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -382,7 +382,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf-expander-closed\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_expander_closed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -408,7 +408,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pixbuf-expander-open\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pixbuf_expander_open_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -434,7 +434,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::stock-detail\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_stock_detail_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -460,7 +460,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::stock-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_stock_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -486,7 +486,7 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::surface\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_surface_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -496,9 +496,3 @@ pub trait CellRendererPixbufExt: IsA<CellRendererPixbuf> + sealed::Sealed + 'sta
 }
 
 impl<O: IsA<CellRendererPixbuf>> CellRendererPixbufExt for O {}
-
-impl fmt::Display for CellRendererPixbuf {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("CellRendererPixbuf")
-    }
-}

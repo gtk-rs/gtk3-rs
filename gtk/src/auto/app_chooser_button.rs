@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkAppChooserButton")]
@@ -532,7 +532,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     custom_item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -558,7 +558,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::heading\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_heading_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -584,7 +584,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-default-item\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_default_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -610,7 +610,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::show-dialog-item\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_show_dialog_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -620,9 +620,3 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
 }
 
 impl<O: IsA<AppChooserButton>> AppChooserButtonExt for O {}
-
-impl fmt::Display for AppChooserButton {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AppChooserButton")
-    }
-}

@@ -11,7 +11,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkAssistant")]
@@ -806,7 +806,7 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"apply\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     apply_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -828,7 +828,7 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cancel\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     cancel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -850,7 +850,7 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"close\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     close_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -872,7 +872,7 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"escape\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     escape_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -902,7 +902,7 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"prepare\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     prepare_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -912,9 +912,3 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Assistant>> AssistantExt for O {}
-
-impl fmt::Display for Assistant {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Assistant")
-    }
-}

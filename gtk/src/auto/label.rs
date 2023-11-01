@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkLabel")]
@@ -449,8 +449,8 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     #[doc(alias = "get_layout_offsets")]
     fn layout_offsets(&self) -> (i32, i32) {
         unsafe {
-            let mut x = mem::MaybeUninit::uninit();
-            let mut y = mem::MaybeUninit::uninit();
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
             ffi::gtk_label_get_layout_offsets(
                 self.as_ref().to_glib_none().0,
                 x.as_mut_ptr(),
@@ -518,8 +518,8 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     #[doc(alias = "get_selection_bounds")]
     fn selection_bounds(&self) -> Option<(i32, i32)> {
         unsafe {
-            let mut start = mem::MaybeUninit::uninit();
-            let mut end = mem::MaybeUninit::uninit();
+            let mut start = std::mem::MaybeUninit::uninit();
+            let mut end = std::mem::MaybeUninit::uninit();
             let ret = from_glib(ffi::gtk_label_get_selection_bounds(
                 self.as_ref().to_glib_none().0,
                 start.as_mut_ptr(),
@@ -828,7 +828,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-current-link\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_current_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -865,7 +865,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate-link\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     activate_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -887,7 +887,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"copy-clipboard\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     copy_clipboard_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -927,7 +927,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-cursor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -960,7 +960,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"populate-popup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     populate_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -983,7 +983,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::angle\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_angle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1006,7 +1006,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::attributes\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_attributes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1032,7 +1032,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::cursor-position\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_cursor_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1055,7 +1055,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::ellipsize\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_ellipsize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1078,7 +1078,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::justify\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_justify_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1101,7 +1101,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1124,7 +1124,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::lines\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1150,7 +1150,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-width-chars\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_max_width_chars_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1176,7 +1176,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::mnemonic-keyval\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_mnemonic_keyval_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1202,7 +1202,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::mnemonic-widget\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_mnemonic_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1225,7 +1225,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::pattern\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_pattern_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1248,7 +1248,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::selectable\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_selectable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1274,7 +1274,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::selection-bound\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_selection_bound_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1300,7 +1300,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::single-line-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_single_line_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1326,7 +1326,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::track-visited-links\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_track_visited_links_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1349,7 +1349,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-markup\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1372,7 +1372,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::use-underline\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_use_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1395,7 +1395,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::width-chars\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_width_chars_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1418,7 +1418,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::wrap\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1441,7 +1441,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::wrap-mode\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_wrap_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1451,9 +1451,3 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<Label>> LabelExt for O {}
-
-impl fmt::Display for Label {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("Label")
-    }
-}

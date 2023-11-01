@@ -4,7 +4,6 @@
 
 use crate::{Widget, Window};
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 glib::wrapper! {
     #[doc(alias = "GtkWindowGroup")]
@@ -89,9 +88,3 @@ pub trait WindowGroupExt: IsA<WindowGroup> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<WindowGroup>> WindowGroupExt for O {}
-
-impl fmt::Display for WindowGroup {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("WindowGroup")
-    }
-}

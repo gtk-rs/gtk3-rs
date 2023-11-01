@@ -7,7 +7,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "GtkAccelGroup")]
@@ -165,7 +165,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     accel_activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -206,7 +206,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 signal_name.as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     accel_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -232,7 +232,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-locked\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_locked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -258,7 +258,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::modifier-mask\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_modifier_mask_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -268,9 +268,3 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<AccelGroup>> AccelGroupExt for O {}
-
-impl fmt::Display for AccelGroup {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AccelGroup")
-    }
-}

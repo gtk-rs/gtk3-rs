@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
@@ -17,21 +16,6 @@ pub enum CoordType {
     Parent,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for CoordType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "CoordType::{}",
-            match *self {
-                Self::Screen => "Screen",
-                Self::Window => "Window",
-                Self::Parent => "Parent",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -66,6 +50,7 @@ impl FromGlib<ffi::AtkCoordType> for CoordType {
 
 impl StaticType for CoordType {
     #[inline]
+    #[doc(alias = "atk_coord_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_coord_type_get_type()) }
     }
@@ -77,7 +62,7 @@ impl glib::HasParamSpec for CoordType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -143,26 +128,6 @@ pub enum Layer {
     __Unknown(i32),
 }
 
-impl fmt::Display for Layer {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Layer::{}",
-            match *self {
-                Self::Invalid => "Invalid",
-                Self::Background => "Background",
-                Self::Canvas => "Canvas",
-                Self::Widget => "Widget",
-                Self::Mdi => "Mdi",
-                Self::Popup => "Popup",
-                Self::Overlay => "Overlay",
-                Self::Window => "Window",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for Layer {
     type GlibType = ffi::AtkLayer;
@@ -205,6 +170,7 @@ impl FromGlib<ffi::AtkLayer> for Layer {
 
 impl StaticType for Layer {
     #[inline]
+    #[doc(alias = "atk_layer_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_layer_get_type()) }
     }
@@ -216,7 +182,7 @@ impl glib::HasParamSpec for Layer {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -276,23 +242,6 @@ pub enum Live {
 
 #[cfg(feature = "v2_50")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
-impl fmt::Display for Live {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Live::{}",
-            match *self {
-                Self::None => "None",
-                Self::Polite => "Polite",
-                Self::Assertive => "Assertive",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
-#[cfg(feature = "v2_50")]
-#[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl IntoGlib for Live {
     type GlibType = ffi::AtkLive;
@@ -329,6 +278,7 @@ impl FromGlib<ffi::AtkLive> for Live {
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_50")))]
 impl StaticType for Live {
     #[inline]
+    #[doc(alias = "atk_live_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_live_get_type()) }
     }
@@ -342,7 +292,7 @@ impl glib::HasParamSpec for Live {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -459,40 +409,6 @@ impl RelationType {
     }
 }
 
-impl fmt::Display for RelationType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "RelationType::{}",
-            match *self {
-                Self::Null => "Null",
-                Self::ControlledBy => "ControlledBy",
-                Self::ControllerFor => "ControllerFor",
-                Self::LabelFor => "LabelFor",
-                Self::LabelledBy => "LabelledBy",
-                Self::MemberOf => "MemberOf",
-                Self::NodeChildOf => "NodeChildOf",
-                Self::FlowsTo => "FlowsTo",
-                Self::FlowsFrom => "FlowsFrom",
-                Self::SubwindowOf => "SubwindowOf",
-                Self::Embeds => "Embeds",
-                Self::EmbeddedBy => "EmbeddedBy",
-                Self::PopupFor => "PopupFor",
-                Self::ParentWindowOf => "ParentWindowOf",
-                Self::DescribedBy => "DescribedBy",
-                Self::DescriptionFor => "DescriptionFor",
-                Self::NodeParentOf => "NodeParentOf",
-                Self::Details => "Details",
-                Self::DetailsFor => "DetailsFor",
-                Self::ErrorMessage => "ErrorMessage",
-                Self::ErrorFor => "ErrorFor",
-                Self::LastDefined => "LastDefined",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for RelationType {
     type GlibType = ffi::AtkRelationType;
@@ -561,6 +477,7 @@ impl FromGlib<ffi::AtkRelationType> for RelationType {
 
 impl StaticType for RelationType {
     #[inline]
+    #[doc(alias = "atk_relation_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_relation_type_get_type()) }
     }
@@ -572,7 +489,7 @@ impl glib::HasParamSpec for RelationType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -902,147 +819,6 @@ impl Role {
     }
 }
 
-impl fmt::Display for Role {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Role::{}",
-            match *self {
-                Self::Invalid => "Invalid",
-                Self::AcceleratorLabel => "AcceleratorLabel",
-                Self::Alert => "Alert",
-                Self::Animation => "Animation",
-                Self::Arrow => "Arrow",
-                Self::Calendar => "Calendar",
-                Self::Canvas => "Canvas",
-                Self::CheckBox => "CheckBox",
-                Self::CheckMenuItem => "CheckMenuItem",
-                Self::ColorChooser => "ColorChooser",
-                Self::ColumnHeader => "ColumnHeader",
-                Self::ComboBox => "ComboBox",
-                Self::DateEditor => "DateEditor",
-                Self::DesktopIcon => "DesktopIcon",
-                Self::DesktopFrame => "DesktopFrame",
-                Self::Dial => "Dial",
-                Self::Dialog => "Dialog",
-                Self::DirectoryPane => "DirectoryPane",
-                Self::DrawingArea => "DrawingArea",
-                Self::FileChooser => "FileChooser",
-                Self::Filler => "Filler",
-                Self::FontChooser => "FontChooser",
-                Self::Frame => "Frame",
-                Self::GlassPane => "GlassPane",
-                Self::HtmlContainer => "HtmlContainer",
-                Self::Icon => "Icon",
-                Self::Image => "Image",
-                Self::InternalFrame => "InternalFrame",
-                Self::Label => "Label",
-                Self::LayeredPane => "LayeredPane",
-                Self::List => "List",
-                Self::ListItem => "ListItem",
-                Self::Menu => "Menu",
-                Self::MenuBar => "MenuBar",
-                Self::MenuItem => "MenuItem",
-                Self::OptionPane => "OptionPane",
-                Self::PageTab => "PageTab",
-                Self::PageTabList => "PageTabList",
-                Self::Panel => "Panel",
-                Self::PasswordText => "PasswordText",
-                Self::PopupMenu => "PopupMenu",
-                Self::ProgressBar => "ProgressBar",
-                Self::PushButton => "PushButton",
-                Self::RadioButton => "RadioButton",
-                Self::RadioMenuItem => "RadioMenuItem",
-                Self::RootPane => "RootPane",
-                Self::RowHeader => "RowHeader",
-                Self::ScrollBar => "ScrollBar",
-                Self::ScrollPane => "ScrollPane",
-                Self::Separator => "Separator",
-                Self::Slider => "Slider",
-                Self::SplitPane => "SplitPane",
-                Self::SpinButton => "SpinButton",
-                Self::Statusbar => "Statusbar",
-                Self::Table => "Table",
-                Self::TableCell => "TableCell",
-                Self::TableColumnHeader => "TableColumnHeader",
-                Self::TableRowHeader => "TableRowHeader",
-                Self::TearOffMenuItem => "TearOffMenuItem",
-                Self::Terminal => "Terminal",
-                Self::Text => "Text",
-                Self::ToggleButton => "ToggleButton",
-                Self::ToolBar => "ToolBar",
-                Self::ToolTip => "ToolTip",
-                Self::Tree => "Tree",
-                Self::TreeTable => "TreeTable",
-                Self::Unknown => "Unknown",
-                Self::Viewport => "Viewport",
-                Self::Window => "Window",
-                Self::Header => "Header",
-                Self::Footer => "Footer",
-                Self::Paragraph => "Paragraph",
-                Self::Ruler => "Ruler",
-                Self::Application => "Application",
-                Self::Autocomplete => "Autocomplete",
-                Self::EditBar => "EditBar",
-                Self::Embedded => "Embedded",
-                Self::Entry => "Entry",
-                Self::Chart => "Chart",
-                Self::Caption => "Caption",
-                Self::DocumentFrame => "DocumentFrame",
-                Self::Heading => "Heading",
-                Self::Page => "Page",
-                Self::Section => "Section",
-                Self::RedundantObject => "RedundantObject",
-                Self::Form => "Form",
-                Self::Link => "Link",
-                Self::InputMethodWindow => "InputMethodWindow",
-                Self::TableRow => "TableRow",
-                Self::TreeItem => "TreeItem",
-                Self::DocumentSpreadsheet => "DocumentSpreadsheet",
-                Self::DocumentPresentation => "DocumentPresentation",
-                Self::DocumentText => "DocumentText",
-                Self::DocumentWeb => "DocumentWeb",
-                Self::DocumentEmail => "DocumentEmail",
-                Self::Comment => "Comment",
-                Self::ListBox => "ListBox",
-                Self::Grouping => "Grouping",
-                Self::ImageMap => "ImageMap",
-                Self::Notification => "Notification",
-                Self::InfoBar => "InfoBar",
-                Self::LevelBar => "LevelBar",
-                Self::TitleBar => "TitleBar",
-                Self::BlockQuote => "BlockQuote",
-                Self::Audio => "Audio",
-                Self::Video => "Video",
-                Self::Definition => "Definition",
-                Self::Article => "Article",
-                Self::Landmark => "Landmark",
-                Self::Log => "Log",
-                Self::Marquee => "Marquee",
-                Self::Math => "Math",
-                Self::Rating => "Rating",
-                Self::Timer => "Timer",
-                Self::DescriptionList => "DescriptionList",
-                Self::DescriptionTerm => "DescriptionTerm",
-                Self::DescriptionValue => "DescriptionValue",
-                Self::Static => "Static",
-                Self::MathFraction => "MathFraction",
-                Self::MathRoot => "MathRoot",
-                Self::Subscript => "Subscript",
-                Self::Superscript => "Superscript",
-                Self::Footnote => "Footnote",
-                Self::ContentDeletion => "ContentDeletion",
-                Self::ContentInsertion => "ContentInsertion",
-                Self::Mark => "Mark",
-                Self::Suggestion => "Suggestion",
-                Self::PushButtonMenu => "PushButtonMenu",
-                Self::LastDefined => "LastDefined",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for Role {
     type GlibType = ffi::AtkRole;
@@ -1325,6 +1101,7 @@ impl FromGlib<ffi::AtkRole> for Role {
 
 impl StaticType for Role {
     #[inline]
+    #[doc(alias = "atk_role_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_role_get_type()) }
     }
@@ -1336,7 +1113,7 @@ impl glib::HasParamSpec for Role {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1404,27 +1181,6 @@ pub enum ScrollType {
 
 #[cfg(feature = "v2_30")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
-impl fmt::Display for ScrollType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ScrollType::{}",
-            match *self {
-                Self::TopLeft => "TopLeft",
-                Self::BottomRight => "BottomRight",
-                Self::TopEdge => "TopEdge",
-                Self::BottomEdge => "BottomEdge",
-                Self::LeftEdge => "LeftEdge",
-                Self::RightEdge => "RightEdge",
-                Self::Anywhere => "Anywhere",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
-#[cfg(feature = "v2_30")]
-#[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl IntoGlib for ScrollType {
     type GlibType = ffi::AtkScrollType;
@@ -1469,6 +1225,7 @@ impl FromGlib<ffi::AtkScrollType> for ScrollType {
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 impl StaticType for ScrollType {
     #[inline]
+    #[doc(alias = "atk_scroll_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_scroll_type_get_type()) }
     }
@@ -1482,7 +1239,7 @@ impl glib::HasParamSpec for ScrollType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1645,63 +1402,6 @@ impl StateType {
     }
 }
 
-impl fmt::Display for StateType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "StateType::{}",
-            match *self {
-                Self::Invalid => "Invalid",
-                Self::Active => "Active",
-                Self::Armed => "Armed",
-                Self::Busy => "Busy",
-                Self::Checked => "Checked",
-                Self::Defunct => "Defunct",
-                Self::Editable => "Editable",
-                Self::Enabled => "Enabled",
-                Self::Expandable => "Expandable",
-                Self::Expanded => "Expanded",
-                Self::Focusable => "Focusable",
-                Self::Focused => "Focused",
-                Self::Horizontal => "Horizontal",
-                Self::Iconified => "Iconified",
-                Self::Modal => "Modal",
-                Self::MultiLine => "MultiLine",
-                Self::Multiselectable => "Multiselectable",
-                Self::Opaque => "Opaque",
-                Self::Pressed => "Pressed",
-                Self::Resizable => "Resizable",
-                Self::Selectable => "Selectable",
-                Self::Selected => "Selected",
-                Self::Sensitive => "Sensitive",
-                Self::Showing => "Showing",
-                Self::SingleLine => "SingleLine",
-                Self::Stale => "Stale",
-                Self::Transient => "Transient",
-                Self::Vertical => "Vertical",
-                Self::Visible => "Visible",
-                Self::ManagesDescendants => "ManagesDescendants",
-                Self::Indeterminate => "Indeterminate",
-                Self::Truncated => "Truncated",
-                Self::Required => "Required",
-                Self::InvalidEntry => "InvalidEntry",
-                Self::SupportsAutocompletion => "SupportsAutocompletion",
-                Self::SelectableText => "SelectableText",
-                Self::Default => "Default",
-                Self::Animated => "Animated",
-                Self::Visited => "Visited",
-                Self::Checkable => "Checkable",
-                Self::HasPopup => "HasPopup",
-                Self::HasTooltip => "HasTooltip",
-                Self::ReadOnly => "ReadOnly",
-                #[cfg(feature = "v2_38")]
-                Self::Collapsed => "Collapsed",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for StateType {
     type GlibType = ffi::AtkStateType;
@@ -1816,6 +1516,7 @@ impl FromGlib<ffi::AtkStateType> for StateType {
 
 impl StaticType for StateType {
     #[inline]
+    #[doc(alias = "atk_state_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_state_type_get_type()) }
     }
@@ -1827,7 +1528,7 @@ impl glib::HasParamSpec for StateType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -1959,48 +1660,6 @@ impl TextAttribute {
     }
 }
 
-impl fmt::Display for TextAttribute {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextAttribute::{}",
-            match *self {
-                Self::Invalid => "Invalid",
-                Self::LeftMargin => "LeftMargin",
-                Self::RightMargin => "RightMargin",
-                Self::Indent => "Indent",
-                Self::Invisible => "Invisible",
-                Self::Editable => "Editable",
-                Self::PixelsAboveLines => "PixelsAboveLines",
-                Self::PixelsBelowLines => "PixelsBelowLines",
-                Self::PixelsInsideWrap => "PixelsInsideWrap",
-                Self::BgFullHeight => "BgFullHeight",
-                Self::Rise => "Rise",
-                Self::Underline => "Underline",
-                Self::Strikethrough => "Strikethrough",
-                Self::Size => "Size",
-                Self::Scale => "Scale",
-                Self::Weight => "Weight",
-                Self::Language => "Language",
-                Self::FamilyName => "FamilyName",
-                Self::BgColor => "BgColor",
-                Self::FgColor => "FgColor",
-                Self::BgStipple => "BgStipple",
-                Self::FgStipple => "FgStipple",
-                Self::WrapMode => "WrapMode",
-                Self::Direction => "Direction",
-                Self::Justification => "Justification",
-                Self::Stretch => "Stretch",
-                Self::Variant => "Variant",
-                Self::Style => "Style",
-                Self::TextPosition => "TextPosition",
-                Self::LastDefined => "LastDefined",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextAttribute {
     type GlibType = ffi::AtkTextAttribute;
@@ -2085,6 +1744,7 @@ impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
 
 impl StaticType for TextAttribute {
     #[inline]
+    #[doc(alias = "atk_text_attribute_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_attribute_get_type()) }
     }
@@ -2096,7 +1756,7 @@ impl glib::HasParamSpec for TextAttribute {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2160,25 +1820,6 @@ pub enum TextBoundary {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextBoundary {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextBoundary::{}",
-            match *self {
-                Self::Char => "Char",
-                Self::WordStart => "WordStart",
-                Self::WordEnd => "WordEnd",
-                Self::SentenceStart => "SentenceStart",
-                Self::SentenceEnd => "SentenceEnd",
-                Self::LineStart => "LineStart",
-                Self::LineEnd => "LineEnd",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextBoundary {
     type GlibType = ffi::AtkTextBoundary;
@@ -2219,6 +1860,7 @@ impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
 
 impl StaticType for TextBoundary {
     #[inline]
+    #[doc(alias = "atk_text_boundary_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_boundary_get_type()) }
     }
@@ -2230,7 +1872,7 @@ impl glib::HasParamSpec for TextBoundary {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2288,22 +1930,6 @@ pub enum TextClipType {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextClipType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextClipType::{}",
-            match *self {
-                Self::None => "None",
-                Self::Min => "Min",
-                Self::Max => "Max",
-                Self::Both => "Both",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextClipType {
     type GlibType = ffi::AtkTextClipType;
@@ -2338,6 +1964,7 @@ impl FromGlib<ffi::AtkTextClipType> for TextClipType {
 
 impl StaticType for TextClipType {
     #[inline]
+    #[doc(alias = "atk_text_clip_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_clip_type_get_type()) }
     }
@@ -2349,7 +1976,7 @@ impl glib::HasParamSpec for TextClipType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2409,23 +2036,6 @@ pub enum TextGranularity {
     __Unknown(i32),
 }
 
-impl fmt::Display for TextGranularity {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "TextGranularity::{}",
-            match *self {
-                Self::Char => "Char",
-                Self::Word => "Word",
-                Self::Sentence => "Sentence",
-                Self::Line => "Line",
-                Self::Paragraph => "Paragraph",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for TextGranularity {
     type GlibType = ffi::AtkTextGranularity;
@@ -2462,6 +2072,7 @@ impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
 
 impl StaticType for TextGranularity {
     #[inline]
+    #[doc(alias = "atk_text_granularity_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_text_granularity_get_type()) }
     }
@@ -2473,7 +2084,7 @@ impl glib::HasParamSpec for TextGranularity {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -2571,34 +2182,6 @@ impl ValueType {
     }
 }
 
-impl fmt::Display for ValueType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "ValueType::{}",
-            match *self {
-                Self::VeryWeak => "VeryWeak",
-                Self::Weak => "Weak",
-                Self::Acceptable => "Acceptable",
-                Self::Strong => "Strong",
-                Self::VeryStrong => "VeryStrong",
-                Self::VeryLow => "VeryLow",
-                Self::Low => "Low",
-                Self::Medium => "Medium",
-                Self::High => "High",
-                Self::VeryHigh => "VeryHigh",
-                Self::VeryBad => "VeryBad",
-                Self::Bad => "Bad",
-                Self::Good => "Good",
-                Self::VeryGood => "VeryGood",
-                Self::Best => "Best",
-                Self::LastDefined => "LastDefined",
-                _ => "Unknown",
-            }
-        )
-    }
-}
-
 #[doc(hidden)]
 impl IntoGlib for ValueType {
     type GlibType = ffi::AtkValueType;
@@ -2655,6 +2238,7 @@ impl FromGlib<ffi::AtkValueType> for ValueType {
 
 impl StaticType for ValueType {
     #[inline]
+    #[doc(alias = "atk_value_type_get_type")]
     fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::atk_value_type_get_type()) }
     }
@@ -2666,7 +2250,7 @@ impl glib::HasParamSpec for ValueType {
     type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
 
     fn param_spec_builder() -> Self::BuilderFn {
-        |name, default_value| Self::ParamSpec::builder_with_default(name, default_value)
+        Self::ParamSpec::builder_with_default
     }
 }
 
