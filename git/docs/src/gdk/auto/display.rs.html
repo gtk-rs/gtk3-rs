@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/display.rs`."><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/display.rs`."><title>display.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (0e2dac837 2023-12-04)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -957,7 +957,7 @@
     ///
     /// [`DisplayExtManual`][trait@crate::prelude::DisplayExtManual]
     </span><span class="attr">#[doc(alias = <span class="string">&quot;GdkDisplay&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.Display.html">Display</a>(Object&lt;ffi::GdkDisplay&gt;);
+    </span><span class="kw">pub struct </span><a href="../../../gdk/struct.Display.html">Display</a>(Object&lt;<a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>&gt;);
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_display_get_type(),
@@ -1521,7 +1521,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;closed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_closed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>closed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
             is_error: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
@@ -1548,8 +1548,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;monitor-added&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_monitor_added&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="monitor.rs.html#13-80">Monitor</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>monitor_added_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>, <span class="kw-2">&amp;</span><a href="monitor.rs.html#13-80">Monitor</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
-            monitor: <span class="kw-2">*mut </span>ffi::GdkMonitor,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
+            monitor: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkMonitor.html">ffi::GdkMonitor</a>,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#674">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -1578,8 +1578,8 @@
         f: F,
     ) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>monitor_removed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>, <span class="kw-2">&amp;</span><a href="monitor.rs.html#13-80">Monitor</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
-            monitor: <span class="kw-2">*mut </span>ffi::GdkMonitor,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
+            monitor: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkMonitor.html">ffi::GdkMonitor</a>,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#704">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -1603,7 +1603,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;opened&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_opened&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>opened_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#728">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -1629,8 +1629,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;seat-added&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_seat_added&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="seat.rs.html#13-70">Seat</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>seat_added_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>, <span class="kw-2">&amp;</span><a href="seat.rs.html#13-70">Seat</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
-            seat: <span class="kw-2">*mut </span>ffi::GdkSeat,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
+            seat: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkSeat.html">ffi::GdkSeat</a>,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#755">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
@@ -1656,8 +1656,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;seat-removed&quot;</span>)]
     </span><span class="kw">pub fn </span>connect_seat_removed&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="seat.rs.html#13-70">Seat</a>) + <span class="lifetime">&#39;static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>seat_removed_trampoline&lt;F: Fn(<span class="kw-2">&amp;</span><a href="#13-86">Display</a>, <span class="kw-2">&amp;</span><a href="seat.rs.html#13-70">Seat</a>) + <span class="lifetime">&#39;static</span>&gt;(
-            this: <span class="kw-2">*mut </span>ffi::GdkDisplay,
-            seat: <span class="kw-2">*mut </span>ffi::GdkSeat,
+            this: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkDisplay.html">ffi::GdkDisplay</a>,
+            seat: <span class="kw-2">*mut </span><a href="../../../gdk_sys/struct.GdkSeat.html">ffi::GdkSeat</a>,
             f: glib::ffi::gpointer,
         ) {
             <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#782">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);

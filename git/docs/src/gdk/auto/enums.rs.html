@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/enums.rs`."><title>enums.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/auto/enums.rs`."><title>enums.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (0e2dac837 2023-12-04)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -4485,10 +4485,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#17-53">AxisUse</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkAxisUse;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkAxisUse.html">ffi::GdkAxisUse</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkAxisUse {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkAxisUse.html">ffi::GdkAxisUse</a> {
         <span class="kw">match </span><span class="self"><a href="#60">self</a> </span>{
             <span class="self">Self</span>::Ignore =&gt; ffi::GDK_AXIS_IGNORE,
             <span class="self">Self</span>::X =&gt; ffi::GDK_AXIS_X,
@@ -4507,9 +4507,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkAxisUse&gt; <span class="kw">for </span><a href="#17-53">AxisUse</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkAxisUse.html">ffi::GdkAxisUse</a>&gt; <span class="kw">for </span><a href="#17-53">AxisUse</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkAxisUse) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkAxisUse.html">ffi::GdkAxisUse</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#81">value</a> {
@@ -4607,10 +4607,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#162-175">ByteOrder</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkByteOrder;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkByteOrder.html">ffi::GdkByteOrder</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkByteOrder {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkByteOrder.html">ffi::GdkByteOrder</a> {
         <span class="kw">match </span><span class="self"><a href="#182">self</a> </span>{
             <span class="self">Self</span>::LsbFirst =&gt; ffi::GDK_LSB_FIRST,
             <span class="self">Self</span>::MsbFirst =&gt; ffi::GDK_MSB_FIRST,
@@ -4620,9 +4620,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkByteOrder&gt; <span class="kw">for </span><a href="#162-175">ByteOrder</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkByteOrder.html">ffi::GdkByteOrder</a>&gt; <span class="kw">for </span><a href="#162-175">ByteOrder</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkByteOrder) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkByteOrder.html">ffi::GdkByteOrder</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#194">value</a> {
@@ -4732,10 +4732,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#265-300">CrossingMode</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkCrossingMode;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkCrossingMode.html">ffi::GdkCrossingMode</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkCrossingMode {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkCrossingMode.html">ffi::GdkCrossingMode</a> {
         <span class="kw">match </span><span class="self"><a href="#307">self</a> </span>{
             <span class="self">Self</span>::Normal =&gt; ffi::GDK_CROSSING_NORMAL,
             <span class="self">Self</span>::Grab =&gt; ffi::GDK_CROSSING_GRAB,
@@ -4752,9 +4752,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkCrossingMode&gt; <span class="kw">for </span><a href="#265-300">CrossingMode</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkCrossingMode.html">ffi::GdkCrossingMode</a>&gt; <span class="kw">for </span><a href="#265-300">CrossingMode</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkCrossingMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkCrossingMode.html">ffi::GdkCrossingMode</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#326">value</a> {
@@ -5085,9 +5085,9 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#409-653">CursorType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkCursorType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkCursorType.html">ffi::GdkCursorType</a>;
 
-    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkCursorType {
+    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkCursorType.html">ffi::GdkCursorType</a> {
         <span class="kw">match </span><span class="self"><a href="#659">self</a> </span>{
             <span class="self">Self</span>::XCursor =&gt; ffi::GDK_X_CURSOR,
             <span class="self">Self</span>::Arrow =&gt; ffi::GDK_ARROW,
@@ -5175,8 +5175,8 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkCursorType&gt; <span class="kw">for </span><a href="#409-653">CursorType</a> {
-    <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkCursorType) -&gt; <span class="self">Self </span>{
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkCursorType.html">ffi::GdkCursorType</a>&gt; <span class="kw">for </span><a href="#409-653">CursorType</a> {
+    <span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkCursorType.html">ffi::GdkCursorType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#748">value</a> {
@@ -5341,10 +5341,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#897-909">DevicePadFeature</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkDevicePadFeature;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkDevicePadFeature.html">ffi::GdkDevicePadFeature</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDevicePadFeature {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkDevicePadFeature.html">ffi::GdkDevicePadFeature</a> {
         <span class="kw">match </span><span class="self"><a href="#916">self</a> </span>{
             <span class="self">Self</span>::Button =&gt; ffi::GDK_DEVICE_PAD_FEATURE_BUTTON,
             <span class="self">Self</span>::Ring =&gt; ffi::GDK_DEVICE_PAD_FEATURE_RING,
@@ -5355,9 +5355,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDevicePadFeature&gt; <span class="kw">for </span><a href="#897-909">DevicePadFeature</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkDevicePadFeature.html">ffi::GdkDevicePadFeature</a>&gt; <span class="kw">for </span><a href="#897-909">DevicePadFeature</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDevicePadFeature) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkDevicePadFeature.html">ffi::GdkDevicePadFeature</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#929">value</a> {
@@ -5461,10 +5461,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1002-1029">DeviceToolType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkDeviceToolType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkDeviceToolType.html">ffi::GdkDeviceToolType</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDeviceToolType {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkDeviceToolType.html">ffi::GdkDeviceToolType</a> {
         <span class="kw">match </span><span class="self"><a href="#1036">self</a> </span>{
             <span class="self">Self</span>::Unknown =&gt; ffi::GDK_DEVICE_TOOL_TYPE_UNKNOWN,
             <span class="self">Self</span>::Pen =&gt; ffi::GDK_DEVICE_TOOL_TYPE_PEN,
@@ -5480,9 +5480,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDeviceToolType&gt; <span class="kw">for </span><a href="#1002-1029">DeviceToolType</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkDeviceToolType.html">ffi::GdkDeviceToolType</a>&gt; <span class="kw">for </span><a href="#1002-1029">DeviceToolType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDeviceToolType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkDeviceToolType.html">ffi::GdkDeviceToolType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1054">value</a> {
@@ -5578,10 +5578,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1132-1146">DeviceType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkDeviceType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkDeviceType.html">ffi::GdkDeviceType</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDeviceType {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkDeviceType.html">ffi::GdkDeviceType</a> {
         <span class="kw">match </span><span class="self"><a href="#1153">self</a> </span>{
             <span class="self">Self</span>::Master =&gt; ffi::GDK_DEVICE_TYPE_MASTER,
             <span class="self">Self</span>::Slave =&gt; ffi::GDK_DEVICE_TYPE_SLAVE,
@@ -5592,9 +5592,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDeviceType&gt; <span class="kw">for </span><a href="#1132-1146">DeviceType</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkDeviceType.html">ffi::GdkDeviceType</a>&gt; <span class="kw">for </span><a href="#1132-1146">DeviceType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDeviceType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkDeviceType.html">ffi::GdkDeviceType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1166">value</a> {
@@ -5682,10 +5682,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1238-1250">DragCancelReason</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkDragCancelReason;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkDragCancelReason.html">ffi::GdkDragCancelReason</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDragCancelReason {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkDragCancelReason.html">ffi::GdkDragCancelReason</a> {
         <span class="kw">match </span><span class="self"><a href="#1257">self</a> </span>{
             <span class="self">Self</span>::NoTarget =&gt; ffi::GDK_DRAG_CANCEL_NO_TARGET,
             <span class="self">Self</span>::UserCancelled =&gt; ffi::GDK_DRAG_CANCEL_USER_CANCELLED,
@@ -5696,9 +5696,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDragCancelReason&gt; <span class="kw">for </span><a href="#1238-1250">DragCancelReason</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkDragCancelReason.html">ffi::GdkDragCancelReason</a>&gt; <span class="kw">for </span><a href="#1238-1250">DragCancelReason</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDragCancelReason) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkDragCancelReason.html">ffi::GdkDragCancelReason</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1270">value</a> {
@@ -5803,10 +5803,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1343-1371">DragProtocol</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkDragProtocol;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkDragProtocol.html">ffi::GdkDragProtocol</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkDragProtocol {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkDragProtocol.html">ffi::GdkDragProtocol</a> {
         <span class="kw">match </span><span class="self"><a href="#1378">self</a> </span>{
             <span class="self">Self</span>::None =&gt; ffi::GDK_DRAG_PROTO_NONE,
             <span class="self">Self</span>::Motif =&gt; ffi::GDK_DRAG_PROTO_MOTIF,
@@ -5822,9 +5822,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkDragProtocol&gt; <span class="kw">for </span><a href="#1343-1371">DragProtocol</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkDragProtocol.html">ffi::GdkDragProtocol</a>&gt; <span class="kw">for </span><a href="#1343-1371">DragProtocol</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkDragProtocol) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkDragProtocol.html">ffi::GdkDragProtocol</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1396">value</a> {
@@ -6086,9 +6086,9 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1484-1654">EventType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkEventType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkEventType.html">ffi::GdkEventType</a>;
 
-    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkEventType {
+    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkEventType.html">ffi::GdkEventType</a> {
         <span class="kw">match </span><span class="self"><a href="#1660">self</a> </span>{
             <span class="self">Self</span>::Nothing =&gt; ffi::GDK_NOTHING,
             <span class="self">Self</span>::Delete =&gt; ffi::GDK_DELETE,
@@ -6144,8 +6144,8 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkEventType&gt; <span class="kw">for </span><a href="#1484-1654">EventType</a> {
-    <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkEventType) -&gt; <span class="self">Self </span>{
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkEventType.html">ffi::GdkEventType</a>&gt; <span class="kw">for </span><a href="#1484-1654">EventType</a> {
+    <span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkEventType.html">ffi::GdkEventType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1717">value</a> {
@@ -6276,10 +6276,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1835-1844">FullscreenMode</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkFullscreenMode;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkFullscreenMode.html">ffi::GdkFullscreenMode</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkFullscreenMode {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkFullscreenMode.html">ffi::GdkFullscreenMode</a> {
         <span class="kw">match </span><span class="self"><a href="#1851">self</a> </span>{
             <span class="self">Self</span>::CurrentMonitor =&gt; ffi::GDK_FULLSCREEN_ON_CURRENT_MONITOR,
             <span class="self">Self</span>::AllMonitors =&gt; ffi::GDK_FULLSCREEN_ON_ALL_MONITORS,
@@ -6289,9 +6289,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkFullscreenMode&gt; <span class="kw">for </span><a href="#1835-1844">FullscreenMode</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkFullscreenMode.html">ffi::GdkFullscreenMode</a>&gt; <span class="kw">for </span><a href="#1835-1844">FullscreenMode</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkFullscreenMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkFullscreenMode.html">ffi::GdkFullscreenMode</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1863">value</a> {
@@ -6378,10 +6378,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#1934-1946">GLError</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkGLError;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkGLError.html">ffi::GdkGLError</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkGLError {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkGLError.html">ffi::GdkGLError</a> {
         <span class="kw">match </span><span class="self"><a href="#1953">self</a> </span>{
             <span class="self">Self</span>::NotAvailable =&gt; ffi::GDK_GL_ERROR_NOT_AVAILABLE,
             <span class="self">Self</span>::UnsupportedFormat =&gt; ffi::GDK_GL_ERROR_UNSUPPORTED_FORMAT,
@@ -6392,9 +6392,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkGLError&gt; <span class="kw">for </span><a href="#1934-1946">GLError</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkGLError.html">ffi::GdkGLError</a>&gt; <span class="kw">for </span><a href="#1934-1946">GLError</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkGLError) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkGLError.html">ffi::GdkGLError</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#1966">value</a> {
@@ -6505,10 +6505,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2061-2073">GrabOwnership</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkGrabOwnership;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkGrabOwnership.html">ffi::GdkGrabOwnership</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkGrabOwnership {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkGrabOwnership.html">ffi::GdkGrabOwnership</a> {
         <span class="kw">match </span><span class="self"><a href="#2080">self</a> </span>{
             <span class="self">Self</span>::None =&gt; ffi::GDK_OWNERSHIP_NONE,
             <span class="self">Self</span>::Window =&gt; ffi::GDK_OWNERSHIP_WINDOW,
@@ -6519,9 +6519,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkGrabOwnership&gt; <span class="kw">for </span><a href="#2061-2073">GrabOwnership</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkGrabOwnership.html">ffi::GdkGrabOwnership</a>&gt; <span class="kw">for </span><a href="#2061-2073">GrabOwnership</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkGrabOwnership) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkGrabOwnership.html">ffi::GdkGrabOwnership</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2093">value</a> {
@@ -6621,10 +6621,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2166-2189">GrabStatus</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkGrabStatus;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkGrabStatus.html">ffi::GdkGrabStatus</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkGrabStatus {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkGrabStatus.html">ffi::GdkGrabStatus</a> {
         <span class="kw">match </span><span class="self"><a href="#2196">self</a> </span>{
             <span class="self">Self</span>::Success =&gt; ffi::GDK_GRAB_SUCCESS,
             <span class="self">Self</span>::AlreadyGrabbed =&gt; ffi::GDK_GRAB_ALREADY_GRABBED,
@@ -6638,9 +6638,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkGrabStatus&gt; <span class="kw">for </span><a href="#2166-2189">GrabStatus</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkGrabStatus.html">ffi::GdkGrabStatus</a>&gt; <span class="kw">for </span><a href="#2166-2189">GrabStatus</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkGrabStatus) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkGrabStatus.html">ffi::GdkGrabStatus</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2212">value</a> {
@@ -6757,10 +6757,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2291-2325">Gravity</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkGravity;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkGravity.html">ffi::GdkGravity</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkGravity {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkGravity.html">ffi::GdkGravity</a> {
         <span class="kw">match </span><span class="self"><a href="#2332">self</a> </span>{
             <span class="self">Self</span>::NorthWest =&gt; ffi::GDK_GRAVITY_NORTH_WEST,
             <span class="self">Self</span>::North =&gt; ffi::GDK_GRAVITY_NORTH,
@@ -6778,9 +6778,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkGravity&gt; <span class="kw">for </span><a href="#2291-2325">Gravity</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkGravity.html">ffi::GdkGravity</a>&gt; <span class="kw">for </span><a href="#2291-2325">Gravity</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkGravity) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkGravity.html">ffi::GdkGravity</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2352">value</a> {
@@ -6879,10 +6879,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2431-2447">InputMode</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkInputMode;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkInputMode.html">ffi::GdkInputMode</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkInputMode {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkInputMode.html">ffi::GdkInputMode</a> {
         <span class="kw">match </span><span class="self"><a href="#2454">self</a> </span>{
             <span class="self">Self</span>::Disabled =&gt; ffi::GDK_MODE_DISABLED,
             <span class="self">Self</span>::Screen =&gt; ffi::GDK_MODE_SCREEN,
@@ -6893,9 +6893,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkInputMode&gt; <span class="kw">for </span><a href="#2431-2447">InputMode</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkInputMode.html">ffi::GdkInputMode</a>&gt; <span class="kw">for </span><a href="#2431-2447">InputMode</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkInputMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkInputMode.html">ffi::GdkInputMode</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2467">value</a> {
@@ -7008,10 +7008,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2539-2576">InputSource</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkInputSource;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkInputSource.html">ffi::GdkInputSource</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkInputSource {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkInputSource.html">ffi::GdkInputSource</a> {
         <span class="kw">match </span><span class="self"><a href="#2583">self</a> </span>{
             <span class="self">Self</span>::Mouse =&gt; ffi::GDK_SOURCE_MOUSE,
             <span class="self">Self</span>::Pen =&gt; ffi::GDK_SOURCE_PEN,
@@ -7028,9 +7028,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkInputSource&gt; <span class="kw">for </span><a href="#2539-2576">InputSource</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkInputSource.html">ffi::GdkInputSource</a>&gt; <span class="kw">for </span><a href="#2539-2576">InputSource</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkInputSource) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkInputSource.html">ffi::GdkInputSource</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2602">value</a> {
@@ -7154,10 +7154,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2686-2722">ModifierIntent</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkModifierIntent;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkModifierIntent.html">ffi::GdkModifierIntent</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkModifierIntent {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkModifierIntent.html">ffi::GdkModifierIntent</a> {
         <span class="kw">match </span><span class="self"><a href="#2729">self</a> </span>{
             <span class="self">Self</span>::PrimaryAccelerator =&gt; ffi::GDK_MODIFIER_INTENT_PRIMARY_ACCELERATOR,
             <span class="self">Self</span>::ContextMenu =&gt; ffi::GDK_MODIFIER_INTENT_CONTEXT_MENU,
@@ -7172,9 +7172,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkModifierIntent&gt; <span class="kw">for </span><a href="#2686-2722">ModifierIntent</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkModifierIntent.html">ffi::GdkModifierIntent</a>&gt; <span class="kw">for </span><a href="#2686-2722">ModifierIntent</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkModifierIntent) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkModifierIntent.html">ffi::GdkModifierIntent</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2746">value</a> {
@@ -7285,10 +7285,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2825-2853">NotifyType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkNotifyType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkNotifyType.html">ffi::GdkNotifyType</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkNotifyType {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkNotifyType.html">ffi::GdkNotifyType</a> {
         <span class="kw">match </span><span class="self"><a href="#2860">self</a> </span>{
             <span class="self">Self</span>::Ancestor =&gt; ffi::GDK_NOTIFY_ANCESTOR,
             <span class="self">Self</span>::Virtual =&gt; ffi::GDK_NOTIFY_VIRTUAL,
@@ -7302,9 +7302,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkNotifyType&gt; <span class="kw">for </span><a href="#2825-2853">NotifyType</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkNotifyType.html">ffi::GdkNotifyType</a>&gt; <span class="kw">for </span><a href="#2825-2853">NotifyType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkNotifyType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkNotifyType.html">ffi::GdkNotifyType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2876">value</a> {
@@ -7395,10 +7395,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#2951-2963">OwnerChange</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkOwnerChange;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkOwnerChange.html">ffi::GdkOwnerChange</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkOwnerChange {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkOwnerChange.html">ffi::GdkOwnerChange</a> {
         <span class="kw">match </span><span class="self"><a href="#2970">self</a> </span>{
             <span class="self">Self</span>::NewOwner =&gt; ffi::GDK_OWNER_CHANGE_NEW_OWNER,
             <span class="self">Self</span>::Destroy =&gt; ffi::GDK_OWNER_CHANGE_DESTROY,
@@ -7409,9 +7409,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkOwnerChange&gt; <span class="kw">for </span><a href="#2951-2963">OwnerChange</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkOwnerChange.html">ffi::GdkOwnerChange</a>&gt; <span class="kw">for </span><a href="#2951-2963">OwnerChange</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkOwnerChange) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkOwnerChange.html">ffi::GdkOwnerChange</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#2983">value</a> {
@@ -7500,10 +7500,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3056-3068">PropMode</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkPropMode;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkPropMode.html">ffi::GdkPropMode</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkPropMode {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkPropMode.html">ffi::GdkPropMode</a> {
         <span class="kw">match </span><span class="self"><a href="#3075">self</a> </span>{
             <span class="self">Self</span>::Replace =&gt; ffi::GDK_PROP_MODE_REPLACE,
             <span class="self">Self</span>::Prepend =&gt; ffi::GDK_PROP_MODE_PREPEND,
@@ -7514,9 +7514,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkPropMode&gt; <span class="kw">for </span><a href="#3056-3068">PropMode</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkPropMode.html">ffi::GdkPropMode</a>&gt; <span class="kw">for </span><a href="#3056-3068">PropMode</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkPropMode) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkPropMode.html">ffi::GdkPropMode</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3088">value</a> {
@@ -7601,10 +7601,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3160-3169">PropertyState</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkPropertyState;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkPropertyState.html">ffi::GdkPropertyState</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkPropertyState {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkPropertyState.html">ffi::GdkPropertyState</a> {
         <span class="kw">match </span><span class="self"><a href="#3176">self</a> </span>{
             <span class="self">Self</span>::NewValue =&gt; ffi::GDK_PROPERTY_NEW_VALUE,
             <span class="self">Self</span>::Delete =&gt; ffi::GDK_PROPERTY_DELETE,
@@ -7614,9 +7614,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkPropertyState&gt; <span class="kw">for </span><a href="#3160-3169">PropertyState</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkPropertyState.html">ffi::GdkPropertyState</a>&gt; <span class="kw">for </span><a href="#3160-3169">PropertyState</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkPropertyState) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkPropertyState.html">ffi::GdkPropertyState</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3188">value</a> {
@@ -7710,10 +7710,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3259-3278">ScrollDirection</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkScrollDirection;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkScrollDirection.html">ffi::GdkScrollDirection</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkScrollDirection {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkScrollDirection.html">ffi::GdkScrollDirection</a> {
         <span class="kw">match </span><span class="self"><a href="#3285">self</a> </span>{
             <span class="self">Self</span>::Up =&gt; ffi::GDK_SCROLL_UP,
             <span class="self">Self</span>::Down =&gt; ffi::GDK_SCROLL_DOWN,
@@ -7726,9 +7726,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkScrollDirection&gt; <span class="kw">for </span><a href="#3259-3278">ScrollDirection</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkScrollDirection.html">ffi::GdkScrollDirection</a>&gt; <span class="kw">for </span><a href="#3259-3278">ScrollDirection</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkScrollDirection) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkScrollDirection.html">ffi::GdkScrollDirection</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3300">value</a> {
@@ -7819,10 +7819,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3375-3387">SettingAction</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkSettingAction;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkSettingAction.html">ffi::GdkSettingAction</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkSettingAction {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkSettingAction.html">ffi::GdkSettingAction</a> {
         <span class="kw">match </span><span class="self"><a href="#3394">self</a> </span>{
             <span class="self">Self</span>::New =&gt; ffi::GDK_SETTING_ACTION_NEW,
             <span class="self">Self</span>::Changed =&gt; ffi::GDK_SETTING_ACTION_CHANGED,
@@ -7833,9 +7833,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkSettingAction&gt; <span class="kw">for </span><a href="#3375-3387">SettingAction</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkSettingAction.html">ffi::GdkSettingAction</a>&gt; <span class="kw">for </span><a href="#3375-3387">SettingAction</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkSettingAction) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkSettingAction.html">ffi::GdkSettingAction</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3407">value</a> {
@@ -7933,10 +7933,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3480-3501">SubpixelLayout</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkSubpixelLayout;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkSubpixelLayout.html">ffi::GdkSubpixelLayout</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkSubpixelLayout {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkSubpixelLayout.html">ffi::GdkSubpixelLayout</a> {
         <span class="kw">match </span><span class="self"><a href="#3508">self</a> </span>{
             <span class="self">Self</span>::Unknown =&gt; ffi::GDK_SUBPIXEL_LAYOUT_UNKNOWN,
             <span class="self">Self</span>::None =&gt; ffi::GDK_SUBPIXEL_LAYOUT_NONE,
@@ -7950,9 +7950,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkSubpixelLayout&gt; <span class="kw">for </span><a href="#3480-3501">SubpixelLayout</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkSubpixelLayout.html">ffi::GdkSubpixelLayout</a>&gt; <span class="kw">for </span><a href="#3480-3501">SubpixelLayout</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkSubpixelLayout) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkSubpixelLayout.html">ffi::GdkSubpixelLayout</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3524">value</a> {
@@ -8043,10 +8043,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3599-3611">VisibilityState</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkVisibilityState;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkVisibilityState.html">ffi::GdkVisibilityState</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkVisibilityState {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkVisibilityState.html">ffi::GdkVisibilityState</a> {
         <span class="kw">match </span><span class="self"><a href="#3618">self</a> </span>{
             <span class="self">Self</span>::Unobscured =&gt; ffi::GDK_VISIBILITY_UNOBSCURED,
             <span class="self">Self</span>::Partial =&gt; ffi::GDK_VISIBILITY_PARTIAL,
@@ -8057,9 +8057,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkVisibilityState&gt; <span class="kw">for </span><a href="#3599-3611">VisibilityState</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkVisibilityState.html">ffi::GdkVisibilityState</a>&gt; <span class="kw">for </span><a href="#3599-3611">VisibilityState</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkVisibilityState) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkVisibilityState.html">ffi::GdkVisibilityState</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3631">value</a> {
@@ -8169,10 +8169,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3704-3737">VisualType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkVisualType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkVisualType.html">ffi::GdkVisualType</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkVisualType {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkVisualType.html">ffi::GdkVisualType</a> {
         <span class="kw">match </span><span class="self"><a href="#3744">self</a> </span>{
             <span class="self">Self</span>::StaticGray =&gt; ffi::GDK_VISUAL_STATIC_GRAY,
             <span class="self">Self</span>::Grayscale =&gt; ffi::GDK_VISUAL_GRAYSCALE,
@@ -8186,9 +8186,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkVisualType&gt; <span class="kw">for </span><a href="#3704-3737">VisualType</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkVisualType.html">ffi::GdkVisualType</a>&gt; <span class="kw">for </span><a href="#3704-3737">VisualType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkVisualType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkVisualType.html">ffi::GdkVisualType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3760">value</a> {
@@ -8294,10 +8294,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3835-3862">WindowEdge</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkWindowEdge;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkWindowEdge.html">ffi::GdkWindowEdge</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowEdge {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkWindowEdge.html">ffi::GdkWindowEdge</a> {
         <span class="kw">match </span><span class="self"><a href="#3869">self</a> </span>{
             <span class="self">Self</span>::NorthWest =&gt; ffi::GDK_WINDOW_EDGE_NORTH_WEST,
             <span class="self">Self</span>::North =&gt; ffi::GDK_WINDOW_EDGE_NORTH,
@@ -8313,9 +8313,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowEdge&gt; <span class="kw">for </span><a href="#3835-3862">WindowEdge</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkWindowEdge.html">ffi::GdkWindowEdge</a>&gt; <span class="kw">for </span><a href="#3835-3862">WindowEdge</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowEdge) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkWindowEdge.html">ffi::GdkWindowEdge</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#3887">value</a> {
@@ -8425,10 +8425,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#3964-3993">WindowType</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkWindowType;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkWindowType.html">ffi::GdkWindowType</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowType {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkWindowType.html">ffi::GdkWindowType</a> {
         <span class="kw">match </span><span class="self"><a href="#4000">self</a> </span>{
             <span class="self">Self</span>::Root =&gt; ffi::GDK_WINDOW_ROOT,
             <span class="self">Self</span>::Toplevel =&gt; ffi::GDK_WINDOW_TOPLEVEL,
@@ -8443,9 +8443,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowType&gt; <span class="kw">for </span><a href="#3964-3993">WindowType</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkWindowType.html">ffi::GdkWindowType</a>&gt; <span class="kw">for </span><a href="#3964-3993">WindowType</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowType) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkWindowType.html">ffi::GdkWindowType</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#4017">value</a> {
@@ -8581,9 +8581,9 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#4098-4149">WindowTypeHint</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkWindowTypeHint;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkWindowTypeHint.html">ffi::GdkWindowTypeHint</a>;
 
-    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowTypeHint {
+    <span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkWindowTypeHint.html">ffi::GdkWindowTypeHint</a> {
         <span class="kw">match </span><span class="self"><a href="#4155">self</a> </span>{
             <span class="self">Self</span>::Normal =&gt; ffi::GDK_WINDOW_TYPE_HINT_NORMAL,
             <span class="self">Self</span>::Dialog =&gt; ffi::GDK_WINDOW_TYPE_HINT_DIALOG,
@@ -8605,8 +8605,8 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowTypeHint&gt; <span class="kw">for </span><a href="#4098-4149">WindowTypeHint</a> {
-    <span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowTypeHint) -&gt; <span class="self">Self </span>{
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkWindowTypeHint.html">ffi::GdkWindowTypeHint</a>&gt; <span class="kw">for </span><a href="#4098-4149">WindowTypeHint</a> {
+    <span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkWindowTypeHint.html">ffi::GdkWindowTypeHint</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#4178">value</a> {
@@ -8706,10 +8706,10 @@
 
 <span class="attr">#[doc(hidden)]
 </span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html">IntoGlib</a> <span class="kw">for </span><a href="#4265-4274">WindowWindowClass</a> {
-    <span class="kw">type </span>GlibType = ffi::GdkWindowWindowClass;
+    <span class="kw">type </span>GlibType = <a href="../../../gdk_sys/type.GdkWindowWindowClass.html">ffi::GdkWindowWindowClass</a>;
 
     <span class="attr">#[inline]
-    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; ffi::GdkWindowWindowClass {
+    </span><span class="kw">fn </span>into_glib(<span class="self">self</span>) -&gt; <a href="../../../gdk_sys/type.GdkWindowWindowClass.html">ffi::GdkWindowWindowClass</a> {
         <span class="kw">match </span><span class="self"><a href="#4281">self</a> </span>{
             <span class="self">Self</span>::InputOutput =&gt; ffi::GDK_INPUT_OUTPUT,
             <span class="self">Self</span>::InputOnly =&gt; ffi::GDK_INPUT_ONLY,
@@ -8719,9 +8719,9 @@
 }
 
 <span class="attr">#[doc(hidden)]
-</span><span class="kw">impl </span>FromGlib&lt;ffi::GdkWindowWindowClass&gt; <span class="kw">for </span><a href="#4265-4274">WindowWindowClass</a> {
+</span><span class="kw">impl </span>FromGlib&lt;<a href="../../../gdk_sys/type.GdkWindowWindowClass.html">ffi::GdkWindowWindowClass</a>&gt; <span class="kw">for </span><a href="#4265-4274">WindowWindowClass</a> {
     <span class="attr">#[inline]
-    </span><span class="kw">unsafe fn </span>from_glib(value: ffi::GdkWindowWindowClass) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">unsafe fn </span>from_glib(value: <a href="../../../gdk_sys/type.GdkWindowWindowClass.html">ffi::GdkWindowWindowClass</a>) -&gt; <span class="self">Self </span>{
         <span class="macro">skip_assert_initialized!</span>();
 
         <span class="kw">match </span><a href="#4293">value</a> {

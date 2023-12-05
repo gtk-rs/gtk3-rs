@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkwayland/src/wayland_device.rs`."><title>wayland_device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdkwayland" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdkwayland/src/wayland_device.rs`."><title>wayland_device.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdkwayland" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (0e2dac837 2023-12-04)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -157,8 +157,8 @@
 <a href="#84" id="84">84</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/prelude/index.html">gdk::prelude</a>::<span class="kw-2">*</span>;
-<span class="kw">use </span><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/enums/enum.DevicePadFeature.html">gdk::DevicePadFeature</a>;
+</span><span class="kw">use </span><a href="../../gdk/prelude/index.html">gdk::prelude</a>::<span class="kw-2">*</span>;
+<span class="kw">use </span><a href="../../gdk/auto/enums/enum.DevicePadFeature.html">gdk::DevicePadFeature</a>;
 <span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="kw">use </span>wayland_client::backend::ObjectId;
@@ -167,7 +167,7 @@
 
 <a class="macro" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper! </a>{
     <span class="attr">#[doc(alias = <span class="string">&quot;GdkWaylandDevice&quot;</span>)]
-    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandDevice.html">WaylandDevice</a>(Object&lt;ffi::GdkWaylandDevice&gt;) @extends <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/struct.Device.html">gdk::Device</a>;
+    </span><span class="kw">pub struct </span><a href="../../gdkwayland/struct.WaylandDevice.html">WaylandDevice</a>(Object&lt;<a href="../../gdk_wayland_sys/struct.GdkWaylandDevice.html">ffi::GdkWaylandDevice</a>&gt;) @extends <a href="../../gdk/auto/device/struct.Device.html">gdk::Device</a>;
 
     <span class="kw">match fn </span>{
         type_ =&gt; || ffi::gdk_wayland_device_get_type(),
@@ -176,7 +176,7 @@
 
 <span class="kw">impl </span><a href="#11-18">WaylandDevice</a> {
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_device_pad_set_feedback&quot;</span>)]
-    </span><span class="kw">pub fn </span>pad_set_feedback(<span class="kw-2">&amp;</span><span class="self">self</span>, element: <a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/enums/enum.DevicePadFeature.html">DevicePadFeature</a>, idx: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, label: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
+    </span><span class="kw">pub fn </span>pad_set_feedback(<span class="kw-2">&amp;</span><span class="self">self</span>, element: <a href="../../gdk/auto/enums/enum.DevicePadFeature.html">DevicePadFeature</a>, idx: <a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, label: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
             ffi::gdk_wayland_device_pad_set_feedback(
                 <a class="self" href="#22">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
@@ -195,7 +195,7 @@
             <span class="kw">if </span>seat_ptr.is_null() {
                 <span class="prelude-val">None
             </span>} <span class="kw">else </span>{
-                <span class="kw">let </span>display = <a class="self" href="#35">self</a>.<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;();
+                <span class="kw">let </span>display = <a class="self" href="#35">self</a>.<a href="../../gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">unsafe_cast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;();
                 <span class="kw">let </span>cnx = <a href="#41">display</a>.<a href="wayland_display.rs.html#93-112">connection</a>();
                 <span class="kw">let </span>id = ObjectId::from_ptr(WlSeat::interface(), <a href="#37">seat_ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).unwrap();
 
@@ -207,7 +207,7 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_device_get_wl_keyboard&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wl_keyboard&quot;</span>)]
     </span><span class="kw">pub fn </span>wl_keyboard(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WlKeyboard&gt; {
-        <span class="kw">let </span>display = <a class="self" href="#52">self</a>.<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">downcast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;().unwrap();
+        <span class="kw">let </span>display = <a class="self" href="#52">self</a>.<a href="../../gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">downcast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;().unwrap();
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>keyboard_ptr = ffi::gdk_wayland_device_get_wl_keyboard(<a class="self" href="#52">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
             <span class="kw">if </span>keyboard_ptr.is_null() {
@@ -225,7 +225,7 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;gdk_wayland_device_get_wl_pointer&quot;</span>)]
     #[doc(alias = <span class="string">&quot;get_wl_pointer&quot;</span>)]
     </span><span class="kw">pub fn </span>wl_pointer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;WlPointer&gt; {
-        <span class="kw">let </span>display = <a class="self" href="#70">self</a>.<a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">downcast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;().unwrap();
+        <span class="kw">let </span>display = <a class="self" href="#70">self</a>.<a href="../../gdk/auto/device/trait.DeviceExt.html">display</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html">downcast</a>::&lt;<a href="wayland_display.rs.html#14-21"><span class="kw">crate</span>::WaylandDisplay</a>&gt;().unwrap();
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>pointer_ptr = ffi::gdk_wayland_device_get_wl_pointer(<a class="self" href="#70">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
             <span class="kw">if </span>pointer_ptr.is_null() {
