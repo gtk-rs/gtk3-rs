@@ -1,6 +1,6 @@
 # HeaderBar example
 
-This example demonstrates how to use HeaderBar in Windows.
+This example demonstrates how to use HeaderBar in windows.
 
 Run it by executing:
 
