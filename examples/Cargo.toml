@@ -75,6 +75,10 @@ name = "clone_macro"
 path = "clone_macro/main.rs"
 
 [[bin]]
+name = "combobox_liststore"
+path = "combobox_liststore/main.rs"
+
+[[bin]]
 name = "communication_thread"
 path = "communication_thread/main.rs"
 
