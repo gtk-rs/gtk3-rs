@@ -29736,7 +29736,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkAccessibleClass.html">GtkAccessibleClass</a> {
-    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+    <span class="kw">pub </span>parent_class: <a href="../../atk_sys/struct.AtkObjectClass.html">atk::AtkObjectClass</a>,
     <span class="kw">pub </span>connect_widget_destroyed: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11519-11522">GtkAccessible</a>)&gt;,
     <span class="kw">pub </span>widget_set: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11519-11522">GtkAccessible</a>)&gt;,
     <span class="kw">pub </span>widget_unset: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11519-11522">GtkAccessible</a>)&gt;,
@@ -30730,7 +30730,7 @@
             <span class="kw-2">*mut </span>c_int,
             <span class="kw-2">*mut </span>c_int,
             <span class="kw-2">*mut </span>c_int,
-            atk::AtkCoordType,
+            <a href="../../atk_sys/type.AtkCoordType.html">atk::AtkCoordType</a>,
         ),
     &gt;,
     <span class="kw">pub </span>get_cell_area: <span class="prelude-ty">Option</span>&lt;
@@ -30760,7 +30760,7 @@
         <span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(
             <span class="kw-2">*mut </span><a href="#15574-15577">GtkCellAccessibleParent</a>,
             <span class="kw-2">*mut </span><a href="#11865-11868">GtkCellAccessible</a>,
-            <span class="kw-2">*mut </span>atk::AtkRelationSet,
+            <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkRelationSet.html">atk::AtkRelationSet</a>,
         ),
     &gt;,
     <span class="kw">pub </span>get_cell_position: <span class="prelude-ty">Option</span>&lt;
@@ -34738,7 +34738,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkNotebookPageAccessibleClass.html">GtkNotebookPageAccessibleClass</a> {
-    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+    <span class="kw">pub </span>parent_class: <a href="../../atk_sys/struct.AtkObjectClass.html">atk::AtkObjectClass</a>,
 }
 
 <span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#6636-6638">GtkNotebookPageAccessibleClass</a> {
@@ -38427,7 +38427,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkToplevelAccessibleClass.html">GtkToplevelAccessibleClass</a> {
-    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+    <span class="kw">pub </span>parent_class: <a href="../../atk_sys/struct.AtkObjectClass.html">atk::AtkObjectClass</a>,
 }
 
 <span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#10325-10327">GtkToplevelAccessibleClass</a> {
@@ -39287,7 +39287,7 @@
     &gt;,
     <span class="kw">pub </span>popup_menu: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; gboolean&gt;,
     <span class="kw">pub </span>show_help: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>, <a href="#718">GtkWidgetHelpType</a>) -&gt; gboolean&gt;,
-    <span class="kw">pub </span>get_accessible: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject&gt;,
+    <span class="kw">pub </span>get_accessible: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>&gt;,
     <span class="kw">pub </span>screen_changed: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>, <span class="kw-2">*mut </span>gdk::GdkScreen)&gt;,
     <span class="kw">pub </span>can_activate_accel: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>, c_uint) -&gt; gboolean&gt;,
     <span class="kw">pub </span>composited_changed: <span class="prelude-ty">Option</span>&lt;<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>)&gt;,
@@ -39621,7 +39621,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkAccessible.html">GtkAccessible</a> {
-    <span class="kw">pub </span>parent: atk::AtkObject,
+    <span class="kw">pub </span>parent: <a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>,
     <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#1662">GtkAccessiblePrivate</a>,
 }
 
@@ -41852,7 +41852,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkNotebookPageAccessible.html">GtkNotebookPageAccessible</a> {
-    <span class="kw">pub </span>parent: atk::AtkObject,
+    <span class="kw">pub </span>parent: <a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>,
     <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#6654">GtkNotebookPageAccessiblePrivate</a>,
 }
 
@@ -43298,7 +43298,7 @@
 <span class="attr">#[derive(Copy, Clone)]
 #[repr(C)]
 </span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkToplevelAccessible.html">GtkToplevelAccessible</a> {
-    <span class="kw">pub </span>parent: atk::AtkObject,
+    <span class="kw">pub </span>parent: <a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>,
     <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#10343">GtkToplevelAccessiblePrivate</a>,
 }
 
@@ -45345,7 +45345,7 @@
     ) -&gt; <span class="kw-2">*mut *mut </span>gobject::GParamSpec;
     <span class="kw">pub fn </span>gtk_widget_class_set_accessible_role(
         widget_class: <span class="kw-2">*mut </span><a href="#11050-11220">GtkWidgetClass</a>,
-        role: atk::AtkRole,
+        role: <a href="../../atk_sys/type.AtkRole.html">atk::AtkRole</a>,
     );
     <span class="kw">pub fn </span>gtk_widget_class_set_accessible_type(widget_class: <span class="kw-2">*mut </span><a href="#11050-11220">GtkWidgetClass</a>, type_: GType);
     <span class="kw">pub fn </span>gtk_widget_class_set_connect_func(
@@ -47238,7 +47238,7 @@
     <span class="kw">pub fn </span>gtk_combo_box_get_has_entry(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; gboolean;
     <span class="kw">pub fn </span>gtk_combo_box_get_id_column(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; c_int;
     <span class="kw">pub fn </span>gtk_combo_box_get_model(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span><a href="#15754-15757">GtkTreeModel</a>;
-    <span class="kw">pub fn </span>gtk_combo_box_get_popup_accessible(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+    <span class="kw">pub fn </span>gtk_combo_box_get_popup_accessible(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>;
     <span class="kw">pub fn </span>gtk_combo_box_get_popup_fixed_width(combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>) -&gt; gboolean;
     <span class="kw">pub fn </span>gtk_combo_box_get_row_separator_func(
         combo_box: <span class="kw-2">*mut </span><a href="#12204-12207">GtkComboBox</a>,
@@ -50008,7 +50008,7 @@
     <span class="kw">pub fn </span>gtk_notebook_page_accessible_new(
         notebook: <span class="kw-2">*mut </span><a href="#13734-13737">GtkNotebookAccessible</a>,
         child: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>,
-    ) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+    ) -&gt; <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>;
     <span class="kw">pub fn </span>gtk_notebook_page_accessible_invalidate(page: <span class="kw-2">*mut </span><a href="#13750-13753">GtkNotebookPageAccessible</a>);
 
     <span class="comment">//=========================================================================
@@ -51009,7 +51009,7 @@
     // GtkRendererCellAccessible
     //=========================================================================
     </span><span class="kw">pub fn </span>gtk_renderer_cell_accessible_get_type() -&gt; GType;
-    <span class="kw">pub fn </span>gtk_renderer_cell_accessible_new(renderer: <span class="kw-2">*mut </span><a href="#11922-11925">GtkCellRenderer</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+    <span class="kw">pub fn </span>gtk_renderer_cell_accessible_new(renderer: <span class="kw-2">*mut </span><a href="#11922-11925">GtkCellRenderer</a>) -&gt; <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>;
 
     <span class="comment">//=========================================================================
     // GtkRevealer
@@ -53941,7 +53941,7 @@
     <span class="kw">pub fn </span>gtk_widget_error_bell(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>);
     <span class="kw">pub fn </span>gtk_widget_event(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>, event: <span class="kw-2">*mut </span>gdk::GdkEvent) -&gt; gboolean;
     <span class="kw">pub fn </span>gtk_widget_freeze_child_notify(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>);
-    <span class="kw">pub fn </span>gtk_widget_get_accessible(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+    <span class="kw">pub fn </span>gtk_widget_get_accessible(widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkObject.html">atk::AtkObject</a>;
     <span class="kw">pub fn </span>gtk_widget_get_action_group(
         widget: <span class="kw-2">*mut </span><a href="#15447-15450">GtkWidget</a>,
         prefix: <span class="kw-2">*const </span>c_char,
@@ -54692,7 +54692,7 @@
         y: <span class="kw-2">*mut </span>c_int,
         width: <span class="kw-2">*mut </span>c_int,
         height: <span class="kw-2">*mut </span>c_int,
-        coord_type: atk::AtkCoordType,
+        coord_type: <a href="../../atk_sys/type.AtkCoordType.html">atk::AtkCoordType</a>,
     );
     <span class="kw">pub fn </span>gtk_cell_accessible_parent_get_cell_position(
         parent: <span class="kw-2">*mut </span><a href="#15574-15577">GtkCellAccessibleParent</a>,
@@ -54723,7 +54723,7 @@
     <span class="kw">pub fn </span>gtk_cell_accessible_parent_update_relationset(
         parent: <span class="kw-2">*mut </span><a href="#15574-15577">GtkCellAccessibleParent</a>,
         cell: <span class="kw-2">*mut </span><a href="#11865-11868">GtkCellAccessible</a>,
-        relationset: <span class="kw-2">*mut </span>atk::AtkRelationSet,
+        relationset: <span class="kw-2">*mut </span><a href="../../atk_sys/struct.AtkRelationSet.html">atk::AtkRelationSet</a>,
     );
 
     <span class="comment">//=========================================================================
