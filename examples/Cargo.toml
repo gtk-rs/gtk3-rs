@@ -135,6 +135,10 @@ name = "list_store"
 path = "list_store/main.rs"
 
 [[bin]]
+name = "header_bar"
+path = "header_bar/main.rs"
+
+[[bin]]
 name = "menu_bar"
 path = "menu_bar/main.rs"
 
