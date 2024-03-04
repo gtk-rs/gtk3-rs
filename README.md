@@ -1,5 +1,7 @@
 # gtk3-rs ![CI](https://github.com/gtk-rs/gtk3-rs/workflows/CI/badge.svg)
 
+**This project is UNMAINTAINED. Please take a look at [gtk4-rs](https://github.com/gtk-rs/gtk4-rs) instead!**
+
 The `gtk-rs` organization aims to provide safe Rust binding over `GObject`-based libraries.
 You can find more about it on <https://gtk-rs.org>.
 
