@@ -36,6 +36,10 @@ jobs:
       - run: cargo install rustdoc-stripper
       - run: python3 ./generator.py --embed-docs --yes ./
       - run: git clone https://gitlab.gnome.org/World/Rust/gir-rustdoc/ # checkout action doesn't support random urls
+      - run: |
+          sed -i 's|archive.ubuntu.com|old-releases.ubuntu.com|g; s|security.ubuntu.com|old-releases.ubuntu.com|g' /etc/apt/sources.list
+          apt-get update
+          apt-get install -y python3-requests
       - run: echo "RUSTDOCFLAGS=$(eval python3 ./gir-rustdoc/gir-rustdoc.py --pages-url 'https://gtk-rs.org/gtk3-rs/' --default-branch 'master' pre-docs | xargs)" >> ${GITHUB_ENV}
         env:
           RUSTDOCFLAGS: >
@@ -43,7 +47,11 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: doc
-          args: -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys --no-deps --all-features
+          args: >
+            -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys
+            -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys
+            --no-deps
+            --features "atk/v2_34,gdk/v3_24,gdkx11/v3_24,gdkwayland/v3_24,gtk/v3_24_9"
       - run: echo "RELEASE=$(echo '${{ github.event.release.tag_name }}' | grep -Po '(\d+)\.(\d+)')" >> ${GITHUB_ENV}
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ env.RELEASE }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
       - name: Grab gtk-rs LOGO
