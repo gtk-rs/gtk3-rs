@@ -10,7 +10,7 @@ information about each crate, please refer to their `README.md` file in their di
 
 ## Minimum supported Rust version
 
-Currently, the minimum supported Rust version is `1.70.0`.
+Currently, the minimum supported Rust version is `1.92.0`.
 
 ## Documentation
 
