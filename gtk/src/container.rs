@@ -2,11 +2,11 @@
 
 use crate::{Container, Widget};
 use glib::translate::*;
-use glib::{value::FromValue, IsA, ToValue};
+use glib::{object::IsA, value::FromValue, value::ToValue};
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Container>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Container>> Sealed for T {}
 }
 
 pub trait ContainerExtManual: IsA<Container> + sealed::Sealed + 'static {

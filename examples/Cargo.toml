@@ -9,25 +9,20 @@ async-channel = "2.0.0"
 chrono = "0.4"
 futures = "0.3"
 futures-util = "0.3"
-
-[dependencies.glib]
-git = "https://github.com/gtk-rs/gtk-rs-core"
-
-[dependencies.gtk]
-path = "../gtk"
+glib.workspace = true
+gtk = { path = "../gtk" }
 
 [dependencies.pangocairo]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+workspace = true
 optional = true
 
 [dependencies.cairo]
-package = "cairo-rs"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+workspace = true
 features = ["png"]
 optional = true
 
-[build-dependencies.glib-build-tools]
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[build-dependencies]
+glib-build-tools.workspace = true
 
 [[bin]]
 name = "accessibility"

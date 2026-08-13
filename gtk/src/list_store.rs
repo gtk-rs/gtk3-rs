@@ -5,7 +5,7 @@ use crate::TreeIter;
 use crate::TreeModel;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib::{ToValue, Type, Value};
+use glib::{value::ToValue, Type, Value};
 use libc::c_int;
 use std::ptr;
 
@@ -28,7 +28,7 @@ impl ListStore {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::ListStore>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::ListStore>> Sealed for T {}
 }
 
 pub trait GtkListStoreExtManual: IsA<ListStore> + sealed::Sealed + 'static {

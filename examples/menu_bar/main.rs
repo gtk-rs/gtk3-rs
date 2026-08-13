@@ -74,9 +74,13 @@ fn build_ui(application: &gtk::Application) {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    quit.connect_activate(glib::clone!(@weak window => move |_| {
-        window.close();
-    }));
+    quit.connect_activate(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            window.close();
+        }
+    ));
 
     // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
     // It isn't available directly through `gdk::ModifierType`, since it has

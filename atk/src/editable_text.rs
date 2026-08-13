@@ -6,7 +6,7 @@ use glib::translate::*;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::EditableText>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::EditableText>> Sealed for T {}
 }
 
 pub trait EditableTextExtManual: IsA<EditableText> + sealed::Sealed + 'static {

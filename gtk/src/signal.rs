@@ -21,9 +21,9 @@ mod editable {
     use crate::Editable;
     use ffi::GtkEditable;
     use glib::object::Cast;
+    use glib::object::IsA;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
-    use glib::IsA;
     use libc::{c_char, c_int, c_uchar};
     use std::ffi::CStr;
     use std::mem::transmute;
@@ -156,9 +156,9 @@ mod spin_button {
     use glib::ffi::gboolean;
     use glib::ffi::{GFALSE, GTRUE};
     use glib::object::Cast;
+    use glib::object::IsA;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
-    use glib::IsA;
     use libc::{c_double, c_int};
     use std::boxed::Box as Box_;
     use std::mem::transmute;
@@ -313,9 +313,9 @@ mod overlay {
     use gdk::Rectangle;
     use glib::ffi::{gboolean, gpointer};
     use glib::object::Cast;
+    use glib::object::IsA;
     use glib::signal::{connect_raw, SignalHandlerId};
     use glib::translate::*;
-    use glib::IsA;
     use std::mem::transmute;
     use std::ptr;
 

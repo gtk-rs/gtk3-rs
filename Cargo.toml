@@ -26,3 +26,13 @@ members = [
 ]
 
 exclude = ["gir", "checker"]
+resolver = "2"
+
+[workspace.dependencies]
+cairo = { package = "cairo-rs", version = "0.22" }
+gdk-pixbuf = "0.22"
+gio = "0.22"
+glib = "0.22"
+glib-build-tools = "0.22"
+pango = "0.22"
+pangocairo = "0.22"

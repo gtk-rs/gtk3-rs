@@ -84,51 +84,79 @@ fn add_actions(
 ) {
     // Thanks to this method, we can say that this item is actually a checkbox.
     let switch_action = gio::SimpleAction::new_stateful("switch", None, &false.to_variant());
-    switch_action.connect_activate(glib::clone!(@weak switch => move |g, _| {
-        let mut is_active = false;
-        if let Some(g) = g.state() {
-            is_active = g.get().expect("couldn't get bool");
-            // We update the state of the toggle.
-            switch.set_active(!is_active);
+    switch_action.connect_activate(glib::clone!(
+        #[weak]
+        switch,
+        move |g, _| {
+            let mut is_active = false;
+            if let Some(g) = g.state() {
+                is_active = g.get().expect("couldn't get bool");
+                // We update the state of the toggle.
+                switch.set_active(!is_active);
+            }
+            // We need to change the toggle state ourselves. `gio` dark magic.
+            g.change_state(&(!is_active).to_variant());
         }
-        // We need to change the toggle state ourselves. `gio` dark magic.
-        g.change_state(&(!is_active).to_variant());
-    }));
+    ));
 
     // The same goes the around way: if we update the switch state, we need to update the menu
     // item's state.
-    switch.connect_active_notify(glib::clone!(@weak switch_action => move |s| {
-        switch_action.change_state(&s.is_active().to_variant());
-    }));
+    switch.connect_active_notify(glib::clone!(
+        #[weak]
+        switch_action,
+        move |s| {
+            switch_action.change_state(&s.is_active().to_variant());
+        }
+    ));
 
     let sub_another = gio::SimpleAction::new("sub_another", None);
-    sub_another.connect_activate(glib::clone!(@weak label => move |_, _| {
-        label.set_text("sub another menu item clicked");
-    }));
+    sub_another.connect_activate(glib::clone!(
+        #[weak]
+        label,
+        move |_, _| {
+            label.set_text("sub another menu item clicked");
+        }
+    ));
     let sub_sub_another = gio::SimpleAction::new("sub_sub_another", None);
-    sub_sub_another.connect_activate(glib::clone!(@weak label => move |_, _| {
-        label.set_text("sub sub another menu item clicked");
-    }));
+    sub_sub_another.connect_activate(glib::clone!(
+        #[weak]
+        label,
+        move |_, _| {
+            label.set_text("sub sub another menu item clicked");
+        }
+    ));
     let sub_sub_another2 = gio::SimpleAction::new("sub_sub_another2", None);
-    sub_sub_another2.connect_activate(glib::clone!(@weak label => move |_, _| {
-        label.set_text("sub sub another2 menu item clicked");
-    }));
+    sub_sub_another2.connect_activate(glib::clone!(
+        #[weak]
+        label,
+        move |_, _| {
+            label.set_text("sub sub another2 menu item clicked");
+        }
+    ));
 
     let quit = gio::SimpleAction::new("quit", None);
-    quit.connect_activate(glib::clone!(@weak window => move |_, _| {
-        window.close();
-    }));
+    quit.connect_activate(glib::clone!(
+        #[weak]
+        window,
+        move |_, _| {
+            window.close();
+        }
+    ));
 
     let about = gio::SimpleAction::new("about", None);
-    about.connect_activate(glib::clone!(@weak window => move |_, _| {
-        let p = AboutDialog::new();
-        p.set_website_label(Some("gtk-rs"));
-        p.set_website(Some("http://gtk-rs.org"));
-        p.set_authors(&["gtk-rs developers"]);
-        p.set_title("About!");
-        p.set_transient_for(Some(&window));
-        p.show_all();
-    }));
+    about.connect_activate(glib::clone!(
+        #[weak]
+        window,
+        move |_, _| {
+            let p = AboutDialog::new();
+            p.set_website_label(Some("gtk-rs"));
+            p.set_website(Some("http://gtk-rs.org"));
+            p.set_authors(&["gtk-rs developers"]);
+            p.set_title("About!");
+            p.set_transient_for(Some(&window));
+            p.show_all();
+        }
+    ));
 
     // We need to add all the actions to the application so they can be taken into account.
     application.add_action(&about);

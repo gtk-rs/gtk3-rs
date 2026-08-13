@@ -23,12 +23,16 @@ fn build_ui(application: &gtk::Application) {
 
         if handler_name == "button1_clicked" {
             // Return the signal handler.
-            Box::new(
-                glib::clone!(@weak dialog => @default-return None, move |_| {
+            Box::new(glib::clone!(
+                #[weak]
+                dialog,
+                #[upgrade_or]
+                None,
+                move |_| {
                     dialog.show_all();
                     None
-                }),
-            )
+                }
+            ))
         } else {
             panic!("Unknown handler name {handler_name}")
         }

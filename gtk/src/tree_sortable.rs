@@ -64,7 +64,7 @@ impl fmt::Display for SortColumn {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::TreeSortable>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::TreeSortable>> Sealed for T {}
 }
 
 pub trait TreeSortableExtManual: IsA<TreeSortable> + sealed::Sealed + 'static {

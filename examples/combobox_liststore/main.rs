@@ -36,16 +36,19 @@ fn build_ui(application: &gtk::Application) {
     combobox.add(&entry);
 
     combobox.connect_changed(clone!(
-        @weak entry => move |cb| {
-        let model = cb.property::<TreeModel>("model");
-        let store = model.dynamic_cast_ref::<ListStore>().unwrap();
-        if let Some(iter) = cb.active_iter() {
-            let value = store.value(&iter, 0).get::<bool>().unwrap();
-            store.set(&iter, &[(0, &!value)]);
+        #[weak]
+        entry,
+        move |cb| {
+            let model = cb.property::<TreeModel>("model");
+            let store = model.dynamic_cast_ref::<ListStore>().unwrap();
+            if let Some(iter) = cb.active_iter() {
+                let value = store.value(&iter, 0).get::<bool>().unwrap();
+                store.set(&iter, &[(0, &!value)]);
+            }
+            update_entry(&entry, cb);
+            cb.set_active_iter(None);
         }
-        update_entry(&entry, cb);
-        cb.set_active_iter(None);
-    }));
+    ));
     combobox.connect_map(move |cb| update_entry(&entry, cb));
     window.show_all();
 }
@@ -78,12 +81,15 @@ fn update_entry(entry: &Entry, cb: &ComboBox) {
     for_each(
         cb,
         clone!(
-            @weak vec_string, => move |_, iter, store| {
-            if store.value(iter, 0).get::<bool>().unwrap() {
-                let value = store.value(iter, 1).get::<String>().unwrap();
-                vec_string.borrow_mut().push(value);
+            #[weak]
+            vec_string,
+            move |_, iter, store| {
+                if store.value(iter, 0).get::<bool>().unwrap() {
+                    let value = store.value(iter, 1).get::<String>().unwrap();
+                    vec_string.borrow_mut().push(value);
+                }
             }
-        }),
+        ),
     );
     entry.set_text(vec_string.borrow().join(", ").as_str());
 }

@@ -39,7 +39,7 @@ impl MessageDialog {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::MessageDialog>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::MessageDialog>> Sealed for T {}
 }
 
 pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {

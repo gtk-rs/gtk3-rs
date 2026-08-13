@@ -4,7 +4,7 @@ use glib::translate::*;
 
 use glib::subclass::prelude::*;
 
-use glib::Cast;
+use glib::object::Cast;
 
 use super::window::WindowImpl;
 use crate::Dialog;

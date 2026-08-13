@@ -2,8 +2,8 @@
 
 use crate::Fixed;
 use crate::Widget;
+use glib::object::IsA;
 use glib::translate::*;
-use glib::IsA;
 
 // All this is in order to avoid the segfault. More info in :
 // https://github.com/gtk-rs/gtk/issues/565
@@ -19,7 +19,7 @@ fn has_widget<O: IsA<Fixed>, T: IsA<Widget>>(c: &O, item: &T) -> bool {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Fixed>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Fixed>> Sealed for T {}
 }
 
 pub trait FixedExtManual: IsA<Fixed> + sealed::Sealed + 'static {

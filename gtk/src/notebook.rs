@@ -2,13 +2,13 @@
 
 use crate::Notebook;
 use crate::Widget;
+use glib::object::IsA;
 use glib::translate::*;
-use glib::IsA;
 use libc::c_int;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Notebook>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Notebook>> Sealed for T {}
 }
 
 pub trait NotebookExtManual: IsA<Notebook> + sealed::Sealed + 'static {

@@ -38,7 +38,7 @@ impl Dialog {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Dialog> + glib::IsA<crate::Widget>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Dialog> + glib::object::IsA<crate::Widget>> Sealed for T {}
 }
 
 pub trait DialogExtManual: IsA<Dialog> + IsA<Widget> + sealed::Sealed + 'static {

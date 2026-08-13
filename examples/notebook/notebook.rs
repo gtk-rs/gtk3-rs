@@ -30,12 +30,16 @@ impl Notebook {
 
         let index = self.notebook.append_page(&widget, Some(&tab));
 
-        button.connect_clicked(glib::clone!(@weak self.notebook as notebook => move |_| {
-            let index = notebook
-                .page_num(&widget)
-                .expect("Couldn't get page_num from notebook");
-            notebook.remove_page(Some(index));
-        }));
+        button.connect_clicked(glib::clone!(
+            #[weak(rename_to = notebook)]
+            self.notebook,
+            move |_| {
+                let index = notebook
+                    .page_num(&widget)
+                    .expect("Couldn't get page_num from notebook");
+                notebook.remove_page(Some(index));
+            }
+        ));
 
         self.tabs.push(tab);
 

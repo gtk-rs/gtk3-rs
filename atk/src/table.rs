@@ -6,7 +6,7 @@ use glib::translate::*;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Table>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Table>> Sealed for T {}
 }
 
 pub trait TableExtManual: IsA<Table> + sealed::Sealed + 'static {

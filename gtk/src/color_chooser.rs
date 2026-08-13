@@ -9,7 +9,7 @@ use libc::c_int;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::ColorChooser>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::ColorChooser>> Sealed for T {}
 }
 
 pub trait ColorChooserExtManual: IsA<ColorChooser> + sealed::Sealed + 'static {

@@ -1,4 +1,5 @@
-use glib::once_cell::unsync::OnceCell;
+use std::cell::OnceCell;
+
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;

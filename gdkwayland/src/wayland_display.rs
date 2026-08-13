@@ -1,15 +1,16 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use glib::once_cell::sync::Lazy;
+use std::sync::LazyLock;
+
 use glib::translate::*;
-use glib::{ObjectExt, Quark};
+use glib::{object::ObjectExt, Quark};
 
 use wayland_client::backend::ObjectId;
 use wayland_client::protocol::{wl_compositor::WlCompositor, wl_display::WlDisplay};
 use wayland_client::Proxy;
 
-static WAYLAND_DISPLAY_CONNECTION_QUARK: Lazy<Quark> =
-    Lazy::new(|| Quark::from_str("gtk-rs-wayland-display-connection-quark"));
+static WAYLAND_DISPLAY_CONNECTION_QUARK: LazyLock<Quark> =
+    LazyLock::new(|| Quark::from_str("gtk-rs-wayland-display-connection-quark"));
 
 glib::wrapper! {
     #[doc(alias = "GdkWaylandDisplay")]

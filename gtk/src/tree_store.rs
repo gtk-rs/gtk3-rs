@@ -5,7 +5,7 @@ use crate::TreeModel;
 use crate::TreeStore;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib::{ToValue, Type, Value};
+use glib::{value::ToValue, Type, Value};
 use libc::c_int;
 
 impl TreeStore {
@@ -27,7 +27,7 @@ impl TreeStore {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::TreeStore>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::TreeStore>> Sealed for T {}
 }
 
 pub trait TreeStoreExtManual: IsA<TreeStore> + sealed::Sealed + 'static {

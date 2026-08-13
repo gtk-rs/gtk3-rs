@@ -22,7 +22,7 @@ impl Builder {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Builder>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Builder>> Sealed for T {}
 }
 
 pub trait BuilderExtManual: IsA<Builder> + sealed::Sealed + 'static {

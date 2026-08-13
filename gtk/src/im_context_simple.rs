@@ -1,13 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::IMContextSimple;
+use glib::object::IsA;
 use glib::translate::*;
-use glib::IsA;
 use std::path::Path;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::IMContextSimple>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::IMContextSimple>> Sealed for T {}
 }
 
 pub trait IMContextSimpleExtManual: IsA<IMContextSimple> + sealed::Sealed + 'static {

@@ -2,9 +2,9 @@
 
 use libc::c_int;
 
+use glib::object::Cast;
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::Cast;
 
 use super::container::ContainerImpl;
 

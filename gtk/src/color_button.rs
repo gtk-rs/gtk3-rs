@@ -9,7 +9,7 @@ use std::mem;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::ColorButton>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::ColorButton>> Sealed for T {}
 }
 
 pub trait ColorButtonExtManual: IsA<ColorButton> + sealed::Sealed + 'static {

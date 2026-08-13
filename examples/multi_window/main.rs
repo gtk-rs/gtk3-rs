@@ -24,15 +24,19 @@ fn build_ui(application: &gtk::Application) {
     // Why not changing all sub-windows' title at once?
     let windows_title_entry = gtk::Entry::new();
     windows_title_entry.set_placeholder_text(Some("Update all sub-windows' title"));
-    windows_title_entry.connect_changed(glib::clone!(@weak windows => move |windows_title_entry| {
-        // When the entry's text is updated, we update the title of every sub windows.
-        let text = windows_title_entry.buffer().text();
-        for window in windows.borrow().values() {
-            if let Some(w) = window.upgrade() {
-                w.set_title(&text)
+    windows_title_entry.connect_changed(glib::clone!(
+        #[weak]
+        windows,
+        move |windows_title_entry| {
+            // When the entry's text is updated, we update the title of every sub windows.
+            let text = windows_title_entry.buffer().text();
+            for window in windows.borrow().values() {
+                if let Some(w) = window.upgrade() {
+                    w.set_title(&text)
+                }
             }
         }
-    }));
+    ));
 
     let entry = gtk::Entry::new();
     entry.set_editable(false);
@@ -40,16 +44,24 @@ fn build_ui(application: &gtk::Application) {
 
     // Now let's create a button to create a looooot of new windows!
     let button = gtk::Button::with_label("Create new window");
-    button.connect_clicked(
-        glib::clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        windows_title_entry,
+        #[weak]
+        entry,
+        #[weak]
+        application,
+        move |_| {
             let new_id = generate_new_id(&windows.borrow());
-            create_sub_window(&application,
-                              &windows_title_entry.buffer().text(),
-                              &entry,
-                              new_id,
-                              &windows);
-        }),
-    );
+            create_sub_window(
+                &application,
+                &windows_title_entry.buffer().text(),
+                &entry,
+                new_id,
+                &windows,
+            );
+        }
+    ));
 
     // Now we add a layout so we can put all widgets into it.
     let layout = gtk::Box::new(gtk::Orientation::Vertical, 5);
@@ -97,18 +109,28 @@ fn create_sub_window(
     window.set_title(title);
     window.set_default_size(400, 200);
 
-    window.connect_delete_event(
-        glib::clone!(@weak windows => @default-return glib::Propagation::Proceed, move |_, _| {
+    window.connect_delete_event(glib::clone!(
+        #[weak]
+        windows,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, _| {
             windows.borrow_mut().remove(&id);
             glib::Propagation::Proceed
-        }),
-    );
+        }
+    ));
 
     let button = gtk::Button::with_label(&format!("Notify main window with id {id}!"));
-    button.connect_clicked(glib::clone!(@weak main_window_entry => move |_| {
-        // When the button is clicked, let's write it on the main window's entry!
-        main_window_entry.buffer().set_text(&format!("sub window {id} clicked"));
-    }));
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        main_window_entry,
+        move |_| {
+            // When the button is clicked, let's write it on the main window's entry!
+            main_window_entry
+                .buffer()
+                .set_text(&format!("sub window {id} clicked"));
+        }
+    ));
     window.add(&button);
 
     window.show_all();

@@ -4,7 +4,8 @@ use gtk::{gio, glib};
 
 glib::wrapper! {
     pub struct SimpleApplication(ObjectSubclass<imp::SimpleApplication>)
-        @extends gio::Application, gtk::Application;
+        @extends gio::Application, gtk::Application,
+        @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl SimpleApplication {

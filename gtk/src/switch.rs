@@ -9,7 +9,7 @@ use std::mem::transmute;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Switch>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Switch>> Sealed for T {}
 }
 
 pub trait SwitchExtManual: IsA<Switch> + sealed::Sealed + 'static {

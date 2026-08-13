@@ -28,7 +28,7 @@ impl TickCallbackId {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Widget>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Widget>> Sealed for T {}
 }
 
 pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {

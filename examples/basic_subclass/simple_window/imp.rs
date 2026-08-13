@@ -1,5 +1,6 @@
+use std::cell::OnceCell;
+
 use glib::clone;
-use glib::once_cell::unsync::OnceCell;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
@@ -42,9 +43,13 @@ impl ObjectImpl for SimpleWindow {
 
         // Connect our method `on_increment_clicked` to be called
         // when the increment button is clicked.
-        increment.connect_clicked(clone!(@weak self as imp => move |_| {
-            imp.on_increment_clicked();
-        }));
+        increment.connect_clicked(clone!(
+            #[weak(rename_to = imp)]
+            self,
+            move |_| {
+                imp.on_increment_clicked();
+            }
+        ));
 
         instance.add(&label);
         instance.set_titlebar(Some(&headerbar));

@@ -79,22 +79,26 @@ fn build_ui(application: &gtk::Application) {
         let delay = Duration::from_millis((100 << thread_num) - 5);
 
         // Spawn the worker thread
-        thread::spawn(glib::clone!(@strong ready_tx => move || {
-            let mut n = 0;
-            for mut image in rx.iter() {
-                n = (n + 1) % 0x10000;
+        thread::spawn(glib::clone!(
+            #[strong]
+            ready_tx,
+            move || {
+                let mut n = 0;
+                for mut image in rx.iter() {
+                    n = (n + 1) % 0x10000;
 
-                // Draw an arc with a weirdly calculated radius
-                image.with_surface(|surface| {
-                    let cr = Context::new(surface).expect("Can't create a Cairo context");
-                    draw_slow(&cr, delay, x, y, 1.2_f64.powi((n << thread_num) % 32));
-                    surface.flush();
-                });
+                    // Draw an arc with a weirdly calculated radius
+                    image.with_surface(|surface| {
+                        let cr = Context::new(surface).expect("Can't create a Cairo context");
+                        draw_slow(&cr, delay, x, y, 1.2_f64.powi((n << thread_num) % 32));
+                        surface.flush();
+                    });
 
-                // Send the finished image back to the GUI thread
-                let _ = ready_tx.send_blocking((thread_num, image));
+                    // Send the finished image back to the GUI thread
+                    let _ = ready_tx.send_blocking((thread_num, image));
+                }
             }
-        }));
+        ));
     }
 
     // The connect-draw signal and the timeout handler closures have to be 'static, and both need
@@ -103,8 +107,12 @@ fn build_ui(application: &gtk::Application) {
 
     // Whenever the drawing area has to be redrawn, render the latest images in the correct
     // locations
-    area.connect_draw(
-        glib::clone!(@weak workspace => @default-return glib::Propagation::Proceed, move |_, cr| {
+    area.connect_draw(glib::clone!(
+        #[weak]
+        workspace,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, cr| {
             let (ref images, ref origins, _) = *workspace;
 
             for (image, origin) in images.iter().zip(origins.iter()) {
@@ -114,8 +122,8 @@ fn build_ui(application: &gtk::Application) {
             }
 
             glib::Propagation::Proceed
-        }),
-    );
+        }
+    ));
 
     glib::MainContext::default().spawn_local(async move {
         while let Ok((thread_num, image)) = ready_rx.recv().await {

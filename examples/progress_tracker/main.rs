@@ -49,8 +49,10 @@ impl Application {
 
     fn connect_progress(&self) {
         let active = Rc::new(Cell::new(false));
-        self.widgets.main_view.button.connect_clicked(
-            glib::clone!(@weak self.widgets as widgets => move |_| {
+        self.widgets.main_view.button.connect_clicked(glib::clone!(
+            #[weak(rename_to = widgets)]
+            self.widgets,
+            move |_| {
                 if active.get() {
                     return;
                 }
@@ -80,20 +82,29 @@ impl Application {
                                 .view_stack
                                 .set_visible_child(&widgets.complete_view.container);
 
-                            glib::timeout_add_local(Duration::from_millis(1500), glib::clone!(@weak widgets => @default-return glib::ControlFlow::Break, move || {
-                                widgets.main_view.progress.set_fraction(0.0);
-                                widgets
-                                    .view_stack
-                                    .set_visible_child(&widgets.main_view.container);
-                                glib::ControlFlow::Break
-                            }));
+                            glib::timeout_add_local(
+                                Duration::from_millis(1500),
+                                glib::clone!(
+                                    #[weak]
+                                    widgets,
+                                    #[upgrade_or]
+                                    glib::ControlFlow::Break,
+                                    move || {
+                                        widgets.main_view.progress.set_fraction(0.0);
+                                        widgets
+                                            .view_stack
+                                            .set_visible_child(&widgets.main_view.container);
+                                        glib::ControlFlow::Break
+                                    }
+                                ),
+                            );
                         }
                     }
 
                     active.set(false);
                 });
-            }),
-        );
+            }
+        ));
     }
 }
 

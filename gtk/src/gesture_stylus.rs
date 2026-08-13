@@ -8,7 +8,7 @@ use glib::translate::*;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::GestureStylus>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::GestureStylus>> Sealed for T {}
 }
 
 pub trait GestureStylusExtManual: IsA<GestureStylus> + sealed::Sealed + 'static {

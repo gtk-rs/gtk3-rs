@@ -2,7 +2,7 @@
 
 use crate::Display;
 use glib::object::IsA;
-use glib::ObjectExt;
+use glib::prelude::*;
 
 #[derive(Debug, PartialEq, Eq, Ord, PartialOrd)]
 pub enum Backend {
@@ -52,7 +52,7 @@ impl Backend {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Display>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Display>> Sealed for T {}
 }
 
 pub trait DisplayExtManual: IsA<Display> + sealed::Sealed + 'static {

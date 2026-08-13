@@ -110,7 +110,7 @@ impl FromGlibPtrFull<*mut ffi::GtkTargetEntry> for TargetEntry {
     }
 }
 
-impl glib::StaticType for TargetEntry {
+impl glib::types::StaticType for TargetEntry {
     fn static_type() -> glib::types::Type {
         skip_assert_initialized!();
         unsafe { from_glib(ffi::gtk_target_entry_get_type()) }

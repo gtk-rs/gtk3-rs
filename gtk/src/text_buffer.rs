@@ -14,7 +14,7 @@ use std::{slice, str};
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::TextBuffer>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::TextBuffer>> Sealed for T {}
 }
 
 pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {

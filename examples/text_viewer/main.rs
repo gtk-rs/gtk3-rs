@@ -18,36 +18,44 @@ pub fn build_ui(application: &gtk::Application) {
     let open_button: gtk::ToolButton = builder.object("open_button").expect("Couldn't get builder");
     let text_view: gtk::TextView = builder.object("text_view").expect("Couldn't get text_view");
 
-    open_button.connect_clicked(glib::clone!(@weak window => move |_| {
-        // TODO move this to a impl?
-        let file_chooser = gtk::FileChooserDialog::new(
-            Some("Open File"),
-            Some(&window),
-            gtk::FileChooserAction::Open,
-        );
-        file_chooser.add_buttons(&[
-            ("Open", gtk::ResponseType::Ok),
-            ("Cancel", gtk::ResponseType::Cancel),
-        ]);
-        file_chooser.connect_response(glib::clone!(@weak text_view => move |file_chooser, response| {
-            if response == gtk::ResponseType::Ok {
-                let filename = file_chooser.filename().expect("Couldn't get filename");
-                let file = File::open(filename).expect("Couldn't open file");
+    open_button.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            // TODO move this to a impl?
+            let file_chooser = gtk::FileChooserDialog::new(
+                Some("Open File"),
+                Some(&window),
+                gtk::FileChooserAction::Open,
+            );
+            file_chooser.add_buttons(&[
+                ("Open", gtk::ResponseType::Ok),
+                ("Cancel", gtk::ResponseType::Cancel),
+            ]);
+            file_chooser.connect_response(glib::clone!(
+                #[weak]
+                text_view,
+                move |file_chooser, response| {
+                    if response == gtk::ResponseType::Ok {
+                        let filename = file_chooser.filename().expect("Couldn't get filename");
+                        let file = File::open(filename).expect("Couldn't open file");
 
-                let mut reader = BufReader::new(file);
-                let mut contents = String::new();
-                let _ = reader.read_to_string(&mut contents);
+                        let mut reader = BufReader::new(file);
+                        let mut contents = String::new();
+                        let _ = reader.read_to_string(&mut contents);
 
-                text_view
-                    .buffer()
-                    .expect("Couldn't get window")
-                    .set_text(&contents);
-            }
-            file_chooser.close();
-        }));
+                        text_view
+                            .buffer()
+                            .expect("Couldn't get window")
+                            .set_text(&contents);
+                    }
+                    file_chooser.close();
+                }
+            ));
 
-        file_chooser.show_all();
-    }));
+            file_chooser.show_all();
+        }
+    ));
 
     window.show_all();
 }

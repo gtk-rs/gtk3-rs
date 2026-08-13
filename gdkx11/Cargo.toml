@@ -26,9 +26,9 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 libc = "0.2"
 x11 = "2.18"
 ffi = { package = "gdkx11-sys", path = "sys" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+glib.workspace = true
 gdk = { path = "../gdk" }
-gio = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+gio.workspace = true
 
 [dev-dependencies]
 gir-format-check = "^0.1"
